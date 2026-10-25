@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hoạt động 3: Luyện tập thực hành | Bài 7: HTML và Cấu trúc trang web</title>
+  <meta name="description" content="Thực hành tự tay lập trình tệp gioithieu.html đạt chuẩn 4 tiêu chí kỹ thuật có hệ thống chấm điểm và kiểm tra tự động.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- HEADER & NAVIGATION -->
+  <header class="site-header">
+    <div class="container nav-wrapper">
+      <a href="index.html" class="brand-badge" title="Quay về Trang chủ">
+        <div class="brand-icon-box">
+          <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+        </div>
+        <div class="brand-text">
+          <span class="title">BÀI 7: HTML VÀ CẤU TRÚC TRANG WEB</span>
+          <span class="subtitle">Tin học 12 • Học tập tương tác</span>
+        </div>
+      </a>
+
+      <nav aria-label="Điều hướng bài học">
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">Tổng quan</a></li>
+          <li><a href="hd1.html" class="nav-link">HĐ 1: Khởi động</a></li>
+          <li><a href="hd2.html" class="nav-link">HĐ 2: Kiến thức mới</a></li>
+          <li><a href="hd3.html" class="nav-link active">HĐ 3: Luyện tập</a></li>
+          <li><a href="hd4.html" class="nav-link">HĐ 4: Infographic & Ôn tập</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-tools">
+        <div class="timer-widget" title="Đồng hồ đếm giờ thực hành">
+          <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          <span id="timer-display" class="timer-display">30:00</span>
+          <select id="timer-preset" class="btn-tool" title="Chọn thời lượng">
+            <option value="15">15p</option>
+            <option value="20">20p</option>
+            <option value="30" selected>30p</option>
+            <option value="45">45p</option>
+          </select>
+          <button id="timer-toggle" class="btn-tool" type="button">▶ Bắt đầu</button>
+          <button id="timer-reset" class="btn-tool" type="button" title="Đặt lại">↺</button>
+        </div>
+
+        <button id="btn-fullscreen" class="btn-tool" type="button" title="Chế độ chiếu toàn màn hình">
+          <svg class="icon-svg" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
+          Trình chiếu
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- STEPPER TIMELINE -->
+  <nav class="stepper-section" aria-label="Tiến trình học tập">
+    <div class="container">
+      <div class="stepper-nav">
+        <div class="stepper-line"></div>
+        
+        <a href="index.html" class="stepper-step completed">
+          <div class="step-circle">✓</div>
+          <span class="step-label">Tổng quan</span>
+        </a>
+
+        <a href="hd1.html" class="stepper-step completed">
+          <div class="step-circle">✓</div>
+          <span class="step-label">Khởi động</span>
+        </a>
+
+        <a href="hd2.html" class="stepper-step completed">
+          <div class="step-circle">✓</div>
+          <span class="step-label">Kiến thức mới</span>
+        </a>
+
+        <a href="hd3.html" class="stepper-step active">
+          <div class="step-circle">3</div>
+          <span class="step-label">Luyện tập (30')</span>
+        </a>
+
+        <a href="hd4.html" class="stepper-step">
+          <div class="step-circle">4</div>
+          <span class="step-label">Infographic & Ôn tập</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO SECTION (Student-focused, clean desktop) -->
+  <section class="hero-banner">
+    <div class="container">
+      <div class="hero-content">
+        <div class="badge-tag">
+          <span>HOẠT ĐỘNG 3 • THỰC HÀNH LẬP TRÌNH</span>
+        </div>
+        <h1 class="hero-title">Thực Hành Tạo Trang Web Giới Thiệu Bản Thân (gioithieu.html)</h1>
+        <p class="hero-subtitle">
+          Vận dụng toàn bộ kiến thức về cấu trúc HTML, thẻ tiêu đề và đoạn văn để tự tay lập trình trang web cá nhân đầu tiên. Hệ thống tự động kiểm tra và chấm điểm 8 tiêu chí kỹ thuật theo thời gian thực.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN WORKBENCH (Desktop Split Ergonomic System) -->
+  <main class="main-content">
+    <div class="container">
+
+      <div class="practice-workbench-grid">
+
+        <!-- CỘT TRÁI: STICKY SIDEBAR (ĐỀ BÀI + TIÊU CHÍ + BẢNG CHẤM TỰ ĐỘNG) -->
+        <aside class="practice-sidebar">
+          
+          <!-- CARD 1: ĐỀ BÀI & TIÊU CHÍ KỸ THUẬT -->
+          <div class="card" style="border-left: 4px solid var(--color-brand);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+              <h3 style="font-size: 1.05rem; color: var(--color-brand); font-weight: 700; margin: 0;">
+                Yêu Cầu Bài Tập
+              </h3>
+              <span class="badge-tag" style="background: #eff6ff; color: #1d4ed8; margin: 0;">Tệp gioithieu.html</span>
+            </div>
+            
+            <p style="font-size: 0.84rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 0.75rem;">
+              Tạo tệp HTML hiển thị thông tin giới thiệu bản thân em đạt 4 yêu cầu chính:
+            </p>
+
+            <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.45rem; font-size: 0.82rem; color: var(--text-secondary);">
+              <li style="display: flex; gap: 0.45rem;">
+                <span style="color: var(--color-brand); font-weight: 700;">1.</span>
+                <span><strong>Khung chuẩn:</strong> Đủ <code>&lt;!DOCTYPE html&gt;</code>, <code>&lt;html&gt;</code>, <code>&lt;head&gt;</code>, <code>&lt;body&gt;</code>.</span>
+              </li>
+              <li style="display: flex; gap: 0.45rem;">
+                <span style="color: var(--color-brand); font-weight: 700;">2.</span>
+                <span><strong>Tiếng Việt:</strong> Có thẻ <code>&lt;meta charset="utf-8"&gt;</code> trong <code>&lt;head&gt;</code>.</span>
+              </li>
+              <li style="display: flex; gap: 0.45rem;">
+                <span style="color: var(--color-brand); font-weight: 700;">3.</span>
+                <span><strong>Tiêu đề tab:</strong> <code>&lt;title&gt;Giới thiệu - [Họ tên]&lt;/title&gt;</code>.</span>
+              </li>
+              <li style="display: flex; gap: 0.45rem;">
+                <span style="color: var(--color-brand); font-weight: 700;">4.</span>
+                <span><strong>Thân trang:</strong> <code>&lt;h1&gt;</code> Họ tên; <code>&lt;h2&gt;</code>/<code>&lt;h3&gt;</code> Lớp & Trường; <code>&lt;p&gt;</code> Lời giới thiệu.</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- CARD 2: BẢNG KIỂM TRA TỰ ĐỘNG (REAL-TIME AUTO CHECKLIST) -->
+          <div class="card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.65rem;">
+              <h3 class="card-title" style="font-size: 0.95rem; margin: 0;">
+                Chấm Điểm Tự Động
+              </h3>
+              <span id="criteria-score-display" class="badge-tag" style="font-weight: 700; margin: 0;">
+                0/8 tiêu chí đạt
+              </span>
+            </div>
+
+            <div class="checklist-item">
+              <input type="checkbox" id="chk-doctype" class="checklist-checkbox" disabled>
+              <div class="checklist-text">
+                <strong>1. Dòng &lt;!DOCTYPE html&gt;</strong>
+                <span>Khai báo phiên bản chuẩn HTML5</span>
+              </div>
+            </div>
+
+            <div class="checklist-item">
+              <input type="checkbox" id="chk-html" class="checklist-checkbox" disabled>
+              <div class="checklist-text">
+                <strong>2. Cặp thẻ gốc &lt;html&gt; &lt;/html&gt;</strong>
+                <span>Bao bọc toàn bộ mã nguồn</span>
+              </div>
+            </div>
+
+            <div class="checklist-item">
+              <input type="checkbox" id="chk-head-body" class="checklist-checkbox" disabled>
+              <div class="checklist-text">
+                <strong>3. Đầy đủ &lt;head&gt; và &lt;body&gt;</strong>
+                <span>Cấu trúc phân cấp 2 phần tiêu chuẩn</span>
+              </div>
+            </div>
+
+            <div class="checklist-item">
+              <input type="checkbox" id="chk-meta" class="checklist-checkbox" disabled>
+              <div class="checklist-text">
+                <strong>4. Khai báo &lt;meta charset="utf-8"&gt;</strong>
+                <span>Bảng mã quốc tế hỗ trợ tiếng Việt</span>
+              </div>
+            </div>
+
+            <div class="checklist-item">
+              <input type="checkbox" id="chk-title" class="checklist-checkbox" disabled>
+              <div class="checklist-text">
+                <strong>5. Tiêu đề tab &lt;title&gt;</strong>
+                <span>Đặt tên trang hiển thị trên tab</span>
+              </div>
+            </div>
+
+            <div class="checklist-item">
+              <input type="checkbox" id="chk-h1" class="checklist-checkbox" disabled>
+              <div class="checklist-text">
+                <strong>6. Tiêu đề lớn &lt;h1&gt;</strong>
+                <span>Hiển thị nổi bật HỌ VÀ TÊN</span>
+              </div>
+            </div>
+
+            <div class="checklist-item">
+              <input type="checkbox" id="chk-subheading" class="checklist-checkbox" disabled>
+              <div class="checklist-text">
+                <strong>7. Tiêu đề phụ &lt;h2&gt; hoặc &lt;h3&gt;</strong>
+                <span>Ghi thông tin Trường và Lớp học</span>
+              </div>
+            </div>
+
+            <div class="checklist-item">
+              <input type="checkbox" id="chk-p" class="checklist-checkbox" disabled>
+              <div class="checklist-text">
+                <strong>8. Đoạn văn giới thiệu &lt;p&gt;</strong>
+                <span>Lời chào hoặc mô tả bản thân</span>
+              </div>
+            </div>
+
+            <div style="margin-top: 0.85rem; display: flex; gap: 0.45rem;">
+              <button id="btn-validate-code" class="btn btn-success btn-sm" style="flex: 1;" type="button">
+                🔍 Quét kiểm tra bài làm
+              </button>
+            </div>
+          </div>
+
+        </aside>
+
+        <!-- CỘT PHẢI: TRÌNH THỰC HÀNH CODE CHUYÊN NGHIỆP (SPLIT IDE 50/50 TRÊN DESKTOP) -->
+        <div class="practice-main-workspace">
+          
+          <div class="playground-box" style="margin: 0; min-height: 640px;">
+            <div class="playground-header">
+              <div class="playground-title">
+                <svg class="icon-svg" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                KHÔNG GIAN LẬP TRÌNH: GIOITHIEU.HTML
+              </div>
+              
+              <div class="playground-actions">
+                <button class="btn btn-primary btn-sm btn-run-code" type="button">
+                  ▶ Chạy & Cập nhật Preview
+                </button>
+                <button class="btn btn-secondary btn-sm btn-reset-code" type="button">
+                  ↺ Đặt lại mã
+                </button>
+              </div>
+            </div>
+
+            <div class="playground-split" style="min-height: 580px;">
+              
+              <!-- PANE SOẠN THẢO CODE (TRÁI) -->
+              <div class="editor-pane">
+                <div class="pane-label">
+                  <span>MÃ NGUỒN CỦA EM (GÕ TRỰC TIẾP VÀO ĐÂY)</span>
+                  <span style="font-family: var(--font-mono); color: #38bdf8;">gioithieu.html</span>
+                </div>
+                <textarea id="student-code-input" class="code-textarea" data-no-preload="true" spellcheck="false" placeholder="&lt;!-- Gõ mã nguồn HTML của em vào đây để tạo trang web giới thiệu bản thân... --&gt;"></textarea>
+              </div>
+
+              <!-- PANE KẾT QUẢ KẾT XUẤT (PHẢI) -->
+              <div class="preview-pane">
+                <div class="pane-label" style="background: #f1f5f9; color: #334155;">
+                  <span>KẾT QUẢ HIỂN THỊ TRÊN TRÌNH DUYỆT (PREVIEW TRỰC TIẾP)</span>
+                  <span style="color: #059669; font-weight: 700;">● TRỰC TIẾP</span>
+                </div>
+                <iframe class="preview-frame" title="Xem trước kết quả gioithieu.html"></iframe>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- QUY TRÌNH 4 BƯỚC THỰC HIỆN TRÊN MÁY TÍNH -->
+          <div class="card" style="margin-top: 1.5rem;">
+            <h4 style="font-size: 0.95rem; color: var(--text-primary); margin-bottom: 0.65rem;">
+              Cách thực hành và lưu tệp trên máy tính trường học:
+            </h4>
+            <div class="grid-4">
+              <div style="background: var(--bg-subtle); padding: 0.65rem 0.85rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+                <span style="font-weight: 800; color: #0284c7; font-size: 0.85rem;">B1. Mở phần mềm</span>
+                <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.2rem;">Mở VS Code, Sublime Text hoặc Notepad trên máy tính.</p>
+              </div>
+              <div style="background: var(--bg-subtle); padding: 0.65rem 0.85rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+                <span style="font-weight: 800; color: #059669; font-size: 0.85rem;">B2. Lưu tệp mới</span>
+                <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.2rem;">Nhấn <code>Ctrl + S</code>, đặt tên đúng <strong>gioithieu.html</strong> và chọn <strong>UTF-8</strong>.</p>
+              </div>
+              <div style="background: var(--bg-subtle); padding: 0.65rem 0.85rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+                <span style="font-weight: 800; color: #d97706; font-size: 0.85rem;">B3. Soạn mã nguồn</span>
+                <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.2rem;">Gõ đầy đủ khung thẻ chuẩn và thông tin cá nhân của em.</p>
+              </div>
+              <div style="background: var(--bg-subtle); padding: 0.65rem 0.85rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+                <span style="font-weight: 800; color: #6366f1; font-size: 0.85rem;">B4. Mở trình duyệt</span>
+                <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.2rem;">Nhấp đúp vào tệp <code>gioithieu.html</code> để mở trên Chrome/Edge.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- ĐIỀU HƯỚNG TRANG -->
+      <div class="page-nav-bar">
+        <a href="hd2.html" class="btn btn-secondary">← Hoạt động 2: Kiến thức mới</a>
+        <a href="hd4.html" class="btn btn-primary" style="font-size: 1rem;">
+          Tiến tới Hoạt động 4: Infographic & Ôn tập →
+        </a>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>© 2026 Tin học 12 Thống nhất - Bài 7: HTML và Cấu trúc trang web.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

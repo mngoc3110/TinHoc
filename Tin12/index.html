@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Khóa Học Tin Học - Cây Thư Mục Chương Trình Tin Học 12</title>
+  <meta name="description" content="Hệ thống cây thư mục bài giảng môn Tin học THPT - Khóa học Tin học 12">
+  
+  <!-- GOOGLE FONTS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      --bg-page: #f8fafc;
+      --bg-surface: #ffffff;
+      --bg-subtle: #f1f5f9;
+      --border-subtle: #e2e8f0;
+      --border-strong: #cbd5e1;
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --text-muted: #64748b;
+      --color-brand: #1d4ed8;
+      --color-brand-light: #eff6ff;
+      --color-success: #059669;
+      --color-success-light: #ecfdf5;
+      --color-warning: #d97706;
+      --color-warning-light: #fffbeb;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --radius-pill: 9999px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg-page);
+      color: var(--text-primary);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: 3rem;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1360px;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+
+    /* HEADER */
+    .site-header {
+      background: #ffffff;
+      border-bottom: 1px solid var(--border-subtle);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 68px;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: var(--text-primary);
+    }
+
+    .brand-badge {
+      background: var(--color-brand);
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 0.9rem;
+      padding: 0.35rem 0.65rem;
+      border-radius: var(--radius-sm);
+    }
+
+    .brand-name {
+      font-weight: 700;
+      font-size: 1.15rem;
+      letter-spacing: -0.01em;
+    }
+
+    .brand-sub {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      display: block;
+    }
+
+    .header-links {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.55rem 1.15rem;
+      font-size: 0.88rem;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      transition: all 0.15s ease;
+      cursor: pointer;
+      border: 1px solid transparent;
+    }
+
+    .btn-primary {
+      background: var(--color-brand);
+      color: #ffffff;
+    }
+
+    .btn-primary:hover {
+      background: #1e40af;
+      box-shadow: 0 4px 12px rgba(29, 78, 216, 0.25);
+    }
+
+    .btn-secondary {
+      background: #ffffff;
+      border-color: var(--border-strong);
+      color: var(--text-primary);
+    }
+
+    .btn-secondary:hover {
+      background: var(--bg-subtle);
+    }
+
+    .btn-sm {
+      padding: 0.35rem 0.75rem;
+      font-size: 0.8rem;
+    }
+
+    /* HERO */
+    .hero-section {
+      background: #ffffff;
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 2.5rem 0 2rem;
+    }
+
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.25rem 0.85rem;
+      background: var(--color-brand-light);
+      border: 1px solid #bfdbfe;
+      border-radius: var(--radius-pill);
+      color: var(--color-brand);
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.75rem;
+    }
+
+    .hero-title {
+      font-size: 2.15rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-desc {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      max-width: 820px;
+    }
+
+    /* COURSE EXPLORER WORKBENCH (Desktop 2-Column Split) */
+    .explorer-grid {
+      display: grid;
+      grid-template-columns: 460px 1fr;
+      gap: 1.75rem;
+      margin-top: 2rem;
+      align-items: start;
+    }
+
+    @media (max-width: 1024px) {
+      .explorer-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* LEFT PANE: TREE VIEW */
+    .tree-pane {
+      background: #ffffff;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+    }
+
+    .tree-pane-header {
+      background: #0f172a;
+      color: #f8fafc;
+      padding: 0.9rem 1.15rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .tree-pane-title {
+      font-size: 0.84rem;
+      font-weight: 700;
+      font-family: var(--font-mono);
+      letter-spacing: 0.05em;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .tree-actions {
+      display: flex;
+      gap: 0.4rem;
+    }
+
+    .tree-action-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      color: #e2e8f0;
+      font-size: 0.72rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: var(--font-mono);
+    }
+
+    .tree-action-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .tree-search-bar {
+      padding: 0.75rem 1rem;
+      background: var(--bg-subtle);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .tree-search-input {
+      width: 100%;
+      padding: 0.45rem 0.85rem;
+      font-size: 0.84rem;
+      font-family: var(--font-sans);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-sm);
+      background: #ffffff;
+      outline: none;
+    }
+
+    .tree-search-input:focus {
+      border-color: var(--color-brand);
+      box-shadow: 0 0 0 2px rgba(29, 78, 216, 0.15);
+    }
+
+    .tree-container {
+      padding: 0.85rem 0.5rem 1.25rem;
+      font-family: var(--font-mono);
+      font-size: 0.84rem;
+      max-height: 720px;
+      overflow-y: auto;
+    }
+
+    /* TREE NODES */
+    .tree-node {
+      margin: 0.15rem 0;
+      user-select: none;
+    }
+
+    .tree-row {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.35rem 0.65rem;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: background 0.15s ease;
+      color: var(--text-secondary);
+      text-decoration: none;
+    }
+
+    .tree-row:hover {
+      background: var(--bg-subtle);
+      color: var(--text-primary);
+    }
+
+    .tree-row.active {
+      background: var(--color-brand-light);
+      color: var(--color-brand);
+      font-weight: 700;
+    }
+
+    .tree-row.is-ready {
+      border-left: 3px solid var(--color-success);
+    }
+
+    .tree-toggle {
+      width: 16px;
+      height: 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: transform 0.15s ease;
+    }
+
+    .tree-toggle.collapsed {
+      transform: rotate(-90deg);
+    }
+
+    .tree-icon {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .tree-icon svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .tree-label {
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .tree-badge {
+      font-size: 0.7rem;
+      font-family: var(--font-sans);
+      padding: 0.1rem 0.45rem;
+      border-radius: var(--radius-pill);
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+
+    .badge-ready {
+      background: var(--color-success-light);
+      color: var(--color-success);
+      border: 1px solid #a7f3d0;
+    }
+
+    .badge-empty {
+      background: var(--bg-subtle);
+      color: var(--text-muted);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .tree-children {
+      padding-left: 1.25rem;
+      border-left: 1px dashed var(--border-subtle);
+      margin-left: 0.75rem;
+    }
+
+    .tree-children.hidden {
+      display: none;
+    }
+
+    /* RIGHT PANE: DETAIL VIEW */
+    .detail-pane {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .detail-card {
+      background: #ffffff;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      padding: 1.75rem;
+    }
+
+    .detail-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1.25rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .detail-tag {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--color-brand);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.35rem;
+      display: block;
+    }
+
+    .detail-title {
+      font-size: 1.65rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+    }
+
+    .detail-status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.35rem 0.85rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .detail-desc {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      margin-bottom: 1.5rem;
+    }
+
+    /* ACTIVITY TILES IN DETAIL VIEW */
+    .activities-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .activities-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .activity-tile {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 1rem 1.15rem;
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.15s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .activity-tile:hover {
+      background: #ffffff;
+      border-color: var(--color-brand);
+      box-shadow: var(--shadow-sm);
+      transform: translateY(-2px);
+    }
+
+    .tile-num {
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: var(--color-brand);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.25rem;
+    }
+
+    .tile-name {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.35rem;
+    }
+
+    .tile-desc {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      line-height: 1.45;
+    }
+
+    .tile-link {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--color-brand);
+      margin-top: 0.75rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    /* STATS SUMMARY BAR */
+    .course-stats-bar {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .course-stats-bar {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .stat-box {
+      background: #ffffff;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 1.65rem;
+      font-weight: 800;
+      color: var(--text-primary);
+    }
+
+    .stat-label {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 0.15rem;
+    }
+
+    /* FOOTER */
+    .site-footer {
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border-subtle);
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand-logo">
+        <div class="brand-badge">TH</div>
+        <div>
+          <span class="brand-name">Khóa Học Tin Học THPT</span>
+          <span class="brand-sub">Chương trình Giáo dục Phổ thông 2018</span>
+        </div>
+      </a>
+
+      <div class="header-links">
+        <a href="https://github.com/mngoc3110/TinHoc" target="_blank" rel="noopener" class="btn btn-secondary btn-sm">
+          <svg style="width:16px;height:16px;" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          Mã nguồn GitHub
+        </a>
+        <a href="./Bai7/index.html" class="btn btn-primary btn-sm">
+          🚀 Mở Bài 7 (Sẵn sàng)
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="hero-pill">
+        <span>HỆ THỐNG BÀI GIẢNG ĐIỆN TỬ</span>
+      </div>
+      <h1 class="hero-title">Cây Thư Mục Khóa Học: Tin Học 12</h1>
+      <p class="hero-desc">
+        Khám phá toàn bộ cấu trúc chương trình Tin học THPT theo định hướng Tin học ứng dụng. Nhấp chọn bài học trên cây thư mục bên trái để xem chi tiết học liệu và mở phòng học tương tác.
+      </p>
+
+      <div class="course-stats-bar">
+        <div class="stat-box">
+          <div class="stat-number" style="color: var(--color-brand);">3</div>
+          <div class="stat-label">Khối lớp (10, 11, 12)</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number" style="color: var(--color-success);">1</div>
+          <div class="stat-label">Bài học đã hoàn thiện</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number" style="color: var(--color-warning);">9</div>
+          <div class="stat-label">Bài đang chuẩn bị</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number" style="color: #8b5cf6;">4</div>
+          <div class="stat-label">Hoạt động tương tác Bài 7</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN EXPLORER -->
+  <main class="container">
+    <div class="explorer-grid">
+      
+      <!-- CỘT TRÁI: CÂY THƯ MỤC CHƯƠNG TRÌNH -->
+      <aside class="tree-pane">
+        <div class="tree-pane-header">
+          <div class="tree-pane-title">
+            <svg style="width:14px;height:14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+            EXPLORER: KHOA_HOC_TIN_HOC
+          </div>
+          <div class="tree-actions">
+            <button class="tree-action-btn" id="btn-expand-all" title="Mở rộng tất cả">+</button>
+            <button class="tree-action-btn" id="btn-collapse-all" title="Thu gọn">-</button>
+          </div>
+        </div>
+
+        <div class="tree-search-bar">
+          <input type="text" id="tree-search" class="tree-search-input" placeholder="🔍 Lọc nhanh bài học (vd: Bài 7, HTML...)" autocomplete="off">
+        </div>
+
+        <div class="tree-container" id="course-tree">
+          
+          <!-- ROOT FOLDER: TIN HỌC THPT -->
+          <div class="tree-node">
+            <div class="tree-row" data-node="root">
+              <span class="tree-toggle" data-target="root-children">▼</span>
+              <span class="tree-icon" style="color:#d97706;">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg>
+              </span>
+              <span class="tree-label"><strong>KHOA_HOC_TIN_HOC</strong></span>
+            </div>
+
+            <div class="tree-children" id="root-children">
+              
+              <!-- TIN HỌC 10 (CHƯA CÓ) -->
+              <div class="tree-node">
+                <div class="tree-row" data-node="tin10" onclick="showNodeDetail('tin10')">
+                  <span class="tree-toggle" data-target="tin10-children">▶</span>
+                  <span class="tree-icon" style="color:#94a3b8;">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg>
+                  </span>
+                  <span class="tree-label">Tin_Hoc_10/</span>
+                  <span class="tree-badge badge-empty">Chưa có</span>
+                </div>
+                <div class="tree-children hidden" id="tin10-children">
+                  <div class="tree-row" style="color:#94a3b8; font-style:italic;" onclick="showNodeDetail('empty')">
+                    <span class="tree-icon">📄</span>
+                    <span>(Đang cập nhật học liệu)</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- TIN HỌC 11 (CHƯA CÓ) -->
+              <div class="tree-node">
+                <div class="tree-row" data-node="tin11" onclick="showNodeDetail('tin11')">
+                  <span class="tree-toggle" data-target="tin11-children">▶</span>
+                  <span class="tree-icon" style="color:#94a3b8;">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg>
+                  </span>
+                  <span class="tree-label">Tin_Hoc_11/</span>
+                  <span class="tree-badge badge-empty">Chưa có</span>
+                </div>
+                <div class="tree-children hidden" id="tin11-children">
+                  <div class="tree-row" style="color:#94a3b8; font-style:italic;" onclick="showNodeDetail('empty')">
+                    <span class="tree-icon">📄</span>
+                    <span>(Đang cập nhật học liệu)</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- TIN HỌC 12 (EXPANDED) -->
+              <div class="tree-node">
+                <div class="tree-row active" data-node="tin12" onclick="showNodeDetail('tin12')">
+                  <span class="tree-toggle" data-target="tin12-children">▼</span>
+                  <span class="tree-icon" style="color:#2563eb;">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg>
+                  </span>
+                  <span class="tree-label"><strong>Tin_Hoc_12/</strong></span>
+                  <span class="tree-badge badge-ready">Đang học</span>
+                </div>
+
+                <div class="tree-children" id="tin12-children">
+                  
+                  <!-- CHỦ ĐỀ A: MÁY TÍNH VÀ XÃ HỘI TRI THỨC -->
+                  <div class="tree-node">
+                    <div class="tree-row" data-node="chude_a" onclick="showNodeDetail('chude_a')">
+                      <span class="tree-toggle" data-target="chude_a-children">▶</span>
+                      <span class="tree-icon" style="color:#64748b;">📁</span>
+                      <span class="tree-label">Chu_De_A/</span>
+                      <span class="tree-badge badge-empty">Chưa có</span>
+                    </div>
+                    <div class="tree-children hidden" id="chude_a-children">
+                      <div class="tree-row" onclick="showNodeDetail('bai1')">
+                        <span class="tree-icon">📄</span>
+                        <span class="tree-label">Bai_01_He_Dieu_Hanh.html</span>
+                        <span class="tree-badge badge-empty">Chưa có</span>
+                      </div>
+                      <div class="tree-row" onclick="showNodeDetail('bai2')">
+                        <span class="tree-icon">📄</span>
+                        <span class="tree-label">Bai_02_Thuc_Hanh_HDH.html</span>
+                        <span class="tree-badge badge-empty">Chưa có</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- CHỦ ĐỀ B: MẠNG MÁY TÍNH -->
+                  <div class="tree-node">
+                    <div class="tree-row" data-node="chude_b" onclick="showNodeDetail('chude_b')">
+                      <span class="tree-toggle" data-target="chude_b-children">▶</span>
+                      <span class="tree-icon" style="color:#64748b;">📁</span>
+                      <span class="tree-label">Chu_De_B/</span>
+                      <span class="tree-badge badge-empty">Chưa có</span>
+                    </div>
+                    <div class="tree-children hidden" id="chude_b-children">
+                      <div class="tree-row" onclick="showNodeDetail('bai3')">
+                        <span class="tree-icon">📄</span>
+                        <span class="tree-label">Bai_03_Mang_May_Tinh.html</span>
+                        <span class="tree-badge badge-empty">Chưa có</span>
+                      </div>
+                      <div class="tree-row" onclick="showNodeDetail('bai4')">
+                        <span class="tree-icon">📄</span>
+                        <span class="tree-label">Bai_04_An_Toan_Thong_Tin.html</span>
+                        <span class="tree-badge badge-empty">Chưa có</span>
+                      </div>
+                      <div class="tree-row" onclick="showNodeDetail('bai5')">
+                        <span class="tree-icon">📄</span>
+                        <span class="tree-label">Bai_05_Giao_Thuc_Mang.html</span>
+                        <span class="tree-badge badge-empty">Chưa có</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- CHỦ ĐỀ F: ĐỊNH HƯỚNG TIN HỌC ỨNG DỤNG - THIẾT KẾ WEB -->
+                  <div class="tree-node">
+                    <div class="tree-row" data-node="chude_f" onclick="showNodeDetail('chude_f')">
+                      <span class="tree-toggle" data-target="chude_f-children">▼</span>
+                      <span class="tree-icon" style="color:#0284c7;">📁</span>
+                      <span class="tree-label"><strong>Chu_De_F_Thiet_Ke_Web/</strong></span>
+                    </div>
+
+                    <div class="tree-children" id="chude_f-children">
+                      
+                      <!-- BÀI 6 (CHƯA CÓ) -->
+                      <div class="tree-row" onclick="showNodeDetail('bai6')">
+                        <span class="tree-icon">📄</span>
+                        <span class="tree-label">Bai_06_Tao_Trang_Web_Co_Ban.html</span>
+                        <span class="tree-badge badge-empty">Chưa có</span>
+                      </div>
+
+                      <!-- BÀI 7: HTML VÀ CẤU TRÚC TRANG WEB (SẴN SÀNG - ACTIVE) -->
+                      <div class="tree-node">
+                        <div class="tree-row is-ready active" data-node="bai7" onclick="showNodeDetail('bai7')">
+                          <span class="tree-toggle" data-target="bai7-children">▼</span>
+                          <span class="tree-icon" style="color:#059669;">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg>
+                          </span>
+                          <span class="tree-label"><strong>Bai_07_HTML_Va_Cau_Truc_Web/</strong></span>
+                          <span class="tree-badge badge-ready">SẴN SÀNG</span>
+                        </div>
+
+                        <!-- 4 HOẠT ĐỘNG CỦA BÀI 7 -->
+                        <div class="tree-children" id="bai7-children">
+                          <a href="./Bai7/index.html" class="tree-row" onclick="event.stopPropagation(); showNodeDetail('bai7_index')">
+                            <span class="tree-icon" style="color:#ea580c;">🌐</span>
+                            <span class="tree-label">index.html (Tổng quan bài học)</span>
+                          </a>
+                          <a href="./Bai7/hd1.html" class="tree-row" onclick="event.stopPropagation(); showNodeDetail('bai7_hd1')">
+                            <span class="tree-icon" style="color:#0284c7;">⚡</span>
+                            <span class="tree-label">hd1.html (HĐ 1: Khởi động)</span>
+                          </a>
+                          <a href="./Bai7/hd2.html" class="tree-row" onclick="event.stopPropagation(); showNodeDetail('bai7_hd2')">
+                            <span class="tree-icon" style="color:#1d4ed8;">🧩</span>
+                            <span class="tree-label">hd2.html (HĐ 2: Cây DOM & Kéo thả)</span>
+                          </a>
+                          <a href="./Bai7/hd3.html" class="tree-row" onclick="event.stopPropagation(); showNodeDetail('bai7_hd3')">
+                            <span class="tree-icon" style="color:#059669;">💻</span>
+                            <span class="tree-label">hd3.html (HĐ 3: Luyện tập tự code)</span>
+                          </a>
+                          <a href="./Bai7/hd4.html" class="tree-row" onclick="event.stopPropagation(); showNodeDetail('bai7_hd4')">
+                            <span class="tree-icon" style="color:#d97706;">📊</span>
+                            <span class="tree-label">hd4.html (HĐ 4: Infographic & Ôn tập)</span>
+                          </a>
+                        </div>
+                      </div>
+
+                      <!-- BÀI 8 (CHƯA CÓ) -->
+                      <div class="tree-row" onclick="showNodeDetail('bai8')">
+                        <span class="tree-icon">📄</span>
+                        <span class="tree-label">Bai_08_Dinh_Dang_Van_Ban_Lien_Ket.html</span>
+                        <span class="tree-badge badge-empty">Chưa có</span>
+                      </div>
+
+                      <!-- BÀI 9 (CHƯA CÓ) -->
+                      <div class="tree-row" onclick="showNodeDetail('bai9')">
+                        <span class="tree-icon">📄</span>
+                        <span class="tree-label">Bai_09_Tao_Danh_Sach_Bang_Bieu.html</span>
+                        <span class="tree-badge badge-empty">Chưa có</span>
+                      </div>
+
+                      <!-- BÀI 10 (CHƯA CÓ) -->
+                      <div class="tree-row" onclick="showNodeDetail('bai10')">
+                        <span class="tree-icon">📄</span>
+                        <span class="tree-label">Bai_10_Bieu_Mau_Web_Form.html</span>
+                        <span class="tree-badge badge-empty">Chưa có</span>
+                      </div>
+
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </aside>
+
+      <!-- CỘT PHẢI: CHI TIẾT BÀI HỌC & TRUY CẬP HỌC LIỆU -->
+      <section class="detail-pane" id="detail-pane">
+        
+        <div class="detail-card" id="detail-card-content">
+          <div class="detail-header">
+            <div>
+              <span class="detail-tag" id="detail-tag">TIN HỌC 12 • CHỦ ĐỀ F</span>
+              <h2 class="detail-title" id="detail-title">Bài 7: HTML và Cấu Trúc Trang Web</h2>
+            </div>
+            <span class="detail-status-pill badge-ready" id="detail-status">
+              ● Sẵn sàng học tập
+            </span>
+          </div>
+
+          <p class="detail-desc" id="detail-desc">
+            Bài học cốt lõi mở đầu chuyên đề Thiết kế Web. Học sinh tìm hiểu bản chất siêu văn bản HTML, khám phá khung xương chuẩn 7 thành phần, trải nghiệm cây thông tin DOM tương tác, thực hành tự tay viết trang web giới thiệu cá nhân và tổng kết qua Infographic đồ họa chất lượng cao.
+          </p>
+
+          <div style="margin-bottom: 1.25rem;">
+            <strong style="font-size: 0.9rem; color: var(--text-primary); display: block; margin-bottom: 0.75rem;">
+              Danh sách 4 hoạt động học tập tương tác:
+            </strong>
+
+            <div class="activities-grid">
+              
+              <a href="./Bai7/hd1.html" class="activity-tile">
+                <div>
+                  <div class="tile-num">Hoạt động 1</div>
+                  <div class="tile-name">Khởi Động: Mã Nguồn vs Trình Duyệt</div>
+                  <div class="tile-desc">Khám phá sự khác biệt trực quan giữa mã HTML thô và trang web hiển thị.</div>
+                </div>
+                <div class="tile-link">Vào học ngay →</div>
+              </a>
+
+              <a href="./Bai7/hd2.html" class="activity-tile">
+                <div>
+                  <div class="tile-num">Hoạt động 2</div>
+                  <div class="tile-name">Hình Thành Kiến Thức & Cây DOM</div>
+                  <div class="tile-desc">Khung xương 7 thành phần, cây thông tin tương tác và xưởng kéo thả thẻ HTML.</div>
+                </div>
+                <div class="tile-link">Vào học ngay →</div>
+              </a>
+
+              <a href="./Bai7/hd3.html" class="activity-tile">
+                <div>
+                  <div class="tile-num">Hoạt động 3</div>
+                  <div class="tile-name">Luyện Tập: Lập Trình gioithieu.html</div>
+                  <div class="tile-desc">Tự tay gõ mã từ đầu trong IDE trực tiếp với bộ chấm điểm 8 tiêu chí chuẩn.</div>
+                </div>
+                <div class="tile-link">Vào học ngay →</div>
+              </a>
+
+              <a href="./Bai7/hd4.html" class="activity-tile">
+                <div>
+                  <div class="tile-num">Hoạt động 4</div>
+                  <div class="tile-name">Infographic Đồ Họa & Ôn Tập</div>
+                  <div class="tile-desc">Poster Infographic trực quan, 3D Flashcards và đấu trường câu hỏi trắc nghiệm.</div>
+                </div>
+                <div class="tile-link">Vào học ngay →</div>
+              </a>
+
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+            <a href="./Bai7/index.html" class="btn btn-primary" id="btn-main-action">
+              🚀 Vào Trang Tổng Quan Bài 7
+            </a>
+            <a href="./Bai7/hd1.html" class="btn btn-secondary">
+              ⚡ Bắt đầu từ HĐ 1 (Khởi động)
+            </a>
+          </div>
+        </div>
+
+      </section>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2026 Khóa học Tin học THPT - Bộ Giáo dục & Đào tạo. Trường THPT Thực hành - ĐH Sư phạm TP.HCM.</p>
+      <p style="margin-top: 0.35rem; font-size: 0.78rem;">Mã nguồn lưu trữ tại GitHub: <a href="https://github.com/mngoc3110/TinHoc" target="_blank" style="color:var(--color-brand);">https://github.com/mngoc3110/TinHoc.git</a></p>
+    </div>
+  </footer>
+
+  <script>
+    // DỮ LIỆU CHI TIẾT TỪNG NODE KHI NHẤP VÀO CÂY THƯ MỤC
+    const NODE_DETAILS = {
+      tin12: {
+        tag: 'CHƯƠNG TRÌNH LỚP 12',
+        title: 'Tin Học 12: Định Hướng Tin Học Ứng Dụng',
+        status: '● Đang triển khai',
+        statusClass: 'badge-ready',
+        desc: 'Chương trình Tin học lớp 12 bao gồm các chủ đề về Mạng máy tính, Hệ điều hành và chuyên sâu về Thiết kế Web, Ngôn ngữ HTML, CSS và biểu mẫu tương tác.',
+        actionText: 'Mở Bài 7 (Sẵn sàng)',
+        actionUrl: './Bai7/index.html',
+        isReady: true
+      },
+      bai7: {
+        tag: 'TIN HỌC 12 • CHỦ ĐỀ F',
+        title: 'Bài 7: HTML và Cấu Trúc Trang Web',
+        status: '● Sẵn sàng học tập (Đầy đủ 4 hoạt động)',
+        statusClass: 'badge-ready',
+        desc: 'Bài học cốt lõi mở đầu chuyên đề Thiết kế Web. Học sinh tìm hiểu bản chất siêu văn bản HTML, khám phá khung xương chuẩn 7 thành phần, trải nghiệm cây thông tin DOM tương tác, thực hành tự tay viết trang web giới thiệu cá nhân và tổng kết qua Infographic đồ họa chất lượng cao.',
+        actionText: '🚀 Vào Trang Tổng Quan Bài 7',
+        actionUrl: './Bai7/index.html',
+        isReady: true
+      },
+      bai7_index: {
+        tag: 'BÀI 7 • TỔNG QUAN',
+        title: 'Trang Chủ & Lộ Trình 4 Hoạt Động Bài 7',
+        status: '● Sẵn sàng',
+        statusClass: 'badge-ready',
+        desc: 'Bảng điều khiển trực quan tổng hợp 4 hoạt động học tập, tài liệu học sinh và hướng dẫn từng bước.',
+        actionText: 'Mở Trang Tổng Quan',
+        actionUrl: './Bai7/index.html',
+        isReady: true
+      },
+      bai7_hd1: {
+        tag: 'BÀI 7 • HOẠT ĐỘNG 1',
+        title: 'Khởi Động: Mã Nguồn HTML vs Kết Quả Trình Duyệt',
+        status: '● Sẵn sàng',
+        statusClass: 'badge-ready',
+        desc: 'So sánh trực quan giữa mã thô Notepad và kết quả hiển thị sinh động trên trình duyệt.',
+        actionText: 'Vào Hoạt Động 1',
+        actionUrl: './Bai7/hd1.html',
+        isReady: true
+      },
+      bai7_hd2: {
+        tag: 'BÀI 7 • HOẠT ĐỘNG 2',
+        title: 'Kiến Thức Mới: Cây Thông Tin DOM & Xưởng Kéo Thả',
+        status: '● Sẵn sàng',
+        statusClass: 'badge-ready',
+        desc: 'Khung xương 7 thành phần bắt buộc, bộ thanh tra thuộc tính cây DOM và xưởng kéo thả lắp ráp trang web.',
+        actionText: 'Vào Hoạt Động 2',
+        actionUrl: './Bai7/hd2.html',
+        isReady: true
+      },
+      bai7_hd3: {
+        tag: 'BÀI 7 • HOẠT ĐỘNG 3',
+        title: 'Luyện Tập: Tự Viết Mã gioithieu.html',
+        status: '● Sẵn sàng (Tự tay code từ đầu)',
+        statusClass: 'badge-ready',
+        desc: 'Học sinh tự tay lập trình trang web cá nhân trong môi trường IDE tích hợp, hệ thống chấm điểm tự động kiểm tra thời gian thực 8 tiêu chí.',
+        actionText: 'Vào Hoạt Động 3',
+        actionUrl: './Bai7/hd3.html',
+        isReady: true
+      },
+      bai7_hd4: {
+        tag: 'BÀI 7 • HOẠT ĐỘNG 4',
+        title: 'Infographic Đồ Họa, Flashcard & Đấu Trường Trắc Nghiệm',
+        status: '● Sẵn sàng',
+        statusClass: 'badge-ready',
+        desc: 'Poster infographic trực quan độ phân giải cao, lật thẻ flashcard 3D ghi nhớ nhanh và kiểm tra kiến thức qua 5 câu trắc nghiệm.',
+        actionText: 'Vào Hoạt Động 4',
+        actionUrl: './Bai7/hd4.html',
+        isReady: true
+      },
+      chude_f: {
+        tag: 'CHỦ ĐỀ F',
+        title: 'Chủ Đề F: Định Hướng Tin Học Ứng Dụng (Thiết Kế Web)',
+        status: '● Đang học Bài 7',
+        statusClass: 'badge-ready',
+        desc: 'Chủ đề gồm chuỗi bài học từ tạo trang web cơ bản (Bài 6), cấu trúc HTML (Bài 7), định dạng liên kết (Bài 8), bảng biểu (Bài 9) và form biểu mẫu (Bài 10).',
+        actionText: 'Mở Bài 7 (Sẵn sàng)',
+        actionUrl: './Bai7/index.html',
+        isReady: true
+      },
+      tin10: {
+        tag: 'KHỐI LỚP 10',
+        title: 'Tin Học 10 (Chưa có)',
+        status: 'Chưa có',
+        statusClass: 'badge-empty',
+        desc: 'Học liệu Tin học 10 đang trong quá trình biên soạn và chưa được tải lên hệ thống. Vui lòng chọn Tin học 12 để học Bài 7.',
+        actionText: 'Chưa khả dụng',
+        actionUrl: '#',
+        isReady: false
+      },
+      tin11: {
+        tag: 'KHỐI LỚP 11',
+        title: 'Tin Học 11 (Chưa có)',
+        status: 'Chưa có',
+        statusClass: 'badge-empty',
+        desc: 'Học liệu Tin học 11 đang trong quá trình biên soạn và chưa được tải lên hệ thống. Vui lòng chọn Tin học 12 để học Bài 7.',
+        actionText: 'Chưa khả dụng',
+        actionUrl: '#',
+        isReady: false
+      },
+      chude_a: {
+        tag: 'TIN HỌC 12 • CHỦ ĐỀ A',
+        title: 'Chủ Đề A: Máy Tính Và Xã Hội Tri Thức (Chưa có)',
+        status: 'Chưa có',
+        statusClass: 'badge-empty',
+        desc: 'Các bài học về Hệ điều hành và phần mềm ứng dụng đang được chuẩn bị.',
+        actionText: 'Chưa khả dụng',
+        actionUrl: '#',
+        isReady: false
+      },
+      chude_b: {
+        tag: 'TIN HỌC 12 • CHỦ ĐỀ B',
+        title: 'Chủ Đề B: Mạng Máy Tính & Internet (Chưa có)',
+        status: 'Chưa có',
+        statusClass: 'badge-empty',
+        desc: 'Các bài học về Giao thức mạng và An toàn thông tin đang được chuẩn bị.',
+        actionText: 'Chưa khả dụng',
+        actionUrl: '#',
+        isReady: false
+      },
+      bai1: { tag: 'CHỦ ĐỀ A', title: 'Bài 1: Làm quen với Hệ điều hành (Chưa có)', status: 'Chưa có', statusClass: 'badge-empty', desc: 'Bài học này hiện chưa được khởi tạo nội dung.', isReady: false },
+      bai2: { tag: 'CHỦ ĐỀ A', title: 'Bài 2: Thực hành sử dụng Hệ điều hành (Chưa có)', status: 'Chưa có', statusClass: 'badge-empty', desc: 'Bài học này hiện chưa được khởi tạo nội dung.', isReady: false },
+      bai3: { tag: 'CHỦ ĐỀ B', title: 'Bài 3: Mạng máy tính và thiết bị mạng (Chưa có)', status: 'Chưa có', statusClass: 'badge-empty', desc: 'Bài học này hiện chưa được khởi tạo nội dung.', isReady: false },
+      bai4: { tag: 'CHỦ ĐỀ B', title: 'Bài 4: An toàn thông tin trên mạng (Chưa có)', status: 'Chưa có', statusClass: 'badge-empty', desc: 'Bài học này hiện chưa được khởi tạo nội dung.', isReady: false },
+      bai5: { tag: 'CHỦ ĐỀ B', title: 'Bài 5: Giao thức mạng và địa chỉ IP (Chưa có)', status: 'Chưa có', statusClass: 'badge-empty', desc: 'Bài học này hiện chưa được khởi tạo nội dung.', isReady: false },
+      bai6: { tag: 'CHỦ ĐỀ F', title: 'Bài 6: Tạo trang web đơn giản (Chưa có)', status: 'Chưa có', statusClass: 'badge-empty', desc: 'Bài học này hiện chưa được khởi tạo nội dung.', isReady: false },
+      bai8: { tag: 'CHỦ ĐỀ F', title: 'Bài 8: Định dạng văn bản và tạo liên kết (Chưa có)', status: 'Chưa có', statusClass: 'badge-empty', desc: 'Bài học này sẽ được cập nhật tiếp theo.', isReady: false },
+      bai9: { tag: 'CHỦ ĐỀ F', title: 'Bài 9: Tạo danh sách và bảng biểu trên web (Chưa có)', status: 'Chưa có', statusClass: 'badge-empty', desc: 'Bài học này sẽ được cập nhật tiếp theo.', isReady: false },
+      bai10: { tag: 'CHỦ ĐỀ F', title: 'Bài 10: Biểu mẫu Web và form tương tác (Chưa có)', status: 'Chưa có', statusClass: 'badge-empty', desc: 'Bài học này sẽ được cập nhật tiếp theo.', isReady: false },
+      empty: { tag: 'HỌC LIỆU', title: 'Nội dung đang chuẩn bị (Chưa có)', status: 'Chưa có', statusClass: 'badge-empty', desc: 'Học liệu bài học này chưa được đưa lên hệ thống.', isReady: false }
+    };
+
+    function showNodeDetail(nodeKey) {
+      const data = NODE_DETAILS[nodeKey] || NODE_DETAILS.empty;
+      
+      document.getElementById('detail-tag').textContent = data.tag;
+      document.getElementById('detail-title').textContent = data.title;
+      
+      const statusElem = document.getElementById('detail-status');
+      statusElem.textContent = data.status;
+      statusElem.className = 'detail-status-pill ' + (data.statusClass || 'badge-empty');
+
+      document.getElementById('detail-desc').textContent = data.desc;
+
+      const btnMain = document.getElementById('btn-main-action');
+      if (btnMain) {
+        if (data.isReady && data.actionUrl && data.actionUrl !== '#') {
+          btnMain.textContent = data.actionText || 'Mở Bài Học';
+          btnMain.href = data.actionUrl;
+          btnMain.style.display = 'inline-flex';
+        } else {
+          btnMain.style.display = 'none';
+        }
+      }
+
+      // Highlight active row
+      document.querySelectorAll('.tree-row').forEach(row => {
+        if (row.getAttribute('data-node') === nodeKey) {
+          row.classList.add('active');
+        } else {
+          row.classList.remove('active');
+        }
+      });
+    }
+
+    // TOGGLE EXPAND / COLLAPSE
+    document.querySelectorAll('.tree-toggle').forEach(toggle => {
+      toggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const targetId = toggle.getAttribute('data-target');
+        const targetChildren = document.getElementById(targetId);
+        if (targetChildren) {
+          const isHidden = targetChildren.classList.toggle('hidden');
+          toggle.classList.toggle('collapsed', isHidden);
+        }
+      });
+    });
+
+    // EXPAND ALL / COLLAPSE ALL
+    document.getElementById('btn-expand-all')?.addEventListener('click', () => {
+      document.querySelectorAll('.tree-children').forEach(c => c.classList.remove('hidden'));
+      document.querySelectorAll('.tree-toggle').forEach(t => t.classList.remove('collapsed'));
+    });
+
+    document.getElementById('btn-collapse-all')?.addEventListener('click', () => {
+      document.querySelectorAll('.tree-children').forEach(c => {
+        if (c.id !== 'root-children') c.classList.add('hidden');
+      });
+      document.querySelectorAll('.tree-toggle').forEach(t => {
+        if (t.getAttribute('data-target') !== 'root-children') t.classList.add('collapsed');
+      });
+    });
+
+    // SEARCH FILTER
+    document.getElementById('tree-search')?.addEventListener('input', (e) => {
+      const q = e.target.value.toLowerCase().trim();
+      document.querySelectorAll('#course-tree .tree-row').forEach(row => {
+        const text = row.textContent.toLowerCase();
+        if (!q || text.includes(q)) {
+          row.style.display = 'flex';
+        } else {
+          row.style.display = 'none';
+        }
+      });
+      if (q) {
+        document.querySelectorAll('.tree-children').forEach(c => c.classList.remove('hidden'));
+      }
+    });
+  </script>
+</body>
+</html>

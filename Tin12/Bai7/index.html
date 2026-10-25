@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bài 7: HTML và Cấu trúc trang web | Tin học 12 Thống nhất</title>
+  <meta name="description" content="Trang web học tập Bài 7: HTML và Cấu trúc trang web - Môn Tin học 12. Học tập tương tác, trực quan, có sơ đồ infographic và đấu trường ôn tập.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- HEADER & NAVIGATION -->
+  <header class="site-header">
+    <div class="container nav-wrapper">
+      <a href="index.html" class="brand-badge" title="Trang chủ bài học">
+        <div class="brand-icon-box">
+          <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+        </div>
+        <div class="brand-text">
+          <span class="title">BÀI 7: HTML VÀ CẤU TRÚC TRANG WEB</span>
+          <span class="subtitle">Tin học 12 • Học tập tương tác</span>
+        </div>
+      </a>
+
+      <nav aria-label="Điều hướng bài học">
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link active">Tổng quan</a></li>
+          <li><a href="hd1.html" class="nav-link">HĐ 1: Khởi động</a></li>
+          <li><a href="hd2.html" class="nav-link">HĐ 2: Kiến thức mới</a></li>
+          <li><a href="hd3.html" class="nav-link">HĐ 3: Luyện tập</a></li>
+          <li><a href="hd4.html" class="nav-link">HĐ 4: Infographic & Ôn tập</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-tools">
+        <div class="timer-widget" title="Đồng hồ đếm giờ">
+          <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          <span id="timer-display" class="timer-display">05:00</span>
+          <select id="timer-preset" class="btn-tool" title="Chọn thời lượng">
+            <option value="5" selected>5p</option>
+            <option value="10">10p</option>
+            <option value="15">15p</option>
+            <option value="20">20p</option>
+            <option value="30">30p</option>
+            <option value="45">45p</option>
+          </select>
+          <button id="timer-toggle" class="btn-tool" type="button">▶ Bắt đầu</button>
+          <button id="timer-reset" class="btn-tool" type="button" title="Đặt lại">↺</button>
+        </div>
+
+        <button id="btn-fullscreen" class="btn-tool" type="button" title="Chế độ chiếu toàn màn hình">
+          <svg class="icon-svg" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
+          Trình chiếu
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- STEPPER TIMELINE -->
+  <nav class="stepper-section" aria-label="Tiến trình học tập">
+    <div class="container">
+      <div class="stepper-nav">
+        <div class="stepper-line"></div>
+        
+        <a href="index.html" class="stepper-step active">
+          <div class="step-circle">0</div>
+          <span class="step-label">Tổng quan</span>
+        </a>
+
+        <a href="hd1.html" class="stepper-step">
+          <div class="step-circle">1</div>
+          <span class="step-label">Khởi động</span>
+        </a>
+
+        <a href="hd2.html" class="stepper-step">
+          <div class="step-circle">2</div>
+          <span class="step-label">Kiến thức mới</span>
+        </a>
+
+        <a href="hd3.html" class="stepper-step">
+          <div class="step-circle">3</div>
+          <span class="step-label">Luyện tập</span>
+        </a>
+
+        <a href="hd4.html" class="stepper-step">
+          <div class="step-circle">4</div>
+          <span class="step-label">Infographic & Ôn tập</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- DESKTOP HERO SECTION (Balanced 2-Column Desktop Grid) -->
+  <section class="hero-banner">
+    <div class="container">
+      <div class="hero-desktop-grid">
+        
+        <!-- CỘT TRÁI: TIÊU ĐỀ & MÔ TẢ HỌC TẬP -->
+        <div>
+          <div class="badge-tag">
+            <span>TIN HỌC 12 • HỌC LẬP TRÌNH WEB</span>
+          </div>
+          <h1 class="hero-title">HTML VÀ CẤU TRÚC TRANG WEB</h1>
+          <p class="hero-subtitle">
+            Khám phá quy tắc xây dựng trang web đầu tiên của em: Học cách sử dụng các thẻ đánh dấu, tương tác trực quan với cây thông tin DOM, tự tay lắp ráp cấu trúc HTML và trải nghiệm phòng thực hành trực tuyến.
+          </p>
+
+          <div style="margin-top: 1.5rem; display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap;">
+            <a href="hd1.html" class="btn btn-primary" style="font-size: 0.95rem; padding: 0.65rem 1.35rem;">
+              Bắt đầu học ngay (HĐ 1) →
+            </a>
+            <a href="hd4.html#infographic" class="btn btn-secondary" style="font-size: 0.95rem; background: transparent; color: #ffffff; border-color: #334155;">
+              📊 Xem Infographic Tổng Hợp (HĐ 4)
+            </a>
+          </div>
+        </div>
+
+        <!-- CỘT PHẢI: BENTO STATS & WORKSPACE PREVIEW -->
+        <div class="hero-stats-card">
+          <div class="hero-stat-box">
+            <div class="hero-stat-num">04</div>
+            <div class="hero-stat-label">Chặng học tập tương tác</div>
+          </div>
+
+          <div class="hero-stat-box">
+            <div class="hero-stat-num">DOM</div>
+            <div class="hero-stat-label">Khám phá cây thông tin</div>
+          </div>
+
+          <div class="hero-stat-box">
+            <div class="hero-stat-num">D&D</div>
+            <div class="hero-stat-label">Xưởng kéo thả trực quan</div>
+          </div>
+
+          <div class="hero-stat-box">
+            <div class="hero-stat-num">LIVE</div>
+            <div class="hero-stat-label">Trình code & chấm tự động</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN BODY CONTENT -->
+  <main class="main-content">
+    <div class="container">
+
+      <!-- TIẾN TRÌNH 4 HOẠT ĐỘNG (4 Cột Widescreen trên Desktop) -->
+      <section class="section-block">
+        <div class="section-header">
+          <h2 class="section-title">
+            <span class="section-num">1</span>
+            Lộ Trình 4 Chặng Học Tập
+          </h2>
+          <span style="color: var(--text-muted); font-size: 0.85rem;">Từ khám phá, thực hành đến ôn tập toàn diện</span>
+        </div>
+
+        <div class="grid-4">
+          <!-- CARD HD 1 -->
+          <div class="card" style="display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.65rem;">
+                <span class="badge-tag" style="background: #e0f2fe; color: #0369a1; border-color: #bae6fd; margin: 0;">5 phút</span>
+                <span style="font-weight: 700; color: var(--text-muted); font-size: 0.78rem;">KHỞI ĐỘNG</span>
+              </div>
+              <h3 class="card-title">HĐ 1: Khởi động</h3>
+              <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.75rem;">
+                Khám phá thế giới web từ trải nghiệm lướt web mỗi ngày; đối chiếu tệp mã nguồn với giao diện trình duyệt hiển thị.
+              </p>
+              <ul style="font-size: 0.8rem; color: var(--text-muted); padding-left: 1.15rem; margin-bottom: 1rem;">
+                <li>Trang web được tạo ra như thế nào?</li>
+                <li>Mã nguồn vs Kết quả trình duyệt</li>
+                <li>Khái niệm ngôn ngữ HTML</li>
+              </ul>
+            </div>
+            <a href="hd1.html" class="btn btn-secondary btn-sm" style="width: 100%;">Vào Hoạt động 1 →</a>
+          </div>
+
+          <!-- CARD HD 2 -->
+          <div class="card" style="display: flex; flex-direction: column; justify-content: space-between; border-color: var(--color-brand-border); background: #ffffff;">
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.65rem;">
+                <span class="badge-tag" style="background: #eff6ff; color: #1d4ed8; border-color: #bfdbfe; margin: 0;">Trọng tâm</span>
+                <span style="font-weight: 700; color: var(--color-brand); font-size: 0.78rem;">KIẾN THỨC MỚI</span>
+              </div>
+              <h3 class="card-title">HĐ 2: Kiến thức mới</h3>
+              <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.75rem;">
+                Thẻ đánh dấu, phần tử HTML, quy tắc lồng thẻ, cấu trúc chuẩn 7 thành phần, tương tác Cây DOM và Xưởng Kéo thả HTML.
+              </p>
+              <ul style="font-size: 0.8rem; color: var(--text-muted); padding-left: 1.15rem; margin-bottom: 1rem;">
+                <li>Thẻ & Cấu tạo phần tử HTML</li>
+                <li>Khám phá tương tác Cây thông tin DOM</li>
+                <li>Xưởng kéo thả cấu trúc HTML trực quan</li>
+                <li>Phòng thí nghiệm HTML Live Playground</li>
+              </ul>
+            </div>
+            <a href="hd2.html" class="btn btn-primary btn-sm" style="width: 100%;">Vào Hoạt động 2 →</a>
+          </div>
+
+          <!-- CARD HD 3 -->
+          <div class="card" style="display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.65rem;">
+                <span class="badge-tag" style="background: #ecfdf5; color: #065f46; border-color: #a7f3d0; margin: 0;">30 phút</span>
+                <span style="font-weight: 700; color: var(--text-muted); font-size: 0.78rem;">THỰC HÀNH</span>
+              </div>
+              <h3 class="card-title">HĐ 3: Luyện tập</h3>
+              <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.75rem;">
+                Thực hành tự tay lập trình tệp <code>gioithieu.html</code> giới thiệu bản thân trên trình soạn thảo split workbench có chấm tự động.
+              </p>
+              <ul style="font-size: 0.8rem; color: var(--text-muted); padding-left: 1.15rem; margin-bottom: 1rem;">
+                <li>Yêu cầu & 4 tiêu chí kỹ thuật</li>
+                <li>Không gian code split 50/50 trên desktop</li>
+                <li>Bộ kiểm tra 8 tiêu chí chấm tự động</li>
+                <li>Mã mẫu chuẩn tham khảo</li>
+              </ul>
+            </div>
+            <a href="hd3.html" class="btn btn-secondary btn-sm" style="width: 100%;">Vào Hoạt động 3 →</a>
+          </div>
+
+          <!-- CARD HD 4 -->
+          <div class="card" style="display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.65rem;">
+                <span class="badge-tag" style="background: #fdf4ff; color: #a21caf; border-color: #f0abfc; margin: 0;">Tổng kết & Ôn tập</span>
+                <span style="font-weight: 700; color: #a21caf; font-size: 0.78rem;">ÔN TẬP</span>
+              </div>
+              <h3 class="card-title">HĐ 4: Infographic & Ôn tập</h3>
+              <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.75rem;">
+                Sơ đồ bản đồ tư duy tổng hợp bài học, lật thẻ flashcard ghi nhớ nhanh và thử sức với đấu trường trắc nghiệm 5 câu có giải thích.
+              </p>
+              <ul style="font-size: 0.8rem; color: var(--text-muted); padding-left: 1.15rem; margin-bottom: 1rem;">
+                <li>Sơ đồ Infographic bản đồ tư duy bài học</li>
+                <li>Góc lật thẻ 3D Flashcards ghi nhớ</li>
+                <li>Đấu trường trắc nghiệm ôn tập tổng hợp</li>
+                <li>Thử thách sáng tạo & tài nguyên mở</li>
+              </ul>
+            </div>
+            <a href="hd4.html" class="btn btn-secondary btn-sm" style="width: 100%;">Vào Hoạt động 4 →</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- MỤC TIÊU & HỌC LIỆU TRÊN DESKTOP (2 Cột cân bằng) -->
+      <section class="section-block">
+        <div class="grid-2">
+          
+          <div class="card">
+            <h3 class="card-title" style="color: var(--color-brand);">
+              5 Kỹ Năng Em Sẽ Làm Chủ Sau Bài Học
+            </h3>
+            
+            <div style="margin-top: 0.65rem;">
+              <ul style="display: flex; flex-direction: column; gap: 0.45rem; padding-left: 1.15rem; font-size: 0.88rem; color: var(--text-secondary);">
+                <li><strong>1. Hiểu bản chất HTML:</strong> Nắm vững ngôn ngữ đánh dấu siêu văn bản, cấu tạo thẻ mở, nội dung và thẻ đóng.</li>
+                <li><strong>2. Thuộc lòng khung xương 7 dòng:</strong> Biết ý nghĩa của <code>&lt;!DOCTYPE html&gt;</code>, <code>&lt;html&gt;</code>, <code>&lt;head&gt;</code>, <code>&lt;body&gt;</code>.</li>
+                <li><strong>3. Tự tay viết trang web:</strong> Tạo tệp <code>.html</code> hiển thị tiêu đề tab, đề mục và đoạn văn bản.</li>
+                <li><strong>4. Định dạng văn bản:</strong> Sử dụng thành thạo thẻ đoạn văn (<code>&lt;p&gt;</code>), các cấp tiêu đề (<code>&lt;h1&gt;</code> đến <code>&lt;h6&gt;</code>) và làm nổi bật chữ (<code>&lt;em&gt;</code>, <code>&lt;hr&gt;</code>).</li>
+                <li><strong>5. Làm chủ công cụ:</strong> Biết dùng phần mềm soạn thảo (VS Code, Sublime Text, Notepad) và mở xem kết quả trên trình duyệt.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3 class="card-title" style="color: #0284c7;">
+              Kho Học Liệu & Công Cụ Tự Học Trực Tuyến
+            </h3>
+            <ul style="display: flex; flex-direction: column; gap: 0.65rem; margin-top: 0.65rem; font-size: 0.88rem;">
+              <li style="display: flex; align-items: center; justify-content: space-between; padding: 0.5rem 0.75rem; background: var(--bg-subtle); border-radius: var(--radius-xs);">
+                <span><strong>Trang tự học HTML chuẩn W3Schools:</strong></span>
+                <a href="https://www.w3schools.com/html/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">Mở W3Schools ↗</a>
+              </li>
+              <li style="display: flex; align-items: center; justify-content: space-between; padding: 0.5rem 0.75rem; background: var(--bg-subtle); border-radius: var(--radius-xs);">
+                <span><strong>Tài liệu MDN Web Docs (Tiếng Việt):</strong></span>
+                <a href="https://developer.mozilla.org/vi/docs/Web/HTML" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">Mở MDN ↗</a>
+              </li>
+              <li style="display: flex; align-items: center; justify-content: space-between; padding: 0.5rem 0.75rem; background: var(--bg-subtle); border-radius: var(--radius-xs);">
+                <span><strong>Video giới thiệu về HTML (YouTube):</strong></span>
+                <a href="https://www.youtube.com/watch?v=xKuJrmlCdig" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">Xem Video ↗</a>
+              </li>
+              <li style="display: flex; align-items: center; justify-content: space-between; padding: 0.5rem 0.75rem; background: var(--bg-subtle); border-radius: var(--radius-xs);">
+                <span><strong>Tải phần mềm lập trình VS Code:</strong></span>
+                <a href="https://code.visualstudio.com/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">Tải về ↗</a>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- CTA BẮT ĐẦU BÀI HỌC -->
+      <div class="callout callout-info" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; padding: 1.25rem 1.75rem;">
+        <div>
+          <h3 style="color: var(--color-brand); font-size: 1.05rem; margin-bottom: 0.25rem;">Sẵn sàng khám phá thế giới web?</h3>
+          <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 0;">Bấm nút bên cạnh để bắt đầu ngay với <strong>Hoạt động 1: Khởi động</strong>.</p>
+        </div>
+        <a href="hd1.html" class="btn btn-primary">Bắt đầu Hoạt động 1 →</a>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h4>Bài 7: HTML và Cấu trúc trang web</h4>
+          <p style="margin-bottom: 0.5rem;">Hệ thống học tập điện tử tương tác phục vụ học sinh Môn Tin học 12 theo Chương trình GDPT 2018.</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Điều hướng bài học</h4>
+          <ul>
+            <li><a href="index.html">Trang chủ tổng quan</a></li>
+            <li><a href="hd1.html">Hoạt động 1: Khởi động</a></li>
+            <li><a href="hd2.html">Hoạt động 2: Kiến thức mới</a></li>
+            <li><a href="hd3.html">Hoạt động 3: Luyện tập</a></li>
+            <li><a href="hd4.html">Hoạt động 4: Infographic & Ôn tập</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Tài nguyên tự học</h4>
+          <ul>
+            <li><a href="https://www.w3schools.com/html/" target="_blank" rel="noopener noreferrer">W3Schools HTML Tutorial</a></li>
+            <li><a href="https://developer.mozilla.org/vi/docs/Web/HTML" target="_blank" rel="noopener noreferrer">MDN Web Docs HTML</a></li>
+            <li><a href="https://code.visualstudio.com/" target="_blank" rel="noopener noreferrer">Visual Studio Code</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2026 Tin học 12 Thống nhất - Bài 7: HTML và Cấu trúc trang web.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

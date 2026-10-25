@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hoạt động 1: Khởi động | Bài 7: HTML và Cấu trúc trang web</title>
+  <meta name="description" content="Hoạt động 1: Khởi động - Bài 7: HTML và Cấu trúc trang web. Tin học 12 Thống nhất.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- HEADER & NAVIGATION -->
+  <header class="site-header">
+    <div class="container nav-wrapper">
+      <a href="index.html" class="brand-badge" title="Quay về Trang chủ">
+        <div class="brand-icon-box">
+          <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+        </div>
+        <div class="brand-text">
+          <span class="title">BÀI 7: HTML VÀ CẤU TRÚC TRANG WEB</span>
+          <span class="subtitle">Tin học 12 • Thống nhất</span>
+        </div>
+      </a>
+
+      <nav aria-label="Điều hướng bài học">
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">Tổng quan</a></li>
+          <li><a href="hd1.html" class="nav-link active">HĐ 1: Khởi động</a></li>
+          <li><a href="hd2.html" class="nav-link">HĐ 2: Kiến thức mới</a></li>
+          <li><a href="hd3.html" class="nav-link">HĐ 3: Luyện tập</a></li>
+          <li><a href="hd4.html" class="nav-link">HĐ 4: Infographic & Ôn tập</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-tools">
+        <div class="timer-widget" title="Đồng hồ đếm giờ">
+          <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          <span id="timer-display" class="timer-display">05:00</span>
+          <select id="timer-preset" class="btn-tool" title="Chọn thời lượng">
+            <option value="5" selected>5p</option>
+            <option value="7">7p</option>
+            <option value="10">10p</option>
+          </select>
+          <button id="timer-toggle" class="btn-tool" type="button">▶ Bắt đầu</button>
+          <button id="timer-reset" class="btn-tool" type="button" title="Đặt lại">↺</button>
+        </div>
+
+        <button id="btn-fullscreen" class="btn-tool" type="button" title="Chế độ chiếu toàn màn hình">
+          <svg class="icon-svg" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
+          Trình chiếu
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- STEPPER TIMELINE -->
+  <nav class="stepper-section" aria-label="Tiến trình học tập">
+    <div class="container">
+      <div class="stepper-nav">
+        <div class="stepper-line"></div>
+        
+        <a href="index.html" class="stepper-step completed">
+          <div class="step-circle">✓</div>
+          <span class="step-label">Tổng quan</span>
+        </a>
+
+        <a href="hd1.html" class="stepper-step active">
+          <div class="step-circle">1</div>
+          <span class="step-label">Khởi động (5')</span>
+        </a>
+
+        <a href="hd2.html" class="stepper-step">
+          <div class="step-circle">2</div>
+          <span class="step-label">Kiến thức mới</span>
+        </a>
+
+        <a href="hd3.html" class="stepper-step">
+          <div class="step-circle">3</div>
+          <span class="step-label">Luyện tập</span>
+        </a>
+
+        <a href="hd4.html" class="stepper-step">
+          <div class="step-circle">4</div>
+          <span class="step-label">Infographic & Ôn tập</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <section class="hero-banner">
+    <div class="container">
+      <div class="hero-content">
+        <div class="badge-tag">
+          <span>HOẠT ĐỘNG 1 • KHỞI ĐỘNG</span>
+        </div>
+        <h1 class="hero-title">Khám Phá Thế Giới Web & Ngôn Ngữ HTML</h1>
+        <p class="hero-subtitle">
+          Từ trải nghiệm lướt web mỗi ngày đến câu hỏi: Điều gì thực sự ẩn giấu đằng sau những trang web lung linh trên màn hình?
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+    <div class="container">
+
+      <!-- BƯỚC 1: CÂU HỎI ĐẶT VẤN ĐỀ -->
+      <section class="section-block">
+        <div class="section-header">
+          <h2 class="section-title">
+            <span class="section-num">1</span>
+            Câu hỏi gợi mở – Đặt vấn đề vào bài
+          </h2>
+        </div>
+
+        <div class="card" style="border-left: 4px solid var(--color-brand);">
+          <h3 style="font-size: 1.2rem; color: var(--color-brand); margin-bottom: 0.65rem;">
+            "Có bao giờ cả lớp thắc mắc: Làm thế nào để tạo ra được một trang web mà mình thường xuyên truy cập hằng ngày hay không?"
+          </h3>
+          <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 1rem;">
+            Hằng ngày chúng ta mở điện thoại hoặc máy tính lên đọc báo (VnExpress, Dân Trí), tra cứu Google, xem YouTube hay lướt mạng xã hội... Theo em, người ta dùng cách gì để xây dựng nên những trang web ấy?
+          </p>
+
+          <details class="card" style="background: var(--bg-subtle); padding: 1rem; border: 1px dashed var(--border-strong); margin: 0;">
+            <summary style="font-weight: 700; color: var(--color-brand); cursor: pointer; user-select: none;">
+              Bấm để xem phân tích và chốt vấn đề của Giáo viên
+            </summary>
+            <div style="margin-top: 0.75rem; line-height: 1.65; color: var(--text-primary);">
+              <div class="callout callout-success" style="margin-top: 0.35rem;">
+                <div class="callout-title">Kết luận của Giáo viên:</div>
+                <p style="margin-bottom: 0.45rem;">
+                  • Rất nhiều bạn nghĩ rằng trang web cần những phần mềm đồ họa cao siêu hoặc các dòng code bí ẩn khó hiểu.
+                </p>
+                <p style="margin-bottom: 0.45rem;">
+                  • Thực chất, tất cả các trang web mà em xem được hiển thị bởi các <strong>trình duyệt web</strong> (Google Chrome, Cốc Cốc, Safari, Edge, Firefox...) đều bắt nguồn từ <strong>các tệp văn bản thuần túy</strong>!
+                </p>
+                <p style="margin: 0;">
+                  • Các tệp văn bản này được gọi là <strong>trang nguồn (source code)</strong>. Và công cụ, ngôn ngữ phổ biến nhất toàn cầu để xây dựng nên cấu trúc của trang web chính là <strong>HTML</strong>.
+                </p>
+              </div>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <!-- BƯỚC 2: QUAN SÁT MÃ NGUỒN VS TRÌNH DUYỆT -->
+      <section class="section-block">
+        <div class="section-header">
+          <h2 class="section-title">
+            <span class="section-num">2</span>
+            Quan sát trực quan: Mã nguồn (Source Code) vs Kết quả trên Trình duyệt
+          </h2>
+          <span style="font-size: 0.82rem; color: var(--text-muted);">(Tài liệu minh họa từ KHBD - Nhấp vào ảnh để phóng to)</span>
+        </div>
+
+        <div class="grid-2">
+          
+          <div class="card">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.65rem;">
+              <h3 class="card-title" style="margin: 0; font-size: 1.05rem; color: #0284c7;">
+                1. Tệp Mã nguồn (HTML Source Code)
+              </h3>
+              <span class="badge-tag" style="margin: 0;">Soạn thảo trên máy</span>
+            </div>
+            
+            <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.65rem;">
+              Mã nguồn được lập trình viên viết bằng các ký tự và cặp thẻ HTML trong trình soạn thảo:
+            </p>
+
+            <figure class="teaching-figure">
+              <div class="figure-img-wrap">
+                <img src="assets/image11.png" alt="Mã nguồn HTML" class="teaching-img zoomable-img">
+              </div>
+              <figcaption class="figure-caption">Hình 7.1: Tệp mã nguồn HTML chứa các thẻ &lt;h1&gt;, &lt;p&gt;, &lt;hr&gt;</figcaption>
+            </figure>
+
+            <div class="code-window" style="margin-top: 0.75rem;">
+              <div class="code-header">
+                <div class="code-dots"><span class="dot-red"></span><span class="dot-yellow"></span><span class="dot-green"></span></div>
+                <span class="code-title">demo1.html</span>
+                <button class="btn-copy" data-target="code-sample-hd1">Sao chép</button>
+              </div>
+              <pre class="code-content"><code id="code-sample-hd1"><span class="hl-doctype">&lt;!DOCTYPE html&gt;</span>
+<span class="hl-tag">&lt;html <span class="hl-attr">lang</span>=<span class="hl-val">"vi"</span>&gt;</span>
+<span class="hl-tag">&lt;head&gt;</span>
+    <span class="hl-tag">&lt;meta <span class="hl-attr">charset</span>=<span class="hl-val">"UTF-8"</span>&gt;</span>
+    <span class="hl-tag">&lt;title&gt;</span>Tên trang web<span class="hl-tag">&lt;/title&gt;</span>
+<span class="hl-tag">&lt;/head&gt;</span>
+<span class="hl-tag">&lt;body&gt;</span>
+    <span class="hl-tag">&lt;h1&gt;</span>Trang web và HTML<span class="hl-tag">&lt;/h1&gt;</span>
+    <span class="hl-tag">&lt;p&gt;</span>Đây là dòng đầu tiên<span class="hl-tag">&lt;/p&gt;</span>
+    <span class="hl-tag">&lt;hr&gt;</span><span class="hl-comm">&lt;!-- Một đường kẻ ngang --&gt;</span>
+    <span class="hl-tag">&lt;p&gt;</span>Đây là dòng cuối cùng<span class="hl-tag">&lt;/p&gt;</span>
+<span class="hl-tag">&lt;/body&gt;</span>
+<span class="hl-tag">&lt;/html&gt;</span></code></pre>
+            </div>
+          </div>
+
+          <div class="card">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.65rem;">
+              <h3 class="card-title" style="margin: 0; font-size: 1.05rem; color: #059669;">
+                2. Kết quả Hiển thị trên Trình duyệt
+              </h3>
+              <span class="badge-tag" style="background: #ecfdf5; color: #065f46; border-color: #a7f3d0; margin: 0;">Trình duyệt biên dịch</span>
+            </div>
+
+            <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.65rem;">
+              Trình duyệt đọc hiểu các thẻ HTML và vẽ nên giao diện trực quan cho người dùng xem:
+            </p>
+
+            <figure class="teaching-figure">
+              <div class="figure-img-wrap">
+                <img src="assets/image12.png" alt="Trang web hiển thị trên trình duyệt" class="teaching-img zoomable-img">
+              </div>
+              <figcaption class="figure-caption">Hình 7.2: Trình duyệt web đã hiển thị tiêu đề lớn, đoạn văn và đường kẻ ngang</figcaption>
+            </figure>
+
+            <div class="callout callout-info" style="margin-top: 0.75rem;">
+              <div class="callout-title">Nhận xét trực quan:</div>
+              <ul style="font-size: 0.85rem; padding-left: 1.15rem; color: var(--text-secondary); margin: 0;">
+                <li>Người dùng <strong>chỉ nhìn thấy nội dung</strong> văn bản, không hề thấy các cặp thẻ <code>&lt;h1&gt;</code> hay <code>&lt;p&gt;</code>!</li>
+                <li>Thẻ <code>&lt;h1&gt;</code> làm chữ to và đậm (tiêu đề).</li>
+                <li>Thẻ <code>&lt;hr&gt;</code> tạo ra một đường kẻ phân cách ngang.</li>
+                <li>Thẻ <code>&lt;title&gt;</code> hiển thị tên trên tab trình duyệt chứ không nằm trong trang trắng.</li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- BƯỚC 3: ĐỊNH NGHĨA CỐT LÕI -->
+      <section class="section-block">
+        <div class="section-header">
+          <h2 class="section-title">
+            <span class="section-num">3</span>
+            Khái niệm & Định nghĩa Cốt lõi về HTML
+          </h2>
+        </div>
+
+        <div class="grid-3">
+          <div class="card" style="border-top: 3px solid var(--color-brand);">
+            <h3 class="card-title">HTML là gì?</h3>
+            <p style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6;">
+              <strong>HTML</strong> là viết tắt của cụm từ <em>HyperText Markup Language</em> (Ngôn ngữ đánh dấu siêu văn bản). Đây là một bộ quy tắc dùng để thiết lập cấu trúc và xác định cách trình bày nội dung trên trang web.
+            </p>
+          </div>
+
+          <div class="card" style="border-top: 3px solid #0284c7;">
+            <h3 class="card-title">Tệp Trang Web</h3>
+            <p style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6;">
+              Các trang web thường được lưu trữ dưới dạng tệp văn bản có phần mở rộng (đuôi tệp) là <code>.html</code> hoặc <code>.htm</code>, được gọi chung là <strong>trang HTML</strong>.
+            </p>
+          </div>
+
+          <div class="card" style="border-top: 3px solid #059669;">
+            <h3 class="card-title">Thẻ đánh dấu (Tag)</h3>
+            <p style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6;">
+              Trên trang HTML, nội dung được bao bọc bởi các ký hiệu đặc biệt gọi là <strong>thẻ đánh dấu HTML (HTML tags)</strong>, ví dụ: <code>&lt;head&gt;</code>, <code>&lt;title&gt;</code>, <code>&lt;body&gt;</code>, <code>&lt;h1&gt;</code>, <code>&lt;p&gt;</code>...
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- BƯỚC 4: THỬ THÁCH NHANH -->
+      <section class="section-block">
+        <div class="section-header">
+          <h2 class="section-title">
+            <span class="section-num">4</span>
+            Khởi động tư duy – Trả lời nhanh cùng Giáo viên
+          </h2>
+        </div>
+
+        <div class="grid-2">
+          
+          <div class="quiz-card">
+            <div class="quiz-question">
+              <span class="quiz-q-num">1</span>
+              <span>Cụm từ viết tắt <strong>HTML</strong> có nghĩa tiếng Anh đầy đủ là gì?</span>
+            </div>
+            <div class="quiz-options">
+              <button class="quiz-btn" data-correct="false" data-explain="Hyperlinks Text Management Language không phải là tên đúng của HTML.">
+                <span>A.</span> Hyperlinks Text Management Language
+              </button>
+              <button class="quiz-btn" data-correct="true" data-explain="Chính xác! HyperText Markup Language có nghĩa tiếng Việt là 'Ngôn ngữ đánh dấu siêu văn bản'.">
+                <span>B.</span> HyperText Markup Language
+              </button>
+              <button class="quiz-btn" data-correct="false" data-explain="High Tech Modern Language là phán đoán sai.">
+                <span>C.</span> High Tech Modern Language
+              </button>
+              <button class="quiz-btn" data-correct="false" data-explain="Home Tool Markup Language không chính xác.">
+                <span>D.</span> Home Tool Markup Language
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-card">
+            <div class="quiz-question">
+              <span class="quiz-q-num">2</span>
+              <span>Khi người dùng lướt web trên Chrome hay Cốc Cốc, người dùng sẽ nhìn thấy gì?</span>
+            </div>
+            <div class="quiz-options">
+              <button class="quiz-btn" data-correct="false" data-explain="Người dùng thông thường không nhìn thấy các thẻ &lt;h1&gt;, &lt;p&gt; thô trên trang.">
+                <span>A.</span> Toàn bộ các dòng mã nguồn HTML có dấu &lt; &gt;
+              </button>
+              <button class="quiz-btn" data-correct="true" data-explain="Tuyệt vời! Trình duyệt web đóng vai trò biên dịch mã HTML và kết xuất thành văn bản, hình ảnh, bố cục đẹp mắt.">
+                <span>B.</span> Nội dung được trình duyệt biên dịch và hiển thị trực quan
+              </button>
+              <button class="quiz-btn" data-correct="false" data-explain="Trình duyệt không báo lỗi màn hình đen.">
+                <span>C.</span> Một màn hình đen báo lỗi không đọc được mã
+              </button>
+              <button class="quiz-btn" data-correct="false" data-explain="HTML là văn bản có định dạng do trình duyệt dịch, không phải file ảnh nén.">
+                <span>D.</span> Một tệp hình ảnh tĩnh duy nhất
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ĐIỀU HƯỚNG TRANG -->
+      <div class="page-nav-bar">
+        <a href="index.html" class="btn btn-secondary">← Trang chủ Tổng quan</a>
+        <a href="hd2.html" class="btn btn-primary">
+          Tiến tới Hoạt động 2: Hình thành kiến thức mới →
+        </a>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- NATIVE MODAL DIALOG CHO ẢNH PHÓNG TO -->
+  <dialog id="image-zoom-modal" class="image-modal">
+    <div class="modal-content-wrap">
+      <button id="modal-close-btn" class="modal-close-btn" type="button" title="Đóng ảnh">✕</button>
+      <img id="modal-zoom-img" src="" alt="Hình ảnh phóng to">
+      <p id="modal-zoom-caption" style="text-align: center; margin-top: 0.65rem; font-size: 0.85rem; color: var(--text-muted);"></p>
+    </div>
+  </dialog>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>© 2026 Tin học 12 Thống nhất - Bài 7: HTML và Cấu trúc trang web. Giáo viên: Nguyễn Lê Minh Ngọc.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hoạt động 2: Hình thành kiến thức mới | Bài 7: HTML và Cấu trúc trang web</title>
+  <meta name="description" content="Hình thành kiến thức mới Bài 7 Tin học 12. Tương tác cây thông tin DOM và kéo thả cấu trúc HTML.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- HEADER & NAVIGATION -->
+  <header class="site-header">
+    <div class="container nav-wrapper">
+      <a href="index.html" class="brand-badge" title="Quay về Trang chủ">
+        <div class="brand-icon-box">
+          <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+        </div>
+        <div class="brand-text">
+          <span class="title">BÀI 7: HTML VÀ CẤU TRÚC TRANG WEB</span>
+          <span class="subtitle">Tin học 12 • Thống nhất</span>
+        </div>
+      </a>
+
+      <nav aria-label="Điều hướng bài học">
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">Tổng quan</a></li>
+          <li><a href="hd1.html" class="nav-link">HĐ 1: Khởi động</a></li>
+          <li><a href="hd2.html" class="nav-link active">HĐ 2: Kiến thức mới</a></li>
+          <li><a href="hd3.html" class="nav-link">HĐ 3: Luyện tập</a></li>
+          <li><a href="hd4.html" class="nav-link">HĐ 4: Infographic & Ôn tập</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-tools">
+        <div class="timer-widget" title="Đồng hồ đếm giờ">
+          <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          <span id="timer-display" class="timer-display">20:00</span>
+          <select id="timer-preset" class="btn-tool" title="Chọn thời lượng">
+            <option value="15">15p</option>
+            <option value="20" selected>20p</option>
+            <option value="30">30p</option>
+            <option value="50">50p</option>
+          </select>
+          <button id="timer-toggle" class="btn-tool" type="button">▶ Bắt đầu</button>
+          <button id="timer-reset" class="btn-tool" type="button" title="Đặt lại">↺</button>
+        </div>
+
+        <button id="btn-fullscreen" class="btn-tool" type="button" title="Chế độ chiếu toàn màn hình">
+          <svg class="icon-svg" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
+          Trình chiếu
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- STEPPER TIMELINE -->
+  <nav class="stepper-section" aria-label="Tiến trình học tập">
+    <div class="container">
+      <div class="stepper-nav">
+        <div class="stepper-line"></div>
+        
+        <a href="index.html" class="stepper-step completed">
+          <div class="step-circle">✓</div>
+          <span class="step-label">Tổng quan</span>
+        </a>
+
+        <a href="hd1.html" class="stepper-step completed">
+          <div class="step-circle">✓</div>
+          <span class="step-label">Khởi động</span>
+        </a>
+
+        <a href="hd2.html" class="stepper-step active">
+          <div class="step-circle">2</div>
+          <span class="step-label">Kiến thức mới</span>
+        </a>
+
+        <a href="hd3.html" class="stepper-step">
+          <div class="step-circle">3</div>
+          <span class="step-label">Luyện tập</span>
+        </a>
+
+        <a href="hd4.html" class="stepper-step">
+          <div class="step-circle">4</div>
+          <span class="step-label">Infographic & Ôn tập</span>
+        </a>
+      </div>
+    </div>
+  </nav>  <!-- HERO SECTION -->
+  <section class="hero-banner">
+    <div class="container">
+      <div class="hero-content">
+        <div class="badge-tag">
+          <span>HOẠT ĐỘNG 2 • TRỌNG TÂM KIẾN THỨC</span>
+        </div>
+        <h1 class="hero-title">Thẻ, Phần Tử HTML, Cấu Trúc Trang Web & Công Cụ Soạn Thảo</h1>
+        <p class="hero-subtitle">
+          Khám phá quy tắc xây dựng văn bản siêu liên kết: Từ cấu tạo phần tử, sơ đồ cây thông tin DOM tương tác, xưởng kéo thả lắp ráp cấu trúc HTML, đến phòng thí nghiệm lập trình trực tiếp.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+    <div class="container">
+
+      <!-- DESKTOP DOCUMENTATION DUAL-PANE LAYOUT -->
+      <div class="desktop-doc-layout">
+
+        <!-- CỘT TRÁI: DESKTOP STICKY SIDEBAR (MỤC LỤC & ĐIỀU HƯỚNG NHANH) -->
+        <aside class="desktop-sidebar">
+          <div class="desktop-sidebar-header">
+            <span class="sidebar-title">Mục lục kiến thức</span>
+            <span style="font-size: 0.72rem; color: var(--color-brand); font-weight: 700;">HĐ 2</span>
+          </div>
+
+          <ul class="sidebar-nav-list">
+            <li>
+              <a href="#phan-1" class="sidebar-item-link active">
+                <span class="pill-num">1</span>
+                <span>Thẻ & Phần tử HTML</span>
+              </a>
+            </li>
+            <li>
+              <a href="#bang-the" class="sidebar-item-link">
+                <span class="pill-num">2</span>
+                <span>Bảng thẻ &lt;p&gt; và &lt;h1&gt;</span>
+              </a>
+            </li>
+            <li>
+              <a href="#luu-y-the" class="sidebar-item-link">
+                <span class="pill-num">3</span>
+                <span>4 Lưu ý khi viết thẻ</span>
+              </a>
+            </li>
+            <li>
+              <a href="#phan-2" class="sidebar-item-link">
+                <span class="pill-num">4</span>
+                <span>Cấu trúc 7 thành phần</span>
+              </a>
+            </li>
+            <li>
+              <a href="#interactive-tree" class="sidebar-item-link">
+                <span class="pill-num">5</span>
+                <span>🌳 Cây thông tin DOM</span>
+              </a>
+            </li>
+            <li>
+              <a href="#dnd-workshop" class="sidebar-item-link">
+                <span class="pill-num">6</span>
+                <span>🧩 Xưởng kéo thả HTML</span>
+              </a>
+            </li>
+            <li>
+              <a href="#phan-mem" class="sidebar-item-link">
+                <span class="pill-num">7</span>
+                <span>Phần mềm soạn thảo</span>
+              </a>
+            </li>
+            <li>
+              <a href="#live-playground" class="sidebar-item-link">
+                <span class="pill-num">8</span>
+                <span>⚡ Trình chạy thử Live</span>
+              </a>
+            </li>
+          </ul>
+
+          <div style="margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid var(--border-subtle);">
+            <div style="font-size: 0.72rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.5rem;">Ôn tập nhanh</div>
+            <a href="hd4.html#infographic" class="btn btn-secondary btn-sm" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 0.35rem; font-size: 0.78rem;">
+              📊 Xem Infographic Tổng Hợp
+            </a>
+          </div>
+        </aside>
+
+        <!-- CỘT PHẢI: NỘI DUNG BÀI HỌC CHÍNH (DESKTOP MAIN BODY) -->
+        <div class="desktop-main-body">
+
+          <!-- ====================================================================
+               PHẦN 1: THẺ ĐÁNH DẤU VÀ PHẦN TỬ HTML
+               ==================================================================== -->
+          <section id="phan-1" class="section-block">
+            <div class="section-header">
+              <h2 class="section-title">
+                <span class="section-num">I</span>
+                Phần 1: Thẻ Đánh Dấu (HTML Tags) & Phần Tử HTML (HTML Elements)
+              </h2>
+            </div>
+
+            <!-- 1.1 CẤU TẠO PHẦN TỬ HTML (2 Cột Desktop cân đối) -->
+            <div class="card" style="margin-bottom: 1.5rem;">
+              <h3 class="card-title">1. Khái niệm và Sơ đồ Cấu tạo một Phần tử HTML</h3>
+              
+              <div class="grid-2" style="align-items: center; margin-top: 0.75rem;">
+                <div>
+                  <p style="font-size: 0.92rem; color: var(--text-secondary); margin-bottom: 0.85rem; line-height: 1.65;">
+                    • <strong>Thẻ đánh dấu (HTML Tag):</strong> Là từ khóa được đặt trong cặp dấu ngoặc nhọn <code>&lt; &gt;</code>. Thông thường, thẻ đi thành cặp gồm <strong>thẻ mở</strong> (bắt đầu) và <strong>thẻ đóng</strong> (kết thúc có dấu gạch chéo <code>/</code>).<br><br>
+                    • <strong>Phần tử HTML (HTML Element):</strong> Là toàn bộ bao gồm <em>thẻ mở</em>, <em>nội dung</em> ở giữa, và <em>thẻ đóng</em>.
+                  </p>
+                  
+                  <div class="element-formula-strip">
+                    <span style="background: #e11d48; padding: 0.25rem 0.6rem; border-radius: 4px;">&lt;tên_thẻ&gt;</span>
+                    <span>+</span>
+                    <span style="background: #0284c7; padding: 0.25rem 0.75rem; border-radius: 4px;">Nội dung hiển thị</span>
+                    <span>+</span>
+                    <span style="background: #e11d48; padding: 0.25rem 0.6rem; border-radius: 4px;">&lt;/tên_thẻ&gt;</span>
+                  </div>
+                </div>
+
+                <div style="background: var(--bg-subtle); border-radius: var(--radius-sm); padding: 1rem; border: 1px solid var(--border-subtle); text-align: center;">
+                  <figure class="teaching-figure" style="margin: 0 auto;">
+                    <div class="figure-img-wrap">
+                      <img src="assets/image3.png" alt="Sơ đồ cấu tạo phần tử HTML: Vị trí bắt đầu, Nội dung, Vị trí kết thúc" class="teaching-img zoomable-img">
+                    </div>
+                    <figcaption class="figure-caption">Hình 7.3: Mô hình cấu trúc của một phần tử HTML điển hình</figcaption>
+                  </figure>
+                </div>
+              </div>
+            </div>
+
+            <!-- 1.2 BẢNG THẺ CƠ BẢN: P VÀ H1 -->
+            <div id="bang-the" class="card" style="margin-bottom: 1.5rem;">
+              <h3 class="card-title">2. Bảng Thẻ Đoạn Văn &lt;p&gt; và Tiêu Đề &lt;h1&gt;</h3>
+              <div class="data-table-wrap">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th style="width: 12%;">Tên Thẻ</th>
+                      <th style="width: 28%;">Ý nghĩa thẻ</th>
+                      <th style="width: 35%;">Mã nguồn HTML (Code)</th>
+                      <th style="width: 25%;">Hiển thị trên trình duyệt</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><code style="color: #e11d48; font-weight: bold; font-size: 1rem;">&lt;p&gt;</code></td>
+                      <td><strong>Đoạn văn bản</strong> (Paragraph) – Trình duyệt tự động tạo đoạn văn hoàn chỉnh và xuống dòng.</td>
+                      <td>
+                        <div class="code-window" style="margin: 0;">
+                          <pre class="code-content" style="padding: 0.4rem 0.65rem;"><code class="hl-tag">&lt;p&gt;</code><span class="hl-text">Đây là dòng đầu tiên</span><code class="hl-tag">&lt;/p&gt;</code></pre>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="figure-img-wrap" style="padding: 0.35rem; background: #fff; border: 1px solid var(--border-subtle); border-radius: var(--radius-xs);">
+                          <img src="assets/image1.png" alt="Hiển thị đoạn văn p" class="zoomable-img" style="max-height: 42px;">
+                        </div>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td><code style="color: #e11d48; font-weight: bold; font-size: 1rem;">&lt;h1&gt;</code></td>
+                      <td><strong>Tiêu đề của văn bản</strong> (Heading 1) – Tiêu đề cấp lớn nhất, quan trọng nhất của trang.</td>
+                      <td>
+                        <div class="code-window" style="margin: 0;">
+                          <pre class="code-content" style="padding: 0.4rem 0.65rem;"><code class="hl-tag">&lt;h1&gt;</code><span class="hl-text">Trang web và HTML</span><code class="hl-tag">&lt;/h1&gt;</code></pre>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="figure-img-wrap" style="padding: 0.35rem; background: #fff; border: 1px solid var(--border-subtle); border-radius: var(--radius-xs);">
+                          <img src="assets/image5.png" alt="Hiển thị tiêu đề h1" class="zoomable-img" style="max-height: 46px;">
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>               <div class="code-window" style="margin: 0;">
+                      <pre class="code-content" style="padding: 0.4rem 0.65rem;"><code class="hl-tag">&lt;h1&gt;</code><span class="hl-text">Trang web và HTML</span><code class="hl-tag">&lt;/h1&gt;</code></pre>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="figure-img-wrap" style="padding: 0.35rem; background: #fff; border: 1px solid var(--border-subtle); border-radius: var(--radius-xs);">
+                      <img src="assets/image5.png" alt="Hiển thị tiêu đề h1" class="zoomable-img" style="max-height: 46px;">
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 1.3 BỐN LƯU Ý VÀNG -->
+        <div id="luu-y-the" class="card" style="border-top: 3px solid var(--color-warning);">
+          <h3 class="card-title" style="color: #b45309;">3. Bốn Lưu Ý "Vàng" Khi Soạn Thảo Thẻ HTML</h3>
+          
+          <div class="grid-2">
+            
+            <div class="callout callout-info" style="margin: 0;">
+              <div class="callout-title">1. Không phân biệt chữ hoa - thường</div>
+              <p style="font-size: 0.88rem; margin-bottom: 0.35rem;">
+                Tên thẻ HTML không phân biệt hoa thường. <code>&lt;p&gt;</code>, <code>&lt;P&gt;</code> hay <code>&lt;h1&gt;</code>, <code>&lt;H1&gt;</code> đều hợp lệ.
+              </p>
+              <small style="color: var(--color-brand); font-weight: 600;">
+                ★ Khuyến nghị chuẩn: Luôn viết chữ thường (lowercase) để mã nguồn nhất quán, dễ đọc.
+              </small>
+            </div>
+
+            <div class="callout callout-success" style="margin: 0;">
+              <div class="callout-title">2. Các thẻ có thể lồng nhau (Nested Tags)</div>
+              <p style="font-size: 0.88rem; margin-bottom: 0.35rem;">
+                Có thể đặt thẻ con bên trong thẻ cha, ví dụ dùng <code>&lt;em&gt;</code> để in nghiêng trong <code>&lt;p&gt;</code>:
+              </p>
+              <div style="background: #fff; padding: 0.5rem; border-radius: 4px; border: 1px solid var(--border-subtle); display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; flex-wrap: wrap;">
+                <div>
+                  <span style="font-size: 0.75rem; color: var(--text-muted); display: block;">Mã nguồn lồng (Hình 7.4):</span>
+                  <img src="assets/image2.png" alt="Mã lồng p và em" class="zoomable-img" style="max-height: 24px;">
+                </div>
+                <div>
+                  <span style="font-size: 0.75rem; color: var(--text-muted); display: block;">Kết quả hiển thị (Hình 7.5):</span>
+                  <img src="assets/image4.png" alt="Kết quả in nghiêng" class="zoomable-img" style="max-height: 24px;">
+                </div>
+              </div>
+            </div>
+
+            <div class="callout callout-warning" style="margin: 0;">
+              <div class="callout-title">3. Thẻ có thể đi kèm Thuộc tính (Attributes)</div>
+              <p style="font-size: 0.88rem; margin: 0;">
+                Mỗi thẻ có thể mang thêm thông tin thuộc tính bên trong thẻ mở. Ví dụ thuộc tính <code>style</code> để đổi màu chữ: <br>
+                <code>&lt;p style="color: blue;"&gt;Đoạn văn chữ xanh&lt;/p&gt;</code>
+              </p>
+            </div>
+
+            <div class="callout" style="margin: 0; background: #f8fafc; border-left-color: #64748b;">
+              <div class="callout-title">4. Thẻ đơn, Khoảng trắng & Chú thích</div>
+              <ul style="font-size: 0.85rem; color: var(--text-secondary); padding-left: 1.15rem; margin: 0;">
+                <li><strong>Thẻ đơn:</strong> Không cần thẻ đóng, ví dụ kẻ ngang <code>&lt;hr&gt;</code> hoặc ngắt dòng <code>&lt;br&gt;</code>.</li>
+                <li><strong>Khoảng trắng & Enter:</strong> Trình duyệt gộp nhiều dấu cách thành 1 và bỏ qua phím Enter. Muốn xuống dòng phải dùng <code>&lt;br&gt;</code> hoặc <code>&lt;p&gt;</code>.</li>
+                <li><strong>Chú thích (Comments):</strong> <code>&lt;!-- Nội dung ghi chú --&gt;</code> không hiển thị trên trình duyệt.</li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           PHẦN 2: CẤU TRÚC TỆP HTML & CÁC CÔNG CỤ TƯƠNG TÁC ĐỈNH CAO
+           ==================================================================== -->
+      <section id="phan-2" class="section-block">
+        <div class="section-header">
+          <h2 class="section-title">
+            <span class="section-num">II</span>
+            Phần 2: Cấu Trúc Cơ Bản Của Tệp HTML & Cây Thông Tin DOM
+          </h2>
+        </div>
+
+        <!-- 2.1 CẤU TRÚC 7 THÀNH PHẦN CHUẨN -->
+        <div class="card" style="margin-bottom: 2rem;">
+          <h3 class="card-title">1. Khung Xương Chuẩn Của Tệp HTML (7 Thành phần chính)</h3>
+          
+          <div class="grid-2" style="align-items: start;">
+            
+            <div>
+              <div class="code-window">
+                <div class="code-header">
+                  <div class="code-dots"><span class="dot-red"></span><span class="dot-yellow"></span><span class="dot-green"></span></div>
+                  <span class="code-title">cautruc_chuan.html</span>
+                  <button class="btn-copy" data-target="code-cautruc-chuan">Sao chép</button>
+                </div>
+                <pre class="code-content"><code id="code-cautruc-chuan"><span class="hl-doctype">&lt;!DOCTYPE html&gt;</span>
+<span class="hl-tag">&lt;html <span class="hl-attr">lang</span>=<span class="hl-val">"vi"</span>&gt;</span>
+<span class="hl-tag">&lt;head&gt;</span>
+    <span class="hl-tag">&lt;meta <span class="hl-attr">charset</span>=<span class="hl-val">"UTF-8"</span>&gt;</span>
+    <span class="hl-tag">&lt;meta <span class="hl-attr">name</span>=<span class="hl-val">"viewport"</span> <span class="hl-attr">content</span>=<span class="hl-val">"width=device-width, initial-scale=1.0"</span>&gt;</span>
+    <span class="hl-tag">&lt;title&gt;</span>Tên trang web<span class="hl-tag">&lt;/title&gt;</span>
+<span class="hl-tag">&lt;/head&gt;</span>
+<span class="hl-tag">&lt;body&gt;</span>
+    <span class="hl-tag">&lt;h1&gt;</span>Trang web và HTML<span class="hl-tag">&lt;/h1&gt;</span>
+    <span class="hl-tag">&lt;p&gt;</span>Đây là dòng đầu tiên<span class="hl-tag">&lt;/p&gt;</span>
+    <span class="hl-tag">&lt;hr&gt;</span><span class="hl-comm">&lt;!-- Một đường kẻ ngang --&gt;</span>
+    <span class="hl-tag">&lt;p&gt;&lt;em&gt;</span>Đây là dòng cuối cùng<span class="hl-tag">&lt;/em&gt;&lt;/p&gt;</span>
+<span class="hl-tag">&lt;/body&gt;</span>
+<span class="hl-tag">&lt;/html&gt;</span></code></pre>
+              </div>
+
+              <figure class="teaching-figure">
+                <div class="figure-img-wrap">
+                  <img src="assets/image6.png" alt="Mã nguồn mẫu từ KHBD" class="teaching-img zoomable-img">
+                </div>
+                <figcaption class="figure-caption">Hình 7.6: Bản chụp mã nguồn hoàn chỉnh trong Kế hoạch bài dạy</figcaption>
+              </figure>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 0.65rem;">
+              <div style="padding: 0.75rem; background: var(--bg-subtle); border-radius: var(--radius-sm); border-left: 3px solid #6366f1;">
+                <strong style="color: #4338ca; font-size: 0.92rem;">1. Dòng đầu tiên: &lt;!DOCTYPE html&gt;</strong>
+                <p style="font-size: 0.85rem; color: var(--text-secondary); margin: 0.2rem 0 0;">Thông báo định dạng chuẩn HTML5 cho trình duyệt.</p>
+              </div>
+
+              <div style="padding: 0.75rem; background: var(--bg-subtle); border-radius: var(--radius-sm); border-left: 3px solid var(--color-brand);">
+                <strong style="color: var(--color-brand); font-size: 0.92rem;">2. Phần tử &lt;html&gt; (Bắt buộc)</strong>
+                <p style="font-size: 0.85rem; color: var(--text-secondary); margin: 0.2rem 0 0;">Phần tử gốc (Root) chứa toàn bộ các phần tử còn lại, phân 2 nhánh con: &lt;head&gt; và &lt;body&gt;.</p>
+              </div>
+
+              <div style="padding: 0.75rem; background: var(--bg-subtle); border-radius: var(--radius-sm); border-left: 3px solid #0284c7;">
+                <strong style="color: #0369a1; font-size: 0.92rem;">3. Phần tử &lt;head&gt; (Phần đầu trang)</strong>
+                <p style="font-size: 0.85rem; color: var(--text-secondary); margin: 0.2rem 0 0;">Chứa siêu dữ liệu, bảng mã, tiêu đề tab... không hiển thị trực tiếp lên trang trắng.</p>
+              </div>
+
+              <div style="padding: 0.75rem; background: var(--bg-subtle); border-radius: var(--radius-sm); border-left: 3px solid var(--color-success);">
+                <strong style="color: #065f46; font-size: 0.92rem;">4. Phần tử &lt;body&gt; (Thân trang web)</strong>
+                <p style="font-size: 0.85rem; color: var(--text-secondary); margin: 0.2rem 0 0;">Chứa toàn bộ nội dung hiển thị trực quan mà người xem nhìn thấy.</p>
+              </div>
+
+              <div style="padding: 0.75rem; background: var(--bg-subtle); border-radius: var(--radius-sm); border-left: 3px solid var(--color-warning);">
+                <strong style="color: #b45309; font-size: 0.92rem;">5. Khai báo &lt;meta charset="utf-8"&gt;</strong>
+                <p style="font-size: 0.85rem; color: var(--text-secondary); margin: 0.2rem 0 0;">Mã hóa Unicode UTF-8 giúp gõ tiếng Việt có dấu chuẩn đẹp.</p>
+              </div>
+
+              <div style="padding: 0.75rem; background: var(--bg-subtle); border-radius: var(--radius-sm); border-left: 3px solid #db2777;">
+                <strong style="color: #9d174d; font-size: 0.92rem;">6. Tiêu đề tab &lt;title&gt;</strong>
+                <p style="font-size: 0.85rem; color: var(--text-secondary); margin: 0.2rem 0 0;">Tên hiển thị trên thanh tab của trình duyệt và kết quả tìm kiếm.</p>
+              </div>
+
+              <div style="padding: 0.75rem; background: var(--bg-subtle); border-radius: var(--radius-sm); border-left: 3px solid #475569;">
+                <strong style="color: #1e293b; font-size: 0.92rem;">7. Nhóm thẻ nội dung: &lt;h1&gt;–&lt;h6&gt; & &lt;p&gt;</strong>
+                <p style="font-size: 0.85rem; color: var(--text-secondary); margin: 0.2rem 0 0;">Tiêu đề phân cấp từ lớn đến nhỏ; thẻ &lt;p&gt; chứa đoạn văn bản hoàn chỉnh.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- 2.2 TƯƠNG TÁC VỚI CÂY THÔNG TIN DOM (INTERACTIVE DOM TREE INSPECTOR) -->
+        <div id="interactive-tree" class="card" style="margin-bottom: 2rem; border-top: 4px solid #0284c7;">
+          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.75rem;">
+            <h3 class="card-title" style="margin: 0; color: #0284c7;">
+              2. Tương Tác Cây Thông Tin Trang Web (Interactive DOM Tree Inspector)
+            </h3>
+            <span class="badge-tag" style="background: #e0f2fe; color: #0369a1; margin: 0;">Bấm vào từng nút trên cây để khám phá</span>
+          </div>
+
+          <p style="font-size: 0.92rem; color: var(--text-muted); margin-bottom: 1.25rem;">
+            Một trang web được tổ chức dưới dạng <strong>cây phân cấp (DOM Tree)</strong>. Học sinh hãy nhấp chuột vào từng nút thẻ bên dưới để xem phân tích chi tiết vai trò, vị trí cha-con và dòng mã nguồn tương ứng:
+          </p>
+
+          <div class="dom-tree-wrapper">
+            
+            <!-- CÂY CẤU TRÚC PHÂN CẤP -->
+            <div class="tree-canvas">
+              
+              <!-- NÚT GỐC HTML -->
+              <div class="tree-node-item">
+                <button type="button" class="tree-btn selected" data-node="html">
+                  <span>&lt;html&gt;</span>
+                  <span class="node-tag-type">ROOT</span>
+                </button>
+
+                <!-- CÁC NHÁNH CON -->
+                <div class="tree-branch">
+                  
+                  <!-- NHÁNH HEAD -->
+                  <div class="tree-node-item">
+                    <button type="button" class="tree-btn" data-node="head">
+                      <span>&lt;head&gt;</span>
+                      <span class="node-tag-type">Metadata</span>
+                    </button>
+                    <div class="tree-branch">
+                      <div class="tree-node-item">
+                        <button type="button" class="tree-btn" data-node="meta">
+                          <span>&lt;meta&gt;</span>
+                          <span class="node-tag-type">Charset</span>
+                        </button>
+                      </div>
+                      <div class="tree-node-item">
+                        <button type="button" class="tree-btn" data-node="title">
+                          <span>&lt;title&gt;</span>
+                          <span class="node-tag-type">Tab Name</span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- NHÁNH BODY -->
+                  <div class="tree-node-item" style="margin-top: 0.75rem;">
+                    <button type="button" class="tree-btn" data-node="body">
+                      <span>&lt;body&gt;</span>
+                      <span class="node-tag-type">Hiển thị</span>
+                    </button>
+                    <div class="tree-branch">
+                      <div class="tree-node-item">
+                        <button type="button" class="tree-btn" data-node="h1">
+                          <span>&lt;h1&gt;</span>
+                          <span class="node-tag-type">Heading</span>
+                        </button>
+                      </div>
+                      <div class="tree-node-item">
+                        <button type="button" class="tree-btn" data-node="p1">
+                          <span>&lt;p&gt;</span>
+                          <span class="node-tag-type">Đoạn 1</span>
+                        </button>
+                      </div>
+                      <div class="tree-node-item">
+                        <button type="button" class="tree-btn" data-node="hr">
+                          <span>&lt;hr&gt;</span>
+                          <span class="node-tag-type">Kẻ ngang</span>
+                        </button>
+                      </div>
+                      <div class="tree-node-item">
+                        <button type="button" class="tree-btn" data-node="p2">
+                          <span>&lt;p&gt;</span>
+                          <span class="node-tag-type">Đoạn 2</span>
+                        </button>
+                        <div class="tree-branch">
+                          <div class="tree-node-item">
+                            <button type="button" class="tree-btn" data-node="em">
+                              <span>&lt;em&gt;</span>
+                              <span class="node-tag-type">In nghiêng</span>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+
+            <!-- BẢNG INSPECTOR CHI TIẾT THÔNG TIN THẺ -->
+            <div class="tree-inspector-panel">
+              <div>
+                <div class="inspector-header">
+                  <div style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">
+                    BẢNG ĐIỀU KHIỂN CHI TIẾT PHẦN TỬ
+                  </div>
+                  <div id="inspect-tag-name" class="inspector-tag-name">&lt;html&gt;</div>
+                  <div id="inspect-title" style="font-weight: 700; font-size: 1rem; color: var(--text-primary); margin-top: 0.2rem;">
+                    Phần tử Gốc (Root Element)
+                  </div>
+                </div>
+
+                <dl class="inspector-desc-list">
+                  <dt>Phân loại thẻ:</dt>
+                  <dd id="inspect-type">Thẻ cấu trúc gốc</dd>
+
+                  <dt>Phần tử cha (Parent):</dt>
+                  <dd id="inspect-parent">Không có (Cấp cao nhất)</dd>
+
+                  <dt>Phần tử con (Children):</dt>
+                  <dd id="inspect-children">&lt;head&gt; và &lt;body&gt;</dd>
+
+                  <dt>Chức năng & Ý nghĩa:</dt>
+                  <dd id="inspect-desc">Bao bọc toàn bộ mã nguồn của trang web.</dd>
+                </dl>
+              </div>
+
+              <!-- DÒNG CODE MINH HỌA -->
+              <div style="margin-top: 1rem; padding: 0.75rem; background: #0f172a; border-radius: var(--radius-sm); border: 1px solid #1e293b;">
+                <div style="font-size: 0.72rem; color: #94a3b8; font-family: var(--font-mono); margin-bottom: 0.35rem;">
+                  VỊ TRÍ TRONG MÃ NGUỒN:
+                </div>
+                <div id="inspect-code-preview" style="font-family: var(--font-mono); font-size: 0.8rem; line-height: 1.5; color: #e2e8f0;">
+                  <div class="code-line" data-for-node="html">&lt;html lang="vi"&gt; ... &lt;/html&gt;</div>
+                  <div class="code-line" data-for-node="head">&nbsp;&nbsp;&lt;head&gt; ... &lt;/head&gt;</div>
+                  <div class="code-line" data-for-node="meta">&nbsp;&nbsp;&nbsp;&nbsp;&lt;meta charset="UTF-8"&gt;</div>
+                  <div class="code-line" data-for-node="title">&nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;Tên trang web&lt;/title&gt;</div>
+                  <div class="code-line" data-for-node="body">&nbsp;&nbsp;&lt;body&gt; ... &lt;/body&gt;</div>
+                  <div class="code-line" data-for-node="h1">&nbsp;&nbsp;&nbsp;&nbsp;&lt;h1&gt;Trang web và HTML&lt;/h1&gt;</div>
+                  <div class="code-line" data-for-node="p1">&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;Đây là dòng đầu tiên&lt;/p&gt;</div>
+                  <div class="code-line" data-for-node="hr">&nbsp;&nbsp;&nbsp;&nbsp;&lt;hr&gt;</div>
+                  <div class="code-line" data-for-node="p2">&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt; &lt;em&gt; Đây là dòng cuối cùng &lt;/em&gt; &lt;/p&gt;</div>
+                  <div class="code-line" data-for-node="em">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;em&gt;Đây là dòng cuối cùng&lt;/em&gt;</div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+        <!-- 2.3 XƯỞNG KÉO THẢ CẤU TRÚC HTML (INTERACTIVE DND ASSEMBLER) -->
+        <div id="dnd-workshop" class="dnd-workshop-box" style="border-top: 4px solid var(--color-success);">
+          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 0.5rem;">
+            <div>
+              <h3 style="font-size: 1.25rem; font-weight: 700; color: #065f46; margin: 0;">
+                3. Xưởng Kéo Thả Cấu Trúc HTML (Interactive Drag & Drop Assembler)
+              </h3>
+              <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0.2rem 0 0;">
+                Học sinh kéo các khối thẻ từ hộp công cụ và thả vào đúng vùng cấu trúc (Root, Head, Body) để tự tạo trang web trực quan!
+              </p>
+            </div>
+
+            <div style="display: flex; gap: 0.45rem;">
+              <button id="btn-dnd-autosolve" class="btn btn-secondary btn-sm" type="button">⚡ Tự động lắp mẫu</button>
+              <button id="btn-dnd-reset" class="btn btn-secondary btn-sm" type="button">↺ Làm mới</button>
+            </div>
+          </div>
+
+          <div id="dnd-assembler-workshop" class="dnd-layout">
+            
+            <!-- CỘT 1: HỘP THẺ CÔNG CỤ (PALETTE) -->
+            <div class="dnd-palette-card">
+              <div class="dnd-palette-header">HỘP KHỐI THẺ (KÉO HOẶC NHẤP CHỌN)</div>
+              
+              <div class="dnd-tag-item" draggable="true" data-tag="<!DOCTYPE html>" data-valid-zone="root" data-html="">
+                <span>&lt;!DOCTYPE html&gt;</span>
+                <span class="node-tag-type">Root</span>
+              </div>
+
+              <div class="dnd-tag-item" draggable="true" data-tag="<meta>" data-valid-zone="head" data-html="<meta charset=&quot;UTF-8&quot;>">
+                <span>&lt;meta charset&gt;</span>
+                <span class="node-tag-type">Head</span>
+              </div>
+
+              <div class="dnd-tag-item" draggable="true" data-tag="<title>" data-valid-zone="head" data-html="<title>Trang web mẫu</title>">
+                <span>&lt;title&gt;</span>
+                <span class="node-tag-type">Head</span>
+              </div>
+
+              <div class="dnd-tag-item" draggable="true" data-tag="<h1>" data-valid-zone="body" data-html="<h1 style=&quot;color:#1d4ed8;&quot;>Trang web và HTML</h1>">
+                <span>&lt;h1&gt; (Tiêu đề)</span>
+                <span class="node-tag-type">Body</span>
+              </div>
+
+              <div class="dnd-tag-item" draggable="true" data-tag="<p>" data-valid-zone="body" data-html="<p>Đây là dòng đầu tiên</p>">
+                <span>&lt;p&gt; (Đoạn văn)</span>
+                <span class="node-tag-type">Body</span>
+              </div>
+
+              <div class="dnd-tag-item" draggable="true" data-tag="<hr>" data-valid-zone="body" data-html="<hr>">
+                <span>&lt;hr&gt; (Kẻ ngang)</span>
+                <span class="node-tag-type">Body</span>
+              </div>
+
+              <div class="dnd-tag-item" draggable="true" data-tag="<em>" data-valid-zone="body" data-html="<p><em>Đây là dòng cuối cùng</em></p>">
+                <span>&lt;em&gt; (In nghiêng)</span>
+                <span class="node-tag-type">Body</span>
+              </div>
+
+              <small style="display: block; font-size: 0.75rem; color: var(--text-muted); margin-top: 0.75rem; line-height: 1.4;">
+                💡 <em>Mẹo:</em> Học sinh có thể dùng chuột kéo thả hoặc nhấp trực tiếp vào thẻ để tự động ghép vào vị trí hợp lệ.
+              </small>
+            </div>
+
+            <!-- CỘT 2: VÙNG LẮP RÁP CẤU TRÚC (CANVAS) -->
+            <div class="dnd-canvas-area">
+              <div style="font-size: 0.85rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.5rem;">
+                KHUNG XƯƠNG TRANG WEB:
+              </div>
+
+              <!-- VÙNG 1: ROOT -->
+              <div class="dnd-dropzone-label">1. VÙNG KHAI BÁO GỐC (ROOT ZONE)</div>
+              <div id="dropzone-root" class="dnd-dropzone" data-zone-id="root"></div>
+
+              <!-- KHUNG HTML -->
+              <div style="border: 1px solid var(--border-strong); border-radius: var(--radius-sm); padding: 0.75rem; margin-top: 0.5rem; background: #ffffff;">
+                <div style="font-family: var(--font-mono); font-size: 0.85rem; font-weight: 700; color: var(--color-brand); margin-bottom: 0.35rem;">
+                  &lt;html lang="vi"&gt;
+                </div>
+
+                <!-- VÙNG 2: HEAD -->
+                <div style="padding-left: 0.85rem; border-left: 2px dashed #93c5fd; margin-bottom: 0.75rem;">
+                  <div style="font-family: var(--font-mono); font-size: 0.82rem; color: #0284c7; font-weight: 600;">&lt;head&gt;</div>
+                  <div class="dnd-dropzone-label" style="margin-top: 0.2rem;">2. VÙNG THÔNG TIN ĐẦU TRANG (HEAD ZONE)</div>
+                  <div id="dropzone-head" class="dnd-dropzone" data-zone-id="head"></div>
+                  <div style="font-family: var(--font-mono); font-size: 0.82rem; color: #0284c7; font-weight: 600;">&lt;/head&gt;</div>
+                </div>
+
+                <!-- VÙNG 3: BODY -->
+                <div style="padding-left: 0.85rem; border-left: 2px dashed #86efac;">
+                  <div style="font-family: var(--font-mono); font-size: 0.82rem; color: #16a34a; font-weight: 600;">&lt;body&gt;</div>
+                  <div class="dnd-dropzone-label" style="margin-top: 0.2rem;">3. VÙNG THÂN NỘI DUNG HIỂN THỊ (BODY ZONE)</div>
+                  <div id="dropzone-body" class="dnd-dropzone" data-zone-id="body"></div>
+                  <div style="font-family: var(--font-mono); font-size: 0.82rem; color: #16a34a; font-weight: 600;">&lt;/body&gt;</div>
+                </div>
+
+                <div style="font-family: var(--font-mono); font-size: 0.85rem; font-weight: 700; color: var(--color-brand); margin-top: 0.35rem;">
+                  &lt;/html&gt;
+                </div>
+              </div>
+
+              <div id="dnd-status-msg" style="margin-top: 0.65rem; font-size: 0.82rem; font-weight: 600; color: var(--text-muted);">
+                Kéo các thẻ từ cột bên trái vào đúng các vùng để lắp ráp trang web.
+              </div>
+            </div>
+
+            <!-- CỘT 3: PREVIEW KẾT QUẢ KHI KÉO THẢ -->
+            <div class="dnd-preview-card">
+              <div class="dnd-preview-header">
+                <span>KẾT QUẢ HIỂN THỊ TRỰC TIẾP (LIVE PREVIEW)</span>
+                <span style="color: #059669; font-weight: 700;">● Tự động biên dịch</span>
+              </div>
+              <iframe id="dnd-live-preview" class="dnd-preview-frame" title="Xem trước kết quả kéo thả"></iframe>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- 2.4 CÁC PHẦN MỀM SOẠN THẢO HTML -->
+        <div id="phan-mem" class="card" style="margin-bottom: 2rem;">
+          <h3 class="card-title">4. Các Phần Mềm Soạn Thảo HTML Phổ Biến</h3>
+          
+          <div class="grid-3">
+            <div class="card" style="background: var(--bg-subtle);">
+              <h4 style="color: #0284c7; font-size: 1.05rem; margin-bottom: 0.35rem;">1. Notepad++</h4>
+              <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.65rem;">
+                Phần mềm soạn thảo miễn phí, gọn nhẹ, hỗ trợ tô màu cú pháp mã nguồn đa ngôn ngữ. Thích hợp máy cấu hình nhẹ.
+              </p>
+              <figure class="teaching-figure" style="margin: 0;">
+                <div class="figure-img-wrap" style="height: 160px;">
+                  <img src="assets/image7.png" alt="Notepad++" class="teaching-img zoomable-img" style="max-height: 140px; object-fit: contain;">
+                </div>
+                <figcaption class="figure-caption">Hình 7.7: Soạn thảo trên Notepad++</figcaption>
+              </figure>
+            </div>
+
+            <div class="card" style="background: var(--bg-subtle);">
+              <h4 style="color: #ea580c; font-size: 1.05rem; margin-bottom: 0.35rem;">2. Sublime Text</h4>
+              <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.65rem;">
+                Code editor hiện đại, giao diện tối giản đẹp mắt, gợi ý cú pháp thông minh và phím tắt thao tác nhanh.
+              </p>
+              <figure class="teaching-figure" style="margin: 0;">
+                <div class="figure-img-wrap" style="height: 160px;">
+                  <img src="assets/image13.png" alt="Sublime Text" class="teaching-img zoomable-img" style="max-height: 140px; object-fit: contain;">
+                </div>
+                <figcaption class="figure-caption">Hình 7.8: Soạn thảo trên Sublime Text</figcaption>
+              </figure>
+            </div>
+
+            <div class="card" style="background: var(--bg-subtle);">
+              <h4 style="color: #059669; font-size: 1.05rem; margin-bottom: 0.35rem;">3. Online Editor (W3Schools)</h4>
+              <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.65rem;">
+                Soạn thảo và chạy trực tiếp trên trình duyệt web mà không cần cài đặt phần mềm nào về máy.
+              </p>
+              <figure class="teaching-figure" style="margin: 0;">
+                <div class="figure-img-wrap" style="height: 160px;">
+                  <img src="assets/image10.png" alt="W3Schools Tryit Editor" class="teaching-img zoomable-img" style="max-height: 140px; object-fit: contain;">
+                </div>
+                <figcaption class="figure-caption">Hình 7.9: Trình soạn thảo W3Schools</figcaption>
+              </figure>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2.5 PHÒNG THÍ NGHIỆM HTML TƯƠNG TÁC (ĐÃ KHẮC PHỤC TRIỆT ĐỂ LỖI LIVE SERVER) -->
+        <div id="live-playground" class="playground-box">
+          <div class="playground-header">
+            <div class="playground-title">
+              <svg class="icon-svg" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+              PHÒNG THÍ NGHIỆM HTML TRỰC QUAN (LIVE RUNNER)
+            </div>
+            <div class="playground-actions">
+              <span style="font-size: 0.78rem; color: #8b949e; margin-right: 0.4rem;">Mẫu nạp nhanh:</span>
+              <button class="btn btn-secondary btn-sm btn-load-sample" data-sample-key="chuan7dong">Mẫu 7 dòng chuẩn</button>
+              <button class="btn btn-secondary btn-sm btn-load-sample" data-sample-key="tieude_doanvan">Thử các thẻ h1-h3</button>
+              <button class="btn btn-primary btn-sm btn-run-code">▶ Chạy mã</button>
+              <button class="btn btn-secondary btn-sm btn-reset-code">↺ Đặt lại</button>
+            </div>
+          </div>
+
+          <div class="playground-split">
+            <!-- Ô SOẠN THẢO: Nạp mã an toàn qua JavaScript, không chứa </body> thô gây lỗi Live Server -->
+            <div class="editor-pane">
+              <div class="pane-label">
+                <span>MÃ NGUỒN HTML (GÕ TRỰC TIẾP VÀO ĐÂY)</span>
+                <span>UTF-8</span>
+              </div>
+              <textarea class="code-textarea" data-sample-key="chuan7dong" spellcheck="false" placeholder="Đang tải mã nguồn mẫu..."></textarea>
+            </div>
+
+            <!-- Ô PREVIEW -->
+            <div class="preview-pane">
+              <div class="pane-label" style="background: #f1f5f9; color: #334155;">
+                <span>KẾT QUẢ KẾT XUẤT TRÊN TRÌNH DUYỆT (PREVIEW)</span>
+                <span style="color: #059669; font-weight: 700;">● TRỰC TIẾP</span>
+              </div>
+              <iframe class="preview-frame" title="Xem trước kết quả HTML"></iframe>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+        </div><!-- /.desktop-main-body -->
+      </div><!-- /.desktop-doc-layout -->
+
+      <!-- ĐIỀU HƯỚNG TRANG -->
+      <div class="page-nav-bar">
+        <a href="hd1.html" class="btn btn-secondary">← Hoạt động 1: Khởi động</a>
+        <a href="hd3.html" class="btn btn-primary" style="font-size: 1rem;">
+          Tiến tới Hoạt động 3: Luyện tập (Thực hành) →
+        </a>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- NATIVE MODAL DIALOG CHO ẢNH PHÓNG TO -->
+  <dialog id="image-zoom-modal" class="image-modal">
+    <div class="modal-content-wrap">
+      <button id="modal-close-btn" class="modal-close-btn" type="button" title="Đóng ảnh">✕</button>
+      <img id="modal-zoom-img" src="" alt="Hình ảnh phóng to">
+      <p id="modal-zoom-caption" style="text-align: center; margin-top: 0.65rem; font-size: 0.85rem; color: var(--text-muted);"></p>
+    </div>
+  </dialog>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>© 2026 Tin học 12 Thống nhất - Bài 7: HTML và Cấu trúc trang web. Giáo viên: Nguyễn Lê Minh Ngọc - THPT Thực hành ĐH Sư phạm.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
