@@ -321,7 +321,7 @@ const server = http.createServer((req, res) => {
 
 
   // --- API ENDPOINT: TẢI TOÀN BỘ BÀI NỘP HĐ 3 THÀNH 1 FILE ZIP GOM THEO TỪNG THƯ MỤC HỌC SINH (GET /api/submissions-hd3-zip) ---
-  if ((pathname === '/api/submissions-hd3-zip' || pathname === '/api/teacher/download-all-zip') && req.method === 'GET') {
+  if ((pathname === '/api/submissions-hd3-zip' || pathname === '/api/teacher/download-all-zip') && (req.method === 'GET' || req.method === 'HEAD')) {
     const { execFile } = require('child_process');
     const pyScript = path.join(__dirname, 'create_submissions_zip.py');
     const tempZip = path.join(__dirname, 'data', `Bai8_HD3_TatCaBaiLam_${Date.now()}.zip`);
