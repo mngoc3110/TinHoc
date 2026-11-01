@@ -291,7 +291,8 @@
       background: #1e293b;
       padding: 0.5rem 0.85rem;
       display: flex;
-      gap: 0.4rem;
+      align-items: center;
+      gap: 0.45rem;
       overflow-x: auto;
       border-bottom: 1px solid #334155;
     }
@@ -299,18 +300,60 @@
       background: #334155;
       color: #e2e8f0;
       border: 1px solid #475569;
-      border-radius: 5px;
-      padding: 0.25rem 0.55rem;
-      font-size: 0.8rem;
+      border-radius: 6px;
+      padding: 0.35rem 0.65rem;
+      font-size: 0.82rem;
+      font-weight: 600;
       font-family: 'Fira Code', 'Courier New', monospace;
       cursor: pointer;
       white-space: nowrap;
-      transition: background 0.15s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1.2;
+      transition: all 0.15s ease;
     }
     .snippet-btn:hover {
       background: #2563eb;
       color: #ffffff;
-      border-color: #2563eb;
+      border-color: #3b82f6;
+    }
+
+    /* MODAL XÁC THỰC GIÁO VIÊN - CHÍNH TÂM MÀN HÌNH */
+    .teacher-modal-overlay {
+      position: fixed !important;
+      inset: 0 !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      background: rgba(15, 23, 42, 0.75) !important;
+      backdrop-filter: blur(8px) !important;
+      -webkit-backdrop-filter: blur(8px) !important;
+      display: none !important;
+      align-items: center !important;
+      justify-content: center !important;
+      z-index: 999999 !important;
+      padding: 1rem !important;
+      box-sizing: border-box !important;
+    }
+    .teacher-modal-overlay.active {
+      display: flex !important;
+    }
+    .teacher-modal-overlay .modal-dialog {
+      background: #ffffff;
+      width: 100%;
+      max-width: 460px;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1);
+      margin: auto;
+      position: relative;
+      animation: modalPopIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes modalPopIn {
+      0% { opacity: 0; transform: scale(0.92) translateY(12px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
     }
 
     .editor-inner-wrapper {
@@ -820,7 +863,6 @@
 
               <!-- THANH PHÍM TẮT CHÈN THẺ -->
               <div class="quick-snippets-bar">
-                <button type="button" class="snippet-btn" onclick="insertHtmlSkeleton('code-bai1', 'Bài 1: Phương trình bậc 2')" style="background: #eff6ff; color: #1d4ed8; font-weight: 700; border-color: #bfdbfe;">📄 Khung HTML5</button>
                 <button type="button" class="snippet-btn" onclick="insertTag('code-bai1', 'html')">&lt;html&gt;</button>
                 <button type="button" class="snippet-btn" onclick="insertTag('code-bai1', 'head')">&lt;head&gt;</button>
                 <button type="button" class="snippet-btn" onclick="insertTag('code-bai1', 'title')">&lt;title&gt;</button>
@@ -836,7 +878,7 @@
               </div>
 
               <div class="editor-inner-wrapper">
-                <textarea id="code-bai1" class="code-textarea" spellcheck="false" oninput="updateLivePreview('bai1')" placeholder="&lt;!DOCTYPE html&gt;&#10;&lt;html lang=&quot;vi&quot;&gt;&#10;&lt;head&gt;&#10;  &lt;meta charset=&quot;UTF-8&quot;&gt;&#10;  &lt;title&gt;Bài 1: Phương trình bậc 2&lt;/title&gt;&#10;&lt;/head&gt;&#10;&lt;body&gt;&#10;  &lt;!-- Em hãy tự gõ đầy đủ cấu trúc trang web và định dạng nội dung tại đây --&gt;&#10;&lt;/body&gt;&#10;&lt;/html&gt;"></textarea>
+                <textarea id="code-bai1" class="code-textarea" spellcheck="false" oninput="updateLivePreview('bai1')" placeholder="Em hãy tự gõ toàn bộ mã HTML5 và nội dung bài làm tại đây..."></textarea>
               </div>
             </div>
 
@@ -908,7 +950,6 @@
               </div>
 
               <div class="quick-snippets-bar">
-                <button type="button" class="snippet-btn" onclick="insertHtmlSkeleton('code-bai2', 'Bài 2: Làm nổi bật ý chính')" style="background: #eff6ff; color: #1d4ed8; font-weight: 700; border-color: #bfdbfe;">📄 Khung HTML5</button>
                 <button type="button" class="snippet-btn" onclick="insertTag('code-bai2', 'html')">&lt;html&gt;</button>
                 <button type="button" class="snippet-btn" onclick="insertTag('code-bai2', 'body')">&lt;body&gt;</button>
                 <button type="button" class="snippet-btn" onclick="insertTag('code-bai2', 'p')">&lt;p&gt;</button>
@@ -921,7 +962,7 @@
               </div>
 
               <div class="editor-inner-wrapper">
-                <textarea id="code-bai2" class="code-textarea" spellcheck="false" oninput="updateLivePreview('bai2')" placeholder="&lt;p&gt; Thẻ &lt;strong&gt;strong&lt;/strong&gt; và thẻ &lt;em&gt;em&lt;/em&gt;... &lt;/p&gt;"></textarea>
+                <textarea id="code-bai2" class="code-textarea" spellcheck="false" oninput="updateLivePreview('bai2')" placeholder="Em hãy gõ mã HTML và sử dụng các thẻ nhấn mạnh cho Bài 2 tại đây..."></textarea>
               </div>
             </div>
 
@@ -1027,7 +1068,6 @@
               </div>
 
               <div class="quick-snippets-bar">
-                <button type="button" class="snippet-btn" onclick="insertHtmlSkeleton('code-bai3', 'Bài 3: Internet tốc độ cao')" style="background: #eff6ff; color: #1d4ed8; font-weight: 700; border-color: #bfdbfe;">📄 Khung HTML5</button>
                 <button type="button" class="snippet-btn" onclick="insertTag('code-bai3', 'html')">&lt;html&gt;</button>
                 <button type="button" class="snippet-btn" onclick="insertTag('code-bai3', 'head')">&lt;head&gt;</button>
                 <button type="button" class="snippet-btn" onclick="insertTag('code-bai3', 'title')">&lt;title&gt;</button>
@@ -1044,7 +1084,7 @@
               </div>
 
               <div class="editor-inner-wrapper">
-                <textarea id="code-bai3" class="code-textarea" spellcheck="false" oninput="updateLivePreview('bai3')" placeholder="&lt;!DOCTYPE html&gt;&#10;&lt;html lang=&quot;vi&quot;&gt;&#10;&lt;head&gt;&#10;  &lt;meta charset=&quot;UTF-8&quot;&gt;&#10;  &lt;title&gt;Bài 3: Tờ rơi Internet&lt;/title&gt;&#10;&lt;/head&gt;&#10;&lt;body&gt;&#10;  &lt;!-- Em hãy tự gõ đầy đủ cấu trúc trang web và định dạng nội dung tờ rơi tại đây --&gt;&#10;&lt;/body&gt;&#10;&lt;/html&gt;"></textarea>
+                <textarea id="code-bai3" class="code-textarea" spellcheck="false" oninput="updateLivePreview('bai3')" placeholder="Em hãy tự gõ toàn bộ mã HTML5 hoàn chỉnh cho tờ rơi Bài 3 tại đây..."></textarea>
               </div>
             </div>
 
@@ -1355,7 +1395,7 @@
             <label style="display: block; font-size: 0.88rem; font-weight: 700; color: #1e293b; margin-bottom: 0.4rem;">
               📧 Email tài khoản Giáo viên:
             </label>
-            <input type="email" id="teacher-email-input" class="form-input" placeholder="darber3110@gmail.com" required style="width: 100%; box-sizing: border-box; padding: 0.7rem 0.9rem; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 0.95rem;">
+            <input type="email" id="teacher-email-input" class="form-input" placeholder="Nhập email giáo viên..." autocomplete="off" required style="width: 100%; box-sizing: border-box; padding: 0.7rem 0.9rem; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 0.95rem;">
           </div>
 
           <div style="margin-bottom: 1.1rem;">
@@ -1378,17 +1418,17 @@
           </div>
 
           <div style="display: flex; flex-direction: column; gap: 0.65rem;">
-            <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.75rem; font-size: 1rem; font-weight: 700; justify-content: center; background: #2563eb; box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.3);">
+            <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.75rem; font-size: 1rem; font-weight: 700; justify-content: center; background: #2563eb; box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.3); border: none; cursor: pointer; border-radius: 8px; color: white;">
               🔓 Đăng Nhập Vào Bảng Giáo Viên
             </button>
-            <button type="button" onclick="closeTeacherLoginModal()" class="btn btn-secondary" style="width: 100%; padding: 0.65rem; font-size: 0.9rem; justify-content: center; color: #475569;">
+            <button type="button" onclick="closeTeacherLoginModal()" class="btn btn-secondary" style="width: 100%; padding: 0.65rem; font-size: 0.9rem; justify-content: center; color: #475569; background: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 8px; cursor: pointer;">
               ← Quay lại giao diện học sinh làm bài
             </button>
           </div>
         </form>
 
         <div style="margin-top: 1.25rem; padding: 0.85rem; background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 8px; font-size: 0.82rem; color: #64748b; line-height: 1.45;">
-          <strong>🔒 Bảo mật:</strong> Học sinh bấm vào đây sẽ bị chặn và phải đăng nhập đúng tài khoản <code style="color: #1e40af; font-weight: 700;">darber3110@gmail.com</code> mới có thể xem bảng theo dõi và bài làm của lớp.
+          <strong>🔒 Bảo mật:</strong> Khu vực theo dõi bài nộp và quản trị lớp học dành riêng cho Giáo viên phụ trách bộ môn. Học sinh vui lòng quay lại bài tập.
         </div>
       </div>
     </div>

@@ -423,6 +423,43 @@
       visibility: visible;
     }
 
+    /* MODAL XÁC THỰC GIÁO VIÊN - CHÍNH TÂM MÀN HÌNH */
+    .teacher-modal-overlay {
+      position: fixed !important;
+      inset: 0 !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      background: rgba(15, 23, 42, 0.75) !important;
+      backdrop-filter: blur(8px) !important;
+      -webkit-backdrop-filter: blur(8px) !important;
+      display: none !important;
+      align-items: center !important;
+      justify-content: center !important;
+      z-index: 999999 !important;
+      padding: 1rem !important;
+      box-sizing: border-box !important;
+    }
+    .teacher-modal-overlay.active {
+      display: flex !important;
+    }
+    .teacher-modal-overlay .modal-dialog {
+      background: #ffffff;
+      width: 100%;
+      max-width: 460px;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1);
+      margin: auto;
+      position: relative;
+      animation: modalPopIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes modalPopIn {
+      0% { opacity: 0; transform: scale(0.92) translateY(12px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
     .qr-zoom-box {
       background: #ffffff;
       padding: 2.5rem;
@@ -2185,44 +2222,90 @@
       }
     }
 
-    function handleTeacherLogin(e) {
+    async function handleTeacherLogin(e) {
       if (e) e.preventDefault();
       const emailInput = document.getElementById('teacher-email-input');
       const pwdInput = document.getElementById('teacher-pwd-input');
       const rememberInput = document.getElementById('teacher-remember-me');
       const alertBox = document.getElementById('teacher-auth-alert');
+      const submitBtn = document.querySelector('#teacher-login-form button[type="submit"]');
 
       const email = (emailInput?.value || '').trim().toLowerCase();
       const pwd = (pwdInput?.value || '').trim();
 
       if (!alertBox) return;
 
-      if (email !== TEACHER_EMAIL.toLowerCase()) {
+      if (!email || !pwd) {
         alertBox.style.display = 'block';
         alertBox.style.background = '#fef2f2';
         alertBox.style.color = '#991b1b';
         alertBox.style.border = '1px solid #fecaca';
-        alertBox.innerHTML = `<strong>⛔ TRUY CẬP BỊ TỪ CHỐI!</strong><br>Hệ thống chỉ cho phép tài khoản giáo viên <strong>${TEACHER_EMAIL}</strong> xem bảng theo dõi. Học sinh không được phép truy cập khu vực này!`;
-        emailInput?.focus();
+        alertBox.innerHTML = '<strong>Vui lòng nhập đầy đủ Email và Mật khẩu!</strong>';
         return;
       }
 
-      const customPwd = localStorage.getItem('thth_teacher_pwd');
-      const validPwds = ['darber3110', '3110', '123456', 'admin', 'SfAUwbUtH3Bj1ouP2nM4'];
-      if (customPwd) validPwds.push(customPwd);
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = '⏳ Đang kiểm tra...';
+      }
 
-      if (!validPwds.includes(pwd)) {
+      let isAuthenticated = false;
+      let teacherName = 'Thầy/Cô';
+
+      // 1. XÁC THỰC TRỰC TIẾP QUA MINDA API (/api/auth/login)
+      try {
+        const formBody = new URLSearchParams();
+        formBody.append('username', email);
+        formBody.append('password', pwd);
+
+        const res = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: formBody
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          if (data.role === 'teacher' || data.role === 'admin' || email === TEACHER_EMAIL.toLowerCase()) {
+            isAuthenticated = true;
+            teacherName = data.full_name || 'Giáo viên';
+          }
+        }
+      } catch (err) {
+        console.warn('API Minda không phản hồi, dùng xác thực dự phòng.');
+      }
+
+      // 2. DỰ PHÒNG NẾU OFFLINE HOẶC MÁY CỤC BỘ
+      if (!isAuthenticated) {
+        const customPwd = localStorage.getItem('thth_teacher_pwd');
+        const validPwds = ['darber3110', '3110', '0902937006', '123456', 'admin', 'SfAUwbUtH3Bj1ouP2nM4'];
+        if (customPwd) validPwds.push(customPwd);
+
+        if (email === TEACHER_EMAIL.toLowerCase() && validPwds.includes(pwd)) {
+          isAuthenticated = true;
+          teacherName = 'Nguyễn Lê Minh Ngọc';
+        }
+      }
+
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = '🔓 Đăng Nhập Vào Bảng Giáo Viên';
+      }
+
+      if (!isAuthenticated) {
         alertBox.style.display = 'block';
         alertBox.style.background = '#fef2f2';
         alertBox.style.color = '#991b1b';
         alertBox.style.border = '1px solid #fecaca';
-        alertBox.innerHTML = `<strong>❌ Mật khẩu chưa chính xác!</strong><br>Vui lòng kiểm tra lại mật khẩu đăng nhập của tài khoản <strong>${TEACHER_EMAIL}</strong>.`;
+        alertBox.innerHTML = `<strong>❌ Thông tin đăng nhập chưa chính xác!</strong><br>Vui lòng kiểm tra lại Email hoặc Mật khẩu tài khoản Giáo viên.`;
         pwdInput?.focus();
         return;
       }
 
+      // 3. ĐĂNG NHẬP THÀNH CÔNG
       const authData = {
-        email: TEACHER_EMAIL,
+        email: email,
+        name: teacherName,
         authenticated: true,
         loginAt: new Date().toISOString()
       };
@@ -2238,7 +2321,7 @@
       updateTeacherAuthUI_hd2();
       renderSubmissions(cachedSubmissions);
       renderSubmissionsP2(cachedSubmissionsP2);
-      showToast(`Chào mừng Thầy/Cô (${TEACHER_EMAIL}) đã đăng nhập thành công!`);
+      showToast(`Chào mừng ${teacherName} đã đăng nhập thành công!`);
     }
 
     function teacherLogout() {
@@ -2256,9 +2339,18 @@
       const p1AuthBadge = document.getElementById('teacher-auth-status-p1');
       const p2AuthBadge = document.getElementById('teacher-auth-status-p2');
 
+      let teacherName = 'Giáo viên';
+      try {
+        const sess = sessionStorage.getItem('thth_teacher_auth') || localStorage.getItem('thth_teacher_auth');
+        if (sess) {
+          const d = JSON.parse(sess);
+          teacherName = d.name || 'Giáo viên';
+        }
+      } catch (e) {}
+
       const badgeHtml = isAuth ? `
         <div style="display: inline-flex; align-items: center; gap: 0.5rem; background: #ecfdf5; border: 1.5px solid #a7f3d0; padding: 0.35rem 0.75rem; border-radius: 9999px; font-size: 0.85rem; font-weight: 700; color: #047857;">
-          <span>🟢 Đã đăng nhập: <strong>${TEACHER_EMAIL}</strong></span>
+          <span>🟢 Giáo viên: <strong>${teacherName}</strong></span>
           <button type="button" onclick="teacherLogout()" style="background: none; border: none; color: #dc2626; font-size: 0.8rem; cursor: pointer; text-decoration: underline; padding: 0 0.25rem;">[Đăng xuất]</button>
         </div>
       ` : `
@@ -2348,10 +2440,10 @@
                 KHU VỰC DÀNH RIÊNG CHO GIÁO VIÊN
               </div>
               <div style="font-size: 0.95rem; color: #7c2d12; margin-bottom: 1.25rem; max-width: 520px; margin-left: auto; margin-right: auto; line-height: 1.5;">
-                Toàn bộ danh sách bài nộp, điểm số và bài làm của học sinh Phiếu số 2 được bảo mật. Chỉ tài khoản giáo viên <strong style="color: #1e40af;">${TEACHER_EMAIL}</strong> mới có quyền truy cập.
+                Toàn bộ danh sách bài nộp, điểm số và bài làm của học sinh Phiếu số 2 được bảo mật. Chỉ Giáo viên phụ trách mới có quyền truy cập.
               </div>
               <button type="button" class="btn btn-primary" onclick="openTeacherLoginModal()" style="font-weight: 800; padding: 0.75rem 1.5rem; font-size: 1rem; background: #ea580c; border: none; box-shadow: 0 4px 6px -1px rgba(234, 88, 12, 0.3); border-radius: 8px; cursor: pointer; color: white;">
-                🔑 Đăng Nhập Giáo Viên (${TEACHER_EMAIL})
+                🔑 Đăng Nhập Giáo Viên
               </button>
             </td>
           </tr>
@@ -2467,10 +2559,10 @@
                   KHU VỰC DÀNH RIÊNG CHO GIÁO VIÊN
                 </div>
                 <div style="font-size: 0.95rem; color: #7c2d12; margin-bottom: 1.25rem; max-width: 520px; margin-left: auto; margin-right: auto; line-height: 1.5;">
-                  Toàn bộ danh sách bài nộp, điểm số và bài làm của học sinh được bảo mật. Chỉ tài khoản giáo viên <strong style="color: #1e40af;">${TEACHER_EMAIL}</strong> mới có quyền truy cập.
+                  Toàn bộ danh sách bài nộp, điểm số và bài làm của học sinh được bảo mật. Chỉ Giáo viên phụ trách mới có quyền truy cập.
                 </div>
                 <button type="button" class="btn btn-primary" onclick="openTeacherLoginModal()" style="font-weight: 800; padding: 0.75rem 1.5rem; font-size: 1rem; background: #ea580c; border: none; box-shadow: 0 4px 6px -1px rgba(234, 88, 12, 0.3); border-radius: 8px; cursor: pointer; color: white;">
-                  🔑 Đăng Nhập Giáo Viên (${TEACHER_EMAIL})
+                  🔑 Đăng Nhập Giáo Viên
                 </button>
               </td>
             </tr>
@@ -3219,8 +3311,8 @@
   <!-- ======================================================== -->
   <!-- MODAL XÁC THỰC GIÁO VIÊN (TEACHER AUTH MODAL) -->
   <!-- ======================================================== -->
-  <div id="teacher-auth-modal" class="modal-backdrop">
-    <div class="modal-dialog" style="max-width: 480px; border-radius: 16px; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);">
+  <div id="teacher-auth-modal" class="teacher-modal-overlay" onclick="closeTeacherLoginModal()">
+    <div class="modal-dialog" style="max-width: 480px; border-radius: 16px; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);" onclick="event.stopPropagation()">
       <div style="background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%); color: white; padding: 1.25rem 1.5rem; display: flex; justify-content: space-between; align-items: center;">
         <div style="display: flex; align-items: center; gap: 0.6rem;">
           <span style="font-size: 1.5rem;">🔐</span>
@@ -3240,7 +3332,7 @@
             <label style="display: block; font-size: 0.88rem; font-weight: 700; color: #1e293b; margin-bottom: 0.4rem;">
               📧 Email tài khoản Giáo viên:
             </label>
-            <input type="email" id="teacher-email-input" class="form-input" placeholder="darber3110@gmail.com" required style="width: 100%; box-sizing: border-box; padding: 0.7rem 0.9rem; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 0.95rem;">
+            <input type="email" id="teacher-email-input" class="form-input" placeholder="Nhập email giáo viên..." autocomplete="off" required style="width: 100%; box-sizing: border-box; padding: 0.75rem 1rem; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 0.95rem;">
           </div>
 
           <div style="margin-bottom: 1.1rem;">
@@ -3252,7 +3344,7 @@
                 👁️ Hiện mật khẩu
               </button>
             </div>
-            <input type="password" id="teacher-pwd-input" class="form-input" placeholder="Nhập mật khẩu..." required style="width: 100%; box-sizing: border-box; padding: 0.7rem 0.9rem; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 0.95rem;">
+            <input type="password" id="teacher-pwd-input" class="form-input" placeholder="Nhập mật khẩu..." required style="width: 100%; box-sizing: border-box; padding: 0.75rem 1rem; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 0.95rem;">
           </div>
 
           <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1.25rem;">
@@ -3273,7 +3365,7 @@
         </form>
 
         <div style="margin-top: 1.25rem; padding: 0.85rem; background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 8px; font-size: 0.82rem; color: #64748b; line-height: 1.45;">
-          <strong>🔒 Bảo mật:</strong> Học sinh không có quyền truy cập khu vực này. Cần đăng nhập đúng tài khoản <code style="color: #1e40af; font-weight: 700;">darber3110@gmail.com</code> để xem kết quả nộp bài của lớp.
+          <strong>🔒 Bảo mật:</strong> Khu vực lưu trữ bài nộp và điểm số dành riêng cho Giáo viên phụ trách bộ môn. Học sinh vui lòng quay lại bài học.
         </div>
       </div>
     </div>

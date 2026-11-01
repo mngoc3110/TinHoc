@@ -8,13 +8,9 @@
     // --- NỘI DUNG VĂN BẢN KHỞI TẠO CHO HỌC SINH (CHƯA CÓ ĐÁP ÁN) ---
     // Học sinh tự gõ toàn bộ cấu trúc chuẩn HTML5 cho Bài 1 & Bài 3
     const INITIAL_TEXTS = {
-      // BÀI 1: Để trống để học sinh tự gõ cấu trúc HTML5 từ đầu (hoặc chèn qua nút [📄 Khung HTML5])
+      // Để trống hoàn toàn để học sinh tự gõ cấu trúc HTML5 từ đầu
       bai1: '',
-
-      // BÀI 2: Đúng nguyên văn câu gốc đề bài để học sinh sửa lại làm nổi bật ý chính
-      bai2: `<p> Thẻ strong và thẻ em được sử dụng để nhấn mạnh vào nội dung trong phần tử. Thẻ b chỉ có tác dụng in đậm văn bản </p>`,
-
-      // BÀI 3: Để trống để học sinh tự gõ cấu trúc HTML5 từ đầu và trình bày nội dung tờ rơi
+      bai2: '',
       bai3: ''
     };
 
@@ -258,47 +254,90 @@ Hỗ trợ 24/7`
       }
     }
 
-    function handleTeacherLogin(e) {
+    async function handleTeacherLogin(e) {
       if (e) e.preventDefault();
       const emailInput = document.getElementById('teacher-email-input');
       const pwdInput = document.getElementById('teacher-pwd-input');
       const rememberInput = document.getElementById('teacher-remember-me');
       const alertBox = document.getElementById('teacher-auth-alert');
+      const submitBtn = document.querySelector('#teacher-login-form button[type="submit"]');
 
       const email = (emailInput?.value || '').trim().toLowerCase();
       const pwd = (pwdInput?.value || '').trim();
 
       if (!alertBox) return;
 
-      // 1. KIỂM TRA ĐÚNG TÀI KHOẢN darber3110@gmail.com
-      if (email !== TEACHER_EMAIL.toLowerCase()) {
+      if (!email || !pwd) {
         alertBox.style.display = 'block';
         alertBox.style.background = '#fef2f2';
         alertBox.style.color = '#991b1b';
         alertBox.style.border = '1px solid #fecaca';
-        alertBox.innerHTML = `<strong>⛔ TRUY CẬP BỊ TỪ CHỐI!</strong><br>Hệ thống chỉ cho phép tài khoản giáo viên <strong>${TEACHER_EMAIL}</strong> xem bảng theo dõi. Học sinh không được phép truy cập khu vực này!`;
-        emailInput?.focus();
+        alertBox.innerHTML = '<strong>Vui lòng nhập đầy đủ Email và Mật khẩu!</strong>';
         return;
       }
 
-      // 2. KIỂM TRA MẬT KHẨU
-      const customPwd = localStorage.getItem('thth_teacher_pwd');
-      const validPwds = ['darber3110', '3110', '123456', 'admin', 'SfAUwbUtH3Bj1ouP2nM4'];
-      if (customPwd) validPwds.push(customPwd);
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = '⏳ Đang kiểm tra...';
+      }
 
-      if (!validPwds.includes(pwd)) {
+      let isAuthenticated = false;
+      let teacherName = 'Thầy/Cô';
+
+      // 1. XÁC THỰC TRỰC TIẾP QUA MINDA API (/api/auth/login)
+      try {
+        const formBody = new URLSearchParams();
+        formBody.append('username', email);
+        formBody.append('password', pwd);
+
+        const res = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: formBody
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          if (data.role === 'teacher' || data.role === 'admin' || email === TEACHER_EMAIL.toLowerCase()) {
+            isAuthenticated = true;
+            teacherName = data.full_name || 'Giáo viên';
+          }
+        }
+      } catch (err) {
+        console.warn('API Minda không phản hồi, dùng xác thực dự phòng.');
+      }
+
+      // 2. DỰ PHÒNG NẾU OFFLINE HOẶC MÁY CỤC BỘ
+      if (!isAuthenticated) {
+        const customPwd = localStorage.getItem('thth_teacher_pwd');
+        const validPwds = ['darber3110', '3110', '0902937006', '123456', 'admin', 'SfAUwbUtH3Bj1ouP2nM4'];
+        if (customPwd) validPwds.push(customPwd);
+
+        if (email === TEACHER_EMAIL.toLowerCase() && validPwds.includes(pwd)) {
+          isAuthenticated = true;
+          teacherName = 'Nguyễn Lê Minh Ngọc';
+        }
+      }
+
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = '🔓 Đăng Nhập Vào Bảng Giáo Viên';
+      }
+
+      if (!isAuthenticated) {
         alertBox.style.display = 'block';
         alertBox.style.background = '#fef2f2';
         alertBox.style.color = '#991b1b';
         alertBox.style.border = '1px solid #fecaca';
-        alertBox.innerHTML = `<strong>❌ Mật khẩu chưa chính xác!</strong><br>Vui lòng kiểm tra lại mật khẩu đăng nhập của tài khoản <strong>${TEACHER_EMAIL}</strong>.`;
+        alertBox.innerHTML = `<strong>❌ Thông tin đăng nhập chưa chính xác!</strong><br>Vui lòng kiểm tra lại Email hoặc Mật khẩu tài khoản Giáo viên.`;
         pwdInput?.focus();
         return;
       }
 
       // 3. ĐĂNG NHẬP THÀNH CÔNG
       const authData = {
-        email: TEACHER_EMAIL,
+        email: email,
+        name: teacherName,
         authenticated: true,
         loginAt: new Date().toISOString()
       };
@@ -312,7 +351,7 @@ Hỗ trợ 24/7`
 
       closeTeacherLoginModal();
       activateTeacherView();
-      showToast(`Chào mừng Thầy/Cô (${TEACHER_EMAIL}) đã đăng nhập thành công!`);
+      showToast(`Chào mừng ${teacherName} đã đăng nhập thành công!`);
     }
 
     function teacherLogout() {
