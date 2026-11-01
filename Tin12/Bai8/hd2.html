@@ -1,0 +1,3283 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hoạt động 2: Thẻ và Thuộc tính HTML | Bài 8: Định dạng văn bản - Tin học 12</title>
+  <meta name="description" content="Hoạt động 2: Thẻ và Thuộc tính trong HTML - Bài 8: Định dạng văn bản. Môn Tin học 12 Thống nhất. Giáo viên: Nguyễn Lê Minh Ngọc.">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Phong cách chuyên dụng cho Hoạt động 2: Thẻ & Thuộc tính */
+    .syntax-card {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      color: #f8fafc;
+      border-radius: var(--radius-md);
+      padding: 1.75rem;
+      border: 1px solid #334155;
+      box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.2);
+      margin-bottom: 2rem;
+    }
+
+    .syntax-card-title {
+      color: #38bdf8;
+      font-size: 1.25rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .syntax-code-display {
+      background: #020617;
+      border: 1.5px solid #1e40af;
+      border-radius: var(--radius-sm);
+      padding: 1.25rem 1.5rem;
+      font-family: 'Fira Code', 'Courier New', monospace;
+      font-size: 1.15rem;
+      line-height: 1.6;
+      color: #e2e8f0;
+      margin: 1rem 0;
+      overflow-x: auto;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
+    }
+
+    .code-tag { color: #f43f5e; font-weight: 600; }
+    .code-attr { color: #38bdf8; font-weight: 600; }
+    .code-val { color: #fbbf24; }
+    .code-content { color: #ffffff; }
+
+    .rules-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.25rem;
+      margin-top: 1.5rem;
+    }
+
+    .rule-box {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-sm);
+      padding: 1.15rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.85rem;
+    }
+
+    .rule-box.warn {
+      background: rgba(220, 38, 38, 0.1);
+      border-color: rgba(239, 68, 68, 0.3);
+    }
+
+    .rule-box.success {
+      background: rgba(16, 185, 129, 0.1);
+      border-color: rgba(16, 185, 129, 0.3);
+    }
+
+    .rule-icon {
+      font-size: 1.5rem;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+
+    .rule-text {
+      font-size: 0.95rem;
+      color: #e2e8f0;
+      line-height: 1.5;
+    }
+
+    .rule-text strong {
+      color: #ffffff;
+    }
+
+    /* Interactive Attribute Playground */
+    .playground-section {
+      background: #ffffff;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 2.5rem;
+    }
+
+    .playground-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .playground-grid {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 1.5rem;
+    }
+
+    @media (max-width: 900px) {
+      .playground-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .controls-panel {
+      background: var(--bg-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      border: 1px solid var(--border-subtle);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .control-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .control-label {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .color-picker-group {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .color-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 2px solid #ffffff;
+      box-shadow: 0 0 0 1px #cbd5e1;
+      cursor: pointer;
+      transition: transform 0.15s ease;
+    }
+
+    .color-btn:hover, .color-btn.active {
+      transform: scale(1.15);
+      box-shadow: 0 0 0 2px var(--color-brand);
+    }
+
+    .preview-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .live-code-window {
+      background: #0d1117;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid #30363d;
+    }
+
+    .live-code-header {
+      background: #161b22;
+      padding: 0.5rem 1rem;
+      font-size: 0.8rem;
+      color: #8b949e;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      border-bottom: 1px solid #30363d;
+      font-weight: 600;
+    }
+
+    .live-code-content {
+      padding: 1rem 1.25rem;
+      font-family: 'Fira Code', 'Courier New', monospace;
+      color: #58a6ff;
+      font-size: 1rem;
+      overflow-x: auto;
+    }
+
+    .live-browser-display {
+      background: #ffffff;
+      border: 1.5px solid var(--border-strong);
+      border-radius: var(--radius-md);
+      min-height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      position: relative;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+    }
+
+    /* MISSION CARD: PHIẾU HỌC TẬP SỐ 1 */
+    .mission-card {
+      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+      color: #ffffff;
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      margin-bottom: 2.5rem;
+      box-shadow: 0 15px 30px -10px rgba(37, 99, 235, 0.4);
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    @media (max-width: 860px) {
+      .mission-card {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .mission-content h2 {
+      font-size: 1.8rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+    }
+
+    .mission-meta-list {
+      list-style: none;
+      padding: 0;
+      margin: 1.25rem 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .mission-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 1rem;
+      opacity: 0.95;
+    }
+
+    .mission-qr-box {
+      background: #ffffff;
+      padding: 1.25rem;
+      border-radius: var(--radius-md);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      color: var(--text-primary);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    .qr-image-display {
+      width: 180px;
+      height: 180px;
+      object-fit: contain;
+      border-radius: 6px;
+      margin-bottom: 0.75rem;
+    }
+
+    .qr-hint {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    /* LIVE CLASSROOM MONITOR DASHBOARD */
+    .dashboard-card {
+      background: #ffffff;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 2.5rem;
+    }
+
+    .dashboard-topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 1rem;
+    }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .stat-box {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 1rem 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .stat-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      box-shadow: var(--shadow-xs);
+    }
+
+    .stat-info .stat-value {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      line-height: 1.2;
+    }
+
+    .stat-info .stat-label {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .submissions-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+    }
+
+    .submissions-table th, .submissions-table td {
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid var(--border-subtle);
+      text-align: left;
+    }
+
+    .submissions-table th {
+      background: var(--bg-subtle);
+      font-weight: 700;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .score-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.25rem 0.65rem;
+      border-radius: 9999px;
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+
+    .score-badge.high { background: #dcfce7; color: #15803d; border: 1px solid #86efac; }
+    .score-badge.medium { background: #fef9c3; color: #a16207; border: 1px solid #fde047; }
+    .score-badge.low { background: #fee2e2; color: #b91c1c; border: 1px solid #fca5a5; }
+
+    .pulse-live {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      background: #10b981;
+      border-radius: 50%;
+      box-shadow: 0 0 0 rgba(16, 185, 129, 0.4);
+      animation: pulseLive 1.8s infinite;
+    }
+
+    @keyframes pulseLive {
+      0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+      70% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+
+    /* Modal phóng to QR */
+    .qr-zoom-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      padding: 1rem;
+    }
+
+    .qr-zoom-modal.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .qr-zoom-box {
+      background: #ffffff;
+      padding: 2.5rem;
+      border-radius: 20px;
+      text-align: center;
+      max-width: 450px;
+      width: 100%;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Style cho Phân đoạn 2.2: Khám phá 2 */
+    .phase-selector-bar {
+      display: flex;
+      gap: 0.75rem;
+      background: #ffffff;
+      padding: 0.5rem;
+      border-radius: var(--radius-md);
+      margin-bottom: 2rem;
+      border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .phase-tab-btn {
+      flex: 1;
+      padding: 0.9rem 1.25rem;
+      font-size: 0.95rem;
+      font-weight: 700;
+      background: var(--bg-subtle);
+      border: 1.5px solid transparent;
+      border-radius: var(--radius-sm);
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.65rem;
+      font-family: inherit;
+    }
+
+    .phase-tab-btn:hover {
+      background: #eff6ff;
+      color: var(--color-brand);
+      border-color: #bfdbfe;
+    }
+
+    .phase-tab-btn.active {
+      background: #1d4ed8;
+      color: #ffffff;
+      border-color: #1d4ed8;
+      box-shadow: 0 4px 12px rgba(29, 78, 216, 0.25);
+    }
+
+    .phase-num-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.2rem 0.55rem;
+      border-radius: 9999px;
+      background: rgba(0, 0, 0, 0.08);
+      color: inherit;
+      font-size: 0.8rem;
+      font-weight: 800;
+    }
+
+    .phase-tab-btn.active .phase-num-badge {
+      background: rgba(255, 255, 255, 0.25);
+      color: #ffffff;
+    }
+
+    .heading-compare-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 1.25rem;
+    }
+
+    @media (max-width: 900px) {
+      .heading-compare-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .code-preview-pane {
+      background: #0f172a;
+      color: #e2e8f0;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid #334155;
+    }
+
+    .browser-preview-pane {
+      background: #ffffff;
+      border-radius: 10px;
+      border: 1.5px solid var(--border-strong);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .pane-topbar {
+      padding: 0.6rem 1rem;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      border-bottom: 1px solid rgba(0,0,0,0.1);
+    }
+
+    .code-preview-pane .pane-topbar {
+      background: #1e293b;
+      color: #94a3b8;
+      border-bottom-color: #334155;
+    }
+
+    .browser-preview-pane .pane-topbar {
+      background: #f8fafc;
+      color: #475569;
+    }
+
+    .browser-body {
+      padding: 1.5rem;
+      background: #ffffff;
+      min-height: 280px;
+    }
+
+    .block-inline-demo {
+      background: #ffffff;
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      border: 1px solid var(--border-subtle);
+      margin-top: 1.25rem;
+    }
+
+    .demo-box-div {
+      background: #dbeafe;
+      border: 2px dashed #2563eb;
+      color: #1e40af;
+      padding: 0.75rem 1rem;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      border-radius: 6px;
+    }
+
+    .demo-box-span {
+      background: #fef08a;
+      border: 2px dashed #ca8a04;
+      color: #854d0e;
+      padding: 0.25rem 0.5rem;
+      font-weight: 600;
+      border-radius: 4px;
+      display: inline-block;
+    }
+
+    .tag-feature-card {
+      background: #ffffff;
+      border-radius: 10px;
+      padding: 1.25rem;
+      border: 1px solid var(--border-subtle);
+      border-top: 4px solid var(--color-brand);
+      box-shadow: var(--shadow-xs);
+    }
+
+    .heading-test-btn {
+      padding: 0.5rem 1rem;
+      font-family: monospace;
+      font-size: 0.95rem;
+      font-weight: 800;
+      border: 1.5px solid #cbd5e1;
+      background: #f8fafc;
+      color: #334155;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .heading-test-btn:hover {
+      background: #eff6ff;
+      border-color: #3b82f6;
+      color: #1d4ed8;
+    }
+
+    .heading-test-btn.active {
+      background: #1d4ed8;
+      border-color: #1d4ed8;
+      color: #ffffff;
+      box-shadow: 0 4px 8px rgba(29, 78, 216, 0.25);
+    }
+
+    .font-style-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+      background: #ffffff;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid #cbd5e1;
+    }
+    .font-style-table th, .font-style-table td {
+      padding: 0.75rem 1rem;
+      border: 1px solid #e2e8f0;
+      text-align: left;
+    }
+    .font-style-table th {
+      background: #eff6ff;
+      font-weight: 800;
+      color: #1e3a8a;
+      font-size: 0.9rem;
+    }
+    .font-style-table tr:hover {
+      background: #f8fafc;
+    }
+    .font-style-table code {
+      font-size: 0.88rem;
+      background: #f1f5f9;
+      color: #0f172a;
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER & NAVIGATION -->
+  <header class="site-header">
+    <div class="container nav-wrapper">
+      <a href="index.html" class="brand-badge" title="Quay về Trang chủ Bài 8">
+        <div class="brand-icon-box">
+          <svg class="icon-svg" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+        </div>
+        <div class="brand-text">
+          <span class="title">BÀI 8: ĐỊNH DẠNG VĂN BẢN</span>
+          <span class="subtitle">Tin học 12 • Thống nhất • THTH - DHSP</span>
+        </div>
+      </a>
+
+      <nav aria-label="Điều hướng bài học">
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">Tổng quan</a></li>
+          <li><a href="hd1.html" class="nav-link">HĐ 1: Khởi động (10')</a></li>
+          <li><a href="hd2.html" class="nav-link active">HĐ 2: Thẻ & Thuộc tính (20')</a></li>
+          <li><a href="hd3.html" class="nav-link">HĐ 3: Thẻ định dạng</a></li>
+          <li><a href="hd4.html" class="nav-link">HĐ 4: Thực hành</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-tools">
+        <div class="timer-widget" title="Đồng hồ đếm giờ Hoạt động 2 (20 phút)">
+          <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          <span id="timer-display" class="timer-display">20:00</span>
+          <select id="timer-preset" class="btn-tool" title="Chọn thời lượng hoạt động">
+            <option value="10">10p</option>
+            <option value="12">12p (Chuẩn HĐ 2.2)</option>
+            <option value="15">15p</option>
+            <option value="20" selected>20p (Chuẩn HĐ 2.1)</option>
+            <option value="25">25p</option>
+            <option value="30">30p</option>
+          </select>
+          <button id="timer-toggle" class="btn-tool" type="button">▶ Bắt đầu</button>
+          <button id="timer-reset" class="btn-tool" type="button" title="Đặt lại đồng hồ">↺</button>
+        </div>
+
+        <button id="btn-fullscreen" class="btn-tool" type="button" title="Bật/Tắt chế độ trình chiếu toàn màn hình">
+          <svg class="icon-svg" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
+          Trình chiếu
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- STEPPER TIMELINE TIẾN TRÌNH BÀI 8 -->
+  <nav class="stepper-section" aria-label="Tiến trình học tập Bài 8">
+    <div class="container">
+      <div class="stepper-nav">
+        <div class="stepper-line"></div>
+        
+        <a href="index.html" class="stepper-step completed">
+          <div class="step-circle">✓</div>
+          <span class="step-label">Tổng quan</span>
+        </a>
+
+        <a href="hd1.html" class="stepper-step completed">
+          <div class="step-circle">✓</div>
+          <span class="step-label">Khởi động (10')</span>
+        </a>
+
+        <a href="hd2.html" class="stepper-step active">
+          <div class="step-circle">2</div>
+          <span class="step-label">Thẻ & Thuộc tính (20')</span>
+        </a>
+
+        <a href="hd3.html" class="stepper-step">
+          <div class="step-circle">3</div>
+          <span class="step-label">Các thẻ định dạng (20')</span>
+        </a>
+
+        <a href="hd4.html" class="stepper-step">
+          <div class="step-circle">4</div>
+          <span class="step-label">Thực hành (30')</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO BANNER HOẠT ĐỘNG 2 -->
+  <section class="hero-banner">
+    <div class="container">
+      <div class="hero-badge">
+        <span class="pulse-indicator"></span>
+        HOẠT ĐỘNG 2: HÌNH THÀNH KIẾN THỨC MỚI (20 PHÚT)
+      </div>
+      <h1 class="hero-title">Thẻ & Thuộc Tính Trong Ngôn Ngữ HTML</h1>
+      <p class="hero-subtitle">
+        Khám phá quy tắc cú pháp của thuộc tính HTML, vận dụng thuộc tính <code>style</code> định dạng văn bản và hoàn thành Phiếu học tập số 1 trực tuyến.
+      </p>
+
+      <div class="objectives-badge-group">
+        <div class="obj-pill">
+          <strong>(1) Kiến thức cốt lõi:</strong> Nắm vững cú pháp xác định thuộc tính & vị trí trong thẻ mở HTML
+        </div>
+        <div class="obj-pill">
+          <strong>(2) Kỹ năng thực hành:</strong> Vận dụng thuộc tính <code>style</code> (màu sắc, màu nền, cỡ chữ, căn lề)
+        </div>
+        <div class="obj-pill">
+          <strong>(5) Năng lực hợp tác:</strong> Thảo luận nhóm và giải quyết nhiệm vụ trên hệ thống web
+        </div>
+        <div class="obj-pill">
+          <strong>(7) Phẩm chất chăm chỉ:</strong> Tự giác hoàn thành và nộp Phiếu học tập số 1
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN CONTENT -->
+  <main class="page-main-content">
+    <div class="container">
+
+      <!-- THANH ĐIỀU HƯỚNG GIAI ĐOẠN KHÁM PHÁ (HOẠT ĐỘNG 2: 2.1, 2.2 & 2.3) -->
+      <div class="phase-selector-bar" role="tablist">
+        <button type="button" class="phase-tab-btn active" id="tab-phase-2-1" onclick="switchPhase('2.1')" role="tab" aria-selected="true">
+          <span class="phase-num-badge">HĐ 2.1</span>
+          <span>Khám phá 1: Thẻ & Thuộc tính (20')</span>
+        </button>
+        <button type="button" class="phase-tab-btn" id="tab-phase-2-2" onclick="switchPhase('2.2')" role="tab" aria-selected="false">
+          <span class="phase-num-badge">HĐ 2.2</span>
+          <span>Khám phá 2: Thẻ tiêu đề & Cấu trúc (12')</span>
+        </button>
+        <button type="button" class="phase-tab-btn" id="tab-phase-2-3" onclick="switchPhase('2.3')" role="tab" aria-selected="false">
+          <span class="phase-num-badge">HĐ 2.3</span>
+          <span>Khám phá 3: Phiếu bài tập số 2 (15')</span>
+        </button>
+      </div>
+
+      <!-- ======================================================== -->
+      <!-- GIAI ĐOẠN 2.1: KHÁM PHÁ 1 (CÚ PHÁP THUỘC TÍNH & PHIẾU BÀI TẬP 1) -->
+      <!-- ======================================================== -->
+      <div id="phase-2-1-container">
+
+        <!-- PHẦN 1: BÀI GIẢNG CỦA GIÁO VIÊN (THEO ĐÚNG GIÁO ÁN) -->
+      <section class="syntax-card">
+        <div class="syntax-card-title">
+          <svg style="width:24px;height:24px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline>
+          </svg>
+          I. CÚ PHÁP VÀ QUY TẮC XÁC ĐỊNH THUỘC TÍNH (ATTRIBUTE)
+        </div>
+
+        <p style="font-size: 1.05rem; color: #cbd5e1; line-height: 1.6;">
+          Để mở rộng tính năng và định dạng cho các phần tử HTML, ngôn ngữ HTML cho phép chúng ta bổ sung các <strong>thuộc tính (attributes)</strong> với những quy tắc chuẩn mực sau:
+        </p>
+
+        <!-- KHUNG CÚ PHÁP TỔNG QUÁT -->
+        <div class="syntax-code-display">
+          &lt;<span class="code-tag">Tên_thẻ</span> <span class="code-attr">thuộc_tính_1</span>=<span class="code-val">"giá_trị_1"</span> <span class="code-attr">thuộc_tính_2</span>=<span class="code-val">"giá_trị_2"</span>&gt;<span class="code-content">Nội dung văn bản</span>&lt;/<span class="code-tag">Tên_thẻ</span>&gt;
+        </div>
+
+        <!-- CÁC NGUYÊN TẮC BẮT BUỘC -->
+        <div class="rules-grid">
+          <div class="rule-box success">
+            <div class="rule-icon">📌</div>
+            <div class="rule-text">
+              <strong>Cú pháp thuộc tính:</strong><br>
+              Viết theo dạng <code>tên_thuộc_tính = "giá trị"</code>. Giá trị nên đặt trong cặp dấu ngoặc kép <code>""</code>.<br>
+              <em style="font-size:0.85rem; color:#94a3b8;">*Trường hợp đặc biệt chỉ cần tên thuộc tính (boolean attribute).</em>
+            </div>
+          </div>
+
+          <div class="rule-box warn">
+            <div class="rule-icon">⚠️</div>
+            <div class="rule-text">
+              <strong>Vị trí bắt buộc:</strong><br>
+              Thuộc tính luôn nằm trong <strong>thẻ bắt đầu (thẻ mở)</strong>, ngay sau tên thẻ. <strong>Tuyệt đối không</strong> nằm trong thẻ kết thúc (thẻ đóng).
+            </div>
+          </div>
+
+          <div class="rule-box success">
+            <div class="rule-icon">📐</div>
+            <div class="rule-text">
+              <strong>Nhiều thuộc tính:</strong><br>
+              Nếu thẻ có nhiều thuộc tính (ví dụ: vừa có <code>style</code>, vừa có <code>class</code>, <code>id</code>), các thuộc tính được <strong>ngăn cách nhau bởi dấu cách</strong>.
+            </div>
+          </div>
+
+          <div class="rule-box success">
+            <div class="rule-icon">🎨</div>
+            <div class="rule-text">
+              <strong>Thuộc tính <code>style</code>:</strong><br>
+              Là thuộc tính thông dụng nhất để định dạng trực tiếp văn bản như: màu chữ (<code>color</code>), màu nền (<code>background-color</code>), cỡ chữ (<code>font-size</code>), căn lề (<code>text-align</code>).
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PHẦN 2: PHÒNG THÍ NGHIỆM THUỘC TÍNH TRỰC QUAN (PLAYGROUND) -->
+      <section class="playground-section">
+        <div class="playground-header">
+          <div>
+            <span class="compare-tag success">TRỰC QUAN HÓA THỜI GIAN THỰC</span>
+            <h2 style="font-size: 1.45rem; font-weight: 800; margin-top: 0.35rem; color: #0f172a;">
+              🎮 Phòng Thí Nghiệm Thuộc Tính (Live Attribute Playground)
+            </h2>
+            <p style="color: var(--text-muted); font-size: 0.95rem;">
+              Thầy/cô có thể thao tác trực tiếp các thanh điều khiển bên dưới để học sinh quan sát sự biến đổi tức thì của mã HTML và hiển thị web:
+            </p>
+          </div>
+          <button class="btn btn-secondary" onclick="resetPlayground()" type="button" style="font-size: 0.85rem;">
+            ↺ Khôi phục mặc định
+          </button>
+        </div>
+
+        <div class="playground-grid">
+          <!-- BỘ ĐIỀU KHIỂN CỦA GIÁO VIÊN -->
+          <div class="controls-panel">
+            <div class="control-item">
+              <span class="control-label">Màu chữ (<code>color</code>):</span>
+              <div class="color-picker-group">
+                <button type="button" class="color-btn active" style="background:#ef4444;" onclick="changeTextColor('#ef4444')" title="Đỏ"></button>
+                <button type="button" class="color-btn" style="background:#2563eb;" onclick="changeTextColor('#2563eb')" title="Xanh dương"></button>
+                <button type="button" class="color-btn" style="background:#16a34a;" onclick="changeTextColor('#16a34a')" title="Xanh lục"></button>
+                <button type="button" class="color-btn" style="background:#9333ea;" onclick="changeTextColor('#9333ea')" title="Tím"></button>
+                <button type="button" class="color-btn" style="background:#ea580c;" onclick="changeTextColor('#ea580c')" title="Cam"></button>
+                <button type="button" class="color-btn" style="background:#0f172a;" onclick="changeTextColor('#0f172a')" title="Đen"></button>
+              </div>
+            </div>
+
+            <div class="control-item">
+              <span class="control-label">
+                <span>Cỡ chữ (<code>font-size</code>):</span>
+                <span id="label-font-size" style="color: var(--color-brand); font-weight: bold;">24px</span>
+              </span>
+              <input type="range" id="input-font-size" min="16" max="36" value="24" oninput="changeFontSize(this.value)" style="width:100%; cursor:pointer;">
+            </div>
+
+            <div class="control-item">
+              <span class="control-label">Màu nền (<code>background-color</code>):</span>
+              <div class="color-picker-group">
+                <button type="button" class="color-btn active" style="background:#ffffff; border:1px solid #cbd5e1;" onclick="changeBgColor('transparent')" title="Trong suốt"></button>
+                <button type="button" class="color-btn" style="background:#fef08a;" onclick="changeBgColor('#fef08a')" title="Vàng nhạt"></button>
+                <button type="button" class="color-btn" style="background:#dbeafe;" onclick="changeBgColor('#dbeafe')" title="Xanh nhạt"></button>
+                <button type="button" class="color-btn" style="background:#fce7f3;" onclick="changeBgColor('#fce7f3')" title="Hồng phấn"></button>
+                <button type="button" class="color-btn" style="background:#f1f5f9;" onclick="changeBgColor('#f1f5f9')" title="Xám nhạt"></button>
+              </div>
+            </div>
+
+            <div class="control-item">
+              <span class="control-label">Căn lề văn bản (<code>text-align</code>):</span>
+              <div style="display: flex; gap: 0.4rem;">
+                <button type="button" class="btn btn-secondary align-btn" onclick="changeTextAlign('left')" style="flex:1; padding:0.4rem; font-size:0.8rem;">Trái</button>
+                <button type="button" class="btn btn-primary align-btn" onclick="changeTextAlign('center')" style="flex:1; padding:0.4rem; font-size:0.8rem;">Giữa</button>
+                <button type="button" class="btn btn-secondary align-btn" onclick="changeTextAlign('right')" style="flex:1; padding:0.4rem; font-size:0.8rem;">Phải</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- MÀN HÌNH SO SÁNH CODE & WEB HIỂN THỊ -->
+          <div class="preview-stack">
+            <!-- CỬA SỔ MÃ HTML SINH TỰ ĐỘNG -->
+            <div class="live-code-window">
+              <div class="live-code-header">
+                <span class="pulse-live"></span>
+                <span>MÃ NGUỒN HTML TỰ ĐỘNG SINH THEO THUỘC TÍNH</span>
+              </div>
+              <div class="live-code-content" id="live-code-text">
+                &lt;p style="color: #ef4444; font-size: 24px; background-color: transparent; text-align: center;"&gt;THTH - DHSP&lt;/p&gt;
+              </div>
+            </div>
+
+            <!-- CỬA SỔ HIỂN THỊ WEB THỰC TẾ -->
+            <div class="live-browser-display">
+              <span style="position: absolute; top: 0.5rem; left: 0.75rem; font-size: 0.75rem; font-weight: 700; color: #94a3b8; text-transform: uppercase;">
+                🖥️ KẾT QUẢ HIỂN THỊ TRÊN TRÌNH DUYỆT
+              </span>
+              <p id="live-target-p" style="color: #ef4444; font-size: 24px; background-color: transparent; text-align: center; margin: 0; width: 100%; transition: all 0.2s ease;">
+                THTH - DHSP
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PHẦN 3: GIAO NHIỆM VỤ PHIẾU BÀI TẬP SỐ 1 -->
+      <section class="mission-card">
+        <div class="mission-content">
+          <span style="display: inline-block; background: rgba(255,255,255,0.2); padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.82rem; font-weight: 700; text-transform: uppercase;">
+            🚀 NHIỆM VỤ HỌC TẬP TRỰC TUYẾN
+          </span>
+          <h2 style="font-size: 1.85rem; font-weight: 800; margin-top: 0.5rem;">
+            Truy Cập Hệ Thống & Hoàn Thành Phiếu Bài Tập Số 1
+          </h2>
+          <p style="font-size: 1.05rem; opacity: 0.95; line-height: 1.6;">
+            Giáo viên yêu cầu các em học sinh truy cập vào hệ thống web lớp học để hoàn thành <strong>Phiếu học tập số 1</strong>. Bài làm sẽ được chấm điểm tự động và nộp trực tiếp lên hệ thống quản lý.
+          </p>
+
+          <ul class="mission-meta-list">
+            <li class="mission-meta-item">
+              <svg style="width:20px;height:20px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+              <span><strong>Thời gian làm bài:</strong> 7 phút (Đếm ngược tự động)</span>
+            </li>
+            <li class="mission-meta-item">
+              <svg style="width:20px;height:20px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+              <span><strong>Đường link truy cập:</strong> <code style="background: rgba(0,0,0,0.25); color: #fff; padding: 0.2rem 0.5rem; border-radius: 4px;">https://minda.io.vn/Tin12/Bai8/phieu-bai-tap-1.html</code></span>
+            </li>
+            <li class="mission-meta-item">
+              <svg style="width:20px;height:20px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+              <span><strong>Hình thức nộp:</strong> Bấm "Nộp bài ngay" — Hệ thống sẽ truyền dữ liệu tức thì về màn hình giáo viên.</span>
+            </li>
+          </ul>
+
+          <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1rem;">
+            <a href="phieu-bai-tap-1.html" target="_blank" class="btn btn-primary" style="background:#ffffff; color:#1d4ed8; font-weight:700; box-shadow:0 4px 14px rgba(0,0,0,0.15);">
+              🔗 Mở Phiếu bài tập số 1 (Tab mới) ↗
+            </a>
+            <button type="button" class="btn btn-secondary" onclick="openQrZoom()" style="background:rgba(255,255,255,0.15); color:#fff; border-color:rgba(255,255,255,0.3);">
+              🔍 Phóng to mã QR lên toàn màn hình
+            </button>
+          </div>
+        </div>
+
+        <!-- MÃ QR TRỰC QUAN -->
+        <div class="mission-qr-box">
+          <img src="assets/qr_phieu1.svg" alt="Mã QR quét làm Phiếu bài tập số 1" class="qr-image-display">
+          <div class="qr-hint">
+            📱 Quét bằng điện thoại hoặc gõ link để làm bài ngay!
+          </div>
+        </div>
+      </section>
+
+      <!-- PHẦN 4: BẢNG QUẢN TRỊ & THEO DÕI NỘP BÀI TRỰC TIẾP (DASHBOARD) -->
+      <section class="dashboard-card" id="dashboard-section">
+        <div class="dashboard-topbar">
+          <div>
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+              <span class="pulse-live"></span>
+              <span style="font-size: 0.8rem; font-weight: 700; color: #059669; text-transform: uppercase;">
+                ĐANG KẾT NỐI TRỰC TIẾP (REALTIME)
+              </span>
+            </div>
+            <h2 style="font-size: 1.45rem; font-weight: 800; color: #0f172a; margin-top: 0.25rem;">
+              📊 Bảng Theo Dõi Tiến Độ Nộp Bài Của Lớp
+            </h2>
+          </div>
+
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+            <button type="button" class="btn btn-secondary" onclick="loadSubmissions()" style="font-size: 0.85rem;">
+              🔄 Làm mới
+            </button>
+            <button type="button" class="btn btn-secondary" onclick="copyForGoogleSheets()" style="font-size: 0.85rem; background: #ecfdf5; color: #047857; border-color: #a7f3d0;" title="Sao chép bảng điểm để dán vào Google Sheets">
+              📋 Sao chép cho Google Sheets
+            </button>
+            <button type="button" class="btn btn-secondary" onclick="exportSubmissionsCSV()" style="font-size: 0.85rem;">
+              📥 Xuất file Excel (CSV)
+            </button>
+            <button type="button" class="btn btn-secondary" onclick="generateDemoSubmissions()" style="font-size: 0.85rem;" title="Tạo các bài nộp mẫu cả đơn và nhóm để test">
+              🧪 Tạo dữ liệu thử nghiệm
+            </button>
+            <button type="button" class="btn btn-secondary" onclick="clearAllSubmissions()" style="font-size: 0.85rem; color: #dc2626;" title="Xóa danh sách bài nộp">
+              🗑️ Xóa danh sách
+            </button>
+          </div>
+        </div>
+
+        <!-- THẺ THỐNG KÊ NHANH -->
+        <div class="stats-row">
+          <div class="stat-box">
+            <div class="stat-icon">👥</div>
+            <div class="stat-info">
+              <div class="stat-value" id="stat-count">0</div>
+              <div class="stat-label">Học sinh đã nộp bài</div>
+            </div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-icon">🎯</div>
+            <div class="stat-info">
+              <div class="stat-value" id="stat-avg">0.0</div>
+              <div class="stat-label">Điểm trung bình lớp</div>
+            </div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-icon">🏆</div>
+            <div class="stat-info">
+              <div class="stat-value" id="stat-high">0%</div>
+              <div class="stat-label">Tỉ lệ đạt Giỏi (≥ 8.0)</div>
+            </div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-icon">⏱️</div>
+            <div class="stat-info">
+              <div class="stat-value" id="stat-latest" style="font-size:1.1rem; line-height: 1.4;">Chưa có</div>
+              <div class="stat-label">Bài nộp gần nhất</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- BẢNG DANH SÁCH BÀI NỘP -->
+        <div style="overflow-x: auto;">
+          <table class="submissions-table">
+            <thead>
+              <tr>
+                <th style="width: 50px;">STT</th>
+                <th>HỌ VÀ TÊN</th>
+                <th style="width: 90px;">LỚP</th>
+                <th style="width: 110px;">SỐ MÁY</th>
+                <th style="width: 100px;">ĐIỂM SỐ</th>
+                <th style="width: 130px;">XẾP LOẠI</th>
+                <th>THỜI GIAN NỘP</th>
+                <th style="width: 120px;">MÃ BIÊN NHẬN</th>
+                <th style="width: 120px; text-align: center;">CHI TIẾT</th>
+              </tr>
+            </thead>
+            <tbody id="submissions-tbody">
+              <tr>
+                <td colspan="9" style="text-align: center; padding: 2.5rem; color: #94a3b8;">
+                  <div style="font-size: 2rem; margin-bottom: 0.5rem;">📭</div>
+                  Chưa có bài nộp nào. Khi học sinh bấm <strong>"Nộp bài ngay"</strong> từ phiếu học tập, kết quả sẽ tự động hiển thị tại đây theo thời gian thực!
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+        <!-- THẺ CHUYỂN TIẾP SƯ PHẠM SANG GIAI ĐOẠN 2.2 -->
+        <div style="background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); border: 2px solid #bfdbfe; border-radius: 12px; padding: 1.5rem 1.75rem; margin-top: 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.25rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);">
+          <div>
+            <div style="display: inline-flex; align-items: center; gap: 0.4rem; background: #2563eb; color: #fff; font-size: 0.75rem; font-weight: 800; padding: 0.2rem 0.6rem; border-radius: 9999px; text-transform: uppercase; margin-bottom: 0.4rem;">
+              <span>Tiến trình sư phạm tiếp theo</span>
+            </div>
+            <h4 style="margin: 0 0 0.35rem 0; color: #1e3a8a; font-size: 1.25rem; font-weight: 800;">
+              Chuyển sang Giai đoạn 2.2: Khám phá 2 (12 phút)
+            </h4>
+            <p style="margin: 0; color: #1e40af; font-size: 0.95rem; line-height: 1.5;">
+              Khám phá các cấp thẻ tiêu đề <code>&lt;hx&gt;</code> (x càng lớn chữ càng nhỏ), phân biệt khối <code>&lt;div&gt;</code> &amp; nội dòng <code>&lt;span&gt;</code>, thẻ <code>&lt;br&gt;</code> và <code>&lt;hr&gt;</code>.
+            </p>
+          </div>
+          <button type="button" class="btn btn-primary" onclick="switchPhase('2.2')" style="font-size: 1rem; font-weight: 700; padding: 0.85rem 1.75rem; display: inline-flex; align-items: center; gap: 0.6rem; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35); cursor: pointer;">
+            <span>Tiến vào Khám phá 2 (12')</span>
+            <svg style="width: 20px; height: 20px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </button>
+        </div>
+
+      </div>
+      <!-- ======================================================== -->
+      <!-- KẾT THÚC GIAI ĐOẠN 2.1 -->
+      <!-- ======================================================== -->
+
+
+      <!-- ======================================================== -->
+      <!-- GIAI ĐOẠN 2.2: KHÁM PHÁ 2 (THẺ TIÊU ĐỀ & CẤU TRÚC VĂN BẢN) -->
+      <!-- ======================================================== -->
+      <div id="phase-2-2-container" style="display: none;">
+
+        <!-- 1. MỤC TIÊU BÀI DẠY THEO KẾ HOẠCH BÀI DẠY (KHBD) -->
+        <section class="syntax-card" style="border-left: 6px solid #2563eb; margin-bottom: 2rem;">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem;">
+            <div>
+              <div style="display: inline-flex; align-items: center; gap: 0.4rem; background: #1d4ed8; color: #ffffff; font-size: 0.78rem; font-weight: 800; padding: 0.25rem 0.65rem; border-radius: 9999px; text-transform: uppercase;">
+                <span>⏱️ THỜI LƯỢNG: 12 PHÚT</span>
+              </div>
+              <h2 style="font-size: 1.55rem; font-weight: 800; color: #1e3a8a; margin: 0.5rem 0 0.25rem 0;">
+                Hoạt động 2.2: Khám phá 2 - Các thẻ tiêu đề &amp; Định dạng văn bản khác
+              </h2>
+              <p style="color: #64748b; font-size: 0.95rem; margin: 0;">
+                Mục tiêu trọng tâm: <strong>(2), (3), (5), (6), (8)</strong>
+              </p>
+            </div>
+            <div style="background: #eff6ff; border: 1.5px solid #bfdbfe; border-radius: 10px; padding: 0.6rem 1rem; text-align: right;">
+              <span style="font-size: 0.8rem; color: #1e40af; font-weight: 700; text-transform: uppercase;">Trạng thái trình chiếu:</span>
+              <div style="font-size: 0.95rem; font-weight: 800; color: #1d4ed8;">Giai đoạn 2.2 / 3</div>
+            </div>
+          </div>
+
+          <div class="rules-grid" style="grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 0.75rem;">
+            <div class="rule-box success" style="padding: 0.75rem 1rem;">
+              <div class="rule-icon">🎯</div>
+              <div class="rule-text"><strong>(2) Nhận diện tiêu đề:</strong> Thẻ <code>&lt;hx&gt;</code> (x ∈ [1,6]), x càng lớn chữ càng nhỏ lại</div>
+            </div>
+            <div class="rule-box success" style="padding: 0.75rem 1rem;">
+              <div class="rule-icon">📦</div>
+              <div class="rule-text"><strong>(3) Cấu trúc văn bản:</strong> Phân biệt đoạn văn <code>&lt;p&gt;</code>, khối dòng mới <code>&lt;div&gt;</code> &amp; nội dòng <code>&lt;span&gt;</code></div>
+            </div>
+            <div class="rule-box success" style="padding: 0.75rem 1rem;">
+              <div class="rule-icon">👥</div>
+              <div class="rule-text"><strong>(5) Hợp tác &amp; Đối chiếu:</strong> Quan sát mã nguồn và kết quả hiển thị mục lục Tin học 12</div>
+            </div>
+            <div class="rule-box success" style="padding: 0.75rem 1rem;">
+              <div class="rule-icon">✂️</div>
+              <div class="rule-text"><strong>(6) Thẻ tiện ích:</strong> Sử dụng thẻ xuống dòng <code>&lt;br&gt;</code> và đường gạch ngang <code>&lt;hr&gt;</code></div>
+            </div>
+            <div class="rule-box warn" style="padding: 0.75rem 1rem;">
+              <div class="rule-icon">💡</div>
+              <div class="rule-text"><strong>(8) Định hướng bài sau:</strong> Định dạng khung, lề cho đoạn văn qua thuộc tính <code>style</code></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2. NỘI DUNG 1: ĐỊNH DẠNG TIÊU ĐỀ BẰNG THẺ <hx> (x thuộc [1,6]) -->
+        <section class="syntax-card" style="margin-bottom: 2rem;">
+          <div class="syntax-card-title">
+            <svg style="width:24px;height:24px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 6h16M4 12h16M4 18h7"></path>
+            </svg>
+            I. ĐỊNH DẠNG TIÊU ĐỀ TRANG WEB BẰNG CÁC THẺ &lt;hx&gt; (x ∈ [1, 6])
+          </div>
+
+          <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 1.25rem; margin-bottom: 1.25rem;">
+            <p style="font-size: 1.02rem; color: #334155; line-height: 1.6; margin: 0 0 0.75rem 0;">
+              📌 <strong>Nội dung giáo viên giới thiệu:</strong>
+            </p>
+            <ul style="margin: 0; padding-left: 1.5rem; color: #475569; line-height: 1.7; font-size: 0.96rem;">
+              <li>Trong HTML, các tiêu đề trang web và các tiêu đề con được định nghĩa thông qua nhóm thẻ <code>&lt;hx&gt;</code> với <strong>x thuộc [1, 6]</strong> (từ <code>&lt;h1&gt;</code> đến <code>&lt;h6&gt;</code>).</li>
+              <li><strong style="color: #dc2626;">SỰ KHÁC BIỆT CHÍNH CỐT LÕI:</strong> <strong>x càng lớn thì kích thước chữ hiển thị càng nhỏ lại!</strong>
+                <span style="display: inline-block; background: #fee2e2; color: #991b1b; padding: 0.15rem 0.5rem; border-radius: 4px; font-weight: 700; font-size: 0.85rem; margin-left: 0.5rem;">
+                  h1 (lớn nhất) &gt; h2 &gt; h3 &gt; h4 &gt; h5 &gt; h6 (nhỏ nhất)
+                </span>
+              </li>
+              <li>Mặc định mọi thẻ tiêu đề đều được trình duyệt <strong>tự động in đậm (bold)</strong>, tự ngắt trên một dòng riêng biệt (khối) và có khoảng đệm phía trên, phía dưới.</li>
+            </ul>
+          </div>
+
+          <!-- BẢNG ĐỐI SÁNH THEO ĐÚNG GIÁO ÁN TIN HỌC 12 -->
+          <div style="margin-bottom: 1.5rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.5rem;">
+              <h3 style="font-size: 1.15rem; font-weight: 800; color: #1e3a8a; margin: 0;">
+                📖 Ví dụ minh họa: Phân cấp mục lục Sách giáo khoa Tin học 12
+              </h3>
+              <span style="font-size: 0.82rem; background: #eff6ff; color: #1d4ed8; padding: 0.25rem 0.6rem; border-radius: 9999px; font-weight: 700;">
+                Mã nguồn HTML ➔ Kết quả hiển thị Web
+              </span>
+            </div>
+
+            <div class="heading-compare-grid">
+              <!-- CỘT TRÁI: MÃ NGUỒN HTML CỦA GIÁO VIÊN -->
+              <div class="code-preview-pane">
+                <div class="pane-topbar">
+                  <div style="display: flex; gap: 6px;">
+                    <span style="width: 10px; height: 10px; border-radius: 50%; background: #ef4444; display: inline-block;"></span>
+                    <span style="width: 10px; height: 10px; border-radius: 50%; background: #f59e0b; display: inline-block;"></span>
+                    <span style="width: 10px; height: 10px; border-radius: 50%; background: #10b981; display: inline-block;"></span>
+                  </div>
+                  <span style="color: #cbd5e1; font-size: 0.82rem;">mucluc_tin12.html (Mã nguồn HTML)</span>
+                </div>
+                <pre style="margin: 0; padding: 1.25rem; font-family: 'Fira Code', monospace; font-size: 0.95rem; line-height: 1.8; color: #f8fafc; overflow-x: auto;"><code>&lt;<span class="code-tag">h1</span>&gt;Tin học 12&lt;/<span class="code-tag">h1</span>&gt;
+&lt;<span class="code-tag">h2</span>&gt;Phần chung&lt;/<span class="code-tag">h2</span>&gt;
+&lt;<span class="code-tag">h3</span>&gt;Chủ đề 1. Máy tính và xã hội tri thức&lt;/<span class="code-tag">h3</span>&gt;
+&lt;<span class="code-tag">h4</span>&gt;1. Trí tuệ nhân tạo và ứng dụng&lt;/<span class="code-tag">h4</span>&gt;
+&lt;<span class="code-tag">h4</span>&gt;2. Trí tuệ nhân tạo trong khoa học và đời sống&lt;/<span class="code-tag">h4</span>&gt;
+&lt;<span class="code-tag">h3</span>&gt;Chủ đề 2. Mạng máy tính và Internet&lt;/<span class="code-tag">h3</span>&gt;
+&lt;<span class="code-tag">h4</span>&gt;3. Thiết bị mạng&lt;/<span class="code-tag">h4</span>&gt;</code></pre>
+              </div>
+
+              <!-- CỘT PHẢI: KẾT QUẢ HIỂN THỊ WEB THỰC TẾ -->
+              <div class="browser-preview-pane">
+                <div class="pane-topbar">
+                  <div style="display: flex; align-items: center; gap: 0.5rem; width: 100%;">
+                    <span style="color: #64748b; font-size: 0.75rem;">🌐 TRÌNH DUYỆT:</span>
+                    <span style="background: #ffffff; border: 1px solid #cbd5e1; border-radius: 4px; padding: 0.2rem 0.6rem; font-size: 0.78rem; color: #1e40af; font-family: monospace; flex: 1;">
+                      https://minda.io.vn/mucluc.html
+                    </span>
+                  </div>
+                </div>
+                <div class="browser-body" style="background: #ffffff; padding: 1.25rem 1.5rem; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #0f172a;">
+                  <h1 style="font-size: 2rem; font-weight: 800; margin: 0 0 0.5rem 0; color: #0f172a; line-height: 1.2;">Tin học 12</h1>
+                  <h2 style="font-size: 1.5rem; font-weight: 700; margin: 0.5rem 0 0.5rem 0; color: #1e293b; line-height: 1.3;">Phần chung</h2>
+                  <h3 style="font-size: 1.17rem; font-weight: 700; margin: 0.5rem 0 0.35rem 0; color: #334155; line-height: 1.3;">Chủ đề 1. Máy tính và xã hội tri thức</h3>
+                  <h4 style="font-size: 1rem; font-weight: 600; margin: 0.35rem 0 0.25rem 1rem; color: #475569; line-height: 1.4;">1. Trí tuệ nhân tạo và ứng dụng</h4>
+                  <h4 style="font-size: 1rem; font-weight: 600; margin: 0.25rem 0 0.5rem 1rem; color: #475569; line-height: 1.4;">2. Trí tuệ nhân tạo trong khoa học và đời sống</h4>
+                  <h3 style="font-size: 1.17rem; font-weight: 700; margin: 0.5rem 0 0.35rem 0; color: #334155; line-height: 1.3;">Chủ đề 2. Mạng máy tính và Internet</h3>
+                  <h4 style="font-size: 1rem; font-weight: 600; margin: 0.35rem 0 0.25rem 1rem; color: #475569; line-height: 1.4;">3. Thiết bị mạng</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CÔNG CỤ TƯƠNG TÁC THỬ NGHIỆM TỪNG CẤP TIÊU ĐỀ -->
+          <div style="background: #eff6ff; border: 1.5px solid #bfdbfe; border-radius: 10px; padding: 1.25rem; margin-top: 1.5rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.75rem;">
+              <strong style="color: #1e3a8a; font-size: 0.95rem;">
+                🔬 Thước đo tương tác: Bấm để so sánh trực quan cỡ chữ &amp; ngữ nghĩa từng cấp độ tiêu đề
+              </strong>
+              <span style="font-size: 0.8rem; color: #2563eb;">Giáo viên bấm chọn trên bảng chiếu</span>
+            </div>
+
+            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem;">
+              <button type="button" class="heading-test-btn active" data-tag="h1" onclick="inspectHeading('h1')">&lt;h1&gt; (Lớn nhất)</button>
+              <button type="button" class="heading-test-btn" data-tag="h2" onclick="inspectHeading('h2')">&lt;h2&gt;</button>
+              <button type="button" class="heading-test-btn" data-tag="h3" onclick="inspectHeading('h3')">&lt;h3&gt;</button>
+              <button type="button" class="heading-test-btn" data-tag="h4" onclick="inspectHeading('h4')">&lt;h4&gt;</button>
+              <button type="button" class="heading-test-btn" data-tag="h5" onclick="inspectHeading('h5')">&lt;h5&gt;</button>
+              <button type="button" class="heading-test-btn" data-tag="h6" onclick="inspectHeading('h6')">&lt;h6&gt; (Nhỏ nhất)</button>
+            </div>
+
+            <div style="background: #ffffff; border: 1px solid #cbd5e1; border-radius: 8px; padding: 1.25rem; min-height: 90px; display: flex; align-items: center; justify-content: flex-start;">
+              <div id="heading-live-preview">
+                <h1 style="margin: 0; color: #0f172a;">H1: THTH - DHSP</h1>
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.75rem; margin-top: 0.75rem; font-size: 0.85rem;">
+              <div style="background: #ffffff; padding: 0.6rem 0.85rem; border-radius: 6px; border: 1px solid #e2e8f0;">
+                <span style="color: #64748b;">Kích thước mặc định:</span> <strong id="heading-info-size" style="color: #1d4ed8;">32px (2.0em)</strong>
+              </div>
+              <div style="background: #ffffff; padding: 0.6rem 0.85rem; border-radius: 6px; border: 1px solid #e2e8f0;">
+                <span style="color: #64748b;">Độ đậm chữ:</span> <strong id="heading-info-weight" style="color: #1d4ed8;">In đậm (Bold 800)</strong>
+              </div>
+              <div style="background: #ffffff; padding: 0.6rem 0.85rem; border-radius: 6px; border: 1px solid #e2e8f0;">
+                <span style="color: #64748b;">Ngữ nghĩa cấu trúc:</span> <strong id="heading-info-semantic" style="color: #059669;">Tiêu đề trang cao nhất (Duy nhất 1 thẻ / trang)</strong>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 3. NỘI DUNG 2: CÁC CÁCH ĐỊNH DẠNG VĂN BẢN KHÁC NGOÀI THẺ <p> -->
+        <section class="syntax-card" style="margin-bottom: 2rem;">
+          <div class="syntax-card-title">
+            <svg style="width:24px;height:24px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line>
+            </svg>
+            II. CÁC CÁCH ĐỊNH DẠNG VĂN BẢN KHÁC NGOÀI THẺ &lt;p&gt;
+          </div>
+
+          <p style="font-size: 1.02rem; color: #cbd5e1; line-height: 1.6; margin-bottom: 1.25rem;">
+            Ngoài thẻ tiêu đề và thẻ đoạn văn, ngôn ngữ HTML cung cấp các thẻ cấu trúc khối và nội dòng giúp linh hoạt xây dựng bố cục:
+          </p>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem;">
+
+            <!-- CARD 1: THẺ <p> -->
+            <div class="tag-feature-card">
+              <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem;">
+                <span style="background: #eff6ff; color: #1d4ed8; font-family: monospace; font-size: 1.1rem; font-weight: 800; padding: 0.2rem 0.6rem; border-radius: 6px;">&lt;p&gt;...&lt;/p&gt;</span>
+                <span style="font-weight: 700; color: #1e3a8a;">Đoạn văn bản (Paragraph)</span>
+              </div>
+              <p style="font-size: 0.92rem; color: #475569; line-height: 1.6; margin: 0 0 0.75rem 0;">
+                Cách đơn giản nhất để xác định đoạn là đặt nội dung trong cặp thẻ <code>&lt;p&gt;nội dung&lt;/p&gt;</code>.
+              </p>
+              <ul style="font-size: 0.88rem; color: #64748b; line-height: 1.6; margin: 0; padding-left: 1.25rem;">
+                <li>Trình duyệt hiển thị nội dung trên <strong>dòng mới</strong>.</li>
+                <li>Tự động tạo một <strong>khoảng trống nhỏ</strong> trước và sau đoạn (margin).</li>
+                <li>Nội dung có thể là văn bản, hình ảnh... Phù hợp nhất cho văn bản nhiều chữ.</li>
+              </ul>
+            </div>
+
+            <!-- CARD 2: THẺ <div> KHỐI DÒNG MỚI -->
+            <div class="tag-feature-card" style="border-top-color: #2563eb;">
+              <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem;">
+                <span style="background: #dbeafe; color: #1e40af; font-family: monospace; font-size: 1.1rem; font-weight: 800; padding: 0.2rem 0.6rem; border-radius: 6px;">&lt;div&gt;...&lt;/div&gt;</span>
+                <span style="font-weight: 700; color: #1e3a8a;">Khối chứa (Block)</span>
+              </div>
+              <p style="font-size: 0.92rem; color: #475569; line-height: 1.6; margin: 0 0 0.75rem 0;">
+                Thẻ gom nhóm nội dung theo <strong>khối độc lập</strong> (Division/Container).
+              </p>
+              <ul style="font-size: 0.88rem; color: #64748b; line-height: 1.6; margin: 0; padding-left: 1.25rem;">
+                <li>Luôn <strong>bắt đầu trên một dòng mới</strong>.</li>
+                <li>Chiếm trọn vẹn toàn bộ chiều rộng có sẵn (100% width).</li>
+                <li>Tạo một khối chứa nội dung bất kỳ ở giữa hai cặp thẻ mở và đóng.</li>
+              </ul>
+            </div>
+
+            <!-- CARD 3: THẺ <span> NỘI DÒNG -->
+            <div class="tag-feature-card" style="border-top-color: #f59e0b;">
+              <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem;">
+                <span style="background: #fef3c7; color: #b45309; font-family: monospace; font-size: 1.1rem; font-weight: 800; padding: 0.2rem 0.6rem; border-radius: 6px;">&lt;span&gt;...&lt;/span&gt;</span>
+                <span style="font-weight: 700; color: #92400e;">Vùng nội dòng (Inline)</span>
+              </div>
+              <p style="font-size: 0.92rem; color: #475569; line-height: 1.6; margin: 0 0 0.75rem 0;">
+                Có tác dụng tương tự thẻ <code>&lt;div&gt;</code> nhưng ở <strong>quy mô nhỏ hơn</strong>.
+              </p>
+              <ul style="font-size: 0.88rem; color: #64748b; line-height: 1.6; margin: 0; padding-left: 1.25rem;">
+                <li>Nội dung sẽ hiển thị <strong>trên cùng 1 dòng đang viết</strong> (không ngắt dòng).</li>
+                <li>Chỉ chiếm vừa vặn không gian mà từ ngữ hoặc ký tự cần.</li>
+                <li>Dùng để áp dụng màu sắc, định dạng riêng cho một cụm từ trong câu.</li>
+              </ul>
+            </div>
+
+            <!-- CARD 4: THẺ <br> VÀ <hr> -->
+            <div class="tag-feature-card" style="border-top-color: #10b981;">
+              <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem;">
+                <span style="background: #d1fae5; color: #065f46; font-family: monospace; font-size: 1.1rem; font-weight: 800; padding: 0.2rem 0.6rem; border-radius: 6px;">&lt;br&gt; &amp; &lt;hr&gt;</span>
+                <span style="font-weight: 700; color: #065f46;">Thẻ tiện ích (Thẻ đơn)</span>
+              </div>
+              <p style="font-size: 0.92rem; color: #475569; line-height: 1.6; margin: 0 0 0.75rem 0;">
+                Hai thẻ đặc biệt <strong>không cần thẻ đóng</strong>:
+              </p>
+              <ul style="font-size: 0.88rem; color: #64748b; line-height: 1.6; margin: 0; padding-left: 1.25rem;">
+                <li><code>&lt;br&gt;</code>: Dùng để <strong>xuống dòng</strong> ngay tại chỗ (Line Break) mà không tạo khoảng đệm lớn như <code>&lt;p&gt;</code>.</li>
+                <li><code>&lt;hr&gt;</code>: Dùng để tạo một <strong>đường gạch ngang</strong> (Horizontal Rule) phân chia ranh giới giữa các chủ đề.</li>
+              </ul>
+            </div>
+
+          </div>
+
+          <!-- KHUNG MINH HỌA TRỰC QUAN: SO SÁNH <div> VÀ <span> TRONG THỰC TẾ -->
+          <div class="block-inline-demo">
+            <h4 style="margin: 0 0 0.75rem 0; color: #1e3a8a; font-size: 1.1rem; font-weight: 800;">
+              🔍 Minh họa trực quan: Bản chất khối (&lt;div&gt;) so với Nội dòng (&lt;span&gt;)
+            </h4>
+            <p style="font-size: 0.92rem; color: #64748b; margin-bottom: 1rem;">
+              Quan sát hình vẽ mô phỏng: Thẻ <code>&lt;div&gt;</code> tự ngắt dòng chiếm cả hàng ngang, trong khi thẻ <code>&lt;span&gt;</code> lọt vừa vặn ngay trên dòng văn bản:
+            </p>
+
+            <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; padding: 1.25rem;">
+              <!-- DEMO DIV -->
+              <div style="margin-bottom: 1rem;">
+                <div style="font-size: 0.82rem; font-weight: 700; color: #1e40af; margin-bottom: 0.35rem;">
+                  VÍ DỤ VỚI THẺ &lt;div&gt; (Bắt đầu dòng mới, tạo khối độc lập):
+                </div>
+                <div class="demo-box-div">
+                  &lt;div&gt; Khối 1: THTH - DHSP (Chiếm trọn hàng ngang) &lt;/div&gt;
+                </div>
+                <div class="demo-box-div">
+                  &lt;div&gt; Khối 2: Môn Tin học 12 - Định dạng văn bản (Bắt buộc xuống dòng mới) &lt;/div&gt;
+                </div>
+              </div>
+
+              <!-- THẺ HR PHÂN CÁCH MINH HỌA -->
+              <div style="margin: 1.25rem 0; text-align: center; position: relative;">
+                <hr style="border: 0; height: 1.5px; background: #cbd5e1;">
+                <span style="position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: #f8fafc; padding: 0 0.5rem; font-size: 0.75rem; color: #64748b; font-family: monospace;">
+                  Đường kẻ ngang tạo bởi thẻ &lt;hr&gt;
+                </span>
+              </div>
+
+              <!-- DEMO SPAN -->
+              <div>
+                <div style="font-size: 0.82rem; font-weight: 700; color: #b45309; margin-bottom: 0.35rem;">
+                  VÍ DỤ VỚI THẺ &lt;span&gt; VÀ &lt;br&gt; (Nội dòng, cùng dòng đang viết):
+                </div>
+                <p style="margin: 0; line-height: 1.8; color: #334155; font-size: 0.95rem;">
+                  Trang web này giúp học sinh học HTML. Các bạn hãy chú ý từ <span class="demo-box-span">&lt;span&gt;màu vàng nổi bật&lt;/span&gt;</span> này nằm ngay trong câu văn mà không làm xuống dòng!
+                  <br>
+                  <span style="font-size: 0.82rem; color: #059669; font-weight: 600;">(Đoạn này vừa được ngắt xuống dòng mới bằng thẻ &lt;br&gt;)</span>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- LƯU Ý MỞ RỘNG ĐỊNH HƯỚNG BÀI SAU -->
+          <div style="margin-top: 1.5rem; background: #fffbeb; border: 1.5px solid #fde68a; border-radius: 10px; padding: 1.15rem 1.35rem; display: flex; gap: 1rem; align-items: flex-start;">
+            <div style="font-size: 1.75rem; line-height: 1;">💡</div>
+            <div>
+              <strong style="color: #92400e; font-size: 0.95rem;">Lưu ý quan trọng của Giáo viên (Định hướng kiến thức bài sau):</strong>
+              <p style="margin: 0.25rem 0 0 0; color: #78350f; font-size: 0.92rem; line-height: 1.6;">
+                Ngoài ra để thêm các định dạng nâng cao như <strong>khung viền (border)</strong>, <strong>khoảng cách lề (margin/padding)</strong>,... cho đoạn văn hay khối, ta sử dụng thuộc tính <code>style</code>. Thuộc tính và mô hình hộp (Box Model) này sẽ được thầy/cô hướng dẫn chi tiết và đi sâu ở bài học tiếp theo.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 4. CHUYỂN TIẾP SƯ PHẠM SANG GIAI ĐOẠN 2.3 (PHIẾU BÀI TẬP SỐ 2) -->
+        <section style="background: linear-gradient(135deg, #1e3a8a 0%, #1d4ed8 100%); color: #ffffff; border-radius: 14px; padding: 2rem; box-shadow: 0 10px 25px -5px rgba(29, 78, 216, 0.3); text-align: center; margin-bottom: 2rem;">
+          <div style="display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(255, 255, 255, 0.15); padding: 0.3rem 0.85rem; border-radius: 9999px; font-size: 0.82rem; font-weight: 700; text-transform: uppercase; margin-bottom: 0.75rem; letter-spacing: 0.5px;">
+            <span>📢 HƯỚNG DẪN CỦA GIÁO VIÊN</span>
+          </div>
+          <h3 style="font-size: 1.65rem; font-weight: 800; color: #ffffff; margin: 0 0 0.5rem 0;">
+            Chuyển Sang Giai Đoạn 2.3: Thực Hiện Phiếu Bài Tập Số 2 (15')
+          </h3>
+          <p style="font-size: 1.05rem; opacity: 0.92; max-width: 720px; margin: 0 auto 1.5rem auto; line-height: 1.6;">
+            Thầy/Cô yêu cầu cả lớp chuyển sang <strong>Giai đoạn 2.3</strong> trên hệ thống để quét mã QR và hoàn thành <strong>Phiếu bài tập số 2</strong> củng cố kiến thức về thẻ tiêu đề &lt;hx&gt;, khối &lt;div&gt;, nội dòng &lt;span&gt; và thuộc tính style!
+          </p>
+
+          <div style="display: flex; justify-content: center; align-items: center; gap: 1rem; flex-wrap: wrap;">
+            <button type="button" class="btn btn-primary" onclick="switchPhase('2.3')" style="background: #ffffff; color: #1d4ed8; font-size: 1.05rem; font-weight: 800; padding: 0.85rem 1.85rem; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); display: inline-flex; align-items: center; gap: 0.6rem; cursor: pointer; border: none;">
+              <span>🚀 Bấm vào đây để sang Giai đoạn 2.3 ngay</span>
+              <svg style="width: 20px; height: 20px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
+
+            <button type="button" class="btn btn-secondary" onclick="switchPhase('2.1')" style="background: rgba(255, 255, 255, 0.12); color: #ffffff; border-color: rgba(255, 255, 255, 0.3); font-size: 0.95rem; font-weight: 700; padding: 0.85rem 1.35rem;">
+              ← Xem lại Khám phá 1 &amp; Phiếu bài tập số 1
+            </button>
+          </div>
+        </section>
+
+      </div>
+      <!-- ======================================================== -->
+      <!-- KẾT THÚC GIAI ĐOẠN 2.2 -->
+      <!-- ======================================================== -->
+
+
+      <!-- ======================================================== -->
+      <!-- GIAI ĐOẠN 2.3: KHÁM PHÁ 3 (THỰC HIỆN PHIẾU BÀI TẬP SỐ 2) -->
+      <!-- ======================================================== -->
+      <div id="phase-2-3-container" style="display: none;">
+
+        <!-- 1. BANNER MỤC TIÊU GIAI ĐOẠN 2.3 -->
+        <section class="syntax-card" style="border-left: 6px solid #10b981; margin-bottom: 2rem;">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem;">
+            <div>
+              <div style="display: inline-flex; align-items: center; gap: 0.4rem; background: #059669; color: #ffffff; font-size: 0.78rem; font-weight: 800; padding: 0.25rem 0.65rem; border-radius: 9999px; text-transform: uppercase;">
+                <span>⏱️ THỜI LƯỢNG: 15 PHÚT</span>
+              </div>
+              <h2 style="font-size: 1.55rem; font-weight: 800; color: #1e3a8a; margin: 0.5rem 0 0.25rem 0;">
+                Hoạt động 2.3: Khám phá 3 - Định dạng phông chữ, kiểu chữ &amp; Phiếu bài tập số 2
+              </h2>
+              <p style="color: #64748b; font-size: 0.95rem; margin: 0;">
+                Mục tiêu cần đạt: <strong>(2), (3), (5), (6), (8)</strong> • Hình thức: <strong>Cá nhân</strong> hoặc <strong>Làm theo cặp (2 bạn)</strong>
+              </p>
+            </div>
+            <div style="background: #ecfdf5; border: 1.5px solid #a7f3d0; border-radius: 10px; padding: 0.6rem 1rem; text-align: right;">
+              <span style="font-size: 0.8rem; color: #065f46; font-weight: 700; text-transform: uppercase;">Trạng thái trình chiếu:</span>
+              <div style="font-size: 0.95rem; font-weight: 800; color: #059669;">Giai đoạn 2.3 / 3</div>
+            </div>
+          </div>
+
+          <div class="rules-grid" style="grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 0.75rem;">
+            <div class="rule-box success" style="padding: 0.75rem 1rem;">
+              <div class="rule-icon">🔤</div>
+              <div class="rule-text"><strong>Kiểu chữ (Font Style):</strong> &lt;strong&gt;, &lt;em&gt;, &lt;u&gt;, &lt;mark&gt;, &lt;small&gt;, &lt;sup&gt;, &lt;sub&gt;, &lt;del&gt;</div>
+            </div>
+            <div class="rule-box success" style="padding: 0.75rem 1rem;">
+              <div class="rule-icon">💡</div>
+              <div class="rule-text"><strong>Ý nghĩa ngữ nghĩa:</strong> &lt;strong&gt;, &lt;em&gt; nhấn mạnh nội dung so với &lt;b&gt;, &lt;i&gt;</div>
+            </div>
+            <div class="rule-box success" style="padding: 0.75rem 1rem;">
+              <div class="rule-icon">🎨</div>
+              <div class="rule-text"><strong>Định dạng phông:</strong> style="color:...; font-family:...; font-size:...;"</div>
+            </div>
+            <div class="rule-box success" style="padding: 0.75rem 1rem;">
+              <div class="rule-icon">📝</div>
+              <div class="rule-text"><strong>Phiếu bài tập số 2:</strong> Hoàn thành 6 câu hỏi và nộp trực tiếp lên hệ thống</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- PHẦN I: CÁC THẺ ĐỊNH DẠNG KIỂU CHỮ (FONT STYLES) - CHUẨN GIÁO ÁN -->
+        <section class="syntax-card" style="margin-bottom: 2rem;">
+          <div class="syntax-card-title">
+            <svg style="width:24px;height:24px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="4 7 4 4 20 4 20 7"></polyline><line x1="9" y1="20" x2="15" y2="20"></line><line x1="12" y1="4" x2="12" y2="20"></line>
+            </svg>
+            I. CÁC THẺ ĐỊNH DẠNG KIỂU CHỮ (FONT STYLES)
+          </div>
+
+          <p style="font-size: 1.05rem; color: #cbd5e1; line-height: 1.6; margin-bottom: 1.25rem;">
+            Ngôn ngữ HTML cung cấp các thẻ chuyên biệt để thay đổi diện mạo và kiểu cách hiển thị của các ký tự hoặc cụm từ trong đoạn văn bản. Dưới đây là bảng <strong>8 kiểu chữ cốt lõi</strong>:
+          </p>
+
+          <!-- BẢNG ĐỊNH DẠNG KIỂU CHỮ CHUẨN GIÁO ÁN (ẢNH MINH HỌA HOẠT ĐỘNG 2.3) -->
+          <div style="overflow-x: auto; margin-bottom: 1.5rem;">
+            <table class="font-style-table" style="width: 100%; border-collapse: collapse; background: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+              <thead>
+                <tr style="background: #eff6ff; border-bottom: 2px solid #bfdbfe;">
+                  <th style="padding: 0.85rem 1rem; color: #1e3a8a; font-weight: 800; font-size: 0.95rem; width: 22%;">Kiểu chữ</th>
+                  <th style="padding: 0.85rem 1rem; color: #1e3a8a; font-weight: 800; font-size: 0.95rem; width: 20%;">Thẻ HTML</th>
+                  <th style="padding: 0.85rem 1rem; color: #1e3a8a; font-weight: 800; font-size: 0.95rem; width: 33%;">Ví dụ mã HTML</th>
+                  <th style="padding: 0.85rem 1rem; color: #1e3a8a; font-weight: 800; font-size: 0.95rem; width: 25%;">Hiển thị trên trình duyệt</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="padding: 0.75rem 1rem; font-weight: 600; color: #334155;">Chữ thường</td>
+                  <td style="padding: 0.75rem 1rem;"><span style="color: #64748b; font-style: italic;">(Thẻ chuẩn văn bản)</span></td>
+                  <td style="padding: 0.75rem 1rem;"><code>&lt;p&gt;Đây là câu chuẩn&lt;/p&gt;</code></td>
+                  <td style="padding: 0.75rem 1rem; color: #0f172a; font-size: 1rem;">Đây là câu chuẩn</td>
+                </tr>
+                <tr style="background: #f8fafc;">
+                  <td style="padding: 0.75rem 1rem; font-weight: 600; color: #334155;">Chữ đậm</td>
+                  <td style="padding: 0.75rem 1rem;"><code>&lt;strong&gt;</code> ; <code>&lt;b&gt;</code></td>
+                  <td style="padding: 0.75rem 1rem;"><code>&lt;p&gt;Đây &lt;strong&gt;là câu&lt;/strong&gt; chuẩn&lt;/p&gt;</code></td>
+                  <td style="padding: 0.75rem 1rem; color: #0f172a; font-size: 1rem;">Đây <strong>là câu</strong> chuẩn</td>
+                </tr>
+                <tr>
+                  <td style="padding: 0.75rem 1rem; font-weight: 600; color: #334155;">Chữ nghiêng</td>
+                  <td style="padding: 0.75rem 1rem;"><code>&lt;em&gt;</code> ; <code>&lt;i&gt;</code></td>
+                  <td style="padding: 0.75rem 1rem;"><code>&lt;p&gt;Đây &lt;em&gt;là câu&lt;/em&gt; chuẩn&lt;/p&gt;</code></td>
+                  <td style="padding: 0.75rem 1rem; color: #0f172a; font-size: 1rem;">Đây <em>là câu</em> chuẩn</td>
+                </tr>
+                <tr style="background: #f8fafc;">
+                  <td style="padding: 0.75rem 1rem; font-weight: 600; color: #334155;">Gạch chân</td>
+                  <td style="padding: 0.75rem 1rem;"><code>&lt;u&gt;</code></td>
+                  <td style="padding: 0.75rem 1rem;"><code>&lt;p&gt;Đây &lt;u&gt;là câu&lt;/u&gt; chuẩn&lt;/p&gt;</code></td>
+                  <td style="padding: 0.75rem 1rem; color: #0f172a; font-size: 1rem;">Đây <u style="text-decoration: underline;">là câu</u> chuẩn</td>
+                </tr>
+                <tr>
+                  <td style="padding: 0.75rem 1rem; font-weight: 600; color: #334155;">Đánh dấu (Highlight)</td>
+                  <td style="padding: 0.75rem 1rem;"><code>&lt;mark&gt;</code></td>
+                  <td style="padding: 0.75rem 1rem;"><code>&lt;p&gt;Đây &lt;mark&gt;là câu&lt;/mark&gt; chuẩn&lt;/p&gt;</code></td>
+                  <td style="padding: 0.75rem 1rem; color: #0f172a; font-size: 1rem;">Đây <mark style="background: #fef08a; padding: 0.1rem 0.35rem; border-radius: 3px;">là câu</mark> chuẩn</td>
+                </tr>
+                <tr style="background: #f8fafc;">
+                  <td style="padding: 0.75rem 1rem; font-weight: 600; color: #334155;">Giảm cỡ chữ</td>
+                  <td style="padding: 0.75rem 1rem;"><code>&lt;small&gt;</code></td>
+                  <td style="padding: 0.75rem 1rem;"><code>&lt;p&gt;Đây &lt;small&gt;là câu&lt;/small&gt; chuẩn&lt;/p&gt;</code></td>
+                  <td style="padding: 0.75rem 1rem; color: #0f172a; font-size: 1rem;">Đây <small style="font-size: 0.8em; color: #475569;">là câu</small> chuẩn</td>
+                </tr>
+                <tr>
+                  <td style="padding: 0.75rem 1rem; font-weight: 600; color: #334155;">Chỉ số trên hoặc dưới</td>
+                  <td style="padding: 0.75rem 1rem;"><code>&lt;sup&gt;</code> ; <code>&lt;sub&gt;</code></td>
+                  <td style="padding: 0.75rem 1rem;">
+                    <code>&lt;p&gt;Đây &lt;sup&gt;là câu&lt;/sup&gt; chuẩn&lt;/p&gt;</code><br>
+                    <code style="margin-top: 0.3rem; display: inline-block;">&lt;p&gt;H&lt;sub&gt;2&lt;/sub&gt;O và x&lt;sup&gt;2&lt;/sup&gt;&lt;/p&gt;</code>
+                  </td>
+                  <td style="padding: 0.75rem 1rem; color: #0f172a; font-size: 1rem;">
+                    Đây <sup>là câu</sup> chuẩn<br>
+                    <span style="color: #2563eb; font-weight: 600; font-size: 0.95rem;">H<sub>2</sub>O</span> và <span style="color: #2563eb; font-weight: 600; font-size: 0.95rem;">x<sup>2</sup></span>
+                  </td>
+                </tr>
+                <tr style="background: #f8fafc;">
+                  <td style="padding: 0.75rem 1rem; font-weight: 600; color: #334155;">Đánh dấu xoá (gạch giữa)</td>
+                  <td style="padding: 0.75rem 1rem;"><code>&lt;del&gt;</code></td>
+                  <td style="padding: 0.75rem 1rem;"><code>&lt;p&gt;Đây &lt;del&gt;là câu&lt;/del&gt; chuẩn&lt;/p&gt;</code></td>
+                  <td style="padding: 0.75rem 1rem; color: #0f172a; font-size: 1rem;">Đây <del style="color: #dc2626;">là câu</del> chuẩn</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- 2 HỘP LƯU Ý SƯ PHẠM QUAN TRỌNG TỪ GIÁO ÁN -->
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1rem; margin-top: 1rem;">
+            <!-- LƯU Ý 1: CHUẨN HTML5 -->
+            <div style="background: rgba(239, 68, 68, 0.1); border-left: 4px solid #ef4444; border-radius: 8px; padding: 1.15rem; color: #f8fafc;">
+              <div style="font-weight: 800; color: #fca5a5; font-size: 0.95rem; margin-bottom: 0.4rem; display: flex; align-items: center; gap: 0.5rem;">
+                <span>⚠️ LƯU Ý QUAN TRỌNG VỀ CHUẨN HTML5:</span>
+              </div>
+              <p style="font-size: 0.9rem; line-height: 1.6; margin: 0; color: #e2e8f0;">
+                Chuẩn <strong>HTML5 hiện đại không còn hỗ trợ thẻ &lt;big&gt;</strong> và hạn chế thẻ <code>&lt;u&gt;</code> thuần túy, mà được thay thế hoàn toàn bằng giá trị <code>font-size</code> (kích thước chữ) và <code>text-decoration: underline</code> (gạch chân) bên trong thuộc tính <code>style</code>.
+              </p>
+            </div>
+
+            <!-- LƯU Ý 2: Ý NGHĨA NGỮ NGHĨA CỦA <strong> VÀ <em> -->
+            <div style="background: rgba(16, 185, 129, 0.1); border-left: 4px solid #10b981; border-radius: 8px; padding: 1.15rem; color: #f8fafc;">
+              <div style="font-weight: 800; color: #6ee7b7; font-size: 0.95rem; margin-bottom: 0.4rem; display: flex; align-items: center; gap: 0.5rem;">
+                <span>💡 Ý NGHĨA NGỮ NGHĨA (SEMANTIC HTML):</span>
+              </div>
+              <p style="font-size: 0.9rem; line-height: 1.6; margin: 0 0 0.5rem 0; color: #e2e8f0;">
+                Các thẻ <code>&lt;strong&gt;</code> và <code>&lt;em&gt;</code> có tác dụng in đậm và in nghiêng hoàn toàn có thể dùng thay cho <code>&lt;b&gt;</code> và <code>&lt;i&gt;</code>, nhưng mang ý nghĩa <strong>nhấn mạnh vào ngữ nghĩa của nội dung</strong> và được khuyến khích sử dụng nhiều hơn trong thiết kế web hiện đại.
+              </p>
+              <div style="background: #0f172a; padding: 0.5rem 0.75rem; border-radius: 6px; font-family: monospace; font-size: 0.85rem; color: #38bdf8;">
+                <div>• &lt;p&gt;Môn &lt;em&gt;Tin học&lt;/em&gt; rất hay.&lt;/p&gt; <span style="color:#94a3b8;">➔ Nhấn mạnh đối tượng môn Tin học</span></div>
+                <div>• &lt;p&gt;Môn Tin học &lt;em&gt;rất&lt;/em&gt; hay.&lt;/p&gt; <span style="color:#94a3b8;">➔ Nhấn mạnh mức độ cảm xúc</span></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- PHẦN II: ĐỊNH DẠNG PHÔNG CHỮ BẰNG THUỘC TÍNH STYLE - CHUẨN GIÁO ÁN -->
+        <section class="syntax-card" style="margin-bottom: 2rem;">
+          <div class="syntax-card-title">
+            <svg style="width:24px;height:24px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle><path d="m4.93 4.93 4.24 4.24"></path><path d="m14.83 9.17 4.24-4.24"></path><path d="m14.83 14.83 4.24 4.24"></path><path d="m9.17 14.83-4.24 4.24"></path>
+            </svg>
+            II. ĐỊNH DẠNG PHÔNG CHỮ VỚI THUỘC TÍNH STYLE
+          </div>
+
+          <p style="font-size: 1.05rem; color: #cbd5e1; line-height: 1.6; margin-bottom: 1.25rem;">
+            Để định dạng phông chữ (màu sắc, tên phông, kích cỡ), ta sử dụng thuộc tính <code>style</code> với 3 đặc tính cơ bản:
+          </p>
+
+          <!-- 3 THUỘC TÍNH CỐT LÕI -->
+          <div class="rules-grid" style="grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+            <div class="rule-box success" style="padding: 1rem;">
+              <div class="rule-icon">🎨</div>
+              <div class="rule-text">
+                <div style="font-weight: 800; color: #1e3a8a; margin-bottom: 0.25rem;">MÀU SẮC CHỮ (COLOR):</div>
+                <code>&lt;p style="color: màu"&gt;Nội dung.&lt;/p&gt;</code>
+                <div style="font-size: 0.85rem; color: #64748b; margin-top: 0.35rem;">Tên tiếng Anh (<code>red</code>, <code>blue</code>) hoặc hệ màu RGB (<code>rgb(255,0,0)</code>)</div>
+              </div>
+            </div>
+
+            <div class="rule-box success" style="padding: 1rem;">
+              <div class="rule-icon">🔤</div>
+              <div class="rule-text">
+                <div style="font-weight: 800; color: #1e3a8a; margin-bottom: 0.25rem;">PHÔNG CHỮ (FONT-FAMILY):</div>
+                <code>&lt;p style="font-family: tên_phông"&gt;Nội dung.&lt;/p&gt;</code>
+                <div style="font-size: 0.85rem; color: #64748b; margin-top: 0.35rem;">Ví dụ: <code>Tahoma</code>, <code>Arial</code>, <code>Times New Roman</code></div>
+              </div>
+            </div>
+
+            <div class="rule-box success" style="padding: 1rem;">
+              <div class="rule-icon">📏</div>
+              <div class="rule-text">
+                <div style="font-weight: 800; color: #1e3a8a; margin-bottom: 0.25rem;">CỠ CHỮ (FONT-SIZE):</div>
+                <code>&lt;p style="font-size: cỡ"&gt;Nội dung.&lt;/p&gt;</code>
+                <div style="font-size: 0.85rem; color: #64748b; margin-top: 0.35rem;">Có nhiều cách xác định cỡ chữ, phổ biến nhất là dùng số kèm đơn vị (ví dụ <code>15px</code>, <code>20px</code>)</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- LƯU Ý KẾT HỢP NHIỀU THUỘC TÍNH VÀ DẤU CHẤM PHẨY -->
+          <div style="background: rgba(59, 130, 246, 0.12); border-left: 4px solid #3b82f6; border-radius: 8px; padding: 1.15rem; margin-bottom: 1.5rem;">
+            <div style="font-weight: 800; color: #93c5fd; font-size: 0.95rem; margin-bottom: 0.3rem;">
+              📌 NGUYÊN TẮC KẾT HỢP NHIỀU ĐỊNH DẠNG ĐỒNG THỜI:
+            </div>
+            <p style="font-size: 0.92rem; line-height: 1.6; margin: 0; color: #e2e8f0;">
+              Khi muốn thực hiện nhiều định dạng phông đồng thời, ta đặt các cặp <code>tên_thuộc_tính: giá_trị</code> trong phần giá trị của thuộc tính <code>style</code>, <strong>ngăn cách nhau bởi dấu chấm phẩy (<code>;</code>)</strong>. Giá trị màu sắc có thể dùng theo tiếng Anh hoặc hệ màu RGB (thang giá trị từ 0 đến 255).
+            </p>
+          </div>
+
+          <!-- 2 KIỂU VÍ DỤ MẪU CHUẨN TRONG GIÁO ÁN -->
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.25rem;">
+            <!-- KIỂU 1 -->
+            <div style="background: #ffffff; border-radius: 10px; padding: 1.25rem; border: 1.5px solid #cbd5e1; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem;">
+                <span style="background: #eff6ff; color: #1d4ed8; font-weight: 800; font-size: 0.82rem; padding: 0.25rem 0.65rem; border-radius: 6px;">
+                  KIỂU 1 (GIÁO ÁN)
+                </span>
+                <span style="font-size: 0.8rem; color: #64748b; font-weight: 600;">Màu tiếng Anh + Gạch chân</span>
+              </div>
+              <div style="background: #0f172a; color: #38bdf8; padding: 0.75rem 1rem; border-radius: 6px; font-family: monospace; font-size: 0.88rem; margin-bottom: 0.75rem; overflow-x: auto;">
+                &lt;p style="color:red;font-family:Tahoma;font-size:15px;text-decoration:underline"&gt;THTH - DHSP&lt;/p&gt;
+              </div>
+              <div style="font-size: 0.82rem; font-weight: 700; color: #475569; margin-bottom: 0.35rem;">KẾT QUẢ HIỂN THỊ THỰC TẾ:</div>
+              <div style="background: #f8fafc; border: 1px dashed #cbd5e1; padding: 0.85rem; border-radius: 6px;">
+                <p style="color:red;font-family:Tahoma;font-size:15px;text-decoration:underline; margin: 0;">THTH - DHSP</p>
+              </div>
+            </div>
+
+            <!-- KIỂU 2 -->
+            <div style="background: #ffffff; border-radius: 10px; padding: 1.25rem; border: 1.5px solid #cbd5e1; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem;">
+                <span style="background: #ecfdf5; color: #059669; font-weight: 800; font-size: 0.82rem; padding: 0.25rem 0.65rem; border-radius: 6px;">
+                  KIỂU 2 (GIÁO ÁN)
+                </span>
+                <span style="font-size: 0.8rem; color: #64748b; font-weight: 600;">Hệ màu RGB rgb(255,0,0)</span>
+              </div>
+              <div style="background: #0f172a; color: #38bdf8; padding: 0.75rem 1rem; border-radius: 6px; font-family: monospace; font-size: 0.88rem; margin-bottom: 0.75rem; overflow-x: auto;">
+                &lt;p style="color:rgb(255,0,0);font-family:Tahoma;font-size:10px"&gt;THTH - DHSP&lt;/p&gt;
+              </div>
+              <div style="font-size: 0.82rem; font-weight: 700; color: #475569; margin-bottom: 0.35rem;">KẾT QUẢ HIỂN THỊ THỰC TẾ:</div>
+              <div style="background: #f8fafc; border: 1px dashed #cbd5e1; padding: 0.85rem; border-radius: 6px;">
+                <p style="color:rgb(255,0,0);font-family:Tahoma;font-size:10px; margin: 0;">THTH - DHSP</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- PHẦN III: PHÒNG THÍ NGHIỆM ĐỊNH DẠNG TƯƠNG TÁC (INTERACTIVE FONT PLAYGROUND) -->
+        <section class="syntax-card" style="margin-bottom: 2rem;">
+          <div class="syntax-card-title">
+            <svg style="width:24px;height:24px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+            </svg>
+            III. PHÒNG THÍ NGHIỆM TƯƠNG TÁC: THỬ NGHIỆM ĐỊNH DẠNG PHÔNG CHỮ &amp; KIỂU CHỮ
+          </div>
+
+          <p style="font-size: 1rem; color: #cbd5e1; line-height: 1.6; margin-bottom: 1.25rem;">
+            Thầy/Cô có thể bấm áp dụng nhanh mẫu giáo án hoặc tùy biến trực tiếp màu sắc, phông chữ, cỡ chữ và các thẻ kiểu chữ trên máy chiếu để học sinh quan sát kết quả:
+          </p>
+
+          <div style="background: #ffffff; border-radius: 12px; padding: 1.5rem; border: 1px solid #cbd5e1; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+            <!-- THANH ÁP DỤNG NHANH PRESET -->
+            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 1.25rem; align-items: center;">
+              <span style="font-size: 0.88rem; font-weight: 700; color: #334155;">⚡ Nạp nhanh mẫu giáo án:</span>
+              <button type="button" class="btn btn-secondary" onclick="applyPresetStyle(1)" style="font-size: 0.85rem; padding: 0.4rem 0.85rem; border-color: #3b82f6; color: #1d4ed8; background: #eff6ff;">
+                <span>🎯 Nạp Kiểu 1 (color:red; Tahoma 15px; underline)</span>
+              </button>
+              <button type="button" class="btn btn-secondary" onclick="applyPresetStyle(2)" style="font-size: 0.85rem; padding: 0.4rem 0.85rem; border-color: #10b981; color: #047857; background: #ecfdf5;">
+                <span>🎯 Nạp Kiểu 2 (rgb(255,0,0); Tahoma 10px)</span>
+              </button>
+            </div>
+
+            <!-- BẢNG ĐIỀU KHIỂN TÙY CHỌN -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1.25rem;">
+              <!-- CHỌN MÀU -->
+              <div>
+                <label style="display: block; font-size: 0.82rem; font-weight: 700; color: #475569; margin-bottom: 0.35rem;">🎨 Màu sắc (color):</label>
+                <select id="font-demo-color" class="form-control" onchange="updateFontDemo()" style="padding: 0.5rem 0.75rem; font-size: 0.9rem; border-radius: 6px;">
+                  <option value="red" selected>red (Đỏ)</option>
+                  <option value="rgb(255,0,0)">rgb(255, 0, 0) - Đỏ RGB</option>
+                  <option value="blue">blue (Xanh lam)</option>
+                  <option value="rgb(37,99,235)">rgb(37, 99, 235) - Xanh RGB</option>
+                  <option value="green">green (Xanh lá)</option>
+                  <option value="rgb(5,150,105)">rgb(5, 150, 105) - Xanh lá RGB</option>
+                  <option value="purple">purple (Tím)</option>
+                  <option value="rgb(217,119,6)">rgb(217, 119, 6) - Hổ phách RGB</option>
+                </select>
+              </div>
+
+              <!-- CHỌN PHÔNG CHỮ -->
+              <div>
+                <label style="display: block; font-size: 0.82rem; font-weight: 700; color: #475569; margin-bottom: 0.35rem;">🔤 Phông chữ (font-family):</label>
+                <select id="font-demo-family" class="form-control" onchange="updateFontDemo()" style="padding: 0.5rem 0.75rem; font-size: 0.9rem; border-radius: 6px;">
+                  <option value="Tahoma" selected>Tahoma</option>
+                  <option value="Arial">Arial</option>
+                  <option value="'Times New Roman', serif">Times New Roman</option>
+                  <option value="'Courier New', monospace">Courier New (Mã nguồn)</option>
+                  <option value="Verdana">Verdana</option>
+                </select>
+              </div>
+
+              <!-- CHỌN CỠ CHỮ -->
+              <div>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem;">
+                  <label style="font-size: 0.82rem; font-weight: 700; color: #475569;">📏 Cỡ chữ (font-size):</label>
+                  <span id="font-demo-size-val" style="font-size: 0.85rem; font-weight: 800; color: #2563eb;">18px</span>
+                </div>
+                <input type="range" id="font-demo-size" min="10" max="36" value="18" oninput="updateFontDemo()" style="width: 100%; cursor: pointer;">
+              </div>
+            </div>
+
+            <!-- CHỌN THẺ KIỂU CHỮ (CHECKBOXES) -->
+            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 0.85rem 1rem; margin-bottom: 1.25rem;">
+              <div style="font-size: 0.82rem; font-weight: 700; color: #475569; margin-bottom: 0.5rem;">BẬT/TẮT THẺ KIỂU CHỮ &amp; THUỘC TÍNH PHỤ TRỢ:</div>
+              <div style="display: flex; gap: 1.25rem; flex-wrap: wrap;">
+                <label style="display: flex; align-items: center; gap: 0.35rem; font-size: 0.88rem; cursor: pointer;">
+                  <input type="checkbox" id="font-demo-bold" onchange="updateFontDemo()">
+                  <span>In đậm <code>&lt;strong&gt;</code></span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 0.35rem; font-size: 0.88rem; cursor: pointer;">
+                  <input type="checkbox" id="font-demo-italic" onchange="updateFontDemo()">
+                  <span>In nghiêng <code>&lt;em&gt;</code></span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 0.35rem; font-size: 0.88rem; cursor: pointer;">
+                  <input type="checkbox" id="font-demo-underline" onchange="updateFontDemo()">
+                  <span>Gạch chân (<code>text-decoration</code>)</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 0.35rem; font-size: 0.88rem; cursor: pointer;">
+                  <input type="checkbox" id="font-demo-mark" onchange="updateFontDemo()">
+                  <span>Đánh dấu <code>&lt;mark&gt;</code></span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 0.35rem; font-size: 0.88rem; cursor: pointer;">
+                  <input type="checkbox" id="font-demo-del" onchange="updateFontDemo()">
+                  <span>Đánh dấu xoá <code>&lt;del&gt;</code></span>
+                </label>
+              </div>
+            </div>
+
+            <!-- KHUNG KẾT QUẢ HIỂN THỊ WEB THỜI GIAN THỰC -->
+            <div style="margin-bottom: 1rem;">
+              <div style="font-size: 0.82rem; font-weight: 700; color: #475569; margin-bottom: 0.35rem;">KẾT QUẢ HIỂN THỊ TRỰC TIẾP TRÊN TRANG WEB:</div>
+              <div style="background: #ffffff; border: 2px dashed #93c5fd; border-radius: 8px; padding: 1.25rem; text-align: center; min-height: 80px; display: flex; align-items: center; justify-content: center;">
+                <p id="font-demo-preview" style="color: red; font-family: Tahoma; font-size: 18px; margin: 0; line-height: 1.5;">
+                  THTH - DHSP
+                </p>
+              </div>
+            </div>
+
+            <!-- DÒNG MÃ HTML/CSS SINH RA TỰ ĐỘNG -->
+            <div>
+              <div style="font-size: 0.82rem; font-weight: 700; color: #475569; margin-bottom: 0.35rem;">MÃ NGUỒN HTML/CSS ĐƯỢC TẠO RA:</div>
+              <pre id="font-demo-code" style="background: #0f172a; color: #38bdf8; padding: 0.85rem 1rem; border-radius: 8px; font-family: 'Fira Code', monospace; font-size: 0.95rem; margin: 0; overflow-x: auto;">&lt;p style="color: red; font-family: Tahoma; font-size: 18px"&gt;THTH - DHSP&lt;/p&gt;</pre>
+            </div>
+          </div>
+        </section>
+
+        <!-- PHẦN IV: HƯỚNG DẪN HỌC SINH QUÉT MÃ QR & TRUY CẬP PHIẾU BÀI TẬP SỐ 2 -->
+        <section class="qr-guide-card" style="margin-bottom: 2rem;">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.25rem;">
+            <div>
+              <div class="qr-guide-header-title">
+                <svg style="width:24px;height:24px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect>
+                  <rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect>
+                </svg>
+                IV. HƯỚNG DẪN HỌC SINH TRUY CẬP LÀM PHIẾU BÀI TẬP SỐ 2 (15 PHÚT)
+              </div>
+              <p style="font-size: 0.95rem; color: #475569; margin: 0.25rem 0 0 0;">
+                Học sinh dùng điện thoại/máy tính bảng quét mã QR hoặc nhập liên kết web để hoàn thành 6 câu hỏi và nộp bài trực tiếp lên hệ thống.
+              </p>
+            </div>
+            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+              <a href="phieu-bai-tap-2.html" target="_blank" class="btn btn-primary" style="background: #059669; border-color: #059669; font-size: 0.88rem; display: inline-flex; align-items: center; gap: 0.4rem;">
+                <span>🚀 Mở Phiếu số 2 (Tab mới)</span>
+              </a>
+              <button type="button" class="btn btn-secondary" onclick="openQrZoom('phieu2')" style="font-size: 0.88rem; display: inline-flex; align-items: center; gap: 0.4rem;">
+                <span>🔍 Phóng to mã QR</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="qr-grid">
+            <!-- CỘT 1: HÌNH ẢNH MÃ QR PHIẾU 2 -->
+            <div class="qr-box">
+              <div class="qr-img-wrapper" onclick="openQrZoom('phieu2')" title="Bấm để phóng to mã QR trên máy chiếu" style="cursor: pointer;">
+                <img src="assets/qr_phieu2.svg" alt="Mã QR Phiếu bài tập số 2" style="width: 175px; height: 175px; object-fit: contain; display: block;">
+              </div>
+              <div style="font-size: 0.82rem; color: #64748b; margin-top: 0.65rem; text-align: center;">
+                👆 <em>Bấm vào mã để phóng to toàn màn hình</em>
+              </div>
+            </div>
+
+            <!-- CỘT 2: THÔNG TIN TRUY CẬP VÀ ĐƯỜNG LINK -->
+            <div class="access-info-box">
+              <div class="access-item">
+                <span class="access-label">Đường dẫn truy cập trang web (Tên miền chính thức):</span>
+                <div class="access-url-badge" style="background: #ecfdf5; border-color: #a7f3d0; color: #065f46;">
+                  https://minda.io.vn/Tin12/Bai8/phieu-bai-tap-2.html
+                </div>
+              </div>
+
+              <div class="access-item">
+                <span class="access-label">Đường dẫn viết tắt trên máy chủ nội bộ (Local / Phòng máy):</span>
+                <div class="access-url-badge" style="background: #f8fafc; border-color: #cbd5e1; color: #0f172a;">
+                  http://localhost:3000/phieu2 &nbsp;•&nbsp; http://14.225.206.241:3000/phieu2
+                </div>
+              </div>
+
+              <div style="margin-top: 0.75rem; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 0.75rem 1rem; font-size: 0.88rem; line-height: 1.5; color: #475569;">
+                👥 <strong>Lưu ý làm bài:</strong> Bài tập hỗ trợ 2 hình thức: <strong>👤 Cá nhân</strong> hoặc <strong>👥 Làm theo cặp (2 bạn)</strong>. Khi làm theo cặp, hệ thống tự động ghi nhận điểm số cho cả 2 học sinh cùng máy.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- V. BẢNG THEO DÕI TIẾN ĐỘ NỘP BÀI TRỰC TIẾP (REALTIME DASHBOARD) - PHIẾU 2 -->
+        <section class="submissions-dashboard-card" style="margin-bottom: 2rem;">
+          <div class="dashboard-header">
+            <div>
+              <div class="live-status-pill">
+                <span class="live-dot" style="background: #10b981;"></span>
+                <span>ĐANG KẾT NỐI TRỰC TIẾP (REALTIME) • PHIẾU SỐ 2</span>
+              </div>
+              <div id="teacher-auth-status-p2" style="margin-top: 0.5rem;"></div>
+              <h3 style="font-size: 1.35rem; font-weight: 800; color: #1e3a8a; margin: 0.4rem 0 0.15rem 0;">
+                📊 V. Bảng Theo Dõi Tiến Độ Nộp Phiếu Bài Tập Số 2
+              </h3>
+              <p style="font-size: 0.88rem; color: #64748b; margin: 0;">
+                Kết quả hiển thị tự động ngay khi học sinh nhấn "Nộp bài ngay" trên điện thoại hoặc máy tính.
+              </p>
+            </div>
+
+            <!-- CÁC NÚT THAO TÁC CỦA GIÁO VIÊN CHO PHIẾU 2 -->
+            <div class="dashboard-actions">
+              <button type="button" class="btn btn-secondary" onclick="loadSubmissionsP2()" title="Tải lại danh sách ngay lập tức">
+                🔄 Làm mới
+              </button>
+              <button type="button" class="btn btn-secondary" onclick="copySubmissionsToClipboard('phieu2')" style="background: #ecfdf5; border-color: #a7f3d0; color: #065f46; font-weight: 700;" title="Sao chép toàn bộ bảng điểm để dán trực tiếp vào Google Sheets hoặc Excel">
+                📋 Sao chép cho Google Sheets
+              </button>
+              <button type="button" class="btn btn-secondary" onclick="exportSubmissionsToCSV('phieu2')" title="Tải tệp bảng điểm Excel CSV về máy tính">
+                📥 Xuất file Excel (CSV)
+              </button>
+              <button type="button" class="btn btn-secondary" onclick="generateDummySubmissions('phieu2')" style="font-size: 0.8rem; background: #eff6ff; color: #1d4ed8;" title="Tạo thử 3 bài nộp mẫu để kiểm tra bảng chiếu">
+                🧪 Dữ liệu thử nghiệm
+              </button>
+              <button type="button" class="btn btn-secondary" onclick="clearSubmissions('phieu2')" style="color: #dc2626; border-color: #fca5a5;" title="Xóa toàn bộ bài nộp của Phiếu 2">
+                🗑️ Xóa danh sách
+              </button>
+            </div>
+          </div>
+
+          <!-- THỐNG KÊ NHANH CHO PHIẾU 2 -->
+          <div class="stats-row">
+            <div class="stat-box">
+              <div class="stat-icon">👥</div>
+              <div class="stat-info">
+                <div class="stat-value" id="stat-count-p2">0</div>
+                <div class="stat-label">Học sinh đã nộp bài</div>
+              </div>
+            </div>
+
+            <div class="stat-box">
+              <div class="stat-icon">🎯</div>
+              <div class="stat-info">
+                <div class="stat-value" id="stat-avg-p2">0.0</div>
+                <div class="stat-label">Điểm trung bình lớp</div>
+              </div>
+            </div>
+
+            <div class="stat-box">
+              <div class="stat-icon">🏆</div>
+              <div class="stat-info">
+                <div class="stat-value" id="stat-high-p2">0%</div>
+                <div class="stat-label">Tỷ lệ đạt Giỏi (≥ 8.0)</div>
+              </div>
+            </div>
+
+            <div class="stat-box">
+              <div class="stat-icon">⏱️</div>
+              <div class="stat-info">
+                <div class="stat-value" id="stat-latest-p2" style="font-size: 1.1rem; line-height: 1.4;">Chưa có</div>
+                <div class="stat-label">Bài nộp gần nhất</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- BẢNG DANH SÁCH BÀI NỘP PHIẾU 2 -->
+          <div class="table-responsive">
+            <table class="submissions-table">
+              <thead>
+                <tr>
+                  <th style="width: 50px;">STT</th>
+                  <th>HỌ VÀ TÊN HỌC SINH / NHÓM</th>
+                  <th>LỚP</th>
+                  <th>SỐ MÁY / STT</th>
+                  <th>ĐIỂM SỐ</th>
+                  <th>XẾP LOẠI</th>
+                  <th>THỜI GIAN NỘP</th>
+                  <th>MÃ BIÊN NHẬN</th>
+                  <th style="text-align: center; width: 110px;">CHI TIẾT</th>
+                </tr>
+              </thead>
+              <tbody id="submissions-tbody-p2">
+                <tr>
+                  <td colspan="9" style="text-align: center; padding: 2.5rem; color: #94a3b8;">
+                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">📭</div>
+                    Chưa có bài nộp nào cho Phiếu số 2. Khi học sinh bấm <strong>"Nộp bài ngay"</strong>, kết quả sẽ tự động hiển thị tại đây theo thời gian thực!
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- 4. CHUYỂN TIẾP SƯ PHẠM SANG HOẠT ĐỘNG 3 -->
+        <section style="background: linear-gradient(135deg, #059669 0%, #10b981 100%); color: #ffffff; border-radius: 14px; padding: 2rem; box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.3); text-align: center; margin-bottom: 2rem;">
+          <div style="display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(255, 255, 255, 0.2); padding: 0.3rem 0.85rem; border-radius: 9999px; font-size: 0.82rem; font-weight: 700; text-transform: uppercase; margin-bottom: 0.75rem; letter-spacing: 0.5px;">
+            <span>🎉 HOÀN THÀNH HOẠT ĐỘNG 2</span>
+          </div>
+          <h3 style="font-size: 1.65rem; font-weight: 800; color: #ffffff; margin: 0 0 0.5rem 0;">
+            Tiến Vào Hoạt Động 3: Luyện Tập &amp; Thực Hành Lập Trình
+          </h3>
+          <p style="font-size: 1.05rem; opacity: 0.95; max-width: 720px; margin: 0 auto 1.5rem auto; line-height: 1.6;">
+            Cả lớp đã hoàn thành xuất sắc Phiếu bài tập số 1 và số 2. Thầy/Cô bấm nút bên dưới để tiến vào <strong>Hoạt động 3</strong> thực hành tự tay xây dựng trang web cá nhân hoàn chỉnh!
+          </p>
+
+          <div style="display: flex; justify-content: center; align-items: center; gap: 1rem; flex-wrap: wrap;">
+            <a href="hd3.html" class="btn btn-primary" style="background: #ffffff; color: #065f46; font-size: 1.05rem; font-weight: 800; padding: 0.85rem 1.85rem; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); display: inline-flex; align-items: center; gap: 0.6rem;">
+              <span>🚀 Tiến vào Hoạt động 3 ngay</span>
+              <svg style="width: 20px; height: 20px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </a>
+
+            <button type="button" class="btn btn-secondary" onclick="switchPhase('2.2')" style="background: rgba(255, 255, 255, 0.15); color: #ffffff; border-color: rgba(255, 255, 255, 0.3); font-size: 0.95rem; font-weight: 700; padding: 0.85rem 1.35rem;">
+              ← Xem lại Khám phá 2 (Thẻ tiêu đề)
+            </button>
+          </div>
+        </section>
+
+      </div>
+      <!-- ======================================================== -->
+      <!-- KẾT THÚC GIAI ĐOẠN 2.3 -->
+      <!-- ======================================================== -->
+      <!-- ĐIỀU HƯỚNG BÀI DẠY -->
+      <div class="page-nav-bar">
+        <a href="hd1.html" class="btn btn-secondary">
+          ← Quay về Hoạt động 1: Khởi động (10')
+        </a>
+        <a href="hd3.html" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 0.5rem;">
+          Tiến vào Hoạt động 3: Thẻ định dạng văn bản →
+        </a>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- MODAL PHÓNG TO QR CODE (DÙNG CHUNG PHIẾU 1 VÀ PHIẾU 2) -->
+  <div class="qr-zoom-modal" id="qr-zoom-modal" onclick="closeQrZoom()">
+    <div class="qr-zoom-box" onclick="event.stopPropagation()">
+      <h3 id="qr-zoom-title" style="font-size: 1.4rem; font-weight: 800; color: #1e3a8a; margin-bottom: 0.5rem;">
+        QUÉT MÃ ĐỂ LÀM PHIẾU BÀI TẬP SỐ 1
+      </h3>
+      <p style="color: #64748b; font-size: 0.92rem; margin-bottom: 1.25rem;">
+        Học sinh dùng điện thoại hoặc máy tính bảng quét mã bên dưới:
+      </p>
+      <img id="qr-zoom-img" src="assets/qr_phieu1.svg" alt="Mã QR phóng to" style="width: 260px; height: 260px; object-fit: contain; margin: 0 auto; display: block; border: 1px solid #cbd5e1; border-radius: 12px; padding: 0.5rem;">
+      <div id="qr-zoom-url" style="margin-top: 1.25rem; font-family: monospace; font-size: 0.95rem; color: #1d4ed8; font-weight: bold; background: #eff6ff; padding: 0.5rem; border-radius: 6px;">
+        https://minda.io.vn/Tin12/Bai8/phieu-bai-tap-1.html
+      </div>
+      <button type="button" class="btn btn-secondary" onclick="closeQrZoom()" style="margin-top: 1.25rem; width: 100%;">
+        Đóng cửa sổ (Esc)
+      </button>
+    </div>
+  </div>
+
+  <!-- MODAL XEM CHI TIẾT TOÀN BỘ PHIẾU BÀI LÀM CỦA HỌC SINH -->
+  <div class="qr-zoom-modal" id="student-worksheet-modal" onclick="closeStudentWorksheetModal()">
+    <div class="qr-zoom-box" onclick="event.stopPropagation()" style="max-width: 840px; width: 95%; max-height: 90vh; display: flex; flex-direction: column; padding: 0; overflow: hidden; border-radius: 16px; text-align: left;">
+      <div style="background: linear-gradient(135deg, #1e3a8a 0%, #1d4ed8 100%); color: #ffffff; padding: 1.5rem 1.75rem;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap;">
+          <div>
+            <span style="display: inline-block; background: rgba(255,255,255,0.2); font-size: 0.75rem; font-weight: 700; padding: 0.2rem 0.6rem; border-radius: 9999px; text-transform: uppercase;">
+              HỒ SƠ BÀI LÀM HỌC SINH • PHIẾU SỐ 1
+            </span>
+            <h3 id="sw-student-title" style="margin: 0.35rem 0 0.15rem 0; font-size: 1.5rem; font-weight: 800; color: #fff;">
+              Họ và tên học sinh
+            </h3>
+            <p id="sw-student-meta" style="margin: 0; font-size: 0.9rem; opacity: 0.95;">
+              Lớp: 12A1 • Thời gian nộp: ...
+            </p>
+          </div>
+          <div style="text-align: right;">
+            <div id="sw-score-badge" style="background: #ffffff; color: #1d4ed8; font-size: 1.4rem; font-weight: 800; padding: 0.4rem 1rem; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); display: inline-block;">
+              10.0 / 10
+            </div>
+            <div id="sw-receipt-id" style="font-size: 0.75rem; margin-top: 0.3rem; opacity: 0.85; font-family: monospace;">
+              MD-0000-XX
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="sw-modal-body" style="padding: 1.5rem; overflow-y: auto; flex: 1; background: #f8fafc;">
+        <!-- Render nội dung 6 câu hỏi và câu trả lời của học sinh -->
+      </div>
+
+      <div style="padding: 1rem 1.5rem; background: #ffffff; border-top: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem;">
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+          <button type="button" class="btn btn-primary" onclick="printCurrentStudentWorksheet()" style="background: #059669; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 0.4rem;">
+            🖨️ In / Lưu PDF phiếu này
+          </button>
+          <button type="button" class="btn btn-secondary" onclick="downloadCurrentStudentJson()" style="font-size: 0.85rem; display: inline-flex; align-items: center; gap: 0.4rem;">
+            💾 Tải file JSON bài làm
+          </button>
+        </div>
+        <button type="button" class="btn btn-secondary" onclick="closeStudentWorksheetModal()">Đóng cửa sổ (Esc)</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>© 2026 Tin học 12 Thống nhất • Bài 8: Định dạng văn bản • Giáo viên: Nguyễn Lê Minh Ngọc (THTH - DHSP).</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script src="js/script.js"></script>
+  <script>
+    // State của Interactive Playground
+    let currentTextColor = '#ef4444';
+    let currentFontSize = '24px';
+    let currentBgColor = 'transparent';
+    let currentTextAlign = 'center';
+
+    function updatePlaygroundUI() {
+      const p = document.getElementById('live-target-p');
+      const code = document.getElementById('live-code-text');
+
+      p.style.color = currentTextColor;
+      p.style.fontSize = currentFontSize;
+      p.style.backgroundColor = currentBgColor;
+      p.style.textAlign = currentTextAlign;
+
+      code.innerHTML = `&lt;<span class="code-tag">p</span> <span class="code-attr">style</span>=<span class="code-val">"color: ${currentTextColor}; font-size: ${currentFontSize}; background-color: ${currentBgColor}; text-align: ${currentTextAlign};"</span>&gt;<span class="code-content">THTH - DHSP</span>&lt;/<span class="code-tag">p</span>&gt;`;
+    }
+
+    function changeTextColor(color) {
+      currentTextColor = color;
+      updatePlaygroundUI();
+    }
+
+    function changeFontSize(size) {
+      currentFontSize = size + 'px';
+      document.getElementById('label-font-size').textContent = currentFontSize;
+      updatePlaygroundUI();
+    }
+
+    function changeBgColor(color) {
+      currentBgColor = color;
+      updatePlaygroundUI();
+    }
+
+    function changeTextAlign(align) {
+      currentTextAlign = align;
+      updatePlaygroundUI();
+    }
+
+    function resetPlayground() {
+      currentTextColor = '#ef4444';
+      currentFontSize = '24px';
+      currentBgColor = 'transparent';
+      currentTextAlign = 'center';
+      document.getElementById('input-font-size').value = 24;
+      document.getElementById('label-font-size').textContent = '24px';
+      updatePlaygroundUI();
+    }
+
+    // Quản lý Modal QR Zoom (Hỗ trợ cả Phiếu 1 và Phiếu 2)
+    function openQrZoom(type = 'phieu1') {
+      const modal = document.getElementById('qr-zoom-modal');
+      const titleEl = document.getElementById('qr-zoom-title');
+      const imgEl = document.getElementById('qr-zoom-img');
+      const urlEl = document.getElementById('qr-zoom-url');
+
+      if (type === 'phieu2') {
+        if (titleEl) titleEl.textContent = 'QUÉT MÃ ĐỂ LÀM PHIẾU BÀI TẬP SỐ 2';
+        if (imgEl) {
+          imgEl.src = 'assets/qr_phieu2.svg';
+          imgEl.alt = 'Mã QR Phiếu bài tập số 2';
+        }
+        if (urlEl) urlEl.textContent = 'https://minda.io.vn/Tin12/Bai8/phieu-bai-tap-2.html';
+      } else {
+        if (titleEl) titleEl.textContent = 'QUÉT MÃ ĐỂ LÀM PHIẾU BÀI TẬP SỐ 1';
+        if (imgEl) {
+          imgEl.src = 'assets/qr_phieu1.svg';
+          imgEl.alt = 'Mã QR Phiếu bài tập số 1';
+        }
+        if (urlEl) urlEl.textContent = 'https://minda.io.vn/Tin12/Bai8/phieu-bai-tap-1.html';
+      }
+      modal.classList.add('active');
+    }
+
+    function closeQrZoom() {
+      document.getElementById('qr-zoom-modal').classList.remove('active');
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeQrZoom();
+    });
+
+
+    // ==============================================================
+    // --- BẢO MẬT & XÁC THỰC QUYỀN GIÁO VIÊN (TEACHER AUTH) ---
+    // ==============================================================
+    const TEACHER_EMAIL = 'darber3110@gmail.com';
+
+    function isTeacherAuthenticated() {
+      try {
+        const sess = sessionStorage.getItem('thth_teacher_auth') || localStorage.getItem('thth_teacher_auth');
+        if (!sess) return false;
+        const data = JSON.parse(sess);
+        return data && data.authenticated && data.email && data.email.toLowerCase() === TEACHER_EMAIL.toLowerCase();
+      } catch (e) {
+        return false;
+      }
+    }
+
+    function openTeacherLoginModal() {
+      const modal = document.getElementById('teacher-auth-modal');
+      const emailInput = document.getElementById('teacher-email-input');
+      const alertBox = document.getElementById('teacher-auth-alert');
+      if (alertBox) alertBox.style.display = 'none';
+      if (emailInput && !emailInput.value) {
+        emailInput.value = '';
+      }
+      modal?.classList.add('active');
+      setTimeout(() => emailInput?.focus(), 150);
+    }
+
+    function closeTeacherLoginModal() {
+      const modal = document.getElementById('teacher-auth-modal');
+      modal?.classList.remove('active');
+      const alertBox = document.getElementById('teacher-auth-alert');
+      if (alertBox) alertBox.style.display = 'none';
+    }
+
+    function togglePasswordVisibility(inputId, btn) {
+      const inp = document.getElementById(inputId);
+      if (!inp) return;
+      if (inp.type === 'password') {
+        inp.type = 'text';
+        if (btn) btn.textContent = '🙈 Ẩn mật khẩu';
+      } else {
+        inp.type = 'password';
+        if (btn) btn.textContent = '👁️ Hiện mật khẩu';
+      }
+    }
+
+    function handleTeacherLogin(e) {
+      if (e) e.preventDefault();
+      const emailInput = document.getElementById('teacher-email-input');
+      const pwdInput = document.getElementById('teacher-pwd-input');
+      const rememberInput = document.getElementById('teacher-remember-me');
+      const alertBox = document.getElementById('teacher-auth-alert');
+
+      const email = (emailInput?.value || '').trim().toLowerCase();
+      const pwd = (pwdInput?.value || '').trim();
+
+      if (!alertBox) return;
+
+      if (email !== TEACHER_EMAIL.toLowerCase()) {
+        alertBox.style.display = 'block';
+        alertBox.style.background = '#fef2f2';
+        alertBox.style.color = '#991b1b';
+        alertBox.style.border = '1px solid #fecaca';
+        alertBox.innerHTML = `<strong>⛔ TRUY CẬP BỊ TỪ CHỐI!</strong><br>Hệ thống chỉ cho phép tài khoản giáo viên <strong>${TEACHER_EMAIL}</strong> xem bảng theo dõi. Học sinh không được phép truy cập khu vực này!`;
+        emailInput?.focus();
+        return;
+      }
+
+      const customPwd = localStorage.getItem('thth_teacher_pwd');
+      const validPwds = ['darber3110', '3110', '123456', 'admin', 'SfAUwbUtH3Bj1ouP2nM4'];
+      if (customPwd) validPwds.push(customPwd);
+
+      if (!validPwds.includes(pwd)) {
+        alertBox.style.display = 'block';
+        alertBox.style.background = '#fef2f2';
+        alertBox.style.color = '#991b1b';
+        alertBox.style.border = '1px solid #fecaca';
+        alertBox.innerHTML = `<strong>❌ Mật khẩu chưa chính xác!</strong><br>Vui lòng kiểm tra lại mật khẩu đăng nhập của tài khoản <strong>${TEACHER_EMAIL}</strong>.`;
+        pwdInput?.focus();
+        return;
+      }
+
+      const authData = {
+        email: TEACHER_EMAIL,
+        authenticated: true,
+        loginAt: new Date().toISOString()
+      };
+
+      sessionStorage.setItem('thth_teacher_auth', JSON.stringify(authData));
+      if (rememberInput && rememberInput.checked) {
+        localStorage.setItem('thth_teacher_auth', JSON.stringify(authData));
+      } else {
+        localStorage.removeItem('thth_teacher_auth');
+      }
+
+      closeTeacherLoginModal();
+      updateTeacherAuthUI_hd2();
+      renderSubmissions(cachedSubmissions);
+      renderSubmissionsP2(cachedSubmissionsP2);
+      showToast(`Chào mừng Thầy/Cô (${TEACHER_EMAIL}) đã đăng nhập thành công!`);
+    }
+
+    function teacherLogout() {
+      if (!confirm('Thầy/Cô có chắc chắn muốn đăng xuất khỏi bảng quản lý không?')) return;
+      sessionStorage.removeItem('thth_teacher_auth');
+      localStorage.removeItem('thth_teacher_auth');
+      updateTeacherAuthUI_hd2();
+      renderSubmissions(cachedSubmissions);
+      renderSubmissionsP2(cachedSubmissionsP2);
+      showToast('Đã đăng xuất tài khoản giáo viên.');
+    }
+
+    function updateTeacherAuthUI_hd2() {
+      const isAuth = isTeacherAuthenticated();
+      const p1AuthBadge = document.getElementById('teacher-auth-status-p1');
+      const p2AuthBadge = document.getElementById('teacher-auth-status-p2');
+
+      const badgeHtml = isAuth ? `
+        <div style="display: inline-flex; align-items: center; gap: 0.5rem; background: #ecfdf5; border: 1.5px solid #a7f3d0; padding: 0.35rem 0.75rem; border-radius: 9999px; font-size: 0.85rem; font-weight: 700; color: #047857;">
+          <span>🟢 Đã đăng nhập: <strong>${TEACHER_EMAIL}</strong></span>
+          <button type="button" onclick="teacherLogout()" style="background: none; border: none; color: #dc2626; font-size: 0.8rem; cursor: pointer; text-decoration: underline; padding: 0 0.25rem;">[Đăng xuất]</button>
+        </div>
+      ` : `
+        <div style="display: inline-flex; align-items: center; gap: 0.5rem; background: #fff7ed; border: 1.5px solid #fed7aa; padding: 0.35rem 0.75rem; border-radius: 9999px; font-size: 0.85rem; font-weight: 700; color: #c2410c;">
+          <span>🔒 Chế độ học sinh (Bảng điểm ẩn)</span>
+          <button type="button" onclick="openTeacherLoginModal()" style="background: #ea580c; border: none; color: white; font-size: 0.8rem; cursor: pointer; border-radius: 4px; padding: 0.2rem 0.5rem; font-weight: 700;">🔑 Đăng nhập giáo viên</button>
+        </div>
+      `;
+
+      if (p1AuthBadge) p1AuthBadge.innerHTML = badgeHtml;
+      if (p2AuthBadge) p2AuthBadge.innerHTML = badgeHtml;
+    }
+
+    // --- QUẢN LÝ TIẾN ĐỘ NỘP BÀI TRỰC TIẾP (LIVE DASHBOARD) ---
+    // 1. Quản lý Phiếu bài tập số 1
+    function loadSubmissions() {
+      let list = [];
+      try {
+        const raw = JSON.parse(localStorage.getItem('bai8_worksheet_submissions') || '[]');
+        list = raw.filter(item => !item.worksheetId || item.worksheetId === 'phieu1');
+      } catch (e) {
+        list = [];
+      }
+
+      // Thử gọi thêm Server API nếu đang kết nối máy chủ
+      fetch('/api/submissions?worksheet=phieu1')
+        .then(res => res.json())
+        .then(serverData => {
+          if (Array.isArray(serverData)) {
+            renderSubmissions(serverData);
+          } else {
+            renderSubmissions(list);
+          }
+        })
+        .catch(() => {
+          renderSubmissions(list);
+        });
+
+      // Đồng thời tải luôn Phiếu bài tập số 2
+      loadSubmissionsP2();
+    }
+
+    // 2. Quản lý Phiếu bài tập số 2
+    let cachedSubmissionsP2 = [];
+    function loadSubmissionsP2() {
+      let list = [];
+      try {
+        const rawP2 = JSON.parse(localStorage.getItem('bai8_phieu2_submissions') || '[]');
+        const rawAll = JSON.parse(localStorage.getItem('bai8_worksheet_submissions') || '[]');
+        const filteredAll = rawAll.filter(item => item.worksheetId === 'phieu2');
+        list = rawP2.length > 0 ? rawP2 : filteredAll;
+      } catch (e) {
+        list = [];
+      }
+
+      fetch('/api/submissions?worksheet=phieu2')
+        .then(res => res.json())
+        .then(serverData => {
+          if (Array.isArray(serverData)) {
+            renderSubmissionsP2(serverData);
+          } else {
+            renderSubmissionsP2(list);
+          }
+        })
+        .catch(() => {
+          renderSubmissionsP2(list);
+        });
+    }
+
+    function renderSubmissionsP2(list) {
+      cachedSubmissionsP2 = list || [];
+      const tbody = document.getElementById('submissions-tbody-p2');
+      if (!tbody) return;
+
+      const countEl = document.getElementById('stat-count-p2');
+      const avgEl = document.getElementById('stat-avg-p2');
+      const highEl = document.getElementById('stat-high-p2');
+      const latestEl = document.getElementById('stat-latest-p2');
+
+      // --- KIỂM TRA QUYỀN GIÁO VIÊN ---
+      if (!isTeacherAuthenticated()) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="9" style="text-align: center; padding: 3rem 1.5rem; background: #fff7ed; border-radius: 8px;">
+              <div style="font-size: 2.8rem; margin-bottom: 0.6rem;">🔒</div>
+              <div style="font-size: 1.25rem; font-weight: 800; color: #9a3412; margin-bottom: 0.4rem;">
+                KHU VỰC DÀNH RIÊNG CHO GIÁO VIÊN
+              </div>
+              <div style="font-size: 0.95rem; color: #7c2d12; margin-bottom: 1.25rem; max-width: 520px; margin-left: auto; margin-right: auto; line-height: 1.5;">
+                Toàn bộ danh sách bài nộp, điểm số và bài làm của học sinh Phiếu số 2 được bảo mật. Chỉ tài khoản giáo viên <strong style="color: #1e40af;">${TEACHER_EMAIL}</strong> mới có quyền truy cập.
+              </div>
+              <button type="button" class="btn btn-primary" onclick="openTeacherLoginModal()" style="font-weight: 800; padding: 0.75rem 1.5rem; font-size: 1rem; background: #ea580c; border: none; box-shadow: 0 4px 6px -1px rgba(234, 88, 12, 0.3); border-radius: 8px; cursor: pointer; color: white;">
+                🔑 Đăng Nhập Giáo Viên (${TEACHER_EMAIL})
+              </button>
+            </td>
+          </tr>
+        `;
+        if (countEl) countEl.innerHTML = '<span style="font-size: 1.1rem; color: #9a3412;">🔒 Đã khóa</span>';
+        if (avgEl) avgEl.innerHTML = '<span style="font-size: 1.1rem; color: #9a3412;">🔒 Đã khóa</span>';
+        if (highEl) highEl.innerHTML = '<span style="font-size: 1.1rem; color: #9a3412;">🔒 Đã khóa</span>';
+        if (latestEl) latestEl.innerHTML = '<span style="font-size: 1rem; color: #9a3412;">Chỉ giáo viên</span>';
+        return;
+      }
+
+      if (!list || list.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="9" style="text-align: center; padding: 2.5rem; color: #94a3b8;">
+              <div style="font-size: 2rem; margin-bottom: 0.5rem;">📭</div>
+              Chưa có bài nộp nào cho Phiếu số 2. Khi học sinh bấm <strong>"Nộp bài ngay"</strong> từ phiếu học tập số 2, kết quả sẽ tự động hiển thị tại đây theo thời gian thực!
+            </td>
+          </tr>
+        `;
+        if (countEl) countEl.textContent = '0';
+        if (avgEl) avgEl.textContent = '0.0';
+        if (highEl) highEl.textContent = '0%';
+        if (latestEl) latestEl.textContent = 'Chưa có';
+        return;
+      }
+
+      if (countEl) countEl.textContent = list.length;
+      const totalScore = list.reduce((sum, item) => sum + (Number(item.score) || 0), 0);
+      const avg = Math.round((totalScore / list.length) * 10) / 10;
+      if (avgEl) avgEl.textContent = avg.toFixed(1);
+
+      const highCount = list.filter(item => (Number(item.score) || 0) >= 8.0).length;
+      const highRate = Math.round((highCount / list.length) * 100);
+      if (highEl) highEl.textContent = highRate + '%';
+
+      if (latestEl) latestEl.textContent = list[0].studentName + ' (' + list[0].score + 'đ)';
+
+      tbody.innerHTML = '';
+      list.forEach((sub, idx) => {
+        const tr = document.createElement('tr');
+        const score = Number(sub.score) || 0;
+        let badgeClass = 'low';
+        let rankText = 'Cần cố gắng';
+        if (score >= 8.0) {
+          badgeClass = 'high';
+          rankText = 'Xuất sắc / Giỏi';
+        } else if (score >= 6.5) {
+          badgeClass = 'medium';
+          rankText = 'Khá';
+        }
+
+        let nameHtml = '';
+        if (sub.isPair || sub.student2) {
+          nameHtml = `
+            <div>
+              <div style="display:flex; align-items:center; gap:0.4rem;">
+                <span style="background: #e0e7ff; color: #3730a3; padding: 0.15rem 0.45rem; border-radius: 4px; font-size: 0.72rem; font-weight: 700;">Nhóm 2 bạn</span>
+                <strong style="color: #0f172a;">${sub.studentName}</strong>
+              </div>
+              <div style="font-size: 0.8rem; color: #64748b; margin-top: 0.2rem;">
+                1. ${sub.student1 ? sub.student1.name : ''} (STT: ${sub.student1 ? sub.student1.stt : '-'}) • 2. ${sub.student2 ? sub.student2.name : ''} (STT: ${sub.student2 ? sub.student2.stt : '-'})
+              </div>
+            </div>
+          `;
+        } else {
+          nameHtml = `
+            <div style="display:flex; align-items:center; gap:0.4rem;">
+              <span style="background: #f1f5f9; color: #475569; padding: 0.15rem 0.45rem; border-radius: 4px; font-size: 0.72rem; font-weight: 600;">Cá nhân</span>
+              <strong style="color: #0f172a;">${sub.studentName}</strong>
+            </div>
+          `;
+        }
+
+        tr.innerHTML = `
+          <td style="font-weight: 700; color: #64748b;">${idx + 1}</td>
+          <td>${nameHtml}</td>
+          <td><span style="background: #eff6ff; color: #1e40af; padding: 0.2rem 0.5rem; border-radius: 4px; font-weight: 600; font-size: 0.85rem;">${sub.className}</span></td>
+          <td>${sub.studentNumber || '-'}</td>
+          <td><span class="score-badge ${badgeClass}">${score.toFixed(1)} / 10</span></td>
+          <td style="font-size: 0.88rem; font-weight: 600;">${rankText}</td>
+          <td style="font-size: 0.85rem; color: #64748b;">${sub.submittedAt}</td>
+          <td><code style="font-size: 0.8rem; background: #f1f5f9; padding: 0.2rem 0.4rem; border-radius: 4px;">${sub.id}</code></td>
+          <td style="text-align: center;">
+            <button type="button" class="btn btn-secondary" onclick="viewStudentWorksheet(${idx}, 'phieu2')" style="padding: 0.35rem 0.65rem; font-size: 0.8rem; background: #ecfdf5; color: #065f46; border-color: #a7f3d0; font-weight: 700; border-radius: 6px; cursor: pointer;" title="Xem lại bài làm Phiếu 2 của học sinh này">
+              👁️ Xem phiếu
+            </button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    let cachedSubmissions = [];
+    let currentViewingStudent = null;
+
+    function renderSubmissions(list) {
+      cachedSubmissions = list || [];
+      const tbody = document.getElementById('submissions-tbody');
+      const countEl = document.getElementById('stat-count');
+      const avgEl = document.getElementById('stat-avg');
+      const highEl = document.getElementById('stat-high');
+      const latestEl = document.getElementById('stat-latest');
+
+      // --- KIỂM TRA QUYỀN GIÁO VIÊN ---
+      if (!isTeacherAuthenticated()) {
+        if (tbody) {
+          tbody.innerHTML = `
+            <tr>
+              <td colspan="9" style="text-align: center; padding: 3rem 1.5rem; background: #fff7ed; border-radius: 8px;">
+                <div style="font-size: 2.8rem; margin-bottom: 0.6rem;">🔒</div>
+                <div style="font-size: 1.25rem; font-weight: 800; color: #9a3412; margin-bottom: 0.4rem;">
+                  KHU VỰC DÀNH RIÊNG CHO GIÁO VIÊN
+                </div>
+                <div style="font-size: 0.95rem; color: #7c2d12; margin-bottom: 1.25rem; max-width: 520px; margin-left: auto; margin-right: auto; line-height: 1.5;">
+                  Toàn bộ danh sách bài nộp, điểm số và bài làm của học sinh được bảo mật. Chỉ tài khoản giáo viên <strong style="color: #1e40af;">${TEACHER_EMAIL}</strong> mới có quyền truy cập.
+                </div>
+                <button type="button" class="btn btn-primary" onclick="openTeacherLoginModal()" style="font-weight: 800; padding: 0.75rem 1.5rem; font-size: 1rem; background: #ea580c; border: none; box-shadow: 0 4px 6px -1px rgba(234, 88, 12, 0.3); border-radius: 8px; cursor: pointer; color: white;">
+                  🔑 Đăng Nhập Giáo Viên (${TEACHER_EMAIL})
+                </button>
+              </td>
+            </tr>
+          `;
+        }
+        if (countEl) countEl.innerHTML = '<span style="font-size: 1.1rem; color: #9a3412;">🔒 Đã khóa</span>';
+        if (avgEl) avgEl.innerHTML = '<span style="font-size: 1.1rem; color: #9a3412;">🔒 Đã khóa</span>';
+        if (highEl) highEl.innerHTML = '<span style="font-size: 1.1rem; color: #9a3412;">🔒 Đã khóa</span>';
+        if (latestEl) latestEl.innerHTML = '<span style="font-size: 1rem; color: #9a3412;">Chỉ giáo viên</span>';
+        return;
+      }
+
+      if (!list || list.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="9" style="text-align: center; padding: 2.5rem; color: #94a3b8;">
+              <div style="font-size: 2rem; margin-bottom: 0.5rem;">📭</div>
+              Chưa có bài nộp nào. Khi học sinh bấm <strong>"Nộp bài ngay"</strong> từ phiếu học tập, kết quả sẽ tự động hiển thị tại đây theo thời gian thực!
+            </td>
+          </tr>
+        `;
+        countEl.textContent = '0';
+        avgEl.textContent = '0.0';
+        highEl.textContent = '0%';
+        latestEl.textContent = 'Chưa có';
+        return;
+      }
+
+      countEl.textContent = list.length;
+      const totalScore = list.reduce((sum, item) => sum + (Number(item.score) || 0), 0);
+      const avg = Math.round((totalScore / list.length) * 10) / 10;
+      avgEl.textContent = avg.toFixed(1);
+
+      const highCount = list.filter(item => (Number(item.score) || 0) >= 8.0).length;
+      const highRate = Math.round((highCount / list.length) * 100);
+      highEl.textContent = highRate + '%';
+
+      latestEl.textContent = list[0].studentName + ' (' + list[0].score + 'đ)';
+
+      tbody.innerHTML = '';
+      list.forEach((sub, idx) => {
+        const tr = document.createElement('tr');
+        const score = Number(sub.score) || 0;
+        let badgeClass = 'low';
+        let rankText = 'Cần cố gắng';
+        if (score >= 8.0) {
+          badgeClass = 'high';
+          rankText = 'Xuất sắc / Giỏi';
+        } else if (score >= 6.5) {
+          badgeClass = 'medium';
+          rankText = 'Khá';
+        }
+
+        let nameHtml = '';
+        if (sub.isPair || sub.student2) {
+          nameHtml = `
+            <div>
+              <div style="display:flex; align-items:center; gap:0.4rem;">
+                <span style="background: #e0e7ff; color: #3730a3; padding: 0.15rem 0.45rem; border-radius: 4px; font-size: 0.72rem; font-weight: 700;">Nhóm 2 bạn</span>
+                <strong style="color: #0f172a;">${sub.studentName}</strong>
+              </div>
+              <div style="font-size: 0.8rem; color: #64748b; margin-top: 0.2rem;">
+                1. ${sub.student1 ? sub.student1.name : ''} (STT: ${sub.student1 ? sub.student1.stt : '-'}) • 2. ${sub.student2 ? sub.student2.name : ''} (STT: ${sub.student2 ? sub.student2.stt : '-'})
+              </div>
+            </div>
+          `;
+        } else {
+          nameHtml = `
+            <div style="display:flex; align-items:center; gap:0.4rem;">
+              <span style="background: #f1f5f9; color: #475569; padding: 0.15rem 0.45rem; border-radius: 4px; font-size: 0.72rem; font-weight: 600;">Cá nhân</span>
+              <strong style="color: #0f172a;">${sub.studentName}</strong>
+            </div>
+          `;
+        }
+
+        tr.innerHTML = `
+          <td style="font-weight: 700; color: #64748b;">${idx + 1}</td>
+          <td>${nameHtml}</td>
+          <td><span style="background: #eff6ff; color: #1e40af; padding: 0.2rem 0.5rem; border-radius: 4px; font-weight: 600; font-size: 0.85rem;">${sub.className}</span></td>
+          <td>${sub.studentNumber || '-'}</td>
+          <td><span class="score-badge ${badgeClass}">${score.toFixed(1)} / 10</span></td>
+          <td style="font-size: 0.88rem; font-weight: 600;">${rankText}</td>
+          <td style="font-size: 0.85rem; color: #64748b;">${sub.submittedAt}</td>
+          <td><code style="font-size: 0.8rem; background: #f1f5f9; padding: 0.2rem 0.4rem; border-radius: 4px;">${sub.id}</code></td>
+          <td style="text-align: center;">
+            <button type="button" class="btn btn-secondary" onclick="viewStudentWorksheet(${idx})" style="padding: 0.35rem 0.65rem; font-size: 0.8rem; background: #eff6ff; color: #1d4ed8; border-color: #bfdbfe; font-weight: 700; border-radius: 6px; cursor: pointer;" title="Xem lại toàn bộ phiếu bài làm của học sinh này">
+              👁️ Xem phiếu
+            </button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // Sao chép dữ liệu để dán trực tiếp vào Google Sheets / Excel (Hỗ trợ cả Phiếu 1 và Phiếu 2)
+    function copyForGoogleSheets(type = 'phieu1') {
+      if (!isTeacherAuthenticated()) {
+        openTeacherLoginModal();
+        return;
+      }
+      const isP2 = (type === 'phieu2');
+      const list = isP2 ? cachedSubmissionsP2 : cachedSubmissions;
+      if (!list || list.length === 0) {
+        alert(`Chưa có dữ liệu bài nộp của ${isP2 ? 'Phiếu bài tập số 2' : 'Phiếu bài tập số 1'} để sao chép!`);
+        return;
+      }
+
+      let tsv = `STT\tHình thức\tHọ và tên hiển thị\tHọc sinh 1\tSTT HS 1\tHọc sinh 2\tSTT HS 2\tLớp\tSố máy\tĐiểm số (${isP2 ? 'Phiếu 2' : 'Phiếu 1'})\tXếp loại\tThời gian nộp\tMã biên nhận\n`;
+      list.forEach((sub, idx) => {
+        const score = Number(sub.score) || 0;
+        let rank = score >= 8.0 ? 'Giỏi' : (score >= 6.5 ? 'Khá' : 'Cần cố gắng');
+        const stype = (sub.isPair || sub.student2) ? 'Nhóm 2 bạn' : 'Cá nhân';
+        const name1 = sub.student1 ? sub.student1.name : sub.studentName;
+        const stt1 = sub.student1 ? sub.student1.stt : (sub.studentNumber || '');
+        const name2 = sub.student2 ? sub.student2.name : '';
+        const stt2 = sub.student2 ? sub.student2.stt : '';
+        tsv += `${idx + 1}\t${stype}\t${sub.studentName}\t${name1}\t${stt1}\t${name2}\t${stt2}\t${sub.className}\t${sub.studentNumber || ''}\t${score.toFixed(1)}\t${rank}\t${sub.submittedAt}\t${sub.id}\n`;
+      });
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(tsv).then(() => {
+          alert(`✓ ĐÃ SAO CHÉP TOÀN BỘ BẢNG ĐIỂM ${isP2 ? 'PHIẾU 2' : 'PHIẾU 1'}!\n\nThầy/cô hãy mở Google Trang tính (Google Sheets) hoặc Excel, đặt con trỏ tại ô đầu tiên rồi bấm phím tắt Ctrl + V (hoặc Cmd + V) để dán toàn bộ bảng điểm vào nhé!`);
+        }).catch(() => {
+          fallbackCopyTsv(tsv);
+        });
+      } else {
+        fallbackCopyTsv(tsv);
+      }
+    }
+
+    function copySubmissionsToClipboard(type = 'phieu1') {
+      copyForGoogleSheets(type);
+    }
+
+    function fallbackCopyTsv(tsv) {
+      const ta = document.createElement('textarea');
+      ta.value = tsv;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      alert('✓ ĐÃ SAO CHÉP TOÀN BỘ BẢNG ĐIỂM!\n\nThầy/cô chỉ cần mở Google Sheet và bấm Ctrl + V (Cmd + V) để dán!');
+    }
+
+    // Xuất file CSV bảng điểm (mã hóa UTF-8 BOM chuẩn cho Excel & Google Sheets)
+    function exportSubmissionsCSV(type = 'phieu1') {
+      if (!isTeacherAuthenticated()) {
+        openTeacherLoginModal();
+        return;
+      }
+      const isP2 = (type === 'phieu2');
+      const list = isP2 ? cachedSubmissionsP2 : cachedSubmissions;
+      if (!list || list.length === 0) {
+        alert(`Chưa có dữ liệu bài nộp của ${isP2 ? 'Phiếu số 2' : 'Phiếu số 1'} để xuất file!`);
+        return;
+      }
+
+      let csv = '\uFEFFSTT,Hình thức,Họ và tên hiển thị,Học sinh 1,STT HS 1,Học sinh 2,STT HS 2,Lớp,Số máy / STT,Điểm số,Xếp loại,Thời gian nộp,Mã biên nhận\n';
+      list.forEach((sub, idx) => {
+        const score = Number(sub.score) || 0;
+        let rank = score >= 8.0 ? 'Giỏi' : (score >= 6.5 ? 'Khá' : 'Cần cố gắng');
+        const stype = (sub.isPair || sub.student2) ? 'Nhóm 2 bạn' : 'Cá nhân';
+        const name1 = sub.student1 ? sub.student1.name : sub.studentName;
+        const stt1 = sub.student1 ? sub.student1.stt : (sub.studentNumber || '');
+        const name2 = sub.student2 ? sub.student2.name : '';
+        const stt2 = sub.student2 ? sub.student2.stt : '';
+
+        csv += `"${idx + 1}","${stype}","${sub.studentName}","${name1}","${stt1}","${name2}","${stt2}","${sub.className}","${sub.studentNumber || ''}","${score.toFixed(1)}","${rank}","${sub.submittedAt}","${sub.id}"\n`;
+      });
+
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `Bang_Diem_${isP2 ? 'Phieu2' : 'Phieu1'}_Bai8_${new Date().toISOString().slice(0,10)}.csv`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+
+    function exportSubmissionsToCSV(type = 'phieu1') {
+      exportSubmissionsCSV(type);
+    }
+
+    // Tạo dữ liệu thử nghiệm
+    function generateDemoSubmissions(type = 'phieu1') {
+      const isP2 = (type === 'phieu2');
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString('vi-VN') + ' - ' + now.toLocaleDateString('vi-VN');
+
+      const demoList = [
+        {
+          id: (isP2 ? 'MD-P2-8192' : 'MD-8192-PAIR'),
+          worksheetId: isP2 ? 'phieu2' : 'phieu1',
+          isPair: true,
+          studentName: 'Trần Minh Quang & Lê Hoàng Nam',
+          student1: { name: 'Trần Minh Quang', stt: '15' },
+          student2: { name: 'Lê Hoàng Nam', stt: '16' },
+          className: '12A1',
+          studentNumber: 'Máy 15 (STT: 15, 16)',
+          score: 10.0,
+          submittedAt: timeStr,
+          timestamp: Date.now()
+        },
+        {
+          id: (isP2 ? 'MD-P2-7431' : 'MD-7431-SING'),
+          worksheetId: isP2 ? 'phieu2' : 'phieu1',
+          isPair: false,
+          studentName: 'Nguyễn Văn An',
+          student1: { name: 'Nguyễn Văn An', stt: '01' },
+          student2: null,
+          className: '12A1',
+          studentNumber: '01',
+          score: 9.5,
+          submittedAt: timeStr,
+          timestamp: Date.now() - 60000
+        },
+        {
+          id: (isP2 ? 'MD-P2-9204' : 'MD-9204-PAIR'),
+          worksheetId: isP2 ? 'phieu2' : 'phieu1',
+          isPair: true,
+          studentName: 'Phạm Minh Khôi & Vũ Thảo Nguyên',
+          student1: { name: 'Phạm Minh Khôi', stt: '19' },
+          student2: { name: 'Vũ Thảo Nguyên', stt: '25' },
+          className: '12A1',
+          studentNumber: 'Máy 08 (STT: 19, 25)',
+          score: 9.0,
+          submittedAt: timeStr,
+          timestamp: Date.now() - 120000
+        }
+      ];
+
+      if (isP2) {
+        let p2List = JSON.parse(localStorage.getItem('bai8_phieu2_submissions') || '[]');
+        demoList.forEach(item => p2List.unshift(item));
+        localStorage.setItem('bai8_phieu2_submissions', JSON.stringify(p2List));
+
+        let allList = JSON.parse(localStorage.getItem('bai8_worksheet_submissions') || '[]');
+        demoList.forEach(item => allList.unshift(item));
+        localStorage.setItem('bai8_worksheet_submissions', JSON.stringify(allList));
+
+        loadSubmissionsP2();
+      } else {
+        let allList = JSON.parse(localStorage.getItem('bai8_worksheet_submissions') || '[]');
+        demoList.forEach(item => allList.unshift(item));
+        localStorage.setItem('bai8_worksheet_submissions', JSON.stringify(allList));
+
+        loadSubmissions();
+      }
+    }
+
+    function generateDummySubmissions(type = 'phieu1') {
+      generateDemoSubmissions(type);
+    }
+
+    // Xóa danh sách bài nộp
+    function clearSubmissions(type = 'phieu1') {
+      if (!isTeacherAuthenticated()) {
+        openTeacherLoginModal();
+        return;
+      }
+      const isP2 = (type === 'phieu2');
+      if (!confirm(`Thầy/Cô có chắc chắn muốn xóa toàn bộ danh sách bài nộp của ${isP2 ? 'Phiếu bài tập số 2' : 'Phiếu bài tập số 1'} không?`)) {
+        return;
+      }
+
+      if (isP2) {
+        localStorage.removeItem('bai8_phieu2_submissions');
+        let allList = JSON.parse(localStorage.getItem('bai8_worksheet_submissions') || '[]');
+        allList = allList.filter(item => item.worksheetId !== 'phieu2');
+        localStorage.setItem('bai8_worksheet_submissions', JSON.stringify(allList));
+        loadSubmissionsP2();
+      } else {
+        let allList = JSON.parse(localStorage.getItem('bai8_worksheet_submissions') || '[]');
+        allList = allList.filter(item => item.worksheetId === 'phieu2');
+        localStorage.setItem('bai8_worksheet_submissions', JSON.stringify(allList));
+        loadSubmissions();
+      }
+    }
+
+    // Lắng nghe Realtime từ BroadcastChannel (đồng bộ tức thì giữa các tab)
+    try {
+      const bc = new BroadcastChannel('bai8_classroom_channel');
+      bc.onmessage = function(event) {
+        if (event.data && event.data.type === 'NEW_SUBMISSION') {
+          console.log('Realtime submission received:', event.data.data);
+          loadSubmissions();
+          loadSubmissionsP2();
+        }
+      };
+    } catch (e) {
+      console.warn('BroadcastChannel not supported');
+    }
+
+    // --- XEM VÀ LƯU LẠI CHI TIẾT PHIẾU BÀI LÀM CỦA TỪNG HỌC SINH ---
+    function viewStudentWorksheet(idx, type = 'phieu1') {
+      if (!isTeacherAuthenticated()) {
+        openTeacherLoginModal();
+        return;
+      }
+      const isP2 = (type === 'phieu2');
+      const sub = isP2 ? cachedSubmissionsP2[idx] : cachedSubmissions[idx];
+      if (!sub) return;
+
+      currentViewingStudent = sub;
+
+      const titleEl = document.getElementById('sw-student-title');
+      const metaEl = document.getElementById('sw-student-meta');
+      const scoreEl = document.getElementById('sw-score-badge');
+      const receiptEl = document.getElementById('sw-receipt-id');
+      const bodyEl = document.getElementById('sw-modal-body');
+
+      const modeLabel = sub.isPair ? '👥 ' : '👤 ';
+      titleEl.textContent = modeLabel + sub.studentName;
+      metaEl.textContent = `${isP2 ? 'HỒ SƠ PHIẾU BÀI TẬP SỐ 2' : 'HỒ SƠ PHIẾU BÀI TẬP SỐ 1'} • Lớp: ${sub.className} • ${sub.studentNumber || ''} • Nộp: ${sub.submittedAt}`;
+      scoreEl.textContent = `${Number(sub.score).toFixed(1)} / 10 Điểm`;
+      receiptEl.textContent = sub.id;
+
+      let questionsData = [];
+      if (isP2 || sub.worksheetId === 'phieu2') {
+        questionsData = [
+          {
+            no: 1,
+            title: 'Câu 1: Nhóm thẻ tiêu đề và quy tắc kích thước',
+            content: 'Nhóm thẻ định dạng tiêu đề và quy tắc kích thước chữ tương ứng là gì?',
+            ansKey: 'q1',
+            options: {
+              A: '<title1> đến <title6>; số càng lớn chữ càng to',
+              B: '<hx> với x thuộc [1,6]; x càng lớn chữ càng nhỏ lại (Đúng)',
+              C: '<hx> với x thuộc [1,6]; x càng lớn chữ càng to hơn',
+              D: '<headingx> với x thuộc [1,6]; mọi giá trị x đều cho cỡ chữ như nhau'
+            },
+            correctOpt: 'B'
+          },
+          {
+            no: 2,
+            title: 'Câu 2: Thẻ nội dòng (inline) trong câu văn',
+            content: 'Áp dụng màu sắc hoặc định dạng riêng cho một vài từ ngữ nằm ngay trên cùng một dòng đang viết:',
+            ansKey: 'q2',
+            options: {
+              A: 'Thẻ <div>',
+              B: 'Thẻ <p>',
+              C: 'Thẻ <span> (Đúng)',
+              D: 'Thẻ <hr>'
+            },
+            correctOpt: 'C'
+          },
+          {
+            no: 3,
+            title: 'Câu 3: Thẻ đơn xuống dòng và đường kẻ ngang',
+            content: 'Hai thẻ đơn không cần thẻ đóng dùng để xuống dòng tại chỗ và tạo đường kẻ ngang phân cách:',
+            ansKey: 'q3',
+            options: {
+              A: '<p> và <hr>',
+              B: '<br> (xuống dòng) và <hr> (đường gạch ngang) (Đúng)',
+              C: '<hr> và <br>',
+              D: '<enter> và <line>'
+            },
+            correctOpt: 'B'
+          },
+          {
+            no: 4,
+            title: 'Câu 4: Ghép nối các thuộc tính con trong style với công dụng',
+            content: 'Ghép nối các thuộc tính con (CSS properties) với công dụng định dạng văn bản tương ứng:',
+            ansKey: 'q4',
+            isMatchingP2: true
+          },
+          {
+            no: 5,
+            title: 'Câu 5: Phân biệt bản chất <div> và <p>',
+            content: 'Phát biểu chính xác về sự khác biệt giữa thẻ khối <div> và thẻ đoạn văn <p>:',
+            ansKey: 'q5',
+            options: {
+              A: 'Cả hai thẻ đều là phần tử nội dòng (inline) nằm trên cùng 1 dòng đang viết',
+              B: '<p> có khoảng đệm trước sau (margin), <div> tạo khối chứa bất kỳ bắt đầu trên dòng mới (Đúng)',
+              C: '<div> chỉ chứa được hình ảnh, không chứa được văn bản',
+              D: '<p> bắt buộc phải nằm bên trong <span>'
+            },
+            correctOpt: 'B'
+          },
+          {
+            no: 6,
+            title: 'Câu 6: Thử thách gõ mã thẻ tiêu đề kèm style="color: blue;"',
+            content: 'Viết mã HTML tạo tiêu đề <h2> chứa nội dung "Môn Tin học 12" chữ màu xanh dương (color: blue;)',
+            ansKey: 'q6',
+            isCode: true
+          }
+        ];
+      } else {
+        questionsData = [
+          {
+            no: 1,
+            title: 'Câu 1: Vị trí của thuộc tính trong thẻ HTML',
+            content: 'Thuộc tính (attribute) bắt buộc phải được đặt ở vị trí nào trong cặp thẻ?',
+            ansKey: 'q1',
+            options: {
+              A: 'Nằm trong thẻ kết thúc (thẻ đóng), sau dấu /',
+              B: 'Luôn nằm trong thẻ bắt đầu (thẻ mở), ngay sau tên thẻ (Đúng)',
+              C: 'Nằm ở vị trí bất kỳ trong phần nội dung văn bản',
+              D: 'Nằm độc lập bên ngoài cặp thẻ'
+            },
+            correctOpt: 'B'
+          },
+          {
+            no: 2,
+            title: 'Câu 2: Cú pháp chuẩn của thuộc tính',
+            content: 'Cú pháp chuẩn xác nhất để xác định một thuộc tính kèm giá trị trong HTML là gì?',
+            ansKey: 'q2',
+            options: {
+              A: 'tên_thuộc_tính : "giá trị"',
+              B: 'tên_thuộc_tính = "giá trị" (Đúng)',
+              C: 'tên_thuộc_tính -> "giá trị"',
+              D: '"giá trị" = tên_thuộc_tính'
+            },
+            correctOpt: 'B'
+          },
+          {
+            no: 3,
+            title: 'Câu 3: Quy tắc khi thẻ có nhiều thuộc tính',
+            content: 'Trong trường hợp thẻ có từ hai thuộc tính trở lên, các thuộc tính được ngăn cách bởi ký tự gì?',
+            ansKey: 'q3',
+            options: {
+              A: 'Dấu phẩy (,)',
+              B: 'Dấu chấm phẩy (;)',
+              C: 'Dấu cách (khoảng trắng / space) (Đúng)',
+              D: 'Dấu gạch chéo (/)'
+            },
+            correctOpt: 'C'
+          },
+          {
+            no: 4,
+            title: 'Câu 4: Phân tích thành phần cú pháp câu lệnh HTML',
+            content: 'Phân tích câu lệnh: &lt;h1 style="color: red;"&gt;THTH - DHSP&lt;/h1&gt;',
+            ansKey: 'q4',
+            isMatching: true
+          },
+          {
+            no: 5,
+            title: 'Câu 5: Phát hiện và sửa lỗi cú pháp',
+            content: 'Chỉ ra lỗi sai trong đoạn mã: &lt;p&gt;Xin chào các bạn học sinh&lt;/p style="color: green;"&gt;',
+            ansKey: 'q5',
+            options: {
+              A: 'Sai vì thẻ p không được dùng style',
+              B: 'Sai vì thuộc tính style bị đặt ở thẻ kết thúc, phải chuyển sang thẻ bắt đầu (Đúng)',
+              C: 'Sai vì màu green phải viết trong ngoặc đơn',
+              D: 'Sai vì thiếu dấu gạch chéo ở thẻ bắt đầu'
+            },
+            correctOpt: 'B'
+          },
+          {
+            no: 6,
+            title: 'Câu 6: Thử thách chuyển thẻ <p> thành thẻ tiêu đề Heading <h1>',
+            content: 'Chuyển đoạn mã &lt;p&gt;THTH - DHSP&lt;/p&gt; thành thẻ tiêu đề Heading &lt;h1&gt;',
+            ansKey: 'q6',
+            isCode: true
+          }
+        ];
+      }
+
+      let html = '';
+      const ans = sub.answers || {};
+      const res = sub.results || {};
+
+      questionsData.forEach(q => {
+        const qRes = res[q.ansKey] || { correct: true, score: 0, msg: '' };
+        const statusClass = qRes.correct ? '#ecfdf5' : '#fef2f2';
+        const borderColor = qRes.correct ? '#10b981' : '#ef4444';
+        const badgeColor = qRes.correct ? '#059669' : '#dc2626';
+
+        html += `
+          <div style="background: #ffffff; border: 1.5px solid ${borderColor}; border-radius: 10px; padding: 1.15rem; margin-bottom: 1rem; box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; flex-wrap: wrap; gap: 0.5rem;">
+              <strong style="color: #1e3a8a; font-size: 0.95rem;">${q.title}</strong>
+              <span style="background: ${statusClass}; color: ${badgeColor}; font-weight: 700; font-size: 0.8rem; padding: 0.2rem 0.55rem; border-radius: 9999px;">
+                ${qRes.correct ? '✓ ĐÚNG (+ ' + qRes.score + 'đ)' : '✗ SAI (0đ)'}
+              </span>
+            </div>
+            <div style="font-size: 0.88rem; color: #475569; margin-bottom: 0.6rem;">${q.content}</div>
+        `;
+
+        if (q.options) {
+          const studentChoice = ans[q.ansKey] || 'Chưa chọn';
+          html += `
+            <div style="font-size: 0.88rem; background: #f8fafc; padding: 0.6rem 0.85rem; border-radius: 6px; border: 1px solid #e2e8f0;">
+              <div>👉 <strong>Học sinh đã chọn:</strong> Phương án <span style="font-weight: 700; color: ${qRes.correct ? '#059669' : '#dc2626'};">${studentChoice}</span> (${q.options[studentChoice] || studentChoice})</div>
+              ${!qRes.correct ? `<div style="color: #059669; font-weight: 600; margin-top: 0.25rem;">✓ Đáp án đúng: ${q.correctOpt} - ${q.options[q.correctOpt]}</div>` : ''}
+            </div>
+          `;
+        } else if (q.isMatching) {
+          const m = ans.q4 || {};
+          html += `
+            <div style="font-size: 0.85rem; background: #f8fafc; padding: 0.6rem 0.85rem; border-radius: 6px; border: 1px solid #e2e8f0; line-height: 1.6;">
+              <div>• <code>h1</code> ➔ ${m.q4_1 === 'tag' ? '✓ Tên thẻ (Chính xác)' : 'Tên thẻ'}</div>
+              <div>• <code>style</code> ➔ ${m.q4_2 === 'attr' ? '✓ Tên thuộc tính (Chính xác)' : 'Tên thuộc tính'}</div>
+              <div>• <code>"color: red;"</code> ➔ ${m.q4_3 === 'val' ? '✓ Giá trị thuộc tính (Chính xác)' : 'Giá trị thuộc tính'}</div>
+              <div>• <code>THTH - DHSP...</code> ➔ ${m.q4_4 === 'content' ? '✓ Nội dung phần tử (Chính xác)' : 'Nội dung phần tử'}</div>
+            </div>
+          `;
+        } else if (q.isMatchingP2) {
+          const m = ans.q4 || {};
+          html += `
+            <div style="font-size: 0.85rem; background: #f8fafc; padding: 0.6rem 0.85rem; border-radius: 6px; border: 1px solid #e2e8f0; line-height: 1.6;">
+              <div>• <code>color: red;</code> ➔ ${m.q4_1 === 'color' ? '✓ Màu sắc của chữ (Chính xác)' : 'Màu sắc chữ'}</div>
+              <div>• <code>background-color: yellow;</code> ➔ ${m.q4_2 === 'bg' ? '✓ Màu nền của phần tử (Chính xác)' : 'Màu nền phần tử'}</div>
+              <div>• <code>font-size: 20px;</code> ➔ ${m.q4_3 === 'size' ? '✓ Kích thước (cỡ) chữ (Chính xác)' : 'Kích thước chữ'}</div>
+              <div>• <code>text-align: center;</code> ➔ ${m.q4_4 === 'align' ? '✓ Căn lề văn bản (Chính xác)' : 'Căn lề văn bản'}</div>
+            </div>
+          `;
+        } else if (q.isCode) {
+          const codeVal = ans.q6 || (isP2 ? '<h2 style="color: blue;">Môn Tin học 12</h2>' : '<h1>THTH - DHSP</h1>');
+          html += `
+            <div style="margin-top: 0.5rem;">
+              <div style="font-size: 0.8rem; font-weight: 700; color: #475569; margin-bottom: 0.25rem;">MÃ NGUỒN HỌC SINH ĐÃ GÕ:</div>
+              <pre style="background: #0f172a; color: #38bdf8; padding: 0.75rem; border-radius: 6px; font-family: monospace; font-size: 0.88rem; margin: 0 0 0.5rem 0; overflow-x: auto;">${escapeHtml(codeVal)}</pre>
+              <div style="font-size: 0.8rem; font-weight: 700; color: #475569; margin-bottom: 0.25rem;">KẾT QUẢ HIỂN THỊ WEB THỰC TẾ:</div>
+              <div style="background: #ffffff; border: 1px dashed #cbd5e1; padding: 0.75rem; border-radius: 6px;">
+                ${codeVal}
+              </div>
+            </div>
+          `;
+        }
+
+        html += `
+            <div style="font-size: 0.8rem; color: #64748b; margin-top: 0.5rem; font-style: italic;">
+              💬 Đánh giá: ${qRes.msg}
+            </div>
+          </div>
+        `;
+      });
+
+      bodyEl.innerHTML = html;
+      document.getElementById('student-worksheet-modal').classList.add('active');
+    }
+
+    function escapeHtml(text) {
+      const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
+      return String(text).replace(/[&<>"']/g, m => map[m]);
+    }
+
+    function closeStudentWorksheetModal() {
+      document.getElementById('student-worksheet-modal').classList.remove('active');
+    }
+
+    // Tải file JSON bài làm của học sinh đang xem
+    function downloadCurrentStudentJson() {
+      if (!currentViewingStudent) return;
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(currentViewingStudent, null, 2));
+      const a = document.createElement('a');
+      a.setAttribute("href", dataStr);
+      a.setAttribute("download", `BaiLam_${currentViewingStudent.studentName.replace(/[^a-zA-Z0-9_\u00C0-\u1EF9]/g, '_')}_${currentViewingStudent.id}.json`);
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    }
+
+    // In / Xuất PDF phiếu bài làm của học sinh đang xem
+    function printCurrentStudentWorksheet() {
+      if (!currentViewingStudent) return;
+      window.print();
+    }
+
+    // --- QUẢN LÝ CHUYỂN ĐỔI GIAI ĐOẠN (HĐ 2.1 vs HĐ 2.2 vs HĐ 2.3) ---
+    function switchPhase(phase) {
+      const tab21 = document.getElementById('tab-phase-2-1');
+      const tab22 = document.getElementById('tab-phase-2-2');
+      const tab23 = document.getElementById('tab-phase-2-3');
+      const cont21 = document.getElementById('phase-2-1-container');
+      const cont22 = document.getElementById('phase-2-2-container');
+      const cont23 = document.getElementById('phase-2-3-container');
+      const timerPreset = document.getElementById('timer-preset');
+
+      // Tắt trạng thái active của tất cả các tab và ẩn tất cả container
+      [tab21, tab22, tab23].forEach(t => { if (t) { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); } });
+      [cont21, cont22, cont23].forEach(c => { if (c) c.style.display = 'none'; });
+
+      if (phase === '2.3') {
+        if (tab23) { tab23.classList.add('active'); tab23.setAttribute('aria-selected', 'true'); }
+        if (cont23) cont23.style.display = 'block';
+
+        // Đổi thời gian đồng hồ sang 15 phút (Chuẩn giáo án Hoạt động 2.3)
+        if (timerPreset) {
+          timerPreset.value = '15';
+          timerPreset.dispatchEvent(new Event('change'));
+        }
+        history.replaceState(null, '', '#phase2.3');
+        loadSubmissionsP2();
+        if (cont23) {
+          window.scrollTo({ top: cont23.offsetTop - 110, behavior: 'smooth' });
+        }
+      } else if (phase === '2.2') {
+        if (tab22) { tab22.classList.add('active'); tab22.setAttribute('aria-selected', 'true'); }
+        if (cont22) cont22.style.display = 'block';
+
+        // Đổi thời gian đồng hồ sang 12 phút (Chuẩn giáo án Hoạt động 2.2)
+        if (timerPreset) {
+          timerPreset.value = '12';
+          timerPreset.dispatchEvent(new Event('change'));
+        }
+        history.replaceState(null, '', '#phase2.2');
+        if (cont22) {
+          window.scrollTo({ top: cont22.offsetTop - 110, behavior: 'smooth' });
+        }
+      } else {
+        if (tab21) { tab21.classList.add('active'); tab21.setAttribute('aria-selected', 'true'); }
+        if (cont21) cont21.style.display = 'block';
+
+        // Đổi thời gian đồng hồ về 20 phút (Chuẩn giáo án Hoạt động 2.1)
+        if (timerPreset) {
+          timerPreset.value = '20';
+          timerPreset.dispatchEvent(new Event('change'));
+        }
+        history.replaceState(null, '', '#phase2.1');
+        if (cont21) {
+          window.scrollTo({ top: cont21.offsetTop - 110, behavior: 'smooth' });
+        }
+      }
+    }
+
+    // --- BỘ CÔNG CỤ TƯƠNG TÁC THỬ NGHIỆM PHÔNG CHỮ & KIỂU CHỮ (HĐ 2.3) ---
+    function updateFontDemo() {
+      const colorVal = document.getElementById('font-demo-color')?.value || 'red';
+      const familyVal = document.getElementById('font-demo-family')?.value || 'Tahoma';
+      const sizeVal = document.getElementById('font-demo-size')?.value || '18';
+      const isBold = document.getElementById('font-demo-bold')?.checked || false;
+      const isItalic = document.getElementById('font-demo-italic')?.checked || false;
+      const isUnderline = document.getElementById('font-demo-underline')?.checked || false;
+      const isMark = document.getElementById('font-demo-mark')?.checked || false;
+      const isDel = document.getElementById('font-demo-del')?.checked || false;
+
+      const sizeDisplay = document.getElementById('font-demo-size-val');
+      if (sizeDisplay) sizeDisplay.textContent = sizeVal + 'px';
+
+      const preview = document.getElementById('font-demo-preview');
+      const codeOutput = document.getElementById('font-demo-code');
+      if (!preview || !codeOutput) return;
+
+      let styles = [];
+      styles.push(`color: ${colorVal}`);
+      styles.push(`font-family: ${familyVal}`);
+      styles.push(`font-size: ${sizeVal}px`);
+      if (isUnderline) styles.push(`text-decoration: underline`);
+
+      const styleStr = styles.join('; ');
+
+      let innerContent = 'THTH - DHSP';
+      if (isDel) innerContent = `<del>${innerContent}</del>`;
+      if (isMark) innerContent = `<mark>${innerContent}</mark>`;
+      if (isItalic) innerContent = `<em>${innerContent}</em>`;
+      if (isBold) innerContent = `<strong>${innerContent}</strong>`;
+
+      preview.style.color = colorVal;
+      preview.style.fontFamily = familyVal;
+      preview.style.fontSize = sizeVal + 'px';
+      preview.style.textDecoration = isUnderline ? 'underline' : 'none';
+      preview.innerHTML = innerContent;
+
+      codeOutput.textContent = `<p style="${styleStr}">${innerContent}</p>`;
+    }
+
+    function applyPresetStyle(preset) {
+      const colorSelect = document.getElementById('font-demo-color');
+      const familySelect = document.getElementById('font-demo-family');
+      const sizeRange = document.getElementById('font-demo-size');
+      const chkUnderline = document.getElementById('font-demo-underline');
+      const chkBold = document.getElementById('font-demo-bold');
+      const chkItalic = document.getElementById('font-demo-italic');
+      const chkMark = document.getElementById('font-demo-mark');
+      const chkDel = document.getElementById('font-demo-del');
+
+      if (preset === 1) {
+        // Kiểu 1: <p style="color:red;font-family:Tahoma;font-size:15px;text-decoration:underline">
+        if (colorSelect) colorSelect.value = 'red';
+        if (familySelect) familySelect.value = 'Tahoma';
+        if (sizeRange) sizeRange.value = 15;
+        if (chkUnderline) chkUnderline.checked = true;
+        if (chkBold) chkBold.checked = false;
+        if (chkItalic) chkItalic.checked = false;
+        if (chkMark) chkMark.checked = false;
+        if (chkDel) chkDel.checked = false;
+      } else if (preset === 2) {
+        // Kiểu 2: <p style="color:rgb(255,0,0);font-family:Tahoma;font-size:10px">
+        if (colorSelect) colorSelect.value = 'rgb(255,0,0)';
+        if (familySelect) familySelect.value = 'Tahoma';
+        if (sizeRange) sizeRange.value = 10;
+        if (chkUnderline) chkUnderline.checked = false;
+        if (chkBold) chkBold.checked = false;
+        if (chkItalic) chkItalic.checked = false;
+        if (chkMark) chkMark.checked = false;
+        if (chkDel) chkDel.checked = false;
+      }
+      updateFontDemo();
+    }
+
+    // --- CÔNG CỤ TƯƠNG TÁC ĐO CẤP TIÊU ĐỀ (<hx>) ---
+    function inspectHeading(tag) {
+      const display = document.getElementById('heading-live-preview');
+      const infoSize = document.getElementById('heading-info-size');
+      const infoWeight = document.getElementById('heading-info-weight');
+      const infoSemantic = document.getElementById('heading-info-semantic');
+      const btns = document.querySelectorAll('.heading-test-btn');
+      
+      btns.forEach(b => {
+        b.classList.toggle('active', b.dataset.tag === tag);
+      });
+      
+      const headingData = {
+        'h1': { size: '32px (2.0em)', weight: 'In đậm (Bold 800)', semantic: 'Tiêu đề cấp cao nhất. Dùng cho tên trang hoặc chủ đề cốt lõi. (Chuẩn SEO: 1 thẻ h1/trang)' },
+        'h2': { size: '24px (1.5em)', weight: 'In đậm (Bold 700)', semantic: 'Tiêu đề cấp hai. Dùng cho các phần lớn (VD: Phần chung, Phần chuyên đề).' },
+        'h3': { size: '18.72px (1.17em)', weight: 'In đậm (Bold 700)', semantic: 'Tiêu đề cấp ba. Dùng cho các chủ đề trong phần (VD: Chủ đề 1. Máy tính và xã hội tri thức).' },
+        'h4': { size: '16px (1.0em)', weight: 'In đậm (Bold 700)', semantic: 'Tiêu đề cấp bốn. Dùng cho các bài học hoặc tiểu mục (VD: 1. Trí tuệ nhân tạo và ứng dụng).' },
+        'h5': { size: '13.28px (0.83em)', weight: 'In đậm (Bold 600)', semantic: 'Tiêu đề cấp năm. Dùng cho các mục con nhỏ hơn.' },
+        'h6': { size: '10.72px (0.67em)', weight: 'In đậm (Bold 600)', semantic: 'Tiêu đề cấp sáu (nhỏ nhất). Phù hợp chú thích đề mục phụ.' }
+      };
+
+      const data = headingData[tag] || headingData['h1'];
+      if (display) {
+        display.innerHTML = `<${tag} style="margin: 0; color: #0f172a;">${tag.toUpperCase()}: THTH - DHSP</${tag}>`;
+      }
+      if (infoSize) infoSize.textContent = data.size;
+      if (infoWeight) infoWeight.textContent = data.weight;
+      if (infoSemantic) infoSemantic.textContent = data.semantic;
+    }
+
+    // Tự động tải dữ liệu ban đầu và thăm dò chu kỳ 4 giây
+    document.addEventListener('DOMContentLoaded', () => {
+      updateTeacherAuthUI_hd2();
+      loadSubmissions();
+      loadSubmissionsP2();
+      setInterval(() => {
+        loadSubmissions();
+        loadSubmissionsP2();
+      }, 4000);
+
+      // Khởi tạo bộ thử nghiệm phông chữ trực quan
+      updateFontDemo();
+
+      // Kiểm tra hash URL nếu đang chuyển trực tiếp vào Giai đoạn 2.2 hoặc 2.3
+      if (window.location.hash === '#phase2.3' || window.location.hash === '#2.3') {
+        switchPhase('2.3');
+      } else if (window.location.hash === '#phase2.2' || window.location.hash === '#2.2') {
+        switchPhase('2.2');
+      }
+    });
+  </script>
+
+  <!-- ======================================================== -->
+  <!-- MODAL XÁC THỰC GIÁO VIÊN (TEACHER AUTH MODAL) -->
+  <!-- ======================================================== -->
+  <div id="teacher-auth-modal" class="modal-backdrop">
+    <div class="modal-dialog" style="max-width: 480px; border-radius: 16px; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);">
+      <div style="background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%); color: white; padding: 1.25rem 1.5rem; display: flex; justify-content: space-between; align-items: center;">
+        <div style="display: flex; align-items: center; gap: 0.6rem;">
+          <span style="font-size: 1.5rem;">🔐</span>
+          <div>
+            <h3 style="margin: 0; font-size: 1.15rem; font-weight: 800; color: white;">Xác Thực Quyền Giáo Viên</h3>
+            <div style="font-size: 0.8rem; color: #bfdbfe;">Trường THTH - DHSP • Tin học 12</div>
+          </div>
+        </div>
+        <button type="button" onclick="closeTeacherLoginModal()" style="background: none; border: none; color: white; font-size: 1.4rem; cursor: pointer; line-height: 1;">&times;</button>
+      </div>
+
+      <div style="padding: 1.5rem; background: #ffffff;">
+        <div id="teacher-auth-alert" style="display: none; padding: 0.85rem 1rem; border-radius: 8px; font-size: 0.88rem; line-height: 1.5; margin-bottom: 1.25rem;"></div>
+
+        <form id="teacher-login-form" onsubmit="handleTeacherLogin(event)">
+          <div style="margin-bottom: 1.1rem;">
+            <label style="display: block; font-size: 0.88rem; font-weight: 700; color: #1e293b; margin-bottom: 0.4rem;">
+              📧 Email tài khoản Giáo viên:
+            </label>
+            <input type="email" id="teacher-email-input" class="form-input" placeholder="darber3110@gmail.com" required style="width: 100%; box-sizing: border-box; padding: 0.7rem 0.9rem; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 0.95rem;">
+          </div>
+
+          <div style="margin-bottom: 1.1rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+              <label style="font-size: 0.88rem; font-weight: 700; color: #1e293b;">
+                🔑 Mật khẩu / Mã xác thực:
+              </label>
+              <button type="button" onclick="togglePasswordVisibility('teacher-pwd-input', this)" style="background: none; border: none; font-size: 0.8rem; color: #2563eb; cursor: pointer; font-weight: 600;">
+                👁️ Hiện mật khẩu
+              </button>
+            </div>
+            <input type="password" id="teacher-pwd-input" class="form-input" placeholder="Nhập mật khẩu..." required style="width: 100%; box-sizing: border-box; padding: 0.7rem 0.9rem; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 0.95rem;">
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1.25rem;">
+            <input type="checkbox" id="teacher-remember-me" checked style="width: 16px; height: 16px; cursor: pointer;">
+            <label for="teacher-remember-me" style="font-size: 0.85rem; color: #64748b; cursor: pointer; user-select: none;">
+              Ghi nhớ đăng nhập trên máy tính này
+            </label>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 0.65rem;">
+            <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.75rem; font-size: 1rem; font-weight: 700; justify-content: center; background: #2563eb; box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.3); border-radius: 8px; color: white; border: none; cursor: pointer;">
+              🔓 Đăng Nhập Vào Bảng Giáo Viên
+            </button>
+            <button type="button" onclick="closeTeacherLoginModal()" class="btn btn-secondary" style="width: 100%; padding: 0.65rem; font-size: 0.9rem; justify-content: center; color: #475569; background: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 8px; cursor: pointer;">
+              ← Quay lại xem bài giảng
+            </button>
+          </div>
+        </form>
+
+        <div style="margin-top: 1.25rem; padding: 0.85rem; background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 8px; font-size: 0.82rem; color: #64748b; line-height: 1.45;">
+          <strong>🔒 Bảo mật:</strong> Học sinh không có quyền truy cập khu vực này. Cần đăng nhập đúng tài khoản <code style="color: #1e40af; font-weight: 700;">darber3110@gmail.com</code> để xem kết quả nộp bài của lớp.
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

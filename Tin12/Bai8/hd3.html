@@ -1,0 +1,1403 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hoạt động 3: Luyện tập (30') | Bài 8: Định dạng văn bản - Tin học 12</title>
+  <meta name="description" content="Thực hành định dạng văn bản HTML với trình soạn thảo trực tiếp trên web, tự động tạo và lưu từng file HTML cho mỗi bài tập.">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    :root {
+      --primary-color: #2563eb;
+      --primary-hover: #1d4ed8;
+      --success-color: #059669;
+      --warning-color: #d97706;
+      --danger-color: #dc2626;
+      --bg-dark: #0f172a;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --border-color: #cbd5e1;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background-color: #f8fafc;
+      color: var(--text-main);
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+    }
+
+    /* TOP VIEW TOGGLE BAR */
+    .view-toggle-bar {
+      background: #ffffff;
+      border-bottom: 2px solid #e2e8f0;
+      padding: 0.75rem 1.25rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+    }
+    .view-toggle-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+    .view-switch-btns {
+      display: inline-flex;
+      background: #f1f5f9;
+      padding: 0.25rem;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+    }
+    .view-btn {
+      padding: 0.55rem 1.25rem;
+      border-radius: 8px;
+      border: none;
+      background: transparent;
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: #475569;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.2s ease;
+    }
+    .view-btn.active {
+      background: #ffffff;
+      color: #1d4ed8;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+    }
+
+    /* STUDENT INFO CARD */
+    .student-card {
+      background: #ffffff;
+      border-radius: 14px;
+      border: 1px solid var(--border-color);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .mode-selector {
+      display: inline-flex;
+      background: #f1f5f9;
+      padding: 0.25rem;
+      border-radius: 8px;
+      margin-bottom: 0.75rem;
+    }
+    .mode-tab {
+      padding: 0.4rem 1rem;
+      border-radius: 6px;
+      border: none;
+      background: transparent;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #64748b;
+      cursor: pointer;
+    }
+    .mode-tab.active {
+      background: #2563eb;
+      color: #ffffff;
+      box-shadow: 0 2px 4px rgba(37, 99, 235, 0.25);
+    }
+
+    .form-grid-single {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 1rem;
+    }
+    .form-grid-pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 0.75rem;
+    }
+    @media (max-width: 768px) {
+      .form-grid-single, .form-grid-pair {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .form-control-custom {
+      width: 100%;
+      padding: 0.65rem 0.85rem;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      box-sizing: border-box;
+      font-family: inherit;
+    }
+    .form-control-custom:focus {
+      outline: none;
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+
+    /* EXERCISE TABS */
+    .exercise-tabs-bar {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.25rem;
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .exercise-tab-btn {
+      padding: 0.75rem 1.25rem;
+      border-radius: 10px;
+      border: 1.5px solid #cbd5e1;
+      background: #ffffff;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #475569;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.2s ease;
+    }
+    .exercise-tab-btn:hover {
+      background: #f8fafc;
+      border-color: #94a3b8;
+    }
+    .exercise-tab-btn.active {
+      background: #1e3a8a;
+      color: #ffffff;
+      border-color: #1e3a8a;
+      box-shadow: 0 4px 10px rgba(30, 58, 138, 0.25);
+    }
+    .badge-status {
+      font-size: 0.75rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: 9999px;
+      background: #e2e8f0;
+      color: #475569;
+      font-weight: 800;
+    }
+    .exercise-tab-btn.active .badge-status {
+      background: #3b82f6;
+      color: #ffffff;
+    }
+
+    /* PANELS */
+    .exercise-panel {
+      display: none;
+    }
+    .exercise-panel.active {
+      display: block;
+    }
+
+    .exercise-intro-card {
+      background: #ffffff;
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    /* CHECKLIST CRITERIA GRID */
+    .criteria-checklist-box {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 0.85rem 1rem;
+      margin-top: 1rem;
+    }
+    .criteria-title {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: #1e40af;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 0.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .criteria-items-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 0.5rem;
+    }
+    .criteria-item {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 0.84rem;
+      color: #64748b;
+      padding: 0.3rem 0.5rem;
+      border-radius: 6px;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      transition: all 0.2s;
+    }
+    .criteria-item.passed {
+      background: #ecfdf5;
+      color: #065f46;
+      border-color: #a7f3d0;
+      font-weight: 600;
+    }
+    .criteria-item .check-icon {
+      font-weight: 800;
+      font-size: 0.95rem;
+      color: #94a3b8;
+    }
+    .criteria-item.passed .check-icon {
+      color: #10b981;
+    }
+
+    /* WORKBENCH SPLIT (EDITOR + PREVIEW) */
+    .editor-grid-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      min-height: 520px;
+    }
+    @media (max-width: 992px) {
+      .editor-grid-split {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* EDITOR CONTAINER */
+    .editor-box {
+      display: flex;
+      flex-direction: column;
+      background: #0f172a;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid #334155;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+    .editor-topbar {
+      background: #1e293b;
+      padding: 0.6rem 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #334155;
+      color: #94a3b8;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    /* QUICK SNIPPETS BAR */
+    .quick-snippets-bar {
+      background: #1e293b;
+      padding: 0.5rem 0.85rem;
+      display: flex;
+      gap: 0.4rem;
+      overflow-x: auto;
+      border-bottom: 1px solid #334155;
+    }
+    .snippet-btn {
+      background: #334155;
+      color: #e2e8f0;
+      border: 1px solid #475569;
+      border-radius: 5px;
+      padding: 0.25rem 0.55rem;
+      font-size: 0.8rem;
+      font-family: 'Fira Code', 'Courier New', monospace;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.15s;
+    }
+    .snippet-btn:hover {
+      background: #2563eb;
+      color: #ffffff;
+      border-color: #2563eb;
+    }
+
+    .editor-inner-wrapper {
+      flex: 1;
+      display: flex;
+      background: #0f172a;
+      position: relative;
+    }
+
+    .code-textarea {
+      flex: 1;
+      width: 100%;
+      min-height: 400px;
+      background: transparent;
+      color: #38bdf8;
+      font-family: 'Fira Code', Consolas, 'Courier New', monospace;
+      font-size: 0.96rem;
+      line-height: 1.6;
+      padding: 1rem;
+      border: none;
+      resize: vertical;
+      box-sizing: border-box;
+      outline: none;
+      tab-size: 2;
+    }
+
+    /* PREVIEW CONTAINER (ISOLATED IFRAME) */
+    .preview-box {
+      display: flex;
+      flex-direction: column;
+      background: #ffffff;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    }
+    .preview-topbar {
+      background: #f1f5f9;
+      padding: 0.6rem 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #e2e8f0;
+      color: #475569;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+    .preview-iframe {
+      flex: 1;
+      width: 100%;
+      min-height: 400px;
+      border: none;
+      background: #ffffff;
+    }
+
+    /* GLOBAL SUBMIT BAR */
+    .global-submit-card {
+      background: #ffffff;
+      border-radius: 14px;
+      border: 1.5px solid #bfdbfe;
+      padding: 1.25rem 1.5rem;
+      margin-top: 1.5rem;
+      box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.15);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      position: sticky;
+      bottom: 1rem;
+      z-index: 90;
+    }
+
+    .btn-submit-all {
+      background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 1.1rem;
+      padding: 0.85rem 2.25rem;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      box-shadow: 0 4px 14px rgba(5, 150, 105, 0.35);
+      transition: all 0.2s ease;
+    }
+    .btn-submit-all:hover {
+      background: linear-gradient(135deg, #047857 0%, #059669 100%);
+      transform: translateY(-2px);
+    }
+
+    /* TEACHER DASHBOARD */
+    .teacher-dashboard-section {
+      display: none;
+    }
+    .teacher-dashboard-section.active {
+      display: block;
+    }
+
+    .stat-badge-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .stat-badge {
+      background: #ffffff;
+      border-radius: 10px;
+      border: 1px solid var(--border-color);
+      padding: 1rem 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .stat-badge-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+      background: #eff6ff;
+      color: #2563eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    .submissions-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #ffffff;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid #cbd5e1;
+    }
+    .submissions-table th, .submissions-table td {
+      padding: 0.85rem 1rem;
+      border: 1px solid #e2e8f0;
+      text-align: left;
+    }
+    .submissions-table th {
+      background: #f1f5f9;
+      color: #1e3a8a;
+      font-weight: 800;
+      font-size: 0.88rem;
+    }
+    .submissions-table tr:hover {
+      background: #f8fafc;
+    }
+
+    /* MODAL */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(15, 23, 42, 0.7);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      backdrop-filter: blur(4px);
+    }
+    .modal-overlay.active {
+      display: flex;
+    }
+    .modal-box {
+      background: #ffffff;
+      border-radius: 14px;
+      width: 92%;
+      max-width: 950px;
+      max-height: 90vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    }
+
+    /* TOAST */
+    .toast-alert {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: #0f172a;
+      color: #ffffff;
+      padding: 0.85rem 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+      z-index: 2000;
+      font-weight: 600;
+      display: none;
+      animation: toastFade 0.3s ease;
+    }
+    @keyframes toastFade {
+      from { transform: translateY(10px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SITE HEADER & NAV -->
+  <header class="site-header">
+    <div class="container nav-wrapper">
+      <a href="index.html" class="brand-badge" title="Quay về Trang chủ Bài 8">
+        <div class="brand-icon-box">
+          <svg class="icon-svg" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+        </div>
+        <div class="brand-text">
+          <span class="title">BÀI 8: ĐỊNH DẠNG VĂN BẢN</span>
+          <span class="subtitle">Tin học 12 • Thống nhất • THTH - DHSP</span>
+        </div>
+      </a>
+
+      <nav aria-label="Điều hướng bài học">
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">Tổng quan</a></li>
+          <li><a href="hd1.html" class="nav-link">HĐ 1: Khởi động (10')</a></li>
+          <li><a href="hd2.html" class="nav-link">HĐ 2: Thẻ &amp; Thuộc tính (20')</a></li>
+          <li><a href="hd3.html" class="nav-link active">HĐ 3: Luyện tập (30')</a></li>
+          <li><a href="hd4.html" class="nav-link">HĐ 4: Thực hành</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-tools">
+        <!-- ĐỒNG HỒ ĐẾM GIỜ CHUẨN 30 PHÚT -->
+        <div class="timer-widget" title="Đồng hồ đếm giờ Hoạt động 3 (30 phút)">
+          <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          <span id="timer-display" class="timer-display">30:00</span>
+          <select id="timer-preset" class="btn-tool" title="Chọn thời lượng hoạt động">
+            <option value="15">15p</option>
+            <option value="20">20p</option>
+            <option value="30" selected>30p (Chuẩn HĐ 3)</option>
+            <option value="40">40p</option>
+          </select>
+          <button id="timer-toggle" class="btn-tool" type="button">▶ Bắt đầu</button>
+          <button id="timer-reset" class="btn-tool" type="button" title="Đặt lại đồng hồ">↺</button>
+        </div>
+
+        <button id="btn-fullscreen" class="btn-tool" type="button" title="Bật/Tắt chế độ trình chiếu toàn màn hình">
+          <svg class="icon-svg" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
+          Trình chiếu
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- STEPPER TIMELINE TIẾN TRÌNH BÀI 8 -->
+  <nav class="stepper-section" aria-label="Tiến trình học tập Bài 8">
+    <div class="container">
+      <div class="stepper-nav">
+        <div class="stepper-line"></div>
+        <a href="index.html" class="stepper-step completed">
+          <div class="step-circle">✓</div>
+          <span class="step-label">Tổng quan</span>
+        </a>
+        <a href="hd1.html" class="stepper-step completed">
+          <div class="step-circle">✓</div>
+          <span class="step-label">Khởi động (10')</span>
+        </a>
+        <a href="hd2.html" class="stepper-step completed">
+          <div class="step-circle">✓</div>
+          <span class="step-label">Thẻ &amp; Thuộc tính (20')</span>
+        </a>
+        <a href="hd3.html" class="stepper-step active">
+          <div class="step-circle">3</div>
+          <span class="step-label">Luyện tập (30')</span>
+        </a>
+        <a href="hd4.html" class="stepper-step">
+          <div class="step-circle">4</div>
+          <span class="step-label">Thực hành (30')</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- THANH CHUYỂN ĐỔI CHẾ ĐỘ: HỌC SINH LÀM BÀI vs GIÁO VIÊN THEO DÕI -->
+  <div class="view-toggle-bar">
+    <div class="view-toggle-container">
+      <div class="view-switch-btns">
+        <button type="button" class="view-btn active" id="btn-view-student" onclick="switchMainView('student')">
+          <span>💻 Không Gian Lập Trình &amp; Nộp Bài (Học Sinh)</span>
+        </button>
+        <button type="button" class="view-btn" id="btn-view-teacher" onclick="switchMainView('teacher')">
+          <span>📊 Bảng Theo Dõi &amp; Quản Lý Nộp Bài (Giáo Viên)</span>
+          <span id="teacher-lock-badge" style="font-size: 0.72rem; background: #fef2f2; color: #dc2626; padding: 0.15rem 0.5rem; border-radius: 9999px; margin-left: 0.4rem; font-weight: 700; border: 1px solid #fecaca;">🔒 Cần đăng nhập</span>
+        </button>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
+        <!-- Khung hiển thị tài khoản giáo viên khi đã đăng nhập -->
+        <div id="teacher-auth-status" style="display: none; align-items: center; gap: 0.5rem; font-size: 0.85rem;">
+          <span style="background: #dcfce7; color: #166534; font-weight: 700; padding: 0.25rem 0.65rem; border-radius: 9999px; display: inline-flex; align-items: center; gap: 0.35rem; border: 1px solid #bbf7d0;">
+            <span>👤</span> <span id="teacher-auth-email-display">darber3110@gmail.com</span>
+          </span>
+          <button type="button" onclick="changeTeacherPassword()" class="btn btn-sm btn-secondary" style="font-size: 0.76rem; padding: 0.2rem 0.55rem; color: #1d4ed8; border-color: #bfdbfe; background: #eff6ff;" title="Đổi mật khẩu tài khoản giáo viên">
+            🔑 Đổi MK
+          </button>
+          <button type="button" onclick="teacherLogout()" class="btn btn-sm btn-secondary" style="font-size: 0.76rem; padding: 0.2rem 0.55rem; color: #dc2626; border-color: #fecaca; background: #fff5f5; font-weight: 700;" title="Đăng xuất khỏi Bảng Giáo Viên">
+            🚪 Đăng xuất
+          </button>
+        </div>
+
+        <div style="font-size: 0.88rem; color: #64748b; display: flex; align-items: center; gap: 0.5rem;">
+          <span>🎯 Hoạt động 3: Luyện tập (30')</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main class="page-main-content" style="padding: 1.5rem 0 3rem 0;">
+    <div class="container">
+
+      <!-- ======================================================== -->
+      <!-- VIEW 1: KHÔNG GIAN LẬP TRÌNH & NỘP BÀI CỦA HỌC SINH -->
+      <!-- ======================================================== -->
+      <div id="view-student-container">
+
+        <!-- THÔNG TIN HỌC SINH -->
+        <section class="student-card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.5rem;">
+            <div style="font-weight: 800; color: #1e3a8a; font-size: 1.05rem; display: flex; align-items: center; gap: 0.4rem;">
+              <span>👤 THÔNG TIN HỌC SINH THỰC HÀNH</span>
+            </div>
+            <div class="mode-selector">
+              <button type="button" class="mode-tab active" id="tab-mode-single" onclick="setStudentMode('single')">
+                👤 Cá nhân (1 bạn)
+              </button>
+              <button type="button" class="mode-tab" id="tab-mode-pair" onclick="setStudentMode('pair')">
+                👥 Làm theo cặp (2 bạn)
+              </button>
+            </div>
+          </div>
+
+          <!-- FORM CÁ NHÂN -->
+          <div id="form-single-box">
+            <div class="form-grid-single">
+              <div>
+                <label style="display: block; font-size: 0.82rem; font-weight: 700; color: #475569; margin-bottom: 0.25rem;">Họ và tên học sinh <span style="color:#dc2626;">*</span></label>
+                <input type="text" id="student-name-input" class="form-control-custom" placeholder="Ví dụ: Trần Minh Quang" oninput="saveDraftInfo()">
+              </div>
+              <div>
+                <label style="display: block; font-size: 0.82rem; font-weight: 700; color: #475569; margin-bottom: 0.25rem;">Lớp học <span style="color:#dc2626;">*</span></label>
+                <select id="student-class-select" class="form-control-custom" onchange="saveDraftInfo()">
+                  <option value="">-- Chọn lớp --</option>
+                  <option value="12A1">12A1</option><option value="12A2">12A2</option>
+                  <option value="12A3">12A3</option><option value="12A4">12A4</option>
+                  <option value="12A5">12A5</option><option value="12A6">12A6</option>
+                  <option value="12A7">12A7</option><option value="12A8">12A8</option>
+                </select>
+              </div>
+              <div>
+                <label style="display: block; font-size: 0.82rem; font-weight: 700; color: #475569; margin-bottom: 0.25rem;">Số máy thực hành</label>
+                <input type="text" id="student-machine-input" class="form-control-custom" placeholder="Ví dụ: 15 hoặc Máy 08" oninput="saveDraftInfo()">
+              </div>
+            </div>
+          </div>
+
+          <!-- FORM THEO CẶP (2 BẠN) -->
+          <div id="form-pair-box" style="display: none;">
+            <div class="form-grid-pair">
+              <div style="background: #f8fafc; padding: 0.75rem; border-radius: 8px; border: 1px solid #e2e8f0;">
+                <span style="font-size: 0.82rem; font-weight: 800; color: #2563eb;">THÀNH VIÊN 1:</span>
+                <input type="text" id="pair-name-1" class="form-control-custom" style="margin-top: 0.25rem;" placeholder="Họ và tên bạn thứ 1" oninput="saveDraftInfo()">
+                <input type="text" id="pair-stt-1" class="form-control-custom" style="margin-top: 0.4rem;" placeholder="STT bạn 1 (VD: 05)" oninput="saveDraftInfo()">
+              </div>
+              <div style="background: #f8fafc; padding: 0.75rem; border-radius: 8px; border: 1px solid #e2e8f0;">
+                <span style="font-size: 0.82rem; font-weight: 800; color: #2563eb;">THÀNH VIÊN 2:</span>
+                <input type="text" id="pair-name-2" class="form-control-custom" style="margin-top: 0.25rem;" placeholder="Họ và tên bạn thứ 2" oninput="saveDraftInfo()">
+                <input type="text" id="pair-stt-2" class="form-control-custom" style="margin-top: 0.4rem;" placeholder="STT bạn 2 (VD: 18)" oninput="saveDraftInfo()">
+              </div>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+              <div>
+                <label style="display: block; font-size: 0.82rem; font-weight: 700; color: #475569; margin-bottom: 0.25rem;">Lớp học chung <span style="color:#dc2626;">*</span></label>
+                <select id="pair-class-select" class="form-control-custom" onchange="saveDraftInfo()">
+                  <option value="">-- Chọn lớp --</option>
+                  <option value="12A1">12A1</option><option value="12A2">12A2</option>
+                  <option value="12A3">12A3</option><option value="12A4">12A4</option>
+                  <option value="12A5">12A5</option><option value="12A6">12A6</option>
+                  <option value="12A7">12A7</option><option value="12A8">12A8</option>
+                </select>
+              </div>
+              <div>
+                <label style="display: block; font-size: 0.82rem; font-weight: 700; color: #475569; margin-bottom: 0.25rem;">Số máy thực hành</label>
+                <input type="text" id="pair-machine-input" class="form-control-custom" placeholder="Ví dụ: Máy 15" oninput="saveDraftInfo()">
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- THANH CHỌN BÀI TẬP: BÀI 1, BÀI 2, BÀI 3 -->
+        <div class="exercise-tabs-bar">
+          <button type="button" class="exercise-tab-btn active" id="tab-btn-bai1" onclick="switchExercise('bai1')">
+            <span>📝 Bài tập 1: Phương trình bậc 2 (Hình 8.3)</span>
+            <span class="badge-status" id="status-badge-bai1">Chưa làm</span>
+          </button>
+          <button type="button" class="exercise-tab-btn" id="tab-btn-bai2" onclick="switchExercise('bai2')">
+            <span>✏️ Bài tập 2: Nổi bật ý chính câu văn</span>
+            <span class="badge-status" id="status-badge-bai2">Chưa làm</span>
+          </button>
+          <button type="button" class="exercise-tab-btn" id="tab-btn-bai3" onclick="switchExercise('bai3')">
+            <span>🚀 Bài tập 3: Internet tốc độ cao</span>
+            <span class="badge-status" id="status-badge-bai3">Chưa làm</span>
+          </button>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- BÀI TẬP 1: PHƯƠNG TRÌNH BẬC 2 (HÌNH 8.3) -->
+        <!-- ============================================== -->
+        <div class="exercise-panel active" id="panel-bai1">
+          <div class="exercise-intro-card">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap;">
+              <div>
+                <h3 style="margin: 0 0 0.35rem 0; color: #1e3a8a; font-size: 1.25rem;">
+                  Bài tập 1: Viết đoạn mã HTML để trình bày văn bản trong hình 8.3 theo như mẫu
+                </h3>
+                <p style="margin: 0; color: #64748b; font-size: 0.92rem;">
+                  Nhiệm vụ: Sử dụng các thẻ HTML đã học (tiêu đề <code>&lt;h1&gt;</code>/<code>&lt;h2&gt;</code>, đoạn văn <code>&lt;p&gt;</code>, in đậm <code>&lt;strong&gt;</code>, thuộc tính màu <code>style="color:red"</code>, chỉ số trên <code>&lt;sup&gt;</code>, chỉ số dưới <code>&lt;sub&gt;</code>, in nghiêng <code>&lt;em&gt;</code>, xuống dòng <code>&lt;br&gt;</code>) để tái hiện mẫu bên dưới.
+                </p>
+              </div>
+              <button type="button" class="btn btn-secondary" onclick="downloadSingleHtml('bai1')" style="font-size: 0.85rem; padding: 0.4rem 0.85rem; border-color: #3b82f6; color: #1d4ed8; font-weight: 700;">
+                💾 Tải file Bai1.html
+              </button>
+            </div>
+
+            <!-- MẪU THAM CHIẾU HÌNH 8.3 (CHUẨN SGK) -->
+            <div style="margin-top: 1rem; background: #ffffff; border: 2px solid #cbd5e1; border-radius: 8px; padding: 1.25rem; font-family: 'Times New Roman', serif; max-width: 800px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; flex-wrap: wrap; gap: 0.5rem;">
+                <div style="font-size: 0.78rem; font-family: sans-serif; color: #94a3b8; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">
+                  MẪU VĂN BẢN HÌNH 8.3 CẦN ĐẠT ĐƯỢC:
+                </div>
+                <button type="button" class="btn btn-sm btn-secondary" onclick="copySampleText('bai1')" style="font-size: 0.78rem; padding: 0.2rem 0.6rem; color: #1d4ed8; border-color: #bfdbfe; background: #eff6ff;">
+                  📋 Sao chép văn bản thô
+                </button>
+              </div>
+              <h2 style="font-size: 1.55rem; font-weight: bold; margin: 0 0 0.6rem 0; color: #000000;">
+                Biện luận số nghiệm của phương trình bậc 2
+              </h2>
+              <div style="font-size: 1.05rem; margin-bottom: 0.5rem; line-height: 1.5;">
+                <strong style="color: #dc2626;">Bài toán:</strong> Xác định số nghiệm của phương trình ax<sup>2</sup> + bx + c = 0 (a != 0)
+              </div>
+              <div style="font-size: 1.05rem; margin-bottom: 0.35rem; line-height: 1.5;">
+                <strong style="color: #dc2626;">Cách làm:</strong>
+              </div>
+              <div style="font-size: 1rem; line-height: 1.7; padding-left: 0.5rem;">
+                <div><strong style="color: #000000;">B<sub>1</sub>:</strong> Xác định hệ số a, b và c</div>
+                <div><strong style="color: #000000;">B<sub>2</sub>:</strong> Tính delta = b<sup>2</sup> - 4ac</div>
+                <div><strong style="color: #000000;">B<sub>3</sub>:</strong> Kết luận</div>
+                <div style="padding-left: 1rem; font-style: italic; color: #1e293b;">
+                  <div>+ Nếu delta &lt; 0: Phương trình vô nghiệm</div>
+                  <div>+ Nếu delta = 0: Phương trình có nghiệm duy nhất</div>
+                  <div>+ Nếu delta &gt; 0: Phương trình có hai nghiệm phân biệt</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- BẢNG TIÊU CHÍ CHẤM TỰ ĐỘNG THỜI GIAN THỰC CHO BÀI 1 -->
+            <div class="criteria-checklist-box">
+              <div class="criteria-title">
+                <span>🎯 TIÊU CHÍ KỸ THUẬT TỰ ĐỘNG BÀI 1:</span>
+                <span id="score-tag-bai1" style="font-size: 0.8rem; background: #e2e8f0; color: #475569; padding: 0.15rem 0.5rem; border-radius: 9999px;">0/7 tiêu chí</span>
+              </div>
+              <div class="criteria-items-grid">
+                <div class="criteria-item" id="crit-b1-struct">
+                  <span class="check-icon">○</span>
+                  <span>1. Cấu trúc chuẩn: Cặp thẻ &lt;html&gt;, &lt;head&gt;, &lt;body&gt;</span>
+                </div>
+                <div class="criteria-item" id="crit-b1-h">
+                  <span class="check-icon">○</span>
+                  <span>2. Tiêu đề lớn &lt;h1&gt; hoặc &lt;h2&gt;</span>
+                </div>
+                <div class="criteria-item" id="crit-b1-red">
+                  <span class="check-icon">○</span>
+                  <span>3. Màu đỏ (style="color:red") cho Bài toán &amp; Cách làm</span>
+                </div>
+                <div class="criteria-item" id="crit-b1-sup">
+                  <span class="check-icon">○</span>
+                  <span>4. Chỉ số trên &lt;sup&gt; cho ax² hoặc b²</span>
+                </div>
+                <div class="criteria-item" id="crit-b1-sub">
+                  <span class="check-icon">○</span>
+                  <span>5. Chỉ số dưới &lt;sub&gt; cho B₁, B₂, B₃</span>
+                </div>
+                <div class="criteria-item" id="crit-b1-em">
+                  <span class="check-icon">○</span>
+                  <span>6. In nghiêng &lt;em&gt; hoặc &lt;i&gt; cho các trường hợp delta</span>
+                </div>
+                <div class="criteria-item" id="crit-b1-wrap">
+                  <span class="check-icon">○</span>
+                  <span>7. Thẻ đoạn văn &lt;p&gt; hoặc xuống dòng &lt;br&gt;</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- BỘ SOẠN THẢO VÀ PREVIEW BÀI 1 -->
+          <div class="editor-grid-split">
+            <div class="editor-box">
+              <div class="editor-topbar">
+                <span>💻 SOẠN THẢO MÃ HTML (BÀI 1)</span>
+                <div class="editor-actions">
+                  <button type="button" class="snippet-btn" onclick="restoreInitialText('bai1')" title="Làm lại từ đầu">
+                    ↺ Làm lại từ đầu
+                  </button>
+                </div>
+              </div>
+
+              <!-- THANH PHÍM TẮT CHÈN THẺ -->
+              <div class="quick-snippets-bar">
+                <button type="button" class="snippet-btn" onclick="insertHtmlSkeleton('code-bai1', 'Bài 1: Phương trình bậc 2')" style="background: #eff6ff; color: #1d4ed8; font-weight: 700; border-color: #bfdbfe;">📄 Khung HTML5</button>
+                <button type="button" class="snippet-btn" onclick="insertTag('code-bai1', 'html')">&lt;html&gt;</button>
+                <button type="button" class="snippet-btn" onclick="insertTag('code-bai1', 'head')">&lt;head&gt;</button>
+                <button type="button" class="snippet-btn" onclick="insertTag('code-bai1', 'title')">&lt;title&gt;</button>
+                <button type="button" class="snippet-btn" onclick="insertTag('code-bai1', 'body')">&lt;body&gt;</button>
+                <button type="button" class="snippet-btn" onclick="insertTag('code-bai1', 'h2')">&lt;h2&gt;</button>
+                <button type="button" class="snippet-btn" onclick="insertTag('code-bai1', 'p')">&lt;p&gt;</button>
+                <button type="button" class="snippet-btn" onclick="insertTag('code-bai1', 'strong')">&lt;strong&gt;</button>
+                <button type="button" class="snippet-btn" onclick="insertStyledTag('code-bai1', 'strong', 'color: red;')">Chữ đỏ đậm</button>
+                <button type="button" class="snippet-btn" onclick="insertTag('code-bai1', 'sup')">&lt;sup&gt; (x²)</button>
+                <button type="button" class="snippet-btn" onclick="insertTag('code-bai1', 'sub')">&lt;sub&gt; (B₁)</button>
+                <button type="button" class="snippet-btn" onclick="insertTag('code-bai1', 'em')">&lt;em&gt; (Nghiêng)</button>
+                <button type="button" class="snippet-btn" onclick="insertVoidTag('code-bai1', 'br')">&lt;br&gt;</button>
+              </div>
+
+              <div class="editor-inner-wrapper">
+                <textarea id="code-bai1" class="code-textarea" spellcheck="false" oninput="updateLivePreview('bai1')" placeholder="&lt;!DOCTYPE html&gt;&#10;&lt;html lang=&quot;vi&quot;&gt;&#10;&lt;head&gt;&#10;  &lt;meta charset=&quot;UTF-8&quot;&gt;&#10;  &lt;title&gt;Bài 1: Phương trình bậc 2&lt;/title&gt;&#10;&lt;/head&gt;&#10;&lt;body&gt;&#10;  &lt;!-- Em hãy tự gõ đầy đủ cấu trúc trang web và định dạng nội dung tại đây --&gt;&#10;&lt;/body&gt;&#10;&lt;/html&gt;"></textarea>
+              </div>
+            </div>
+
+            <div class="preview-box">
+              <div class="preview-topbar">
+                <span>🌐 KẾT QUẢ HIỂN THỊ WEB THỰC TẾ (BÀI 1)</span>
+                <span style="color: #059669; font-weight: 800;">● ISOLATED PREVIEW</span>
+              </div>
+              <iframe id="preview-frame-bai1" class="preview-iframe" title="Xem trước Bài 1"></iframe>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- BÀI TẬP 2: LÀM NỔI BẬT Ý CHÍNH CÂU VĂN -->
+        <!-- ============================================== -->
+        <div class="exercise-panel" id="panel-bai2">
+          <div class="exercise-intro-card">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap;">
+              <div>
+                <h3 style="margin: 0 0 0.35rem 0; color: #1e3a8a; font-size: 1.25rem;">
+                  Bài tập 2: Hãy sửa lại phần tử sau để làm nổi bật ý chính trong câu:
+                </h3>
+                <p style="margin: 0; color: #64748b; font-size: 0.92rem;">
+                  Câu gốc trong đề bài: <code>&lt;p&gt; Thẻ strong và thẻ em được sử dụng để nhấn mạnh vào nội dung trong phần tử. Thẻ b chỉ có tác dụng in đậm văn bản &lt;/p&gt;</code>
+                </p>
+                <p style="margin: 0.4rem 0 0 0; color: #059669; font-size: 0.88rem; font-weight: 600;">
+                  💡 Gợi ý: Hãy bọc các thẻ <code>&lt;strong&gt;</code>, <code>&lt;em&gt;</code>, <code>&lt;b&gt;</code> hoặc <code>&lt;mark&gt;</code> vào các từ khóa trọng tâm để người đọc nắm bắt được nội dung chính ngay khi nhìn vào!
+                </p>
+              </div>
+              <button type="button" class="btn btn-secondary" onclick="downloadSingleHtml('bai2')" style="font-size: 0.85rem; padding: 0.4rem 0.85rem; border-color: #3b82f6; color: #1d4ed8; font-weight: 700;">
+                💾 Tải file Bai2.html
+              </button>
+            </div>
+
+            <!-- TIÊU CHÍ CHẤM BÀI 2 -->
+            <div class="criteria-checklist-box">
+              <div class="criteria-title">
+                <span>🎯 TIÊU CHÍ KỸ THUẬT TỰ ĐỘNG BÀI 2:</span>
+                <span id="score-tag-bai2" style="font-size: 0.8rem; background: #e2e8f0; color: #475569; padding: 0.15rem 0.5rem; border-radius: 9999px;">0/3 tiêu chí</span>
+              </div>
+              <div class="criteria-items-grid">
+                <div class="criteria-item" id="crit-b2-strong">
+                  <span class="check-icon">○</span>
+                  <span>1. Có sử dụng thẻ &lt;strong&gt; nhấn mạnh tên thẻ hoặc ý chính</span>
+                </div>
+                <div class="criteria-item" id="crit-b2-em">
+                  <span class="check-icon">○</span>
+                  <span>2. Có sử dụng thẻ &lt;em&gt; nhấn mạnh nội dung</span>
+                </div>
+                <div class="criteria-item" id="crit-b2-b">
+                  <span class="check-icon">○</span>
+                  <span>3. Có sử dụng thẻ &lt;b&gt;, &lt;i&gt; hoặc &lt;mark&gt;</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- BỘ SOẠN THẢO VÀ PREVIEW BÀI 2 -->
+          <div class="editor-grid-split">
+            <div class="editor-box">
+              <div class="editor-topbar">
+                <span>💻 SOẠN THẢO MÃ HTML (BÀI 2)</span>
+                <div class="editor-actions">
+                  <button type="button" class="snippet-btn" onclick="restoreInitialText('bai2')" title="Khôi phục lại câu gốc ban đầu để làm lại">
+                    ↺ Khôi phục ban đầu
+                  </button>
+                </div>
+              </div>
+
+              <div class="quick-snippets-bar">
+                <button type="button" class="snippet-btn" onclick="insertHtmlSkeleton('code-bai2', 'Bài 2: Làm nổi bật ý chính')" style="background: #eff6ff; color: #1d4ed8; font-weight: 700; border-color: #bfdbfe;">📄 Khung HTML5</button>
+                <button type="button" class="snippet-btn" onclick="insertTag('code-bai2', 'html')">&lt;html&gt;</button>
+                <button type="button" class="snippet-btn" onclick="insertTag('code-bai2', 'body')">&lt;body&gt;</button>
+                <button type="button" class="snippet-btn" onclick="insertTag('code-bai2', 'p')">&lt;p&gt;</button>
+                <button type="button" class="snippet-btn" onclick="insertTag('code-bai2', 'strong')">&lt;strong&gt;</button>
+                <button type="button" class="snippet-btn" onclick="insertTag('code-bai2', 'em')">&lt;em&gt;</button>
+                <button type="button" class="snippet-btn" onclick="insertTag('code-bai2', 'b')">&lt;b&gt;</button>
+                <button type="button" class="snippet-btn" onclick="insertTag('code-bai2', 'mark')">&lt;mark&gt;</button>
+                <button type="button" class="snippet-btn" onclick="insertTag('code-bai2', 'u')">&lt;u&gt;</button>
+                <button type="button" class="snippet-btn" onclick="insertStyledTag('code-bai2', 'span', 'color: blue;')">Chữ màu xanh</button>
+              </div>
+
+              <div class="editor-inner-wrapper">
+                <textarea id="code-bai2" class="code-textarea" spellcheck="false" oninput="updateLivePreview('bai2')" placeholder="&lt;p&gt; Thẻ &lt;strong&gt;strong&lt;/strong&gt; và thẻ &lt;em&gt;em&lt;/em&gt;... &lt;/p&gt;"></textarea>
+              </div>
+            </div>
+
+            <div class="preview-box">
+              <div class="preview-topbar">
+                <span>🌐 KẾT QUẢ HIỂN THỊ WEB THỰC TẾ (BÀI 2)</span>
+                <span style="color: #059669; font-weight: 800;">● ISOLATED PREVIEW</span>
+              </div>
+              <iframe id="preview-frame-bai2" class="preview-iframe" title="Xem trước Bài 2"></iframe>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- BÀI TẬP 3: TỜ RƠI INTERNET TỐC ĐỘ CAO -->
+        <!-- ============================================== -->
+        <div class="exercise-panel" id="panel-bai3">
+          <div class="exercise-intro-card">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap;">
+              <div>
+                <h3 style="margin: 0 0 0.35rem 0; color: #1e3a8a; font-size: 1.25rem;">
+                  Bài tập 3: Trình bày đoạn văn bản sau bằng HTML (Tờ rơi Internet tốc độ cao)
+                </h3>
+                <p style="margin: 0; color: #64748b; font-size: 0.92rem;">
+                  Nhiệm vụ: Sử dụng các thẻ tiêu đề (<code>&lt;h1&gt;</code>/<code>&lt;h2&gt;</code>), đoạn mô tả in nghiêng (<code>&lt;em&gt;</code>), tiêu đề phụ (<code>&lt;h3&gt;</code>) và cấu trúc danh sách hoặc các dòng để trình bày thông tin đẹp mắt, rõ ràng.
+                </p>
+              </div>
+              <button type="button" class="btn btn-secondary" onclick="downloadSingleHtml('bai3')" style="font-size: 0.85rem; padding: 0.4rem 0.85rem; border-color: #3b82f6; color: #1d4ed8; font-weight: 700;">
+                💾 Tải file Bai3.html
+              </button>
+            </div>
+
+            <!-- MẪU THAM CHIẾU BÀI 3 -->
+            <div style="margin-top: 1rem; background: #ffffff; border: 2px solid #cbd5e1; border-radius: 8px; padding: 1.25rem; max-width: 800px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; flex-wrap: wrap; gap: 0.5rem;">
+                <div style="font-size: 0.78rem; font-family: sans-serif; color: #94a3b8; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">
+                  MẪU VĂN BẢN TRONG ĐỀ BÀI (SGK KẾT NỐI TRI THỨC):
+                </div>
+                <button type="button" class="btn btn-sm btn-secondary" onclick="copySampleText('bai3')" style="font-size: 0.78rem; padding: 0.2rem 0.6rem; color: #1d4ed8; border-color: #bfdbfe; background: #eff6ff;">
+                  📋 Sao chép văn bản tờ rơi
+                </button>
+              </div>
+              <div style="font-size: 1.35rem; font-weight: 800; color: #1e40af; margin-bottom: 0.5rem;">
+                INTERNET TỐC ĐỘ CAO
+              </div>
+              <div style="font-style: italic; color: #334155; margin-bottom: 0.75rem; line-height: 1.5;">
+                Dịch vụ Internet tốc độ cao là dịch vụ Internet cáp quang chất lượng cao, ổn định, giá cả hợp lí.
+              </div>
+              <div style="font-weight: 700; color: #0f172a; margin-bottom: 0.35rem;">
+                Các tính năng nổi bật:
+              </div>
+              <div style="color: #475569; line-height: 1.6; padding-left: 0.5rem;">
+                <div>• Tốc độ siêu cao từ 150 MBps trở lên</div>
+                <div>• Lắp đặt nhanh chóng trong 24 h</div>
+                <div>• Phù hợp với cá nhân/Hộ gia đình</div>
+                <div>• Tặng Modem 2 băng tần</div>
+                <div>• Miễn phí lắp đặt</div>
+                <div>• Hỗ trợ 24/7</div>
+              </div>
+            </div>
+
+            <!-- TIÊU CHÍ CHẤM BÀI 3 -->
+            <div class="criteria-checklist-box">
+              <div class="criteria-title">
+                <span>🎯 TIÊU CHÍ KỸ THUẬT TỰ ĐỘNG BÀI 3:</span>
+                <span id="score-tag-bai3" style="font-size: 0.8rem; background: #e2e8f0; color: #475569; padding: 0.15rem 0.5rem; border-radius: 9999px;">0/5 tiêu chí</span>
+              </div>
+              <div class="criteria-items-grid">
+                <div class="criteria-item" id="crit-b3-struct">
+                  <span class="check-icon">○</span>
+                  <span>1. Cấu trúc chuẩn: Cặp thẻ &lt;html&gt;, &lt;head&gt;, &lt;body&gt;</span>
+                </div>
+                <div class="criteria-item" id="crit-b3-title">
+                  <span class="check-icon">○</span>
+                  <span>2. Tiêu đề chính INTERNET TỐC ĐỘ CAO (&lt;h1&gt; hoặc &lt;h2&gt;)</span>
+                </div>
+                <div class="criteria-item" id="crit-b3-desc">
+                  <span class="check-icon">○</span>
+                  <span>3. Đoạn văn in nghiêng &lt;em&gt; hoặc &lt;i&gt;</span>
+                </div>
+                <div class="criteria-item" id="crit-b3-sub">
+                  <span class="check-icon">○</span>
+                  <span>4. Tiêu đề phụ Các tính năng nổi bật (&lt;h3&gt; hoặc &lt;strong&gt;)</span>
+                </div>
+                <div class="criteria-item" id="crit-b3-list">
+                  <span class="check-icon">○</span>
+                  <span>5. Trình bày danh sách tính năng (&lt;ul&gt;&lt;li&gt; hoặc &lt;p&gt;/&lt;br&gt;)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- BỘ SOẠN THẢO VÀ PREVIEW BÀI 3 -->
+          <div class="editor-grid-split">
+            <div class="editor-box">
+              <div class="editor-topbar">
+                <span>💻 SOẠN THẢO MÃ HTML (BÀI 3)</span>
+                <div class="editor-actions">
+                  <button type="button" class="snippet-btn" onclick="restoreInitialText('bai3')" title="Khôi phục lại văn bản thô ban đầu để làm lại">
+                    ↺ Khôi phục ban đầu
+                  </button>
+                </div>
+              </div>
+
+              <div class="quick-snippets-bar">
+                <button type="button" class="snippet-btn" onclick="insertHtmlSkeleton('code-bai3', 'Bài 3: Internet tốc độ cao')" style="background: #eff6ff; color: #1d4ed8; font-weight: 700; border-color: #bfdbfe;">📄 Khung HTML5</button>
+                <button type="button" class="snippet-btn" onclick="insertTag('code-bai3', 'html')">&lt;html&gt;</button>
+                <button type="button" class="snippet-btn" onclick="insertTag('code-bai3', 'head')">&lt;head&gt;</button>
+                <button type="button" class="snippet-btn" onclick="insertTag('code-bai3', 'title')">&lt;title&gt;</button>
+                <button type="button" class="snippet-btn" onclick="insertTag('code-bai3', 'body')">&lt;body&gt;</button>
+                <button type="button" class="snippet-btn" onclick="insertTag('code-bai3', 'h2')">&lt;h2&gt;</button>
+                <button type="button" class="snippet-btn" onclick="insertTag('code-bai3', 'h3')">&lt;h3&gt;</button>
+                <button type="button" class="snippet-btn" onclick="insertTag('code-bai3', 'p')">&lt;p&gt;</button>
+                <button type="button" class="snippet-btn" onclick="insertTag('code-bai3', 'em')">&lt;em&gt; (Nghiêng)</button>
+                <button type="button" class="snippet-btn" onclick="insertTag('code-bai3', 'strong')">&lt;strong&gt;</button>
+                <button type="button" class="snippet-btn" onclick="insertListSnippet('code-bai3')">&lt;ul&gt; &amp; &lt;li&gt;</button>
+                <button type="button" class="snippet-btn" onclick="insertTag('code-bai3', 'li')">&lt;li&gt;</button>
+                <button type="button" class="snippet-btn" onclick="insertStyledTag('code-bai3', 'h2', 'color: #1e40af;')">Tiêu đề màu xanh</button>
+                <button type="button" class="snippet-btn" onclick="insertVoidTag('code-bai3', 'br')">&lt;br&gt;</button>
+              </div>
+
+              <div class="editor-inner-wrapper">
+                <textarea id="code-bai3" class="code-textarea" spellcheck="false" oninput="updateLivePreview('bai3')" placeholder="&lt;!DOCTYPE html&gt;&#10;&lt;html lang=&quot;vi&quot;&gt;&#10;&lt;head&gt;&#10;  &lt;meta charset=&quot;UTF-8&quot;&gt;&#10;  &lt;title&gt;Bài 3: Tờ rơi Internet&lt;/title&gt;&#10;&lt;/head&gt;&#10;&lt;body&gt;&#10;  &lt;!-- Em hãy tự gõ đầy đủ cấu trúc trang web và định dạng nội dung tờ rơi tại đây --&gt;&#10;&lt;/body&gt;&#10;&lt;/html&gt;"></textarea>
+              </div>
+            </div>
+
+            <div class="preview-box">
+              <div class="preview-topbar">
+                <span>🌐 KẾT QUẢ HIỂN THỊ WEB THỰC TẾ (BÀI 3)</span>
+                <span style="color: #059669; font-weight: 800;">● ISOLATED PREVIEW</span>
+              </div>
+              <iframe id="preview-frame-bai3" class="preview-iframe" title="Xem trước Bài 3"></iframe>
+            </div>
+          </div>
+        </div>
+
+        <!-- THANH NỘP TOÀN BỘ BÀI LÀM (STICKY BOTTOM) -->
+        <div class="global-submit-card">
+          <div>
+            <div style="font-weight: 800; color: #1e3a8a; font-size: 1.15rem; margin-bottom: 0.2rem;">
+              🚀 Hoàn Thành &amp; Nộp Toàn Bộ Bài Làm Lên Hệ Thống
+            </div>
+            <div style="font-size: 0.88rem; color: #64748b;">
+              Máy chủ sẽ tự động tách và lưu thành <strong>3 file HTML độc lập</strong> cho từng bài tập: <code>Bai1.html</code>, <code>Bai2.html</code>, <code>Bai3.html</code>.
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap;">
+            <button type="button" class="btn btn-secondary" onclick="downloadAllHtml()" style="font-size: 1rem; font-weight: 700; padding: 0.85rem 1.4rem; color: #1d4ed8; border-color: #3b82f6; background: #eff6ff; display: inline-flex; align-items: center; gap: 0.5rem;" title="Tải trực tiếp cả 3 file HTML về thư mục Downloads của máy tính">
+              <span>💾 TẢI VỀ MÁY CẢ 3 FILE .HTML</span>
+            </button>
+            <button type="button" class="btn btn-submit-all" onclick="submitHd3Practice()">
+              <span>🚀 NỘP TẤT CẢ 3 BÀI NGAY</span>
+              <svg style="width: 20px; height: 20px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </button>
+          </div>
+        </div>
+
+      </div>
+      <!-- ======================================================== -->
+      <!-- KẾT THÚC VIEW 1: HỌC SINH -->
+      <!-- ======================================================== -->
+
+
+      <!-- ======================================================== -->
+      <!-- VIEW 2: BẢNG THEO DÕI CỦA GIÁO VIÊN & MÁY CHIẾU -->
+      <!-- ======================================================== -->
+      <div id="view-teacher-container" class="teacher-dashboard-section">
+
+        <!-- THẺ THÔNG TIN TRUY CẬP VÀ MÃ QR -->
+        <section class="student-card" style="border-left: 6px solid #2563eb; margin-bottom: 1.5rem;">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap;">
+            <div>
+              <div style="display: inline-flex; align-items: center; gap: 0.4rem; background: #eff6ff; color: #1d4ed8; font-size: 0.8rem; font-weight: 800; padding: 0.25rem 0.65rem; border-radius: 9999px; text-transform: uppercase; margin-bottom: 0.5rem;">
+                <span>📢 MÁY CHIẾU LỚP HỌC</span>
+              </div>
+              <h2 style="font-size: 1.55rem; font-weight: 800; color: #1e3a8a; margin: 0 0 0.35rem 0;">
+                Bảng Theo Dõi Tiến Độ Thực Hành &amp; Nộp Bài Hoạt Động 3 (30')
+              </h2>
+              <p style="font-size: 0.95rem; color: #64748b; margin: 0;">
+                Học sinh truy cập trang web để làm và nộp bài. Hệ thống tự động ghi nhận và sinh từng file HTML độc lập trên máy chủ.
+              </p>
+            </div>
+
+            <div style="display: flex; gap: 0.5rem;">
+              <button type="button" class="btn btn-primary" onclick="openQrModal()" style="font-size: 0.88rem; display: inline-flex; align-items: center; gap: 0.4rem;">
+                <span>🔍 Phóng to mã QR máy chiếu</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- MÃ QR VÀ ĐƯỜNG LINK TRUY CẬP -->
+          <div style="display: flex; gap: 1.5rem; align-items: center; margin-top: 1.25rem; background: #f8fafc; padding: 1rem 1.25rem; border-radius: 10px; border: 1px solid #e2e8f0; flex-wrap: wrap;">
+            <div style="cursor: pointer;" onclick="openQrModal()" title="Bấm để phóng to mã QR">
+              <img src="assets/qr_hd3.svg" alt="QR Code Hoạt động 3" style="width: 130px; height: 130px; display: block; border-radius: 8px; border: 1px solid #cbd5e1; background: #ffffff; padding: 4px;">
+            </div>
+            <div style="flex: 1; min-width: 250px;">
+              <div style="font-size: 0.85rem; font-weight: 700; color: #475569; margin-bottom: 0.25rem;">Đường dẫn chính thức (Tên miền):</div>
+              <div style="background: #eff6ff; border: 1.5px solid #bfdbfe; color: #1e40af; padding: 0.4rem 0.75rem; border-radius: 6px; font-family: monospace; font-size: 0.95rem; font-weight: 700; margin-bottom: 0.5rem;">
+                https://minda.io.vn/Tin12/Bai8/hd3.html
+              </div>
+              <div style="font-size: 0.85rem; font-weight: 700; color: #475569; margin-bottom: 0.25rem;">Đường dẫn phòng máy nội bộ (Localhost / IP):</div>
+              <div style="background: #ffffff; border: 1px solid #cbd5e1; color: #0f172a; padding: 0.4rem 0.75rem; border-radius: 6px; font-family: monospace; font-size: 0.88rem;">
+                http://localhost:3000/hd3 &nbsp;•&nbsp; http://14.225.206.241:3000/hd3
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- THẺ THỐNG KÊ NHANH -->
+        <div class="stat-badge-grid">
+          <div class="stat-badge">
+            <div class="stat-badge-icon">👥</div>
+            <div>
+              <div style="font-size: 0.82rem; font-weight: 700; color: #64748b; text-transform: uppercase;">Số bài đã nộp</div>
+              <div id="stat-count-hd3" style="font-size: 1.85rem; font-weight: 800; color: #1e3a8a;">0</div>
+            </div>
+          </div>
+
+          <div class="stat-badge">
+            <div class="stat-badge-icon" style="background: #ecfdf5; color: #059669;">📁</div>
+            <div>
+              <div style="font-size: 0.82rem; font-weight: 700; color: #64748b; text-transform: uppercase;">Số file HTML đã sinh</div>
+              <div id="stat-files-hd3" style="font-size: 1.85rem; font-weight: 800; color: #059669;">0</div>
+            </div>
+          </div>
+
+          <div class="stat-badge">
+            <div class="stat-badge-icon" style="background: #fffbeb; color: #d97706;">⏱️</div>
+            <div>
+              <div style="font-size: 0.82rem; font-weight: 700; color: #64748b; text-transform: uppercase;">Bài nộp gần nhất</div>
+              <div id="stat-latest-hd3" style="font-size: 1.05rem; font-weight: 800; color: #0f172a; margin-top: 0.25rem;">Chưa có</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- BẢNG DANH SÁCH BÀI NỘP CỦA HỌC SINH -->
+        <section class="student-card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.75rem;">
+            <div>
+              <h3 style="margin: 0; font-size: 1.25rem; font-weight: 800; color: #1e3a8a;">
+                📋 Danh Sách Bài Thực Hành Của Học Sinh
+              </h3>
+              <div style="font-size: 0.85rem; color: #64748b; margin-top: 0.2rem;">
+                Giáo viên bấm nút "🌐 Xem web" để chiếu trực tiếp sản phẩm của từng em lên màn hình lớp.
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+              <button type="button" class="btn btn-secondary" onclick="loadHd3Submissions()" title="Làm mới danh sách">
+                🔄 Làm mới
+              </button>
+              <button type="button" class="btn btn-secondary" onclick="copyHd3ForGoogleSheets()" style="background: #ecfdf5; color: #047857; border-color: #a7f3d0; font-weight: 700;">
+                📋 Sao chép cho Google Sheets
+              </button>
+              <button type="button" class="btn btn-secondary" onclick="exportHd3CSV()">
+                📥 Xuất file Excel (CSV)
+              </button>
+              <button type="button" class="btn btn-secondary" onclick="downloadAllClassSubmissions()" style="background: #eff6ff; color: #1d4ed8; border-color: #bfdbfe; font-weight: 700;" title="Tải tất cả các tệp HTML bài nộp của học sinh về máy giáo viên">
+                📦 Tải tất cả file HTML
+              </button>
+              <button type="button" class="btn btn-secondary" onclick="generateSampleHd3Data()" style="color: #6366f1;">
+                🧪 Tạo bài nộp mẫu
+              </button>
+              <button type="button" class="btn btn-secondary" onclick="clearHd3Submissions()" style="color: #dc2626;">
+                🗑️ Xóa danh sách
+              </button>
+            </div>
+          </div>
+
+          <div style="overflow-x: auto;">
+            <table class="submissions-table">
+              <thead>
+                <tr>
+                  <th style="width: 50px; text-align: center;">STT</th>
+                  <th style="min-width: 180px;">Họ và tên học sinh</th>
+                  <th style="width: 80px; text-align: center;">Lớp</th>
+                  <th style="width: 90px; text-align: center;">Số máy</th>
+                  <th style="width: 130px;">Thời gian nộp</th>
+                  <th style="min-width: 140px; text-align: center;">Bài 1: PT bậc 2</th>
+                  <th style="min-width: 140px; text-align: center;">Bài 2: Ý chính</th>
+                  <th style="min-width: 140px; text-align: center;">Bài 3: Internet</th>
+                  <th style="width: 110px; text-align: center;">Mã biên nhận</th>
+                </tr>
+              </thead>
+              <tbody id="hd3-submissions-tbody">
+                <tr>
+                  <td colspan="9" style="text-align: center; padding: 2.5rem; color: #94a3b8;">
+                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">📭</div>
+                    Chưa có bài nộp nào cho Hoạt động 3. Khi học sinh bấm <strong>"NỘP BÀI NGAY"</strong>, kết quả sẽ tự động xuất hiện tại đây theo thời gian thực!
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+      </div>
+      <!-- ======================================================== -->
+      <!-- KẾT THÚC VIEW 2: GIÁO VIÊN -->
+      <!-- ======================================================== -->
+
+    </div>
+  </main>
+
+  <!-- MODAL XEM CHI TIẾT SẢN PHẨM / CODE HTML CỦA HỌC SINH (ISOLATED IFRAME) -->
+  <div class="modal-overlay" id="work-modal" onclick="closeWorkModal()">
+    <div class="modal-box" onclick="event.stopPropagation()">
+      <div style="background: #1e3a8a; color: #ffffff; padding: 1rem 1.5rem; display: flex; justify-content: space-between; align-items: center;">
+        <div>
+          <h3 id="modal-title" style="margin: 0; font-size: 1.15rem; font-weight: 800;">
+            Sản Phẩm Lập Trình HTML Của Học Sinh
+          </h3>
+          <div id="modal-subtitle" style="font-size: 0.85rem; color: #93c5fd; margin-top: 0.2rem;"></div>
+        </div>
+        <button type="button" onclick="closeWorkModal()" style="background: transparent; border: none; color: #ffffff; font-size: 1.5rem; cursor: pointer;">&times;</button>
+      </div>
+
+      <!-- THANH CHỌN BÀI TẬP BÊN TRONG MODAL -->
+      <div style="background: #eff6ff; padding: 0.6rem 1.5rem; display: flex; gap: 0.5rem; border-bottom: 1px solid #bfdbfe; align-items: center; flex-wrap: wrap;">
+        <span style="font-size: 0.85rem; font-weight: 700; color: #1e40af; margin-right: 0.25rem;">📂 Bài tập đang xem:</span>
+        <button type="button" class="btn btn-sm" id="modal-btn-ex-bai1" onclick="switchModalExercise('bai1')" style="font-size: 0.82rem; font-weight: 700; background: #ffffff; color: #1e40af; border: 1px solid #3b82f6; border-radius: 6px; padding: 0.25rem 0.65rem;">
+          Bài 1: Phương trình bậc 2
+        </button>
+        <button type="button" class="btn btn-sm" id="modal-btn-ex-bai2" onclick="switchModalExercise('bai2')" style="font-size: 0.82rem; font-weight: 700; background: #f8fafc; color: #475569; border: 1px solid #cbd5e1; border-radius: 6px; padding: 0.25rem 0.65rem;">
+          Bài 2: Làm nổi bật ý chính
+        </button>
+        <button type="button" class="btn btn-sm" id="modal-btn-ex-bai3" onclick="switchModalExercise('bai3')" style="font-size: 0.82rem; font-weight: 700; background: #f8fafc; color: #475569; border: 1px solid #cbd5e1; border-radius: 6px; padding: 0.25rem 0.65rem;">
+          Bài 3: Tờ rơi Internet
+        </button>
+      </div>
+
+      <!-- TAB CHUYỂN GIỮA LIVE WEB VÀ MÃ NGUỒN -->
+      <div style="background: #f1f5f9; padding: 0.5rem 1.5rem; display: flex; gap: 0.5rem; border-bottom: 1px solid #cbd5e1; align-items: center;">
+        <button type="button" class="mode-tab active" id="modal-tab-preview" onclick="switchModalTab('preview')">
+          🌐 Xem trang web thực tế (Live Render)
+        </button>
+        <button type="button" class="mode-tab" id="modal-tab-code" onclick="switchModalTab('code')">
+          📄 Xem mã nguồn HTML
+        </button>
+        <div style="flex: 1; text-align: right; display: flex; justify-content: flex-end; gap: 0.5rem; align-items: center;">
+          <a id="modal-direct-link" href="#" target="_blank" class="btn btn-secondary btn-sm" style="font-size: 0.8rem; padding: 0.25rem 0.65rem;">
+            🔗 Mở file trong tab mới
+          </a>
+          <button type="button" class="btn btn-secondary btn-sm" onclick="downloadCurrentModalHtml()" style="font-size: 0.8rem; padding: 0.25rem 0.65rem; color: #1d4ed8; border-color: #bfdbfe; background: #eff6ff; font-weight: 700;">
+            💾 Tải file HTML này
+          </button>
+        </div>
+      </div>
+
+      <div style="flex: 1; overflow-y: auto; padding: 1.25rem;">
+        <!-- KHUNG PREVIEW ISOLATED BẰNG IFRAME -->
+        <iframe id="modal-iframe-preview" style="width: 100%; height: 420px; border: 1px solid #cbd5e1; border-radius: 8px; background: #ffffff;"></iframe>
+        <div id="modal-body-code" style="display: none;">
+          <pre style="background: #0f172a; color: #38bdf8; padding: 1rem; border-radius: 8px; font-family: 'Fira Code', monospace; font-size: 0.95rem; line-height: 1.6; margin: 0; overflow-x: auto; max-height: 420px;"><code id="modal-code-text"></code></pre>
+        </div>
+      </div>
+
+      <div style="background: #f8fafc; border-top: 1px solid #e2e8f0; padding: 0.75rem 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+        <div style="display: flex; gap: 0.5rem;">
+          <button type="button" class="btn btn-secondary" onclick="copyModalCode()">📋 Sao chép mã nguồn</button>
+          <button type="button" class="btn btn-secondary" onclick="downloadCurrentModalHtml()" style="color: #1d4ed8; border-color: #bfdbfe; background: #eff6ff; font-weight: 700;">
+            💾 Tải file HTML về máy
+          </button>
+        </div>
+        <button type="button" class="btn btn-secondary" onclick="closeWorkModal()">Đóng cửa sổ</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL BIÊN NHẬN NỘP BÀI THÀNH CÔNG -->
+  <div class="modal-overlay" id="receipt-modal" onclick="closeReceiptModal()">
+    <div class="modal-box" style="max-width: 550px;" onclick="event.stopPropagation()">
+      <div style="background: linear-gradient(135deg, #059669 0%, #10b981 100%); color: #ffffff; padding: 1.5rem; text-align: center;">
+        <div style="font-size: 3rem; margin-bottom: 0.5rem;">🎉</div>
+        <h2 style="margin: 0; font-size: 1.5rem; font-weight: 800;">NỘP BÀI THÀNH CÔNG!</h2>
+        <div style="font-size: 0.9rem; opacity: 0.9; margin-top: 0.25rem;">Hệ thống đã lưu 3 file HTML độc lập vào máy chủ</div>
+      </div>
+
+      <div style="padding: 1.5rem;" id="receipt-content"></div>
+
+      <div style="background: #f8fafc; border-top: 1px solid #e2e8f0; padding: 1rem 1.5rem; display: flex; justify-content: space-between;">
+        <button type="button" class="btn btn-secondary" onclick="window.print()">🖨️ In biên nhận</button>
+        <button type="button" class="btn btn-primary" onclick="closeReceiptModal()" style="background: #059669; border-color: #059669;">
+          Đã hiểu &amp; Đóng
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL PHÓNG TO QR CODE -->
+  <div class="modal-overlay" id="qr-zoom-modal" onclick="closeQrModal()">
+    <div class="modal-box" style="max-width: 480px; text-align: center; padding: 2rem;" onclick="event.stopPropagation()">
+      <h3 style="font-size: 1.35rem; font-weight: 800; color: #1e3a8a; margin: 0 0 0.5rem 0;">
+        QUÉT MÃ QR HOẠT ĐỘNG 3: LUYỆN TẬP
+      </h3>
+      <p style="font-size: 0.9rem; color: #64748b; margin-bottom: 1.25rem;">
+        Học sinh mở camera hoặc Zalo trên điện thoại/máy tính để truy cập trang thực hành.
+      </p>
+      <div style="display: flex; justify-content: center; margin-bottom: 1.25rem;">
+        <img src="assets/qr_hd3.svg" alt="QR Code" style="width: 260px; height: 260px; border-radius: 12px; border: 2px solid #cbd5e1; padding: 8px; background: #ffffff;">
+      </div>
+      <div style="background: #eff6ff; border: 1px solid #bfdbfe; padding: 0.6rem 1rem; border-radius: 8px; font-family: monospace; font-size: 0.95rem; color: #1e40af; font-weight: 700; margin-bottom: 1.25rem;">
+        https://minda.io.vn/Tin12/Bai8/hd3.html
+      </div>
+      <button type="button" class="btn btn-secondary" onclick="closeQrModal()" style="width: 100%;">
+        Đóng cửa sổ mã QR
+      </button>
+    </div>
+  </div>
+
+  <!-- ============================================== -->
+  <!-- MODAL XÁC THỰC QUYỀN GIÁO VIÊN (TEACHER AUTH) -->
+  <!-- ============================================== -->
+  <div class="modal-overlay" id="teacher-auth-modal" onclick="closeTeacherLoginModal()">
+    <div class="modal-box" style="max-width: 460px; overflow: hidden;" onclick="event.stopPropagation()">
+      <div style="background: linear-gradient(135deg, #1e3a8a 0%, #1d4ed8 100%); color: #ffffff; padding: 1.5rem; text-align: center; position: relative;">
+        <button type="button" onclick="closeTeacherLoginModal()" style="position: absolute; right: 1rem; top: 1rem; background: rgba(255,255,255,0.18); border: none; color: #ffffff; width: 32px; height: 32px; border-radius: 50%; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center;" title="Đóng">✕</button>
+        <div style="font-size: 2.75rem; margin-bottom: 0.35rem;">🔐</div>
+        <h3 style="margin: 0; font-size: 1.35rem; font-weight: 800; color: #ffffff;">XÁC THỰC GIÁO VIÊN</h3>
+        <div style="font-size: 0.88rem; color: #bfdbfe; margin-top: 0.35rem;">
+          Bảng theo dõi nộp bài chỉ dành riêng cho Giáo viên phụ trách
+        </div>
+      </div>
+
+      <div style="padding: 1.5rem; background: #ffffff;">
+        <div id="teacher-auth-alert" style="display: none; padding: 0.85rem 1rem; border-radius: 8px; font-size: 0.88rem; line-height: 1.5; margin-bottom: 1.25rem;"></div>
+
+        <form id="teacher-login-form" onsubmit="handleTeacherLogin(event)">
+          <div style="margin-bottom: 1.1rem;">
+            <label style="display: block; font-size: 0.88rem; font-weight: 700; color: #1e293b; margin-bottom: 0.4rem;">
+              📧 Email tài khoản Giáo viên:
+            </label>
+            <input type="email" id="teacher-email-input" class="form-input" placeholder="darber3110@gmail.com" required style="width: 100%; box-sizing: border-box; padding: 0.7rem 0.9rem; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 0.95rem;">
+          </div>
+
+          <div style="margin-bottom: 1.1rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+              <label style="font-size: 0.88rem; font-weight: 700; color: #1e293b;">
+                🔑 Mật khẩu / Mã xác thực:
+              </label>
+              <button type="button" onclick="togglePasswordVisibility('teacher-pwd-input', this)" style="background: none; border: none; font-size: 0.8rem; color: #2563eb; cursor: pointer; font-weight: 600;">
+                👁️ Hiện mật khẩu
+              </button>
+            </div>
+            <input type="password" id="teacher-pwd-input" class="form-input" placeholder="Nhập mật khẩu..." required style="width: 100%; box-sizing: border-box; padding: 0.7rem 0.9rem; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 0.95rem;">
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1.25rem;">
+            <input type="checkbox" id="teacher-remember-me" checked style="width: 16px; height: 16px; cursor: pointer;">
+            <label for="teacher-remember-me" style="font-size: 0.85rem; color: #64748b; cursor: pointer; user-select: none;">
+              Ghi nhớ đăng nhập trên máy tính này
+            </label>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 0.65rem;">
+            <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.75rem; font-size: 1rem; font-weight: 700; justify-content: center; background: #2563eb; box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.3);">
+              🔓 Đăng Nhập Vào Bảng Giáo Viên
+            </button>
+            <button type="button" onclick="closeTeacherLoginModal()" class="btn btn-secondary" style="width: 100%; padding: 0.65rem; font-size: 0.9rem; justify-content: center; color: #475569;">
+              ← Quay lại giao diện học sinh làm bài
+            </button>
+          </div>
+        </form>
+
+        <div style="margin-top: 1.25rem; padding: 0.85rem; background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 8px; font-size: 0.82rem; color: #64748b; line-height: 1.45;">
+          <strong>🔒 Bảo mật:</strong> Học sinh bấm vào đây sẽ bị chặn và phải đăng nhập đúng tài khoản <code style="color: #1e40af; font-weight: 700;">darber3110@gmail.com</code> mới có thể xem bảng theo dõi và bài làm của lớp.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div id="toast-msg" class="toast-alert"></div>
+
+  <!-- SCRIPTS -->
+  <script src="js/hd3.js"></script>
+</body>
+</html>

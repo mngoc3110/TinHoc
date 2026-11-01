@@ -1,0 +1,27 @@
+[
+  {
+    "id": "HD3-TEST",
+    "activity": "hd3",
+    "studentName": "Trần Văn Bảo",
+    "className": "12A1",
+    "studentNumber": "15",
+    "submittedAt": "12:56:48 1/11/2026",
+    "files": {
+      "bai1": {
+        "filename": "12A1_15_Tran_Van_Bao_Bai1.html",
+        "url": "/submissions_hd3/12A1_15_Tran_Van_Bao_Bai1.html",
+        "code": "<h2>Biện luận số nghiệm của phương trình bậc 2</h2><p><strong style=\"color: red;\">Bài toán:</strong> ax<sup>2</sup> + bx + c = 0</p>"
+      },
+      "bai2": {
+        "filename": "12A1_15_Tran_Van_Bao_Bai2.html",
+        "url": "/submissions_hd3/12A1_15_Tran_Van_Bao_Bai2.html",
+        "code": "<p>Thẻ <strong>strong</strong> và <em>em</em> làm nổi bật ý chính.</p>"
+      },
+      "bai3": {
+        "filename": "12A1_15_Tran_Van_Bao_Bai3.html",
+        "url": "/submissions_hd3/12A1_15_Tran_Van_Bao_Bai3.html",
+        "code": "<h2 style=\"color: #1e40af;\">INTERNET TỐC ĐỘ CAO</h2><p><em>Dịch vụ cáp quang</em></p>"
+      }
+    }
+  }
+]

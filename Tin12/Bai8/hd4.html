@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Infographic & Ôn tập cuối bài | Bài 7: HTML và Cấu trúc trang web</title>
+  <meta name="description" content="Infographic tổng hợp kiến thức Bài 7 Tin học 12, đấu trường trắc nghiệm ôn tập tương tác, lật thẻ ghi nhớ và thử thách sáng tạo.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- HEADER & NAVIGATION -->
+  <header class="site-header">
+    <div class="container nav-wrapper">
+      <a href="index.html" class="brand-badge" title="Quay về Trang chủ">
+        <div class="brand-icon-box">
+          <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+        </div>
+        <div class="brand-text">
+          <span class="title">BÀI 7: HTML VÀ CẤU TRÚC TRANG WEB</span>
+          <span class="subtitle">Tin học 12 • Học tập tương tác</span>
+        </div>
+      </a>
+
+      <nav aria-label="Điều hướng bài học">
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">Tổng quan</a></li>
+          <li><a href="hd1.html" class="nav-link">HĐ 1: Khởi động</a></li>
+          <li><a href="hd2.html" class="nav-link">HĐ 2: Kiến thức mới</a></li>
+          <li><a href="hd3.html" class="nav-link">HĐ 3: Luyện tập</a></li>
+          <li><a href="hd4.html" class="nav-link active">HĐ 4: Infographic & Ôn tập</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-tools">
+        <div class="timer-widget" title="Đồng hồ đếm giờ">
+          <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          <span id="timer-display" class="timer-display">10:00</span>
+          <select id="timer-preset" class="btn-tool" title="Chọn thời lượng">
+            <option value="5">5p</option>
+            <option value="10" selected>10p</option>
+            <option value="15">15p</option>
+          </select>
+          <button id="timer-toggle" class="btn-tool" type="button">▶ Bắt đầu</button>
+          <button id="timer-reset" class="btn-tool" type="button" title="Đặt lại">↺</button>
+        </div>
+
+        <button id="btn-fullscreen" class="btn-tool" type="button" title="Chế độ chiếu toàn màn hình">
+          <svg class="icon-svg" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
+          Trình chiếu
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- STEPPER TIMELINE -->
+  <nav class="stepper-section" aria-label="Tiến trình học tập">
+    <div class="container">
+      <div class="stepper-nav">
+        <div class="stepper-line"></div>
+        
+        <a href="index.html" class="stepper-step completed">
+          <div class="step-circle">✓</div>
+          <span class="step-label">Tổng quan</span>
+        </a>
+
+        <a href="hd1.html" class="stepper-step completed">
+          <div class="step-circle">✓</div>
+          <span class="step-label">Khởi động</span>
+        </a>
+
+        <a href="hd2.html" class="stepper-step completed">
+          <div class="step-circle">✓</div>
+          <span class="step-label">Kiến thức mới</span>
+        </a>
+
+        <a href="hd3.html" class="stepper-step completed">
+          <div class="step-circle">✓</div>
+          <span class="step-label">Luyện tập</span>
+        </a>
+
+        <a href="hd4.html" class="stepper-step active">
+          <div class="step-circle">4</div>
+          <span class="step-label">Infographic & Ôn tập</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO SECTION (Student-focused, clean desktop) -->
+  <section class="hero-banner">
+    <div class="container">
+      <div class="hero-content">
+        <div class="badge-tag">
+          <span>HOẠT ĐỘNG 4 • TỔNG KẾT & ÔN TẬP</span>
+        </div>
+        <h1 class="hero-title">Infographic Tổng Hợp Kiến Thức & Ôn Tập Cuối Bài</h1>
+        <p class="hero-subtitle">
+          Hệ thống hóa toàn bộ kiến thức về cấu trúc HTML qua sơ đồ infographic trực quan, lật thẻ flashcard ghi nhớ nhanh và kiểm tra năng lực qua đấu trường câu hỏi trắc nghiệm.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+    <div class="container">
+
+      <!-- ====================================================================
+           PHẦN 1: INFOGRAPHIC TỔNG HỢP NỘI DUNG BÀI HỌC (POSTER HÌNH ẢNH TRỰC QUAN)
+           ==================================================================== -->
+      <section class="infographic-board" id="infographic">
+        <div class="infographic-hero">
+          <span class="infographic-tag">TỔNG HỢP KIẾN THỨC BÀI 7</span>
+          <h2 class="infographic-title">Infographic Đồ Họa: HTML & Cấu Trúc Trang Web</h2>
+          <p class="infographic-desc">
+            Toàn bộ bản đồ tư duy về khung xương chuẩn, cấu tạo phần tử, cây DOM và quy trình kết xuất trình duyệt được trực quan hóa trong tấm Infographic đồ họa dưới đây:
+          </p>
+        </div>
+
+        <div class="infographic-poster-showcase">
+          <div class="infographic-actions-bar">
+            <div class="infographic-badges-strip">
+              <span class="infographic-badge-pill">
+                <svg class="icon-svg" style="width:14px; height:14px;" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                Khung xương chuẩn HTML5
+              </span>
+              <span class="infographic-badge-pill">
+                <svg class="icon-svg" style="width:14px; height:14px;" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                Cấu tạo phần tử &amp; Thẻ
+              </span>
+              <span class="infographic-badge-pill">
+                <svg class="icon-svg" style="width:14px; height:14px;" viewBox="0 0 24 24"><line x1="6" y1="3" x2="6" y2="15"></line><circle cx="18" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><path d="M18 9a9 9 0 0 1-9 9"></path></svg>
+                Cây thông tin DOM
+              </span>
+              <span class="infographic-badge-pill">
+                <svg class="icon-svg" style="width:14px; height:14px;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8"></polygon></svg>
+                Trình duyệt kết xuất
+              </span>
+            </div>
+
+            <div style="display: flex; gap: 0.5rem;">
+              <a href="assets/infographic_bai7.jpg" download="Infographic_HTML_Bai7.jpg" class="btn btn-secondary btn-sm" style="font-size: 0.78rem;">
+                <svg class="icon-svg" style="width:14px; height:14px;" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                Tải ảnh chất lượng cao
+              </a>
+            </div>
+          </div>
+
+          <div class="infographic-poster-wrap">
+            <img src="assets/infographic_bai7.jpg" alt="Infographic Bản Đồ Tư Duy: HTML & Cấu Trúc Trang Web" class="infographic-poster-img zoomable-img" id="infographic-main-img">
+            <div class="infographic-poster-overlay">
+              <svg class="icon-svg" style="width:14px; height:14px;" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+              Nhấp vào ảnh để phóng to toàn màn hình
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           PHẦN 2: GÓC LẬT THẺ GHI NHỚ (INTERACTIVE 3D FLASHCARDS)
+           ==================================================================== -->
+      <section class="flashcards-section" id="flashcards">
+        <div class="section-header">
+          <h2 class="section-title">
+            <span class="section-num">1</span>
+            Góc Lật Thẻ Ghi Nhớ (Interactive Flashcards)
+          </h2>
+          <span class="badge-tag">Bấm vào thẻ để lật xem đáp án</span>
+        </div>
+
+        <div class="flashcards-grid">
+          
+          <!-- FLASHCARD 1 -->
+          <div class="flashcard">
+            <div class="flashcard-inner">
+              <div class="flashcard-front">
+                <span class="flashcard-badge blue">Khái niệm cốt lõi</span>
+                <div class="flashcard-question">
+                  HTML là viết tắt của cụm từ tiếng Anh nào và bản chất của nó là gì?
+                </div>
+                <div class="flashcard-hint">
+                  <svg class="icon-svg" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                  Nhấp để lật xem lời giải
+                </div>
+              </div>
+              <div class="flashcard-back">
+                <span class="flashcard-badge blue">Đáp án tóm tắt</span>
+                <div class="flashcard-answer">
+                  <strong>HyperText Markup Language</strong> (Ngôn ngữ đánh dấu siêu văn bản).<br><br>
+                  Bản chất: Dùng các thẻ từ khóa quy định cách trình bày văn bản, hình ảnh, liên kết trên trình duyệt web.
+                </div>
+                <div class="flashcard-hint" style="color: #94a3b8;">Nhấp lần nữa để đóng lại</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- FLASHCARD 2 -->
+          <div class="flashcard">
+            <div class="flashcard-inner">
+              <div class="flashcard-front">
+                <span class="flashcard-badge green">Cấu tạo phần tử</span>
+                <div class="flashcard-question">
+                  Một "Phần tử HTML" (HTML Element) thông thường bao gồm những gì?
+                </div>
+                <div class="flashcard-hint">
+                  <svg class="icon-svg" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                  Nhấp để lật xem lời giải
+                </div>
+              </div>
+              <div class="flashcard-back">
+                <span class="flashcard-badge green">Đáp án tóm tắt</span>
+                <div class="flashcard-answer">
+                  Gồm 3 phần chính theo thứ tự:<br>
+                  1. <strong>Thẻ mở</strong> (bắt đầu): <code>&lt;tag&gt;</code><br>
+                  2. <strong>Nội dung</strong> phần tử ở giữa.<br>
+                  3. <strong>Thẻ đóng</strong> (kết thúc): <code>&lt;/tag&gt;</code> (có dấu /).
+                </div>
+                <div class="flashcard-hint" style="color: #94a3b8;">Nhấp lần nữa để đóng lại</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- FLASHCARD 3 -->
+          <div class="flashcard">
+            <div class="flashcard-inner">
+              <div class="flashcard-front">
+                <span class="flashcard-badge amber">Kỹ thuật tiếng Việt</span>
+                <div class="flashcard-question">
+                  Vì sao mọi trang web tiếng Việt đều cần thẻ &lt;meta charset="UTF-8"&gt;?
+                </div>
+                <div class="flashcard-hint">
+                  <svg class="icon-svg" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                  Nhấp để lật xem lời giải
+                </div>
+              </div>
+              <div class="flashcard-back">
+                <span class="flashcard-badge amber">Đáp án tóm tắt</span>
+                <div class="flashcard-answer">
+                  Thẻ này khai báo bảng mã ký tự quốc tế <strong>UTF-8</strong>.<br><br>
+                  Nếu thiếu, trình duyệt sẽ không thể hiển thị đúng các dấu tiếng Việt có dấu và bị biến thành các ký tự lạ hoặc dấu hỏi chấm.
+                </div>
+                <div class="flashcard-hint" style="color: #94a3b8;">Nhấp lần nữa để đóng lại</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- FLASHCARD 4 -->
+          <div class="flashcard">
+            <div class="flashcard-inner">
+              <div class="flashcard-front">
+                <span class="flashcard-badge blue">Phân loại thẻ</span>
+                <div class="flashcard-question">
+                  Thẻ đơn trong HTML là gì và hãy kể tên ít nhất 2 thẻ đơn em đã học?
+                </div>
+                <div class="flashcard-hint">
+                  <svg class="icon-svg" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                  Nhấp để lật xem lời giải
+                </div>
+              </div>
+              <div class="flashcard-back">
+                <span class="flashcard-badge blue">Đáp án tóm tắt</span>
+                <div class="flashcard-answer">
+                  <strong>Thẻ đơn</strong> (Empty/Self-closing tag) là thẻ không chứa nội dung văn bản bên trong và không có thẻ đóng.<br><br>
+                  Ví dụ: <code>&lt;hr&gt;</code> (đường kẻ ngang), <code>&lt;br&gt;</code> (ngắt dòng), <code>&lt;meta&gt;</code>.
+                </div>
+                <div class="flashcard-hint" style="color: #94a3b8;">Nhấp lần nữa để đóng lại</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- FLASHCARD 5 -->
+          <div class="flashcard">
+            <div class="flashcard-inner">
+              <div class="flashcard-front">
+                <span class="flashcard-badge green">Hiển thị giao diện</span>
+                <div class="flashcard-question">
+                  Những nội dung mà người dùng thực sự nhìn thấy trên màn hình nằm trong phần nào?
+                </div>
+                <div class="flashcard-hint">
+                  <svg class="icon-svg" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                  Nhấp để lật xem lời giải
+                </div>
+              </div>
+              <div class="flashcard-back">
+                <span class="flashcard-badge green">Đáp án tóm tắt</span>
+                <div class="flashcard-answer">
+                  Nằm trọn vẹn trong phần thân <code>&lt;body&gt; ... &lt;/body&gt;</code>.<br><br>
+                  Ngược lại, phần <code>&lt;head&gt;</code> chỉ chứa thông tin cài đặt (tiêu đề tab, bảng mã, liên kết tệp), không hiển thị trên trang.
+                </div>
+                <div class="flashcard-hint" style="color: #94a3b8;">Nhấp lần nữa để đóng lại</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- FLASHCARD 6 -->
+          <div class="flashcard">
+            <div class="flashcard-inner">
+              <div class="flashcard-front">
+                <span class="flashcard-badge amber">Quy tắc lồng thẻ</span>
+                <div class="flashcard-question">
+                  Đoạn mã: &lt;p&gt;&lt;em&gt;Văn bản&lt;/p&gt;&lt;/em&gt; có đúng quy tắc không? Vì sao?
+                </div>
+                <div class="flashcard-hint">
+                  <svg class="icon-svg" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                  Nhấp để lật xem lời giải
+                </div>
+              </div>
+              <div class="flashcard-back">
+                <span class="flashcard-badge amber">Đáp án tóm tắt</span>
+                <div class="flashcard-answer">
+                  <strong>SAI!</strong> Vi phạm quy tắc lồng thẻ.<br><br>
+                  Thẻ <code>&lt;em&gt;</code> mở sau cùng nên phải đóng trước tiên.<br>
+                  Cách viết đúng: <code>&lt;p&gt;&lt;em&gt;Văn bản&lt;/em&gt;&lt;/p&gt;</code>.
+                </div>
+                <div class="flashcard-hint" style="color: #94a3b8;">Nhấp lần nữa để đóng lại</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           PHẦN 3: ĐẤU TRƯỜNG TRẮC NGHIỆM ÔN TẬP TỔNG HỢP (5 CÂU)
+           ==================================================================== -->
+      <section class="section-block" id="quiz-arena">
+        <div class="section-header">
+          <h2 class="section-title">
+            <span class="section-num">2</span>
+            Đấu Trường Trắc Nghiệm Ôn Tập Tổng Hợp
+          </h2>
+          <span class="badge-tag">Kiểm tra mức độ nắm bài</span>
+        </div>
+
+        <!-- SCORE BANNER -->
+        <div class="review-score-banner">
+          <div>
+            <div class="review-score-title">Thử thách 5 câu trắc nghiệm cốt lõi</div>
+            <div class="review-score-sub">Bấm chọn đáp án để xem giải thích chi tiết ngay lập tức!</div>
+          </div>
+          <div class="review-score-pills">
+            <span id="review-score-badge" class="score-pill">0/5 câu đúng</span>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 1rem;">
+          
+          <!-- CÂU 1 -->
+          <div class="quiz-card">
+            <div class="quiz-question">
+              <span class="quiz-q-num">1</span>
+              <span>Một phần tử HTML đầy đủ thông thường bao gồm những thành phần nào theo đúng thứ tự?</span>
+            </div>
+            <div class="quiz-options">
+              <button class="quiz-btn" data-correct="false" data-explain="Thẻ đóng luôn nằm ở vị trí kết thúc, không thể bắt đầu trước.">
+                <span>A.</span> Thẻ đóng &lt;/tag&gt; → Nội dung → Thẻ mở &lt;tag&gt;
+              </button>
+              <button class="quiz-btn" data-correct="true" data-explain="Chính xác! Cấu tạo chuẩn gồm Thẻ mở (bắt đầu), Nội dung ở giữa, và Thẻ đóng (kết thúc) có dấu / ở cuối.">
+                <span>B.</span> Thẻ mở &lt;tag&gt; → Nội dung phần tử → Thẻ đóng &lt;/tag&gt;
+              </button>
+              <button class="quiz-btn" data-correct="false" data-explain="Phần tử HTML chuẩn luôn có các thẻ đánh dấu bao bọc nội dung.">
+                <span>C.</span> Chỉ gồm nội dung văn bản thuần túy không cần thẻ
+              </button>
+              <button class="quiz-btn" data-correct="false" data-explain="Thẻ đóng bắt buộc phải có dấu gạch chéo / phía trước tên thẻ.">
+                <span>D.</span> Thẻ mở &lt;tag&gt; → Thẻ mở &lt;tag&gt; → Nội dung
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <!-- CÂU 2 -->
+          <div class="quiz-card">
+            <div class="quiz-question">
+              <span class="quiz-q-num">2</span>
+              <span>Thẻ nào sau đây là <strong>thẻ đơn (không cần thẻ đóng)</strong> trong HTML?</span>
+            </div>
+            <div class="quiz-options">
+              <button class="quiz-btn" data-correct="false" data-explain="&lt;p&gt; là thẻ đôi, cần thẻ đóng &lt;/p&gt;.">
+                <span>A.</span> &lt;p&gt;
+              </button>
+              <button class="quiz-btn" data-correct="false" data-explain="&lt;h1&gt; là thẻ đôi, cần thẻ đóng &lt;/h1&gt;.">
+                <span>B.</span> &lt;h1&gt;
+              </button>
+              <button class="quiz-btn" data-correct="true" data-explain="Xuất sắc! Thẻ &lt;hr&gt; (tạo đường kẻ ngang) và thẻ &lt;br&gt; (ngắt dòng) là các thẻ đơn không cần thẻ đóng.">
+                <span>C.</span> &lt;hr&gt;
+              </button>
+              <button class="quiz-btn" data-correct="false" data-explain="&lt;title&gt; là thẻ đôi nằm trong &lt;head&gt;.">
+                <span>D.</span> &lt;title&gt;
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <!-- CÂU 3 -->
+          <div class="quiz-card">
+            <div class="quiz-question">
+              <span class="quiz-q-num">3</span>
+              <span>Khi người dùng gõ 10 dấu cách liên tiếp trong mã nguồn HTML, trình duyệt sẽ hiển thị như thế nào?</span>
+            </div>
+            <div class="quiz-options">
+              <button class="quiz-btn" data-correct="false" data-explain="Trình duyệt có cơ chế gộp khoảng trắng (whitespace collapsing).">
+                <span>A.</span> Giữ nguyên khoảng trống rộng tương đương 10 dấu cách
+              </button>
+              <button class="quiz-btn" data-correct="true" data-explain="Chính xác! HTML và trình duyệt tự động gộp nhiều khoảng trắng hoặc phím Enter thành đúng 1 dấu cách duy nhất.">
+                <span>B.</span> Chỉ nhận biết và hiển thị duy nhất 1 dấu cách
+              </button>
+              <button class="quiz-btn" data-correct="false" data-explain="Trình duyệt không báo lỗi cú pháp khi gõ nhiều khoảng trắng.">
+                <span>C.</span> Báo lỗi đỏ không cho trang web hoạt động
+              </button>
+              <button class="quiz-btn" data-correct="false" data-explain="Nội dung vẫn được hiển thị bình thường.">
+                <span>D.</span> Xóa toàn bộ đoạn văn bản đó đi
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <!-- CÂU 4 -->
+          <div class="quiz-card">
+            <div class="quiz-question">
+              <span class="quiz-q-num">4</span>
+              <span>Phát biểu nào sau đây về thẻ <code>&lt;title&gt;</code> là <strong>ĐÚNG NHẤT</strong>?</span>
+            </div>
+            <div class="quiz-options">
+              <button class="quiz-btn" data-correct="false" data-explain="&lt;title&gt; bắt buộc nằm trong &lt;head&gt;.">
+                <span>A.</span> Thẻ &lt;title&gt; nằm trong &lt;body&gt; để tạo dòng chữ to nhất trang
+              </button>
+              <button class="quiz-btn" data-correct="true" data-explain="Hoàn toàn chính xác! Thẻ &lt;title&gt; nằm trong &lt;head&gt;, mô tả tên của trang web hiển thị trên thanh tiêu đề/tab trình duyệt và kết quả tìm kiếm.">
+                <span>B.</span> Thẻ &lt;title&gt; nằm trong &lt;head&gt;, hiển thị trên tab trình duyệt và kết quả tìm kiếm
+              </button>
+              <button class="quiz-btn" data-correct="false" data-explain="Thẻ &lt;title&gt; không được phép chứa các phần tử con HTML khác.">
+                <span>C.</span> Thẻ &lt;title&gt; có thể chứa hình ảnh và video
+              </button>
+              <button class="quiz-btn" data-correct="false" data-explain="&lt;title&gt; chỉ là tiêu đề tab.">
+                <span>D.</span> Thẻ &lt;title&gt; dùng để tạo đường kẻ ngang phân cách trang web
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <!-- CÂU 5 -->
+          <div class="quiz-card">
+            <div class="quiz-question">
+              <span class="quiz-q-num">5</span>
+              <span>Cú pháp viết <strong>chú thích (comment)</strong> chuẩn xác trong tệp HTML là gì?</span>
+            </div>
+            <div class="quiz-options">
+              <button class="quiz-btn" data-correct="false" data-explain="// là chú thích trong JavaScript/C++.">
+                <span>A.</span> // Đây là chú thích
+              </button>
+              <button class="quiz-btn" data-correct="false" data-explain="/* */ là chú thích trong CSS.">
+                <span>B.</span> /* Đây là chú thích */
+              </button>
+              <button class="quiz-btn" data-correct="true" data-explain="Chính xác! Cú pháp chú thích của HTML luôn bắt đầu bằng &lt;!-- và kết thúc bằng --&gt;.">
+                <span>C.</span> &lt;!-- Đây là chú thích --&gt;
+              </button>
+              <button class="quiz-btn" data-correct="false" data-explain="# là chú thích trong Python.">
+                <span>D.</span> # Đây là chú thích
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           PHẦN 4: THỬ THÁCH VẬN DỤNG & SÁNG TẠO
+           ==================================================================== -->
+      <section class="section-block" id="van-dung">
+        <div class="section-header">
+          <h2 class="section-title">
+            <span class="section-num">3</span>
+            Thử Thách Vận Dụng: Nâng Cấp Trang Web Cá Nhân
+          </h2>
+          <span class="badge-tag">Thử thách mở rộng</span>
+        </div>
+
+        <div class="card">
+          <h3 style="font-size: 1.1rem; color: var(--color-brand); margin-bottom: 0.65rem;">
+            Thêm các chi tiết sau vào tệp <code>gioithieu.html</code> để trang web của em ấn tượng hơn:
+          </h3>
+          
+          <div class="grid-3" style="margin-top: 1rem;">
+            
+            <div class="callout callout-info" style="margin: 0;">
+              <div class="callout-title">1. Đường kẻ ngang &lt;hr&gt;</div>
+              <p style="font-size: 0.85rem; color: var(--text-secondary); margin: 0;">
+                Đặt đường kẻ <code>&lt;hr&gt;</code> ngăn cách giữa phần thông tin Họ tên / Trường lớp với đoạn văn giới thiệu bản thân.
+              </p>
+            </div>
+
+            <div class="callout callout-success" style="margin: 0;">
+              <div class="callout-title">2. In đậm & In nghiêng</div>
+              <p style="font-size: 0.85rem; color: var(--text-secondary); margin: 0;">
+                Dùng thẻ <code>&lt;b&gt;</code> in đậm mục tiêu tương lai; dùng <code>&lt;em&gt;</code> hoặc <code>&lt;i&gt;</code> in nghiêng câu châm ngôn em yêu thích.
+              </p>
+            </div>
+
+            <div class="callout callout-warning" style="margin: 0;">
+              <div class="callout-title">3. Thuộc tính Style màu sắc</div>
+              <p style="font-size: 0.85rem; color: var(--text-secondary); margin: 0;">
+                Thử đổi màu tiêu đề thành màu xanh yêu thích: <br>
+                <code>&lt;h1 style="color: #1d4ed8;"&gt;...&lt;/h1&gt;</code>
+              </p>
+            </div>
+
+          </div>
+
+          <div class="card" style="margin-top: 1.25rem; background: var(--bg-subtle); border-left: 4px solid var(--color-brand);">
+            <div style="font-weight: 700; color: var(--text-primary); margin-bottom: 0.35rem;">
+              💡 Gợi ý thực hiện nâng cấp:
+            </div>
+            <p style="font-size: 0.85rem; color: var(--text-secondary); margin: 0; line-height: 1.6;">
+              Em hãy tự vận dụng sự sáng tạo và kiến thức đã học để chèn thêm thẻ <code>&lt;hr&gt;</code> phân tách thông tin, định dạng từ khóa quan trọng bằng thẻ <code>&lt;b&gt;</code>, thêm phương châm sống bằng thẻ <code>&lt;em&gt;</code> và thêm thuộc tính <code>style="color: ..."</code> cho các tiêu đề để tạo nên trang giới thiệu mang đậm dấu ấn cá nhân của riêng em nhé!
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           PHẦN 5: TÀI LIỆU VÀ BƯỚC TIẾP THEO
+           ==================================================================== -->
+      <section class="section-block">
+        <div class="section-header">
+          <h2 class="section-title">
+            <span class="section-num">4</span>
+            Kho Học Liệu Mở Rộng & Chuẩn Bị Bài 8
+          </h2>
+        </div>
+
+        <div class="grid-2">
+          
+          <div class="card" style="border-top: 3px solid var(--color-brand);">
+            <h3 class="card-title" style="color: var(--color-brand);">Chuẩn bị cho Bài 8</h3>
+            <ul style="display: flex; flex-direction: column; gap: 0.5rem; padding-left: 1.15rem; font-size: 0.88rem; color: var(--text-secondary); margin-top: 0.5rem;">
+              <li><strong>Bài 8:</strong> <em>Định dạng văn bản và tạo siêu liên kết trên trang web</em>.</li>
+              <li><strong>Tìm hiểu trước:</strong> Cách tạo liên kết nhảy giữa các trang bằng thẻ <code>&lt;a href="..."&gt;</code>.</li>
+              <li><strong>Khám phá:</strong> Cách chèn hình ảnh minh họa bằng thẻ <code>&lt;img src="..."&gt;</code>.</li>
+            </ul>
+          </div>
+
+          <div class="card" style="border-top: 3px solid #0284c7;">
+            <h3 class="card-title" style="color: #0284c7;">Kho tài nguyên học tập</h3>
+            <ul style="display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.88rem; margin-top: 0.5rem;">
+              <li><a href="https://www.w3schools.com/html/" target="_blank" rel="noopener noreferrer">W3Schools HTML Tutorial ↗</a> – Thư viện bài tập tương tác lớn nhất thế giới</li>
+              <li><a href="https://developer.mozilla.org/vi/docs/Web/HTML" target="_blank" rel="noopener noreferrer">MDN Web Docs (Tiếng Việt) ↗</a> – Tài liệu chuẩn của các lập trình viên</li>
+              <li><a href="https://code.visualstudio.com/" target="_blank" rel="noopener noreferrer">Tải phần mềm VS Code ↗</a> – Trình soạn thảo mã nguồn miễn phí</li>
+            </ul>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ĐIỀU HƯỚNG TRANG -->
+      <div class="page-nav-bar">
+        <a href="hd3.html" class="btn btn-secondary">← Hoạt động 3: Luyện tập</a>
+        <a href="index.html" class="btn btn-primary">
+          Hoàn tất bài học & Về Trang chủ
+        </a>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- NATIVE MODAL DIALOG CHO ẢNH PHÓNG TO -->
+  <dialog id="image-zoom-modal" class="image-modal">
+    <div class="modal-content-wrap">
+      <button id="modal-close-btn" class="modal-close-btn" type="button" title="Đóng ảnh">✕</button>
+      <img id="modal-zoom-img" src="" alt="Hình ảnh phóng to">
+      <p id="modal-zoom-caption" style="text-align: center; margin-top: 0.65rem; font-size: 0.85rem; color: var(--text-muted);"></p>
+    </div>
+  </dialog>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>© 2026 Tin học 12 Thống nhất - Bài 7: HTML và Cấu trúc trang web.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

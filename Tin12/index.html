@@ -683,8 +683,11 @@
           <svg style="width:16px;height:16px;" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
           Mã nguồn GitHub
         </a>
-        <a href="./Bai7/index.html" class="btn btn-primary btn-sm">
-          🚀 Mở Bài 7 (Sẵn sàng)
+        <a href="./Bai8/index.html" class="btn btn-primary btn-sm" style="background: #059669; border-color: #059669;">
+          🚀 Mở Bài 8 (Mới nhất)
+        </a>
+        <a href="./Bai7/index.html" class="btn btn-secondary btn-sm">
+          Bài 7 (Sẵn sàng)
         </a>
       </div>
     </div>
@@ -908,11 +911,48 @@
                         </div>
                       </div>
 
-                      <!-- BÀI 8 (CHƯA CÓ) -->
-                      <div class="tree-row" onclick="showNodeDetail('bai8')">
-                        <span class="tree-icon">📄</span>
-                        <span class="tree-label">Bai_08_Dinh_Dang_Van_Ban_Lien_Ket.html</span>
-                        <span class="tree-badge badge-empty">Chưa có</span>
+                      <!-- BÀI 8 (SẴN SÀNG) -->
+                      <div class="tree-item is-folder open" id="node-bai8">
+                        <div class="tree-row" onclick="toggleFolder('bai8'); showNodeDetail('bai8')">
+                          <span class="tree-arrow">▾</span>
+                          <span class="tree-icon" style="color: #059669;">
+                            <svg style="width:16px;height:16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                          </span>
+                          <span class="tree-label"><strong>Bai_08_Dinh_Dang_Van_Ban/</strong></span>
+                          <span class="tree-badge badge-ready" style="background: #dcfce7; color: #15803d;">SẴN SÀNG</span>
+                        </div>
+
+                        <!-- CÁC HOẠT ĐỘNG CỦA BÀI 8 -->
+                        <div class="tree-children" id="bai8-children">
+                          <a href="./Bai8/index.html" class="tree-row" onclick="event.stopPropagation(); showNodeDetail('bai8_index')">
+                            <span class="tree-icon" style="color:#ea580c;">🌐</span>
+                            <span class="tree-label">index.html (Tổng quan bài học)</span>
+                          </a>
+                          <a href="./Bai8/hd1.html" class="tree-row" onclick="event.stopPropagation(); showNodeDetail('bai8_hd1')">
+                            <span class="tree-icon" style="color:#0284c7;">⚡</span>
+                            <span class="tree-label">hd1.html (HĐ 1: Khởi động 10')</span>
+                          </a>
+                          <a href="./Bai8/hd2.html" class="tree-row" onclick="event.stopPropagation(); showNodeDetail('bai8_hd2')">
+                            <span class="tree-icon" style="color:#1d4ed8;">🧩</span>
+                            <span class="tree-label">hd2.html (HĐ 2: Khám phá &amp; Phiếu 1, 2)</span>
+                          </a>
+                          <a href="./Bai8/hd3.html" class="tree-row" onclick="event.stopPropagation(); showNodeDetail('bai8_hd3')">
+                            <span class="tree-icon" style="color:#059669;">💻</span>
+                            <span class="tree-label">hd3.html (HĐ 3: Luyện tập tự code lưu file)</span>
+                          </a>
+                          <a href="./Bai8/hd4.html" class="tree-row" onclick="event.stopPropagation(); showNodeDetail('bai8_hd4')">
+                            <span class="tree-icon" style="color:#d97706;">📊</span>
+                            <span class="tree-label">hd4.html (HĐ 4: Vận dụng &amp; Đấu trường)</span>
+                          </a>
+                          <a href="./Bai8/phieu-bai-tap-1.html" class="tree-row" onclick="event.stopPropagation(); showNodeDetail('bai8_phieu1')">
+                            <span class="tree-icon" style="color:#8b5cf6;">📝</span>
+                            <span class="tree-label">phieu-bai-tap-1.html (Phiếu số 1)</span>
+                          </a>
+                          <a href="./Bai8/phieu-bai-tap-2.html" class="tree-row" onclick="event.stopPropagation(); showNodeDetail('bai8_phieu2')">
+                            <span class="tree-icon" style="color:#059669;">📝</span>
+                            <span class="tree-label">phieu-bai-tap-2.html (Phiếu số 2)</span>
+                          </a>
+                        </div>
                       </div>
 
                       <!-- BÀI 9 (CHƯA CÓ) -->
@@ -1157,7 +1197,86 @@
       bai4: { tag: 'CHỦ ĐỀ B', title: 'Bài 4: An toàn thông tin trên mạng (Chưa có)', status: 'Chưa có', statusClass: 'badge-empty', desc: 'Bài học này hiện chưa được khởi tạo nội dung.', isReady: false },
       bai5: { tag: 'CHỦ ĐỀ B', title: 'Bài 5: Giao thức mạng và địa chỉ IP (Chưa có)', status: 'Chưa có', statusClass: 'badge-empty', desc: 'Bài học này hiện chưa được khởi tạo nội dung.', isReady: false },
       bai6: { tag: 'CHỦ ĐỀ F', title: 'Bài 6: Tạo trang web đơn giản (Chưa có)', status: 'Chưa có', statusClass: 'badge-empty', desc: 'Bài học này hiện chưa được khởi tạo nội dung.', isReady: false },
-      bai8: { tag: 'CHỦ ĐỀ F', title: 'Bài 8: Định dạng văn bản và tạo liên kết (Chưa có)', status: 'Chưa có', statusClass: 'badge-empty', desc: 'Bài học này sẽ được cập nhật tiếp theo.', isReady: false },
+      bai8: {
+        tag: 'CHỦ ĐỀ F',
+        title: 'Bài 8: Định dạng văn bản',
+        status: '● Đã hoàn thiện (Sẵn sàng)',
+        statusClass: 'badge-ready',
+        desc: 'Khóa học định dạng văn bản HTML: Cú pháp thuộc tính style, các thẻ định dạng phông chữ, tiêu đề, và hoạt động luyện tập tự code lưu file HTML độc lập.',
+        actionText: '🚀 Vào Trang Tổng Quan Bài 8',
+        actionUrl: './Bai8/index.html',
+        isReady: true
+      },
+      bai8_index: {
+        tag: 'BÀI 8',
+        title: 'Trang Chủ & Lộ Trình 4 Hoạt Động Bài 8',
+        status: '● Sẵn sàng',
+        statusClass: 'badge-ready',
+        desc: 'Trang điều hướng trung tâm Bài 8 với sơ đồ 4 hoạt động học tập, mục tiêu cần đạt và học liệu đi kèm.',
+        actionText: 'Mở Trang Tổng Quan',
+        actionUrl: './Bai8/index.html',
+        isReady: true
+      },
+      bai8_hd1: {
+        tag: 'HOẠT ĐỘNG 1',
+        title: 'Khởi Động: Nhận Diện Lỗi Thiếu Định Dạng (10\')',
+        status: '● Sẵn sàng',
+        statusClass: 'badge-ready',
+        desc: 'Tình huống thực tế trang văn bản thô không định dạng và trò chơi so sánh trực quan.',
+        actionText: 'Vào Hoạt Động 1',
+        actionUrl: './Bai8/hd1.html',
+        isReady: true
+      },
+      bai8_hd2: {
+        tag: 'HOẠT ĐỘNG 2',
+        title: 'Khám Phá: Thẻ & Thuộc Tính HTML (20\')',
+        status: '● Sẵn sàng',
+        statusClass: 'badge-ready',
+        desc: 'Quy tắc thuộc tính HTML, thuộc tính style, bảng theo dõi nộp bài trực tiếp Phiếu bài tập số 1 & số 2.',
+        actionText: 'Vào Hoạt Động 2',
+        actionUrl: './Bai8/hd2.html',
+        isReady: true
+      },
+      bai8_hd3: {
+        tag: 'HOẠT ĐỘNG 3',
+        title: 'Luyện Tập: Thực Hành Tự Gõ Mã & Lưu Từng File HTML (30\')',
+        status: '● Sẵn sàng',
+        statusClass: 'badge-ready',
+        desc: 'Không gian lập trình thực hành, học sinh tự gõ toàn bộ cấu trúc HTML5, live preview cách ly và nộp bài tự động tách 3 file HTML độc lập.',
+        actionText: 'Vào Hoạt Động 3',
+        actionUrl: './Bai8/hd3.html',
+        isReady: true
+      },
+      bai8_hd4: {
+        tag: 'HOẠT ĐỘNG 4',
+        title: 'Vận Dụng: Đấu Trường Trắc Nghiệm & Infographic',
+        status: '● Sẵn sàng',
+        statusClass: 'badge-ready',
+        desc: 'Ôn tập củng cố kiến thức, bảng tổng hợp các thẻ HTML và đấu trường câu hỏi trắc nghiệm.',
+        actionText: 'Vào Hoạt Động 4',
+        actionUrl: './Bai8/hd4.html',
+        isReady: true
+      },
+      bai8_phieu1: {
+        tag: 'PHIẾU HỌC TẬP',
+        title: 'Phiếu Bài Tập Số 1: Thuộc Tính & Định Dạng Cơ Bản',
+        status: '● Sẵn sàng',
+        statusClass: 'badge-ready',
+        desc: 'Bài tập trắc nghiệm và câu hỏi tương tác kiểm tra kiến thức về thuộc tính style.',
+        actionText: 'Mở Phiếu Bài Tập 1',
+        actionUrl: './Bai8/phieu-bai-tap-1.html',
+        isReady: true
+      },
+      bai8_phieu2: {
+        tag: 'PHIẾU HỌC TẬP',
+        title: 'Phiếu Bài Tập Số 2: Các Thẻ Định Dạng Phông Chữ',
+        status: '● Sẵn sàng',
+        statusClass: 'badge-ready',
+        desc: 'Bài tập thực hành lồng các thẻ nhấn mạnh strong, em, b, u, sup, sub.',
+        actionText: 'Mở Phiếu Bài Tập 2',
+        actionUrl: './Bai8/phieu-bai-tap-2.html',
+        isReady: true
+      },
       bai9: { tag: 'CHỦ ĐỀ F', title: 'Bài 9: Tạo danh sách và bảng biểu trên web (Chưa có)', status: 'Chưa có', statusClass: 'badge-empty', desc: 'Bài học này sẽ được cập nhật tiếp theo.', isReady: false },
       bai10: { tag: 'CHỦ ĐỀ F', title: 'Bài 10: Biểu mẫu Web và form tương tác (Chưa có)', status: 'Chưa có', statusClass: 'badge-empty', desc: 'Bài học này sẽ được cập nhật tiếp theo.', isReady: false },
       empty: { tag: 'HỌC LIỆU', title: 'Nội dung đang chuẩn bị (Chưa có)', status: 'Chưa có', statusClass: 'badge-empty', desc: 'Học liệu bài học này chưa được đưa lên hệ thống.', isReady: false }
