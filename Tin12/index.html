@@ -1001,55 +1001,53 @@
 
           <div style="margin-bottom: 1.25rem;">
             <strong style="font-size: 0.9rem; color: var(--text-primary); display: block; margin-bottom: 0.75rem;">
-              Danh sách 4 hoạt động học tập tương tác:
+              Danh sách các hoạt động học tập tương tác:
             </strong>
 
-            <div class="activities-grid">
-              
-              <a href="./Bai7/hd1.html" class="activity-tile">
+            <div class="activities-grid" id="activities-grid-list">
+              <a href="./Bai8/hd1.html" class="activity-tile">
                 <div>
                   <div class="tile-num">Hoạt động 1</div>
-                  <div class="tile-name">Khởi Động: Mã Nguồn vs Trình Duyệt</div>
-                  <div class="tile-desc">Khám phá sự khác biệt trực quan giữa mã HTML thô và trang web hiển thị.</div>
+                  <div class="tile-name">Khởi Động: Nhận Diện Thiếu Định Dạng (10')</div>
+                  <div class="tile-desc">Tình huống thực tế trang văn bản thô không định dạng và trò chơi so sánh trực quan.</div>
                 </div>
                 <div class="tile-link">Vào học ngay →</div>
               </a>
 
-              <a href="./Bai7/hd2.html" class="activity-tile">
+              <a href="./Bai8/hd2.html" class="activity-tile">
                 <div>
                   <div class="tile-num">Hoạt động 2</div>
-                  <div class="tile-name">Hình Thành Kiến Thức & Cây DOM</div>
-                  <div class="tile-desc">Khung xương 7 thành phần, cây thông tin tương tác và xưởng kéo thả thẻ HTML.</div>
+                  <div class="tile-name">Khám Phá: Thẻ & Thuộc Tính Style (20')</div>
+                  <div class="tile-desc">Quy tắc style inline CSS, phân loại tiêu đề, đoạn văn và nộp bài Phiếu 1, 2.</div>
                 </div>
                 <div class="tile-link">Vào học ngay →</div>
               </a>
 
-              <a href="./Bai7/hd3.html" class="activity-tile">
+              <a href="./Bai8/hd3.html" class="activity-tile">
                 <div>
                   <div class="tile-num">Hoạt động 3</div>
-                  <div class="tile-name">Luyện Tập: Lập Trình gioithieu.html</div>
-                  <div class="tile-desc">Tự tay gõ mã từ đầu trong IDE trực tiếp với bộ chấm điểm 8 tiêu chí chuẩn.</div>
+                  <div class="tile-name">Luyện Tập: Lập Trình Tự Lưu File HTML (30')</div>
+                  <div class="tile-desc">Không gian code trực tiếp, tự gõ cấu trúc HTML5 và nộp bài tự động tách 3 file HTML.</div>
                 </div>
                 <div class="tile-link">Vào học ngay →</div>
               </a>
 
-              <a href="./Bai7/hd4.html" class="activity-tile">
+              <a href="./Bai8/hd4.html" class="activity-tile">
                 <div>
                   <div class="tile-num">Hoạt động 4</div>
-                  <div class="tile-name">Infographic Đồ Họa & Ôn Tập</div>
-                  <div class="tile-desc">Poster Infographic trực quan, 3D Flashcards và đấu trường câu hỏi trắc nghiệm.</div>
+                  <div class="tile-name">AntV Infographic & Vận Dụng</div>
+                  <div class="tile-desc">Engine AntV Infographic tương tác thời gian thực, 4 mẫu đồ họa và xuất vector SVG/PNG.</div>
                 </div>
                 <div class="tile-link">Vào học ngay →</div>
               </a>
-
             </div>
           </div>
 
           <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
-            <a href="./Bai7/index.html" class="btn btn-primary" id="btn-main-action">
-              🚀 Vào Trang Tổng Quan Bài 7
+            <a href="./Bai8/index.html" class="btn btn-primary" id="btn-main-action">
+              🚀 Vào Trang Tổng Quan Bài 8
             </a>
-            <a href="./Bai7/hd1.html" class="btn btn-secondary">
+            <a href="./Bai8/hd1.html" class="btn btn-secondary" id="btn-sub-action">
               ⚡ Bắt đầu từ HĐ 1 (Khởi động)
             </a>
           </div>
@@ -1197,6 +1195,22 @@
       bai4: { tag: 'CHỦ ĐỀ B', title: 'Bài 4: An toàn thông tin trên mạng (Chưa có)', status: 'Chưa có', statusClass: 'badge-empty', desc: 'Bài học này hiện chưa được khởi tạo nội dung.', isReady: false },
       bai5: { tag: 'CHỦ ĐỀ B', title: 'Bài 5: Giao thức mạng và địa chỉ IP (Chưa có)', status: 'Chưa có', statusClass: 'badge-empty', desc: 'Bài học này hiện chưa được khởi tạo nội dung.', isReady: false },
       bai6: { tag: 'CHỦ ĐỀ F', title: 'Bài 6: Tạo trang web đơn giản (Chưa có)', status: 'Chưa có', statusClass: 'badge-empty', desc: 'Bài học này hiện chưa được khởi tạo nội dung.', isReady: false },
+      bai7: {
+        tag: 'CHỦ ĐỀ F',
+        title: 'Bài 7: HTML và Cấu trúc trang web',
+        status: '● Đã hoàn thiện (Sẵn sàng)',
+        statusClass: 'badge-ready',
+        desc: 'Bài học cốt lõi mở đầu chuyên đề Thiết kế Web. Học sinh tìm hiểu bản chất siêu văn bản HTML, cấu trúc cây DOM và tự tay soạn trang web giới thiệu cá nhân.',
+        actionText: '🚀 Vào Trang Tổng Quan Bài 7',
+        actionUrl: './Bai7/index.html',
+        isReady: true,
+        activities: [
+          { num: 'Hoạt động 1', name: 'Khởi Động: Mã Nguồn vs Trình Duyệt', desc: 'Khám phá sự khác biệt trực quan giữa mã HTML thô và trang web hiển thị.', url: './Bai7/hd1.html' },
+          { num: 'Hoạt động 2', name: 'Hình Thành Kiến Thức & Cây DOM', desc: 'Khung xương 7 thành phần, cây thông tin tương tác và xưởng kéo thả thẻ HTML.', url: './Bai7/hd2.html' },
+          { num: 'Hoạt động 3', name: 'Luyện Tập: Lập Trình gioithieu.html', desc: 'Tự tay gõ mã từ đầu trong IDE trực tiếp với bộ chấm điểm 8 tiêu chí chuẩn.', url: './Bai7/hd3.html' },
+          { num: 'Hoạt động 4', name: 'Infographic Đồ Họa & Ôn Tập', desc: 'Poster Infographic trực quan, 3D Flashcards và đấu trường câu hỏi trắc nghiệm.', url: './Bai7/hd4.html' }
+        ]
+      },
       bai8: {
         tag: 'CHỦ ĐỀ F',
         title: 'Bài 8: Định dạng văn bản',
@@ -1205,7 +1219,13 @@
         desc: 'Khóa học định dạng văn bản HTML: Cú pháp thuộc tính style, các thẻ định dạng phông chữ, tiêu đề, và hoạt động luyện tập tự code lưu file HTML độc lập.',
         actionText: '🚀 Vào Trang Tổng Quan Bài 8',
         actionUrl: './Bai8/index.html',
-        isReady: true
+        isReady: true,
+        activities: [
+          { num: 'Hoạt động 1', name: 'Khởi Động: Nhận Diện Thiếu Định Dạng (10\')', desc: 'Tình huống thực tế trang văn bản thô không định dạng và trò chơi so sánh trực quan.', url: './Bai8/hd1.html' },
+          { num: 'Hoạt động 2', name: 'Khám Phá: Thẻ & Thuộc Tính Style (20\')', desc: 'Quy tắc style inline CSS, phân loại tiêu đề, đoạn văn và nộp bài Phiếu 1, 2.', url: './Bai8/hd2.html' },
+          { num: 'Hoạt động 3', name: 'Luyện Tập: Lập Trình Tự Lưu File HTML (30\')', desc: 'Không gian code trực tiếp, tự gõ cấu trúc HTML5 và nộp bài tự động tách 3 file HTML.', url: './Bai8/hd3.html' },
+          { num: 'Hoạt động 4', name: 'AntV Infographic & Vận Dụng', desc: 'Engine AntV Infographic tương tác thời gian thực, 4 mẫu đồ họa và xuất vector SVG/PNG.', url: './Bai8/hd4.html' }
+        ]
       },
       bai8_index: {
         tag: 'BÀI 8',
@@ -1305,6 +1325,29 @@
         }
       }
 
+      // Cập nhật danh sách hoạt động tương ứng với bài học được chọn
+      const actGrid = document.getElementById('activities-grid-list');
+      const btnSub = document.getElementById('btn-sub-action');
+      if (actGrid && data.activities && data.activities.length > 0) {
+        actGrid.innerHTML = data.activities.map(act => `
+          <a href="${act.url}" class="activity-tile">
+            <div>
+              <div class="tile-num">${act.num}</div>
+              <div class="tile-name">${act.name}</div>
+              <div class="tile-desc">${act.desc}</div>
+            </div>
+            <div class="tile-link">Vào học ngay →</div>
+          </a>
+        `).join('');
+        if (btnSub) {
+          btnSub.textContent = '⚡ Bắt đầu từ ' + data.activities[0].num;
+          btnSub.href = data.activities[0].url;
+          btnSub.style.display = 'inline-flex';
+        }
+      } else if (btnSub) {
+        btnSub.style.display = 'none';
+      }
+
       // Highlight active row
       document.querySelectorAll('.tree-row').forEach(row => {
         if (row.getAttribute('data-node') === nodeKey) {
@@ -1362,6 +1405,11 @@
       if (q) {
         document.querySelectorAll('.tree-children').forEach(c => c.classList.remove('hidden'));
       }
+    });
+
+    // MẶC ĐỊNH CHỌN BÀI 8 (BÀI HỌC MỚI NHẤT) KHI TẢI TRANG
+    window.addEventListener('DOMContentLoaded', () => {
+      showNodeDetail('bai8');
     });
   </script>
 </body>

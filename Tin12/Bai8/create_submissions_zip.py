@@ -114,3 +114,4 @@ def make_submissions_zip(output_zip_path=None):
 if __name__ == '__main__':
     out_path = sys.argv[1] if len(sys.argv) > 1 else None
     make_submissions_zip(out_path)
+

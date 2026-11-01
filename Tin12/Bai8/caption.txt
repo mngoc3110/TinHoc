@@ -1,0 +1,37 @@
+HOW HTML5 TEXT FORMATTING WORKS 🎨
+
+Most developers jump straight into CSS stylesheets and Tailwind classes.
+But understanding how the browser actually parses and renders inline styles and semantic formatting tags is the foundation of writing accessible, high-performance web applications.
+
+Here is what happens under the hood:
+
+1️⃣ The Container Element Selection
+Every text node lives inside a container tag.
+• Use <h1> to <h6> for hierarchical document outlines
+• Use <p> for block-level paragraphs
+• Use <span> for phrasing inline boundaries without breaking layout flow
+
+2️⃣ Inline Style Attribute Declaration
+When you declare style="..." inside an HTML opening tag, the browser attaches these CSS declarations directly to the element's style attribute in the DOM tree.
+• Property and Value: separated by a colon (:)
+• Multiple rules: separated by a semicolon (;)
+• Quotes rule: enclose all CSS rules strictly inside double quotes
+
+3️⃣ Semantic vs. Visual Styling (The W3C Standard)
+Never confuse visual bolding with semantic importance:
+• <strong> indicates high urgency or seriousness (Screen readers emphasize pitch and search crawlers rank weighted keywords)
+• <b> is purely typographic bold (visual only, zero semantic meaning)
+• <em> marks stressed inflection and linguistic tone
+• <i> marks alternative voice, foreign terms, or technical taxonomy
+• <sup> and <sub> render mathematically and chemically correct subscripts and superscripts (e.g. H₂O and x²)
+
+4️⃣ Tag Nesting Rules (LIFO - Last In, First Out)
+Tags must close in reverse order of opening.
+Cross-nesting tags (e.g. <p><b>Text</p></b>) forces modern browser engines to enter error-recovery quirks mode, causing unnecessary DOM tree restructuring and layout recalculations.
+
+Pro-tip: Always declare <meta charset="UTF-8"> in your document <head> to ensure Vietnamese accents and special characters render flawlessly across all platforms and operating systems.
+
+Have you ever encountered unexpected layout bugs due to improperly nested inline elements? Share your thoughts below!
+
+→ Explore interactive web design and live coding challenges at: https://minda.io.vn/Tin12/Bai8/
+School: Trường THPT Thực hành ĐH Sư phạm (THTH - DHSP) • Môn Tin học 12

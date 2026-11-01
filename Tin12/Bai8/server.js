@@ -318,6 +318,8 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+
+
   // --- API ENDPOINT: TẢI TOÀN BỘ BÀI NỘP HĐ 3 THÀNH 1 FILE ZIP GOM THEO TỪNG THƯ MỤC HỌC SINH (GET /api/submissions-hd3-zip) ---
   if ((pathname === '/api/submissions-hd3-zip' || pathname === '/api/teacher/download-all-zip') && req.method === 'GET') {
     const { execFile } = require('child_process');
@@ -343,7 +345,6 @@ const server = http.createServer((req, res) => {
       const stream = fs.createReadStream(tempZip);
       stream.pipe(res);
       stream.on('end', () => {
-        // Xóa file zip tạm sau khi truyền xong để giải phóng dung lượng
         setTimeout(() => {
           try { if (fs.existsSync(tempZip)) fs.unlinkSync(tempZip); } catch(e) {}
         }, 1000);
@@ -371,6 +372,8 @@ const server = http.createServer((req, res) => {
       return;
     }
   }
+
+
 
   // --- BẢO VỆ TÀI LIỆU KẾ HOẠCH BÀI DẠY VÀ SLIDE BÀI GIẢNG (CHỈ GIÁO VIÊN MỚI ĐƯỢC TẢI) ---
   if (pathname.endsWith('Bai8.docx') || pathname.endsWith('pptx.pdf')) {
