@@ -318,6 +318,40 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  // --- API ENDPOINT: TẢI TOÀN BỘ BÀI NỘP HĐ 3 THÀNH 1 FILE ZIP GOM THEO TỪNG THƯ MỤC HỌC SINH (GET /api/submissions-hd3-zip) ---
+  if ((pathname === '/api/submissions-hd3-zip' || pathname === '/api/teacher/download-all-zip') && req.method === 'GET') {
+    const { execFile } = require('child_process');
+    const pyScript = path.join(__dirname, 'create_submissions_zip.py');
+    const tempZip = path.join(__dirname, 'data', `Bai8_HD3_TatCaBaiLam_${Date.now()}.zip`);
+
+    execFile('python3', [pyScript, tempZip], (err, stdout, stderr) => {
+      if (err || !fs.existsSync(tempZip)) {
+        console.error('Lỗi khi nén file zip:', err || stderr);
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: false, error: 'Không thể tạo file nén ZIP: ' + (err ? err.message : stderr) }));
+        return;
+      }
+
+      const stat = fs.statSync(tempZip);
+      const downloadFilename = `Bai8_HD3_TatCaBaiLam_THTH_DHSP.zip`;
+      res.writeHead(200, {
+        'Content-Type': 'application/zip',
+        'Content-Length': stat.size,
+        'Content-Disposition': `attachment; filename="${downloadFilename}"`
+      });
+
+      const stream = fs.createReadStream(tempZip);
+      stream.pipe(res);
+      stream.on('end', () => {
+        // Xóa file zip tạm sau khi truyền xong để giải phóng dung lượng
+        setTimeout(() => {
+          try { if (fs.existsSync(tempZip)) fs.unlinkSync(tempZip); } catch(e) {}
+        }, 1000);
+      });
+    });
+    return;
+  }
+
   // --- PHỤC VỤ TRỰC TIẾP TỪNG TỆP HTML BÀI LÀM CỦA HỌC SINH (GET /submissions_hd3/*) ---
   if (pathname.startsWith('/submissions_hd3/')) {
     const filename = path.basename(pathname);

@@ -917,6 +917,18 @@ Hỗ trợ 24/7`
       } catch (e) {}
     }
 
+    // Chuẩn hóa chuỗi an toàn cho tên thư mục và tên tệp không dấu
+    function sanitize(str) {
+      if (!str) return 'HocSinh';
+      return str
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/đ/g, 'd').replace(/Đ/g, 'D')
+        .replace(/[^a-zA-Z0-9_-]/g, '_')
+        .replace(/_+/g, '_')
+        .trim();
+    }
+
     // --- TẢI TỪNG TỆP HTML VỀ MÁY TÍNH HỌC SINH ---
     function downloadSingleHtml(ex, notify = true) {
       const textarea = document.getElementById(`code-${ex}`);
@@ -1060,39 +1072,193 @@ Hỗ trợ 24/7`
       }
     }
 
+    // --- TẢI TRỌN BỘ BÀI LÀM CỦA 1 HỌC SINH (NÉN THÀNH 1 FILE ZIP) ---
     function downloadStudentAllWork(idx) {
-      const exercises = ['bai1', 'bai2', 'bai3'];
-      exercises.forEach((ex, i) => {
-        setTimeout(() => {
-          downloadStudentWork(idx, ex, false);
-        }, i * 300);
-      });
-      setTimeout(() => {
-        showToast('Đã tải toàn bộ 3 file HTML của học sinh này!');
-      }, 1000);
+      const sub = cachedHd3Submissions[idx];
+      if (!sub) return;
+
+      const safeClass = sanitize(sub.className || '12A');
+      const safeMachine = sanitize(sub.studentNumber || '00');
+      const safeName = sanitize(sub.studentName || 'HocSinh');
+      const zipName = `${safeClass}_${safeMachine}_${safeName}.zip`;
+
+      const files = sub.files || {};
+      const b1 = wrapInFullHtml(`Bài 1: Phương trình bậc 2 - ${sub.studentName}`, files.bai1?.code || '');
+      const b2 = wrapInFullHtml(`Bài 2: Nhấn mạnh văn bản - ${sub.studentName}`, files.bai2?.code || '');
+      const b3 = wrapInFullHtml(`Bài 3: Tờ rơi Internet - ${sub.studentName}`, files.bai3?.code || '');
+
+      const studentInfo = [
+        "TRƯỜNG THTH - DHSP • BÀI 8: ĐỊNH DẠNG VĂN BẢN",
+        "PHIẾU THÔNG TIN BÀI LÀM HỌC SINH (HĐ 3: LUYỆN TẬP)",
+        "--------------------------------------------------",
+        `Họ và tên:        ${sub.studentName}`,
+        `Lớp:              ${sub.className}`,
+        `Số máy / STT:     ${sub.studentNumber || 'N/A'}`,
+        `Thời gian nộp:    ${sub.submittedAt || ''}`,
+        `Mã biên nhận:     ${sub.id || ''}`,
+        "--------------------------------------------------",
+        "DANH SÁCH 3 TỆP HTML ĐÍNH KÈM:",
+        "1. Bai1.html - Bài toán biện luận phương trình bậc 2",
+        "2. Bai2.html - Sử dụng thẻ nhấn mạnh strong, em, b, i, mark, u",
+        "3. Bai3.html - Tờ rơi giới thiệu dịch vụ Internet tốc độ cao",
+        "--------------------------------------------------"
+      ].join("\n");
+
+      if (typeof JSZip !== 'undefined') {
+        const zip = new JSZip();
+        zip.file("Bai1.html", b1);
+        zip.file("Bai2.html", b2);
+        zip.file("Bai3.html", b3);
+        zip.file("ThongTin_BaiLam.txt", studentInfo);
+
+        zip.generateAsync({ type: "blob" }).then(blob => {
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = zipName;
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          window.URL.revokeObjectURL(url);
+          showToast(`Đã tải 1 tệp ZIP (${zipName}) gồm 3 bài làm của học sinh!`);
+        });
+      } else {
+        // Fallback tải lần lượt 3 file
+        ['bai1', 'bai2', 'bai3'].forEach((ex, i) => {
+          setTimeout(() => downloadStudentWork(idx, ex, false), i * 300);
+        });
+        setTimeout(() => showToast('Đã tải 3 file HTML của học sinh này!'), 1000);
+      }
     }
 
-    // --- TẢI TẤT CẢ FILE HTML CỦA CẢ LỚP VỀ MÁY GIÁO VIÊN ---
-    function downloadAllClassSubmissions() {
+    // --- TẢI TẤT CẢ FILE CỦA CẢ LỚP: NÉN THÀNH 1 FILE ZIP DUY NHẤT CHỨA TỪNG THƯ MỤC HỌC SINH ---
+    async function downloadAllClassSubmissionsZipFolders() {
       if (!cachedHd3Submissions || cachedHd3Submissions.length === 0) {
         alert('Chưa có bài nộp nào trong danh sách để tải!');
         return;
       }
-      if (!confirm(`Thầy/Cô có muốn tải về toàn bộ file HTML của ${cachedHd3Submissions.length} bài nộp trong lớp không?`)) {
+      if (!confirm(`Thầy/Cô có muốn tải về 1 TỆP ZIP DUY NHẤT chứa thư mục riêng biệt của ${cachedHd3Submissions.length} học sinh không?\n(Mỗi học sinh 1 thư mục riêng gồm Bai1.html, Bai2.html, Bai3.html và phiếu thông tin)`)) {
         return;
       }
-      let step = 0;
-      cachedHd3Submissions.forEach((sub, sIdx) => {
-        ['bai1', 'bai2', 'bai3'].forEach(ex => {
-          setTimeout(() => {
-            downloadStudentWork(sIdx, ex, false);
-          }, step * 250);
-          step++;
+
+      showToast('⏳ Đang gom nhóm và đóng gói tệp ZIP theo từng học sinh...');
+
+      // 1. Thử gọi API backend (Server Node.js / Python đã hỗ trợ nén ZIP)
+      try {
+        const res = await fetch('/api/submissions-hd3-zip');
+        if (res.ok) {
+          const blob = await res.blob();
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `Bai8_HD3_TatCaBaiLam_THTH_DHSP_${new Date().toISOString().slice(0, 10)}.zip`;
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          window.URL.revokeObjectURL(url);
+          showToast('🎉 Đã tải xong 1 file ZIP duy nhất chứa các thư mục bài làm!');
+          return;
+        }
+      } catch (e) {
+        console.warn('API nén phía máy chủ không sẵn sàng, chuyển sang nén bằng JSZip trên trình duyệt:', e);
+      }
+
+      // 2. Chế độ Fallback / Offline: Nén trực tiếp bằng JSZip trên trình duyệt
+      const createClientZip = () => {
+        if (typeof JSZip === 'undefined') {
+          alert('Không tìm thấy thư viện JSZip. Vui lòng kiểm tra kết nối mạng!');
+          return;
+        }
+
+        const zip = new JSZip();
+        let overviewLines = [
+          "============================================================",
+          "TRƯỜNG THTH - DHSP • BÀI 8: ĐỊNH DẠNG VĂN BẢN",
+          "BẢNG TỔNG HỢP NỘP BÀI THỰC HÀNH HOẠT ĐỘNG 3 (30 PHÚT)",
+          `Thời điểm xuất file: ${new Date().toLocaleString('vi-VN')}`,
+          `Tổng số bài nộp: ${cachedHd3Submissions.length} học sinh`,
+          "============================================================",
+          "",
+          "STT  | HỌ VÀ TÊN                 | LỚP    | SỐ MÁY  | THỜI GIAN NỘP      | THƯ MỤC LƯU TRỮ",
+          "-----------------------------------------------------------------------------------------------"
+        ];
+
+        const seenFolders = new Set();
+        cachedHd3Submissions.forEach((sub, sIdx) => {
+          const name = sub.studentName || 'Học sinh';
+          const cls = sub.className || '12A';
+          const stt = String(sub.studentNumber || sIdx + 1).padStart(2, '0');
+          const timeStr = sub.submittedAt || '';
+
+          let baseFolder = `${sanitize(cls)}_${stt}_${sanitize(name)}`;
+          let folderName = baseFolder;
+          let dup = 1;
+          while (seenFolders.has(folderName)) {
+            dup++;
+            folderName = `${baseFolder}_${dup}`;
+          }
+          seenFolders.add(folderName);
+
+          overviewLines.push(`${String(sIdx + 1).padEnd(4)} | ${name.padEnd(25)} | ${cls.padEnd(6)} | ${stt.padEnd(7)} | ${timeStr.padEnd(18)} | ${folderName}/`);
+
+          const studentFolder = zip.folder(folderName);
+          const files = sub.files || {};
+          const b1 = wrapInFullHtml(`Bài 1: Phương trình bậc 2 - ${name}`, files.bai1?.code || '');
+          const b2 = wrapInFullHtml(`Bài 2: Nhấn mạnh văn bản - ${name}`, files.bai2?.code || '');
+          const b3 = wrapInFullHtml(`Bài 3: Tờ rơi Internet - ${name}`, files.bai3?.code || '');
+
+          studentFolder.file("Bai1.html", b1);
+          studentFolder.file("Bai2.html", b2);
+          studentFolder.file("Bai3.html", b3);
+
+          const studentInfo = [
+            "TRƯỜNG THTH - DHSP • BÀI 8: ĐỊNH DẠNG VĂN BẢN",
+            "PHIẾU THÔNG TIN BÀI LÀM HỌC SINH (HĐ 3: LUYỆN TẬP)",
+            "--------------------------------------------------",
+            `Họ và tên:        ${name}`,
+            `Lớp:              ${cls}`,
+            `Số máy / STT:     ${stt}`,
+            `Thời gian nộp:    ${timeStr}`,
+            `Mã biên nhận:     ${sub.id || ''}`,
+            "--------------------------------------------------",
+            "DANH SÁCH 3 TỆP HTML ĐÍNH KÈM:",
+            "1. Bai1.html - Bài toán biện luận phương trình bậc 2",
+            "2. Bai2.html - Sử dụng thẻ nhấn mạnh strong, em, b, i, mark, u",
+            "3. Bai3.html - Tờ rơi giới thiệu dịch vụ Internet tốc độ cao",
+            "--------------------------------------------------"
+          ].join("\n");
+          studentFolder.file("ThongTin_BaiLam.txt", studentInfo);
         });
-      });
-      setTimeout(() => {
-        showToast(`Đã hoàn tất tải toàn bộ ${step} tệp HTML của cả lớp!`);
-      }, (step + 1) * 250);
+
+        zip.file("00_TONG_KET_LOP_HOC.txt", overviewLines.join("\n"));
+
+        zip.generateAsync({ type: "blob", compression: "DEFLATE" }).then(blob => {
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `Bai8_HD3_TatCaBaiLam_THTH_DHSP_${new Date().toISOString().slice(0, 10)}.zip`;
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          window.URL.revokeObjectURL(url);
+          showToast('🎉 Đã tải xong 1 file ZIP duy nhất chứa các thư mục bài làm!');
+        });
+      };
+
+      if (typeof JSZip !== 'undefined') {
+        createClientZip();
+      } else {
+        const script = document.createElement('script');
+        script.src = 'https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js';
+        script.onload = createClientZip;
+        script.onerror = () => alert('Không thể nạp thư viện tạo ZIP.');
+        document.head.appendChild(script);
+      }
+    }
+
+    // Giữ alias downloadAllClassSubmissions trỏ vào hàm nén ZIP mới
+    function downloadAllClassSubmissions() {
+      downloadAllClassSubmissionsZipFolders();
     }
 
     // --- NỘP BÀI LÊN MÁY CHỦ (POST /api/submit-hd3) ---
@@ -1413,8 +1579,8 @@ Hỗ trợ 24/7`
             <td style="text-align: center;">
               <div style="display: inline-flex; gap: 0.4rem; align-items: center; justify-content: center;">
                 <span style="font-family: monospace; font-size: 0.8rem; font-weight: 700; color: #64748b;">${sub.id}</span>
-                <button type="button" class="btn btn-secondary btn-sm" onclick="downloadStudentAllWork(${idx})" style="font-size: 0.72rem; padding: 0.2rem 0.45rem; color: #2563eb; border-color: #bfdbfe; background: #eff6ff; font-weight: 700;" title="Tải trọn bộ 3 file HTML của học sinh này">
-                  📦 Tải 3 bài
+                <button type="button" class="btn btn-secondary btn-sm" onclick="downloadStudentAllWork(${idx})" style="font-size: 0.72rem; padding: 0.2rem 0.45rem; color: #2563eb; border-color: #bfdbfe; background: #eff6ff; font-weight: 700;" title="Tải 1 tệp ZIP chứa trọn bộ bài làm của học sinh này">
+                  🗜️ Tải ZIP (3 bài)
                 </button>
               </div>
             </td>

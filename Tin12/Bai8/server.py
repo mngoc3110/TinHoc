@@ -300,6 +300,33 @@ class ClassroomRequestHandler(http.server.BaseHTTPRequestHandler):
             self.wfile.write(json.dumps(submissions, ensure_ascii=False).encode('utf-8'))
             return
 
+        # Tải toàn bộ bài nộp HD3 thành 1 file zip gom theo từng folder học sinh
+        if path in ['/api/submissions-hd3-zip', '/api/teacher/download-all-zip']:
+            import tempfile
+            from create_submissions_zip import make_submissions_zip
+            temp_dir = tempfile.gettempdir()
+            temp_zip = os.path.join(temp_dir, f'Bai8_HD3_TatCaBaiLam_{int(time.time())}.zip')
+            res_zip = make_submissions_zip(temp_zip)
+            if res_zip and os.path.exists(res_zip):
+                self.send_response(200)
+                self.send_header('Content-Type', 'application/zip')
+                self.send_header('Content-Disposition', 'attachment; filename="Bai8_HD3_TatCaBaiLam_THTH_DHSP.zip"')
+                self.send_header('Content-Length', str(os.path.getsize(res_zip)))
+                self.end_headers()
+                with open(res_zip, 'rb') as f:
+                    self.wfile.write(f.read())
+                try:
+                    os.remove(res_zip)
+                except Exception:
+                    pass
+                return
+            else:
+                self.send_response(500)
+                self.send_header('Content-Type', 'application/json; charset=utf-8')
+                self.end_headers()
+                self.wfile.write(json.dumps({'success': False, 'error': 'Lỗi tạo file zip'}).encode('utf-8'))
+                return
+
         # Phục vụ các file HTML bài làm của học sinh
         if path.startswith('/submissions_hd3/'):
             filename = os.path.basename(path)
