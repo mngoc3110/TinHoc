@@ -347,6 +347,19 @@ class ClassroomRequestHandler(http.server.BaseHTTPRequestHandler):
                 self.wfile.write(f'404 Không tìm thấy file bài làm: {filename}'.encode('utf-8'))
                 return
 
+        # Bảo vệ tài liệu Kế hoạch bài dạy và Slide PowerPoint (Chỉ giáo viên mới được tải)
+        if path.endswith('Bai8.docx') or path.endswith('pptx.pdf'):
+            cookies = self.headers.get('Cookie', '')
+            auth = self.headers.get('Authorization', '')
+            query = parsed.query
+            is_teacher = 'thth_teacher=1' in cookies or 'access_token' in cookies or auth.startswith('Bearer ') or 'teacher=1' in query
+            if not is_teacher:
+                self.send_response(403)
+                self.send_header('Content-Type', 'text/html; charset=utf-8')
+                self.end_headers()
+                self.wfile.write('<h2>403 Quyền truy cập bị từ chối: Kế hoạch bài dạy và Slide tài liệu chỉ dành riêng cho Giáo viên Trường THTH - DHSP.</h2>'.encode('utf-8'))
+                return
+
         # Đường dẫn tắt
         target_path = path
         if target_path in ['/', '/bai8']:

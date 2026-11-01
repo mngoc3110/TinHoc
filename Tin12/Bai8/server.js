@@ -372,6 +372,43 @@ const server = http.createServer((req, res) => {
     }
   }
 
+  // --- BẢO VỆ TÀI LIỆU KẾ HOẠCH BÀI DẠY VÀ SLIDE BÀI GIẢNG (CHỈ GIÁO VIÊN MỚI ĐƯỢC TẢI) ---
+  if (pathname.endsWith('Bai8.docx') || pathname.endsWith('pptx.pdf')) {
+    const cookies = req.headers['cookie'] || '';
+    const authHeader = req.headers['authorization'] || '';
+    const query = parsedUrl.query || {};
+    const isTeacher = cookies.includes('thth_teacher=1') || 
+                      cookies.includes('access_token') || 
+                      authHeader.startsWith('Bearer ') || 
+                      query.teacher === '1';
+
+    if (!isTeacher) {
+      res.writeHead(403, { 'Content-Type': 'text/html; charset=utf-8' });
+      res.end(`<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>403 Quyền Truy Cập Bị Từ Chối | THTH - DHSP</title>
+  <style>
+    body { font-family: system-ui, -apple-system, sans-serif; background: #0f172a; color: #f8fafc; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; }
+    .box { background: #1e293b; padding: 2.5rem; border-radius: 16px; border: 1.5px solid #ef4444; text-align: center; max-width: 520px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.5); }
+    h2 { color: #f87171; margin-top: 0; font-size: 1.4rem; }
+    p { color: #94a3b8; line-height: 1.6; font-size: 0.95rem; }
+    a { display: inline-block; background: #2563eb; color: #fff; padding: 0.75rem 1.4rem; border-radius: 8px; text-decoration: none; font-weight: bold; margin-top: 1.25rem; }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2>🔒 QUYỀN TRUY CẬP BỊ TỪ CHỐI (403)</h2>
+    <p>Kế hoạch bài dạy (Giáo án) và Slide bài giảng được bảo mật, chỉ dành riêng cho Giáo viên Trường THTH - DHSP.</p>
+    <a href="/Tin12/Bai8/index.html">← Về trang chủ Bài 8 để Đăng nhập Giáo viên</a>
+  </div>
+</body>
+</html>`);
+      return;
+    }
+  }
+
   // --- CÁC ĐƯỜNG DẪN VIẾT TẮT TIỆN LỢI CHO HỌC SINH & GIÁO VIÊN ---
   let targetPath = pathname;
   if (targetPath === '/' || targetPath === '/bai8') {
