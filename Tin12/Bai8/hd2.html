@@ -2496,6 +2496,8 @@
         localStorage.removeItem('thth_teacher_auth');
       }
 
+      document.cookie = 'thth_teacher=1; path=/';
+
       closeTeacherLoginModal();
       updateTeacherAuthUI_hd2();
       renderSubmissions(cachedSubmissions);
@@ -2507,6 +2509,7 @@
       if (!confirm('Thầy/Cô có chắc chắn muốn đăng xuất khỏi bảng quản lý không?')) return;
       sessionStorage.removeItem('thth_teacher_auth');
       localStorage.removeItem('thth_teacher_auth');
+      document.cookie = 'thth_teacher=; Max-Age=0; path=/;';
       updateTeacherAuthUI_hd2();
       renderSubmissions(cachedSubmissions);
       renderSubmissionsP2(cachedSubmissionsP2);
