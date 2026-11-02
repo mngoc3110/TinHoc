@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hoạt động 2: Thẻ và Thuộc tính HTML | Bài 8: Định dạng văn bản - Tin học 12</title>
   <meta name="description" content="Hoạt động 2: Thẻ và Thuộc tính trong HTML - Bài 8: Định dạng văn bản. Môn Tin học 12 Thống nhất. Giáo viên: Nguyễn Lê Minh Ngọc.">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css?v=20261102_04">
   <style>
     /* Phong cách chuyên dụng cho Hoạt động 2: Thẻ & Thuộc tính */
     .syntax-card {
@@ -690,6 +690,167 @@
       color: #0f172a;
       padding: 0.2rem 0.4rem;
       border-radius: 4px;
+    }
+
+    /* ======================================================== */
+    /* STYLES CHO GIAI ĐOẠN 2.3: HƯỚNG DẪN QR & BẢNG TIẾN ĐỘ PHIẾU 2 */
+    /* ======================================================== */
+    .qr-guide-card {
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 16px;
+      padding: 1.75rem 2rem;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+      margin-bottom: 2rem;
+    }
+
+    .qr-guide-header-title {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #065f46;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      line-height: 1.3;
+    }
+
+    .qr-grid {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 1.75rem;
+      align-items: stretch;
+      margin-top: 1.25rem;
+    }
+
+    @media (max-width: 860px) {
+      .qr-grid {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+      }
+    }
+
+    .qr-box {
+      background: linear-gradient(145deg, #f0fdf4 0%, #ecfdf5 100%);
+      border: 1.5px solid #a7f3d0;
+      border-radius: 14px;
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.08);
+    }
+
+    .qr-img-wrapper {
+      background: #ffffff;
+      padding: 0.75rem;
+      border-radius: 12px;
+      border: 1px solid #d1fae5;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      display: inline-block;
+    }
+
+    .qr-img-wrapper:hover {
+      transform: scale(1.03);
+      box-shadow: 0 8px 20px rgba(5, 150, 105, 0.25);
+    }
+
+    .access-info-box {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .access-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .access-label {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #334155;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .access-url-badge {
+      font-family: 'Fira Code', 'Courier New', monospace;
+      font-size: 0.92rem;
+      font-weight: 700;
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      border: 1.5px solid;
+      word-break: break-all;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.03);
+    }
+
+    .submissions-dashboard-card {
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 16px;
+      padding: 1.75rem 2rem;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+      margin-bottom: 2.5rem;
+    }
+
+    .dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1.5px solid #f1f5f9;
+    }
+
+    .live-status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #ecfdf5;
+      border: 1px solid #a7f3d0;
+      color: #065f46;
+      font-size: 0.78rem;
+      font-weight: 800;
+      padding: 0.3rem 0.75rem;
+      border-radius: 9999px;
+      letter-spacing: 0.5px;
+    }
+
+    .live-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 0 rgba(16, 185, 129, 0.5);
+      animation: pulseLive 1.8s infinite;
+    }
+
+    .dashboard-actions {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .table-responsive {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      border-radius: 10px;
+      border: 1px solid #e2e8f0;
     }
   </style>
 </head>
@@ -1857,7 +2018,7 @@
               <div class="qr-img-wrapper" onclick="openQrZoom('phieu2')" title="Bấm để phóng to mã QR trên máy chiếu" style="cursor: pointer;">
                 <img src="assets/qr_phieu2.svg" alt="Mã QR Phiếu bài tập số 2" style="width: 175px; height: 175px; object-fit: contain; display: block;">
               </div>
-              <div style="font-size: 0.82rem; color: #64748b; margin-top: 0.65rem; text-align: center;">
+              <div style="font-size: 0.82rem; color: #065f46; margin-top: 0.65rem; text-align: center; font-weight: 600;">
                 👆 <em>Bấm vào mã để phóng to toàn màn hình</em>
               </div>
             </div>
@@ -1865,20 +2026,28 @@
             <!-- CỘT 2: THÔNG TIN TRUY CẬP VÀ ĐƯỜNG LINK -->
             <div class="access-info-box">
               <div class="access-item">
-                <span class="access-label">Đường dẫn truy cập trang web (Tên miền chính thức):</span>
+                <span class="access-label">
+                  <svg style="width:16px;height:16px;color:#059669;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                  Đường dẫn truy cập trang web (Tên miền chính thức):
+                </span>
                 <div class="access-url-badge" style="background: #ecfdf5; border-color: #a7f3d0; color: #065f46;">
-                  https://minda.io.vn/Tin12/Bai8/phieu-bai-tap-2.html
+                  <span style="user-select: all;">https://minda.io.vn/Tin12/Bai8/phieu-bai-tap-2.html</span>
+                  <button type="button" onclick="navigator.clipboard.writeText('https://minda.io.vn/Tin12/Bai8/phieu-bai-tap-2.html'); showToast('Đã sao chép liên kết Phiếu 2!');" style="background: #059669; color: #fff; border: none; padding: 0.35rem 0.75rem; border-radius: 6px; font-size: 0.8rem; font-weight: 700; cursor: pointer; white-space: nowrap; display: inline-flex; align-items: center; gap: 0.3rem;">📋 Sao chép</button>
                 </div>
               </div>
 
               <div class="access-item">
-                <span class="access-label">Đường dẫn viết tắt trên máy chủ nội bộ (Local / Phòng máy):</span>
+                <span class="access-label">
+                  <svg style="width:16px;height:16px;color:#3b82f6;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
+                  Đường dẫn viết tắt trên máy chủ nội bộ (Local / Phòng máy):
+                </span>
                 <div class="access-url-badge" style="background: #f8fafc; border-color: #cbd5e1; color: #0f172a;">
-                  http://localhost:3000/phieu2 &nbsp;•&nbsp; http://14.225.206.241:3000/phieu2
+                  <span style="user-select: all;">http://localhost:3000/phieu2 &nbsp;•&nbsp; http://14.225.206.241:3000/phieu2</span>
+                  <button type="button" onclick="navigator.clipboard.writeText('http://localhost:3000/phieu2'); showToast('Đã sao chép liên kết nội bộ!');" style="background: #e2e8f0; color: #1e293b; border: none; padding: 0.35rem 0.75rem; border-radius: 6px; font-size: 0.8rem; font-weight: 700; cursor: pointer; white-space: nowrap; display: inline-flex; align-items: center; gap: 0.3rem;">📋 Sao chép</button>
                 </div>
               </div>
 
-              <div style="margin-top: 0.75rem; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 0.75rem 1rem; font-size: 0.88rem; line-height: 1.5; color: #475569;">
+              <div style="background: #f0fdf4; border: 1.5px solid #bbf7d0; border-radius: 10px; padding: 0.85rem 1.15rem; font-size: 0.88rem; line-height: 1.5; color: #166534;">
                 👥 <strong>Lưu ý làm bài:</strong> Bài tập hỗ trợ 2 hình thức: <strong>👤 Cá nhân</strong> hoặc <strong>👥 Làm theo cặp (2 bạn)</strong>. Khi làm theo cặp, hệ thống tự động ghi nhận điểm số cho cả 2 học sinh cùng máy.
               </div>
             </div>
@@ -2439,31 +2608,7 @@
       const avgEl = document.getElementById('stat-avg-p2');
       const highEl = document.getElementById('stat-high-p2');
       const latestEl = document.getElementById('stat-latest-p2');
-
-      // --- KIỂM TRA QUYỀN GIÁO VIÊN ---
-      if (!isTeacherAuthenticated()) {
-        tbody.innerHTML = `
-          <tr>
-            <td colspan="9" style="text-align: center; padding: 3rem 1.5rem; background: #fff7ed; border-radius: 8px;">
-              <div style="font-size: 2.8rem; margin-bottom: 0.6rem;">🔒</div>
-              <div style="font-size: 1.25rem; font-weight: 800; color: #9a3412; margin-bottom: 0.4rem;">
-                KHU VỰC DÀNH RIÊNG CHO GIÁO VIÊN
-              </div>
-              <div style="font-size: 0.95rem; color: #7c2d12; margin-bottom: 1.25rem; max-width: 520px; margin-left: auto; margin-right: auto; line-height: 1.5;">
-                Toàn bộ danh sách bài nộp, điểm số và bài làm của học sinh Phiếu số 2 được bảo mật. Chỉ Giáo viên phụ trách mới có quyền truy cập.
-              </div>
-              <button type="button" class="btn btn-primary" onclick="openTeacherLoginModal()" style="font-weight: 800; padding: 0.75rem 1.5rem; font-size: 1rem; background: #ea580c; border: none; box-shadow: 0 4px 6px -1px rgba(234, 88, 12, 0.3); border-radius: 8px; cursor: pointer; color: white;">
-                🔑 Đăng Nhập Giáo Viên
-              </button>
-            </td>
-          </tr>
-        `;
-        if (countEl) countEl.innerHTML = '<span style="font-size: 1.1rem; color: #9a3412;">🔒 Đã khóa</span>';
-        if (avgEl) avgEl.innerHTML = '<span style="font-size: 1.1rem; color: #9a3412;">🔒 Đã khóa</span>';
-        if (highEl) highEl.innerHTML = '<span style="font-size: 1.1rem; color: #9a3412;">🔒 Đã khóa</span>';
-        if (latestEl) latestEl.innerHTML = '<span style="font-size: 1rem; color: #9a3412;">Chỉ giáo viên</span>';
-        return;
-      }
+      const isAuth = isTeacherAuthenticated();
 
       if (!list || list.length === 0) {
         tbody.innerHTML = `
@@ -2475,8 +2620,8 @@
           </tr>
         `;
         if (countEl) countEl.textContent = '0';
-        if (avgEl) avgEl.textContent = '0.0';
-        if (highEl) highEl.textContent = '0%';
+        if (avgEl) avgEl.textContent = isAuth ? '0.0' : '0.0';
+        if (highEl) highEl.textContent = isAuth ? '0%' : '0%';
         if (latestEl) latestEl.textContent = 'Chưa có';
         return;
       }
@@ -2484,13 +2629,18 @@
       if (countEl) countEl.textContent = list.length;
       const totalScore = list.reduce((sum, item) => sum + (Number(item.score) || 0), 0);
       const avg = Math.round((totalScore / list.length) * 10) / 10;
-      if (avgEl) avgEl.textContent = avg.toFixed(1);
-
       const highCount = list.filter(item => (Number(item.score) || 0) >= 8.0).length;
       const highRate = Math.round((highCount / list.length) * 100);
-      if (highEl) highEl.textContent = highRate + '%';
 
-      if (latestEl) latestEl.textContent = list[0].studentName + ' (' + list[0].score + 'đ)';
+      if (isAuth) {
+        if (avgEl) avgEl.textContent = avg.toFixed(1);
+        if (highEl) highEl.textContent = highRate + '%';
+        if (latestEl) latestEl.textContent = list[0].studentName + ' (' + (Number(list[0].score) || 0).toFixed(1) + 'đ)';
+      } else {
+        if (avgEl) avgEl.innerHTML = '<span style="font-size: 0.88rem; color: #64748b; font-weight: 600;">🔒 Đăng nhập xem</span>';
+        if (highEl) highEl.innerHTML = '<span style="font-size: 0.88rem; color: #64748b; font-weight: 600;">🔒 Đăng nhập xem</span>';
+        if (latestEl) latestEl.textContent = list[0].studentName + ' (Vừa nộp)';
+      }
 
       tbody.innerHTML = '';
       list.forEach((sub, idx) => {
@@ -2528,20 +2678,28 @@
           `;
         }
 
+        const scoreCellHtml = isAuth 
+          ? `<span class="score-badge ${badgeClass}">${score.toFixed(1)} / 10</span>`
+          : `<span class="score-badge" style="background: #ecfdf5; color: #047857; border: 1px solid #a7f3d0;">✅ Đã nộp bài</span>`;
+
+        const rankCellHtml = isAuth 
+          ? `<span style="font-size: 0.88rem; font-weight: 600;">${rankText}</span>`
+          : `<span style="font-size: 0.85rem; color: #059669; font-weight: 600;">Đã ghi nhận</span>`;
+
+        const actionCellHtml = isAuth
+          ? `<button type="button" class="btn btn-secondary" onclick="viewStudentWorksheet(${idx}, 'phieu2')" style="padding: 0.35rem 0.65rem; font-size: 0.8rem; background: #ecfdf5; color: #065f46; border-color: #a7f3d0; font-weight: 700; border-radius: 6px; cursor: pointer;" title="Xem lại bài làm Phiếu 2 của học sinh này">👁️ Xem phiếu</button>`
+          : `<button type="button" class="btn btn-secondary" onclick="openTeacherLoginModal()" style="padding: 0.35rem 0.65rem; font-size: 0.8rem; background: #fff7ed; color: #c2410c; border-color: #fed7aa; font-weight: 700; border-radius: 6px; cursor: pointer;" title="Đăng nhập tài khoản Giáo viên để xem chi tiết điểm số">🔑 Xem điểm</button>`;
+
         tr.innerHTML = `
           <td style="font-weight: 700; color: #64748b;">${idx + 1}</td>
           <td>${nameHtml}</td>
           <td><span style="background: #eff6ff; color: #1e40af; padding: 0.2rem 0.5rem; border-radius: 4px; font-weight: 600; font-size: 0.85rem;">${sub.className}</span></td>
           <td>${sub.studentNumber || '-'}</td>
-          <td><span class="score-badge ${badgeClass}">${score.toFixed(1)} / 10</span></td>
-          <td style="font-size: 0.88rem; font-weight: 600;">${rankText}</td>
+          <td>${scoreCellHtml}</td>
+          <td>${rankCellHtml}</td>
           <td style="font-size: 0.85rem; color: #64748b;">${sub.submittedAt}</td>
           <td><code style="font-size: 0.8rem; background: #f1f5f9; padding: 0.2rem 0.4rem; border-radius: 4px;">${sub.id}</code></td>
-          <td style="text-align: center;">
-            <button type="button" class="btn btn-secondary" onclick="viewStudentWorksheet(${idx}, 'phieu2')" style="padding: 0.35rem 0.65rem; font-size: 0.8rem; background: #ecfdf5; color: #065f46; border-color: #a7f3d0; font-weight: 700; border-radius: 6px; cursor: pointer;" title="Xem lại bài làm Phiếu 2 của học sinh này">
-              👁️ Xem phiếu
-            </button>
-          </td>
+          <td style="text-align: center;">${actionCellHtml}</td>
         `;
         tbody.appendChild(tr);
       });
@@ -2557,61 +2715,43 @@
       const avgEl = document.getElementById('stat-avg');
       const highEl = document.getElementById('stat-high');
       const latestEl = document.getElementById('stat-latest');
+      const isAuth = isTeacherAuthenticated();
 
-      // --- KIỂM TRA QUYỀN GIÁO VIÊN ---
-      if (!isTeacherAuthenticated()) {
+      if (!list || list.length === 0) {
         if (tbody) {
           tbody.innerHTML = `
             <tr>
-              <td colspan="9" style="text-align: center; padding: 3rem 1.5rem; background: #fff7ed; border-radius: 8px;">
-                <div style="font-size: 2.8rem; margin-bottom: 0.6rem;">🔒</div>
-                <div style="font-size: 1.25rem; font-weight: 800; color: #9a3412; margin-bottom: 0.4rem;">
-                  KHU VỰC DÀNH RIÊNG CHO GIÁO VIÊN
-                </div>
-                <div style="font-size: 0.95rem; color: #7c2d12; margin-bottom: 1.25rem; max-width: 520px; margin-left: auto; margin-right: auto; line-height: 1.5;">
-                  Toàn bộ danh sách bài nộp, điểm số và bài làm của học sinh được bảo mật. Chỉ Giáo viên phụ trách mới có quyền truy cập.
-                </div>
-                <button type="button" class="btn btn-primary" onclick="openTeacherLoginModal()" style="font-weight: 800; padding: 0.75rem 1.5rem; font-size: 1rem; background: #ea580c; border: none; box-shadow: 0 4px 6px -1px rgba(234, 88, 12, 0.3); border-radius: 8px; cursor: pointer; color: white;">
-                  🔑 Đăng Nhập Giáo Viên
-                </button>
+              <td colspan="9" style="text-align: center; padding: 2.5rem; color: #94a3b8;">
+                <div style="font-size: 2rem; margin-bottom: 0.5rem;">📭</div>
+                Chưa có bài nộp nào. Khi học sinh bấm <strong>"Nộp bài ngay"</strong> từ phiếu học tập, kết quả sẽ tự động hiển thị tại đây theo thời gian thực!
               </td>
             </tr>
           `;
         }
-        if (countEl) countEl.innerHTML = '<span style="font-size: 1.1rem; color: #9a3412;">🔒 Đã khóa</span>';
-        if (avgEl) avgEl.innerHTML = '<span style="font-size: 1.1rem; color: #9a3412;">🔒 Đã khóa</span>';
-        if (highEl) highEl.innerHTML = '<span style="font-size: 1.1rem; color: #9a3412;">🔒 Đã khóa</span>';
-        if (latestEl) latestEl.innerHTML = '<span style="font-size: 1rem; color: #9a3412;">Chỉ giáo viên</span>';
+        if (countEl) countEl.textContent = '0';
+        if (avgEl) avgEl.textContent = '0.0';
+        if (highEl) highEl.textContent = '0%';
+        if (latestEl) latestEl.textContent = 'Chưa có';
         return;
       }
 
-      if (!list || list.length === 0) {
-        tbody.innerHTML = `
-          <tr>
-            <td colspan="9" style="text-align: center; padding: 2.5rem; color: #94a3b8;">
-              <div style="font-size: 2rem; margin-bottom: 0.5rem;">📭</div>
-              Chưa có bài nộp nào. Khi học sinh bấm <strong>"Nộp bài ngay"</strong> từ phiếu học tập, kết quả sẽ tự động hiển thị tại đây theo thời gian thực!
-            </td>
-          </tr>
-        `;
-        countEl.textContent = '0';
-        avgEl.textContent = '0.0';
-        highEl.textContent = '0%';
-        latestEl.textContent = 'Chưa có';
-        return;
-      }
-
-      countEl.textContent = list.length;
+      if (countEl) countEl.textContent = list.length;
       const totalScore = list.reduce((sum, item) => sum + (Number(item.score) || 0), 0);
       const avg = Math.round((totalScore / list.length) * 10) / 10;
-      avgEl.textContent = avg.toFixed(1);
-
       const highCount = list.filter(item => (Number(item.score) || 0) >= 8.0).length;
       const highRate = Math.round((highCount / list.length) * 100);
-      highEl.textContent = highRate + '%';
 
-      latestEl.textContent = list[0].studentName + ' (' + list[0].score + 'đ)';
+      if (isAuth) {
+        if (avgEl) avgEl.textContent = avg.toFixed(1);
+        if (highEl) highEl.textContent = highRate + '%';
+        if (latestEl) latestEl.textContent = list[0].studentName + ' (' + (Number(list[0].score) || 0).toFixed(1) + 'đ)';
+      } else {
+        if (avgEl) avgEl.innerHTML = '<span style="font-size: 0.88rem; color: #64748b; font-weight: 600;">🔒 Đăng nhập xem</span>';
+        if (highEl) highEl.innerHTML = '<span style="font-size: 0.88rem; color: #64748b; font-weight: 600;">🔒 Đăng nhập xem</span>';
+        if (latestEl) latestEl.textContent = list[0].studentName + ' (Vừa nộp)';
+      }
 
+      if (!tbody) return;
       tbody.innerHTML = '';
       list.forEach((sub, idx) => {
         const tr = document.createElement('tr');
@@ -2648,20 +2788,28 @@
           `;
         }
 
+        const scoreCellHtml = isAuth 
+          ? `<span class="score-badge ${badgeClass}">${score.toFixed(1)} / 10</span>`
+          : `<span class="score-badge" style="background: #ecfdf5; color: #047857; border: 1px solid #a7f3d0;">✅ Đã nộp bài</span>`;
+
+        const rankCellHtml = isAuth 
+          ? `<span style="font-size: 0.88rem; font-weight: 600;">${rankText}</span>`
+          : `<span style="font-size: 0.85rem; color: #059669; font-weight: 600;">Đã ghi nhận</span>`;
+
+        const actionCellHtml = isAuth
+          ? `<button type="button" class="btn btn-secondary" onclick="viewStudentWorksheet(${idx}, 'phieu1')" style="padding: 0.35rem 0.65rem; font-size: 0.8rem; background: #eff6ff; color: #1d4ed8; border-color: #bfdbfe; font-weight: 700; border-radius: 6px; cursor: pointer;" title="Xem lại bài làm Phiếu 1 của học sinh này">👁️ Xem phiếu</button>`
+          : `<button type="button" class="btn btn-secondary" onclick="openTeacherLoginModal()" style="padding: 0.35rem 0.65rem; font-size: 0.8rem; background: #fff7ed; color: #c2410c; border-color: #fed7aa; font-weight: 700; border-radius: 6px; cursor: pointer;" title="Đăng nhập tài khoản Giáo viên để xem chi tiết điểm số">🔑 Xem điểm</button>`;
+
         tr.innerHTML = `
           <td style="font-weight: 700; color: #64748b;">${idx + 1}</td>
           <td>${nameHtml}</td>
           <td><span style="background: #eff6ff; color: #1e40af; padding: 0.2rem 0.5rem; border-radius: 4px; font-weight: 600; font-size: 0.85rem;">${sub.className}</span></td>
           <td>${sub.studentNumber || '-'}</td>
-          <td><span class="score-badge ${badgeClass}">${score.toFixed(1)} / 10</span></td>
-          <td style="font-size: 0.88rem; font-weight: 600;">${rankText}</td>
+          <td>${scoreCellHtml}</td>
+          <td>${rankCellHtml}</td>
           <td style="font-size: 0.85rem; color: #64748b;">${sub.submittedAt}</td>
           <td><code style="font-size: 0.8rem; background: #f1f5f9; padding: 0.2rem 0.4rem; border-radius: 4px;">${sub.id}</code></td>
-          <td style="text-align: center;">
-            <button type="button" class="btn btn-secondary" onclick="viewStudentWorksheet(${idx})" style="padding: 0.35rem 0.65rem; font-size: 0.8rem; background: #eff6ff; color: #1d4ed8; border-color: #bfdbfe; font-weight: 700; border-radius: 6px; cursor: pointer;" title="Xem lại toàn bộ phiếu bài làm của học sinh này">
-              👁️ Xem phiếu
-            </button>
-          </td>
+          <td style="text-align: center;">${actionCellHtml}</td>
         `;
         tbody.appendChild(tr);
       });
@@ -2814,11 +2962,25 @@
         demoList.forEach(item => allList.unshift(item));
         localStorage.setItem('bai8_worksheet_submissions', JSON.stringify(allList));
 
+        try {
+          if ('BroadcastChannel' in window) {
+            const bc = new BroadcastChannel('bai8_classroom_channel');
+            demoList.forEach(item => bc.postMessage({ type: 'NEW_SUBMISSION', data: item }));
+          }
+        } catch (e) {}
+
         loadSubmissionsP2();
       } else {
         let allList = JSON.parse(localStorage.getItem('bai8_worksheet_submissions') || '[]');
         demoList.forEach(item => allList.unshift(item));
         localStorage.setItem('bai8_worksheet_submissions', JSON.stringify(allList));
+
+        try {
+          if ('BroadcastChannel' in window) {
+            const bc = new BroadcastChannel('bai8_classroom_channel');
+            demoList.forEach(item => bc.postMessage({ type: 'NEW_SUBMISSION', data: item }));
+          }
+        } catch (e) {}
 
         loadSubmissions();
       }

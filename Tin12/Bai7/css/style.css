@@ -2054,6 +2054,8 @@ p, .text-prose {
   backdrop-filter: blur(8px);
   padding: 0.4rem 0.85rem;
   border-radius: var(--radius-pill);
+}
+
 /* ==========================================================================
    COMPREHENSIVE MOBILE RESPONSIVE SUITE (< 768px & < 480px)
    ========================================================================== */

@@ -875,9 +875,9 @@
                         <span class="tree-badge badge-empty">Chưa có</span>
                       </div>
 
-                      <!-- BÀI 7: HTML VÀ CẤU TRÚC TRANG WEB (SẴN SÀNG - ACTIVE) -->
+                      <!-- BÀI 7: HTML VÀ CẤU TRÚC TRANG WEB (SẴN SÀNG) -->
                       <div class="tree-node">
-                        <div class="tree-row is-ready active" data-node="bai7" onclick="showNodeDetail('bai7')">
+                        <div class="tree-row is-ready" data-node="bai7" onclick="showNodeDetail('bai7')">
                           <span class="tree-toggle" data-target="bai7-children">▼</span>
                           <span class="tree-icon" style="color:#059669;">
                             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg>
@@ -911,44 +911,44 @@
                         </div>
                       </div>
 
-                      <!-- BÀI 8 (SẴN SÀNG) -->
-                      <div class="tree-item is-folder open" id="node-bai8">
-                        <div class="tree-row" onclick="toggleFolder('bai8'); showNodeDetail('bai8')">
-                          <span class="tree-arrow">▾</span>
-                          <span class="tree-icon" style="color: #059669;">
-                            <svg style="width:16px;height:16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                      <!-- BÀI 8: ĐỊNH DẠNG VĂN BẢN (SẴN SÀNG) -->
+                      <div class="tree-node">
+                        <div class="tree-row is-ready active" data-node="bai8" onclick="showNodeDetail('bai8')">
+                          <span class="tree-toggle" data-target="bai8-children">▼</span>
+                          <span class="tree-icon" style="color:#059669;">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg>
                           </span>
                           <span class="tree-label"><strong>Bai_08_Dinh_Dang_Van_Ban/</strong></span>
-                          <span class="tree-badge badge-ready" style="background: #dcfce7; color: #15803d;">SẴN SÀNG</span>
+                          <span class="tree-badge badge-ready">SẴN SÀNG</span>
                         </div>
 
                         <!-- CÁC HOẠT ĐỘNG CỦA BÀI 8 -->
                         <div class="tree-children" id="bai8-children">
-                          <a href="./Bai8/index.html" class="tree-row" onclick="event.stopPropagation(); showNodeDetail('bai8_index')">
+                          <a href="./Bai8/index.html" class="tree-row" data-node="bai8_index" onclick="event.stopPropagation(); showNodeDetail('bai8_index')">
                             <span class="tree-icon" style="color:#ea580c;">🌐</span>
                             <span class="tree-label">index.html (Tổng quan bài học)</span>
                           </a>
-                          <a href="./Bai8/hd1.html" class="tree-row" onclick="event.stopPropagation(); showNodeDetail('bai8_hd1')">
+                          <a href="./Bai8/hd1.html" class="tree-row" data-node="bai8_hd1" onclick="event.stopPropagation(); showNodeDetail('bai8_hd1')">
                             <span class="tree-icon" style="color:#0284c7;">⚡</span>
                             <span class="tree-label">hd1.html (HĐ 1: Khởi động 10')</span>
                           </a>
-                          <a href="./Bai8/hd2.html" class="tree-row" onclick="event.stopPropagation(); showNodeDetail('bai8_hd2')">
+                          <a href="./Bai8/hd2.html" class="tree-row" data-node="bai8_hd2" onclick="event.stopPropagation(); showNodeDetail('bai8_hd2')">
                             <span class="tree-icon" style="color:#1d4ed8;">🧩</span>
                             <span class="tree-label">hd2.html (HĐ 2: Khám phá &amp; Phiếu 1, 2)</span>
                           </a>
-                          <a href="./Bai8/hd3.html" class="tree-row" onclick="event.stopPropagation(); showNodeDetail('bai8_hd3')">
+                          <a href="./Bai8/hd3.html" class="tree-row" data-node="bai8_hd3" onclick="event.stopPropagation(); showNodeDetail('bai8_hd3')">
                             <span class="tree-icon" style="color:#059669;">💻</span>
                             <span class="tree-label">hd3.html (HĐ 3: Luyện tập tự code lưu file)</span>
                           </a>
-                          <a href="./Bai8/hd4.html" class="tree-row" onclick="event.stopPropagation(); showNodeDetail('bai8_hd4')">
+                          <a href="./Bai8/hd4.html" class="tree-row" data-node="bai8_hd4" onclick="event.stopPropagation(); showNodeDetail('bai8_hd4')">
                             <span class="tree-icon" style="color:#d97706;">📊</span>
-                            <span class="tree-label">hd4.html (HĐ 4: Vận dụng &amp; Đấu trường)</span>
+                            <span class="tree-label">hd4.html (HĐ 4: AntV Infographic &amp; Vận dụng)</span>
                           </a>
-                          <a href="./Bai8/phieu-bai-tap-1.html" class="tree-row" onclick="event.stopPropagation(); showNodeDetail('bai8_phieu1')">
+                          <a href="./Bai8/phieu-bai-tap-1.html" class="tree-row" data-node="bai8_phieu1" onclick="event.stopPropagation(); showNodeDetail('bai8_phieu1')">
                             <span class="tree-icon" style="color:#8b5cf6;">📝</span>
                             <span class="tree-label">phieu-bai-tap-1.html (Phiếu số 1)</span>
                           </a>
-                          <a href="./Bai8/phieu-bai-tap-2.html" class="tree-row" onclick="event.stopPropagation(); showNodeDetail('bai8_phieu2')">
+                          <a href="./Bai8/phieu-bai-tap-2.html" class="tree-row" data-node="bai8_phieu2" onclick="event.stopPropagation(); showNodeDetail('bai8_phieu2')">
                             <span class="tree-icon" style="color:#059669;">📝</span>
                             <span class="tree-label">phieu-bai-tap-2.html (Phiếu số 2)</span>
                           </a>
@@ -988,15 +988,15 @@
           <div class="detail-header">
             <div>
               <span class="detail-tag" id="detail-tag">TIN HỌC 12 • CHỦ ĐỀ F</span>
-              <h2 class="detail-title" id="detail-title">Bài 7: HTML và Cấu Trúc Trang Web</h2>
+              <h2 class="detail-title" id="detail-title">Bài 8: Định dạng văn bản</h2>
             </div>
             <span class="detail-status-pill badge-ready" id="detail-status">
-              ● Sẵn sàng học tập
+              ● Đã hoàn thiện (Sẵn sàng)
             </span>
           </div>
 
           <p class="detail-desc" id="detail-desc">
-            Bài học cốt lõi mở đầu chuyên đề Thiết kế Web. Học sinh tìm hiểu bản chất siêu văn bản HTML, khám phá khung xương chuẩn 7 thành phần, trải nghiệm cây thông tin DOM tương tác, thực hành tự tay viết trang web giới thiệu cá nhân và tổng kết qua Infographic đồ họa chất lượng cao.
+            Khóa học định dạng văn bản HTML: Cú pháp thuộc tính style, các thẻ định dạng phông chữ, tiêu đề, và hoạt động luyện tập tự code lưu file HTML độc lập.
           </p>
 
           <div style="margin-bottom: 1.25rem;">
@@ -1357,13 +1357,32 @@
         }
       });
 
+      // Đảm bảo mở rộng thư mục bài học khi người dùng nhấp chọn
+      const folderChildren = document.getElementById(nodeKey + '-children');
+      const folderToggle = document.querySelector(`[data-target="${nodeKey}-children"]`);
+      if (folderChildren && folderChildren.classList.contains('hidden')) {
+        folderChildren.classList.remove('hidden');
+        if (folderToggle) folderToggle.classList.remove('collapsed');
+      }
+
       // Tự động cuộn mượt xuống khung chi tiết trên thiết bị di động
       if (window.innerWidth <= 1024) {
         document.getElementById('detail-pane')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     }
 
-    // TOGGLE EXPAND / COLLAPSE
+    // HÀM ĐÓNG / MỞ THƯ MỤC CÂY HỌC LIỆU
+    function toggleFolder(folderKey) {
+      const targetChildren = document.getElementById(folderKey + '-children');
+      const toggle = document.querySelector(`[data-target="${folderKey}-children"]`);
+      if (targetChildren) {
+        const isHidden = targetChildren.classList.toggle('hidden');
+        if (toggle) toggle.classList.toggle('collapsed', isHidden);
+      }
+    }
+    window.toggleFolder = toggleFolder;
+
+    // TOGGLE EXPAND / COLLAPSE CHO TẤT CẢ CÁC NÚT MŨI TÊN
     document.querySelectorAll('.tree-toggle').forEach(toggle => {
       toggle.addEventListener('click', (e) => {
         e.stopPropagation();

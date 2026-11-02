@@ -348,7 +348,7 @@ class ClassroomRequestHandler(http.server.BaseHTTPRequestHandler):
                 return
 
         # Bảo vệ tài liệu Kế hoạch bài dạy và Slide PowerPoint (Chỉ giáo viên mới được tải)
-        if path.endswith('Bai8.docx') or path.endswith('pptx.pdf'):
+        if path.endswith('Bai8.docx') or path.endswith('pptx.pdf') or path.endswith('Bai8_TrinhChieu.pptx'):
             cookies = self.headers.get('Cookie', '')
             auth = self.headers.get('Authorization', '')
             query = parsed.query
@@ -406,6 +406,9 @@ class ClassroomRequestHandler(http.server.BaseHTTPRequestHandler):
                 content = f.read()
             self.send_response(200)
             self.send_header('Content-Type', mime_type)
+            self.send_header('Cache-Control', 'no-cache, no-store, must-revalidate')
+            self.send_header('Pragma', 'no-cache')
+            self.send_header('Expires', '0')
             self.send_header('Content-Length', str(len(content)))
             self.end_headers()
             self.wfile.write(content)

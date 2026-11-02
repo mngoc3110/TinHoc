@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Phiếu Bài Tập Số 2: Thẻ Tiêu Đề & Cấu Trúc Văn Bản | Tin học 12</title>
   <meta name="description" content="Phiếu học tập trực tuyến số 2 - Hoạt động 2.3: Thẻ tiêu đề <hx>, cấu trúc <p>, <div>, <span>, <br>, <hr> và thuộc tính style. Môn Tin học 12 Thống nhất.">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css?v=20261102_04">
   <style>
     :root {
       --primary-color: #1d4ed8;
@@ -534,7 +534,7 @@
 
   <!-- NỘI DUNG CHÍNH -->
   <main class="worksheet-main">
-    <form id="worksheet-form" onsubmit="handleWorksheetSubmit(e)">
+    <form id="worksheet-form" onsubmit="handleWorksheetSubmit(event); return false;">
 
       <!-- BƯỚC 1: HÌNH THỨC VÀ THÔNG TIN HỌC SINH -->
       <section class="student-info-card">
@@ -971,7 +971,10 @@
     }
 
     async function handleWorksheetSubmit(e) {
-      e.preventDefault();
+      if (e) {
+        if (typeof e.preventDefault === 'function') e.preventDefault();
+        if (typeof e.stopPropagation === 'function') e.stopPropagation();
+      }
 
       const isPair = (currentStudentMode === 'pair');
       let studentName = '';

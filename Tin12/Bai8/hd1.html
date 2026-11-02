@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hoạt động 1: Khởi động | Bài 8: Định dạng văn bản - Tin học 12</title>
   <meta name="description" content="Hoạt động 1: Khởi động - Bài 8: Định dạng văn bản. Môn Tin học 12 Thống nhất. Giáo viên: Nguyễn Lê Minh Ngọc.">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css?v=20261102_03">
   <style>
     /* Bổ sung phong cách chuyên dụng cho trình chiếu Khởi động Bài 8 */
     .compare-container {
@@ -63,13 +63,15 @@
     }
     .highlight-badge-pill {
       display: inline-block;
-      padding: 0.2rem 0.6rem;
+      padding: 0.35rem 0.75rem;
       background: #eff6ff;
       color: #1d4ed8;
-      border-radius: 9999px;
-      font-size: 0.8rem;
+      border-radius: 8px;
+      font-size: 0.82rem;
       font-weight: 600;
+      line-height: 1.45;
       margin-right: 0.35rem;
+      margin-bottom: 0.35rem;
     }
     .interactive-switch-bar {
       display: flex;
@@ -140,6 +142,126 @@
     }
     .reveal-box.active {
       display: block;
+    }
+
+    /* ==========================================================================
+       MOBILE & TABLET RESPONSIVE SUITE (< 992px & < 768px)
+       ========================================================================== */
+    @media (max-width: 992px) {
+      .site-header {
+        height: auto !important;
+        padding: 0.5rem 0 0.4rem !important;
+      }
+      .nav-wrapper {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        height: auto !important;
+        gap: 0.5rem !important;
+      }
+      .brand-badge {
+        width: 100% !important;
+        justify-content: flex-start !important;
+        gap: 0.5rem !important;
+      }
+      .brand-icon-box {
+        width: 32px !important;
+        height: 32px !important;
+        flex-shrink: 0 !important;
+      }
+      .brand-text .title {
+        font-size: 0.92rem !important;
+      }
+      .brand-text .subtitle {
+        font-size: 0.65rem !important;
+      }
+      nav[aria-label="Điều hướng bài học"] {
+        width: 100% !important;
+        overflow: hidden !important;
+      }
+      .nav-links {
+        display: flex !important;
+        flex-direction: row !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        scrollbar-width: none !important;
+        padding: 0.25rem 0 !important;
+        margin: 0 !important;
+        gap: 0.4rem !important;
+        width: 100% !important;
+        flex-wrap: nowrap !important;
+      }
+      .nav-links::-webkit-scrollbar {
+        display: none !important;
+      }
+      .nav-link {
+        padding: 0.35rem 0.65rem !important;
+        font-size: 0.8rem !important;
+        white-space: nowrap !important;
+        flex-shrink: 0 !important;
+        border-radius: 9999px !important;
+      }
+      .nav-tools {
+        display: none !important;
+      }
+
+      /* Stepper Timeline cuộn ngang mượt mà */
+      .stepper-section {
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        scrollbar-width: none !important;
+        padding: 0.5rem 0 !important;
+      }
+      .stepper-section::-webkit-scrollbar {
+        display: none !important;
+      }
+      .stepper-section .container {
+        width: max-content !important;
+        min-width: 100% !important;
+        padding: 0 1rem !important;
+      }
+      .stepper-nav {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        min-width: 560px !important;
+        padding: 0 0.5rem !important;
+        justify-content: flex-start !important;
+        gap: 1.25rem !important;
+        position: relative !important;
+      }
+      .stepper-step {
+        padding: 0.2rem 0.5rem !important;
+        flex-shrink: 0 !important;
+        white-space: nowrap !important;
+      }
+      .step-label {
+        font-size: 0.75rem !important;
+        white-space: nowrap !important;
+      }
+      .stepper-line {
+        display: none !important;
+      }
+
+      /* Hero Banner Mobile */
+      .hero-banner {
+        padding: 1.5rem 0 1.75rem !important;
+      }
+      .hero-title {
+        font-size: 1.45rem !important;
+        line-height: 1.35 !important;
+        word-break: break-word !important;
+      }
+      .hero-subtitle {
+        font-size: 0.9rem !important;
+      }
+      .highlight-badge-pill {
+        display: block !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        margin-bottom: 0.4rem !important;
+        border-radius: 8px !important;
+        padding: 0.4rem 0.65rem !important;
+        font-size: 0.82rem !important;
+      }
     }
   </style>
 </head>
@@ -420,109 +542,11 @@ THÔNG BÁO VỀ CUỘC THI THIẾT KẾ TRANG WEB SÁNG TẠO SỐ 2026 THTH - 
 
       </section>
 
-      <!-- PHẦN 3: GỢI Ý TRẢ LỜI & KẾT LUẬN CHỐT VẤN ĐỀ CỦA GIÁO VIÊN -->
+      <!-- PHẦN 3: THỬ THÁCH NHANH TRÊN MÀN CHIẾU (INTERACTIVE CLASS QUIZ) -->
       <section class="section-block">
         <div class="section-header">
           <h2 class="section-title">
             <span class="section-num">3</span>
-            Gợi ý câu trả lời & Giáo viên chốt vấn đề bài học
-          </h2>
-        </div>
-
-        <div class="grid-2">
-          
-          <!-- HỘP 1: GỢI Ý CÂU TRẢ LỜI CỦA HỌC SINH -->
-          <div class="card" style="border-top: 4px solid var(--color-accent);">
-            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem;">
-              <h3 class="card-title" style="margin: 0; color: var(--color-accent); font-size: 1.1rem;">
-                💡 Gợi ý câu trả lời của Học sinh
-              </h3>
-              <button class="btn-tool" type="button" onclick="toggleReveal('ans-reveal')">👁️ Bấm xem gợi ý</button>
-            </div>
-            
-            <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 0.5rem;">
-              Sau khi học sinh trao đổi, các ý kiến trọng tâm được ghi nhận:
-            </p>
-
-            <div id="ans-reveal" class="reveal-box active" style="border-left-color: var(--color-accent);">
-              <ul style="padding-left: 1.25rem; font-size: 0.92rem; line-height: 1.65; color: var(--text-primary); margin: 0;">
-                <li style="margin-bottom: 0.4rem;">
-                  <strong>Về thẩm mỹ:</strong> Đoạn văn 2 <em>đẹp mắt, nổi bật và thu hút</em> hơn hẳn so với Đoạn văn 1.
-                </li>
-                <li style="margin-bottom: 0.4rem;">
-                  <strong>Về cấu trúc:</strong> Đoạn văn 2 có <em>tiêu đề lớn in đậm</em>, tách biệt hoàn toàn với phần nội dung bên dưới, giúp người đọc nhận biết ngay đây là thông báo gì.
-                </li>
-                <li style="margin-bottom: 0.4rem;">
-                  <strong>Về hiệu quả tiếp thu:</strong> Cách trình bày ở Đoạn 2 giúp người đọc <em>tiếp thu thông tin nhanh chóng và chính xác</em> hơn vì các thông tin cốt lõi (thời gian, đối tượng, giải thưởng) được phân tách thành từng dòng rõ ràng và được nhấn mạnh bằng chữ in đậm, highlight.
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <!-- HỘP 2: GIÁO VIÊN CHỐT LẠI VẤN ĐỀ & DẪN VÀO BÀI 8 -->
-          <div class="card" style="border-top: 4px solid var(--color-brand); background: linear-gradient(to bottom, #ffffff, #f0f7ff);">
-            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem;">
-              <h3 class="card-title" style="margin: 0; color: var(--color-brand); font-size: 1.1rem;">
-                📌 Giáo viên chốt lại vấn đề (Vào bài mới)
-              </h3>
-              <button class="btn-tool" type="button" onclick="toggleReveal('conclusion-reveal')">🎯 Bấm chiếu kết luận</button>
-            </div>
-
-            <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 0.5rem;">
-              Thông điệp cốt lõi dẫn dắt từ Khởi động vào nội dung Bài 8:
-            </p>
-
-            <div id="conclusion-reveal" class="reveal-box active" style="border-left-color: var(--color-brand); background: #ffffff;">
-              <div class="callout callout-success" style="margin: 0; border: none; padding: 0.25rem 0;">
-                <div class="callout-title" style="font-size: 1rem; color: var(--color-brand);">
-                  KẾT LUẬN QUAN TRỌNG CỦA GIÁO VIÊN:
-                </div>
-                <p style="font-size: 0.95rem; line-height: 1.65; color: var(--text-primary); margin-top: 0.35rem;">
-                  "Để trình bày một trang web rõ ràng, ấn tượng như <strong>Đoạn 2</strong>, ngôn ngữ HTML cung cấp các <strong>thuộc tính</strong> và <strong>nhóm thẻ định dạng văn bản đặc biệt</strong>."
-                </p>
-                <div style="margin-top: 0.65rem; padding-top: 0.65rem; border-top: 1px dashed var(--border-subtle); font-size: 0.88rem; color: var(--text-secondary);">
-                  👉 Đó chính là nội dung cốt lõi của bài học hôm nay: <strong>BÀI 8: ĐỊNH DẠNG VĂN BẢN</strong>!
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- TÓM TẮT LỘ TRÌNH KHÁM PHÁ CỦA BÀI 8 -->
-        <div class="card" style="margin-top: 1.25rem; background: var(--bg-surface);">
-          <h4 style="font-size: 1rem; color: var(--color-brand); margin-bottom: 0.65rem; display: flex; align-items: center; gap: 0.4rem;">
-            <svg style="width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2;" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-            Lộ trình khám phá các "vũ khí bí mật" giúp Đoạn 2 tỏa sáng:
-          </h4>
-          <div class="grid-3" style="gap: 1rem;">
-            <div style="background: var(--bg-subtle); padding: 0.85rem; border-radius: var(--radius-sm); border-left: 3px solid #0284c7;">
-              <strong style="color: #0284c7;">1. Nhóm thẻ tiêu đề:</strong>
-              <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.25rem;">
-                Các thẻ từ <code>&lt;h1&gt;</code> đến <code>&lt;h6&gt;</code> giúp tạo tiêu đề nổi bật theo phân cấp.
-              </p>
-            </div>
-            <div style="background: var(--bg-subtle); padding: 0.85rem; border-radius: var(--radius-sm); border-left: 3px solid #059669;">
-              <strong style="color: #059669;">2. Nhóm thẻ cấu trúc:</strong>
-              <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.25rem;">
-                Thẻ đoạn văn <code>&lt;p&gt;</code>, thẻ ngắt dòng <code>&lt;br&gt;</code>, đường kẻ ngang phân cách <code>&lt;hr&gt;</code>.
-              </p>
-            </div>
-            <div style="background: var(--bg-subtle); padding: 0.85rem; border-radius: var(--radius-sm); border-left: 3px solid #d97706;">
-              <strong style="color: #d97706;">3. Thẻ kiểu chữ & Thuộc tính:</strong>
-              <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.25rem;">
-                In đậm <code>&lt;strong&gt;</code>/<code>&lt;b&gt;</code>, in nghiêng <code>&lt;em&gt;</code>, gạch chân <code>&lt;u&gt;</code>, thuộc tính <code>style</code>.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- PHẦN 4: THỬ THÁCH NHANH TRÊN MÀN CHIẾU (INTERACTIVE CLASS QUIZ) -->
-      <section class="section-block">
-        <div class="section-header">
-          <h2 class="section-title">
-            <span class="section-num">4</span>
             Khởi động tư duy – Kiểm tra độ nhạy bén của cả lớp
           </h2>
         </div>

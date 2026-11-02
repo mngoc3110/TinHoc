@@ -108,7 +108,10 @@ const MIME_TYPES = {
   '.jpeg': 'image/jpeg',
   '.svg': 'image/svg+xml',
   '.ico': 'image/x-icon',
-  '.pdf': 'application/pdf'
+  '.pdf': 'application/pdf',
+  '.docx': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+  '.pptx': 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+  '.zip': 'application/zip'
 };
 
 const server = http.createServer((req, res) => {
@@ -376,7 +379,7 @@ const server = http.createServer((req, res) => {
 
 
   // --- BẢO VỆ TÀI LIỆU KẾ HOẠCH BÀI DẠY VÀ SLIDE BÀI GIẢNG (CHỈ GIÁO VIÊN MỚI ĐƯỢC TẢI) ---
-  if (pathname.endsWith('Bai8.docx') || pathname.endsWith('pptx.pdf')) {
+  if (pathname.endsWith('Bai8.docx') || pathname.endsWith('pptx.pdf') || pathname.endsWith('Bai8_TrinhChieu.pptx')) {
     const cookies = req.headers['cookie'] || '';
     const authHeader = req.headers['authorization'] || '';
     const query = parsedUrl.query || {};
@@ -457,7 +460,12 @@ const server = http.createServer((req, res) => {
       res.writeHead(500, { 'Content-Type': 'text/plain; charset=utf-8' });
       res.end('Lỗi đọc file: ' + err.message);
     } else {
-      res.writeHead(200, { 'Content-Type': contentType });
+      res.writeHead(200, { 
+      'Content-Type': contentType,
+      'Cache-Control': 'no-cache, no-store, must-revalidate',
+      'Pragma': 'no-cache',
+      'Expires': '0'
+    });
       res.end(content);
     }
   });
