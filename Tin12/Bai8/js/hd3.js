@@ -1818,12 +1818,36 @@ Hỗ trợ 24/7`
       showToast(`✓ Đã thêm bài nộp mẫu của: ${randomName}`);
     }
 
-    function clearHd3Submissions() {
-      if (confirm('Thầy/Cô có chắc chắn muốn xóa toàn bộ danh sách nộp bài Hoạt động 3 không?')) {
-        localStorage.removeItem('bai8_hd3_submissions');
-        renderHd3Table([]);
-        showToast('Đã xóa danh sách bài nộp Hoạt động 3');
+    async function clearHd3Submissions() {
+      if (!isTeacherAuthenticated()) {
+        openTeacherLoginModal();
+        return;
       }
+      if (!confirm('Thầy/Cô có chắc chắn muốn xóa toàn bộ danh sách nộp bài Hoạt động 3 không?\n\nHành động này sẽ xóa vĩnh viễn cả các file mã HTML của học sinh trên máy chủ và không thể hoàn tác!')) {
+        return;
+      }
+
+      // 1. Cập nhật localStorage và giao diện ngay lập tức
+      try {
+        localStorage.removeItem('bai8_hd3_submissions');
+        cachedHd3Submissions = [];
+        renderHd3Table([]);
+      } catch (e) {}
+
+      // 2. Gửi request xóa trên server
+      try {
+        await fetch('/api/reset-hd3', { method: 'POST' });
+      } catch (err) {
+        console.warn('Lỗi khi gọi reset HD3 trên server:', err);
+      }
+
+      // 3. Phát BroadcastChannel để các tab khác cũng đồng bộ
+      try {
+        const bc = new BroadcastChannel('bai8_hd3_channel');
+        bc.postMessage({ type: 'RESET_HD3' });
+      } catch (e) {}
+
+      showToast('✓ Đã xóa toàn bộ danh sách bài nộp Hoạt động 3 thành công!');
     }
 
     // Modal QR Zoom
@@ -1869,6 +1893,9 @@ Hỗ trợ 24/7`
         bc.onmessage = (ev) => {
           if (ev.data && ev.data.type === 'NEW_SUBMISSION' && isTeacherAuthenticated()) {
             loadHd3Submissions();
+          } else if (ev.data && ev.data.type === 'RESET_HD3') {
+            cachedHd3Submissions = [];
+            renderHd3Table([]);
           }
         };
       } catch (e) {}

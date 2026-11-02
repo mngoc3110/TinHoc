@@ -266,11 +266,41 @@ class ClassroomRequestHandler(http.server.BaseHTTPRequestHandler):
                 return
 
         elif path == '/api/reset':
-            save_submissions([])
+            query = urllib.parse.parse_qs(parsed_url.query)
+            worksheet = query.get('worksheet', [None])[0]
+            if worksheet:
+                subs = get_submissions()
+                subs = [s for s in subs if s.get('worksheetId', 'phieu1') != worksheet]
+                save_submissions(subs)
+                print(f"[RESET] Đã xóa bài nộp của {worksheet}")
+                self.send_response(200)
+                self.send_header('Content-Type', 'application/json; charset=utf-8')
+                self.end_headers()
+                self.wfile.write(json.dumps({'success': True, 'message': f'Đã xóa dữ liệu bài nộp {worksheet}'}, ensure_ascii=False).encode('utf-8'))
+                return
+            else:
+                save_submissions([])
+                print("[RESET] Đã xóa toàn bộ bài nộp (Phiếu 1 & Phiếu 2)")
+                self.send_response(200)
+                self.send_header('Content-Type', 'application/json; charset=utf-8')
+                self.end_headers()
+                self.wfile.write(json.dumps({'success': True, 'message': 'Đã xóa toàn bộ dữ liệu bài nộp'}, ensure_ascii=False).encode('utf-8'))
+                return
+
+        elif path == '/api/reset-hd3':
+            save_hd3_submissions([])
+            if os.path.exists(HD3_DIR):
+                try:
+                    for f in os.listdir(HD3_DIR):
+                        if f.endswith('.html'):
+                            os.remove(os.path.join(HD3_DIR, f))
+                except Exception as e:
+                    print("Lỗi dọn dẹp thư mục submissions_hd3:", e)
+            print("[RESET] Đã xóa toàn bộ dữ liệu bài nộp Hoạt động 3 và dọn dẹp file HTML")
             self.send_response(200)
             self.send_header('Content-Type', 'application/json; charset=utf-8')
             self.end_headers()
-            self.wfile.write(json.dumps({'success': True, 'message': 'Đã xóa dữ liệu bài nộp'}).encode('utf-8'))
+            self.wfile.write(json.dumps({'success': True, 'message': 'Đã xóa dữ liệu bài nộp Hoạt động 3'}, ensure_ascii=False).encode('utf-8'))
             return
 
         self.send_response(404)

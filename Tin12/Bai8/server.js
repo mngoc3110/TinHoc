@@ -199,9 +199,41 @@ const server = http.createServer((req, res) => {
 
   // --- API ENDPOINT: XÓA DỮ LIỆU BÀI NỘP (POST /api/reset) ---
   if (pathname === '/api/reset' && req.method === 'POST') {
+    const reqWorksheet = parsedUrl.query.worksheet;
+    if (reqWorksheet) {
+      let list = getSubmissions();
+      list = list.filter(item => (item.worksheetId || 'phieu1') !== reqWorksheet);
+      saveSubmissions(list);
+      console.log(`[RESET] Đã xóa bài nộp của ${reqWorksheet}`);
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: true, message: `Đã xóa dữ liệu bài nộp ${reqWorksheet}` }));
+      return;
+    }
     saveSubmissions([]);
+    console.log('[RESET] Đã xóa toàn bộ dữ liệu bài nộp (Phiếu 1 & Phiếu 2)');
     res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify({ success: true, message: 'Đã xóa dữ liệu bài nộp' }));
+    res.end(JSON.stringify({ success: true, message: 'Đã xóa toàn bộ dữ liệu bài nộp' }));
+    return;
+  }
+
+  // --- API ENDPOINT: XÓA DỮ LIỆU BÀI NỘP HOẠT ĐỘNG 3 (POST /api/reset-hd3) ---
+  if (pathname === '/api/reset-hd3' && req.method === 'POST') {
+    saveHd3Submissions([]);
+    if (fs.existsSync(HD3_DIR)) {
+      try {
+        const files = fs.readdirSync(HD3_DIR);
+        for (const f of files) {
+          if (f.endsWith('.html')) {
+            try { fs.unlinkSync(path.join(HD3_DIR, f)); } catch (e) {}
+          }
+        }
+      } catch (e) {
+        console.error('Lỗi dọn dẹp thư mục submissions_hd3:', e);
+      }
+    }
+    console.log('[RESET] Đã xóa toàn bộ dữ liệu bài nộp Hoạt động 3 và làm sạch thư mục HTML');
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ success: true, message: 'Đã xóa dữ liệu bài nộp Hoạt động 3' }));
     return;
   }
 

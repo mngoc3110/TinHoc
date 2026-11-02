@@ -2271,6 +2271,20 @@
   <!-- SCRIPTS -->
   <script src="js/script.js"></script>
   <script>
+    // Hàm hiển thị thông báo nổi an toàn cho hd2
+    window.showToast = window.showToast || function(msg) {
+      let toast = document.getElementById('site-toast');
+      if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'site-toast';
+        toast.className = 'toast-notice';
+        document.body.appendChild(toast);
+      }
+      toast.innerHTML = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2600);
+    };
+
     // State của Interactive Playground
     let currentTextColor = '#ef4444';
     let currentFontSize = '24px';
@@ -2994,28 +3008,61 @@
     }
 
     // Xóa danh sách bài nộp
-    function clearSubmissions(type = 'phieu1') {
+    async function clearSubmissions(type = 'phieu1') {
       if (!isTeacherAuthenticated()) {
         openTeacherLoginModal();
         return;
       }
       const isP2 = (type === 'phieu2');
-      if (!confirm(`Thầy/Cô có chắc chắn muốn xóa toàn bộ danh sách bài nộp của ${isP2 ? 'Phiếu bài tập số 2' : 'Phiếu bài tập số 1'} không?`)) {
+      const targetName = isP2 ? 'Phiếu bài tập số 2' : 'Phiếu bài tập số 1';
+      if (!confirm(`Thầy/Cô có chắc chắn muốn xóa toàn bộ danh sách bài nộp của ${targetName} không?\n\nHành động này sẽ xóa dữ liệu trên hệ thống và không thể hoàn tác!`)) {
         return;
       }
 
-      if (isP2) {
-        localStorage.removeItem('bai8_phieu2_submissions');
-        let allList = JSON.parse(localStorage.getItem('bai8_worksheet_submissions') || '[]');
-        allList = allList.filter(item => item.worksheetId !== 'phieu2');
-        localStorage.setItem('bai8_worksheet_submissions', JSON.stringify(allList));
-        loadSubmissionsP2();
-      } else {
-        let allList = JSON.parse(localStorage.getItem('bai8_worksheet_submissions') || '[]');
-        allList = allList.filter(item => item.worksheetId === 'phieu2');
-        localStorage.setItem('bai8_worksheet_submissions', JSON.stringify(allList));
-        loadSubmissions();
+      const targetWs = isP2 ? 'phieu2' : 'phieu1';
+
+      // 1. Cập nhật localStorage và giao diện ngay lập tức
+      try {
+        if (isP2) {
+          localStorage.removeItem('bai8_phieu2_submissions');
+          let allList = JSON.parse(localStorage.getItem('bai8_worksheet_submissions') || '[]');
+          allList = allList.filter(item => item.worksheetId !== 'phieu2');
+          localStorage.setItem('bai8_worksheet_submissions', JSON.stringify(allList));
+          cachedSubmissionsP2 = [];
+          renderSubmissionsP2([]);
+        } else {
+          let allList = JSON.parse(localStorage.getItem('bai8_worksheet_submissions') || '[]');
+          allList = allList.filter(item => item.worksheetId === 'phieu2');
+          localStorage.setItem('bai8_worksheet_submissions', JSON.stringify(allList));
+          cachedSubmissions = [];
+          renderSubmissions([]);
+        }
+      } catch (e) {}
+
+      // 2. Gửi request xóa trên server
+      try {
+        await fetch(`/api/reset?worksheet=${targetWs}`, { method: 'POST' });
+      } catch (err) {
+        console.warn('Lỗi khi gọi reset trên server:', err);
       }
+
+      // 3. Phát tín hiệu qua BroadcastChannel để các tab khác cũng cập nhật
+      if ('BroadcastChannel' in window) {
+        try {
+          const bc = new BroadcastChannel('bai8_classroom_channel');
+          bc.postMessage({ type: 'RESET_SUBMISSIONS', worksheet: targetWs });
+        } catch (e) {}
+      }
+
+      if (typeof showToast === 'function') {
+        showToast(`✓ Đã xóa toàn bộ danh sách bài nộp của ${targetName}!`);
+      } else {
+        alert(`Đã xóa toàn bộ danh sách bài nộp của ${targetName}!`);
+      }
+    }
+
+    function clearAllSubmissions() {
+      clearSubmissions('phieu1');
     }
 
     // Lắng nghe Realtime từ BroadcastChannel (đồng bộ tức thì giữa các tab)
@@ -3026,6 +3073,19 @@
           console.log('Realtime submission received:', event.data.data);
           loadSubmissions();
           loadSubmissionsP2();
+        } else if (event.data && event.data.type === 'RESET_SUBMISSIONS') {
+          if (event.data.worksheet === 'phieu2') {
+            cachedSubmissionsP2 = [];
+            renderSubmissionsP2([]);
+          } else if (event.data.worksheet === 'phieu1') {
+            cachedSubmissions = [];
+            renderSubmissions([]);
+          } else {
+            cachedSubmissions = [];
+            cachedSubmissionsP2 = [];
+            renderSubmissions([]);
+            renderSubmissionsP2([]);
+          }
         }
       };
     } catch (e) {
