@@ -379,6 +379,8 @@ class ClassroomRequestHandler(http.server.BaseHTTPRequestHandler):
         target_path = path
         if target_path in ['/', '/bai9']:
             target_path = '/Tin12/Bai9/index.html'
+        elif target_path in ['/Tin12', '/Tin12/', '/Tin12/index.html']:
+            target_path = '/Tin12/index.html'
         elif target_path in ['/phieu', '/phieubaitap', '/phieu-bai-tap.html', '/phieu1', '/phieubaitap1', '/phieu-bai-tap-1.html', '/phieu2', '/phieubaitap2', '/phieu-bai-tap-2.html']:
             target_path = '/Tin12/Bai9/phieu-bai-tap.html'
         elif target_path in ['/hd1', '/hd1.html']:

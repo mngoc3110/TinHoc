@@ -415,6 +415,8 @@ h2{color:#f87171;}p{color:#94a3b8;line-height:1.6;}a{display:inline-block;backgr
   let targetPath = pathname;
   if (targetPath === '/' || targetPath === '/bai9') {
     targetPath = '/Tin12/Bai9/index.html';
+  } else if (['/Tin12', '/Tin12/', '/Tin12/index.html'].includes(targetPath)) {
+    targetPath = '/Tin12/index.html';
   } else if (['/phieu', '/phieubaitap', '/phieu-bai-tap.html', '/phieu1', '/phieubaitap1', '/phieu-bai-tap-1.html', '/phieu2', '/phieubaitap2', '/phieu-bai-tap-2.html'].includes(targetPath)) {
     targetPath = '/Tin12/Bai9/phieu-bai-tap.html';
   } else if (['/hd1', '/hd1.html'].includes(targetPath)) {
@@ -437,7 +439,10 @@ h2{color:#f87171;}p{color:#94a3b8;line-height:1.6;}a{display:inline-block;backgr
 
   let filePath = path.join(CURRENT_DIR, relPath);
   if (!fs.existsSync(filePath) || fs.statSync(filePath).isDirectory()) {
-    const candidate = path.join(BASE_DIR, targetPath.replace(/^\/+/, ''));
+    let candidate = path.join(BASE_DIR, targetPath.replace(/^\/+/, ''));
+    if (fs.existsSync(candidate) && fs.statSync(candidate).isDirectory()) {
+      candidate = path.join(candidate, 'index.html');
+    }
     if (fs.existsSync(candidate) && !fs.statSync(candidate).isDirectory()) {
       filePath = candidate;
     }
