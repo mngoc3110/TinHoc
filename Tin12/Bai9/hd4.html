@@ -8,58 +8,313 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Fira+Code:wght@400;500;600&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=20261108_05">
+  <link rel="stylesheet" href="css/style.css?v=20261109_01">
+  
+  <!-- NẠP ENGINE ANTV INFOGRAPHIC CHÍNH HÃNG CÙNG CDN DỰ PHÒNG -->
+  <script src="js/infographic.min.js"></script>
+  <script>
+    if (typeof AntVInfographic === 'undefined') {
+      document.write('<script src="https://unpkg.com/@antv/infographic@latest/dist/infographic.min.js"><\/script>');
+    }
+  </script>
+
   <style>
-    /* INFOGRAPHIC BOARD STYLING */
-    .infographic-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.25rem;
-      margin-top: 1rem;
+    /* ========================================================
+       ANTV INFOGRAPHIC STUDIO DESIGN SYSTEM (DARK AMIGOSCODE)
+       ======================================================== */
+    :root {
+      --antv-primary: #1677ff;
+      --antv-primary-hover: #4096ff;
+      --antv-dark-bg: #0b0f19;
+      --antv-surface: #111827;
+      --antv-border: rgba(255, 255, 255, 0.12);
     }
 
-    .info-card {
-      background: #ffffff;
-      border-radius: var(--radius-md);
-      padding: 1.25rem;
-      box-shadow: var(--shadow-sm);
-      border: 1.5px solid #e2e8f0;
+    /* KHUNG TOÀN CẢNH ANTV INFOGRAPHIC STUDIO */
+    .antv-infographic-container {
+      background: linear-gradient(135deg, #090d16 0%, #111827 50%, #0f172a 100%);
+      border-radius: 24px;
+      padding: 2.25rem;
+      color: #f8fafc;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.08);
+      margin-bottom: 2.5rem;
       position: relative;
       overflow: hidden;
-      transition: all 0.25s ease;
     }
-    .info-card:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-md);
-    }
-    .info-card::before {
+
+    .antv-infographic-container::before {
       content: '';
       position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
+      top: -120px;
+      right: -120px;
+      width: 360px;
+      height: 360px;
+      background: radial-gradient(circle, rgba(22, 119, 255, 0.18) 0%, transparent 70%);
+      pointer-events: none;
     }
-    .info-card.blue::before { background: #2563eb; }
-    .info-card.green::before { background: #16a34a; }
-    .info-card.amber::before { background: #d97706; }
-    .info-card.purple::before { background: #9333ea; }
 
-    .info-card-header {
+    .antv-infographic-container::after {
+      content: '';
+      position: absolute;
+      bottom: -150px;
+      left: -150px;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(147, 51, 234, 0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* TIÊU ĐỀ KHỐI ANTV */
+    .antv-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 1.5rem;
+      margin-bottom: 1.75rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .antv-title-area h2 {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin: 0.5rem 0 0.35rem 0;
+      background: linear-gradient(90deg, #60a5fa 0%, #c084fc 50%, #38bdf8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .antv-badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(22, 119, 255, 0.2);
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      color: #38bdf8;
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* THANH CÔNG CỤ ĐIỀU KHIỂN & BỐ CỤC */
+    .antv-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 16px;
+      padding: 0.75rem 1rem;
+      margin-bottom: 1.75rem;
+      position: relative;
+      z-index: 2;
+      backdrop-filter: blur(12px);
+    }
+
+    .antv-layout-tabs {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .antv-tab-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #cbd5e1;
+      padding: 0.55rem 1rem;
+      border-radius: 10px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      transition: all 0.2s ease;
+    }
+
+    .antv-tab-btn:hover {
+      background: rgba(255, 255, 255, 0.12);
+      color: #ffffff;
+    }
+
+    .antv-tab-btn.active {
+      background: #1677ff;
+      border-color: #4096ff;
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(22, 119, 255, 0.4);
+    }
+
+    .antv-action-group {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .antv-btn-action {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #f1f5f9;
+      padding: 0.5rem 0.9rem;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.2s ease;
+    }
+
+    .antv-btn-action:hover {
+      background: rgba(255, 255, 255, 0.16);
+      border-color: #38bdf8;
+      color: #38bdf8;
+    }
+
+    .antv-btn-action.primary {
+      background: #0284c7;
+      border-color: #38bdf8;
+      color: #ffffff;
+    }
+
+    .antv-btn-action.primary:hover {
+      background: #0369a1;
+    }
+
+    /* CANVAS CHỨA ĐỒ HỌA ANTV RENDER THỜI GIAN THỰC */
+    .antv-canvas-wrapper {
+      position: relative;
+      z-index: 2;
+      background: #ffffff;
+      border-radius: 20px;
+      border: 1.5px solid rgba(255, 255, 255, 0.2);
+      min-height: 520px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1), 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+      padding: 1.5rem;
+    }
+
+    #antv-render-container {
+      width: 100%;
+      height: 100%;
+      min-height: 480px;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
-      margin-bottom: 0.75rem;
+      justify-content: center;
     }
-    .info-icon {
-      font-size: 1.35rem;
-      line-height: 1;
+
+    #antv-render-container svg {
+      max-width: 100%;
+      height: auto;
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.05));
     }
-    .info-title {
+
+    /* BẢNG CÚ PHÁP STYLE NỔI BẬT THEO PHONG CÁCH AMIGOSCODE */
+    .amigos-banner {
+      background: rgba(15, 23, 42, 0.85);
+      border: 1.5px dashed rgba(56, 189, 248, 0.4);
+      border-radius: 16px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* PANEL HIỂN THỊ MÃ ANTV DECLARATIVE DSL */
+    .antv-dsl-panel {
+      display: none;
+      background: #020617;
+      border: 1.5px solid #38bdf8;
+      border-radius: 16px;
+      padding: 1.5rem;
+      margin-top: 1.75rem;
+      position: relative;
+      z-index: 3;
+    }
+
+    .antv-dsl-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .antv-dsl-code {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
+      color: #e2e8f0;
+      line-height: 1.6;
       margin: 0;
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: var(--text-primary);
+      white-space: pre-wrap;
+      word-break: break-word;
+      background: #090d16;
+      padding: 1rem;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    /* TOAST THÔNG BÁO */
+    .antv-toast {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: #1e293b;
+      color: #ffffff;
+      padding: 0.85rem 1.4rem;
+      border-radius: 12px;
+      border: 1.5px solid #38bdf8;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+      z-index: 99999;
+      display: none;
+      align-items: center;
+      gap: 0.6rem;
+      font-weight: 600;
+      animation: antvToastIn 0.3s ease;
+    }
+
+    @keyframes antvToastIn {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    /* THUYẾT MINH KIẾN THỨC CHUẨN AMIGOSCODE CAPTION */
+    .amigos-caption-card {
+      background: #ffffff;
+      border-radius: 20px;
+      border: 1.5px solid #e2e8f0;
+      padding: 2.25rem;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+      margin-bottom: 2.5rem;
+    }
+
+    .amigos-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      color: #475569;
+      font-size: 0.8rem;
+      font-weight: 800;
+      padding: 0.25rem 0.65rem;
+      border-radius: 6px;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.75rem;
     }
 
     /* FLASHCARDS 3D FLIP */
@@ -82,8 +337,8 @@
       text-align: center;
       transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
       transform-style: preserve-3d;
-      border-radius: var(--radius-md);
-      box-shadow: var(--shadow-sm);
+      border-radius: var(--radius-md, 12px);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     }
     .flashcard.flipped .flashcard-inner {
       transform: rotateY(180deg);
@@ -94,7 +349,7 @@
       height: 100%;
       -webkit-backface-visibility: hidden;
       backface-visibility: hidden;
-      border-radius: var(--radius-md);
+      border-radius: var(--radius-md, 12px);
       padding: 1.15rem;
       box-sizing: border-box;
       display: flex;
@@ -104,7 +359,7 @@
     }
     .flashcard-front {
       background: #ffffff;
-      color: var(--text-primary);
+      color: var(--text-primary, #0f172a);
     }
     .flashcard-back {
       background: #0f172a;
@@ -117,7 +372,7 @@
     .qa-box {
       background: #ffffff;
       border: 1.5px solid #cbd5e1;
-      border-radius: var(--radius-md);
+      border-radius: var(--radius-md, 12px);
       padding: 1.25rem;
       margin-bottom: 1.25rem;
     }
@@ -126,10 +381,10 @@
       min-height: 90px;
       padding: 0.75rem;
       border: 1.5px solid #cbd5e1;
-      border-radius: var(--radius-xs);
+      border-radius: 6px;
       font-family: inherit;
       font-size: 0.88rem;
-      color: var(--text-primary);
+      color: #0f172a;
       margin-top: 0.5rem;
       outline: none;
       box-sizing: border-box;
@@ -227,20 +482,20 @@
   </nav>
 
   <!-- HERO BANNER -->
-  <section class="hero-banner" style="background: linear-gradient(135deg, #7e22ce 0%, #9333ea 60%, #a855f7 100%);">
+  <section class="hero-banner" style="background: linear-gradient(135deg, #4338ca 0%, #6366f1 50%, #9333ea 100%);">
     <div class="container">
       <div class="hero-content">
         <div class="badge-tag" style="background: rgba(255,255,255,0.2); color: #fff; border-color: rgba(255,255,255,0.35);">
-          <span>HOẠT ĐỘNG 4 • TỔNG KẾT & VẬN DỤNG KIẾN THỨC</span>
+          <span>HOẠT ĐỘNG 4 • TỔNG KẾT &amp; VẬN DỤNG KIẾN THỨC</span>
         </div>
         <h1 class="hero-title">Infographic Tổng Hợp &amp; Trả Lời Câu Hỏi Cuối Bài</h1>
         <p class="hero-subtitle">
-          Sơ đồ Infographic đồ họa tóm tắt toàn bộ Bài 9: Tạo danh sách, bảng; góc lật thẻ ghi nhớ Flashcards 3D; và không gian trả lời, xuất bài làm cho các câu hỏi luyện tập, vận dụng trong SGK Tin học 12.
+          Studio Infographic trực quan tóm tắt toàn bộ Bài 9: Tạo danh sách, bảng HTML5; lật thẻ ghi nhớ Flashcards 3D; và không gian trả lời, xuất bài làm cho các câu hỏi luyện tập, vận dụng trong SGK Tin học 12.
         </p>
 
         <div style="margin-top: 1.25rem; display: flex; gap: 0.65rem; flex-wrap: wrap;">
-          <a href="#infographic-section" class="btn btn-primary" style="font-size: 0.88rem; padding: 0.5rem 1.15rem; background: #ffffff; color: #7e22ce; border-color: #fff;">
-            📊 Sơ đồ Infographic Bài 9
+          <a href="#infographic-section" class="btn btn-primary" style="font-size: 0.88rem; padding: 0.5rem 1.15rem; background: #ffffff; color: #4338ca; border-color: #fff;">
+            📊 AntV Infographic Studio
           </a>
           <a href="#flashcards-section" class="btn btn-secondary" style="font-size: 0.88rem; padding: 0.5rem 1.15rem; background: rgba(255,255,255,0.15); color: #fff; border-color: rgba(255,255,255,0.3);">
             🃏 Lật thẻ Flashcards 3D
@@ -254,81 +509,155 @@
   </section>
 
   <!-- MAIN CONTENT -->
-  <main class="main-content">
+  <main class="main-content" style="padding-top: 2rem; padding-bottom: 4rem;">
     <div class="container">
 
-      <!-- ===================================================================
-           PHẦN 1: INFOGRAPHIC TỔNG HỢP KIẾN THỨC BÀI 9
-           =================================================================== -->
-      <section id="infographic-section" class="section-block">
-        <div class="section-header">
-          <h2 class="section-title">
-            <span class="section-num">1</span>
-            Infographic Tổng Hợp Bản Đồ Kiến Thức: Bài 9 - Tạo Danh Sách, Bảng
-          </h2>
-          <span class="badge-tag" style="background:#f3e8ff; color:#7e22ce; border-color:#d8b4fe;">Trực quan hóa</span>
+      <!-- ======================================================== -->
+      <!-- PHẦN I: ANTV INFOGRAPHIC STUDIO (ENGINE RENDER CHÍNH THỨC) -->
+      <!-- ======================================================== -->
+      <section id="infographic-section" class="antv-infographic-container">
+        
+        <!-- HEADER THEO PHONG CÁCH BRANDED AMIGOSCODE & ANTV -->
+        <div class="antv-header">
+          <div class="antv-title-area">
+            <div class="antv-badge-pill">
+              <span>✨ Powered by @antv/infographic Engine &amp; Amigoscode Design System</span>
+            </div>
+            <h2>HOW HTML5 LISTS &amp; TABLES WORK</h2>
+            <p style="color: #94a3b8; font-size: 0.95rem; margin: 0; max-width: 720px; line-height: 1.5;">
+              Đồ họa thông tin tương tác kết hợp cú pháp khai báo <strong>AntV Infographic DSL</strong>: Tự động kết xuất đồ họa vector SVG chuẩn W3C, hỗ trợ 4 chế độ mẫu (Quy trình tạo bảng, Lưới thẻ phân loại, Đối chiếu kỹ thuật gộp ô Colspan vs Rowspan, Cây phân cấp DOM) và trích xuất ảnh PNG/SVG tức thì.
+            </p>
+          </div>
+
+          <div style="text-align: right;">
+            <div style="font-size: 0.8rem; color: #64748b; margin-bottom: 0.25rem;">Trường THTH - ĐH Sư Phạm • Tin học 12</div>
+            <div style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(56, 189, 248, 0.1); color: #38bdf8; padding: 0.3rem 0.75rem; border-radius: 8px; font-size: 0.85rem; font-weight: 700; border: 1px solid rgba(56, 189, 248, 0.25);">
+              🎯 www.minda.io.vn/Tin12
+            </div>
+          </div>
         </div>
 
-        <div class="infographic-grid">
-          
-          <!-- NHÁNH 1: THẺ DANH SÁCH -->
-          <div class="info-card blue">
-            <div class="info-card-header">
-              <span class="info-icon">📋</span>
-              <h3 class="info-title" style="color: #1d4ed8;">1. Thẻ Danh Sách HTML</h3>
-            </div>
-            <ul style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; margin: 0; padding-left: 1.15rem;">
-              <li><code>&lt;ol&gt;</code> (Ordered): Danh sách có thứ tự. Thuộc tính <code>type="1|a|A|i|I"</code>, <code>start="n"</code>.</li>
-              <li><code>&lt;ul&gt;</code> (Unordered): Danh sách không thứ tự. CSS <code>list-style-type: disc|circle|square|none</code>.</li>
-              <li><code>&lt;li&gt;</code> (List Item): Từng mục nội dung trong <code>&lt;ol&gt;</code> và <code>&lt;ul&gt;</code>.</li>
-              <li><code>&lt;dl&gt;</code> (Description List): Danh sách mô tả thuật ngữ.</li>
-              <li><code>&lt;dt&gt;</code> (Term): Tên thuật ngữ / mục.</li>
-              <li><code>&lt;dd&gt;</code> (Details): Phần mô tả chi tiết (trình duyệt tự động thụt lề).</li>
-            </ul>
+        <!-- SƠ ĐỒ CÚ PHÁP INLINE BANNER (AMIGOSCODE BANNER) -->
+        <div class="amigos-banner">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.85rem;">
+            <span style="font-weight: 800; color: #38bdf8; font-size: 1.05rem;">
+              📌 CẤU TRÚC PHẦN TỬ BẢNG VÀ GỘP Ô CHUẨN HTML5
+            </span>
+            <span style="font-size: 0.8rem; color: #94a3b8;">Áp dụng cấu trúc ngữ nghĩa W3C &amp; thuộc tính colspan/rowspan</span>
+          </div>
+          <div style="display: flex; align-items: center; justify-content: center; gap: 0.4rem; flex-wrap: wrap; font-family: 'Fira Code', monospace; font-size: 0.95rem;">
+            <span style="color: #94a3b8;">&lt;</span>
+            <span style="background: #1e40af; color: #dbeafe; padding: 0.35rem 0.65rem; border-radius: 6px; font-weight: bold;">table</span>
+            <span style="background: #9a3412; color: #ffedd5; padding: 0.35rem 0.65rem; border-radius: 6px; font-weight: bold;">border</span>
+            <span style="color: #fbbf24; font-weight: bold;">="1"&gt;</span>
+            <span style="background: #065f46; color: #d1fae5; padding: 0.35rem 0.65rem; border-radius: 6px; font-weight: bold;">&lt;caption&gt;Bảng điểm&lt;/caption&gt;</span>
+            <span style="background: #374151; color: #f3f4f6; padding: 0.35rem 0.65rem; border-radius: 6px;">&lt;tr&gt;</span>
+            <span style="background: #581c87; color: #ede9fe; padding: 0.35rem 0.65rem; border-radius: 6px; font-weight: bold;">&lt;th colspan="2"&gt;Điểm số&lt;/th&gt;</span>
+            <span style="background: #374151; color: #f3f4f6; padding: 0.35rem 0.65rem; border-radius: 6px;">&lt;/tr&gt;</span>
+            <span style="color: #94a3b8;">&lt;/</span>
+            <span style="background: #1e40af; color: #dbeafe; padding: 0.35rem 0.65rem; border-radius: 6px; font-weight: bold;">table</span>
+            <span style="color: #94a3b8;">&gt;</span>
+          </div>
+        </div>
+
+        <!-- TOOLBAR: BỘ CHỌN MẪU ANTV & CÔNG CỤ XUẤT ẢNH -->
+        <div class="antv-toolbar">
+          <div class="antv-layout-tabs">
+            <button type="button" class="antv-tab-btn active" onclick="switchAntvTemplate('sequence', this)">
+              <span>🚀 1. Quy trình tạo Bảng</span>
+            </button>
+            <button type="button" class="antv-tab-btn" onclick="switchAntvTemplate('cards', this)">
+              <span>🗂️ 2. Thẻ Danh sách &amp; Bảng</span>
+            </button>
+            <button type="button" class="antv-tab-btn" onclick="switchAntvTemplate('compare', this)">
+              <span>⚖️ 3. Colspan vs Rowspan</span>
+            </button>
+            <button type="button" class="antv-tab-btn" onclick="switchAntvTemplate('mindmap', this)">
+              <span>🌳 4. Cây cấu trúc DOM</span>
+            </button>
           </div>
 
-          <!-- NHÁNH 2: THẺ BẢNG DỮ LIỆU -->
-          <div class="info-card green">
-            <div class="info-card-header">
-              <span class="info-icon">📊</span>
-              <h3 class="info-title" style="color: #15803d;">2. Cấu Trúc Bảng Dữ Liệu</h3>
+          <div class="antv-action-group">
+            <button type="button" class="antv-btn-action" onclick="toggleAntvDslPanel()">
+              <span>💻 Xem mã AntV DSL</span>
+            </button>
+            <button type="button" class="antv-btn-action primary" onclick="exportAntvSvg()">
+              <span>📥 Xuất ảnh SVG Vector</span>
+            </button>
+            <button type="button" class="antv-btn-action" onclick="exportAntvPng()">
+              <span>🖼️ Tải ảnh PNG</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- KHU VỰC RENDER ĐỒ HỌA THỜI GIAN THỰC CỦA ANTV ENGINE -->
+        <div class="antv-canvas-wrapper">
+          <div id="antv-render-container">
+            <div style="color: #64748b; font-size: 0.95rem; font-weight: bold;">⏳ Đang khởi tạo AntV Infographic Engine...</div>
+          </div>
+        </div>
+
+        <!-- PANEL XEM MÃ ANTV DECLARATIVE DSL (DRAWER) -->
+        <div id="antv-dsl-drawer" class="antv-dsl-panel">
+          <div class="antv-dsl-header">
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+              <span style="color: #38bdf8; font-weight: bold; font-size: 1rem;">💻 ANTV INFOGRAPHIC DECLARATIVE SPECIFICATION (DSL)</span>
+              <span style="font-size: 0.75rem; background: #1e293b; color: #94a3b8; padding: 0.2rem 0.5rem; border-radius: 4px;">@antv/infographic v0.2.x</span>
             </div>
-            <ul style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; margin: 0; padding-left: 1.15rem;">
-              <li><code>&lt;table&gt;</code>: Khai báo tạo bảng dữ liệu.</li>
-              <li><code>&lt;caption&gt;</code>: Tiêu đề bảng (đặt ngay sau <code>&lt;table&gt;</code> và trước <code>&lt;tr&gt;</code> đầu).</li>
-              <li><code>&lt;tr&gt;</code> (Table Row): Tạo hàng ngang trong bảng.</li>
-              <li><code>&lt;th&gt;</code> (Table Header): Ô tiêu đề (chữ in đậm, căn giữa mặc định).</li>
-              <li><code>&lt;td&gt;</code> (Table Data): Ô dữ liệu bình thường (chữ thường, căn trái).</li>
-            </ul>
+            <button type="button" class="antv-btn-action" onclick="copyAntvDsl()" style="font-size: 0.78rem;">
+              📋 Sao chép mã DSL
+            </button>
+          </div>
+          <pre class="antv-dsl-code" id="antv-dsl-code-content"></pre>
+        </div>
+
+      </section>
+
+      <!-- ======================================================== -->
+      <!-- BẢN THUYẾT MINH KỸ THUẬT THEO CHUẨN AMIGOSCODE -->
+      <!-- ======================================================== -->
+      <section class="amigos-caption-card">
+        <div class="amigos-badge">📖 AMIGOSCODE TECHNICAL CAPTION &amp; WALKTHROUGH</div>
+        <h3 style="color: #1e3a8a; font-size: 1.5rem; font-weight: 800; margin-top: 0; margin-bottom: 1rem;">
+          Giải Mã Kiến Trúc Danh Sách &amp; Bảng Dữ Liệu HTML5 (How It Works)
+        </h3>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; color: #334155; line-height: 1.6; font-size: 0.95rem;">
+          <div style="background: #f8fafc; padding: 1.25rem; border-radius: 12px; border: 1px solid #e2e8f0;">
+            <h4 style="color: #1d4ed8; margin-top: 0; margin-bottom: 0.5rem; font-size: 1.1rem; display: flex; align-items: center; gap: 0.4rem;">
+              <span>1️⃣</span> Ba Dạng Danh Sách Ngữ Nghĩa
+            </h4>
+            <p style="margin: 0; font-size: 0.9rem; color: #64748b;">
+              <code>&lt;ol&gt;</code> cho thứ tự tuần tự (các bước nấu ăn, hướng dẫn), <code>&lt;ul&gt;</code> cho danh mục ngang hàng (sở thích, thực đơn), và <code>&lt;dl&gt;</code> dùng cặp <code>&lt;dt&gt;</code> và <code>&lt;dd&gt;</code> để giải nghĩa từ ngữ mà <strong>tuyệt đối không dùng thẻ &lt;li&gt;</strong>.
+            </p>
           </div>
 
-          <!-- NHÁNH 3: ĐỊNH DẠNG BẢNG -->
-          <div class="info-card amber">
-            <div class="info-card-header">
-              <span class="info-icon">🎨</span>
-              <h3 class="info-title" style="color: #b45309;">3. Định Dạng Bằng Style</h3>
-            </div>
-            <ul style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; margin: 0; padding-left: 1.15rem;">
-              <li><strong>Khung viền:</strong> <code>border: độ_dày kiểu_viền [màu]</code>.</li>
-              <li>Ví dụ: <code>style="border: 1px solid black"</code>.</li>
-              <li>Kiểu viền: <code>solid</code> (nét liền), <code>dotted</code> (chấm bi), <code>double</code> (nét đôi).</li>
-              <li><strong>Kích thước:</strong> <code>width</code> và <code>height</code> (ưu tiên tỉ lệ % thay vì px để tương thích nhiều màn hình).</li>
-            </ul>
+          <div style="background: #f8fafc; padding: 1.25rem; border-radius: 12px; border: 1px solid #e2e8f0;">
+            <h4 style="color: #047857; margin-top: 0; margin-bottom: 0.5rem; font-size: 1.1rem; display: flex; align-items: center; gap: 0.4rem;">
+              <span>2️⃣</span> Cấu Trúc Bảng Dữ Liệu 2 Chiều
+            </h4>
+            <p style="margin: 0; font-size: 0.9rem; color: #64748b;">
+              Bảng bắt đầu bằng <code>&lt;table&gt;</code>, tiêu đề <code>&lt;caption&gt;</code> được đặt ngay đầu bảng. Mỗi hàng được bao bởi <code>&lt;tr&gt;</code>, chứa các ô tiêu đề <code>&lt;th&gt;</code> (in đậm, căn giữa) hoặc ô dữ liệu <code>&lt;td&gt;</code> (chữ thường, căn trái).
+            </p>
           </div>
 
-          <!-- NHÁNH 4: KỸ THUẬT GỘP Ô -->
-          <div class="info-card purple">
-            <div class="info-card-header">
-              <span class="info-icon">🧩</span>
-              <h3 class="info-title" style="color: #7e22ce;">4. Kỹ Thuật Gộp Ô</h3>
-            </div>
-            <ul style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; margin: 0; padding-left: 1.15rem;">
-              <li><code>colspan="n"</code>: Gộp CỘT theo chiều ngang (chiếm n cột). Phải xóa bớt $(n - 1)$ ô trên cùng hàng đó!</li>
-              <li><code>rowspan="n"</code>: Gộp HÀNG theo chiều dọc (chiếm n hàng). Phải xóa bớt 1 ô ở $(n - 1)$ hàng tiếp theo bên dưới!</li>
-              <li>Ứng dụng thực tế: Thời khóa biểu, bảng điểm thi, lịch sinh hoạt CLB.</li>
-            </ul>
+          <div style="background: #f8fafc; padding: 1.25rem; border-radius: 12px; border: 1px solid #e2e8f0;">
+            <h4 style="color: #b45309; margin-top: 0; margin-bottom: 0.5rem; font-size: 1.1rem; display: flex; align-items: center; gap: 0.4rem;">
+              <span>3️⃣</span> Kỹ Thuật Gộp Ô: Colspan vs Rowspan
+            </h4>
+            <p style="margin: 0; font-size: 0.9rem; color: #64748b;">
+              <code>colspan="n"</code> mở rộng ô sang ngang $n$ cột, đòi hỏi phải <strong>xóa bớt $(n - 1)$ ô trên cùng dòng</strong>. <code>rowspan="n"</code> mở rộng ô xuống dưới $n$ dòng, đòi hỏi phải <strong>xóa bớt 1 ô ở $(n - 1)$ dòng kế tiếp bên dưới</strong> để bảng không bị phình vỡ bố cục.
+            </p>
           </div>
 
+          <div style="background: #f8fafc; padding: 1.25rem; border-radius: 12px; border: 1px solid #e2e8f0;">
+            <h4 style="color: #6b21a8; margin-top: 0; margin-bottom: 0.5rem; font-size: 1.1rem; display: flex; align-items: center; gap: 0.4rem;">
+              <span>4️⃣</span> Định Dạng Khung Viền &amp; Độ Rộng Chuẩn
+            </h4>
+            <p style="margin: 0; font-size: 0.9rem; color: #64748b;">
+              Sử dụng <code>style="border: 1px solid #cbd5e1"</code> và <code>border-collapse: collapse</code> để bảng hiển thị thanh mảnh hiện đại. Ưu tiên gán độ rộng <code>width: 100%</code> hoặc tỉ lệ % để bảng tự động co giãn tối ưu trên thiết bị di động.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -556,12 +885,17 @@
       <div class="page-nav-bar" style="margin-top: 2rem;">
         <a href="hd3.html" class="btn btn-secondary">← Hoạt động 3: Thực hành CLB</a>
         <a href="index.html" class="btn btn-primary" style="background: #2563eb;">
-          Về Trang chủ: Ma trận bài học Bài 9 ⌂
+          Về Trang chủ: Lộ trình học Bài 9 ⌂
         </a>
       </div>
 
     </div>
   </main>
+
+  <!-- TOAST THÔNG BÁO TỔNG QUÁT -->
+  <div id="antv-toast" class="antv-toast">
+    <span id="antv-toast-msg">Đã sao chép!</span>
+  </div>
 
   <!-- FOOTER -->
   <footer class="site-footer">
@@ -574,6 +908,619 @@
 
   <script src="js/script.js"></script>
   <script>
+    // --- BỘ ĐẶC TẢ ANTV INFOGRAPHIC DECLARATIVE DSL CHO BÀI 9 ---
+    const ANTV_DSL_SPECS = {
+      sequence: `infographic sequence-steps-badge-card
+data
+  title Quy Trình 4 Bước Thiết Lập Bảng HTML5
+  desc Trường THTH - ĐH Sư Phạm • Tin học 12
+  sequences
+    - label 1. Khai báo <table>
+      desc Tạo khung chứa bảng tổng thể kèm thuộc tính border / style
+      icon layout
+    - label 2. Đặt tiêu đề <caption>
+      desc Đặt ngay sau <table> và trước <tr> đầu tiên
+      icon title
+    - label 3. Tạo hàng <tr> & ô <th>
+      desc Tạo hàng ngang, tiêu đề cột <th> in đậm và căn giữa
+      icon table
+    - label 4. Ô <td> & Gộp ô
+      desc Điền dữ liệu <td>, dùng colspan gộp ngang, rowspan gộp dọc
+      icon merge
+theme
+  palette #2563eb #10b981 #f59e0b #8b5cf6
+`,
+
+      cards: `infographic list-grid-badge-card
+data
+  title Phân Loại Các Thẻ Danh Sách & Bảng Bài 9
+  desc Kiến thức cốt lõi Tin học 12 • THTH - ĐH Sư Phạm
+  lists
+    - label Danh sách có thứ tự <ol>
+      desc Đánh số 1, 2, 3... Thuộc tính type="1|a|A|i|I", start="n"
+      icon ordered-list
+    - label Danh sách không thứ tự <ul>
+      desc Dấu đầu dòng disc, circle, square. Từng mục nằm trong <li>
+      icon unordered-list
+    - label Danh sách mô tả <dl>
+      desc Cặp <dt> (thuật ngữ) và <dd> (chi tiết thụt lề). Tuyệt đối không dùng <li>
+      icon file-text
+    - label Bảng dữ liệu <table>
+      desc <table>, <caption>, <tr>, <th>, <td>, kỹ thuật gộp ô colspan & rowspan
+      icon table
+theme
+  palette #2563eb #10b981 #f59e0b #8b5cf6
+`,
+
+      compare: `infographic compare-binary-horizontal-badge-card-fold
+data
+  title So Sánh Kỹ Thuật Gộp Ô: Colspan vs Rowspan
+  desc Đối chiếu bản chất kỹ thuật HTML5 • THTH - ĐH Sư Phạm
+  compares
+    - label Gộp Cột: colspan="n"
+      icon column-width
+      children
+        - label Chiều gộp: Chiều ngang
+          desc Ô trải dài qua n cột liên tiếp từ trái sang phải
+          icon arrow-right
+        - label Quy tắc xóa ô
+          desc Bỏ bớt (n - 1) thẻ <td> trên CÙNG HÀNG ĐÓ
+          icon minus-circle
+        - label Ứng dụng thực tế
+          desc Tiêu đề nhóm cột, ô "Chào cờ" gộp các tiết
+          icon calendar
+    - label Gộp Hàng: rowspan="n"
+      icon column-height
+      children
+        - label Chiều gộp: Chiều dọc
+          desc Ô trải dài xuống n hàng liên tiếp từ trên xuống dưới
+          icon arrow-down
+        - label Quy tắc xóa ô
+          desc Bỏ bớt 1 thẻ <td> ở (n - 1) HÀNG KẾ TIẾP BÊN DƯỚI
+          icon minus-circle
+        - label Ứng dụng thực tế
+          desc Môn học đôi 2 tiết, hoạt động kéo dài nhiều buổi
+          icon clock
+theme
+  palette #2563eb #8b5cf6
+`,
+
+      mindmap: `infographic hierarchy-tree-tech-style-capsule-item
+data
+  title Cây Cấu Trúc Phần Tử Danh Sách & Bảng
+  desc Phân cấp phần tử Bài 9 • THTH - ĐH Sư Phạm
+  root
+    label Bài 9: Danh sách & Bảng
+    icon code
+    children
+      - label 1. Danh sách HTML
+        icon ordered-list
+        children
+          - label <ol> có thứ tự (start, type)
+          - label <ul> không thứ tự (li)
+          - label <dl> mô tả (<dt>, <dd>)
+      - label 2. Cấu trúc Bảng <table>
+        icon table
+        children
+          - label <caption> Tiêu đề bảng
+          - label <tr> Hàng ngang (Row)
+          - label <th> Ô tiêu đề (in đậm)
+          - label <td> Ô dữ liệu bình thường
+      - label 3. Thuộc tính Gộp ô
+        icon merge
+        children
+          - label colspan="n" (Gộp ngang n cột)
+          - label rowspan="n" (Gộp dọc n hàng)
+          - label border & style viền bảng
+theme
+  palette #2563eb #10b981 #f59e0b
+`
+    };
+
+    let currentAntvLayout = 'sequence';
+    let infographicInstance = null;
+
+    // --- BỘ VẼ SVG VECTOR CHẤT LƯỢNG CAO DÀNH CHO BÀI 9 ---
+    function getFallbackSvg(layoutKey) {
+      if (layoutKey === 'sequence') {
+        return `
+        <svg viewBox="0 0 980 440" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" style="background:#f8fafc; border-radius:16px; font-family:'Plus Jakarta Sans',sans-serif;">
+          <defs>
+            <linearGradient id="seqG1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#2563eb"/><stop offset="100%" stop-color="#1d4ed8"/></linearGradient>
+            <linearGradient id="seqG2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#059669"/><stop offset="100%" stop-color="#047857"/></linearGradient>
+            <linearGradient id="seqG3" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#d97706"/><stop offset="100%" stop-color="#b45309"/></linearGradient>
+            <linearGradient id="seqG4" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#7c3aed"/><stop offset="100%" stop-color="#6d28d9"/></linearGradient>
+            <filter id="shadowBox" x="-5%" y="-5%" width="110%" height="115%"><feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#0f172a" flood-opacity="0.08"/></filter>
+          </defs>
+          
+          <text x="490" y="45" text-anchor="middle" font-size="22" font-weight="800" fill="#0f172a">QUY TRÌNH 4 BƯỚC THIẾT LẬP BẢNG HTML5 CHUẨN W3C</text>
+          <text x="490" y="70" text-anchor="middle" font-size="13" font-weight="600" fill="#64748b">Quy chuẩn ngữ nghĩa &amp; Cấu trúc phân cấp từ khung chứa đến ô dữ liệu</text>
+
+          <!-- Step 1 -->
+          <g filter="url(#shadowBox)">
+            <rect x="35" y="110" width="205" height="260" rx="14" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5"/>
+            <rect x="35" y="110" width="205" height="48" rx="14" fill="url(#seqG1)"/>
+            <rect x="35" y="140" width="205" height="18" fill="url(#seqG1)"/>
+            <text x="50" y="142" font-size="15" font-weight="800" fill="#ffffff">BƯỚC 1: &lt;table&gt;</text>
+            <circle cx="215" cy="134" r="14" fill="rgba(255,255,255,0.25)"/>
+            <text x="215" y="139" text-anchor="middle" font-size="13" font-weight="800" fill="#ffffff">1</text>
+            
+            <text x="50" y="185" font-size="13" font-weight="700" fill="#1e293b">Khởi tạo Khung Bảng</text>
+            <text x="50" y="210" font-size="12" fill="#475569">• Dùng thẻ &lt;table&gt;...&lt;/table&gt;</text>
+            <text x="50" y="235" font-size="12" fill="#475569">• Khung chứa toàn bộ bảng</text>
+            <text x="50" y="260" font-size="12" fill="#475569">• Thêm thuộc tính border="1"</text>
+            <text x="50" y="285" font-size="12" fill="#475569">• Hoặc style viền CSS</text>
+            <rect x="48" y="315" width="179" height="36" rx="6" fill="#eff6ff" stroke="#bfdbfe"/>
+            <text x="137" y="337" text-anchor="middle" font-size="11" font-family="'Fira Code', monospace" font-weight="600" fill="#1d4ed8">&lt;table border="1"&gt;</text>
+          </g>
+
+          <!-- Arrow 1->2 -->
+          <path d="M 245 240 L 275 240" stroke="#94a3b8" stroke-width="3" stroke-dasharray="4,4" marker-end="url(#arrow)"/>
+          <polygon points="275,235 285,240 275,245" fill="#94a3b8"/>
+
+          <!-- Step 2 -->
+          <g filter="url(#shadowBox)">
+            <rect x="275" y="110" width="205" height="260" rx="14" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5"/>
+            <rect x="275" y="110" width="205" height="48" rx="14" fill="url(#seqG2)"/>
+            <rect x="275" y="140" width="205" height="18" fill="url(#seqG2)"/>
+            <text x="290" y="142" font-size="15" font-weight="800" fill="#ffffff">BƯỚC 2: &lt;caption&gt;</text>
+            <circle cx="455" cy="134" r="14" fill="rgba(255,255,255,0.25)"/>
+            <text x="455" y="139" text-anchor="middle" font-size="13" font-weight="800" fill="#ffffff">2</text>
+            
+            <text x="290" y="185" font-size="13" font-weight="700" fill="#1e293b">Đặt Tiêu Đề Bảng</text>
+            <text x="290" y="210" font-size="12" fill="#475569">• Nằm ngay sau &lt;table&gt;</text>
+            <text x="290" y="235" font-size="12" fill="#475569">• Trước thẻ &lt;tr&gt; đầu tiên</text>
+            <text x="290" y="260" font-size="12" fill="#475569">• Tự động căn giữa bảng</text>
+            <text x="290" y="285" font-size="12" fill="#475569">• Hỗ trợ chuẩn ngữ nghĩa W3C</text>
+            <rect x="288" y="315" width="179" height="36" rx="6" fill="#ecfdf5" stroke="#a7f3d0"/>
+            <text x="377" y="337" text-anchor="middle" font-size="11" font-family="'Fira Code', monospace" font-weight="600" fill="#047857">&lt;caption&gt;Tiêu đề&lt;/caption&gt;</text>
+          </g>
+
+          <!-- Arrow 2->3 -->
+          <polygon points="485,235 495,240 485,245" fill="#94a3b8"/>
+
+          <!-- Step 3 -->
+          <g filter="url(#shadowBox)">
+            <rect x="500" y="110" width="205" height="260" rx="14" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5"/>
+            <rect x="500" y="110" width="205" height="48" rx="14" fill="url(#seqG3)"/>
+            <rect x="500" y="140" width="205" height="18" fill="url(#seqG3)"/>
+            <text x="515" y="142" font-size="15" font-weight="800" fill="#ffffff">BƯỚC 3: &lt;tr&gt; &amp; &lt;th&gt;</text>
+            <circle cx="680" cy="134" r="14" fill="rgba(255,255,255,0.25)"/>
+            <text x="680" y="139" text-anchor="middle" font-size="13" font-weight="800" fill="#ffffff">3</text>
+            
+            <text x="515" y="185" font-size="13" font-weight="700" fill="#1e293b">Tạo Hàng &amp; Tiêu Đề</text>
+            <text x="515" y="210" font-size="12" fill="#475569">• Thẻ &lt;tr&gt; tạo hàng ngang</text>
+            <text x="515" y="235" font-size="12" fill="#475569">• Thẻ &lt;th&gt; tạo ô tiêu đề cột</text>
+            <text x="515" y="260" font-size="12" fill="#475569">• Chữ in đậm mặc định</text>
+            <text x="515" y="285" font-size="12" fill="#475569">• Căn giữa ô tự động</text>
+            <rect x="513" y="315" width="179" height="36" rx="6" fill="#fffbeb" stroke="#fde68a"/>
+            <text x="602" y="337" text-anchor="middle" font-size="11" font-family="'Fira Code', monospace" font-weight="600" fill="#b45309">&lt;tr&gt;&lt;th&gt;Môn&lt;/th&gt;&lt;/tr&gt;</text>
+          </g>
+
+          <!-- Arrow 3->4 -->
+          <polygon points="710,235 720,240 710,245" fill="#94a3b8"/>
+
+          <!-- Step 4 -->
+          <g filter="url(#shadowBox)">
+            <rect x="740" y="110" width="205" height="260" rx="14" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5"/>
+            <rect x="740" y="110" width="205" height="48" rx="14" fill="url(#seqG4)"/>
+            <rect x="740" y="140" width="205" height="18" fill="url(#seqG4)"/>
+            <text x="755" y="142" font-size="15" font-weight="800" fill="#ffffff">BƯỚC 4: &lt;td&gt; &amp; Gộp ô</text>
+            <circle cx="920" cy="134" r="14" fill="rgba(255,255,255,0.25)"/>
+            <text x="920" y="139" text-anchor="middle" font-size="13" font-weight="800" fill="#ffffff">4</text>
+            
+            <text x="755" y="185" font-size="13" font-weight="700" fill="#1e293b">Dữ Liệu &amp; Gộp Ô</text>
+            <text x="755" y="210" font-size="12" fill="#475569">• Thẻ &lt;td&gt; chứa dữ liệu ô</text>
+            <text x="755" y="235" font-size="12" fill="#475569">• Chữ thường, căn trái</text>
+            <text x="755" y="260" font-size="12" fill="#475569">• Gộp cột ngang: colspan</text>
+            <text x="755" y="285" font-size="12" fill="#475569">• Gộp hàng dọc: rowspan</text>
+            <rect x="753" y="315" width="179" height="36" rx="6" fill="#f5f3ff" stroke="#ddd6fe"/>
+            <text x="842" y="337" text-anchor="middle" font-size="11" font-family="'Fira Code', monospace" font-weight="600" fill="#6d28d9">&lt;td colspan="2"&gt;...&lt;/td&gt;</text>
+          </g>
+        </svg>`;
+      }
+
+      if (layoutKey === 'cards') {
+        return `
+        <svg viewBox="0 0 980 440" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" style="background:#f8fafc; border-radius:16px; font-family:'Plus Jakarta Sans',sans-serif;">
+          <defs>
+            <filter id="cShadow" x="-5%" y="-5%" width="110%" height="115%"><feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#0f172a" flood-opacity="0.08"/></filter>
+          </defs>
+          <text x="490" y="45" text-anchor="middle" font-size="22" font-weight="800" fill="#0f172a">PHÂN LOẠI CÁC THẺ DANH SÁCH &amp; BẢNG TRONG BÀI 9</text>
+          <text x="490" y="70" text-anchor="middle" font-size="13" font-weight="600" fill="#64748b">Bản đồ cú pháp thẻ HTML5 Semantic: Đặc điểm nhận diện, cấu trúc con &amp; Thuộc tính chính</text>
+
+          <!-- Card 1: <ol> -->
+          <g filter="url(#cShadow)">
+            <rect x="35" y="100" width="210" height="290" rx="14" fill="#ffffff" stroke="#3b82f6" stroke-width="1.5"/>
+            <rect x="35" y="100" width="210" height="42" rx="14" fill="#2563eb"/>
+            <rect x="35" y="126" width="210" height="16" fill="#2563eb"/>
+            <text x="50" y="128" font-size="15" font-weight="800" fill="#ffffff">📋 Danh Sách &lt;ol&gt;</text>
+            <text x="50" y="165" font-size="13" font-weight="700" fill="#1e3a8a">Ordered List (Thứ tự)</text>
+            <text x="50" y="190" font-size="12" fill="#475569">• Tự động đánh số 1, 2, 3...</text>
+            <text x="50" y="215" font-size="12" fill="#475569">• Thẻ con: &lt;li&gt; (List Item)</text>
+            <text x="50" y="240" font-size="12" fill="#475569">• Thuộc tính: type="1|a|A|i|I"</text>
+            <text x="50" y="265" font-size="12" fill="#475569">• Bắt đầu từ số: start="n"</text>
+            <text x="50" y="290" font-size="12" fill="#475569">• Đảo ngược: reversed</text>
+            <rect x="48" y="325" width="184" height="48" rx="8" fill="#eff6ff" stroke="#bfdbfe"/>
+            <text x="58" y="345" font-size="10.5" font-family="'Fira Code', monospace" fill="#1d4ed8">&lt;ol type="1" start="10"&gt;</text>
+            <text x="58" y="362" font-size="10.5" font-family="'Fira Code', monospace" fill="#1d4ed8">  &lt;li&gt;Bước 1&lt;/li&gt;&lt;/ol&gt;</text>
+          </g>
+
+          <!-- Card 2: <ul> -->
+          <g filter="url(#cShadow)">
+            <rect x="270" y="100" width="210" height="290" rx="14" fill="#ffffff" stroke="#10b981" stroke-width="1.5"/>
+            <rect x="270" y="100" width="210" height="42" rx="14" fill="#059669"/>
+            <rect x="270" y="126" width="210" height="16" fill="#059669"/>
+            <text x="285" y="128" font-size="15" font-weight="800" fill="#ffffff">📑 Danh Sách &lt;ul&gt;</text>
+            <text x="285" y="165" font-size="13" font-weight="700" fill="#065f46">Unordered List (Không thứ tự)</text>
+            <text x="285" y="190" font-size="12" fill="#475569">• Dấu gạch đầu dòng bullet</text>
+            <text x="285" y="215" font-size="12" fill="#475569">• Thẻ con: &lt;li&gt; (List Item)</text>
+            <text x="285" y="240" font-size="12" fill="#475569">• Kiểu dấu: disc (chấm tròn)</text>
+            <text x="285" y="265" font-size="12" fill="#475569">• circle (tròn rỗng), square (vuông)</text>
+            <text x="285" y="290" font-size="12" fill="#475569">• list-style-type: none (menu)</text>
+            <rect x="283" y="325" width="184" height="48" rx="8" fill="#ecfdf5" stroke="#a7f3d0"/>
+            <text x="293" y="345" font-size="10.5" font-family="'Fira Code', monospace" fill="#047857">&lt;ul style="list-style-type:</text>
+            <text x="293" y="362" font-size="10.5" font-family="'Fira Code', monospace" fill="#047857"> square;"&gt;&lt;li&gt;...&lt;/li&gt;&lt;/ul&gt;</text>
+          </g>
+
+          <!-- Card 3: <dl> -->
+          <g filter="url(#cShadow)">
+            <rect x="505" y="100" width="210" height="290" rx="14" fill="#ffffff" stroke="#f59e0b" stroke-width="1.5"/>
+            <rect x="505" y="100" width="210" height="42" rx="14" fill="#d97706"/>
+            <rect x="505" y="126" width="210" height="16" fill="#d97706"/>
+            <text x="520" y="128" font-size="15" font-weight="800" fill="#ffffff">📖 Danh Sách Mô Tả &lt;dl&gt;</text>
+            <text x="520" y="165" font-size="13" font-weight="700" fill="#92400e">Description List</text>
+            <text x="520" y="190" font-size="12" fill="#475569">• Giải nghĩa thuật ngữ / món ăn</text>
+            <text x="520" y="215" font-size="12" fill="#475569">• &lt;dt&gt;: Thuật ngữ (Term)</text>
+            <text x="520" y="240" font-size="12" fill="#475569">• &lt;dd&gt;: Mô tả chi tiết (Details)</text>
+            <text x="520" y="265" font-size="12" fill="#475569">• Tự động thụt đầu dòng ô &lt;dd&gt;</text>
+            <text x="520" y="290" font-size="12" font-weight="700" fill="#b91c1c">• Tuyệt đối KHÔNG dùng &lt;li&gt;</text>
+            <rect x="518" y="325" width="184" height="48" rx="8" fill="#fffbeb" stroke="#fde68a"/>
+            <text x="528" y="345" font-size="10.5" font-family="'Fira Code', monospace" fill="#b45309">&lt;dl&gt;&lt;dt&gt;Kem&lt;/dt&gt;</text>
+            <text x="528" y="362" font-size="10.5" font-family="'Fira Code', monospace" fill="#b45309">    &lt;dd&gt;Món tráng miệng&lt;/dd&gt;&lt;/dl&gt;</text>
+          </g>
+
+          <!-- Card 4: <table> -->
+          <g filter="url(#cShadow)">
+            <rect x="740" y="100" width="210" height="290" rx="14" fill="#ffffff" stroke="#8b5cf6" stroke-width="1.5"/>
+            <rect x="740" y="100" width="210" height="42" rx="14" fill="#7c3aed"/>
+            <rect x="740" y="126" width="210" height="16" fill="#7c3aed"/>
+            <text x="755" y="128" font-size="15" font-weight="800" fill="#ffffff">📊 Bảng Dữ Liệu &lt;table&gt;</text>
+            <text x="755" y="165" font-size="13" font-weight="700" fill="#581c87">Data Table &amp; Gộp ô</text>
+            <text x="755" y="190" font-size="12" fill="#475569">• &lt;caption&gt;: Tiêu đề bảng</text>
+            <text x="755" y="215" font-size="12" fill="#475569">• &lt;tr&gt;: Hàng ngang (Row)</text>
+            <text x="755" y="240" font-size="12" fill="#475569">• &lt;th&gt;: Tiêu đề cột (In đậm)</text>
+            <text x="755" y="265" font-size="12" fill="#475569">• &lt;td&gt;: Ô dữ liệu chuẩn</text>
+            <text x="755" y="290" font-size="12" fill="#475569">• Gộp ô: colspan="n", rowspan="n"</text>
+            <rect x="753" y="325" width="184" height="48" rx="8" fill="#f5f3ff" stroke="#ddd6fe"/>
+            <text x="763" y="345" font-size="10.5" font-family="'Fira Code', monospace" fill="#6d28d9">&lt;table border="1"&gt;</text>
+            <text x="763" y="362" font-size="10.5" font-family="'Fira Code', monospace" fill="#6d28d9">  &lt;tr&gt;&lt;th&gt;STT&lt;/th&gt;...&lt;/table&gt;</text>
+          </g>
+        </svg>`;
+      }
+
+      if (layoutKey === 'compare') {
+        return `
+        <svg viewBox="0 0 980 440" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" style="background:#f8fafc; border-radius:16px; font-family:'Plus Jakarta Sans',sans-serif;">
+          <defs>
+            <filter id="compShadow" x="-5%" y="-5%" width="110%" height="115%"><feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#0f172a" flood-opacity="0.08"/></filter>
+          </defs>
+          <text x="490" y="45" text-anchor="middle" font-size="22" font-weight="800" fill="#0f172a">ĐỐI CHIẾU KỸ THUẬT GỘP Ô: COLSPAN VS ROWSPAN</text>
+          <text x="490" y="70" text-anchor="middle" font-size="13" font-weight="600" fill="#64748b">Quy tắc loại bỏ ô dư thừa và phương hướng mở rộng phần tử trong lưới HTML5</text>
+
+          <!-- Left Column: Colspan -->
+          <g filter="url(#compShadow)">
+            <rect x="40" y="100" width="435" height="295" rx="16" fill="#ffffff" stroke="#3b82f6" stroke-width="2"/>
+            <rect x="40" y="100" width="435" height="48" rx="16" fill="#1d4ed8"/>
+            <rect x="40" y="132" width="435" height="16" fill="#1d4ed8"/>
+            <text x="65" y="132" font-size="16" font-weight="800" fill="#ffffff">GỘP CỘT THEO CHIỀU NGANG: colspan="n"</text>
+            
+            <circle cx="70" cy="180" r="12" fill="#dbeafe"/>
+            <text x="70" y="185" text-anchor="middle" font-size="12" font-weight="800" fill="#1e40af">1</text>
+            <text x="95" y="185" font-size="14" font-weight="700" fill="#1e293b">Chiều mở rộng:</text>
+            <text x="215" y="185" font-size="14" fill="#2563eb" font-weight="600">Trải dài sang ngang n cột (từ trái qua phải)</text>
+
+            <circle cx="70" cy="225" r="12" fill="#fee2e2"/>
+            <text x="70" y="230" text-anchor="middle" font-size="12" font-weight="800" fill="#b91c1c">!</text>
+            <text x="95" y="225" font-size="14" font-weight="700" fill="#1e293b">Quy tắc vàng xóa ô:</text>
+            <text x="245" y="225" font-size="13.5" fill="#dc2626" font-weight="700">Phải XÓA (n - 1) ô &lt;td&gt; TRÊN CÙNG DÒNG ĐÓ</text>
+
+            <circle cx="70" cy="270" r="12" fill="#f0fdf4"/>
+            <text x="70" y="275" text-anchor="middle" font-size="12" font-weight="800" fill="#15803d">✓</text>
+            <text x="95" y="270" font-size="14" font-weight="700" fill="#1e293b">Ứng dụng thực tế:</text>
+            <text x="235" y="270" font-size="13.5" fill="#15803d">Tiêu đề bảng chung, ô Chào cờ sáng Thứ 2</text>
+
+            <!-- Visual diagram -->
+            <rect x="65" y="305" width="385" height="65" rx="8" fill="#f8fafc" stroke="#cbd5e1"/>
+            <rect x="75" y="315" width="240" height="45" rx="6" fill="#3b82f6"/>
+            <text x="195" y="342" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">&lt;td colspan="2"&gt; (Chiếm 2 cột)</text>
+            <rect x="325" y="315" width="115" height="45" rx="6" fill="#93c5fd" stroke="#2563eb" stroke-dasharray="3,3"/>
+            <text x="382" y="342" text-anchor="middle" font-size="12" font-weight="700" fill="#1e3a8a">&lt;td&gt; Ô số 3</text>
+          </g>
+
+          <!-- Right Column: Rowspan -->
+          <g filter="url(#compShadow)">
+            <rect x="505" y="100" width="435" height="295" rx="16" fill="#ffffff" stroke="#9333ea" stroke-width="2"/>
+            <rect x="505" y="100" width="435" height="48" rx="16" fill="#7e22ce"/>
+            <rect x="505" y="132" width="435" height="16" fill="#7e22ce"/>
+            <text x="530" y="132" font-size="16" font-weight="800" fill="#ffffff">GỘP HÀNG THEO CHIỀU DỌC: rowspan="n"</text>
+            
+            <circle cx="535" cy="180" r="12" fill="#f3e8ff"/>
+            <text x="535" y="185" text-anchor="middle" font-size="12" font-weight="800" fill="#6b21a8">1</text>
+            <text x="560" y="180" font-size="14" font-weight="700" fill="#1e293b">Chiều mở rộng:</text>
+            <text x="680" y="180" font-size="14" fill="#9333ea" font-weight="600">Trải dài xuống dưới n hàng (từ trên xuống)</text>
+
+            <circle cx="535" cy="225" r="12" fill="#fee2e2"/>
+            <text x="535" y="230" text-anchor="middle" font-size="12" font-weight="800" fill="#b91c1c">!</text>
+            <text x="560" y="225" font-size="14" font-weight="700" fill="#1e293b">Quy tắc vàng xóa ô:</text>
+            <text x="710" y="225" font-size="13.5" fill="#dc2626" font-weight="700">Xóa 1 ô &lt;td&gt; ở (n - 1) DÒNG KẾ TIẾP BÊN DƯỚI</text>
+
+            <circle cx="535" cy="270" r="12" fill="#f0fdf4"/>
+            <text x="535" y="275" text-anchor="middle" font-size="12" font-weight="800" fill="#15803d">✓</text>
+            <text x="560" y="270" font-size="14" font-weight="700" fill="#1e293b">Ứng dụng thực tế:</text>
+            <text x="700" y="270" font-size="13.5" fill="#15803d">Môn học đôi 2 tiết, hoạt động cả ngày</text>
+
+            <!-- Visual diagram -->
+            <rect x="530" y="305" width="385" height="65" rx="8" fill="#f8fafc" stroke="#cbd5e1"/>
+            <rect x="540" y="312" width="135" height="52" rx="6" fill="#a855f7"/>
+            <text x="607" y="342" text-anchor="middle" font-size="11" font-weight="700" fill="#ffffff">&lt;td rowspan="2"&gt;</text>
+            <rect x="685" y="312" width="110" height="22" rx="4" fill="#e9d5ff"/>
+            <text x="740" y="327" text-anchor="middle" font-size="10" font-weight="700" fill="#6b21a8">Dòng 1: Ô B</text>
+            <rect x="685" y="340" width="110" height="22" rx="4" fill="#f3e8ff" stroke="#c084fc" stroke-dasharray="2,2"/>
+            <text x="740" y="355" text-anchor="middle" font-size="10" font-weight="700" fill="#7e22ce">Dòng 2: [Bỏ 1 ô]</text>
+            <rect x="805" y="312" width="95" height="52" rx="4" fill="#ede9fe"/>
+            <text x="852" y="342" text-anchor="middle" font-size="11" font-weight="600" fill="#5b21b6">Cột 3</text>
+          </g>
+        </svg>`;
+      }
+
+      if (layoutKey === 'mindmap') {
+        return `
+        <svg viewBox="0 0 980 440" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" style="background:#f8fafc; border-radius:16px; font-family:'Plus Jakarta Sans',sans-serif;">
+          <defs>
+            <linearGradient id="mmRoot" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#1e3a8a"/><stop offset="100%" stop-color="#3b82f6"/></linearGradient>
+            <filter id="mShadow" x="-5%" y="-5%" width="110%" height="115%"><feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#0f172a" flood-opacity="0.08"/></filter>
+          </defs>
+          <text x="490" y="45" text-anchor="middle" font-size="22" font-weight="800" fill="#0f172a">CÂY CẤU TRÚC PHÂN CẤP DANH SÁCH &amp; BẢNG (DOM TREE)</text>
+          <text x="490" y="70" text-anchor="middle" font-size="13" font-weight="600" fill="#64748b">Mối quan hệ thẻ cha - con và cấu trúc lồng nhau trong tài liệu HTML5</text>
+
+          <!-- ROOT -->
+          <g filter="url(#mShadow)">
+            <rect x="40" y="185" width="210" height="70" rx="14" fill="url(#mmRoot)"/>
+            <text x="145" y="215" text-anchor="middle" font-size="14" font-weight="800" fill="#ffffff">BÀI 9: DANH SÁCH &amp; BẢNG</text>
+            <text x="145" y="235" text-anchor="middle" font-size="12" font-weight="600" fill="#93c5fd">HTML5 Data Structures</text>
+          </g>
+
+          <!-- Branch Lines -->
+          <path d="M 250 220 C 310 220, 310 130, 370 130" stroke="#3b82f6" stroke-width="2.5" fill="none"/>
+          <path d="M 250 220 L 370 220" stroke="#10b981" stroke-width="2.5" fill="none"/>
+          <path d="M 250 220 C 310 220, 310 320, 370 320" stroke="#8b5cf6" stroke-width="2.5" fill="none"/>
+
+          <!-- Node 1: Danh sách -->
+          <g filter="url(#mShadow)">
+            <rect x="370" y="95" width="190" height="70" rx="12" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+            <text x="465" y="125" text-anchor="middle" font-size="14" font-weight="800" fill="#1d4ed8">1. Danh Sách HTML</text>
+            <text x="465" y="145" text-anchor="middle" font-size="11.5" font-weight="600" fill="#3b82f6">&lt;ol&gt;, &lt;ul&gt;, &lt;dl&gt;</text>
+          </g>
+          <!-- Sub-branches Node 1 -->
+          <path d="M 560 130 L 630 100" stroke="#93c5fd" stroke-width="1.5" fill="none"/>
+          <path d="M 560 130 L 630 130" stroke="#93c5fd" stroke-width="1.5" fill="none"/>
+          <path d="M 560 130 L 630 160" stroke="#93c5fd" stroke-width="1.5" fill="none"/>
+          <rect x="630" y="85" width="290" height="28" rx="6" fill="#ffffff" stroke="#bfdbfe"/>
+          <text x="645" y="104" font-size="12" font-weight="700" fill="#1e40af">&lt;ol&gt;: Thứ tự (type, start, reversed)</text>
+          <rect x="630" y="116" width="290" height="28" rx="6" fill="#ffffff" stroke="#bfdbfe"/>
+          <text x="645" y="135" font-size="12" font-weight="700" fill="#1e40af">&lt;ul&gt;: Dấu đầu dòng (disc, circle, square)</text>
+          <rect x="630" y="147" width="290" height="28" rx="6" fill="#ffffff" stroke="#bfdbfe"/>
+          <text x="645" y="166" font-size="12" font-weight="700" fill="#1e40af">&lt;dl&gt;: Danh sách mô tả (&lt;dt&gt; + &lt;dd&gt;)</text>
+
+          <!-- Node 2: Cấu trúc bảng -->
+          <g filter="url(#mShadow)">
+            <rect x="370" y="185" width="190" height="70" rx="12" fill="#ecfdf5" stroke="#10b981" stroke-width="1.5"/>
+            <text x="465" y="215" text-anchor="middle" font-size="14" font-weight="800" fill="#047857">2. Cấu Trúc Bảng</text>
+            <text x="465" y="235" text-anchor="middle" font-size="11.5" font-weight="600" fill="#059669">&lt;table&gt; Hierarchy</text>
+          </g>
+          <!-- Sub-branches Node 2 -->
+          <path d="M 560 220 L 630 195" stroke="#86efac" stroke-width="1.5" fill="none"/>
+          <path d="M 560 220 L 630 225" stroke="#86efac" stroke-width="1.5" fill="none"/>
+          <path d="M 560 220 L 630 255" stroke="#86efac" stroke-width="1.5" fill="none"/>
+          <rect x="630" y="182" width="290" height="26" rx="6" fill="#ffffff" stroke="#a7f3d0"/>
+          <text x="645" y="200" font-size="12" font-weight="700" fill="#065f46">&lt;caption&gt;: Tiêu đề bảng (đặt ngay sau table)</text>
+          <rect x="630" y="212" width="290" height="26" rx="6" fill="#ffffff" stroke="#a7f3d0"/>
+          <text x="645" y="230" font-size="12" font-weight="700" fill="#065f46">&lt;tr&gt;: Hàng ngang (Row container)</text>
+          <rect x="630" y="242" width="290" height="26" rx="6" fill="#ffffff" stroke="#a7f3d0"/>
+          <text x="645" y="260" font-size="12" font-weight="700" fill="#065f46">&lt;th&gt; (In đậm, giữa) &amp; &lt;td&gt; (Dữ liệu thường)</text>
+
+          <!-- Node 3: Gộp ô & Style -->
+          <g filter="url(#mShadow)">
+            <rect x="370" y="285" width="190" height="70" rx="12" fill="#f5f3ff" stroke="#8b5cf6" stroke-width="1.5"/>
+            <text x="465" y="315" text-anchor="middle" font-size="14" font-weight="800" fill="#6d28d9">3. Kỹ Thuật Gộp Ô</text>
+            <text x="465" y="335" text-anchor="middle" font-size="11.5" font-weight="600" fill="#7c3aed">Span &amp; Border Styles</text>
+          </g>
+          <!-- Sub-branches Node 3 -->
+          <path d="M 560 320 L 630 295" stroke="#ddd6fe" stroke-width="1.5" fill="none"/>
+          <path d="M 560 320 L 630 325" stroke="#ddd6fe" stroke-width="1.5" fill="none"/>
+          <path d="M 560 320 L 630 355" stroke="#ddd6fe" stroke-width="1.5" fill="none"/>
+          <rect x="630" y="282" width="290" height="26" rx="6" fill="#ffffff" stroke="#ddd6fe"/>
+          <text x="645" y="300" font-size="12" font-weight="700" fill="#581c87">colspan="n": Gộp ngang, xóa (n-1) ô cùng hàng</text>
+          <rect x="630" y="312" width="290" height="26" rx="6" fill="#ffffff" stroke="#ddd6fe"/>
+          <text x="645" y="330" font-size="12" font-weight="700" fill="#581c87">rowspan="n": Gộp dọc, xóa 1 ô ở (n-1) hàng dưới</text>
+          <rect x="630" y="342" width="290" height="26" rx="6" fill="#ffffff" stroke="#ddd6fe"/>
+          <text x="645" y="360" font-size="12" font-weight="700" fill="#581c87">border &amp; collapse: style="border-collapse: collapse"</text>
+        </svg>`;
+      }
+      return '';
+    }
+
+    // --- KHỞI TẠO VÀ RENDER ĐỒ HỌA BẰNG ANTV ENGINE ---
+    function renderAntvDiagram(layoutKey) {
+      currentAntvLayout = layoutKey;
+      const syntax = ANTV_DSL_SPECS[layoutKey];
+      const container = document.getElementById('antv-render-container');
+
+      // Cập nhật mã hiển thị trong panel DSL
+      const dslBox = document.getElementById('antv-dsl-code-content');
+      if (dslBox) dslBox.textContent = syntax;
+
+      if (!container) return;
+
+      // Ưu tiên nạp bản vẽ vector SVG độc lập, siêu nét, tức thời
+      const fallbackSvg = getFallbackSvg(layoutKey);
+
+      if (typeof AntVInfographic !== 'undefined' && AntVInfographic.Infographic) {
+        try {
+          if (!infographicInstance) {
+            container.innerHTML = '';
+            infographicInstance = new AntVInfographic.Infographic({
+              container: '#antv-render-container',
+              width: '100%',
+              height: '100%',
+            });
+          }
+          infographicInstance.render(syntax);
+          return;
+        } catch (err) {
+          console.warn('Lỗi khi render AntV engine, dùng fallback vector SVG:', err);
+        }
+      }
+
+      // Render vector SVG trực quan tức thì
+      if (fallbackSvg) {
+        container.innerHTML = fallbackSvg;
+      } else {
+        container.innerHTML = `<div style="padding: 2rem; text-align: center; color: #1e3a8a;">
+          <h3 style="margin-top: 0;">🎨 ${layoutKey.toUpperCase()} - BÀI 9: TẠO DANH SÁCH, BẢNG</h3>
+          <p style="color: #64748b;">Đang nạp bộ engine AntV Infographic... Vui lòng chờ vài giây hoặc bấm chuyển tab.</p>
+        </div>`;
+      }
+    }
+
+    function switchAntvTemplate(templateKey, btn) {
+      document.querySelectorAll('.antv-tab-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      renderAntvDiagram(templateKey);
+    }
+
+    function toggleAntvDslPanel() {
+      const panel = document.getElementById('antv-dsl-drawer');
+      if (!panel) return;
+      if (panel.style.display === 'block') {
+        panel.style.display = 'none';
+      } else {
+        panel.style.display = 'block';
+        panel.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    function showAntvToast(msg) {
+      const toast = document.getElementById('antv-toast');
+      const msgEl = document.getElementById('antv-toast-msg');
+      if (toast && msgEl) {
+        msgEl.textContent = msg;
+        toast.style.display = 'flex';
+        setTimeout(() => {
+          toast.style.display = 'none';
+        }, 2500);
+      }
+    }
+
+    function copyAntvDsl() {
+      const spec = ANTV_DSL_SPECS[currentAntvLayout] || '';
+      navigator.clipboard.writeText(spec).then(() => {
+        showAntvToast('📋 Đã sao chép mã AntV DSL vào bộ nhớ tạm!');
+      }).catch(() => {
+        alert('Đã chọn mã DSL, bạn có thể nhấn Ctrl+C để sao chép.');
+      });
+    }
+
+    // --- XUẤT ẢNH VECTOR SVG TỪ ENGINE ANTV ---
+    async function exportAntvSvg() {
+      showAntvToast('⏳ Đang kết xuất ảnh vector SVG chuẩn AntV...');
+      try {
+        if (infographicInstance && typeof infographicInstance.toDataURL === 'function') {
+          const svgDataUrl = await infographicInstance.toDataURL({ type: 'svg' });
+          const a = document.createElement('a');
+          a.href = svgDataUrl;
+          a.download = `AntV_Infographic_Bai9_${currentAntvLayout}.svg`;
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          showAntvToast('🎉 Đã tải ảnh vector SVG thành công!');
+          return;
+        }
+      } catch (err) {
+        console.warn('toDataURL svg thất bại, thử serialize DOM:', err);
+      }
+
+      // Trích xuất trực tiếp node SVG trong container nếu toDataURL bận
+      const svgEl = document.querySelector('#antv-render-container svg');
+      if (svgEl) {
+        const svgStr = new XMLSerializer().serializeToString(svgEl);
+        const blob = new Blob([svgStr], { type: 'image/svg+xml;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `AntV_Infographic_Bai9_${currentAntvLayout}.svg`;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+        showAntvToast('🎉 Đã tải ảnh vector SVG thành công!');
+      } else {
+        alert('Chưa tải xong đồ họa SVG. Vui lòng thử lại sau giây lát!');
+      }
+    }
+
+    // --- XUẤT ẢNH PNG ĐỘ PHÂN GIẢI CAO TỪ ANTV ENGINE ---
+    async function exportAntvPng() {
+      showAntvToast('⏳ Đang kết xuất ảnh PNG độ nét cao...');
+      try {
+        if (infographicInstance && typeof infographicInstance.toDataURL === 'function') {
+          const pngDataUrl = await infographicInstance.toDataURL({ type: 'png' });
+          const a = document.createElement('a');
+          a.href = pngDataUrl;
+          a.download = `AntV_Infographic_Bai9_${currentAntvLayout}.png`;
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          showAntvToast('🎉 Đã tải ảnh PNG chất lượng cao thành công!');
+          return;
+        }
+      } catch (err) {
+        console.warn('toDataURL png thất bại, dùng canvas fallback:', err);
+      }
+
+      // Canvas fallback
+      const svgEl = document.querySelector('#antv-render-container svg');
+      if (svgEl) {
+        const svgStr = new XMLSerializer().serializeToString(svgEl);
+        const img = new Image();
+        img.onload = function() {
+          const canvas = document.createElement('canvas');
+          canvas.width = 1200;
+          canvas.height = 650;
+          const ctx = canvas.getContext('2d');
+          ctx.fillStyle = '#ffffff';
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+          ctx.drawImage(img, 0, 0, 1200, 650);
+          canvas.toBlob(blob => {
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `AntV_Infographic_Bai9_${currentAntvLayout}.png`;
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            URL.revokeObjectURL(url);
+            showAntvToast('🎉 Đã tải ảnh PNG thành công!');
+          });
+        };
+        img.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgStr)));
+      } else {
+        alert('Đồ họa chưa hiển thị đầy đủ để xuất file PNG. Vui lòng thử lại!');
+      }
+    }
+
+    // --- XỬ LÝ LƯU VÀ HIỂN THỊ CÂU HỎI CUỐI BÀI ---
     function toggleAnswerGuide(num) {
       const box = document.getElementById('ans-guide-' + num);
       if (!box) return;
@@ -597,14 +1544,14 @@
       if (s2) s2.innerText = '✓ Đã lưu';
       if (s3) s3.innerText = '✓ Đã lưu';
 
-      if (typeof showToast === 'function') {
-        showToast('✓ Đã lưu bài làm của em vào vở bài tập số thành công!');
-      } else {
-        alert('Đã lưu bài làm của em thành công!');
-      }
+      showAntvToast('💾 Đã lưu bài làm vào vở bài tập số!');
     }
 
     window.addEventListener('load', () => {
+      // Khởi chạy infographic tab đầu tiên
+      renderAntvDiagram('sequence');
+
+      // Nạp lại câu trả lời đã lưu từ LocalStorage
       const a1 = localStorage.getItem('bai9_hd4_ans1');
       const a2 = localStorage.getItem('bai9_hd4_ans2');
       const a3 = localStorage.getItem('bai9_hd4_ans3');
