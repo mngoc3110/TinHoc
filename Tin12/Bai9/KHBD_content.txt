@@ -1,0 +1,174 @@
+KẾ HOẠCH BÀI DẠY
+Giáo viên:  Nguyễn Lê Minh Ngọc
+CHỦ ĐỀ 4: GIẢI QUYẾT VẤN ĐỀ VỚI SỰ TRỢ GIÚP CỦA MÁY TÍNH – TẠO TRANG WEB
+BÀI 9: TẠO DANH SÁCH, BẢNG
+Môn học: Tin học		Lớp 12
+Thời gian thực hiện: 2 tiết
+SÁCH: TIN HỌC 12 THỐNG NHẤT
+KIẾN THỨC TRỌNG TÂM:
+- Sử dụng HTML để tạo danh sách và bảng
+I.MỤC TIÊU
+1. Về năng lực:
+Năng lực tin học:
+- Hiểu được ý nghĩa của danh sách và bảng trình bày trong văn bản. (1)
+- Biết cách tạo danh sách vả bảng trong trang web. (2).
+- Xác định được kiểu danh sách phù hợp với yêu cầu đề ra. (3)
+Năng lực chung:
+- Năng lực học tập, tự học: Học sinh biết tự tìm kiếm, chuẩn bị và lựa chọn tài liệu, phương tiện học tập trước giờ học, trong quá trình học tự giác tham gia các hoạt động học tập trong lớp.(4)
+- Năng lực giao tiếp và hợp tác: Phối hợp làm việc nhóm trong giờ học. (5)
+- Năng lực giải quyết vấn đề sáng tạo: Học sinh trả lời câu hỏi, xử lý tình huống, vận dụng kiến thức, kĩ năng để giải quyết vấn đề thường gặp.(6)
+2. Về phẩm chất:
+- Chăm chỉ: Thực hiện nghiêm túc các nhiệm vụ được giao. (7)
+II.THIẾT BỊ DẠY HỌC VÀ HỌC LIỆU.
+1.Thiết bị dạy học
+2.Học liệu
+- Tài liệu bổ trợ: sách Tin học 12 thống nhất.
+- Tài liệu tự học HTML:
+https://drive.google.com/file/d/1Y_mIZ6E0r1cUuuhzp2L693gHcgHUbB0a/view?usp=sharing
+- Bài trình chiếu đa phương tiện:
+- Video giới thiệu về HTML: https://www.youtube.com/watch?v=xKuJrmlCdig
+- Trang web tự học HTML: https://www.w3schools.com/html/
+- Trang web download Sublime text: https://www.sublimetext.com/
+- Trang web download vscode:
+III.TIẾN TRÌNH HỌC TẬP
+A.Tiến trình dạy học
+B.Các hoạt động học
+Hoạt động 1: Khởi động (10’)
+Mục tiêu:  (1),(5),(6)
+Nội dung
+- Giáo viên:
++ Đặt câu hỏi cho lớp:
+Câu hỏi: Đi thẳng vào vấn đề, cả lớp nhìn lên bảng và cho thầy/ cô biết rằng ở trên bảng là 2 danh sách về mô tả các món ăn. Vậy bên nào đẹp hơn nhỉ?
+Gợi ý trả lời: Học sinh trả lời là Danh sách bên phải vì có khoảng cách giữa các dòng xa hơn và chữ được tô đen dễ nhìn hơn.
++ Giáo viên chốt vấn đề:
+Danh sách bên phải được tạo bằng HTML sẽ có khoảng cách giữa các dòng là nhìn đẹp hơn. Còn các chữ được in đậm màu đen là do sử dụng thẻ in đậm. Hơn nữa nếu tạo danh sách bằng thẻ p thì cần bao nhiêu dòng là phải gõ bấy nhiêu thẻ p khá mất thời gian và quản lý. Do đó cú pháp chuẩn để tạo danh sách trong html sẽ giúp việc tạo danh sách trở nên nhanh gọn và ít tốn thời gian hơn.
+Sản phẩm học tập
+- Học sinh vận dụng sự hiểu biết để trả lời câu hỏi của giáo viên đưa ra.
+- Học sinh chú ý nghe giảng.
+Tổ chức hoạt động học
+a. Giao nhiệm vụ
+- Giáo viên định nghĩa HTML cho học sinh và cho học sinh xem ví dụ về mã nguồn và mã nguồn sau khi biên dịch.
+- Giáo viên giới thiệu về các thẻ trong HTML.
+b. Triển khai nhiệm vụ
+- Học sinh: Quan sát bài dạy của giáo viên.
+c. Theo dõi và hướng dẫn
+- Giáo viên:
+Giám sát quá trình tham gia của học sinh, khuyến khích và động viên học sinh.
+d. Kiểm tra và đánh giá
+- Giáo viên:
+Sau khi kết thúc hoạt động giáo viên sẽ tổng kết ý tưởng của học sinh và nhận xét.
+Hoạt động 2.1 Khám phá 1 (20’)
+Mục tiêu: (1),(2),(4),(5),(7)
+Nội dung
+- Giáo viên: Giới thiệu về danh sách có thứ tự và không có thứ tự
+Sản phẩm học tập
+- Học sinh lắng nghe bài dạy.
+Tổ chức hoạt động học
+a. Giao nhiệm vụ
+- Giáo viên giới thiệu cho học sinh về cách tạo một danh sách trong HTML bằng cách sử dụng thẻ <ol> và <ul>
+- Giáo viên hướng dẫn tiếp tục: Để tạo danh sách có thứ tự, dùng cặp thẻ <ol></ol>. Để chọn kiểu đánh thứ tự và giá trị bắt đầu, dùng thuộc tính type và start.
++ Type: Xác định kiểu đánh số. Các kiểu đánh số là “1”. “A", “a", “I", “i".
++ Start: Xác định giá trị bắt đầu đánh số, nhận gái trị là các số nguyên.
+- Giáo viên hướng dẫn học sinh tạo danh sách không có thứ tự, dùng cặp thẻ <ul></ul>. Để chọn kí tự đầu dòng, ta thiết lập các giá trị của đặc tính list-style-type trong thuộc tính style bằng một trong 4 giá trị disc, circle, square và none.
+- Giáo viên cho học sinh xem mẫu danh sách có thứ tự và không có thứ tự
+- Giáo viên giới thiệu một số thuộc tính thông dụng ở danh sách có thứ tự và không có thứ tự.
+- Giáo viên giới thiệu cho học sinh về danh sách mô tả: Danh sách mô tả dùng để liệt kê các mục kèm với mô tả cho từng mục. Cấu trúc của đoạn mã tạo danh sách mô tả khác cấu trúc của đoạn mã tạo danh sách có thứ tự và không có thứ tự. Để tạo danh sách ta sử dụng ba thẻ là <dl>, <dt> và <dd>
+- Giáo viên Lưu ý: Ta có thể tạo ra các danh sách lồng nhau bằng cách để một danh sách là một mục của một danh sách khác
+- Giáo viên cho học sinh làm một bài kiểm tra ngắn 5’ trên phiếu học tập số 1:
+b. Triển khai nhiệm vụ
+- Học sinh: Học sinh lắng nghe bài dạy và thực hành dưới sự hướng dẫn của giáo viên
+c. Theo dõi và hướng dẫn
+- Giáo viên:
+Giám sát quá trình tham gia của học sinh, khuyến khích và động viên học sinh.
+Trả lời thắc mắc của học sinh.
+d. Kiểm tra và đánh giá
+- Giáo viên: Lắng nghe câu trả lời của học sinh.
+Hoạt động 2.2: Khám phá 2 (20’)
+Mục tiêu: (2),(3),(4),(5),(6),(7)
+Nội dung
+- Giáo viên giới thiệu học sinh cách thiết lập bảng
+Sản phẩm học tập
+- Học sinh lắng nghe bài giảng và thực hành theo sự hướng dẫn của giáo viên.
+Tổ chức hoạt động học
+a. Giao nhiệm vụ
+- Giáo viên đặt câu hỏi:
++ Câu hỏi: Trong hội chợ ẩm thực, các bạn muốn đăng trên trang web của lớp các thông tin: Món ăn, đơn giá, số lượng và tổng tiền. Theo em, dùng định dạng gì để mô tả là tối ưu nhất.
++ Gợi ý trả lời: Học sinh đọc bài trước có thể trả lời là bảng.
+- Giáo viên giới thiệu học cách thiết lập bảng: Phần tử bảng được dùng khi ta cần thêm dữ liệu có thể sắp xếp dưới dạng hàng và cột trên trang web. Dữ liệu trong bảng có thể là bất kì loại thông tin nào, không nhất thiết là dạng số. Bảng là công cụ để tạo ra các bố cục nhiều cột hoặc phân bố nội dung và các khoảng trắng. Chính vì vậy, độ phức tạp của bảng từng là thước đo giá trị thiết kế web.
+- Bảng được tạo từ các hàng, mỗi hàng gồm các ô dữ liệu. Hàng đầu tiên có thể là thanh tiêu đề. HTML xây dựng bảng từ các thành phần tương ứng hư trên. Các thành phần lần lượt được định nghĩa bởi các thẻ <table> tạo bảng, <tr> tạo hàng và <td> tạo các ô dữ liệu và <th> tạo tiêu đề cho ô.
+- Giáo viên cho học sinh xem code mẫu để tạo một bảng:
+- Giáo viên giới thiệu thêm một số cách trang trí bảng:
++ Thêm tiêu đề: sử dụng thẻ <caption>, ngay sau thẻ <table> và trước thẻ <tr> đầu tiên.
++ Để tạo khung cho bảng: Trong HTML5, độ dày khung được thiết lập cho viền khung bảng hoặc khung của từng ô bằng thuộ c tính con border của thuộc tính style có giá trị là một bộ ba thuộc tính nhỏ hơn. Trong đó ba thuộc tính cách nhau bởi dấu cách. Kiểu viền nhân các giá trị: solid, dotted, double, none. Màu viền để màu bình thường. Ngoài ra có thể điều chỉnh kích thước. Sử dụng thuộc tính con width và height của thuộc tính style. Kích thước được đặt có thể là theo tỉ lệ với khối bao người đối tượng % hoặc theo số điểm ảnh px.
++ Ngoài ra có thể gộp các ô và các cột. Để gộp các ô - sử dụng thuộc tính rowspan cho hàng và colspan cho cột. bản chất của việc gộp ô là mở rộng một ô bằng cách thêm một số hàng hoặc một số cột lân cận có cùng nội dung. Việc này giúp tạo ra được bảng có cấu trúc phức tạp nhưng cũng làm cho việc đánh dấu, theo dõi và kiểm soát ô số lượng ô trở nên khó khăn hơn.
++ Thêm rowspan=”số hàng muốn ghép" cho phần tử <th> hoặc <td> thuộc hàng đàu tiên cần ghép.
++ Đối với các hàng tiếp theo: bỏ qua cặp thẻ <th> hoặc <td> tại vị trí tương ứng.
+b. Triển khai nhiệm vụ
+- Học sinh: Nghe giảng, trả lời câu hỏi của giáo viên.
+c. Theo dõi và hướng dẫn
+- Giáo viên:
+Giám sát quá trình tham gia của học sinh, khuyến khích và động viên học sinh.
+Trả lời thắc mắc của học sinh
+d. Kiểm tra và đánh giá,
+- Giáo viên: Quan sát quá trình học của học sinh
+Hoạt động 3: Luyện tập (30’)
+Mục tiêu: (2), (3), (4), (6), (7)
+Nội dung:
+- Học sinh thực hành làm bài tạo danh sách và bảng.
+Sản phẩm học tập
+- Bài làm của học sinh.
+Tổ chức hoạt động học
+a. Giao nhiệm vụ
+- Giáo viên: yêu cầu học sinh thực hành tạo bảng và tạo danh sách
+b. Triển khai nhiệm vụ
+- Học sinh: Thực hiện thao tác của giáo viên
+c. Theo dõi và hướng dẫn
+- Giáo viên:
+Giám sát quá trình tham gia của học sinh, khuyến khích và động viên học sinh.
+Trả lời thắc mắc của học sinh
+d. Kiểm tra và đánh giá
+- Giáo viên:
+Quan sát bài làm của học sinh
+Hoạt động 5: Vận dụng (về nhà)
+Mục tiêu: (2), (4), (6), (7)
+Nội dung
+- Làm bài tập luyện tập và vận dụng trong sách giáo khoa và soạn bài tiếp theo.
+Sản phẩm học tập
+- Bài làm của học sinh.
+Tổ chức hoạt động học
+a. Giao nhiệm vụ
+- Giáo viên: giao nhiệm vụ cho học sinh làm bài tập về nhà.
+b. Triển khai nhiệm vụ
+- Học sinh: Thực hiện thao tác của giáo viên
+c. Theo dõi và hướng dẫn
+- Giáo viên:
+Yêu cầu học sinh nộp bài tập vào ngày hôm sau.
+d. Kiểm tra và đánh giá
+- Giáo viên:
+Chấm bài làm của học sinh vào ngày hôm sau.
+
+--- TABLE 1 ---
+ | Giáo viên | Học sinh
+Thiết bị | Máy tính, máy chiếu, loa, micrô, wifi. | Máy tính.
+Phần mềm | Google hoặc bất kỳ phần mềm nào có thể tra cứu trên mạng. Phần mềm lập trình sublime text hoặc vscode. | Google hoặc bất kỳ phần mềm nào có thể tra cứu trên mạng. phần mềm lập trình sublime text hoặc vscode.
+
+--- TABLE 2 ---
+Hoạt động học (Thời gian) | Hoạt động học (Thời gian) | Mục tiêu | Nội dung hoạt động | PPDH, KTDH | Phương án đánh giá | Phương án đánh giá | Phương án ứng dụng CNTT
+Hoạt động học (Thời gian) | Hoạt động học (Thời gian) | Mục tiêu | Nội dung hoạt động | PPDH, KTDH | Phương pháp | Công cụ | Phương án ứng dụng CNTT
+Mở đầu | Hoạt động 1: Khởi động (5’) | (2), (5), (6) | Giới thiệu về danh sách và bảng trên trang web | - Đặt vấn đề và giải quyết vấn đề - Dạy học trực quan | Quan sát quá trình học | Câu trả lời của học sinh | - Bài trình chiếu đa phương tiện - Phần mềm sublime text - Trang web minh hoạ
+Hình thành kiến thức | Hoạt động 2.1: Khám phá 1 (5’) | (1),(2),(4),(5),(7) | Giới thiệu về danh sách có hoặc không có thứ tự | - Dạy học hợp tác - Dạy học trực quan | Quan sát quá trình học | Câu trả lời của học sinh | Bài trình chiếu đa phương tiện - Phần mềm sublime text
+Hình thành kiến thức | Hoạt động 2.2: Khám phá 2 (55’) | (2),(3),(4),(5),(6),(7) | Hướng dẫn học sinh thiết lập bảng | - Dạy học trực quan | Quan sát quá trình học | Câu trả lời của học sinh | Bài trình chiếu đa phương tiện - Phầm mềm sublime text hoặc các phần mềm soạn thảo văn bản.
+Luyện tập | Hoạt động 4: Thực hành(30’) | (2), (3), (4), (6), (7) | Thực hành tạo danh sách và bảng | - Dạy học thực hành trải nghiệm - Dạy học trực quan | Quan sát quá trình học | Bài làm của học sinh | - Bài trình chiếu đa phương tiện - Phần mềm sublime text
+Vận dụng | Hoạt động 5: Bài tập về nhà | (2), (4), (6), (7) | Trả lời câu hỏi trong sgk và soạn bài mới, thử nghiệm một số thẻ mới vào dự án | - Kỹ thuật tự học, giao bài tập về nhà | Đánh giá qua bài làm của học sinh | Bài làm của học sinh | - Máy tính cá nhân.
+
+--- TABLE 3 ---
+Tạo danh sách thủ công | Tạo danh sách chuẩn bằng HTML
+ | 
+
+--- TABLE 4 ---
+ | Danh sách có thứ tự | Danh sách không có thứ tự
+Code mẫu |  | 
+Biên dịch |  | 
+
+--- TABLE 5 ---
+ | 

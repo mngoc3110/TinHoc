@@ -1,0 +1,2325 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hoạt động 3: Luyện Tập Thực Hành CLB.html | Bài 9 - Tin học 12</title>
+  <meta name="description" content="Thực hành lập trình tệp CLB.html theo chuẩn SGK Tin học 12 trang 55-56: Nhiệm vụ 1 Tạo danh sách CLB và Nhiệm vụ 2 Tạo bảng lịch hoạt động CLB thể thao có gộp ô rowspan, colspan.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Fira+Code:wght@400;500;600&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=20261108_05">
+  <!-- Thư viện JSZip hỗ trợ nén toàn bộ bài làm CLB.html của học sinh dạng ZIP -->
+  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+  <style>
+    .practice-workbench-grid {
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      gap: 1.25rem;
+      align-items: start;
+    }
+    @media (max-width: 1024px) {
+      .practice-workbench-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .editor-preview-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      min-height: 580px;
+    }
+    @media (max-width: 840px) {
+      .editor-preview-split {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .ide-pane {
+      background: #0d1117;
+      border: 1px solid #30363d;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .ide-header {
+      background: #161b22;
+      padding: 0.5rem 0.85rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #30363d;
+      font-size: 0.78rem;
+      color: #8b949e;
+      font-family: var(--font-mono);
+    }
+
+    .code-editor-area {
+      flex: 1;
+      width: 100%;
+      min-height: 500px;
+      background: #0d1117;
+      color: #7ee787;
+      font-family: var(--font-mono);
+      font-size: 0.86rem;
+      line-height: 1.6;
+      padding: 1rem;
+      border: none;
+      outline: none;
+      resize: vertical;
+      box-sizing: border-box;
+      tab-size: 2;
+    }
+
+    .preview-pane {
+      background: #ffffff;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .preview-header {
+      background: #f8fafc;
+      padding: 0.5rem 0.85rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #e2e8f0;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #475569;
+    }
+
+    .preview-frame {
+      flex: 1;
+      width: 100%;
+      min-height: 500px;
+      border: none;
+      background: #ffffff;
+    }
+
+    .checklist-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: var(--radius-md);
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .checklist-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      padding: 0.4rem 0;
+      border-bottom: 1px dashed #f1f5f9;
+      font-size: 0.82rem;
+    }
+    .checklist-item:last-child { border-bottom: none; }
+    .checklist-item.pass strong { color: #15803d; }
+    .checklist-item.pass span { color: #166534; }
+    .checklist-item.fail strong { color: #475569; }
+
+    .sgk-badge {
+      background: #e0f2fe;
+      color: #0369a1;
+      border: 1px solid #bae6fd;
+      border-radius: var(--radius-pill);
+      padding: 0.15rem 0.55rem;
+      font-size: 0.74rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    /* VIEW SWITCHER SUB-HEADER */
+    .view-switch-btns {
+      display: inline-flex;
+      background: #f1f5f9;
+      padding: 0.25rem;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+    }
+    .view-btn {
+      padding: 0.55rem 1.25rem;
+      border-radius: 8px;
+      border: none;
+      background: transparent;
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: #475569;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+    .view-btn.active {
+      background: #ffffff;
+      color: #1d4ed8;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+    }
+
+    /* STUDENT INFO CARD */
+    .student-card {
+      background: #ffffff;
+      border-radius: 14px;
+      border: 1px solid var(--border-subtle);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.25rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .mode-selector {
+      display: inline-flex;
+      background: #f1f5f9;
+      padding: 0.25rem;
+      border-radius: 8px;
+      margin-bottom: 0.75rem;
+      border: 1px solid #e2e8f0;
+    }
+    .mode-tab {
+      padding: 0.4rem 1rem;
+      border-radius: 6px;
+      border: none;
+      background: transparent;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #64748b;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .mode-tab.active {
+      background: #2563eb;
+      color: #ffffff;
+      box-shadow: 0 2px 4px rgba(37, 99, 235, 0.25);
+    }
+
+    .form-grid-single {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr);
+      gap: 1rem;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .form-grid-pair {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    @media (max-width: 768px) {
+      .form-grid-single, .form-grid-pair { grid-template-columns: 1fr; }
+    }
+
+    /* GLOBAL SUBMIT BAR */
+    .global-submit-card {
+      background: #ffffff;
+      border-radius: 14px;
+      border: 1.5px solid #bfdbfe;
+      padding: 1.25rem 1.5rem;
+      margin-top: 1.5rem;
+      box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.15);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      position: sticky;
+      bottom: 1rem;
+      z-index: 90;
+    }
+
+    .btn-submit-all {
+      background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 1.05rem;
+      padding: 0.75rem 2rem;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      box-shadow: 0 4px 14px rgba(5, 150, 105, 0.35);
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+    .btn-submit-all:hover {
+      background: linear-gradient(135deg, #047857 0%, #059669 100%);
+      transform: translateY(-2px);
+    }
+
+    /* TEACHER DASHBOARD */
+    .teacher-dashboard-section {
+      display: none;
+    }
+    .teacher-dashboard-section.active {
+      display: block;
+    }
+
+    .stat-badge-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .stat-badge {
+      background: #ffffff;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+      padding: 1rem 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .stat-badge-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+      background: #eff6ff;
+      color: #2563eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    .submissions-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #ffffff;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid #cbd5e1;
+      font-size: 0.92rem;
+    }
+    .submissions-table th, .submissions-table td {
+      padding: 0.85rem 1rem;
+      border: 1px solid #e2e8f0;
+      text-align: left;
+    }
+    .submissions-table th {
+      background: #f1f5f9;
+      color: #1e3a8a;
+      font-weight: 800;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+    }
+    .submissions-table tr:hover {
+      background: #f8fafc;
+    }
+
+    /* MODALS */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(15, 23, 42, 0.7);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      backdrop-filter: blur(4px);
+      padding: 1rem;
+      box-sizing: border-box;
+    }
+    .modal-overlay.active {
+      display: flex;
+    }
+    .modal-box {
+      background: #ffffff;
+      border-radius: 14px;
+      width: 95%;
+      max-width: 960px;
+      max-height: 90vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    }
+
+    .teacher-modal-overlay {
+      position: fixed !important;
+      inset: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      background: rgba(15, 23, 42, 0.75) !important;
+      backdrop-filter: blur(8px) !important;
+      display: none !important;
+      align-items: center !important;
+      justify-content: center !important;
+      z-index: 999999 !important;
+      padding: 1.5rem !important;
+      box-sizing: border-box !important;
+    }
+    .teacher-modal-overlay.active {
+      display: flex !important;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER & NAVIGATION -->
+  <header class="site-header">
+    <div class="container nav-wrapper">
+      <a href="index.html" class="brand-badge" title="Quay về Trang chủ Bài 9">
+        <div class="brand-icon-box" style="background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);">
+          <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+        </div>
+        <div class="brand-text">
+          <span class="title">BÀI 9: TẠO DANH SÁCH, BẢNG</span>
+          <span class="subtitle">Tin học 12 • Hoạt động 3: Thực hành Lập trình</span>
+        </div>
+      </a>
+
+      <nav aria-label="Điều hướng bài học">
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">Tổng quan</a></li>
+          <li><a href="hd1.html" class="nav-link">1. Khởi động</a></li>
+          <li><a href="hd2-1.html" class="nav-link">2.1. Danh sách HTML</a></li>
+          <li><a href="hd2-2.html" class="nav-link">2.2. Thiết lập Bảng</a></li>
+          <li><a href="hd3.html" class="nav-link active">3. Thực hành CLB</a></li>
+          <li><a href="hd4.html" class="nav-link">4. Vận dụng</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-tools">
+        <div class="timer-widget" title="Thời gian thực hành (30 phút)">
+          <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          <span id="timer-display" class="timer-display">30:00</span>
+          <select id="timer-preset" class="btn-tool" title="Chọn thời lượng đếm ngược">
+            <option value="20">20p</option>
+            <option value="30" selected>30p (Chuẩn HĐ 3)</option>
+            <option value="45">45p</option>
+          </select>
+          <button id="timer-toggle" class="btn-tool" type="button">▶ Bắt đầu</button>
+          <button id="timer-reset" class="btn-tool" type="button" title="Đặt lại đồng hồ">↺</button>
+        </div>
+
+        <button id="btn-fullscreen" class="btn-tool" type="button" title="Bật/Tắt toàn màn hình">
+          <svg class="icon-svg" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
+          Toàn màn hình
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- STEPPER TIẾN TRÌNH HỌC TẬP -->
+  <nav class="stepper-section" aria-label="Tiến trình học tập">
+    <div class="container">
+      <div class="stepper-nav">
+        <div class="stepper-line"></div>
+        
+        <a href="index.html" class="stepper-step completed">
+          <div class="step-circle">✓</div>
+          <span class="step-label">Mục tiêu bài</span>
+        </a>
+
+        <a href="hd1.html" class="stepper-step completed">
+          <div class="step-circle">✓</div>
+          <span class="step-label">1. Khởi động (5')</span>
+        </a>
+
+        <a href="hd2-1.html" class="stepper-step completed">
+          <div class="step-circle">✓</div>
+          <span class="step-label">2.1. Danh sách (15')</span>
+        </a>
+
+        <a href="hd2-2.html" class="stepper-step completed">
+          <div class="step-circle">✓</div>
+          <span class="step-label">2.2. Bảng HTML (15')</span>
+        </a>
+
+        <a href="hd3.html" class="stepper-step active">
+          <div class="step-circle">3</div>
+          <span class="step-label">3. Thực hành CLB (30')</span>
+        </a>
+
+        <a href="hd4.html" class="stepper-step">
+          <div class="step-circle">4</div>
+          <span class="step-label">4. Vận dụng &amp; Về nhà</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO BANNER -->
+  <section class="hero-banner" style="background: linear-gradient(135deg, #15803d 0%, #16a34a 60%, #059669 100%);">
+    <div class="container">
+      <div class="hero-content">
+        <div class="badge-tag" style="background: rgba(255,255,255,0.2); color: #fff; border-color: rgba(255,255,255,0.35);">
+          <span>HOẠT ĐỘNG 3 • LUYỆN TẬP THỰC HÀNH LẬP TRÌNH (30 PHÚT)</span>
+        </div>
+        <h1 class="hero-title">Thực Hành Tạo Danh Sách Và Bảng (CLB.html)</h1>
+        <p class="hero-subtitle">
+          Vận dụng toàn bộ kiến thức mục 2.1 và 2.2 để tự tay hoàn thành 2 nhiệm vụ SGK trang 55-56: <strong>Nhiệm vụ 1 Tạo danh sách các câu lạc bộ (Hình 9.7)</strong> và <strong>Nhiệm vụ 2 Tạo bảng lịch hoạt động CLB thể thao có gộp ô (Hình 9.8)</strong>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SUB-HEADER VIEW SWITCHER (HỌC SINH VS GIÁO VIÊN) -->
+  <div style="background: #ffffff; border-bottom: 1.5px solid #e2e8f0; padding: 0.85rem 0; box-shadow: 0 2px 4px rgba(0,0,0,0.03);">
+    <div class="container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem;">
+      <div class="view-switch-btns">
+        <button type="button" class="view-btn active" id="btn-view-student" onclick="switchMainView('student')">
+          <span>💻 Không Gian Lập Trình &amp; Nộp Bài (Học Sinh)</span>
+        </button>
+        <button type="button" class="view-btn" id="btn-view-teacher" onclick="switchMainView('teacher')">
+          <span>📊 Bảng Theo Dõi &amp; Quản Lý Nộp Bài (Giáo Viên)</span>
+          <span id="teacher-lock-badge" style="font-size: 0.72rem; background: #fef2f2; color: #dc2626; padding: 0.15rem 0.5rem; border-radius: 9999px; margin-left: 0.4rem; font-weight: 700; border: 1px solid #fecaca;">🔒 Cần đăng nhập</span>
+        </button>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
+        <!-- Khung hiển thị tài khoản giáo viên khi đã đăng nhập -->
+        <div id="teacher-auth-status" style="display: none; align-items: center; gap: 0.5rem; font-size: 0.85rem;">
+          <span style="background: #dcfce7; color: #166534; font-weight: 700; padding: 0.25rem 0.65rem; border-radius: 9999px; display: inline-flex; align-items: center; gap: 0.35rem; border: 1px solid #bbf7d0;">
+            <span>👤</span> <span id="teacher-auth-email-display">darber3110@gmail.com</span>
+          </span>
+          <button type="button" onclick="teacherLogout()" class="btn btn-sm btn-secondary" style="font-size: 0.76rem; padding: 0.2rem 0.55rem; color: #dc2626; border-color: #fecaca; background: #fff5f5; font-weight: 700;" title="Đăng xuất khỏi Bảng Giáo Viên">
+            🚪 Đăng xuất
+          </button>
+        </div>
+
+        <div style="font-size: 0.88rem; color: #64748b; display: flex; align-items: center; gap: 0.5rem;">
+          <span>🎯 Hoạt động 3: Luyện tập (30')</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN WORKBENCH -->
+  <main class="main-content">
+    <div class="container">
+
+      <!-- ======================================================== -->
+      <!-- VIEW 1: KHÔNG GIAN LẬP TRÌNH & NỘP BÀI CỦA HỌC SINH -->
+      <!-- ======================================================== -->
+      <div id="view-student-container">
+
+        <!-- THÔNG TIN HỌC SINH -->
+        <section class="student-card">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.85rem;">
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+              <span style="font-size: 1.25rem;">👤</span>
+              <strong style="color: #1e3a8a; font-size: 1rem;">THÔNG TIN HỌC SINH / NHÓM THỰC HÀNH</strong>
+            </div>
+
+            <div class="mode-selector">
+              <button type="button" class="mode-tab active" id="btn-mode-single" onclick="setStudentMode('single')">
+                👤 Cá nhân (1 bạn)
+              </button>
+              <button type="button" class="mode-tab" id="btn-mode-pair" onclick="setStudentMode('pair')">
+                👥 Cặp đôi (2 bạn cùng máy)
+              </button>
+            </div>
+          </div>
+
+          <!-- FORM CÁ NHÂN -->
+          <div id="form-mode-single" class="form-grid-single">
+            <div>
+              <label style="display: block; font-size: 0.82rem; font-weight: 700; color: #334155; margin-bottom: 0.35rem;">
+                Họ và tên học sinh <span style="color:#dc2626;">*</span>
+              </label>
+              <input type="text" id="student-name-input" class="form-control" placeholder="Nhập họ và tên..." style="width: 100%; box-sizing: border-box; padding: 0.65rem 0.85rem; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 0.92rem;">
+            </div>
+            <div>
+              <label style="display: block; font-size: 0.82rem; font-weight: 700; color: #334155; margin-bottom: 0.35rem;">
+                Lớp học <span style="color:#dc2626;">*</span>
+              </label>
+              <select id="student-class-select" class="form-control" style="width: 100%; box-sizing: border-box; padding: 0.65rem 0.85rem; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 0.92rem; background: #fff;">
+                <option value="12A1" selected>12A1</option>
+                <option value="12A2">12A2</option>
+                <option value="12A3">12A3</option>
+                <option value="12A4">12A4</option>
+                <option value="12A5">12A5</option>
+                <option value="12A6">12A6</option>
+                <option value="12A7">12A7</option>
+                <option value="12A8">12A8</option>
+              </select>
+            </div>
+            <div>
+              <label style="display: block; font-size: 0.82rem; font-weight: 700; color: #334155; margin-bottom: 0.35rem;">
+                Số máy phòng máy <span style="color:#dc2626;">*</span>
+              </label>
+              <input type="text" id="student-number-input" class="form-control" placeholder="Máy 01" style="width: 100%; box-sizing: border-box; padding: 0.65rem 0.85rem; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 0.92rem;">
+            </div>
+          </div>
+
+          <!-- FORM CẶP ĐÔI -->
+          <div id="form-mode-pair" class="form-grid-pair" style="display: none;">
+            <div style="background: #f8fafc; padding: 0.85rem; border-radius: 8px; border: 1px solid #e2e8f0;">
+              <span style="font-size: 0.8rem; font-weight: 800; color: #1d4ed8; display: block; margin-bottom: 0.35rem;">👦 HỌC SINH 1 (Thành viên chính)</span>
+              <div style="margin-bottom: 0.5rem;">
+                <input type="text" id="pair-name-1" class="form-control" placeholder="Họ và tên bạn 1..." style="width: 100%; box-sizing: border-box; padding: 0.55rem 0.75rem; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.88rem;">
+              </div>
+              <input type="text" id="pair-stt-1" class="form-control" placeholder="STT / Số thứ tự bạn 1" style="width: 100%; box-sizing: border-box; padding: 0.55rem 0.75rem; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.88rem;">
+            </div>
+
+            <div style="background: #f8fafc; padding: 0.85rem; border-radius: 8px; border: 1px solid #e2e8f0;">
+              <span style="font-size: 0.8rem; font-weight: 800; color: #1d4ed8; display: block; margin-bottom: 0.35rem;">👧 HỌC SINH 2 (Thành viên cùng nhóm)</span>
+              <div style="margin-bottom: 0.5rem;">
+                <input type="text" id="pair-name-2" class="form-control" placeholder="Họ và tên bạn 2..." style="width: 100%; box-sizing: border-box; padding: 0.55rem 0.75rem; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.88rem;">
+              </div>
+              <input type="text" id="pair-stt-2" class="form-control" placeholder="STT / Số thứ tự bạn 2" style="width: 100%; box-sizing: border-box; padding: 0.55rem 0.75rem; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.88rem;">
+            </div>
+
+            <div style="grid-column: 1 / -1; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; width: 100%;">
+              <div>
+                <label style="display: block; font-size: 0.82rem; font-weight: 700; color: #334155; margin-bottom: 0.35rem;">Lớp học chung</label>
+                <select id="pair-class-select" class="form-control" style="width: 100%; box-sizing: border-box; padding: 0.55rem 0.75rem; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.88rem; background:#fff;">
+                  <option value="12A1" selected>12A1</option>
+                  <option value="12A2">12A2</option>
+                  <option value="12A3">12A3</option>
+                  <option value="12A4">12A4</option>
+                  <option value="12A5">12A5</option>
+                  <option value="12A6">12A6</option>
+                  <option value="12A7">12A7</option>
+                  <option value="12A8">12A8</option>
+                </select>
+              </div>
+              <div>
+                <label style="display: block; font-size: 0.82rem; font-weight: 700; color: #334155; margin-bottom: 0.35rem;">Số máy thực hành</label>
+                <input type="text" id="pair-machine-input" class="form-control" placeholder="Máy 01" style="width: 100%; box-sizing: border-box; padding: 0.55rem 0.75rem; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.88rem;">
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div class="practice-workbench-grid">
+
+        <!-- CỘT TRÁI: NHIỆM VỤ SGK VÀ BỘ CHẤM TỰ ĐỘNG -->
+        <aside class="practice-sidebar">
+          
+          <!-- CARD NHIỆM VỤ 1 SGK TRANG 55 -->
+          <div class="card" style="border-left: 4px solid #2563eb; padding: 1rem; margin-bottom: 1rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+              <h4 style="margin: 0; color: #1d4ed8; font-size: 0.95rem; font-weight: 700;">
+                Nhiệm vụ 1: Tạo danh sách CLB
+              </h4>
+              <span class="sgk-badge">Hình 9.7 p.55</span>
+            </div>
+            <p style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 0.5rem;">
+              <strong>Yêu cầu:</strong> Viết mã HTML tạo danh sách lồng nhau như Hình 9.7:
+            </p>
+            <ul style="font-size: 0.78rem; color: var(--text-secondary); margin: 0; padding-left: 1rem; line-height: 1.5;">
+              <li>Tiêu đề: <code>&lt;h2&gt;Danh sách Câu lạc bộ&lt;/h2&gt;</code></li>
+              <li>Mục lớn <code>&lt;ul&gt;</code>: <strong>THỂ THAO</strong> và <strong>NGHỆ THUẬT</strong></li>
+              <li>Danh sách con <code>&lt;ol&gt;</code>: 1. Bóng đá, 2. Bóng chuyền, 3. Bóng rổ, 4. Võ (con: a. Karate, b. Taekwondo, c. Vovinam bằng <code>type="a"</code>), 5. Bơi</li>
+              <li>Mục Nghệ thuật tương tự (1. Mĩ thuật, 2. Nhiếp ảnh, 3. Âm nhạc: a. Thanh nhạc, b. Piano, c. Violin, 4. Khiêu vũ)</li>
+            </ul>
+          </div>
+
+          <!-- CARD NHIỆM VỤ 2 SGK TRANG 56 -->
+          <div class="card" style="border-left: 4px solid #ea580c; padding: 1rem; margin-bottom: 1rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+              <h4 style="margin: 0; color: #c2410c; font-size: 0.95rem; font-weight: 700;">
+                Nhiệm vụ 2: Tạo bảng lịch hoạt động
+              </h4>
+              <span class="sgk-badge" style="background:#fff7ed; color:#c2410c; border-color:#ffedd5;">Hình 9.8 p.56</span>
+            </div>
+            <p style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 0.5rem;">
+              <strong>Yêu cầu:</strong> Lập bảng lịch hoạt động CLB (Hình 9.8):
+            </p>
+            <ul style="font-size: 0.78rem; color: var(--text-secondary); margin: 0; padding-left: 1rem; line-height: 1.5;">
+              <li>Bảng có <strong>7 hàng, 7 cột</strong></li>
+              <li><code>&lt;caption&gt;Lịch hoạt động CLB Thể thao&lt;/caption&gt;</code></li>
+              <li>Ô Bộ môn &amp; GV phụ trách: <code>rowspan="2"</code></li>
+              <li>Ô Ngày: <code>colspan="5"</code> (Thứ 2 đến Thứ 6)</li>
+              <li>Khung viền: <code>style="border:1px solid"</code> hoặc <code>border="1"</code></li>
+            </ul>
+          </div>
+
+          <!-- CARD BỘ CHẤM TIÊU CHÍ TỰ ĐỘNG -->
+          <div class="checklist-card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.65rem;">
+              <h4 style="margin: 0; font-size: 0.92rem; color: var(--text-primary); font-weight: 700;">
+                Kiểm Tra Tự Động CLB.html
+              </h4>
+              <span id="criteria-score" class="badge-tag" style="background:#eff6ff; color:#1d4ed8; font-weight:700; margin:0;">
+                0/8 tiêu chí
+              </span>
+            </div>
+
+            <div id="chk-item-1" class="checklist-item">
+              <span>⚪</span>
+              <div><strong>1. Khung chuẩn HTML5:</strong> &lt;!DOCTYPE html&gt;, &lt;html&gt;, &lt;head&gt;, &lt;body&gt;</div>
+            </div>
+            <div id="chk-item-2" class="checklist-item">
+              <span>⚪</span>
+              <div><strong>2. Tiếng Việt UTF-8:</strong> &lt;meta charset="utf-8"&gt; và tiêu đề &lt;title&gt;</div>
+            </div>
+            <div id="chk-item-3" class="checklist-item">
+              <span>⚪</span>
+              <div><strong>3. Tiêu đề danh sách:</strong> Có thẻ &lt;h2&gt; "Danh sách Câu lạc bộ"</div>
+            </div>
+            <div id="chk-item-4" class="checklist-item">
+              <span>⚪</span>
+              <div><strong>4. Danh sách lồng nhau:</strong> &lt;ul&gt; chứa &lt;ol&gt; THỂ THAO &amp; NGHỆ THUẬT</div>
+            </div>
+            <div id="chk-item-5" class="checklist-item">
+              <span>⚪</span>
+              <div><strong>5. Phân cấp cấp 3:</strong> Thuộc tính type="a" cho Võ &amp; Âm nhạc</div>
+            </div>
+            <div id="chk-item-6" class="checklist-item">
+              <span>⚪</span>
+              <div><strong>6. Bảng &amp; Caption:</strong> &lt;table&gt; có &lt;caption&gt; Lịch hoạt động CLB</div>
+            </div>
+            <div id="chk-item-7" class="checklist-item">
+              <span>⚪</span>
+              <div><strong>7. Gộp ô rowspan="2":</strong> Ô Bộ môn và GV phụ trách</div>
+            </div>
+            <div id="chk-item-8" class="checklist-item">
+              <span>⚪</span>
+              <div><strong>8. Gộp ô colspan="5":</strong> Ô Ngày trải dài qua 5 cột (Thứ 2 đến Thứ 6)</div>
+            </div>
+
+            <div style="margin-top: 0.85rem; display: flex; gap: 0.45rem;">
+              <button class="btn btn-primary btn-sm" style="flex: 1;" type="button" onclick="runAutoGrade()">
+                🔍 Quét kiểm tra bài làm
+              </button>
+            </div>
+          </div>
+
+          <!-- NÚT TẢI FILE VỀ MÁY -->
+          <div style="background: #ffffff; border: 1px solid #cbd5e1; border-radius: var(--radius-md); padding: 0.85rem; text-align: center;">
+            <button class="btn btn-secondary btn-sm" style="width: 100%;" type="button" onclick="downloadClbHtml()">
+              💾 Tải tệp CLB.html về máy
+            </button>
+          </div>
+
+        </aside>
+
+        <!-- CỘT PHẢI: TRÌNH THỰC HÀNH CODE CHUYÊN NGHIỆP SPLIT 50/50 -->
+        <div class="practice-main-workspace">
+          
+          <div class="card" style="padding: 1rem; margin-bottom: 0.85rem;">
+            <!-- THANH CÔNG CỤ NẠP NHANH MÃ MẪU -->
+            <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem;">
+              <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+                <span style="font-size: 0.82rem; font-weight: 700; color: #1e3a8a; display: flex; align-items: center; gap: 0.35rem;">
+                  <span>💻</span> MÔI TRƯỜNG SOẠN THẢO TRỰC TUYẾN
+                </span>
+                <span class="compare-tag" style="background:#eff6ff; color:#1d4ed8; font-size: 0.75rem; padding: 0.15rem 0.5rem; border: 1px solid #bfdbfe;">
+                  Tự tay lập trình CLB.html
+                </span>
+              </div>
+
+              <div style="display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap;">
+                <button class="btn btn-primary btn-sm" type="button" onclick="updateLivePreview()" style="font-weight: 700; box-shadow: 0 2px 6px rgba(29, 78, 216, 0.25);">
+                  ▶ Chạy &amp; Biên dịch (F5)
+                </button>
+                <button class="btn btn-secondary btn-sm" type="button" onclick="resetEditorToBlank()" title="Xóa trắng ô soạn thảo để bắt đầu lại">
+                  ↺ Xóa trắng để gõ lại
+                </button>
+                <button class="btn btn-secondary btn-sm" type="button" onclick="downloadClbHtml()" title="Tải tệp CLB.html về máy tính">
+                  📥 Tải file CLB.html
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- KHUNG SPLIT 50/50: EDITOR vs PREVIEW -->
+          <div class="editor-preview-split">
+            
+            <!-- EDITOR -->
+            <div class="ide-pane">
+              <div class="ide-header">
+                <span>💻 CLB.html (Trình soạn thảo mã nguồn)</span>
+                <span id="editor-status" style="color: #58a6ff;">● Tự động biên dịch khi gõ</span>
+              </div>
+              <textarea id="clb-code-input" class="code-editor-area" spellcheck="false" placeholder="Em hãy tự tay gõ mã HTML cho trang CLB.html (gồm Danh sách lồng nhau và Bảng lịch hoạt động có gộp ô) theo các bước hướng dẫn SGK trang 55-56 vào đây..."></textarea>
+            </div>
+
+            <!-- LIVE PREVIEW -->
+            <div class="preview-pane">
+              <div class="preview-header">
+                <span>🌐 KẾT QUẢ HIỂN THỊ WEB THỰC TẾ (CLB.html)</span>
+                <span class="compare-tag success" style="font-size: 0.7rem; padding: 0.1rem 0.45rem;">LIVE RENDER</span>
+              </div>
+              <iframe id="clb-preview-frame" class="preview-frame" title="Kết quả hiển thị tệp CLB.html"></iframe>
+            </div>
+
+          </div>
+
+          <!-- THANH CHUYỂN TIẾP SANG HOẠT ĐỘNG 4 -->
+          <div style="margin-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.85rem; padding: 1.25rem; background: #ffffff; border: 1.5px solid #86efac; border-radius: var(--radius-md); box-shadow: var(--shadow-sm);">
+            <div>
+              <span style="font-size: 0.82rem; font-weight: 700; color: #15803d; text-transform: uppercase;">✓ Hoàn thành Thực hành Lập trình</span>
+              <h4 style="margin: 0.2rem 0 0; color: var(--text-primary); font-size: 1.05rem;">
+                Chúc mừng em đã hoàn thành xuất sắc tệp CLB.html!
+              </h4>
+            </div>
+            <a href="hd4.html" class="btn btn-primary" style="background: #16a34a; border-color: #16a34a; font-size: 0.95rem; padding: 0.65rem 1.45rem; font-weight: 700; box-shadow: 0 4px 12px rgba(22, 163, 74, 0.25);">
+              👉 Tiến vào Hoạt động 4: Infographic &amp; Câu hỏi cuối bài →
+            </a>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- THANH NỘP BÀI THỰC HÀNH TOÀN CỤC CHO HỌC SINH -->
+      <div class="global-submit-card">
+        <div style="display: flex; align-items: center; gap: 0.85rem;">
+          <div style="width: 44px; height: 44px; border-radius: 10px; background: #eff6ff; color: #2563eb; display: flex; align-items: center; justify-content: center; font-size: 1.4rem;">
+            🚀
+          </div>
+          <div>
+            <div style="font-weight: 800; color: #1e3a8a; font-size: 1rem;">
+              Sẵn sàng nộp bài thực hành CLB.html
+            </div>
+            <div style="font-size: 0.82rem; color: #64748b;" id="submit-summary-status">
+              Học sinh: Chưa nhập tên • Điểm tiêu chí: <strong id="bar-score-display">0/8</strong>
+            </div>
+          </div>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+          <button type="button" class="btn btn-secondary" onclick="downloadClbHtml()" style="font-size: 0.9rem;">
+            💾 Tải CLB.html về máy
+          </button>
+          <button type="button" class="btn-submit-all" onclick="submitHd3Practice()">
+            <span>🚀 NỘP BÀI LÊN MÁY CHỦ</span>
+          </button>
+        </div>
+      </div>
+
+    </div> <!-- Kết thúc #view-student-container -->
+
+    <!-- ======================================================== -->
+    <!-- VIEW 2: BẢNG THEO DÕI & QUẢN LÝ NỘP BÀI (GIÁO VIÊN) -->
+    <!-- ======================================================== -->
+    <div id="view-teacher-container" class="teacher-dashboard-section">
+
+      <!-- THẺ TRUY CẬP VÀ MÁY CHIẾU LỚP HỌC -->
+      <section class="student-card" style="border-left: 6px solid #2563eb; margin-bottom: 1.5rem;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap;">
+          <div>
+            <div class="live-status-pill">
+              <span class="live-dot"></span>
+              <span>ĐANG KẾT NỐI TRỰC TIẾP (REALTIME) • BÀI THỰC HÀNH CLB.HTML</span>
+            </div>
+            <h2 style="font-size: 1.45rem; font-weight: 800; color: #1e3a8a; margin: 0.5rem 0 0.25rem 0;">
+              📊 Bảng Theo Dõi Tiến Độ Thực Hành &amp; Nộp Bài Hoạt Động 3
+            </h2>
+            <p style="font-size: 0.88rem; color: #64748b; margin: 0;">
+              Hệ thống tự động ghi nhận bài làm của học sinh theo thời gian thực và đóng gói từng file HTML độc lập trên máy chủ.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- THẺ THỐNG KÊ NHANH CỦA GIÁO VIÊN -->
+      <div class="stat-badge-grid">
+        <div class="stat-badge">
+          <div class="stat-badge-icon">👥</div>
+          <div>
+            <div style="font-size: 1.6rem; font-weight: 800; color: #0f172a; line-height: 1.2;" id="hd3-stat-count">0</div>
+            <div style="font-size: 0.8rem; color: #64748b; font-weight: 600; text-transform: uppercase;">Học sinh đã nộp bài</div>
+          </div>
+        </div>
+
+        <div class="stat-badge">
+          <div class="stat-badge-icon" style="background: #f0fdf4; color: #16a34a;">🏆</div>
+          <div>
+            <div style="font-size: 1.6rem; font-weight: 800; color: #16a34a; line-height: 1.2;" id="hd3-stat-rate">0%</div>
+            <div style="font-size: 0.8rem; color: #64748b; font-weight: 600; text-transform: uppercase;">Đạt chuẩn (≥ 6/8 tiêu chí)</div>
+          </div>
+        </div>
+
+        <div class="stat-badge">
+          <div class="stat-badge-icon" style="background: #fef3c7; color: #b45309;">⏱️</div>
+          <div>
+            <div style="font-size: 1.1rem; font-weight: 700; color: #0f172a; line-height: 1.3;" id="hd3-stat-latest">Chưa có</div>
+            <div style="font-size: 0.8rem; color: #64748b; font-weight: 600; text-transform: uppercase;">Bài nộp gần nhất</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- THANH CÔNG CỤ THAO TÁC CỦA GIÁO VIÊN -->
+      <div class="card" style="padding: 1rem 1.25rem; margin-bottom: 1.25rem; background: #ffffff;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem;">
+          <div style="font-weight: 700; color: #1e293b; font-size: 0.95rem;">
+            Danh sách bài làm đã thu thập:
+          </div>
+
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+            <button type="button" class="btn btn-secondary" onclick="loadHd3Submissions()">
+              🔄 Làm mới
+            </button>
+            <button type="button" class="btn btn-secondary" onclick="copyHd3ForGoogleSheets()" style="background: #ecfdf5; color: #047857; border-color: #a7f3d0;" title="Sao chép bảng điểm nộp bài vào Google Sheets">
+              📋 Sao chép cho Google Sheets
+            </button>
+            <button type="button" class="btn btn-secondary" onclick="exportHd3CSV()">
+              📥 Xuất file Excel (CSV)
+            </button>
+            <button type="button" class="btn btn-secondary" onclick="downloadAllClassSubmissionsZipFolders()" style="background: #eff6ff; color: #1d4ed8; border-color: #bfdbfe; font-weight: 700;" title="Nén tất cả bài nộp thành 1 tệp ZIP chứa tệp CLB.html của từng học sinh">
+              📦 Tải toàn bộ bài nộp dạng ZIP
+            </button>
+            <button type="button" class="btn btn-secondary" onclick="generateSampleHd3Data()" style="color: #6366f1;">
+              🧪 Dữ liệu thử nghiệm
+            </button>
+            <button type="button" class="btn btn-secondary" onclick="clearHd3Submissions()" style="color: #dc2626;">
+              🗑️ Xóa danh sách
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- BẢNG DANH SÁCH BÀI NỘP CỦA HỌC SINH -->
+      <div style="overflow-x: auto; border-radius: 10px; border: 1px solid #cbd5e1; background: #fff;">
+        <table class="submissions-table">
+          <thead>
+            <tr>
+              <th style="width: 50px; text-align: center;">STT</th>
+              <th style="min-width: 180px;">Họ và tên học sinh</th>
+              <th style="width: 80px; text-align: center;">Lớp</th>
+              <th style="width: 90px; text-align: center;">Số máy</th>
+              <th style="width: 140px;">Thời gian nộp</th>
+              <th style="width: 130px; text-align: center;">Tiêu chí đạt</th>
+              <th style="width: 120px; text-align: center;">Trạng thái</th>
+              <th style="width: 160px; text-align: center;">Thao tác</th>
+            </tr>
+          </thead>
+          <tbody id="hd3-submissions-tbody">
+            <tr>
+              <td colspan="8" style="text-align: center; padding: 2.5rem; color: #94a3b8;">
+                Đang kết nối máy chủ và nạp danh sách bài nộp thực hành...
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div> <!-- Kết thúc #view-teacher-container -->
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>© 2026 Tin học 12 Thống nhất - Bài 9: Tạo danh sách, bảng. THPT Thực hành ĐH Sư phạm.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+  <script>
+    /* ==========================================================================
+       MÃ NGUỒN CÁC MẪU CHUẨN SGK TIN HỌC 12 TRANG 55-56
+       ========================================================================== */
+    const SAMPLES = {
+      init: `<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <title>Các Câu Lạc Bộ Nhà Trường</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; line-height: 1.6; }
+    table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+    th, td { border: 1px solid #334155; padding: 8px; text-align: center; }
+    th { background: #e0f2fe; }
+    caption { font-weight: bold; margin-bottom: 8px; font-size: 1.1rem; }
+  </style>
+</head>
+<body>
+  <!-- Viết mã Nhiệm vụ 1 và Nhiệm vụ 2 vào đây -->
+</body>
+</html>`,
+
+      task1: `<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <title>Nhiệm vụ 1: Danh sách Câu lạc bộ</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; line-height: 1.6; }
+    h2 { color: #1d4ed8; }
+  </style>
+</head>
+<body>
+  <!-- NHIỆM VỤ 1 (HÌNH 9.7 SGK TRANG 55) -->
+  <h2>Danh sách Câu lạc bộ</h2>
+  <ul>
+    <li>
+      <strong>THỂ THAO</strong>
+      <ol>
+        <li>Bóng đá</li>
+        <li>Bóng chuyền</li>
+        <li>Bóng rổ</li>
+        <li>
+          Võ
+          <ol type="a">
+            <li>Karate</li>
+            <li>Taekwondo</li>
+            <li>Vovinam</li>
+          </ol>
+        </li>
+        <li>Bơi</li>
+      </ol>
+    </li>
+    <li>
+      <strong>NGHỆ THUẬT</strong>
+      <ol>
+        <li>Mĩ thuật</li>
+        <li>Nhiếp ảnh</li>
+        <li>
+          Âm nhạc
+          <ol type="a">
+            <li>Thanh nhạc</li>
+            <li>Piano</li>
+            <li>Violin</li>
+          </ol>
+        </li>
+        <li>Khiêu vũ</li>
+      </ol>
+    </li>
+  </ul>
+</body>
+</html>`,
+
+      task2: `<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <title>Nhiệm vụ 2: Lịch hoạt động CLB</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { border: 1px solid #334155; padding: 8px; text-align: center; }
+    th { background: #f1f5f9; }
+    caption { font-weight: bold; margin-bottom: 8px; font-size: 1.1rem; }
+  </style>
+</head>
+<body>
+  <!-- NHIỆM VỤ 2 (HÌNH 9.8 SGK TRANG 56) -->
+  <table border="1">
+    <caption>Lịch hoạt động CLB Thể thao</caption>
+    <tr style="border:1px solid">
+      <th rowspan="2">Bộ môn</th>
+      <th rowspan="2">GV phụ trách</th>
+      <th colspan="5">Ngày</th>
+    </tr>
+    <tr>
+      <th>Thứ 2</th>
+      <th>Thứ 3</th>
+      <th>Thứ 4</th>
+      <th>Thứ 5</th>
+      <th>Thứ 6</th>
+    </tr>
+    <tr>
+      <td>Bóng đá</td>
+      <td>Thầy Khải</td>
+      <td>X</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>X</td>
+    </tr>
+    <tr>
+      <td>Bóng chuyền</td>
+      <td>Cô Lan</td>
+      <td></td>
+      <td></td>
+      <td>X</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Bóng rổ</td>
+      <td>Thầy Vĩ</td>
+      <td></td>
+      <td>X</td>
+      <td></td>
+      <td>X</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Võ thuật</td>
+      <td>Thầy Hoàng - Karate<br>Thầy Huy - Taekwondo<br>Thầy Thắng - Vovinam</td>
+      <td>X</td>
+      <td></td>
+      <td>X</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Bơi</td>
+      <td>Cô Bích</td>
+      <td></td>
+      <td>X</td>
+      <td></td>
+      <td>X</td>
+      <td></td>
+    </tr>
+  </table>
+</body>
+</html>`,
+
+      full: `<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <title>Các Câu Lạc Bộ Nhà Trường - CLB.html</title>
+  <style>
+    body { font-family: sans-serif; padding: 25px; line-height: 1.6; color: #1e293b; }
+    h2 { color: #1d4ed8; border-bottom: 2px solid #93c5fd; padding-bottom: 6px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+    th, td { border: 1px solid #64748b; padding: 10px 8px; text-align: center; }
+    th { background: #e0f2fe; color: #0369a1; font-weight: bold; }
+    caption { font-weight: bold; margin-bottom: 10px; font-size: 1.15rem; color: #0f172a; }
+  </style>
+</head>
+<body>
+
+  <!-- NHIỆM VỤ 1 (HÌNH 9.7 SGK TRANG 55) -->
+  <h2>Danh sách Câu lạc bộ</h2>
+  <ul>
+    <li>
+      <strong>THỂ THAO</strong>
+      <ol>
+        <li>Bóng đá</li>
+        <li>Bóng chuyền</li>
+        <li>Bóng rổ</li>
+        <li>
+          Võ
+          <ol type="a">
+            <li>Karate</li>
+            <li>Taekwondo</li>
+            <li>Vovinam</li>
+          </ol>
+        </li>
+        <li>Bơi</li>
+      </ol>
+    </li>
+    <li>
+      <strong>NGHỆ THUẬT</strong>
+      <ol>
+        <li>Mĩ thuật</li>
+        <li>Nhiếp ảnh</li>
+        <li>
+          Âm nhạc
+          <ol type="a">
+            <li>Thanh nhạc</li>
+            <li>Piano</li>
+            <li>Violin</li>
+          </ol>
+        </li>
+        <li>Khiêu vũ</li>
+      </ol>
+    </li>
+  </ul>
+
+  <br>
+
+  <!-- NHIỆM VỤ 2 (HÌNH 9.8 SGK TRANG 56) -->
+  <table border="1">
+    <caption>Lịch hoạt động CLB Thể thao</caption>
+    <tr style="border:1px solid">
+      <th rowspan="2">Bộ môn</th>
+      <th rowspan="2">GV phụ trách</th>
+      <th colspan="5">Ngày</th>
+    </tr>
+    <tr>
+      <th>Thứ 2</th>
+      <th>Thứ 3</th>
+      <th>Thứ 4</th>
+      <th>Thứ 5</th>
+      <th>Thứ 6</th>
+    </tr>
+    <tr>
+      <td>Bóng đá</td>
+      <td>Thầy Khải</td>
+      <td>X</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>X</td>
+    </tr>
+    <tr>
+      <td>Bóng chuyền</td>
+      <td>Cô Lan</td>
+      <td></td>
+      <td></td>
+      <td>X</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Bóng rổ</td>
+      <td>Thầy Vĩ</td>
+      <td></td>
+      <td>X</td>
+      <td></td>
+      <td>X</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Võ thuật</td>
+      <td>Thầy Hoàng - Karate<br>Thầy Huy - Taekwondo<br>Thầy Thắng - Vovinam</td>
+      <td>X</td>
+      <td></td>
+      <td>X</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Bơi</td>
+      <td>Cô Bích</td>
+      <td></td>
+      <td>X</td>
+      <td></td>
+      <td>X</td>
+      <td></td>
+    </tr>
+  </table>
+
+</body>
+</html>`
+    };
+
+    function loadSampleCode(key) {
+      const editor = document.getElementById('clb-code-input');
+      if (!editor || !SAMPLES[key]) return;
+      editor.value = SAMPLES[key];
+      updateLivePreview();
+      runAutoGrade();
+      if (typeof showToast === 'function') {
+        showToast('✓ Đã nạp mã mẫu thành công!');
+      }
+    }
+
+    function resetEditor() {
+      resetEditorToBlank();
+    }
+
+    function resetEditorToBlank() {
+      if (confirm('Em có chắc chắn muốn xóa toàn bộ nội dung trong ô soạn thảo để làm lại từ đầu không?')) {
+        const editor = document.getElementById('clb-code-input');
+        if (editor) {
+          editor.value = '';
+          updateLivePreview();
+          runAutoGrade();
+          updateSubmitSummary();
+          localStorage.removeItem('bai9_hd3_draft_code');
+        }
+      }
+    }
+
+    function updateLivePreview() {
+      const editor = document.getElementById('clb-code-input');
+      const frame = document.getElementById('clb-preview-frame');
+      const statusEl = document.getElementById('editor-status');
+      if (!editor || !frame) return;
+
+      const codeVal = editor.value;
+      const doc = frame.contentDocument || frame.contentWindow.document;
+      doc.open();
+      if (!codeVal.trim()) {
+        doc.write(`
+          <!DOCTYPE html>
+          <html lang="vi">
+          <head>
+            <meta charset="utf-8">
+            <style>
+              body {
+                font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                background: #f8fafc;
+                color: #64748b;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 80vh;
+                margin: 0;
+                text-align: center;
+              }
+              .box {
+                max-width: 440px;
+                padding: 2rem;
+                background: #ffffff;
+                border: 2px dashed #cbd5e1;
+                border-radius: 12px;
+                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+              }
+            </style>
+          </head>
+          <body>
+            <div class="box">
+              <div style="font-size: 2.2rem; margin-bottom: 0.6rem;">💻 🌐</div>
+              <strong style="color: #1e3a8a; font-size: 1.05rem; display: block; margin-bottom: 0.4rem;">Khung Hiển Thị Trình Duyệt Thực Tế</strong>
+              <p style="font-size: 0.88rem; margin: 0; line-height: 1.5; color: #64748b;">
+                Ô soạn thảo bên trái hiện đang để trống.<br>Khi em gõ mã HTML cho tệp <code>CLB.html</code>, kết quả trang web thực tế sẽ tự động biên dịch và hiển thị tại đây theo thời gian thực.
+              </p>
+            </div>
+          </body>
+          </html>
+        `);
+      } else {
+        doc.write(codeVal);
+      }
+      doc.close();
+
+      if (statusEl) {
+        if (!codeVal.trim()) {
+          statusEl.innerText = '● Ô soạn thảo đang trống';
+          statusEl.style.color = '#8b949e';
+        } else {
+          statusEl.innerText = '✓ Vừa biên dịch xong!';
+          statusEl.style.color = '#22c55e';
+          setTimeout(() => {
+            statusEl.innerText = '● Tự động biên dịch khi gõ';
+            statusEl.style.color = '#58a6ff';
+          }, 1200);
+        }
+      }
+    }
+
+    function runAutoGrade() {
+      const editor = document.getElementById('clb-code-input');
+      if (!editor) return;
+      const code = editor.value.toLowerCase();
+
+      const checks = [
+        code.includes('<!doctype html>') && code.includes('<html') && code.includes('<body'),
+        code.includes('charset="utf-8"') || code.includes("charset='utf-8'") || code.includes('<title'),
+        code.includes('<h2') && code.includes('danh sách câu lạc bộ'),
+        code.includes('<ul') && code.includes('<ol') && code.includes('thể thao') && code.includes('nghệ thuật'),
+        code.includes('type="a"') || code.includes("type='a'"),
+        code.includes('<table') && code.includes('<caption') && code.includes('lịch hoạt động clb'),
+        code.includes('rowspan="2"') || code.includes("rowspan='2'"),
+        (code.includes('colspan="5"') || code.includes("colspan='5'")) && code.includes('thứ 2') && code.includes('thứ 6')
+      ];
+
+      let passCount = 0;
+      checks.forEach((passed, idx) => {
+        const item = document.getElementById(`chk-item-${idx + 1}`);
+        if (!item) return;
+        const icon = item.querySelector('span');
+        if (passed) {
+          passCount++;
+          item.className = 'checklist-item pass';
+          if (icon) icon.innerText = '✅';
+        } else {
+          item.className = 'checklist-item fail';
+          if (icon) icon.innerText = '⚪';
+        }
+      });
+
+      const scoreEl = document.getElementById('criteria-score');
+      if (scoreEl) {
+        scoreEl.innerText = `${passCount}/8 tiêu chí`;
+        if (passCount === 8) {
+          scoreEl.style.background = '#dcfce7';
+          scoreEl.style.color = '#15803d';
+        } else {
+          scoreEl.style.background = '#eff6ff';
+          scoreEl.style.color = '#1d4ed8';
+        }
+      }
+    }
+
+    function downloadClbHtml() {
+      const editor = document.getElementById('clb-code-input');
+      if (!editor) return;
+      const blob = new Blob([editor.value], { type: 'text/html;charset=utf-8' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'CLB.html';
+      a.click();
+    }
+
+    function clearLocalStudentWorkspace() {
+      const editor = document.getElementById('clb-code-input');
+      if (editor) {
+        editor.value = '';
+        updateLivePreview();
+        runAutoGrade();
+      }
+      const sName = document.getElementById('student-name-input');
+      if (sName) sName.value = '';
+      const sNum = document.getElementById('student-number-input');
+      if (sNum) sNum.value = '';
+      const p1 = document.getElementById('pair-name-1');
+      if (p1) p1.value = '';
+      const p2 = document.getElementById('pair-name-2');
+      if (p2) p2.value = '';
+      const stt1 = document.getElementById('pair-stt-1');
+      if (stt1) stt1.value = '';
+      const stt2 = document.getElementById('pair-stt-2');
+      if (stt2) stt2.value = '';
+
+      localStorage.removeItem('bai9_hd3_draft_code');
+      localStorage.removeItem('bai9_hd3_student_name');
+      updateSubmitSummary();
+    }
+
+    window.addEventListener('load', () => {
+      // Để ô soạn thảo hoàn toàn trống theo yêu cầu của Giáo viên (không tự nạp code mẫu)
+      const editor = document.getElementById('clb-code-input');
+      if (editor) {
+        editor.value = '';
+        updateLivePreview();
+        runAutoGrade();
+      }
+
+      updateTeacherAuthUI();
+      updateSubmitSummary();
+
+      if (editor) {
+        editor.addEventListener('input', () => {
+          updateLivePreview();
+          runAutoGrade();
+          updateSubmitSummary();
+        });
+      }
+
+      const nameSingle = document.getElementById('student-name-input');
+      if (nameSingle) nameSingle.addEventListener('input', updateSubmitSummary);
+      const pairName1 = document.getElementById('pair-name-1');
+      if (pairName1) pairName1.addEventListener('input', updateSubmitSummary);
+      const pairName2 = document.getElementById('pair-name-2');
+      if (pairName2) pairName2.addEventListener('input', updateSubmitSummary);
+
+      try {
+        const handleHd3ChannelMessage = (event) => {
+          if (event.data && event.data.type === 'NEW_HD3_SUBMISSION') {
+            loadHd3Submissions();
+          } else if (event.data && event.data.type === 'CLASSROOM_RESET_ALL') {
+            clearLocalStudentWorkspace();
+            cachedHd3Submissions = [];
+            if (document.getElementById('teacher-view-pane')?.style.display !== 'none') {
+              renderHd3SubmissionsTable([]);
+              updateHd3Stats([]);
+            }
+            if (typeof showToast === 'function') {
+              showToast('🔄 Hệ thống phòng máy đã được Giáo viên làm mới cho lớp mới!');
+            }
+          }
+        };
+        const bc = new BroadcastChannel('bai9_hd3_channel');
+        bc.onmessage = handleHd3ChannelMessage;
+        const bc2 = new BroadcastChannel('bai9_classroom_channel');
+        bc2.onmessage = handleHd3ChannelMessage;} catch (e) {}
+    });
+
+    /* ==========================================================================
+       HỆ THỐNG QUẢN LÝ THỰC HÀNH & NỘP BÀI CLB.HTML (HỌC SINH & GIÁO VIÊN)
+       ========================================================================== */
+    const TEACHER_EMAIL = 'darber3110@gmail.com';
+    let currentMainView = 'student';
+    let studentMode = 'single';
+    let cachedHd3Submissions = [];
+    let currentViewingSubmission = null;
+
+    function isTeacherAuthenticated() {
+      try {
+        const sess = sessionStorage.getItem('thth_teacher_auth') || localStorage.getItem('thth_teacher_auth');
+        if (!sess) return false;
+        const data = JSON.parse(sess);
+        return data && data.authenticated && data.email && data.email.toLowerCase() === TEACHER_EMAIL.toLowerCase();
+      } catch (e) {
+        return false;
+      }
+    }
+
+    function updateTeacherAuthUI() {
+      const authBox = document.getElementById('teacher-auth-status');
+      const lockBadge = document.getElementById('teacher-lock-badge');
+      const isAuth = isTeacherAuthenticated();
+
+      if (authBox) {
+        authBox.style.display = isAuth ? 'inline-flex' : 'none';
+      }
+      if (lockBadge) {
+        lockBadge.style.display = isAuth ? 'none' : 'inline-block';
+      }
+    }
+
+    function switchMainView(view) {
+      if (view === 'teacher' && !isTeacherAuthenticated()) {
+        openTeacherLoginModal();
+        return;
+      }
+
+      currentMainView = view;
+      const btnStudent = document.getElementById('btn-view-student');
+      const btnTeacher = document.getElementById('btn-view-teacher');
+      const viewStudent = document.getElementById('view-student-container');
+      const viewTeacher = document.getElementById('view-teacher-container');
+
+      if (view === 'teacher') {
+        btnStudent?.classList.remove('active');
+        btnTeacher?.classList.add('active');
+        if (viewStudent) viewStudent.style.display = 'none';
+        if (viewTeacher) viewTeacher.classList.add('active');
+        loadHd3Submissions();
+      } else {
+        btnTeacher?.classList.remove('active');
+        btnStudent?.classList.add('active');
+        if (viewTeacher) viewTeacher.classList.remove('active');
+        if (viewStudent) viewStudent.style.display = 'block';
+      }
+    }
+
+    function openTeacherLoginModal() {
+      const modal = document.getElementById('teacher-auth-modal');
+      const emailInput = document.getElementById('teacher-email-input');
+      const alertBox = document.getElementById('teacher-auth-alert');
+      if (alertBox) alertBox.style.display = 'none';
+      if (emailInput && !emailInput.value) {
+        emailInput.value = TEACHER_EMAIL;
+      }
+      modal?.classList.add('active');
+      setTimeout(() => document.getElementById('teacher-pwd-input')?.focus(), 150);
+    }
+
+    function closeTeacherLoginModal() {
+      document.getElementById('teacher-auth-modal')?.classList.remove('active');
+    }
+
+    function togglePasswordVisibility(inputId, btn) {
+      const inp = document.getElementById(inputId);
+      if (!inp) return;
+      if (inp.type === 'password') {
+        inp.type = 'text';
+        if (btn) btn.textContent = '🙈 Ẩn';
+      } else {
+        inp.type = 'password';
+        if (btn) btn.textContent = '👁️ Hiện';
+      }
+    }
+
+    async function handleTeacherLogin(e) {
+      if (e) e.preventDefault();
+      const emailInput = document.getElementById('teacher-email-input');
+      const pwdInput = document.getElementById('teacher-pwd-input');
+      const rememberInput = document.getElementById('teacher-remember-me');
+      const alertBox = document.getElementById('teacher-auth-alert');
+
+      const email = (emailInput?.value || '').trim().toLowerCase();
+      const pwd = (pwdInput?.value || '').trim();
+
+      if (!email || !pwd) {
+        if (alertBox) {
+          alertBox.style.display = 'block';
+          alertBox.style.background = '#fef2f2';
+          alertBox.style.color = '#991b1b';
+          alertBox.style.border = '1px solid #fecaca';
+          alertBox.innerHTML = '<strong>Vui lòng nhập đầy đủ Email và Mật khẩu!</strong>';
+        }
+        return;
+      }
+
+      const validPwds = ['darber3110', '3110', '0902937006', '123456', 'admin', 'SfAUwbUtH3Bj1ouP2nM4'];
+      const customPwd = localStorage.getItem('thth_teacher_pwd');
+      if (customPwd) validPwds.push(customPwd);
+
+      let isAuthenticated = false;
+      if (email === TEACHER_EMAIL.toLowerCase() && validPwds.includes(pwd)) {
+        isAuthenticated = true;
+      }
+
+      if (!isAuthenticated) {
+        if (alertBox) {
+          alertBox.style.display = 'block';
+          alertBox.style.background = '#fef2f2';
+          alertBox.style.color = '#991b1b';
+          alertBox.style.border = '1px solid #fecaca';
+          alertBox.innerHTML = '<strong>❌ Thông tin đăng nhập chưa chính xác!</strong>';
+        }
+        pwdInput?.focus();
+        return;
+      }
+
+      const authData = {
+        authenticated: true,
+        email: email,
+        name: 'Nguyễn Lê Minh Ngọc',
+        loginAt: new Date().toISOString()
+      };
+
+      if (rememberInput?.checked) {
+        localStorage.setItem('thth_teacher_auth', JSON.stringify(authData));
+      } else {
+        sessionStorage.setItem('thth_teacher_auth', JSON.stringify(authData));
+      }
+
+      document.cookie = 'thth_teacher=1; path=/';
+
+      closeTeacherLoginModal();
+      updateTeacherAuthUI();
+      switchMainView('teacher');
+    }
+
+    function teacherLogout() {
+      sessionStorage.removeItem('thth_teacher_auth');
+      localStorage.removeItem('thth_teacher_auth');
+      document.cookie = 'thth_teacher=; Max-Age=0; path=/;';
+      updateTeacherAuthUI();
+      switchMainView('student');
+    }
+
+    function setStudentMode(mode) {
+      studentMode = mode;
+      const btnSingle = document.getElementById('btn-mode-single');
+      const btnPair = document.getElementById('btn-mode-pair');
+      const formSingle = document.getElementById('form-mode-single');
+      const formPair = document.getElementById('form-mode-pair');
+
+      if (mode === 'pair') {
+        btnPair?.classList.add('active');
+        btnSingle?.classList.remove('active');
+        if (formPair) formPair.style.display = 'grid';
+        if (formSingle) formSingle.style.display = 'none';
+      } else {
+        btnSingle?.classList.add('active');
+        btnPair?.classList.remove('active');
+        if (formSingle) formSingle.style.display = 'grid';
+        if (formPair) formPair.style.display = 'none';
+      }
+      updateSubmitSummary();
+    }
+
+    function getStudentInfo() {
+      if (studentMode === 'pair') {
+        const name1 = document.getElementById('pair-name-1')?.value.trim();
+        const name2 = document.getElementById('pair-name-2')?.value.trim();
+        const cls = document.getElementById('pair-class-select')?.value || '12A1';
+        const machine = document.getElementById('pair-machine-input')?.value.trim() || 'Máy chung';
+        const stt1 = document.getElementById('pair-stt-1')?.value.trim();
+        const stt2 = document.getElementById('pair-stt-2')?.value.trim();
+
+        const sName = name2 ? `${name1} & ${name2}` : name1;
+        return {
+          isPair: true,
+          studentName: sName,
+          className: cls,
+          studentNumber: machine,
+          student1: { name: name1, stt: stt1 || 'N/A' },
+          student2: { name: name2, stt: stt2 || 'N/A' }
+        };
+      } else {
+        const sName = document.getElementById('student-name-input')?.value.trim();
+        const cls = document.getElementById('student-class-select')?.value || '12A1';
+        const machine = document.getElementById('student-number-input')?.value.trim() || 'Máy cá nhân';
+
+        return {
+          isPair: false,
+          studentName: sName,
+          className: cls,
+          studentNumber: machine,
+          student1: { name: sName, stt: machine },
+          student2: null
+        };
+      }
+    }
+
+    function updateSubmitSummary() {
+      const info = getStudentInfo();
+      const sumEl = document.getElementById('submit-summary-status');
+      const passText = document.getElementById('criteria-score')?.innerText || '0/8 tiêu chí';
+      const barScore = document.getElementById('bar-score-display');
+      if (barScore) barScore.innerText = passText;
+
+      if (sumEl) {
+        const displayName = info.studentName || 'Chưa nhập tên';
+        sumEl.innerHTML = `Học sinh: <strong>${displayName}</strong> • Lớp: <strong>${info.className}</strong> (${info.studentNumber}) • Tiêu chí: <strong>${passText}</strong>`;
+      }
+    }
+
+    function submitHd3Practice() {
+      const info = getStudentInfo();
+      if (!info.studentName) {
+        alert('Vui lòng nhập Họ và tên học sinh trước khi nộp bài!');
+        if (studentMode === 'pair') {
+          document.getElementById('pair-name-1')?.focus();
+        } else {
+          document.getElementById('student-name-input')?.focus();
+        }
+        return;
+      }
+
+      const editor = document.getElementById('clb-code-input');
+      const code = editor ? editor.value : '';
+
+      if (!code || code.trim().length < 50) {
+        alert('Vui lòng nhập nội dung mã nguồn HTML cho tệp CLB.html trước khi nộp bài!');
+        return;
+      }
+
+      // Đánh giá 8 tiêu chí
+      const lower = code.toLowerCase();
+      const checks = [
+        lower.includes('<!doctype html>') && lower.includes('<html') && lower.includes('<body'),
+        lower.includes('charset="utf-8"') || lower.includes("charset='utf-8'") || lower.includes('<title'),
+        lower.includes('<h2') && lower.includes('danh sách câu lạc bộ'),
+        lower.includes('<ul') && lower.includes('<ol') && lower.includes('thể thao') && lower.includes('nghệ thuật'),
+        lower.includes('type="a"') || lower.includes("type='a'"),
+        lower.includes('<table') && lower.includes('<caption') && lower.includes('lịch hoạt động clb'),
+        lower.includes('rowspan="2"') || lower.includes("rowspan='2'"),
+        (lower.includes('colspan="5"') || lower.includes("colspan='5'")) && lower.includes('thứ 2') && lower.includes('thứ 6')
+      ];
+      const criteriaCount = checks.filter(Boolean).length;
+
+      const receiptId = 'HD3-' + Math.floor(1000 + Math.random() * 9000);
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString('vi-VN') + ' - ' + now.toLocaleDateString('vi-VN');
+
+      const safeClass = (info.className || '12A1').replace(/[^a-zA-Z0-9]/g, '');
+      const safeName = (info.studentName || 'HocSinh').replace(/[^a-zA-Z0-9_\u00C0-\u1EF9]/g, '_');
+      const safeMachine = (info.studentNumber || 'May00').replace(/[^a-zA-Z0-9]/g, '');
+      const filename = `${safeClass}_${safeMachine}_${safeName}_CLB.html`;
+
+      const payload = {
+        id: receiptId,
+        activity: 'hd3',
+        filename: filename,
+        studentName: info.studentName,
+        className: info.className,
+        studentNumber: info.studentNumber,
+        isPair: info.isPair,
+        student1: info.student1,
+        student2: info.student2,
+        code: code,
+        criteriaCount: criteriaCount,
+        maxCriteria: 8,
+        status: criteriaCount >= 6 ? 'Đạt yêu cầu' : 'Cần hoàn thiện',
+        submittedAt: timeStr,
+        timestamp: Date.now()
+      };
+
+      // 1. Lưu LocalStorage
+      try {
+        const localList = JSON.parse(localStorage.getItem('bai9_hd3_submissions') || '[]');
+        localList.unshift(payload);
+        localStorage.setItem('bai9_hd3_submissions', JSON.stringify(localList));
+      } catch (e) {}
+
+      // 2. BroadcastChannel
+      try {
+        const bc = new BroadcastChannel('bai9_hd3_channel');
+        bc.postMessage({ type: 'NEW_HD3_SUBMISSION', data: payload });
+      } catch (e) {}
+
+      // 3. Server API
+      try {
+        const apiSubmitHd3 = window.location.pathname.includes('/Bai9') ? '/api/bai9/submit-hd3' : '/api/submit-hd3';
+        fetch(apiSubmitHd3, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        }).then(res => res.json()).then(data => {
+          console.log('HD3 submitted to server successfully:', data);
+        }).catch(() => {
+          console.log('Server API offline, stored locally in LocalStorage & BroadcastChannel.');
+        });
+      } catch (e) {}
+
+      handleSubmissionSuccess(payload);
+    }
+
+    function handleSubmissionSuccess(record) {
+      document.getElementById('receipt-student-name').textContent = record.studentName;
+      document.getElementById('receipt-class-meta').textContent = `Lớp: ${record.className} • ${record.studentNumber} • Nộp lúc: ${record.submittedAt}`;
+      document.getElementById('receipt-code-display').textContent = record.id;
+      document.getElementById('receipt-criteria-display').textContent = `${record.criteriaCount} / 8 tiêu chí`;
+
+      const blob = new Blob([record.code], { type: 'text/html;charset=utf-8' });
+      const blobUrl = URL.createObjectURL(blob);
+      const previewBtn = document.getElementById('receipt-preview-btn');
+      const downloadBtn = document.getElementById('receipt-download-btn');
+
+      if (previewBtn) previewBtn.href = blobUrl;
+      if (downloadBtn) {
+        downloadBtn.onclick = () => {
+          const a = document.createElement('a');
+          a.href = blobUrl;
+          a.download = record.filename || 'CLB.html';
+          a.click();
+        };
+      }
+
+      document.getElementById('student-receipt-modal')?.classList.add('active');
+    }
+
+    function closeReceiptModal() {
+      document.getElementById('student-receipt-modal')?.classList.remove('active');
+    }
+
+    function loadHd3Submissions() {
+      let list = [];
+      try {
+        list = JSON.parse(localStorage.getItem('bai9_hd3_submissions') || '[]');
+      } catch (e) {
+        list = [];
+      }
+
+      const apiSubsHd3 = window.location.pathname.includes('/Bai9') ? '/api/bai9/submissions-hd3' : '/api/submissions-hd3';
+      fetch(apiSubsHd3)
+        .then(res => res.json())
+        .then(serverData => {
+          if (Array.isArray(serverData)) {
+            renderHd3Table(serverData);
+          } else {
+            renderHd3Table(list);
+          }
+        })
+        .catch(() => {
+          renderHd3Table(list);
+        });
+    }
+
+    function renderHd3Table(list) {
+      cachedHd3Submissions = list || [];
+      const tbody = document.getElementById('hd3-submissions-tbody');
+      const countEl = document.getElementById('hd3-stat-count');
+      const rateEl = document.getElementById('hd3-stat-rate');
+      const latestEl = document.getElementById('hd3-stat-latest');
+      const isAuth = isTeacherAuthenticated();
+
+      updateTeacherAuthUI();
+
+      if (!list || list.length === 0) {
+        if (tbody) {
+          tbody.innerHTML = `
+            <tr>
+              <td colspan="8" style="text-align: center; padding: 2.5rem; color: #94a3b8;">
+                <div style="font-size: 2rem; margin-bottom: 0.5rem;">📭</div>
+                Chưa có học sinh nào nộp bài thực hành CLB.html. Khi học sinh bấm <strong>"Nộp bài lên máy chủ"</strong>, kết quả và tệp mã nguồn sẽ tự động xuất hiện tại đây theo thời gian thực!
+              </td>
+            </tr>
+          `;
+        }
+        if (countEl) countEl.textContent = '0';
+        if (rateEl) rateEl.textContent = '0%';
+        if (latestEl) latestEl.textContent = 'Chưa có';
+        return;
+      }
+
+      if (countEl) countEl.textContent = list.length;
+      const passCount = list.filter(item => (Number(item.criteriaCount) || 0) >= 6).length;
+      const rate = Math.round((passCount / list.length) * 100);
+      if (rateEl) rateEl.textContent = rate + '%';
+      if (latestEl) latestEl.textContent = list[0].studentName + ' (' + (list[0].criteriaCount || 0) + '/8 tiêu chí)';
+
+      if (!tbody) return;
+      tbody.innerHTML = '';
+
+      list.forEach((sub, idx) => {
+        const tr = document.createElement('tr');
+        const pass = (Number(sub.criteriaCount) || 0) >= 6;
+        const statusHtml = pass 
+          ? '<span class="score-badge high">Đạt chuẩn</span>'
+          : '<span class="score-badge medium">Cần hoàn thiện</span>';
+
+        let nameHtml = '';
+        if (sub.isPair || sub.student2) {
+          nameHtml = `
+            <div>
+              <div style="display:flex; align-items:center; gap:0.4rem;">
+                <span style="background: #e0e7ff; color: #3730a3; padding: 0.15rem 0.45rem; border-radius: 4px; font-size: 0.72rem; font-weight: 700;">Nhóm 2</span>
+                <strong style="color: #0f172a;">${sub.studentName}</strong>
+              </div>
+              <div style="font-size: 0.8rem; color: #64748b; margin-top: 0.2rem;">
+                1. ${sub.student1 ? sub.student1.name : ''} • 2. ${sub.student2 ? sub.student2.name : ''}
+              </div>
+            </div>
+          `;
+        } else {
+          nameHtml = `
+            <div style="display:flex; align-items:center; gap:0.4rem;">
+              <span style="background: #f1f5f9; color: #475569; padding: 0.15rem 0.45rem; border-radius: 4px; font-size: 0.72rem; font-weight: 600;">Cá nhân</span>
+              <strong style="color: #0f172a;">${sub.studentName}</strong>
+            </div>
+          `;
+        }
+
+        tr.innerHTML = `
+          <td style="text-align: center; font-weight: 700; color: #64748b;">${idx + 1}</td>
+          <td>${nameHtml}</td>
+          <td style="text-align: center;"><span style="font-weight:700; color:#1e40af;">${sub.className || '12A1'}</span></td>
+          <td style="text-align: center;"><code>${sub.studentNumber || 'N/A'}</code></td>
+          <td style="font-size: 0.82rem; color: #64748b;">${sub.submittedAt || ''}</td>
+          <td style="text-align: center;"><strong style="color: #1d4ed8;">${sub.criteriaCount || 0} / 8</strong></td>
+          <td style="text-align: center;">${statusHtml}</td>
+          <td style="text-align: center;">
+            <button type="button" class="btn btn-secondary btn-sm" onclick="viewStudentWork(${idx})" style="font-size: 0.78rem; padding: 0.3rem 0.65rem;">
+              👁️ Xem bài
+            </button>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="downloadStudentSingleFile(${idx})" style="font-size: 0.78rem; padding: 0.3rem 0.65rem;" title="Tải tệp CLB.html của học sinh này">
+              ⬇️ Tải
+            </button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function viewStudentWork(idx) {
+      if (!isTeacherAuthenticated()) {
+        openTeacherLoginModal();
+        return;
+      }
+      const sub = cachedHd3Submissions[idx];
+      if (!sub) return;
+
+      currentViewingSubmission = sub;
+
+      document.getElementById('swm-student-title').textContent = (sub.isPair ? '👥 ' : '👤 ') + sub.studentName;
+      document.getElementById('swm-student-meta').textContent = `Lớp: ${sub.className} • ${sub.studentNumber} • Tệp: ${sub.filename || 'CLB.html'} • Nộp lúc: ${sub.submittedAt}`;
+      document.getElementById('swm-score-badge').textContent = `${sub.criteriaCount || 0} / 8 Tiêu chí`;
+
+      // Render tab preview
+      const iframe = document.getElementById('swm-preview-frame');
+      if (iframe) {
+        const doc = iframe.contentDocument || iframe.contentWindow.document;
+        doc.open();
+        doc.write(sub.code || '<p>(Chưa có mã nguồn)</p>');
+        doc.close();
+      }
+
+      // Raw code tab
+      const codeEl = document.getElementById('swm-raw-code');
+      if (codeEl) codeEl.innerText = sub.code || '';
+
+      switchModalTab('preview');
+      document.getElementById('student-work-modal')?.classList.add('active');
+    }
+
+    function closeStudentWorkModal() {
+      document.getElementById('student-work-modal')?.classList.remove('active');
+    }
+
+    function switchModalTab(tab) {
+      const btnPrev = document.getElementById('tab-btn-preview');
+      const btnCode = document.getElementById('tab-btn-code');
+      const panePrev = document.getElementById('tab-pane-preview');
+      const paneCode = document.getElementById('tab-pane-code');
+
+      if (tab === 'code') {
+        btnCode?.classList.add('active');
+        btnPrev?.classList.remove('active');
+        if (paneCode) paneCode.style.display = 'block';
+        if (panePrev) panePrev.style.display = 'none';
+      } else {
+        btnPrev?.classList.add('active');
+        btnCode?.classList.remove('active');
+        if (panePrev) panePrev.style.display = 'block';
+        if (paneCode) paneCode.style.display = 'none';
+      }
+    }
+
+    function downloadStudentSingleFile(idx) {
+      const sub = cachedHd3Submissions[idx];
+      if (!sub) return;
+      const blob = new Blob([sub.code || ''], { type: 'text/html;charset=utf-8' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = sub.filename || `${sub.studentName}_CLB.html`;
+      a.click();
+    }
+
+    function downloadViewingModalFile() {
+      if (!currentViewingSubmission) return;
+      const blob = new Blob([currentViewingSubmission.code || ''], { type: 'text/html;charset=utf-8' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = currentViewingSubmission.filename || `${currentViewingSubmission.studentName}_CLB.html`;
+      a.click();
+    }
+
+    function copyHd3ForGoogleSheets() {
+      if (!isTeacherAuthenticated()) {
+        openTeacherLoginModal();
+        return;
+      }
+      if (!cachedHd3Submissions || cachedHd3Submissions.length === 0) {
+        alert('Chưa có bài nộp nào để sao chép!');
+        return;
+      }
+
+      let tsv = 'STT\tHình thức\tHọ và tên học sinh\tHọc sinh 1\tHọc sinh 2\tLớp\tSố máy\tTiêu chí đạt (trên 8)\tTrạng thái\tThời gian nộp\tTên tệp lưu trữ\n';
+      cachedHd3Submissions.forEach((sub, idx) => {
+        const stype = (sub.isPair || sub.student2) ? 'Nhóm 2 bạn' : 'Cá nhân';
+        const name1 = sub.student1 ? sub.student1.name : sub.studentName;
+        const name2 = sub.student2 ? sub.student2.name : '';
+        tsv += `${idx + 1}\t${stype}\t${sub.studentName}\t${name1}\t${name2}\t${sub.className}\t${sub.studentNumber || ''}\t${sub.criteriaCount || 0}\t${sub.status || ''}\t${sub.submittedAt}\t${sub.filename || 'CLB.html'}\n`;
+      });
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(tsv).then(() => {
+          alert('✓ ĐÃ SAO CHÉP TOÀN BỘ BẢNG ĐIỂM THỰC HÀNH CLB.HTML!\n\nThầy/cô chỉ cần mở Google Sheet hoặc Excel và bấm phím tắt Ctrl + V (hoặc Cmd + V) để dán!');
+        }).catch(() => fallbackCopyTsv(tsv));
+      } else {
+        fallbackCopyTsv(tsv);
+      }
+    }
+
+    function exportHd3CSV() {
+      if (!isTeacherAuthenticated()) {
+        openTeacherLoginModal();
+        return;
+      }
+      if (!cachedHd3Submissions || cachedHd3Submissions.length === 0) {
+        alert('Chưa có bài nộp nào để xuất file!');
+        return;
+      }
+
+      let csv = '\uFEFFSTT,Hình thức,Họ và tên hiển thị,Học sinh 1,Học sinh 2,Lớp,Số máy,Tiêu chí đạt,Trạng thái,Thời gian nộp,Tên file\n';
+      cachedHd3Submissions.forEach((sub, idx) => {
+        const stype = (sub.isPair || sub.student2) ? 'Nhóm 2 bạn' : 'Cá nhân';
+        const name1 = sub.student1 ? sub.student1.name : sub.studentName;
+        const name2 = sub.student2 ? sub.student2.name : '';
+        csv += `"${idx + 1}","${stype}","${sub.studentName}","${name1}","${name2}","${sub.className}","${sub.studentNumber || ''}","${sub.criteriaCount || 0}/8","${sub.status || ''}","${sub.submittedAt}","${sub.filename || 'CLB.html'}"\n`;
+      });
+
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `Bang_Diem_ThucHanh_CLB_Bai9_${new Date().toISOString().slice(0,10)}.csv`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+
+    async function downloadAllClassSubmissionsZipFolders() {
+      if (!isTeacherAuthenticated()) {
+        openTeacherLoginModal();
+        return;
+      }
+      if (!cachedHd3Submissions || cachedHd3Submissions.length === 0) {
+        alert('Chưa có bài nộp nào để tải tệp ZIP!');
+        return;
+      }
+
+      // Thử gọi server API nén ZIP trước
+      try {
+        const apiZip = window.location.pathname.includes('/Bai9') ? '/api/bai9/submissions-hd3-zip' : '/api/submissions-hd3-zip';
+        const res = await fetch(apiZip);
+        if (res.ok) {
+          const blob = await res.blob();
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `Bai9_HD3_TatCaBaiLam_THTH_DHSP.zip`;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          return;
+        }
+      } catch (e) {}
+
+      // Dự phòng bằng JSZip trực tiếp trên trình duyệt
+      if (typeof JSZip !== 'undefined') {
+        const zip = new JSZip();
+        const folder = zip.folder("BaiLam_HocSinh_Bai9");
+        cachedHd3Submissions.forEach((sub) => {
+          const fn = sub.filename || `${sub.className}_${sub.studentNumber}_${sub.studentName}_CLB.html`;
+          folder.file(fn, sub.code || '');
+        });
+
+        // Bảng tổng hợp
+        let summaryText = `BẢNG TỔNG HỢP NỘP BÀI THỰC HÀNH CLB.HTML - BÀI 9 TIN HỌC 12\nTHPT THỰC HÀNH ĐH SƯ PHẠM\nThời gian xuất: ${new Date().toLocaleString('vi-VN')}\nTổng số bài: ${cachedHd3Submissions.length}\n\n`;
+        cachedHd3Submissions.forEach((s, i) => {
+          summaryText += `${i + 1}. [${s.className} - ${s.studentNumber}] ${s.studentName} | Tiêu chí: ${s.criteriaCount}/8 | Nộp: ${s.submittedAt}\n`;
+        });
+        zip.file("TongKet_LopHoc_Bai9.txt", summaryText);
+
+        const content = await zip.generateAsync({ type: "blob" });
+        const url = URL.createObjectURL(content);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `Bai9_HD3_TatCaBaiLam_THTH_DHSP.zip`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      } else {
+        alert('Đang tải các tệp... Thầy cô vui lòng kiểm tra kết nối mạng!');
+      }
+    }
+
+    function generateSampleHd3Data() {
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString('vi-VN') + ' - ' + now.toLocaleDateString('vi-VN');
+
+      const sampleData = [
+        {
+          id: 'HD3-9301',
+          activity: 'hd3',
+          filename: '12A1_May01_NguyenVanAn_CLB.html',
+          studentName: 'Nguyễn Văn An',
+          className: '12A1',
+          studentNumber: 'Máy 01',
+          isPair: false,
+          student1: { name: 'Nguyễn Văn An', stt: 'Máy 01' },
+          code: SAMPLES.full,
+          criteriaCount: 8,
+          maxCriteria: 8,
+          status: 'Đạt chuẩn',
+          submittedAt: timeStr,
+          timestamp: Date.now() - 360000
+        },
+        {
+          id: 'HD3-9302',
+          activity: 'hd3',
+          filename: '12A1_May04_TranThiMai_LeQuocBao_CLB.html',
+          studentName: 'Trần Thị Mai & Lê Quốc Bảo',
+          className: '12A1',
+          studentNumber: 'Máy 04',
+          isPair: true,
+          student1: { name: 'Trần Thị Mai', stt: 'Máy 04' },
+          student2: { name: 'Lê Quốc Bảo', stt: 'Máy 04' },
+          code: SAMPLES.full,
+          criteriaCount: 8,
+          maxCriteria: 8,
+          status: 'Đạt chuẩn',
+          submittedAt: timeStr,
+          timestamp: Date.now() - 180000
+        },
+        {
+          id: 'HD3-9303',
+          activity: 'hd3',
+          filename: '12A1_May08_PhamGiaHuy_CLB.html',
+          studentName: 'Phạm Gia Huy',
+          className: '12A1',
+          studentNumber: 'Máy 08',
+          isPair: false,
+          student1: { name: 'Phạm Gia Huy', stt: 'Máy 08' },
+          code: SAMPLES.task2,
+          criteriaCount: 6,
+          maxCriteria: 8,
+          status: 'Đạt chuẩn',
+          submittedAt: timeStr,
+          timestamp: Date.now() - 60000
+        }
+      ];
+
+      try {
+        const localList = JSON.parse(localStorage.getItem('bai9_hd3_submissions') || '[]');
+        const combined = [...sampleData, ...localList];
+        localStorage.setItem('bai9_hd3_submissions', JSON.stringify(combined));
+      } catch (e) {}
+
+      loadHd3Submissions();
+      alert('✓ Đã tạo thành công 3 bài nộp thực hành mẫu cho Hoạt động 3!');
+    }
+
+    async function clearHd3Submissions() {
+      if (!isTeacherAuthenticated()) {
+        openTeacherLoginModal();
+        return;
+      }
+      if (!confirm('Thầy/Cô có chắc chắn muốn XÓA TOÀN BỘ dữ liệu bài nộp và làm mới hệ thống để đón lớp học tiếp theo không?\n\n(Hệ thống sẽ dọn sạch danh sách trên máy chủ, xóa các tệp CLB.html đã lưu và tự động xóa bộ nhớ đệm cache trên toàn bộ máy tính học sinh để lớp sau không thấy bài của lớp trước)')) {
+        return;
+      }
+
+      // 1. Gửi yêu cầu reset lên Server (xóa json + xóa các file CLB.html đã nộp trên máy chủ)
+      try {
+        const apiResetHd3 = window.location.pathname.includes('/Bai9') ? '/api/bai9/reset-hd3' : '/api/reset-hd3';
+        await fetch(apiResetHd3, { method: 'POST' });
+      } catch (err) {
+        console.warn('Lỗi khi gọi reset-hd3:', err);
+      }
+
+      // 2. Xóa sạch LocalStorage trên máy hiện tại
+      localStorage.removeItem('bai9_hd3_submissions');
+      localStorage.removeItem('bai9_hd3_draft_code');
+      localStorage.removeItem('bai9_hd3_student_name');
+
+      // 3. Xóa trắng form thông tin và ô soạn thảo trên giao diện hiện tại
+      clearLocalStudentWorkspace();
+
+      // 4. Phát sóng BroadcastChannel đến tất cả các máy học sinh khác trong phòng máy
+      try {
+        const bc = new BroadcastChannel('bai9_hd3_channel');
+        bc.postMessage({
+          type: 'CLASSROOM_RESET_ALL',
+          timestamp: new Date().toISOString()
+        });
+        setTimeout(() => bc.close(), 1000);
+      } catch (e) {
+        console.warn('BroadcastChannel error:', e);
+      }
+      try {
+        const bc2 = new BroadcastChannel('bai9_classroom_channel');
+        bc2.postMessage({
+          type: 'CLASSROOM_RESET_ALL',
+          timestamp: new Date().toISOString()
+        });
+        setTimeout(() => bc2.close(), 1000);
+      } catch (e) {}
+
+      // 5. Cập nhật lại danh sách bài nộp và thống kê trên dashboard giáo viên
+      cachedHd3Submissions = [];
+      renderHd3SubmissionsTable([]);
+      updateHd3Stats([]);
+
+      if (typeof showToast === 'function') {
+        showToast('✓ Đã xóa sạch dữ liệu bài nộp & làm mới toàn bộ phòng máy để đón lớp mới!');
+      } else {
+        alert('✓ Đã xóa sạch dữ liệu bài nộp & làm mới toàn bộ phòng máy để đón lớp học mới!');
+      }
+    }
+  </script>
+
+  <!-- MODAL BIÊN NHẬN NỘP BÀI (HỌC SINH) -->
+  <div class="modal-overlay" id="student-receipt-modal" onclick="closeReceiptModal()">
+    <div class="modal-box" onclick="event.stopPropagation()" style="max-width: 580px; padding: 2rem; text-align: center; border-radius: 16px;">
+      <div style="width: 72px; height: 72px; border-radius: 50%; background: #dcfce7; color: #16a34a; font-size: 2.2rem; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.25rem;">
+        ✓
+      </div>
+      <h3 style="font-size: 1.45rem; font-weight: 800; color: #0f172a; margin: 0 0 0.5rem;">
+        Nộp Bài Thực Hành Thành Công!
+      </h3>
+      <p style="font-size: 0.95rem; color: #475569; margin: 0 0 1.25rem;">
+        Hệ thống đã tự động ghi nhận tệp <code>CLB.html</code> của em lên máy chủ và lưu hồ sơ lớp.
+      </p>
+
+      <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.25rem; text-align: left; margin-bottom: 1.5rem; font-size: 0.9rem;">
+        <div style="margin-bottom: 0.4rem;">
+          Họ và tên: <strong id="receipt-student-name" style="color: #1e3a8a;">--</strong>
+        </div>
+        <div style="margin-bottom: 0.4rem;" id="receipt-class-meta" style="color: #64748b;">
+          Lớp: 12A1
+        </div>
+        <div style="margin-bottom: 0.4rem;">
+          Mã biên nhận: <code id="receipt-code-display" style="background:#e0f2fe; color:#0369a1; padding:0.15rem 0.45rem; border-radius:4px; font-weight:700;">HD3-0000</code>
+        </div>
+        <div>
+          Đánh giá tự động: <strong id="receipt-criteria-display" style="color: #15803d;">8 / 8 tiêu chí</strong>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;">
+        <a id="receipt-preview-btn" target="_blank" class="btn btn-secondary" style="font-size: 0.9rem;">
+          🌐 Xem trang đã nộp
+        </a>
+        <button type="button" id="receipt-download-btn" class="btn btn-secondary" style="font-size: 0.9rem;">
+          💾 Tải bản sao lưu
+        </button>
+        <button type="button" class="btn btn-primary" onclick="closeReceiptModal()" style="font-size: 0.9rem;">
+          Đóng thông báo
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL XEM CHI TIẾT BÀI LÀM CỦA HỌC SINH (GIÁO VIÊN) -->
+  <div class="modal-overlay" id="student-work-modal" onclick="closeStudentWorkModal()">
+    <div class="modal-box" onclick="event.stopPropagation()">
+      <div style="background: linear-gradient(135deg, #1e3a8a 0%, #1d4ed8 100%); color: #ffffff; padding: 1.25rem 1.5rem;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap;">
+          <div>
+            <span style="display: inline-block; background: rgba(255,255,255,0.2); font-size: 0.74rem; font-weight: 700; padding: 0.2rem 0.6rem; border-radius: 9999px; text-transform: uppercase;">
+              HỒ SƠ BÀI THỰC HÀNH CLB.HTML
+            </span>
+            <h3 id="swm-student-title" style="margin: 0.35rem 0 0.15rem 0; font-size: 1.35rem; font-weight: 800; color: #fff;">
+              Họ và tên học sinh
+            </h3>
+            <p id="swm-student-meta" style="margin: 0; font-size: 0.86rem; opacity: 0.95;">
+              Lớp: 12A1 • Thời gian nộp: ...
+            </p>
+          </div>
+          <div style="text-align: right;">
+            <div id="swm-score-badge" style="background: #ffffff; color: #1d4ed8; font-size: 1.25rem; font-weight: 800; padding: 0.35rem 0.9rem; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); display: inline-block;">
+              8 / 8 Tiêu chí
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TABS CHUYỂN ĐỔI CHẾ ĐỘ XEM -->
+      <div style="display: flex; border-bottom: 1px solid #e2e8f0; background: #f8fafc; padding: 0.5rem 1.5rem; gap: 0.5rem;">
+        <button type="button" class="view-btn active" id="tab-btn-preview" onclick="switchModalTab('preview')" style="font-size: 0.85rem; padding: 0.4rem 0.95rem;">
+          🌐 Xem trước trang Web (Render)
+        </button>
+        <button type="button" class="view-btn" id="tab-btn-code" onclick="switchModalTab('code')" style="font-size: 0.85rem; padding: 0.4rem 0.95rem;">
+          💻 Mã nguồn HTML gốc
+        </button>
+      </div>
+
+      <div style="flex: 1; overflow-y: auto; padding: 1.25rem; background: #f1f5f9; min-height: 400px;">
+        <div id="tab-pane-preview" style="height: 100%; min-height: 380px; background: #fff; border-radius: 8px; border: 1px solid #cbd5e1; overflow: hidden;">
+          <iframe id="swm-preview-frame" style="width: 100%; height: 420px; border: none; background: #fff;" title="Xem trước bài làm của học sinh"></iframe>
+        </div>
+
+        <div id="tab-pane-code" style="display: none; height: 100%; min-height: 380px;">
+          <pre id="swm-raw-code" style="margin: 0; padding: 1rem; background: #0d1117; color: #7ee787; border-radius: 8px; font-family: 'Fira Code', monospace; font-size: 0.88rem; line-height: 1.6; max-height: 420px; overflow-y: auto; white-space: pre-wrap; word-break: break-all;"></pre>
+        </div>
+      </div>
+
+      <div style="padding: 1rem 1.5rem; background: #ffffff; border-top: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+        <button type="button" class="btn btn-secondary" onclick="downloadViewingModalFile()">
+          💾 Tải tệp HTML này
+        </button>
+        <button type="button" class="btn btn-primary" onclick="closeStudentWorkModal()">
+          Đóng cửa sổ
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL XÁC THỰC GIÁO VIÊN -->
+  <div id="teacher-auth-modal" class="teacher-modal-overlay" onclick="closeTeacherLoginModal()">
+    <div class="modal-dialog" style="max-width: 460px; background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);" onclick="event.stopPropagation()">
+      <div style="background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%); color: white; padding: 1.25rem 1.5rem; display: flex; justify-content: space-between; align-items: center;">
+        <div style="display: flex; align-items: center; gap: 0.6rem;">
+          <span style="font-size: 1.5rem;">🔐</span>
+          <div>
+            <h3 style="margin: 0; font-size: 1.15rem; font-weight: 800; color: white;">Xác Thực Quyền Giáo Viên</h3>
+            <div style="font-size: 0.8rem; color: #bfdbfe;">Trường THTH - DHSP • Tin học 12</div>
+          </div>
+        </div>
+        <button type="button" onclick="closeTeacherLoginModal()" style="background: none; border: none; color: white; font-size: 1.4rem; cursor: pointer; line-height: 1;">&times;</button>
+      </div>
+
+      <div style="padding: 1.5rem; background: #ffffff;">
+        <div id="teacher-auth-alert" style="display: none; padding: 0.85rem 1rem; border-radius: 8px; font-size: 0.88rem; line-height: 1.5; margin-bottom: 1.25rem;"></div>
+
+        <form id="teacher-login-form" onsubmit="handleTeacherLogin(event)" autocomplete="off">
+          <div style="margin-bottom: 1.1rem;">
+            <label style="display: block; font-size: 0.88rem; font-weight: 700; color: #1e293b; margin-bottom: 0.4rem;">
+              📧 Email tài khoản Giáo viên:
+            </label>
+            <input type="text" id="teacher-email-input" class="form-input" placeholder="Nhập email giáo viên..." value="darber3110@gmail.com" required style="width: 100%; box-sizing: border-box; padding: 0.75rem 1rem; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 0.95rem; background: #ffffff;">
+          </div>
+
+          <div style="margin-bottom: 1.1rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+              <label style="font-size: 0.88rem; font-weight: 700; color: #1e293b; margin: 0;">
+                🔑 Mật khẩu:
+              </label>
+              <button type="button" onclick="togglePasswordVisibility('teacher-pwd-input', this)" style="background: none; border: none; font-size: 0.78rem; color: #2563eb; cursor: pointer; padding: 0;">
+                👁️ Hiện
+              </button>
+            </div>
+            <input type="password" id="teacher-pwd-input" class="form-input" placeholder="Nhập mật khẩu giáo viên..." required style="width: 100%; box-sizing: border-box; padding: 0.75rem 1rem; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 0.95rem; background: #ffffff;">
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1.25rem;">
+            <input type="checkbox" id="teacher-remember-me" checked style="width: 16px; height: 16px; cursor: pointer;">
+            <label for="teacher-remember-me" style="font-size: 0.85rem; color: #475569; cursor: pointer; user-select: none;">
+              Ghi nhớ đăng nhập trên thiết bị này
+            </label>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.8rem; font-size: 1rem; font-weight: 700; border-radius: 8px; justify-content: center;">
+            🔓 Đăng Nhập Vào Bảng Giáo Viên
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

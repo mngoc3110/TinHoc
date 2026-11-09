@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Khởi động: So sánh Danh sách thường và Danh sách HTML | Bài 9 Tin học 12</title>
+  <meta name="description" content="Trang học tập trực quan dành cho học sinh - Bài 9: Tạo danh sách, bảng. So sánh danh sách thường và danh sách HTML trong thiết kế trang web.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Fira+Code:wght@400;500;600&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=20261108_02">
+  <style>
+    /* Ngăn chặn tuyệt đối lỗi tràn màn hình trên Safari và các trình duyệt di động */
+    html, body {
+      overflow-x: hidden;
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .grid-2 {
+      display: grid !important;
+      grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+      gap: 1.25rem;
+      width: 100% !important;
+      max-width: 100% !important;
+    }
+
+    .grid-2 > * {
+      min-width: 0 !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+
+    .code-window {
+      max-width: 100% !important;
+      width: 100% !important;
+      overflow: hidden !important;
+      box-sizing: border-box !important;
+    }
+
+    .code-content {
+      white-space: pre-wrap !important;
+      word-break: break-word !important;
+      overflow-x: auto !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+      font-size: 0.82rem !important;
+      line-height: 1.6 !important;
+    }
+
+    .card {
+      min-width: 0 !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+
+    .mobile-scroll-hint {
+      display: none;
+      font-size: 0.8rem;
+      color: var(--color-brand);
+      background: var(--color-brand-light);
+      padding: 0.4rem 0.75rem;
+      border-radius: var(--radius-pill);
+      margin-bottom: 0.5rem;
+      text-align: center;
+      font-weight: 600;
+    }
+
+    @media (max-width: 960px) {
+      .grid-2 {
+        grid-template-columns: 1fr !important;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .mobile-scroll-hint {
+        display: block;
+      }
+      .hero-title {
+        font-size: 1.4rem !important;
+        line-height: 1.35 !important;
+      }
+      .hero-subtitle {
+        font-size: 0.92rem !important;
+      }
+      .section-title {
+        font-size: 1.15rem !important;
+      }
+      .card {
+        padding: 1rem !important;
+      }
+      .data-table th, .data-table td {
+        padding: 0.65rem 0.65rem !important;
+        font-size: 0.82rem !important;
+      }
+    }
+
+    /* Phong cách chuyển đổi chế độ xem Trình duyệt vs Soi Code (như Bài 8) */
+    .compare-container {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.25rem;
+      width: 100%;
+      max-width: 100%;
+    }
+
+    /* Mặc định: Khung code LUÔN ẨN tuyệt đối khi vừa tải trang */
+    #view-mode-code {
+      display: none !important;
+    }
+
+    /* Khi người dùng bấm nút soi mã nguồn mới kích hoạt hiển thị */
+    #view-mode-code.is-active {
+      display: grid !important;
+    }
+
+    /* Khi chuyển sang xem mã thì ẩn kết quả trình duyệt */
+    #view-mode-browser.is-hidden {
+      display: none !important;
+    }
+
+    @media (max-width: 960px) {
+      .compare-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .compare-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.74rem;
+      font-weight: 700;
+      padding: 0.2rem 0.55rem;
+      border-radius: var(--radius-pill);
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+
+    .compare-tag.danger {
+      background: #fee2e2;
+      color: #b91c1c;
+      border: 1px solid #fca5a5;
+    }
+
+    .compare-tag.success {
+      background: #dcfce7;
+      color: #15803d;
+      border: 1px solid #86efac;
+    }
+
+    .btn-tool.active {
+      background: var(--color-brand) !important;
+      color: #ffffff !important;
+      border-color: var(--color-brand) !important;
+    }
+
+    .preview-canvas {
+      padding: 1.25rem 1.4rem;
+      background: #ffffff;
+      min-height: 140px;
+      box-sizing: border-box;
+    }
+
+    /* Trình biên dịch trực tiếp (Live Mini Compilers) */
+    .mini-compiler-box {
+      background: var(--editor-bg);
+      border: 1px solid var(--editor-border);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      margin: 0.65rem 0 0.85rem;
+      box-sizing: border-box;
+      width: 100%;
+    }
+
+    .mini-compiler-header {
+      background: var(--editor-surface);
+      padding: 0.4rem 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--editor-border);
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .mini-compiler-title {
+      font-size: 0.76rem;
+      font-family: var(--font-mono);
+      color: #c9d1d9;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-weight: 600;
+    }
+
+    .mini-compiler-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-mini-run {
+      background: #238636;
+      color: #ffffff;
+      border: none;
+      border-radius: var(--radius-xs);
+      padding: 0.25rem 0.55rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      transition: background 0.15s ease;
+    }
+    .btn-mini-run:hover {
+      background: #2ea043;
+    }
+
+    .btn-mini-tool {
+      background: rgba(255, 255, 255, 0.08);
+      color: #c9d1d9;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: var(--radius-xs);
+      padding: 0.25rem 0.5rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .btn-mini-tool:hover {
+      background: rgba(255, 255, 255, 0.18);
+      color: #ffffff;
+    }
+
+    .mini-editor-textarea {
+      width: 100%;
+      background: #0d1117;
+      color: #7ee787;
+      font-family: var(--font-mono);
+      font-size: 0.83rem;
+      line-height: 1.55;
+      padding: 0.75rem;
+      border: none;
+      outline: none;
+      resize: vertical;
+      height: 125px;
+      min-height: 110px;
+      box-sizing: border-box;
+      display: block;
+      tab-size: 2;
+    }
+
+    .mini-preview-wrap {
+      background: #ffffff;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      box-sizing: border-box;
+      width: 100%;
+      margin-top: 0.65rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+
+    .mini-preview-header {
+      background: #f8fafc;
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 0.4rem 0.75rem;
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    .mini-preview-frame {
+      width: 100%;
+      height: 145px;
+      min-height: 125px;
+      border: none;
+      background: #ffffff;
+      display: block;
+      box-sizing: border-box;
+    }
+
+    /* Hiệu ứng trực quan cho khối kết quả hiển thị */
+    .browser-preview-box {
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 0.95rem;
+      background: #ffffff;
+      box-shadow: inset 0 1px 2px rgba(0,0,0,0.03);
+      box-sizing: border-box;
+      max-width: 100%;
+    }
+
+    .preview-header {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-bottom: 0.6rem;
+      letter-spacing: 0.04em;
+    }
+
+    .preview-header-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #10b981;
+      display: inline-block;
+      flex-shrink: 0;
+    }
+
+    .preview-header-dot.warning {
+      background: #f59e0b;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER & NAVIGATION -->
+  <header class="site-header">
+    <div class="container nav-wrapper">
+      <a href="index.html" class="brand-badge" title="Quay về Trang chủ Bài 9">
+        <div class="brand-icon-box">
+          <svg class="icon-svg" viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+        </div>
+        <div class="brand-text">
+          <span class="title">BÀI 9: TẠO DANH SÁCH, BẢNG</span>
+          <span class="subtitle">Tin học 12 • Trang học tập tương tác</span>
+        </div>
+      </a>
+
+      <nav aria-label="Điều hướng bài học">
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">Tổng quan</a></li>
+          <li><a href="hd1.html" class="nav-link active">1. Khởi động</a></li>
+          <li><a href="hd2-1.html" class="nav-link">2.1. Danh sách HTML</a></li>
+          <li><a href="hd2-2.html" class="nav-link">2.2. Thiết lập Bảng</a></li>
+          <li><a href="hd3.html" class="nav-link">3. Thực hành CLB</a></li>
+          <li><a href="hd4.html" class="nav-link">4. Vận dụng</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-tools">
+        <div class="timer-widget" title="Thời gian khởi động">
+          <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          <span id="timer-display" class="timer-display">05:00</span>
+          <select id="timer-preset" class="btn-tool" title="Chọn thời lượng đếm ngược">
+            <option value="3">3p</option>
+            <option value="5" selected>5p</option>
+            <option value="7">7p</option>
+          </select>
+          <button id="timer-toggle" class="btn-tool" type="button">▶ Bắt đầu</button>
+          <button id="timer-reset" class="btn-tool" type="button" title="Đặt lại">↺</button>
+        </div>
+
+        <button id="btn-fullscreen" class="btn-tool" type="button" title="Bật/Tắt chế độ toàn màn hình">
+          <svg class="icon-svg" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
+          Toàn màn hình
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- STEPPER TIẾN TRÌNH HỌC TẬP -->
+  <nav class="stepper-section" aria-label="Tiến trình học tập">
+    <div class="container">
+      <div class="stepper-nav">
+        <div class="stepper-line"></div>
+        
+        <a href="index.html" class="stepper-step completed">
+          <div class="step-circle">✓</div>
+          <span class="step-label">Mục tiêu bài</span>
+        </a>
+
+        <a href="hd1.html" class="stepper-step active">
+          <div class="step-circle">1</div>
+          <span class="step-label">Khởi động (5')</span>
+        </a>
+
+        <a href="hd2-1.html" class="stepper-step">
+          <div class="step-circle">2.1</div>
+          <span class="step-label">Danh sách HTML (15')</span>
+        </a>
+
+        <a href="hd2-2.html" class="stepper-step">
+          <div class="step-circle">2.2</div>
+          <span class="step-label">Thiết lập Bảng (15')</span>
+        </a>
+
+        <a href="hd3.html" class="stepper-step">
+          <div class="step-circle">3</div>
+          <span class="step-label">Thực hành CLB (30')</span>
+        </a>
+
+        <a href="hd4.html" class="stepper-step">
+          <div class="step-circle">4</div>
+          <span class="step-label">Vận dụng & Đố vui</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO BANNER DÀNH CHO HỌC SINH -->
+  <section class="hero-banner">
+    <div class="container">
+      <div class="hero-content">
+        <div class="badge-tag">
+          <span>HOẠT ĐỘNG 1 • KHỞI ĐỘNG (5 PHÚT)</span>
+        </div>
+        <h1 class="hero-title">Vì Sao Trang Web Cần Danh Sách & Bảng Biểu?</h1>
+        <p class="hero-subtitle">
+          Cùng trải nghiệm và so sánh trực quan: Điều gì xảy ra khi bạn tự gõ các con số 1, 2, 3 bằng tay so với khi sử dụng các thẻ HTML chuẩn dành riêng cho danh sách?
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+    <div class="container">
+
+      <!-- MỤC 1: TÌNH HUỐNG THỰC TẾ -->
+      <section class="section-block">
+        <div class="section-header">
+          <h2 class="section-title">
+            <span class="section-num">1</span>
+            Quan sát tình huống thực tế
+          </h2>
+        </div>
+
+        <div class="card" style="border-left: 4px solid var(--color-brand);">
+          <div style="display: flex; align-items: flex-start; gap: 0.85rem;">
+            <div style="background: var(--color-brand-light); color: var(--color-brand); border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-size: 1.15rem; flex-shrink: 0; font-weight: bold;">
+              💡
+            </div>
+            <div>
+              <h3 style="font-size: 1.1rem; color: var(--color-brand); margin-bottom: 0.45rem;">
+                Tình huống: Đăng thực đơn "Hội chợ ẩm thực lớp 12" lên trang web
+              </h3>
+              <p style="color: var(--text-secondary); font-size: 0.92rem; line-height: 1.6; margin-bottom: 0.65rem;">
+                Nếu bạn chỉ viết một đoạn văn dài dòng liền tù tì: <em>"Lớp 12A bán Bánh tráng trộn giá 20k kèm trứng cút và xoài, rồi bán thêm Trà đào cam sả giá 25k cực mát lạnh, ngoài ra có Chè khúc bạch giá 30k..."</em> thì người xem lướt web sẽ rất khó tìm thấy món mình thích và giá tiền.
+              </p>
+              <p style="color: var(--text-primary); font-size: 0.92rem; font-weight: 600; margin: 0;">
+                👉 Để trang web dễ nhìn, khoa học và chuyên nghiệp, chúng ta cần tổ chức dữ liệu thành <span style="color: var(--color-brand);">Danh sách (List)</span> và <span style="color: var(--color-success);">Bảng biểu (Table)</span>.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- MỤC 2: TRỰC QUAN HÓA SO SÁNH GIỮA 2 CÁCH LÀM (CHUYỂN ĐỔI CHẾ ĐỘ XEM NHƯ BÀI 8) -->
+      <section class="section-block">
+        <div class="section-header">
+          <h2 class="section-title">
+            <span class="section-num">2</span>
+            Trực quan hóa: "Danh sách thường" vs "Danh sách HTML"
+          </h2>
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+            <button id="btn-toggle-view-browser" class="btn-tool active" type="button" onclick="switchView('browser')">
+              🖥️ Kết quả hiển thị Web (Mặc định)
+            </button>
+            <button id="btn-toggle-view-code" class="btn-tool" type="button" onclick="switchView('code')">
+              💻 Soi mã nguồn HTML &amp; Compile
+            </button>
+          </div>
+        </div>
+
+        <!-- CHẾ ĐỘ 1: KẾT QUẢ HIỂN THỊ WEB TRÊN TRÌNH DUYỆT (MẶC ĐỊNH GỌN GÀNG CHO HỌC SINH COI) -->
+        <div id="view-mode-browser" class="compare-container">
+          
+          <!-- CỘT 1: CÁCH 1 - GÕ TAY THỦ CÔNG -->
+          <div class="browser-mockup" style="border-color: #fca5a5; box-shadow: 0 4px 12px rgba(239, 68, 68, 0.08);">
+            <div class="browser-bar" style="background: #fef2f2; border-bottom: 1px solid #fee2e2;">
+              <div class="browser-dots">
+                <span class="dot-red"></span><span class="dot-yellow"></span><span class="dot-green"></span>
+              </div>
+              <div class="browser-address">
+                <svg style="width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 2;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                <span>http://lop12.edu.vn/danh-sach-thuong.html</span>
+              </div>
+              <span class="compare-tag danger">❌ Cách 1: Gõ tay trong &lt;p&gt;</span>
+            </div>
+
+            <div class="preview-canvas" style="font-size: 0.92rem; line-height: 1.7; color: var(--text-secondary);">
+              <p style="margin: 0;">
+                1. Món Bánh tráng trộn: Món ăn vặt thơm ngon đậm đà kèm trứng cút và xoài xanh thái sợi nhỏ.<br>
+                2. Món Trà đào cam sả: Đồ uống thanh nhiệt cực mát lạnh cho ngày hè oi bức.<br>
+                3. Món Chè khúc bạch: Món tráng miệng ngọt nhẹ thanh mát giải nhiệt.
+              </p>
+            </div>
+
+            <!-- Nhận xét nhanh dưới Cách 1 -->
+            <div style="background: #fff5f5; padding: 0.85rem 1.25rem; border-top: 1px dashed #fca5a5; font-size: 0.85rem; color: #991b1b;">
+              <strong>⚠️ Hạn chế nhận thấy ngay khi gõ tay:</strong>
+              <ul style="margin: 0.35rem 0 0 1.2rem; line-height: 1.55;">
+                <li><strong>Lỗi thụt lề:</strong> Khi câu chữ dài xuống dòng, chữ ở dòng 2 nhảy ra sát mép trái (ngay dưới số 1), nhìn rất lộn xộn.</li>
+                <li><strong>Cực nhọc khi chỉnh sửa:</strong> Nếu muốn chèn thêm một món vào vị trí thứ 2, bạn phải <em>sửa lại số thứ tự bằng tay</em> từ đầu đến cuối!</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- CỘT 2: CÁCH 2 - DÙNG THẺ CHUẨN HTML -->
+          <div class="browser-mockup" style="border-color: #86efac; box-shadow: 0 4px 16px rgba(16, 185, 129, 0.12);">
+            <div class="browser-bar" style="background: #f0fdf4; border-bottom: 1px solid #dcfce7;">
+              <div class="browser-dots">
+                <span class="dot-red"></span><span class="dot-yellow"></span><span class="dot-green"></span>
+              </div>
+              <div class="browser-address">
+                <svg style="width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 2;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                <span>http://lop12.edu.vn/danh-sach-chuan-html.html</span>
+              </div>
+              <span class="compare-tag success">✅ Cách 2: Chuẩn HTML &lt;ol&gt;</span>
+            </div>
+
+            <div class="preview-canvas" style="font-size: 0.92rem; line-height: 1.7; color: var(--text-primary);">
+              <ol style="margin: 0; padding-left: 1.4rem;">
+                <li style="margin-bottom: 0.45rem;">
+                  <strong>Bánh tráng trộn:</strong> Món ăn vặt thơm ngon đậm đà kèm trứng cút và xoài xanh thái sợi nhỏ.
+                </li>
+                <li style="margin-bottom: 0.45rem;">
+                  <strong>Trà đào cam sả:</strong> Đồ uống thanh nhiệt cực mát lạnh cho ngày hè oi bức.
+                </li>
+                <li style="margin: 0;">
+                  <strong>Chè khúc bạch:</strong> Món tráng miệng ngọt nhẹ thanh mát giải nhiệt.
+                </li>
+              </ol>
+            </div>
+
+            <!-- Ưu điểm vượt trội của Cách 2 -->
+            <div style="background: #f0fdf4; padding: 0.85rem 1.25rem; border-top: 1px dashed #86efac; font-size: 0.85rem; color: #166534;">
+              <strong>✨ Ưu điểm vượt trội của Danh sách HTML:</strong>
+              <ul style="margin: 0.35rem 0 0 1.2rem; line-height: 1.55;">
+                <li><strong>Canh lề hoàn hảo (Hanging indent):</strong> Dù câu chữ dài bao nhiêu dòng, chữ vẫn tự động lùi vào thẳng hàng với nội dung, số thứ tự đứng độc lập rõ ràng.</li>
+                <li><strong>Tự động đánh số thông minh:</strong> Thêm, xóa hoặc hoán đổi vị trí thẻ <code>&lt;li&gt;</code> thì trình duyệt sẽ <em>tự động cập nhật số thứ tự</em> ngay lập tức!</li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- CHẾ ĐỘ 2: SOI MÃ NGUỒN HTML & COMPILE TRỰC TIẾP (ẨN MẶC ĐỊNH, CHỈ HIỆN KHI BẤM NÚT) -->
+        <div id="view-mode-code" class="compare-container">
+          
+          <!-- CỘT 1: LIVE COMPILER GÕ TAY -->
+          <div class="card" id="compiler-box-plain" style="border-top: 4px solid var(--color-warning); margin: 0;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.65rem; flex-wrap: wrap; gap: 0.4rem;">
+              <h3 class="card-title" style="margin: 0; font-size: 1rem; color: var(--color-warning);">
+                1. Mã nguồn: Gõ tay thủ công trong thẻ &lt;p&gt;
+              </h3>
+              <span class="badge-tag" style="background: var(--color-warning-light); color: var(--color-warning); border-color: var(--color-warning-border); margin: 0;">
+                Gõ tay thủ công
+              </span>
+            </div>
+
+            <div class="mini-compiler-box">
+              <div class="mini-compiler-header">
+                <div class="mini-compiler-title">
+                  <span class="preview-header-dot warning"></span>
+                  go-tay-thu-cong.html
+                </div>
+                <div class="mini-compiler-actions">
+                  <button class="btn-mini-run" type="button" onclick="runCompile('plain')">▶ Compile (Chạy mã)</button>
+                  <button class="btn-mini-tool" type="button" onclick="insertItemPlain()">+ Thử chèn món</button>
+                  <button class="btn-mini-tool" type="button" onclick="resetPlain()">↺ Đặt lại</button>
+                </div>
+              </div>
+              <textarea class="mini-editor-textarea" id="textarea-plain" spellcheck="false">&lt;p&gt;
+1. Bánh tráng trộn: Món ăn vặt thơm ngon đậm đà kèm trứng cút và xoài xanh thái sợi nhỏ.&lt;br&gt;
+2. Trà đào cam sả: Đồ uống thanh nhiệt cực mát lạnh cho ngày hè oi bức.&lt;br&gt;
+3. Chè khúc bạch: Món tráng miệng ngọt nhẹ thanh mát giải nhiệt.
+&lt;/p&gt;</textarea>
+            </div>
+
+            <div class="mini-preview-wrap">
+              <div class="mini-preview-header">
+                <span>🖥️ KẾT QUẢ COMPILE THẬT</span>
+                <span id="status-plain" style="color: #f59e0b; font-size: 0.72rem; font-weight: 700;">● ĐÃ COMPILE</span>
+              </div>
+              <iframe class="mini-preview-frame" id="iframe-plain" title="Kết quả biên dịch danh sách thường"></iframe>
+            </div>
+          </div>
+
+          <!-- CỘT 2: LIVE COMPILER CHUẨN HTML -->
+          <div class="card" id="compiler-box-html" style="border-top: 4px solid var(--color-success); margin: 0;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.65rem; flex-wrap: wrap; gap: 0.4rem;">
+              <h3 class="card-title" style="margin: 0; font-size: 1rem; color: var(--color-success);">
+                2. Mã nguồn: Dùng thẻ chuẩn &lt;ol&gt;, &lt;ul&gt;, &lt;li&gt;
+              </h3>
+              <span class="badge-tag" style="background: var(--color-success-light); color: var(--color-success); border-color: var(--color-success-border); margin: 0;">
+                Chuẩn W3C • Tự động
+              </span>
+            </div>
+
+            <div class="mini-compiler-box">
+              <div class="mini-compiler-header">
+                <div class="mini-compiler-title">
+                  <span class="preview-header-dot"></span>
+                  the-chuan-html.html
+                </div>
+                <div class="mini-compiler-actions">
+                  <button class="btn-mini-run" type="button" onclick="runCompile('html')">▶ Compile (Chạy mã)</button>
+                  <button class="btn-mini-tool" type="button" onclick="insertItemHtml()">+ Thử chèn món</button>
+                  <button class="btn-mini-tool" type="button" onclick="toggleUlHtml()">🔄 Đổi &lt;ul&gt;</button>
+                  <button class="btn-mini-tool" type="button" onclick="resetHtml()">↺ Đặt lại</button>
+                </div>
+              </div>
+              <textarea class="mini-editor-textarea" id="textarea-html" spellcheck="false">&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;Bánh tráng trộn:&lt;/strong&gt; Món ăn vặt thơm ngon đậm đà kèm trứng cút và xoài xanh thái sợi nhỏ.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Trà đào cam sả:&lt;/strong&gt; Đồ uống thanh nhiệt cực mát lạnh cho ngày hè oi bức.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Chè khúc bạch:&lt;/strong&gt; Món tráng miệng ngọt nhẹ thanh mát giải nhiệt.&lt;/li&gt;
+&lt;/ol&gt;</textarea>
+            </div>
+
+            <div class="mini-preview-wrap">
+              <div class="mini-preview-header">
+                <span>🖥️ KẾT QUẢ COMPILE THẬT</span>
+                <span id="status-html" style="color: #059669; font-size: 0.72rem; font-weight: 700;">● ĐÃ COMPILE</span>
+              </div>
+              <iframe class="mini-preview-frame" id="iframe-html" title="Kết quả biên dịch danh sách HTML"></iframe>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- MỤC 3: THỬ TÀI NHANH CHO HỌC SINH -->
+      <section class="section-block">
+        <div class="section-header">
+          <h2 class="section-title">
+            <span class="section-num">3</span>
+            Thử tài nhanh: Kiểm tra độ hiểu bài (2 phút)
+          </h2>
+          <span style="font-size: 0.85rem; color: var(--text-muted); font-weight: 500;">
+            Bấm chọn đáp án trực tiếp để kiểm tra xem bạn đã nắm chắc chưa
+          </span>
+        </div>
+
+        <div class="grid-2">
+          
+          <!-- Câu 1 -->
+          <div class="quiz-card">
+            <div class="quiz-question">
+              <span class="quiz-q-num">1</span>
+              <span>Lợi ích lớn nhất khi bạn dùng thẻ <code>&lt;ol&gt;</code> thay vì tự gõ các số 1, 2, 3 bằng tay là gì?</span>
+            </div>
+            <div class="quiz-options">
+              <button class="quiz-btn" data-correct="false" data-explain="Thẻ &lt;ol&gt; mặc định không tự động đổi màu sắc chữ nếu chưa cài đặt CSS.">
+                <span>A.</span> Chữ của các mục sẽ tự động đổi sang màu đỏ nổi bật
+              </button>
+              <button class="quiz-btn" data-correct="true" data-explain="Chính xác! Trình duyệt sẽ tự động đánh số tăng dần và tự cập nhật chuẩn xác khi bạn thêm, bớt hoặc đổi chỗ các mục.">
+                <span>B.</span> Trình duyệt tự động đánh số và tự cập nhật khi bạn thêm hoặc bớt mục
+              </button>
+              <button class="quiz-btn" data-correct="false" data-explain="Thẻ &lt;ol&gt; chỉ tạo danh sách trên trang, không làm thay đổi dung lượng hay tốc độ mạng.">
+                <span>C.</span> Tốc độ tải trang web sẽ nhanh hơn gấp đôi
+              </button>
+              <button class="quiz-btn" data-correct="false" data-explain="Chỉ có các thẻ liên kết &lt;a&gt; mới tạo được đường link bấm được.">
+                <span>D.</span> Các con số sẽ tự động trở thành đường dẫn liên kết
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <!-- Câu 2 -->
+          <div class="quiz-card">
+            <div class="quiz-question">
+              <span class="quiz-q-num">2</span>
+              <span>Khi một mục trong danh sách có nội dung rất dài và phải xuống dòng, danh sách HTML hiển thị thế nào?</span>
+            </div>
+            <div class="quiz-options">
+              <button class="quiz-btn" data-correct="false" data-explain="Chỉ trong cách gõ tay thủ công thì dòng thứ 2 mới bị nhảy ra ngoài mép trái.">
+                <span>A.</span> Dòng thứ 2 sẽ nhảy thụt ra ngoài cùng mép trái ngay dưới số thứ tự
+              </button>
+              <button class="quiz-btn" data-correct="true" data-explain="Tuyệt vời! Cơ chế lề treo (hanging indent) đảm bảo toàn bộ khối nội dung luôn thụt vào thẳng hàng với dòng đầu tiên.">
+                <span>B.</span> Tự động thụt lề khối (hanging indent) giúp toàn bộ câu chữ thẳng hàng tuyệt đối
+              </button>
+              <button class="quiz-btn" data-correct="false" data-explain="HTML không tự ý cắt xén bớt chữ của người viết.">
+                <span>C.</span> Trình duyệt sẽ tự động cắt bỏ phần chữ dài vượt quá một dòng
+              </button>
+              <button class="quiz-btn" data-correct="false" data-explain="Trình duyệt vẫn hiển thị bình thường chứ không báo lỗi.">
+                <span>D.</span> Trình duyệt báo lỗi đỏ và không hiển thị đoạn văn bản đó
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- MỤC 4: CHUYỂN TIẾP SANG HOẠT ĐỘNG 2 -->
+      <section class="section-block">
+        <div class="card" style="background: linear-gradient(135deg, #eff6ff 0%, #f0fdf4 100%); border: 1px solid #bfdbfe; text-align: center; padding: 1.5rem 1rem;">
+          <h3 style="font-size: 1.25rem; color: var(--text-primary); margin-bottom: 0.5rem;">
+            Bạn đã sẵn sàng tự tay viết mã tạo Danh sách và Bảng chưa?
+          </h3>
+          <p style="max-width: 640px; margin: 0 auto 1.25rem; color: var(--text-secondary); font-size: 0.92rem; line-height: 1.6;">
+            Trong hoạt động tiếp theo, chúng ta sẽ cùng khám phá cú pháp chi tiết của các thẻ <code>&lt;ul&gt;</code>, <code>&lt;ol&gt;</code>, <code>&lt;dl&gt;</code>, thiết lập bảng với <code>&lt;table&gt;</code> và mẹo gộp ô bằng <code>rowspan</code>, <code>colspan</code>!
+          </p>
+          <a href="hd2-1.html" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.98rem; padding: 0.7rem 1.4rem;">
+            Sang Hoạt động 2.1: Khám phá Danh sách HTML →
+          </a>
+        </div>
+      </section>
+
+      <!-- ĐIỀU HƯỚNG TRANG -->
+      <div class="page-nav-bar">
+        <a href="index.html" class="btn btn-secondary">← Trang chủ Bài 9</a>
+        <a href="hd2-1.html" class="btn btn-primary">
+          Tiến tới Hoạt động 2.1: Danh sách HTML →
+        </a>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>© 2026 Tin học 12 Thống nhất - Bài 9: Tạo danh sách, bảng. THPT Thực hành ĐH Sư phạm.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+  <script>
+    // Hàm chuyển đổi chế độ xem Trình duyệt vs Soi mã nguồn (giống Bài 8)
+    function switchView(mode) {
+      const browserView = document.getElementById('view-mode-browser');
+      const codeView = document.getElementById('view-mode-code');
+      const btnBrowser = document.getElementById('btn-toggle-view-browser');
+      const btnCode = document.getElementById('btn-toggle-view-code');
+
+      if (!browserView || !codeView) return;
+
+      if (mode === 'code') {
+        browserView.classList.add('is-hidden');
+        codeView.classList.add('is-active');
+        btnBrowser?.classList.remove('active');
+        btnCode?.classList.add('active');
+        // Kích hoạt compile khi mở khung code
+        setTimeout(() => {
+          runCompile('plain');
+          runCompile('html');
+        }, 50);
+      } else {
+        codeView.classList.remove('is-active');
+        browserView.classList.remove('is-hidden');
+        btnCode?.classList.remove('active');
+        btnBrowser?.classList.add('active');
+      }
+    }
+
+    // Trình biên dịch trực tiếp (Live Compilers) dành cho Khởi động Bài 9
+    const DEFAULT_CODE_PLAIN = `<p>
+1. Bánh tráng trộn: Món ăn vặt thơm ngon đậm đà kèm trứng cút và xoài xanh thái sợi nhỏ.<br>
+2. Trà đào cam sả: Đồ uống thanh nhiệt cực mát lạnh cho ngày hè oi bức.<br>
+3. Chè khúc bạch: Món tráng miệng ngọt nhẹ thanh mát giải nhiệt.
+</p>`;
+
+    const DEFAULT_CODE_HTML = `<ol>
+  <li><strong>Bánh tráng trộn:</strong> Món ăn vặt thơm ngon đậm đà kèm trứng cút và xoài xanh thái sợi nhỏ.</li>
+  <li><strong>Trà đào cam sả:</strong> Đồ uống thanh nhiệt cực mát lạnh cho ngày hè oi bức.</li>
+  <li><strong>Chè khúc bạch:</strong> Món tráng miệng ngọt nhẹ thanh mát giải nhiệt.</li>
+</ol>`;
+
+    function renderToIframe(iframeId, code) {
+      const iframe = document.getElementById(iframeId);
+      if (!iframe) return;
+      const doc = iframe.contentDocument || iframe.contentWindow.document;
+      const template = `<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Plus Jakarta Sans', 'Segoe UI', Roboto, sans-serif;
+      font-size: 13.5px;
+      line-height: 1.65;
+      color: #1e293b;
+      margin: 0;
+      padding: 10px 12px;
+      background: #ffffff;
+      word-break: break-word;
+    }
+    p { margin: 0; }
+    ol, ul { margin: 0; padding-left: 20px; }
+    li { margin-bottom: 6px; }
+    strong { color: #0f172a; }
+  </style>
+</head>
+<body>` + code + `</body>
+</html>`;
+      doc.open();
+      doc.write(template);
+      doc.close();
+    }
+
+    function runCompile(type) {
+      if (type === 'plain') {
+        const txt = document.getElementById('textarea-plain');
+        if (txt) {
+          renderToIframe('iframe-plain', txt.value);
+          flashStatus('status-plain');
+        }
+      } else {
+        const txt = document.getElementById('textarea-html');
+        if (txt) {
+          renderToIframe('iframe-html', txt.value);
+          flashStatus('status-html');
+        }
+      }
+    }
+
+    function flashStatus(statusId) {
+      const el = document.getElementById(statusId);
+      if (!el) return;
+      el.innerText = '✓ VỪA COMPILE';
+      setTimeout(() => { el.innerText = '● ĐÃ COMPILE'; }, 1200);
+    }
+
+    function insertItemPlain() {
+      const txt = document.getElementById('textarea-plain');
+      if (!txt) return;
+      txt.value = `<p>
+1. Bánh tráng trộn: Món ăn vặt thơm ngon đậm đà kèm trứng cút và xoài xanh thái sợi nhỏ.<br>
+2. Bánh tráng nướng: Món ăn vặt giòn rụm thơm ngon.<br>
+2. Trà đào cam sả: Đồ uống thanh nhiệt cực mát lạnh cho ngày hè oi bức.<br>
+3. Chè khúc bạch: Món tráng miệng ngọt nhẹ thanh mát giải nhiệt.
+</p>`;
+      runCompile('plain');
+      if (typeof showToast === 'function') {
+        showToast('⚠️ Đã chèn món mới: Quan sát thấy bị TRÙNG 2 SỐ 2!');
+      }
+    }
+
+    function resetPlain() {
+      const txt = document.getElementById('textarea-plain');
+      if (!txt) return;
+      txt.value = DEFAULT_CODE_PLAIN;
+      runCompile('plain');
+      if (typeof showToast === 'function') {
+        showToast('↺ Đã khôi phục mã ban đầu');
+      }
+    }
+
+    function insertItemHtml() {
+      const txt = document.getElementById('textarea-html');
+      if (!txt) return;
+      txt.value = `<ol>
+  <li><strong>Bánh tráng trộn:</strong> Món ăn vặt thơm ngon đậm đà kèm trứng cút và xoài xanh thái sợi nhỏ.</li>
+  <li><strong>Bánh tráng nướng:</strong> Món ăn vặt giòn rụm thơm ngon.</li>
+  <li><strong>Trà đào cam sả:</strong> Đồ uống thanh nhiệt cực mát lạnh cho ngày hè oi bức.</li>
+  <li><strong>Chè khúc bạch:</strong> Món tráng miệng ngọt nhẹ thanh mát giải nhiệt.</li>
+</ol>`;
+      runCompile('html');
+      if (typeof showToast === 'function') {
+        showToast('✨ Đã chèn món mới: Trình duyệt TỰ ĐÁNH SỐ 1, 2, 3, 4!');
+      }
+    }
+
+    function toggleUlHtml() {
+      const txt = document.getElementById('textarea-html');
+      if (!txt) return;
+      if (txt.value.includes('<ol>')) {
+        txt.value = txt.value.replace(/<ol>/g, '<ul>').replace(/<\/ol>/g, '</ul>');
+        if (typeof showToast === 'function') showToast('🔄 Đã chuyển sang thẻ <ul> (dấu chấm tròn)');
+      } else {
+        txt.value = txt.value.replace(/<ul>/g, '<ol>').replace(/<\/ul>/g, '</ol>');
+        if (typeof showToast === 'function') showToast('🔄 Đã chuyển sang thẻ <ol> (số thứ tự)');
+      }
+      runCompile('html');
+    }
+
+    function resetHtml() {
+      const txt = document.getElementById('textarea-html');
+      if (!txt) return;
+      txt.value = DEFAULT_CODE_HTML;
+      runCompile('html');
+      if (typeof showToast === 'function') {
+        showToast('↺ Đã khôi phục mã ban đầu');
+      }
+    }
+
+    // Tự động biên dịch ngay khi trang vừa tải xong và khi học sinh gõ phím
+    window.addEventListener('load', () => {
+      runCompile('plain');
+      runCompile('html');
+
+      const tPlain = document.getElementById('textarea-plain');
+      const tHtml = document.getElementById('textarea-html');
+      if (tPlain) tPlain.addEventListener('input', () => runCompile('plain'));
+      if (tHtml) tHtml.addEventListener('input', () => runCompile('html'));
+    });
+  </script>
+</body>
+</html>

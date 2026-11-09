@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bài 9: Tạo Danh Sách, Bảng | Tin học 12 Thống nhất</title>
+  <meta name="description" content="Trang web học tập Bài 9: Tạo danh sách, bảng - Môn Tin học 12. Học tập tương tác, trực quan, thực hành tạo danh sách ol, ul, dl và bảng table theo Công văn 5512.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Fira+Code:wght@400;500;600&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=20261108_03">
+  <style>
+    html, body {
+      overflow-x: hidden;
+      width: 100%;
+      max-width: 100%;
+    }
+    .competency-card {
+      background: #ffffff;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.25rem 1.4rem;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .competency-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 0.65rem 0.85rem;
+      border-radius: var(--radius-sm);
+      background: var(--bg-subtle);
+      font-size: 0.88rem;
+      line-height: 1.55;
+    }
+    .comp-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--color-brand);
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 0.85rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .comp-num.green { background: #059669; }
+    .comp-num.amber { background: #d97706; }
+    .comp-num.purple { background: #7c3aed; }
+
+    .matrix-table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      background: #ffffff;
+      box-shadow: var(--shadow-sm);
+    }
+    .matrix-tbl {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.86rem;
+      text-align: left;
+    }
+    .matrix-tbl th {
+      background: #f8fafc;
+      color: #1e293b;
+      font-weight: 700;
+      padding: 0.85rem 1rem;
+      border-bottom: 2px solid #e2e8f0;
+      white-space: nowrap;
+    }
+    .matrix-tbl td {
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid #f1f5f9;
+      vertical-align: top;
+      line-height: 1.55;
+    }
+    .matrix-tbl tr:last-child td {
+      border-bottom: none;
+    }
+    .matrix-tbl tr:hover td {
+      background: #f8fafc;
+    }
+    .badge-target {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      font-size: 0.75rem;
+      font-weight: 700;
+      margin: 0.15rem 0.15rem 0.15rem 0;
+      color: #ffffff;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER & NAVIGATION -->
+  <header class="site-header">
+    <div class="container nav-wrapper">
+      <a href="index.html" class="brand-badge" title="Trang chủ bài học">
+        <div class="brand-icon-box">
+          <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+        </div>
+        <div class="brand-text">
+          <span class="title">BÀI 9: TẠO DANH SÁCH, BẢNG</span>
+          <span class="subtitle">Tin học 12 • Kế hoạch bài dạy CV 5512</span>
+        </div>
+      </a>
+
+      <nav aria-label="Điều hướng bài học">
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link active">Tổng quan</a></li>
+          <li><a href="hd1.html" class="nav-link">1. Khởi động</a></li>
+          <li><a href="hd2-1.html" class="nav-link">2.1. Danh sách HTML</a></li>
+          <li><a href="hd2-2.html" class="nav-link">2.2. Thiết lập Bảng</a></li>
+          <li><a href="hd3.html" class="nav-link">3. Thực hành CLB</a></li>
+          <li><a href="hd4.html" class="nav-link">4. Vận dụng</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-tools">
+        <div class="timer-widget" title="Đồng hồ tiết dạy">
+          <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          <span id="timer-display" class="timer-display">45:00</span>
+          <select id="timer-preset" class="btn-tool" title="Chọn thời lượng">
+            <option value="5">5p</option>
+            <option value="15">15p</option>
+            <option value="30">30p</option>
+            <option value="45" selected>45p</option>
+            <option value="90">90p (2 tiết)</option>
+          </select>
+          <button id="timer-toggle" class="btn-tool" type="button">▶ Bắt đầu</button>
+          <button id="timer-reset" class="btn-tool" type="button" title="Đặt lại">↺</button>
+        </div>
+
+        <button id="btn-fullscreen" class="btn-tool" type="button" title="Chế độ chiếu toàn màn hình">
+          <svg class="icon-svg" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
+          Trình chiếu
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- STEPPER TIẾN TRÌNH HỌC TẬP -->
+  <nav class="stepper-section" aria-label="Tiến trình học tập">
+    <div class="container">
+      <div class="stepper-nav">
+        <div class="stepper-line"></div>
+        
+        <a href="index.html" class="stepper-step active">
+          <div class="step-circle">0</div>
+          <span class="step-label">Mục tiêu & Ma trận</span>
+        </a>
+
+        <a href="hd1.html" class="stepper-step">
+          <div class="step-circle">1</div>
+          <span class="step-label">Khởi động (5')</span>
+        </a>
+
+        <a href="hd2-1.html" class="stepper-step">
+          <div class="step-circle">2.1</div>
+          <span class="step-label">Danh sách HTML (15')</span>
+        </a>
+
+        <a href="hd2-2.html" class="stepper-step">
+          <div class="step-circle">2.2</div>
+          <span class="step-label">Thiết lập Bảng (15')</span>
+        </a>
+
+        <a href="hd3.html" class="stepper-step">
+          <div class="step-circle">3</div>
+          <span class="step-label">Thực hành CLB (30')</span>
+        </a>
+
+        <a href="hd4.html" class="stepper-step">
+          <div class="step-circle">4</div>
+          <span class="step-label">Vận dụng & Về nhà</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO BANNER -->
+  <section class="hero-banner">
+    <div class="container">
+      <div class="hero-desktop-grid">
+        
+        <div>
+          <div class="badge-tag">
+            <span>TIN HỌC 12 • BÀI 9: TẠO DANH SÁCH, BẢNG (2 TIẾT)</span>
+          </div>
+          <h1 class="hero-title">TỔ CHỨC DỮ LIỆU VỚI DANH SÁCH VÀ BẢNG</h1>
+          <p class="hero-subtitle">
+            Học sinh làm chủ kỹ năng tổ chức và biểu diễn thông tin có cấu trúc trên trang web: Từ danh sách có thứ tự (&lt;ol&gt;), không thứ tự (&lt;ul&gt;), danh sách mô tả (&lt;dl&gt;) đến bảng dữ liệu (&lt;table&gt;) và kỹ thuật gộp ô rowspan, colspan.
+          </p>
+
+          <div style="margin-top: 1.5rem; display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap;">
+            <a href="hd1.html" class="btn btn-primary" style="font-size: 0.95rem; padding: 0.65rem 1.35rem;">
+              Bắt đầu tiết học: HĐ 1 Khởi động →
+            </a>
+            <a href="#matrix-section" class="btn btn-secondary" style="font-size: 0.95rem; background: transparent; color: #ffffff; border-color: #334155;">
+              📋 Xem Ma Trận 5512
+            </a>
+          </div>
+        </div>
+
+        <div class="hero-stats-card">
+          <div class="hero-stat-box">
+            <div class="hero-stat-num">07</div>
+            <div class="hero-stat-label">Mục tiêu năng lực & phẩm chất</div>
+          </div>
+
+          <div class="hero-stat-box">
+            <div class="hero-stat-num">&lt;ol&gt;</div>
+            <div class="hero-stat-label">Danh sách có & không thứ tự</div>
+          </div>
+
+          <div class="hero-stat-box">
+            <div class="hero-stat-num">&lt;table&gt;</div>
+            <div class="hero-stat-label">Thiết lập bảng & gộp ô</div>
+          </div>
+
+          <div class="hero-stat-box">
+            <div class="hero-stat-num">30'</div>
+            <div class="hero-stat-label">Thực hành dự án CLB thể thao</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+    <div class="container">
+
+      <!-- MỤC 1: HỆ THỐNG NĂNG LỰC VÀ PHẨM CHẤT CHUẨN CỦA BÀI HỌC (THEO GIÁO VIÊN ĐÃ CHỈNH SỬA) -->
+      <section class="section-block">
+        <div class="section-header">
+          <h2 class="section-title">
+            <span class="section-num">1</span>
+            Hệ Thống Mục Tiêu Năng Lực & Phẩm Chất Của Bài Học
+          </h2>
+          <span style="color: var(--text-muted); font-size: 0.85rem;">Được mã hóa từ (1) đến (7) để đối chiếu trong ma trận hoạt động</span>
+        </div>
+
+        <div class="grid-2">
+          
+          <!-- NHÓM NĂNG LỰC TIN HỌC -->
+          <div class="competency-card" style="border-left: 4px solid var(--color-brand);">
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <h3 class="card-title" style="color: var(--color-brand); margin: 0; font-size: 1.05rem;">
+                💻 Năng Lực Tin Học (Năng lực đặc thù)
+              </h3>
+              <span class="badge-tag" style="background: var(--color-brand-light); color: var(--color-brand); border-color: var(--color-brand-border); margin: 0;">Mục tiêu cốt lõi</span>
+            </div>
+
+            <div class="competency-item">
+              <span class="comp-num" style="background: var(--color-brand);">(1)</span>
+              <div>
+                <strong>Ý nghĩa của danh sách và bảng trong văn bản:</strong><br>
+                Hiểu được vai trò, sự cần thiết của danh sách và bảng trong việc tổ chức, phân cấp và trực quan hóa dữ liệu trên trang web.
+              </div>
+            </div>
+
+            <div class="competency-item">
+              <span class="comp-num" style="background: var(--color-brand);">(2)</span>
+              <div>
+                <strong>Biết cách tạo danh sách và bảng trong trang web:</strong><br>
+                Sử dụng thành thạo các thẻ HTML chuẩn: <code>&lt;ol&gt;</code>, <code>&lt;ul&gt;</code>, <code>&lt;li&gt;</code>, <code>&lt;dl&gt;</code> và <code>&lt;table&gt;</code>, <code>&lt;tr&gt;</code>, <code>&lt;th&gt;</code>, <code>&lt;td&gt;</code>.
+              </div>
+            </div>
+
+            <div class="competency-item">
+              <span class="comp-num" style="background: var(--color-brand);">(3)</span>
+              <div>
+                <strong>Xác định kiểu danh sách và bố cục phù hợp:</strong><br>
+                Xác định được kiểu danh sách (đánh số, dấu chấm, mô tả) và bố cục bảng (gộp ô bằng <code>rowspan</code>, <code>colspan</code>) phù hợp với yêu cầu thực tế đề ra.
+              </div>
+            </div>
+          </div>
+
+          <!-- NHÓM NĂNG LỰC CHUNG & PHẨM CHẤT -->
+          <div class="competency-card" style="border-left: 4px solid #059669;">
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <h3 class="card-title" style="color: #059669; margin: 0; font-size: 1.05rem;">
+                🌱 Năng Lực Chung & Phẩm Chất
+              </h3>
+              <span class="badge-tag" style="background: #ecfdf5; color: #059669; border-color: #a7f3d0; margin: 0;">Phát triển toàn diện</span>
+            </div>
+
+            <div class="competency-item">
+              <span class="comp-num green">(4)</span>
+              <div>
+                <strong>Năng lực học tập, tự học:</strong><br>
+                Học sinh biết tự tìm kiếm, chuẩn bị và lựa chọn tài liệu, phương tiện học tập trước giờ học; trong quá trình học tự giác tham gia các hoạt động học tập trong lớp.
+              </div>
+            </div>
+
+            <div class="competency-item">
+              <span class="comp-num green">(5)</span>
+              <div>
+                <strong>Năng lực giao tiếp và hợp tác:</strong><br>
+                Phối hợp làm việc nhóm hiệu quả, chủ động trao đổi ý kiến và hỗ trợ bạn học trong giờ thực hành.
+              </div>
+            </div>
+
+            <div class="competency-item">
+              <span class="comp-num green">(6)</span>
+              <div>
+                <strong>Năng lực giải quyết vấn đề và sáng tạo:</strong><br>
+                Trả lời câu hỏi, xử lý tình huống, vận dụng kiến thức và kĩ năng HTML để giải quyết vấn đề thường gặp (tối ưu menu, lịch trình, bảng điểm).
+              </div>
+            </div>
+
+            <div class="competency-item" style="background: #fffbeb; border: 1px dashed #fde68a;">
+              <span class="comp-num amber">(7)</span>
+              <div>
+                <strong>Phẩm chất chăm chỉ:</strong><br>
+                Thực hiện nghiêm túc các nhiệm vụ được giao; kiên nhẫn, cẩn thận gõ đúng từng cặp thẻ mở/đóng và hoàn thành trọn vẹn bài thực hành.
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- MỤC 2: MA TRẬN KẾ HOẠCH BÀI DẠY THEO CÔNG VĂN 5512 (ÁP CÁC NĂNG LỰC VÀO TỪNG HOẠT ĐỘNG) -->
+      <section id="matrix-section" class="section-block">
+        <div class="section-header">
+          <h2 class="section-title">
+            <span class="section-num">2</span>
+            Ma Trận Kế Hoạch Bài Dạy (Theo Công văn 5512)
+          </h2>
+          <span style="color: var(--text-muted); font-size: 0.85rem;">Ánh xạ chính xác các mục tiêu (1) → (7) vào tiến trình tổ chức dạy học</span>
+        </div>
+
+        <div class="matrix-table-wrap">
+          <table class="matrix-tbl">
+            <thead>
+              <tr>
+                <th style="width: 18%;">Hoạt động học (Thời gian)</th>
+                <th style="width: 14%;">Mục tiêu đạt được</th>
+                <th style="width: 22%;">Nội dung hoạt động</th>
+                <th style="width: 16%;">PPDH, KTDH</th>
+                <th style="width: 15%;">Phương án đánh giá</th>
+                <th style="width: 15%;">Phương án ứng dụng CNTT</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- HÀNG 1: KHỞI ĐỘNG -->
+              <tr>
+                <td>
+                  <strong style="color: var(--color-brand);">Mở đầu:</strong><br>
+                  <strong>Hoạt động 1: Khởi động</strong><br>
+                  <span class="badge-tag" style="background:#e0f2fe; color:#0369a1; border-color:#bae6fd; margin:0.25rem 0 0;">⏱️ 5 phút</span>
+                </td>
+                <td>
+                  <div style="display: flex; gap: 0.2rem; flex-wrap: wrap;">
+                    <span class="badge-target" style="background: var(--color-brand);" title="Biết cách tạo danh sách và bảng">(2)</span>
+                    <span class="badge-target" style="background: #059669;" title="Giao tiếp và hợp tác">(5)</span>
+                    <span class="badge-target" style="background: #059669;" title="Giải quyết vấn đề sáng tạo">(6)</span>
+                  </div>
+                  <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.35rem;">
+                    Nhận diện vai trò cấu trúc thẻ
+                  </div>
+                </td>
+                <td>
+                  Giới thiệu về danh sách và bảng trên trang web thông qua so sánh trực quan văn bản gõ tay vs thẻ chuẩn.
+                </td>
+                <td>
+                  • Đặt vấn đề và giải quyết vấn đề<br>
+                  • Dạy học trực quan
+                </td>
+                <td>
+                  <strong>PP:</strong> Quan sát quá trình học<br>
+                  <strong>CC:</strong> Câu trả lời của học sinh
+                </td>
+                <td>
+                  • Bài trình chiếu đa phương tiện<br>
+                  • Phần mềm Sublime Text / VS Code<br>
+                  • Trang web minh họa tương tác (<a href="hd1.html">hd1.html</a>)
+                </td>
+              </tr>
+
+              <!-- HÀNG 2: KHÁM PHÁ 1 -->
+              <tr>
+                <td>
+                  <strong style="color: #0284c7;">Hình thành kiến thức:</strong><br>
+                  <strong>Hoạt động 2: Khám phá 1</strong><br>
+                  <span class="badge-tag" style="background:#f0f9ff; color:#0284c7; border-color:#e0f2fe; margin:0.25rem 0 0;">⏱️ 15 phút</span>
+                </td>
+                <td>
+                  <div style="display: flex; gap: 0.2rem; flex-wrap: wrap;">
+                    <span class="badge-target" style="background: var(--color-brand);" title="Hiểu ý nghĩa danh sách">(1)</span>
+                    <span class="badge-target" style="background: var(--color-brand);" title="Biết cách tạo danh sách">(2)</span>
+                    <span class="badge-target" style="background: #059669;" title="Tự học">(4)</span>
+                    <span class="badge-target" style="background: #059669;" title="Hợp tác">(5)</span>
+                    <span class="badge-target" style="background: #d97706;" title="Chăm chỉ">(7)</span>
+                  </div>
+                  <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.35rem;">
+                    Nắm chắc &lt;ol&gt;, &lt;ul&gt;, &lt;dl&gt;
+                  </div>
+                </td>
+                <td>
+                  Giới thiệu về danh sách có thứ tự (<code>&lt;ol&gt;</code>) hoặc không có thứ tự (<code>&lt;ul&gt;</code>), các thuộc tính và danh sách lồng nhau.
+                </td>
+                <td>
+                  • Dạy học hợp tác<br>
+                  • Dạy học trực quan
+                </td>
+                <td>
+                  <strong>PP:</strong> Quan sát quá trình học<br>
+                  <strong>CC:</strong> Câu trả lời của học sinh trên Phiếu học tập số 1 (<a href="phieu-bai-tap-1.html" target="_blank">phieu-bai-tap-1.html</a>)
+                </td>
+                <td>
+                  • Bài trình chiếu đa phương tiện<br>
+                  • Phần mềm Sublime Text / VS Code<br>
+                  • Khám phá Danh sách HTML (<a href="hd2-1.html">HĐ 2.1</a>)<br>
+                  • Phiếu học tập online số 1 (<a href="phieu-bai-tap-1.html" target="_blank">Phiếu 1</a>)
+                </td>
+              </tr>
+
+              <!-- HÀNG 3: KHÁM PHÁ 2 -->
+              <tr>
+                <td>
+                  <strong style="color: #0284c7;">Hình thành kiến thức:</strong><br>
+                  <strong>Hoạt động 3: Khám phá 2</strong><br>
+                  <span class="badge-tag" style="background:#f0f9ff; color:#0284c7; border-color:#e0f2fe; margin:0.25rem 0 0;">⏱️ 15 phút</span>
+                </td>
+                <td>
+                  <div style="display: flex; gap: 0.2rem; flex-wrap: wrap;">
+                    <span class="badge-target" style="background: var(--color-brand);" title="Biết tạo bảng">(2)</span>
+                    <span class="badge-target" style="background: var(--color-brand);" title="Xác định kiểu phù hợp">(3)</span>
+                    <span class="badge-target" style="background: #059669;" title="Tự học">(4)</span>
+                    <span class="badge-target" style="background: #059669;" title="Hợp tác">(5)</span>
+                    <span class="badge-target" style="background: #059669;" title="Giải quyết vấn đề">(6)</span>
+                    <span class="badge-target" style="background: #d97706;" title="Chăm chỉ">(7)</span>
+                  </div>
+                  <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.35rem;">
+                    Làm chủ cấu trúc &lt;table&gt; & gộp ô
+                  </div>
+                </td>
+                <td>
+                  Hướng dẫn học sinh thiết lập bảng (<code>&lt;table&gt;</code>, <code>&lt;tr&gt;</code>, <code>&lt;th&gt;</code>, <code>&lt;td&gt;</code>) và mẹo gộp ô bằng <code>rowspan</code>, <code>colspan</code>.
+                </td>
+                <td>
+                  • Dạy học trực quan<br>
+                  • Đàm thoại gợi mở
+                </td>
+                <td>
+                  <strong>PP:</strong> Quan sát quá trình học<br>
+                  <strong>CC:</strong> Câu trả lời của học sinh trên Phiếu học tập số 2 (<a href="phieu-bai-tap-2.html" target="_blank">phieu-bai-tap-2.html</a>)
+                </td>
+                <td>
+                  • Bài trình chiếu đa phương tiện<br>
+                  • Phần mềm soạn thảo mã nguồn<br>
+                  • Thiết lập Bảng & Gộp ô (<a href="hd2-2.html">HĐ 2.2</a>)<br>
+                  • Phiếu học tập online số 2 (<a href="phieu-bai-tap-2.html" target="_blank">Phiếu 2</a>)
+                </td>
+              </tr>
+
+              <!-- HÀNG 4: THỰC HÀNH -->
+              <tr>
+                <td>
+                  <strong style="color: #059669;">Luyện tập:</strong><br>
+                  <strong>Hoạt động 4: Thực hành</strong><br>
+                  <span class="badge-tag" style="background:#ecfdf5; color:#059669; border-color:#a7f3d0; margin:0.25rem 0 0;">⏱️ 30 phút</span>
+                </td>
+                <td>
+                  <div style="display: flex; gap: 0.2rem; flex-wrap: wrap;">
+                    <span class="badge-target" style="background: var(--color-brand);" title="Tạo danh sách & bảng">(2)</span>
+                    <span class="badge-target" style="background: var(--color-brand);" title="Chọn kiểu phù hợp">(3)</span>
+                    <span class="badge-target" style="background: #059669;" title="Tự học">(4)</span>
+                    <span class="badge-target" style="background: #059669;" title="Giải quyết vấn đề">(6)</span>
+                    <span class="badge-target" style="background: #d97706;" title="Chăm chỉ">(7)</span>
+                  </div>
+                  <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.35rem;">
+                    Hoàn thành tệp CLB.html
+                  </div>
+                </td>
+                <td>
+                  Thực hành tạo danh sách các môn thể thao và bảng lịch hoạt động CLB theo Nhiệm vụ SGK trang 54-55.
+                </td>
+                <td>
+                  • Dạy học thực hành trải nghiệm<br>
+                  • Dạy học trực quan
+                </td>
+                <td>
+                  <strong>PP:</strong> Quan sát quá trình học<br>
+                  <strong>CC:</strong> Bài làm của học sinh (tệp mã nguồn .html)
+                </td>
+                <td>
+                  • Bài trình chiếu đa phương tiện<br>
+                  • Phần mềm Sublime Text / VS Code<br>
+                  • Không gian chấm bài tự động (<a href="hd3.html">hd3.html</a>)
+                </td>
+              </tr>
+
+              <!-- HÀNG 5: VẬN DỤNG -->
+              <tr>
+                <td>
+                  <strong style="color: #7c3aed;">Vận dụng:</strong><br>
+                  <strong>Hoạt động 5: Bài tập về nhà</strong><br>
+                  <span class="badge-tag" style="background:#f5f3ff; color:#7c3aed; border-color:#ddd6fe; margin:0.25rem 0 0;">⏱️ Sau giờ học</span>
+                </td>
+                <td>
+                  <div style="display: flex; gap: 0.2rem; flex-wrap: wrap;">
+                    <span class="badge-target" style="background: var(--color-brand);" title="Tạo danh sách & bảng">(2)</span>
+                    <span class="badge-target" style="background: #059669;" title="Tự học">(4)</span>
+                    <span class="badge-target" style="background: #059669;" title="Giải quyết vấn đề">(6)</span>
+                    <span class="badge-target" style="background: #d97706;" title="Chăm chỉ">(7)</span>
+                  </div>
+                  <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.35rem;">
+                    Ứng dụng trang web cá nhân
+                  </div>
+                </td>
+                <td>
+                  Trả lời câu hỏi trong SGK; soạn bài mới; thử nghiệm áp dụng thẻ danh sách và bảng vào dự án trang web cá nhân.
+                </td>
+                <td>
+                  • Kỹ thuật tự học<br>
+                  • Giao bài tập về nhà
+                </td>
+                <td>
+                  <strong>PP:</strong> Đánh giá qua bài làm của học sinh<br>
+                  <strong>CC:</strong> Bài làm nộp qua LMS / Link web
+                </td>
+                <td>
+                  • Máy tính cá nhân / Điện thoại thông minh<br>
+                  • Hệ thống nộp bài học liệu số (<a href="hd4.html">hd4.html</a>)
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- CTA TIẾN VÀO TIẾT HỌC -->
+      <div class="callout callout-info" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; padding: 1.25rem 1.75rem;">
+        <div>
+          <h3 style="color: var(--color-brand); font-size: 1.05rem; margin-bottom: 0.25rem;">Bắt đầu giờ dạy theo tiến trình giáo án?</h3>
+          <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 0;">Mời thầy/cô bấm nút bên cạnh để bắt đầu <strong>Hoạt động 1: Khởi động (5 phút)</strong>.</p>
+        </div>
+        <a href="hd1.html" class="btn btn-primary">Bắt đầu Hoạt động 1 (Khởi động) →</a>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h4>Bài 9: Tạo danh sách, bảng</h4>
+          <p style="margin-bottom: 0.5rem;">Kế hoạch bài dạy và học liệu số tương tác Môn Tin học 12 theo Chương trình GDPT 2018 (Công văn 5512). Giáo viên: Nguyễn Lê Minh Ngọc - THPT Thực hành ĐH Sư phạm.</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Tiến trình bài học</h4>
+          <ul>
+            <li><a href="index.html">Mục tiêu & Ma trận bài dạy</a></li>
+            <li><a href="hd1.html">Hoạt động 1: Khởi động (5')</a></li>
+            <li><a href="hd2-1.html">Hoạt động 2.1: Danh sách HTML (15')</a></li>
+            <li><a href="hd2-2.html">Hoạt động 2.2: Thiết lập Bảng (15')</a></li>
+            <li><a href="hd3.html">Hoạt động 3: Thực hành CLB (30')</a></li>
+            <li><a href="hd4.html">Hoạt động 4: Vận dụng & Ôn tập</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Tài nguyên chuẩn W3C</h4>
+          <ul>
+            <li><a href="https://www.w3schools.com/html/html_lists.asp" target="_blank" rel="noopener noreferrer">W3Schools: HTML Lists</a></li>
+            <li><a href="https://www.w3schools.com/html/html_tables.asp" target="_blank" rel="noopener noreferrer">W3Schools: HTML Tables</a></li>
+            <li><a href="https://developer.mozilla.org/vi/docs/Web/HTML/Element/table" target="_blank" rel="noopener noreferrer">MDN: &lt;table&gt; Tiếng Việt</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2026 Tin học 12 Thống nhất - Bài 9: Tạo danh sách, bảng. THPT Thực hành ĐH Sư phạm.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hoạt động 4: Infographic & Trả Lời Câu Hỏi Cuối Bài | Bài 9 - Tin học 12</title>
+  <meta name="description" content="Infographic tổng hợp kiến thức Bài 9 Tin học 12: Tạo danh sách, bảng. Flashcards ghi nhớ nhanh và phần trả lời các câu hỏi luyện tập, vận dụng cuối bài theo SGK.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Fira+Code:wght@400;500;600&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=20261108_05">
+  <style>
+    /* INFOGRAPHIC BOARD STYLING */
+    .infographic-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.25rem;
+      margin-top: 1rem;
+    }
+
+    .info-card {
+      background: #ffffff;
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      box-shadow: var(--shadow-sm);
+      border: 1.5px solid #e2e8f0;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.25s ease;
+    }
+    .info-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+    .info-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+    }
+    .info-card.blue::before { background: #2563eb; }
+    .info-card.green::before { background: #16a34a; }
+    .info-card.amber::before { background: #d97706; }
+    .info-card.purple::before { background: #9333ea; }
+
+    .info-card-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+    .info-icon {
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+    .info-title {
+      margin: 0;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    /* FLASHCARDS 3D FLIP */
+    .flashcards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.15rem;
+      margin-top: 1rem;
+    }
+    .flashcard {
+      background-color: transparent;
+      height: 200px;
+      perspective: 1000px;
+      cursor: pointer;
+    }
+    .flashcard-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      transform-style: preserve-3d;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+    }
+    .flashcard.flipped .flashcard-inner {
+      transform: rotateY(180deg);
+    }
+    .flashcard-front, .flashcard-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      border-radius: var(--radius-md);
+      padding: 1.15rem;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border: 1.5px solid #cbd5e1;
+    }
+    .flashcard-front {
+      background: #ffffff;
+      color: var(--text-primary);
+    }
+    .flashcard-back {
+      background: #0f172a;
+      color: #f8fafc;
+      transform: rotateY(180deg);
+      border-color: #3b82f6;
+    }
+
+    /* CÂU HỎI CUỐI BÀI FORM */
+    .qa-box {
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      margin-bottom: 1.25rem;
+    }
+    .qa-textarea {
+      width: 100%;
+      min-height: 90px;
+      padding: 0.75rem;
+      border: 1.5px solid #cbd5e1;
+      border-radius: var(--radius-xs);
+      font-family: inherit;
+      font-size: 0.88rem;
+      color: var(--text-primary);
+      margin-top: 0.5rem;
+      outline: none;
+      box-sizing: border-box;
+    }
+    .qa-textarea:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER & NAVIGATION -->
+  <header class="site-header">
+    <div class="container nav-wrapper">
+      <a href="index.html" class="brand-badge" title="Quay về Trang chủ Bài 9">
+        <div class="brand-icon-box" style="background: linear-gradient(135deg, #9333ea 0%, #7e22ce 100%);">
+          <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+        </div>
+        <div class="brand-text">
+          <span class="title">BÀI 9: TẠO DANH SÁCH, BẢNG</span>
+          <span class="subtitle">Tin học 12 • Hoạt động 4: Vận dụng & Ôn tập</span>
+        </div>
+      </a>
+
+      <nav aria-label="Điều hướng bài học">
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">Tổng quan</a></li>
+          <li><a href="hd1.html" class="nav-link">1. Khởi động</a></li>
+          <li><a href="hd2-1.html" class="nav-link">2.1. Danh sách HTML</a></li>
+          <li><a href="hd2-2.html" class="nav-link">2.2. Thiết lập Bảng</a></li>
+          <li><a href="hd3.html" class="nav-link">3. Thực hành CLB</a></li>
+          <li><a href="hd4.html" class="nav-link active">4. Vận dụng</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-tools">
+        <div class="timer-widget" title="Thời gian ôn tập">
+          <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          <span id="timer-display" class="timer-display">10:00</span>
+          <select id="timer-preset" class="btn-tool" title="Chọn thời lượng đếm ngược">
+            <option value="5">5p</option>
+            <option value="10" selected>10p</option>
+            <option value="15">15p</option>
+          </select>
+          <button id="timer-toggle" class="btn-tool" type="button">▶ Bắt đầu</button>
+          <button id="timer-reset" class="btn-tool" type="button" title="Đặt lại đồng hồ">↺</button>
+        </div>
+
+        <button id="btn-fullscreen" class="btn-tool" type="button" title="Bật/Tắt toàn màn hình">
+          <svg class="icon-svg" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
+          Toàn màn hình
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- STEPPER TIẾN TRÌNH HỌC TẬP -->
+  <nav class="stepper-section" aria-label="Tiến trình học tập">
+    <div class="container">
+      <div class="stepper-nav">
+        <div class="stepper-line"></div>
+        
+        <a href="index.html" class="stepper-step completed">
+          <div class="step-circle">✓</div>
+          <span class="step-label">Mục tiêu bài</span>
+        </a>
+
+        <a href="hd1.html" class="stepper-step completed">
+          <div class="step-circle">✓</div>
+          <span class="step-label">1. Khởi động (5')</span>
+        </a>
+
+        <a href="hd2-1.html" class="stepper-step completed">
+          <div class="step-circle">✓</div>
+          <span class="step-label">2.1. Danh sách (15')</span>
+        </a>
+
+        <a href="hd2-2.html" class="stepper-step completed">
+          <div class="step-circle">✓</div>
+          <span class="step-label">2.2. Bảng HTML (15')</span>
+        </a>
+
+        <a href="hd3.html" class="stepper-step completed">
+          <div class="step-circle">✓</div>
+          <span class="step-label">3. Thực hành CLB (30')</span>
+        </a>
+
+        <a href="hd4.html" class="stepper-step active">
+          <div class="step-circle">4</div>
+          <span class="step-label">4. Vận dụng &amp; Về nhà</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO BANNER -->
+  <section class="hero-banner" style="background: linear-gradient(135deg, #7e22ce 0%, #9333ea 60%, #a855f7 100%);">
+    <div class="container">
+      <div class="hero-content">
+        <div class="badge-tag" style="background: rgba(255,255,255,0.2); color: #fff; border-color: rgba(255,255,255,0.35);">
+          <span>HOẠT ĐỘNG 4 • TỔNG KẾT & VẬN DỤNG KIẾN THỨC</span>
+        </div>
+        <h1 class="hero-title">Infographic Tổng Hợp &amp; Trả Lời Câu Hỏi Cuối Bài</h1>
+        <p class="hero-subtitle">
+          Sơ đồ Infographic đồ họa tóm tắt toàn bộ Bài 9: Tạo danh sách, bảng; góc lật thẻ ghi nhớ Flashcards 3D; và không gian trả lời, xuất bài làm cho các câu hỏi luyện tập, vận dụng trong SGK Tin học 12.
+        </p>
+
+        <div style="margin-top: 1.25rem; display: flex; gap: 0.65rem; flex-wrap: wrap;">
+          <a href="#infographic-section" class="btn btn-primary" style="font-size: 0.88rem; padding: 0.5rem 1.15rem; background: #ffffff; color: #7e22ce; border-color: #fff;">
+            📊 Sơ đồ Infographic Bài 9
+          </a>
+          <a href="#flashcards-section" class="btn btn-secondary" style="font-size: 0.88rem; padding: 0.5rem 1.15rem; background: rgba(255,255,255,0.15); color: #fff; border-color: rgba(255,255,255,0.3);">
+            🃏 Lật thẻ Flashcards 3D
+          </a>
+          <a href="#cau-hoi-cuoi-bai" class="btn btn-secondary" style="font-size: 0.88rem; padding: 0.5rem 1.15rem; background: rgba(255,255,255,0.15); color: #fff; border-color: rgba(255,255,255,0.3);">
+            📝 Trả lời câu hỏi SGK (Luyện tập &amp; Vận dụng)
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+    <div class="container">
+
+      <!-- ===================================================================
+           PHẦN 1: INFOGRAPHIC TỔNG HỢP KIẾN THỨC BÀI 9
+           =================================================================== -->
+      <section id="infographic-section" class="section-block">
+        <div class="section-header">
+          <h2 class="section-title">
+            <span class="section-num">1</span>
+            Infographic Tổng Hợp Bản Đồ Kiến Thức: Bài 9 - Tạo Danh Sách, Bảng
+          </h2>
+          <span class="badge-tag" style="background:#f3e8ff; color:#7e22ce; border-color:#d8b4fe;">Trực quan hóa</span>
+        </div>
+
+        <div class="infographic-grid">
+          
+          <!-- NHÁNH 1: THẺ DANH SÁCH -->
+          <div class="info-card blue">
+            <div class="info-card-header">
+              <span class="info-icon">📋</span>
+              <h3 class="info-title" style="color: #1d4ed8;">1. Thẻ Danh Sách HTML</h3>
+            </div>
+            <ul style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; margin: 0; padding-left: 1.15rem;">
+              <li><code>&lt;ol&gt;</code> (Ordered): Danh sách có thứ tự. Thuộc tính <code>type="1|a|A|i|I"</code>, <code>start="n"</code>.</li>
+              <li><code>&lt;ul&gt;</code> (Unordered): Danh sách không thứ tự. CSS <code>list-style-type: disc|circle|square|none</code>.</li>
+              <li><code>&lt;li&gt;</code> (List Item): Từng mục nội dung trong <code>&lt;ol&gt;</code> và <code>&lt;ul&gt;</code>.</li>
+              <li><code>&lt;dl&gt;</code> (Description List): Danh sách mô tả thuật ngữ.</li>
+              <li><code>&lt;dt&gt;</code> (Term): Tên thuật ngữ / mục.</li>
+              <li><code>&lt;dd&gt;</code> (Details): Phần mô tả chi tiết (trình duyệt tự động thụt lề).</li>
+            </ul>
+          </div>
+
+          <!-- NHÁNH 2: THẺ BẢNG DỮ LIỆU -->
+          <div class="info-card green">
+            <div class="info-card-header">
+              <span class="info-icon">📊</span>
+              <h3 class="info-title" style="color: #15803d;">2. Cấu Trúc Bảng Dữ Liệu</h3>
+            </div>
+            <ul style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; margin: 0; padding-left: 1.15rem;">
+              <li><code>&lt;table&gt;</code>: Khai báo tạo bảng dữ liệu.</li>
+              <li><code>&lt;caption&gt;</code>: Tiêu đề bảng (đặt ngay sau <code>&lt;table&gt;</code> và trước <code>&lt;tr&gt;</code> đầu).</li>
+              <li><code>&lt;tr&gt;</code> (Table Row): Tạo hàng ngang trong bảng.</li>
+              <li><code>&lt;th&gt;</code> (Table Header): Ô tiêu đề (chữ in đậm, căn giữa mặc định).</li>
+              <li><code>&lt;td&gt;</code> (Table Data): Ô dữ liệu bình thường (chữ thường, căn trái).</li>
+            </ul>
+          </div>
+
+          <!-- NHÁNH 3: ĐỊNH DẠNG BẢNG -->
+          <div class="info-card amber">
+            <div class="info-card-header">
+              <span class="info-icon">🎨</span>
+              <h3 class="info-title" style="color: #b45309;">3. Định Dạng Bằng Style</h3>
+            </div>
+            <ul style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; margin: 0; padding-left: 1.15rem;">
+              <li><strong>Khung viền:</strong> <code>border: độ_dày kiểu_viền [màu]</code>.</li>
+              <li>Ví dụ: <code>style="border: 1px solid black"</code>.</li>
+              <li>Kiểu viền: <code>solid</code> (nét liền), <code>dotted</code> (chấm bi), <code>double</code> (nét đôi).</li>
+              <li><strong>Kích thước:</strong> <code>width</code> và <code>height</code> (ưu tiên tỉ lệ % thay vì px để tương thích nhiều màn hình).</li>
+            </ul>
+          </div>
+
+          <!-- NHÁNH 4: KỸ THUẬT GỘP Ô -->
+          <div class="info-card purple">
+            <div class="info-card-header">
+              <span class="info-icon">🧩</span>
+              <h3 class="info-title" style="color: #7e22ce;">4. Kỹ Thuật Gộp Ô</h3>
+            </div>
+            <ul style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; margin: 0; padding-left: 1.15rem;">
+              <li><code>colspan="n"</code>: Gộp CỘT theo chiều ngang (chiếm n cột). Phải xóa bớt $(n - 1)$ ô trên cùng hàng đó!</li>
+              <li><code>rowspan="n"</code>: Gộp HÀNG theo chiều dọc (chiếm n hàng). Phải xóa bớt 1 ô ở $(n - 1)$ hàng tiếp theo bên dưới!</li>
+              <li>Ứng dụng thực tế: Thời khóa biểu, bảng điểm thi, lịch sinh hoạt CLB.</li>
+            </ul>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           PHẦN 2: GÓC LẬT THẺ GHI NHỚ FLASHCARDS 3D
+           =================================================================== -->
+      <section id="flashcards-section" class="section-block">
+        <div class="section-header">
+          <h2 class="section-title">
+            <span class="section-num">2</span>
+            Góc Lật Thẻ Ghi Nhớ (Interactive Flashcards 3D)
+          </h2>
+          <span class="badge-tag">Bấm vào thẻ để lật xem đáp án</span>
+        </div>
+
+        <div class="flashcards-grid">
+          
+          <!-- THẺ 1 -->
+          <div class="flashcard" onclick="this.classList.toggle('flipped')">
+            <div class="flashcard-inner">
+              <div class="flashcard-front">
+                <span class="badge-tag" style="background:#eff6ff; color:#1d4ed8; align-self:flex-start;">Thẻ 1 • Danh sách</span>
+                <div style="font-weight: 700; font-size: 0.95rem; color: #1e293b; margin: auto 0;">
+                  Khi nào nên dùng &lt;ol&gt; và khi nào nên dùng &lt;ul&gt;?
+                </div>
+                <div style="font-size: 0.75rem; color: #64748b;">👆 Nhấp để lật xem lời giải</div>
+              </div>
+              <div class="flashcard-back">
+                <span class="badge-tag" style="background:rgba(255,255,255,0.15); color:#93c5fd; align-self:flex-start;">Đáp án</span>
+                <div style="font-size: 0.86rem; line-height: 1.6; margin: auto 0;">
+                  • <code>&lt;ol&gt;</code>: Khi <strong>thứ tự quan trọng</strong> (công thức, quy trình, xếp hạng).<br>
+                  • <code>&lt;ul&gt;</code>: Khi các mục <strong>ngang hàng nhau</strong>, không phân biệt thứ tự (sở thích, thực đơn).
+                </div>
+                <div style="font-size: 0.75rem; color: #94a3b8;">Nhấp lần nữa để đóng lại</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- THẺ 2 -->
+          <div class="flashcard" onclick="this.classList.toggle('flipped')">
+            <div class="flashcard-inner">
+              <div class="flashcard-front">
+                <span class="badge-tag" style="background:#fef3c7; color:#b45309; align-self:flex-start;">Thẻ 2 • Mô tả &lt;dl&gt;</span>
+                <div style="font-weight: 700; font-size: 0.95rem; color: #1e293b; margin: auto 0;">
+                  Danh sách mô tả &lt;dl&gt; gồm các thẻ con nào và có dùng thẻ &lt;li&gt; không?
+                </div>
+                <div style="font-size: 0.75rem; color: #64748b;">👆 Nhấp để lật xem lời giải</div>
+              </div>
+              <div class="flashcard-back">
+                <span class="badge-tag" style="background:rgba(255,255,255,0.15); color:#fde047; align-self:flex-start;">Đáp án</span>
+                <div style="font-size: 0.86rem; line-height: 1.6; margin: auto 0;">
+                  Gồm cặp <code>&lt;dt&gt;</code> (thuật ngữ) và <code>&lt;dd&gt;</code> (mô tả chi tiết).<br>
+                  ⚡ <strong>Tuyệt đối KHÔNG dùng thẻ &lt;li&gt;</strong> trong danh sách mô tả &lt;dl&gt;!
+                </div>
+                <div style="font-size: 0.75rem; color: #94a3b8;">Nhấp lần nữa để đóng lại</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- THẺ 3 -->
+          <div class="flashcard" onclick="this.classList.toggle('flipped')">
+            <div class="flashcard-inner">
+              <div class="flashcard-front">
+                <span class="badge-tag" style="background:#ecfdf5; color:#059669; align-self:flex-start;">Thẻ 3 • Phân biệt ô</span>
+                <div style="font-weight: 700; font-size: 0.95rem; color: #1e293b; margin: auto 0;">
+                  Sự khác biệt mặc định quan trọng nhất giữa &lt;th&gt; và &lt;td&gt; là gì?
+                </div>
+                <div style="font-size: 0.75rem; color: #64748b;">👆 Nhấp để lật xem lời giải</div>
+              </div>
+              <div class="flashcard-back">
+                <span class="badge-tag" style="background:rgba(255,255,255,0.15); color:#86efac; align-self:flex-start;">Đáp án</span>
+                <div style="font-size: 0.86rem; line-height: 1.6; margin: auto 0;">
+                  • <code>&lt;th&gt;</code>: Chữ <strong>in đậm</strong> và <strong>căn giữa</strong> ô.<br>
+                  • <code>&lt;td&gt;</code>: Chữ thường và <strong>căn sát lề trái</strong> ô.
+                </div>
+                <div style="font-size: 0.75rem; color: #94a3b8;">Nhấp lần nữa để đóng lại</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- THẺ 4 -->
+          <div class="flashcard" onclick="this.classList.toggle('flipped')">
+            <div class="flashcard-inner">
+              <div class="flashcard-front">
+                <span class="badge-tag" style="background:#f3e8ff; color:#7e22ce; align-self:flex-start;">Thẻ 4 • Gộp ô</span>
+                <div style="font-weight: 700; font-size: 0.95rem; color: #1e293b; margin: auto 0;">
+                  Bản chất của thuộc tính colspan="n" là gì và lưu ý khi viết mã?
+                </div>
+                <div style="font-size: 0.75rem; color: #64748b;">👆 Nhấp để lật xem lời giải</div>
+              </div>
+              <div class="flashcard-back">
+                <span class="badge-tag" style="background:rgba(255,255,255,0.15); color:#d8b4fe; align-self:flex-start;">Đáp án</span>
+                <div style="font-size: 0.86rem; line-height: 1.6; margin: auto 0;">
+                  Gộp n cột theo chiều ngang. Vì ô này mở rộng sang phải chiếm chỗ của n cột, nên ở cùng hàng đó phải <strong>bỏ bớt (n - 1) thẻ &lt;td&gt;</strong> đi!
+                </div>
+                <div style="font-size: 0.75rem; color: #94a3b8;">Nhấp lần nữa để đóng lại</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           PHẦN 3: TRẢ LỜI CÂU HỎI CUỐI BÀI TRONG SGK (LUYỆN TẬP & VẬN DỤNG)
+           =================================================================== -->
+      <section id="cau-hoi-cuoi-bai" class="section-block">
+        <div class="section-header">
+          <h2 class="section-title">
+            <span class="section-num">3</span>
+            Trả Lời Câu Hỏi Cuối Bài Trong SGK Tin Học 12 (Luyện Tập &amp; Vận Dụng)
+          </h2>
+          <span class="badge-tag" style="background:#dbeafe; color:#1d4ed8;">Vở bài tập số</span>
+        </div>
+
+        <!-- CÂU 1: HỘP XANH SGK TRANG 55 -->
+        <div class="qa-box">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.4rem;">
+            <strong style="color: #1e40af; font-size: 0.95rem;">
+              Câu 1 (Hộp xanh suy ngẫm - SGK trang 55):
+            </strong>
+            <span class="badge-tag" style="background:#eff6ff; color:#1d4ed8; margin:0;">SGK p.55</span>
+          </div>
+          <p style="font-size: 0.88rem; color: #334155; line-height: 1.6; margin: 0 0 0.5rem 0;">
+            <em>"Bảng trong ví dụ trên Hình 9.6 có nhược điểm gì? Cần làm thế nào để giải quyết nhược điểm đó?"</em>
+          </p>
+
+          <label style="font-size: 0.82rem; font-weight: 700; color: #64748b;" for="ans-input-1">
+            Nhập câu trả lời của em:
+          </label>
+          <textarea id="ans-input-1" class="qa-textarea" placeholder="Gõ câu trả lời của em vào đây..."></textarea>
+
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.5rem;">
+            <button class="btn btn-secondary btn-sm" type="button" onclick="toggleAnswerGuide(1)">
+              💡 Xem gợi ý đáp án chuẩn
+            </button>
+            <span id="save-status-1" style="font-size: 0.78rem; color: #16a34a;"></span>
+          </div>
+
+          <div id="ans-guide-1" style="display: none; margin-top: 0.65rem; background: #f8fafc; border: 1px dashed #3b82f6; border-radius: 4px; padding: 0.75rem; font-size: 0.85rem; color: #1e3a8a; line-height: 1.6;">
+            <strong>Gợi ý đáp án:</strong><br>
+            • <strong>Nhược điểm:</strong> Bảng ở Hình 9.6 thiếu thẻ <code>&lt;caption&gt;</code> tiêu đề bảng (người đọc không rõ bảng điểm của kỳ thi nào, lớp nào); ngoài ra đường viền <code>border="1"</code> mặc định hiển thị viền kép thô sơ.<br>
+            • <strong>Giải pháp:</strong> Thêm thẻ <code>&lt;caption&gt;BẢNG ĐIỂM THI HỌC KỲ I&lt;/caption&gt;</code> và thêm thuộc tính <code>style="border-collapse: collapse; border: 1px solid"</code> để bảng thanh lịch, hiện đại.
+          </div>
+        </div>
+
+        <!-- CÂU 2: CÂU HỎI LUYỆN TẬP -->
+        <div class="qa-box">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.4rem;">
+            <strong style="color: #059669; font-size: 0.95rem;">
+              Câu 2 (Luyện tập: Lựa chọn dạng biểu diễn dữ liệu):
+            </strong>
+            <span class="badge-tag" style="background:#ecfdf5; color:#059669; margin:0;">Luyện tập</span>
+          </div>
+          <p style="font-size: 0.88rem; color: #334155; line-height: 1.6; margin: 0 0 0.5rem 0;">
+            <em>"Em hãy cho biết trong trường hợp nào thì nên sử dụng: danh sách có thứ tự (&lt;ol&gt;), danh sách không có thứ tự (&lt;ul&gt;), danh sách mô tả (&lt;dl&gt;) và bảng dữ liệu (&lt;table&gt;)? Cho ví dụ thực tế cho mỗi trường hợp."</em>
+          </p>
+
+          <label style="font-size: 0.82rem; font-weight: 700; color: #64748b;" for="ans-input-2">
+            Nhập câu trả lời của em:
+          </label>
+          <textarea id="ans-input-2" class="qa-textarea" placeholder="Gõ câu trả lời của em vào đây..."></textarea>
+
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.5rem;">
+            <button class="btn btn-secondary btn-sm" type="button" onclick="toggleAnswerGuide(2)">
+              💡 Xem gợi ý đáp án chuẩn
+            </button>
+            <span id="save-status-2" style="font-size: 0.78rem; color: #16a34a;"></span>
+          </div>
+
+          <div id="ans-guide-2" style="display: none; margin-top: 0.65rem; background: #f0fdf4; border: 1px dashed #16a34a; border-radius: 4px; padding: 0.75rem; font-size: 0.85rem; color: #14532d; line-height: 1.6;">
+            <strong>Gợi ý đáp án:</strong><br>
+            1. <strong>&lt;ol&gt;:</strong> Khi thứ tự trước sau là bắt buộc (Ví dụ: Các bước cài đặt phần mềm, công thức nấu ăn).<br>
+            2. <strong>&lt;ul&gt;:</strong> Khi các mục có vai trò ngang hàng nhau (Ví dụ: Danh sách sở thích, các môn năng khiếu).<br>
+            3. <strong>&lt;dl&gt;:</strong> Khi cần giải thích thuật ngữ kèm định nghĩa (Ví dụ: Từ điển tin học, thực đơn món ăn kèm mô tả thành phần như Kem &amp; Trà sữa).<br>
+            4. <strong>&lt;table&gt;:</strong> Khi dữ liệu có cấu trúc nhiều chiều gồm hàng và cột liên kết chặt chẽ (Ví dụ: Thời khóa biểu, bảng điểm, bảng giá món ăn).
+          </div>
+        </div>
+
+        <!-- CÂU 3: CÂU HỎI VẬN DỤNG THỰC TẾ -->
+        <div class="qa-box">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.4rem;">
+            <strong style="color: #c2410c; font-size: 0.95rem;">
+              Câu 3 (Vận dụng: Thiết kế thời khóa biểu có gộp ô):
+            </strong>
+            <span class="badge-tag" style="background:#fff7ed; color:#c2410c; margin:0;">Vận dụng</span>
+          </div>
+          <p style="font-size: 0.88rem; color: #334155; line-height: 1.6; margin: 0 0 0.5rem 0;">
+            <em>"Em hãy thiết kế khung bảng Thời khóa biểu của lớp em trong tuần (từ Thứ 2 đến Thứ 6), trong đó ô 'Chào cờ' sáng Thứ 2 gộp 5 tiết hoặc ô 'Sinh hoạt lớp' gộp tiết cuối. Em sẽ dùng thuộc tính nào để thực hiện việc này?"</em>
+          </p>
+
+          <label style="font-size: 0.82rem; font-weight: 700; color: #64748b;" for="ans-input-3">
+            Nhập câu trả lời của em:
+          </label>
+          <textarea id="ans-input-3" class="qa-textarea" placeholder="Gõ câu trả lời của em vào đây..."></textarea>
+
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.5rem;">
+            <button class="btn btn-secondary btn-sm" type="button" onclick="toggleAnswerGuide(3)">
+              💡 Xem gợi ý đáp án chuẩn
+            </button>
+            <span id="save-status-3" style="font-size: 0.78rem; color: #16a34a;"></span>
+          </div>
+
+          <div id="ans-guide-3" style="display: none; margin-top: 0.65rem; background: #fffbeb; border: 1px dashed #f59e0b; border-radius: 4px; padding: 0.75rem; font-size: 0.85rem; color: #92400e; line-height: 1.6;">
+            <strong>Gợi ý đáp án:</strong><br>
+            • Để gộp nhiều tiết theo chiều dọc của một thứ (ví dụ buổi sáng gồm 5 tiết), em sử dụng thuộc tính <code>rowspan="n"</code> trên thẻ <code>&lt;td&gt;</code> hoặc <code>&lt;th&gt;</code>.<br>
+            • Để gộp một hoạt động trải dài qua nhiều ngày (ví dụ Hội trại 3 ngày liên tiếp từ Thứ 4 đến Thứ 6), em sử dụng thuộc tính <code>colspan="3"</code>.<br>
+            • Đồng thời bảng cần có thẻ <code>&lt;caption&gt;Thời khóa biểu Lớp 12...&lt;/caption&gt;</code> và đường viền <code>style="border: 1px solid"</code>.
+          </div>
+        </div>
+
+        <!-- NÚT LƯU BÀI LÀM VÀ IN VỞ BÀI TẬP -->
+        <div style="display: flex; gap: 0.75rem; justify-content: flex-end; flex-wrap: wrap;">
+          <button class="btn btn-primary" type="button" onclick="saveAllAnswers()" style="font-weight: 700;">
+            💾 Lưu bài làm vào hệ thống
+          </button>
+          <button class="btn btn-secondary" type="button" onclick="window.print()">
+            🖨️ In / Xuất PDF bài làm
+          </button>
+        </div>
+
+      </section>
+
+      <!-- ĐIỀU HƯỚNG TRANG DƯỚI CÙNG -->
+      <div class="page-nav-bar" style="margin-top: 2rem;">
+        <a href="hd3.html" class="btn btn-secondary">← Hoạt động 3: Thực hành CLB</a>
+        <a href="index.html" class="btn btn-primary" style="background: #2563eb;">
+          Về Trang chủ: Ma trận bài học Bài 9 ⌂
+        </a>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>© 2026 Tin học 12 Thống nhất - Bài 9: Tạo danh sách, bảng. THPT Thực hành ĐH Sư phạm.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+  <script>
+    function toggleAnswerGuide(num) {
+      const box = document.getElementById('ans-guide-' + num);
+      if (!box) return;
+      box.style.display = (box.style.display === 'none') ? 'block' : 'none';
+    }
+
+    function saveAllAnswers() {
+      const a1 = document.getElementById('ans-input-1')?.value || '';
+      const a2 = document.getElementById('ans-input-2')?.value || '';
+      const a3 = document.getElementById('ans-input-3')?.value || '';
+
+      localStorage.setItem('bai9_hd4_ans1', a1);
+      localStorage.setItem('bai9_hd4_ans2', a2);
+      localStorage.setItem('bai9_hd4_ans3', a3);
+
+      const s1 = document.getElementById('save-status-1');
+      const s2 = document.getElementById('save-status-2');
+      const s3 = document.getElementById('save-status-3');
+
+      if (s1) s1.innerText = '✓ Đã lưu';
+      if (s2) s2.innerText = '✓ Đã lưu';
+      if (s3) s3.innerText = '✓ Đã lưu';
+
+      if (typeof showToast === 'function') {
+        showToast('✓ Đã lưu bài làm của em vào vở bài tập số thành công!');
+      } else {
+        alert('Đã lưu bài làm của em thành công!');
+      }
+    }
+
+    window.addEventListener('load', () => {
+      const a1 = localStorage.getItem('bai9_hd4_ans1');
+      const a2 = localStorage.getItem('bai9_hd4_ans2');
+      const a3 = localStorage.getItem('bai9_hd4_ans3');
+
+      if (a1 && document.getElementById('ans-input-1')) document.getElementById('ans-input-1').value = a1;
+      if (a2 && document.getElementById('ans-input-2')) document.getElementById('ans-input-2').value = a2;
+      if (a3 && document.getElementById('ans-input-3')) document.getElementById('ans-input-3').value = a3;
+    });
+  </script>
+</body>
+</html>

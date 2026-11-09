@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hoạt động 2.1: Khám Phá Thẻ Danh Sách | Bài 9 - Tin học 12</title>
+  <meta name="description" content="Hoạt động 2.1: Khám phá thẻ danh sách trong HTML (<ol>, <ul>, <dl>, <li>) - Bài 9 Tin học 12. Trực quan hóa tương tác theo SGK Kết nối tri thức & Công văn 5512.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Fira+Code:wght@400;500;600&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=20261108_04">
+  <style>
+    .syntax-card {
+      background: #0f172a;
+      border: 1px solid #334155;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      margin-bottom: 0.85rem;
+    }
+    .syntax-header {
+      background: #1e293b;
+      padding: 0.45rem 0.85rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #334155;
+      font-size: 0.78rem;
+      color: #94a3b8;
+      font-family: var(--font-mono);
+    }
+    .syntax-body {
+      padding: 0.85rem;
+      font-family: var(--font-mono);
+      font-size: 0.84rem;
+      line-height: 1.6;
+      color: #e2e8f0;
+      overflow-x: auto;
+      margin: 0;
+    }
+    .hl-tag { color: #f43f5e; font-weight: 600; }
+    .hl-attr { color: #38bdf8; }
+    .hl-val { color: #facc15; }
+    .hl-text { color: #f8fafc; }
+    .hl-comm { color: #64748b; font-style: italic; }
+
+    .btn-mini-tool {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #e2e8f0;
+      padding: 0.25rem 0.6rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      font-family: var(--font-body);
+    }
+    .btn-mini-tool:hover {
+      background: rgba(255, 255, 255, 0.18);
+      color: #ffffff;
+    }
+    .btn-mini-tool.active-tool {
+      background: #2563eb;
+      color: #ffffff;
+      border-color: #3b82f6;
+    }
+
+    .snippet-preview-bar {
+      background: #f1f5f9;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 0.35rem 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      color: #475569;
+      font-family: var(--font-mono);
+    }
+    .snippet-preview-body {
+      background: #ffffff;
+      padding: 0.95rem;
+      min-height: 110px;
+    }
+
+    .interactive-panel {
+      background: #f8fafc;
+      border: 1.5px solid #bfdbfe;
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      margin-top: 1.25rem;
+    }
+    .control-label {
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.35rem;
+      display: block;
+    }
+    .control-select, .control-input {
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      padding: 0.45rem 0.75rem;
+      border-radius: var(--radius-xs);
+      font-size: 0.88rem;
+      color: var(--text-primary);
+      outline: none;
+      font-family: inherit;
+    }
+    .control-select:focus, .control-input:focus {
+      border-color: var(--color-brand);
+      box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.15);
+    }
+    .preview-box {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: var(--radius-sm);
+      padding: 1rem;
+      min-height: 120px;
+    }
+
+    .sandbox-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    @media (max-width: 900px) {
+      .sandbox-container { grid-template-columns: 1fr; }
+    }
+    .sandbox-editor {
+      background: #0d1117;
+      border: 1px solid #30363d;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .sandbox-textarea {
+      width: 100%;
+      height: 220px;
+      background: #0d1117;
+      color: #7ee787;
+      font-family: var(--font-mono);
+      font-size: 0.84rem;
+      line-height: 1.6;
+      padding: 0.85rem;
+      border: none;
+      outline: none;
+      resize: vertical;
+      box-sizing: border-box;
+      tab-size: 2;
+    }
+    .sandbox-preview {
+      background: #ffffff;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow-sm);
+    }
+    .sandbox-preview iframe {
+      width: 100%;
+      height: 220px;
+      border: none;
+      background: #ffffff;
+    }
+
+    .sgk-badge {
+      background: #e0e7ff;
+      color: #3730a3;
+      border: 1px solid #c7d2fe;
+      border-radius: var(--radius-pill);
+      padding: 0.15rem 0.55rem;
+      font-size: 0.76rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .sgk-figure-box {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: var(--radius-sm);
+      padding: 0.85rem;
+      margin-top: 0.5rem;
+      font-family: inherit;
+    }
+    .sgk-caption-tag {
+      text-align: center;
+      font-style: italic;
+      color: #475569;
+      font-size: 0.82rem;
+      margin-top: 0.5rem;
+      font-weight: 500;
+    }
+
+    /* REALTIME DASHBOARD STYLES */
+    .submissions-dashboard-card {
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 16px;
+      padding: 1.75rem 2rem;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+      margin-bottom: 2.5rem;
+      margin-top: 2rem;
+    }
+
+    .dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1.5px solid #f1f5f9;
+    }
+
+    .live-status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #ecfdf5;
+      border: 1px solid #a7f3d0;
+      color: #065f46;
+      font-size: 0.78rem;
+      font-weight: 800;
+      padding: 0.3rem 0.75rem;
+      border-radius: 9999px;
+      letter-spacing: 0.5px;
+    }
+
+    .live-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 0 rgba(16, 185, 129, 0.5);
+      animation: pulseLive 1.8s infinite;
+    }
+
+    @keyframes pulseLive {
+      0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+      70% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+
+    .dashboard-actions {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .stat-box {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .stat-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .stat-info .stat-value {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #0f172a;
+      line-height: 1.2;
+    }
+
+    .stat-info .stat-label {
+      font-size: 0.82rem;
+      color: #64748b;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .table-responsive {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      border-radius: 10px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .submissions-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.92rem;
+    }
+
+    .submissions-table th, .submissions-table td {
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid #e2e8f0;
+      text-align: left;
+    }
+
+    .submissions-table th {
+      background: #f8fafc;
+      font-weight: 700;
+      color: #475569;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .score-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.25rem 0.65rem;
+      border-radius: 9999px;
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+
+    .score-badge.high { background: #dcfce7; color: #15803d; border: 1px solid #86efac; }
+    .score-badge.medium { background: #fef9c3; color: #a16207; border: 1px solid #fde047; }
+    .score-badge.low { background: #fee2e2; color: #b91c1c; border: 1px solid #fca5a5; }
+
+    /* Modal phóng to xem bài làm học sinh */
+    .qr-zoom-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(5px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 99999;
+      padding: 1rem;
+      box-sizing: border-box;
+    }
+    .qr-zoom-modal.active {
+      display: flex;
+    }
+
+    .teacher-modal-overlay {
+      position: fixed !important;
+      inset: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      background: rgba(15, 23, 42, 0.75) !important;
+      backdrop-filter: blur(8px) !important;
+      display: none !important;
+      align-items: center !important;
+      justify-content: center !important;
+      z-index: 999999 !important;
+      padding: 1.5rem !important;
+      box-sizing: border-box !important;
+    }
+    .teacher-modal-overlay.active {
+      display: flex !important;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER & NAVIGATION -->
+  <header class="site-header">
+    <div class="container nav-wrapper">
+      <a href="index.html" class="brand-badge" title="Quay về Trang chủ Bài 9">
+        <div class="brand-icon-box">
+          <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+        </div>
+        <div class="brand-text">
+          <span class="title">BÀI 9: TẠO DANH SÁCH, BẢNG</span>
+          <span class="subtitle">Tin học 12 • Hoạt động 2.1: Khám phá Danh sách</span>
+        </div>
+      </a>
+
+      <nav aria-label="Điều hướng bài học">
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">Tổng quan</a></li>
+          <li><a href="hd1.html" class="nav-link">1. Khởi động</a></li>
+          <li><a href="hd2-1.html" class="nav-link active">2.1. Danh sách HTML</a></li>
+          <li><a href="hd2-2.html" class="nav-link">2.2. Thiết lập Bảng</a></li>
+          <li><a href="hd3.html" class="nav-link">3. Thực hành CLB</a></li>
+          <li><a href="hd4.html" class="nav-link">4. Vận dụng</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-tools">
+        <div class="timer-widget" title="Thời gian Hoạt động 2.1 (15 phút)">
+          <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          <span id="timer-display" class="timer-display">15:00</span>
+          <select id="timer-preset" class="btn-tool" title="Chọn thời lượng đếm ngược">
+            <option value="10">10p</option>
+            <option value="15" selected>15p (Chuẩn HĐ 2.1)</option>
+            <option value="20">20p</option>
+          </select>
+          <button id="timer-toggle" class="btn-tool" type="button">▶ Bắt đầu</button>
+          <button id="timer-reset" class="btn-tool" type="button" title="Đặt lại đồng hồ">↺</button>
+        </div>
+
+        <button id="btn-fullscreen" class="btn-tool" type="button" title="Bật/Tắt toàn màn hình">
+          <svg class="icon-svg" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
+          Toàn màn hình
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- STEPPER TIẾN TRÌNH HỌC TẬP -->
+  <nav class="stepper-section" aria-label="Tiến trình học tập">
+    <div class="container">
+      <div class="stepper-nav">
+        <div class="stepper-line"></div>
+        
+        <a href="index.html" class="stepper-step completed">
+          <div class="step-circle">✓</div>
+          <span class="step-label">Mục tiêu bài</span>
+        </a>
+
+        <a href="hd1.html" class="stepper-step completed">
+          <div class="step-circle">✓</div>
+          <span class="step-label">1. Khởi động (5')</span>
+        </a>
+
+        <a href="hd2-1.html" class="stepper-step active">
+          <div class="step-circle">2.1</div>
+          <span class="step-label">2.1. Danh sách HTML (15')</span>
+        </a>
+
+        <a href="hd2-2.html" class="stepper-step">
+          <div class="step-circle">2.2</div>
+          <span class="step-label">2.2. Thiết lập Bảng (15')</span>
+        </a>
+
+        <a href="hd3.html" class="stepper-step">
+          <div class="step-circle">3</div>
+          <span class="step-label">3. Thực hành CLB (30')</span>
+        </a>
+
+        <a href="hd4.html" class="stepper-step">
+          <div class="step-circle">4</div>
+          <span class="step-label">4. Vận dụng &amp; Về nhà</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO BANNER -->
+  <section class="hero-banner">
+    <div class="container">
+      <div class="hero-content">
+        <div class="badge-tag">
+          <span>HOẠT ĐỘNG 2.1 • HÌNH THÀNH KIẾN THỨC MỚI (15 PHÚT)</span>
+        </div>
+        <h1 class="hero-title">Khám Phá 1: Tạo Danh Sách Trong HTML</h1>
+        <p class="hero-subtitle">
+          Làm chủ cú pháp và thuộc tính chuẩn SGK Kết nối tri thức: Mục a) Danh sách có thứ tự (<code>&lt;ol&gt;</code>) và không có thứ tự (<code>&lt;ul&gt;</code>); Mục b) Danh sách mô tả thuật ngữ (<code>&lt;dl&gt;</code>, <code>&lt;dt&gt;</code>, <code>&lt;dd&gt;</code>).
+        </p>
+
+        <div style="margin-top: 1.25rem; display: flex; gap: 0.65rem; flex-wrap: wrap;">
+          <a href="#muc-a-danh-sach" class="btn btn-primary" style="font-size: 0.88rem; padding: 0.5rem 1.15rem;">
+            📌 a) Danh sách có thứ tự &amp; không thứ tự
+          </a>
+          <a href="#muc-b-danh-sach-mo-ta" class="btn btn-primary" style="font-size: 0.88rem; padding: 0.5rem 1.15rem; background: #d97706; border-color: #d97706;">
+            📖 b) Danh sách mô tả (&lt;dl&gt;, &lt;dt&gt;, &lt;dd&gt;)
+          </a>
+          <a href="#interactive-playground" class="btn btn-secondary" style="font-size: 0.88rem; padding: 0.5rem 1.15rem; background: rgba(255,255,255,0.15); color: #fff; border-color: rgba(255,255,255,0.3);">
+            🧪 Phòng thử nghiệm tương tác
+          </a>
+
+          <a href="hd2-2.html" class="btn btn-secondary" style="font-size: 0.88rem; padding: 0.5rem 1.15rem; background: rgba(255,255,255,0.25); color: #fff; border-color: rgba(255,255,255,0.4); font-weight: 700;">
+            Tiến sang HĐ 2.2: Thiết lập Bảng →
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+    <div class="container">
+
+      <!-- ===================================================================
+           MỤC CHÍNH: HOẠT ĐỘNG 2.1 - TẠO DANH SÁCH TRONG HTML (15 PHÚT)
+           Mục tiêu đáp ứng: (1), (2), (4), (5), (7)
+           =================================================================== -->
+      <section id="kham-pha-1" class="section-block">
+        <div class="section-header">
+          <h2 class="section-title">
+            <span class="section-num">2.1</span>
+            Hoạt động 2.1: Khám phá 1 - Tạo Danh Sách Trong HTML
+          </h2>
+          <div style="display: flex; gap: 0.35rem; align-items: center; flex-wrap: wrap;">
+            <span class="badge-tag" style="background:#eff6ff; color:#1d4ed8; border-color:#bfdbfe; margin:0;">Mục tiêu (1) (2) (4) (5) (7)</span>
+            <span class="badge-tag" style="background:#f1f5f9; color:#475569; margin:0;">Thời lượng: 15 phút</span>
+          </div>
+        </div>
+
+        <!-- =================================================================
+             PHẦN a: DANH SÁCH CÓ THỨ TỰ VÀ KHÔNG CÓ THỨ TỰ (SGK TRANG 50)
+             ================================================================= -->
+        <div id="muc-a-danh-sach" class="card" style="background: linear-gradient(135deg, #f8fafc 0%, #eff6ff 100%); border: 1.5px solid #bfdbfe; margin-bottom: 1.5rem;">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.65rem; flex-wrap: wrap; gap: 0.4rem;">
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+              <span style="font-size: 1.25rem;">📌</span>
+              <h3 class="card-title" style="margin: 0; color: #1e40af; font-size: 1.1rem;">
+                a) Danh sách có thứ tự và không có thứ tự (SGK Tin học 12 trang 50)
+              </h3>
+            </div>
+            <span class="sgk-badge">Mục a - Chuẩn SGK p.50</span>
+          </div>
+
+          <p style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 0.85rem;">
+            Theo SGK Tin học 12, để tạo danh sách có thứ tự hoặc danh sách không có thứ tự, em dùng các thẻ xác định danh sách bao bên ngoài và các thẻ <code>&lt;li&gt;</code> cho từng mục bên trong. Cấu trúc tổng quát của đoạn mã tạo danh sách như sau:
+          </p>
+
+          <!-- KHUNG CÚ PHÁP TỔNG QUÁT THEO ĐÚNG HÌNH CHỤP SGK -->
+          <div class="grid-2" style="margin-bottom: 1rem;">
+            <div class="syntax-card" style="margin-bottom: 0; border: 1.5px solid #3b82f6;">
+              <div class="syntax-header" style="background: #1e3a8a; color: #bfdbfe;">
+                <span>CÚ PHÁP CHUẨN SGK (TRANG 50)</span>
+                <button class="btn-mini-tool" type="button" onclick="copySnippet('code-syntax-general')">Sao chép</button>
+              </div>
+              <pre id="code-syntax-general" class="syntax-body" style="font-size: 0.95rem; padding: 1.1rem; line-height: 1.7;"><span class="hl-tag">&lt;thẻ bắt đầu&gt;</span>
+  <span class="hl-tag">&lt;li&gt;</span> <span class="hl-text">mục thứ 1</span> <span class="hl-tag">&lt;/li&gt;</span>
+  <span class="hl-comm">...</span>
+  <span class="hl-tag">&lt;li&gt;</span> <span class="hl-text">mục thứ n</span> <span class="hl-tag">&lt;/li&gt;</span>
+<span class="hl-tag">&lt;/thẻ kết thúc&gt;</span></pre>
+            </div>
+
+            <!-- Giải nghĩa quy ước SGK -->
+            <div style="background: #ffffff; border: 1px solid #cbd5e1; border-radius: var(--radius-sm); padding: 0.95rem; font-size: 0.86rem; line-height: 1.65; display: flex; flex-direction: column; justify-content: center;">
+              <strong style="color: #1e40af; margin-bottom: 0.35rem;">Quy ước thay thế thẻ trong SGK:</strong>
+              <ul style="margin: 0; padding-left: 1.2rem; color: var(--text-secondary);">
+                <li style="margin-bottom: 0.35rem;">
+                  <strong>Danh sách có thứ tự (Ordered List):</strong> Thay <code>&lt;thẻ bắt đầu&gt;</code> bằng <code>&lt;ol&gt;</code> và <code>&lt;/thẻ kết thúc&gt;</code> bằng <code>&lt;/ol&gt;</code>.
+                </li>
+                <li style="margin-bottom: 0.35rem;">
+                  <strong>Danh sách không thứ tự (Unordered List):</strong> Thay <code>&lt;thẻ bắt đầu&gt;</code> bằng <code>&lt;ul&gt;</code> và <code>&lt;/thẻ kết thúc&gt;</code> bằng <code>&lt;/ul&gt;</code>.
+                </li>
+                <li>
+                  <strong style="color: #059669;">Thẻ &lt;li&gt;...&lt;/li&gt;</strong> (List Item): Dùng chung để chứa <em>từng mục cụ thể</em> bên trong cả hai loại danh sách.
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- 2 CỘT CHI TIẾT: OL VÀ UL -->
+          <div class="grid-2">
+            
+            <!-- CỘT 1: DANH SÁCH CÓ THỨ TỰ <ol> -->
+            <div class="card" style="border-top: 4px solid var(--color-brand); margin-bottom: 0; background: #ffffff;">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.65rem;">
+                <h4 style="margin: 0; color: var(--color-brand); font-size: 1rem; font-weight: 700;">
+                  Danh sách có thứ tự: &lt;ol&gt;
+                </h4>
+                <span class="badge-tag" style="background:#eff6ff; color:#1d4ed8; margin:0;">Có đánh số</span>
+              </div>
+              <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.55; margin-bottom: 0.75rem;">
+                Dùng khi thứ tự các mục là quan trọng (các bước hướng dẫn, quy trình công thức, bảng xếp hạng).
+              </p>
+
+              <div class="syntax-card">
+                <div class="syntax-header">
+                  <div style="display: flex; gap: 0.35rem; align-items: center; flex-wrap: wrap;">
+                    <button id="btn-tab-ol-code" class="btn-mini-tool active-tool" type="button" onclick="toggleSnippetView('ol', 'code')">💻 Mã HTML</button>
+                    <button id="btn-tab-ol-preview" class="btn-mini-tool" type="button" onclick="toggleSnippetView('ol', 'preview')" style="color: #7ee787; border-color: rgba(126, 231, 135, 0.4);">▶ Xem kết quả Web (Compile)</button>
+                  </div>
+                  <div style="display: flex; gap: 0.35rem; align-items: center;">
+                    <button class="btn-mini-tool" type="button" onclick="sendToSandbox('list_nested')" title="Mở mã trong Sandbox">⚡ Sửa mã</button>
+                    <button class="btn-mini-tool" type="button" onclick="copySnippet('code-ol')">Sao chép</button>
+                  </div>
+                </div>
+
+                <!-- KHUNG MÃ NGUỒN OL -->
+                <pre id="code-ol" class="syntax-body"><span class="hl-tag">&lt;ol</span> <span class="hl-attr">type</span>=<span class="hl-val">"1"</span> <span class="hl-attr">start</span>=<span class="hl-val">"1"</span><span class="hl-tag">&gt;</span>
+  <span class="hl-tag">&lt;li&gt;</span><span class="hl-text">Bước 1: Chuẩn bị nguyên liệu</span><span class="hl-tag">&lt;/li&gt;</span>
+  <span class="hl-tag">&lt;li&gt;</span><span class="hl-text">Bước 2: Tiến hành chế biến</span><span class="hl-tag">&lt;/li&gt;</span>
+  <span class="hl-tag">&lt;li&gt;</span><span class="hl-text">Bước 3: Trình bày và thưởng thức</span><span class="hl-tag">&lt;/li&gt;</span>
+<span class="hl-tag">&lt;/ol&gt;</span></pre>
+
+                <!-- KHUNG KẾT QUẢ BIÊN DỊCH TRÌNH DUYỆT OL -->
+                <div id="preview-ol" style="display: none;">
+                  <div class="snippet-preview-bar">
+                    <span style="color: #1d4ed8; font-weight: 700;">● ĐÃ BIÊN DỊCH TRÌNH DUYỆT:</span>
+                    <span>http://lop12.edu.vn/danh-sach-ol.html</span>
+                  </div>
+                  <div class="snippet-preview-body">
+                    <ol type="1" start="1" style="margin: 0; padding-left: 1.5rem; line-height: 1.7; font-size: 0.92rem;">
+                      <li><strong>Bước 1:</strong> Chuẩn bị nguyên liệu</li>
+                      <li><strong>Bước 2:</strong> Tiến hành chế biến</li>
+                      <li><strong>Bước 3:</strong> Trình bày và thưởng thức</li>
+                    </ol>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Thuộc tính thông dụng -->
+              <div style="background: #f8fafc; border-radius: var(--radius-sm); padding: 0.85rem; font-size: 0.82rem; line-height: 1.55; border: 1px solid #e2e8f0;">
+                <strong>Thuộc tính thông dụng của &lt;ol&gt;:</strong>
+                <ul style="margin: 0.35rem 0 0 1.15rem; color: var(--text-secondary);">
+                  <li><code>type="1"</code>: Số thông thường 1, 2, 3 (mặc định).</li>
+                  <li><code>type="A"</code> hoặc <code>type="a"</code>: Đánh chữ cái A, B, C hoặc a, b, c.</li>
+                  <li><code>type="I"</code> hoặc <code>type="i"</code>: Số La Mã I, II, III hoặc i, ii, iii.</li>
+                  <li><code>start="n"</code>: Đặt số bắt đầu (ví dụ: <code>start="5"</code> sẽ đếm từ số 5).</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- CỘT 2: DANH SÁCH KHÔNG THỨ TỰ <ul> -->
+            <div class="card" style="border-top: 4px solid #059669; margin-bottom: 0; background: #ffffff;">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.65rem;">
+                <h4 style="margin: 0; color: #059669; font-size: 1rem; font-weight: 700;">
+                  Danh sách không thứ tự: &lt;ul&gt;
+                </h4>
+                <span class="badge-tag" style="background:#ecfdf5; color:#059669; margin:0;">Dấu gạch đầu dòng</span>
+              </div>
+              <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.55; margin-bottom: 0.75rem;">
+                Dùng khi các mục có vai trò ngang hàng nhau, không phụ thuộc thứ tự trước sau (danh sách sở thích, thực đơn).
+              </p>
+
+              <div class="syntax-card">
+                <div class="syntax-header">
+                  <div style="display: flex; gap: 0.35rem; align-items: center; flex-wrap: wrap;">
+                    <button id="btn-tab-ul-code" class="btn-mini-tool active-tool" type="button" onclick="toggleSnippetView('ul', 'code')">💻 Mã HTML</button>
+                    <button id="btn-tab-ul-preview" class="btn-mini-tool" type="button" onclick="toggleSnippetView('ul', 'preview')" style="color: #7ee787; border-color: rgba(126, 231, 135, 0.4);">▶ Xem kết quả Web (Compile)</button>
+                  </div>
+                  <div style="display: flex; gap: 0.35rem; align-items: center;">
+                    <button class="btn-mini-tool" type="button" onclick="sendToSandbox('list_nested')" title="Mở mã trong Sandbox">⚡ Sửa mã</button>
+                    <button class="btn-mini-tool" type="button" onclick="copySnippet('code-ul')">Sao chép</button>
+                  </div>
+                </div>
+
+                <!-- KHUNG MÃ NGUỒN UL -->
+                <pre id="code-ul" class="syntax-body"><span class="hl-tag">&lt;ul</span> <span class="hl-attr">style</span>=<span class="hl-val">"list-style-type: square;"</span><span class="hl-tag">&gt;</span>
+  <span class="hl-tag">&lt;li&gt;</span><span class="hl-text">HTML5: Cấu trúc trang web</span><span class="hl-tag">&lt;/li&gt;</span>
+  <span class="hl-tag">&lt;li&gt;</span><span class="hl-text">CSS3: Định dạng giao diện</span><span class="hl-tag">&lt;/li&gt;</span>
+  <span class="hl-tag">&lt;li&gt;</span><span class="hl-text">JavaScript: Tạo tương tác thông minh</span><span class="hl-tag">&lt;/li&gt;</span>
+<span class="hl-tag">&lt;/ul&gt;</span></pre>
+
+                <!-- KHUNG KẾT QUẢ BIÊN DỊCH TRÌNH DUYỆT UL -->
+                <div id="preview-ul" style="display: none;">
+                  <div class="snippet-preview-bar">
+                    <span style="color: #059669; font-weight: 700;">● ĐÃ BIÊN DỊCH TRÌNH DUYỆT:</span>
+                    <span>http://lop12.edu.vn/danh-sach-ul.html</span>
+                  </div>
+                  <div class="snippet-preview-body">
+                    <ul style="list-style-type: square; margin: 0; padding-left: 1.5rem; line-height: 1.7; font-size: 0.92rem;">
+                      <li><strong>HTML5:</strong> Cấu trúc trang web</li>
+                      <li><strong>CSS3:</strong> Định dạng giao diện</li>
+                      <li><strong>JavaScript:</strong> Tạo tương tác thông minh</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Kiểu dấu đầu dòng list-style-type -->
+              <div style="background: #f0fdf4; border-radius: var(--radius-sm); padding: 0.85rem; font-size: 0.82rem; line-height: 1.55; border: 1px solid #bbf7d0;">
+                <strong>Kiểu dấu đầu dòng (CSS list-style-type):</strong>
+                <div style="display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.35rem;">
+                  <span class="badge-tag" style="background:#ffffff; color:#166534; border-color:#86efac; margin:0;">disc (● Tròn đặc)</span>
+                  <span class="badge-tag" style="background:#ffffff; color:#166534; border-color:#86efac; margin:0;">circle (○ Tròn rỗng)</span>
+                  <span class="badge-tag" style="background:#ffffff; color:#166534; border-color:#86efac; margin:0;">square (■ Vuông)</span>
+                  <span class="badge-tag" style="background:#ffffff; color:#166534; border-color:#86efac; margin:0;">none (Không ký hiệu)</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- =================================================================
+             PHẦN b: DANH SÁCH MÔ TẢ (SGK TRANG 51 - ĐÚNG THEO ẢNH CHỤP SGK)
+             ================================================================= -->
+        <div id="muc-b-danh-sach-mo-ta" class="card" style="background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%); border: 1.5px solid #fde68a; margin-bottom: 1.5rem;">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.65rem; flex-wrap: wrap; gap: 0.4rem;">
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+              <span style="font-size: 1.25rem;">📖</span>
+              <h3 class="card-title" style="margin: 0; color: #b45309; font-size: 1.1rem;">
+                b) Danh sách mô tả (SGK Tin học 12 trang 51)
+              </h3>
+            </div>
+            <span class="sgk-badge" style="background: #fef3c7; color: #92400e; border-color: #fde68a;">Mục b - Chuẩn SGK p.51</span>
+          </div>
+
+          <!-- Lời dẫn nguyên văn SGK -->
+          <p style="font-size: 0.9rem; color: #78350f; line-height: 1.65; margin-bottom: 0.85rem; background: #ffffff; padding: 0.75rem 1rem; border-radius: var(--radius-sm); border-left: 4px solid #d97706;">
+            <em>"Danh sách mô tả dùng để liệt kê các mục kèm với mô tả cho từng mục. Cấu trúc của đoạn mã tạo danh sách mô tả khác cấu trúc của đoạn mã tạo danh sách có thứ tự hoặc không có thứ tự. Để tạo danh sách mô tả, em dùng ba thẻ: <code>&lt;dl&gt;</code>, <code>&lt;dt&gt;</code>, <code>&lt;dd&gt;</code>:"</em>
+          </p>
+
+          <!-- KHUNG CÚ PHÁP TỔNG QUÁT THEO ĐÚNG HÌNH CHỤP SGK TRANG 51 -->
+          <div class="syntax-card" style="border: 1.5px solid #d97706; margin-bottom: 1rem;">
+            <div class="syntax-header" style="background: #78350f; color: #fef3c7;">
+              <span>CÚ PHÁP CHUẨN DANH SÁCH MÔ TẢ (SGK TRANG 51)</span>
+              <button class="btn-mini-tool" type="button" onclick="copySnippet('code-syntax-dl-sgk')">Sao chép</button>
+            </div>
+            <pre id="code-syntax-dl-sgk" class="syntax-body" style="font-size: 0.92rem; padding: 1rem; line-height: 1.7;"><span class="hl-tag">&lt;dl&gt;</span>
+  <span class="hl-tag">&lt;dt&gt;</span> <span class="hl-text">...</span> <span class="hl-tag">&lt;/dt&gt;</span> <span class="hl-comm">Tên mục 1 (chẳng hạn như một thuật ngữ hoặc khái niệm)</span>
+  <span class="hl-tag">&lt;dd&gt;</span> <span class="hl-text">...</span> <span class="hl-tag">&lt;/dd&gt;</span> <span class="hl-comm">Mô tả của mục 1 (định nghĩa của thuật ngữ hoặc khái niệm tương ứng)</span>
+  <span class="hl-comm">...</span>
+  <span class="hl-tag">&lt;dt&gt;</span> <span class="hl-text">...</span> <span class="hl-tag">&lt;/dt&gt;</span> <span class="hl-comm">Tên mục n</span>
+  <span class="hl-tag">&lt;dd&gt;</span> <span class="hl-text">...</span> <span class="hl-tag">&lt;/dd&gt;</span> <span class="hl-comm">Mô tả của mục n</span>
+<span class="hl-tag">&lt;/dl&gt;</span></pre>
+          </div>
+
+          <!-- VÍ DỤ CHUẨN SGK HÌNH 9.3: KEM & TRÀ SỮA (ĐÚNG THEO ẢNH CHỤP CỦA GIÁO VIÊN) -->
+          <div class="card" style="background: #ffffff; border: 1.5px solid #fde68a; margin-bottom: 1rem;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.65rem; flex-wrap: wrap; gap: 0.35rem;">
+              <strong style="color: #92400e; font-size: 0.95rem;">
+                Ví dụ: Mã nguồn và Kết quả hiển thị (Hình 9.3. Danh sách mô tả - SGK trang 51)
+              </strong>
+              <span class="badge-tag" style="background: #fef3c7; color: #b45309; border-color: #fde68a; margin: 0;">Ví dụ Kem &amp; Trà sữa</span>
+            </div>
+
+            <div class="grid-2">
+              <!-- KHUNG MÃ NGUỒN VÍ DỤ SGK -->
+              <div>
+                <div class="syntax-card" style="margin-bottom: 0; border: 1.5px solid #d97706;">
+                  <div class="syntax-header" style="background: #1e293b; color: #fde047;">
+                    <div style="display: flex; gap: 0.35rem; align-items: center; flex-wrap: wrap;">
+                      <button id="btn-tab-dl-code" class="btn-mini-tool active-tool" type="button" onclick="toggleSnippetView('dl', 'code')">💻 Mã HTML</button>
+                      <button id="btn-tab-dl-preview" class="btn-mini-tool" type="button" onclick="toggleSnippetView('dl', 'preview')" style="color: #fde047; border-color: rgba(253, 224, 71, 0.4);">▶ Xem kết quả Web (Compile)</button>
+                    </div>
+                    <div style="display: flex; gap: 0.35rem; align-items: center;">
+                      <button class="btn-mini-tool" type="button" onclick="sendToSandbox('list_dl_sgk')" title="Mở mã trong Sandbox">⚡ Sửa mã</button>
+                      <button class="btn-mini-tool" type="button" onclick="copySnippet('code-dl')">Sao chép</button>
+                    </div>
+                  </div>
+
+                  <!-- Khung code ví dụ SGK -->
+                  <pre id="code-dl" class="syntax-body" style="font-size: 0.9rem; padding: 0.95rem; line-height: 1.7;"><span class="hl-tag">&lt;dl&gt;</span>
+  <span class="hl-tag">&lt;dt&gt;&lt;b&gt;</span><span class="hl-text">Kem</span><span class="hl-tag">&lt;/b&gt;&lt;/dt&gt;</span>
+  <span class="hl-tag">&lt;dd&gt;</span><span class="hl-text">Món ăn ngọt, ở dạng đông lạnh.</span><span class="hl-tag">&lt;/dd&gt;</span>
+  <span class="hl-tag">&lt;dt&gt;&lt;b&gt;</span><span class="hl-text">Trà sữa</span><span class="hl-tag">&lt;/b&gt;&lt;/dt&gt;</span>
+  <span class="hl-tag">&lt;dd&gt;</span><span class="hl-text">Đồ uống làm từ hai nguyên liệu trà và sữa.</span><span class="hl-tag">&lt;/dd&gt;</span>
+<span class="hl-tag">&lt;/dl&gt;</span></pre>
+
+                  <!-- Khung toggle preview -->
+                  <div id="preview-dl" style="display: none;">
+                    <div class="snippet-preview-bar">
+                      <span style="color: #b45309; font-weight: 700;">● ĐÃ BIÊN DỊCH TRÌNH DUYỆT:</span>
+                      <span>http://lop12.edu.vn/danh-sach-mo-ta-sgk.html</span>
+                    </div>
+                    <div class="snippet-preview-body">
+                      <dl style="margin: 0; line-height: 1.7; font-size: 0.92rem;">
+                        <dt style="font-weight: 700; color: #0f172a;"><b>Kem</b></dt>
+                        <dd style="margin-left: 2rem; color: #334155; margin-bottom: 0.6rem;">Món ăn ngọt, ở dạng đông lạnh.</dd>
+                        <dt style="font-weight: 700; color: #0f172a;"><b>Trà sữa</b></dt>
+                        <dd style="margin-left: 2rem; color: #334155;">Đồ uống làm từ hai nguyên liệu trà và sữa.</dd>
+                      </dl>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- KHUNG MÔ PHỎNG TRỰC TIẾP HÌNH 9.3 TRÊN TRÌNH DUYỆT -->
+              <div style="display: flex; flex-direction: column; justify-content: center;">
+                <div class="sgk-figure-box" style="border: 2px solid #cbd5e1; box-shadow: var(--shadow-xs);">
+                  <div style="background: #f1f5f9; padding: 0.35rem 0.65rem; border-bottom: 1px solid #e2e8f0; font-size: 0.76rem; font-family: var(--font-mono); color: #64748b; margin: -0.85rem -0.85rem 0.65rem -0.85rem;">
+                    🌐 Hiển thị trên màn hình trình duyệt (Render)
+                  </div>
+                  
+                  <div style="background: #ffffff; padding: 0.6rem 0.5rem; font-family: 'Times New Roman', Times, serif; font-size: 1.05rem; line-height: 1.6;">
+                    <div style="font-weight: 700; color: #000;">Kem</div>
+                    <div style="margin-left: 3.5rem; color: #111;">Món ăn ngọt, ở dạng đông lạnh.</div>
+                    <div style="font-weight: 700; color: #000; margin-top: 0.35rem;">Trà sữa</div>
+                    <div style="margin-left: 3.5rem; color: #111;">Đồ uống làm từ hai nguyên liệu trà và sữa.</div>
+                  </div>
+                </div>
+                <div class="sgk-caption-tag">
+                  <strong>Hình 9.3. Danh sách mô tả</strong> (Trích nguyên văn SGK trang 51)
+                </div>
+
+                <div style="margin-top: 0.65rem; background: #fffbeb; border: 1px dashed #f59e0b; border-radius: 4px; padding: 0.55rem 0.75rem; font-size: 0.8rem; color: #92400e;">
+                  💡 <strong>Nhận xét:</strong> Trình duyệt tự động <em>thụt lề vào trong</em> đối với nội dung của thẻ <code>&lt;dd&gt;</code> mà lập trình viên không cần gõ phím cách hay căn chỉnh thủ công!
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- LƯU Ý QUAN TRỌNG: DANH SÁCH LỒNG NHAU (NGUYÊN VĂN THEO ẢNH CHỤP SGK) -->
+          <div class="card" style="background: #ffffff; border-left: 4px solid #8b5cf6; margin-bottom: 0;">
+            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.4rem;">
+              <span style="font-size: 1.15rem;">⭐</span>
+              <h4 style="margin: 0; color: #6d28d9; font-size: 0.98rem; font-weight: 700;">
+                Lưu ý: Danh sách lồng nhau (Theo SGK trang 51)
+              </h4>
+            </div>
+
+            <p style="font-size: 0.88rem; color: #4b5563; line-height: 1.6; margin-bottom: 0.75rem;">
+              <em>"Ta có thể tạo ra các danh sách lồng nhau bằng cách đặt danh sách con vào trong một mục của một danh sách khác (bằng cách đặt danh sách đó nằm trọn trong cặp thẻ <code>&lt;li&gt;&lt;/li&gt;</code> của mục tương ứng)."</em>
+            </p>
+
+            <div class="grid-2">
+              <!-- Cách viết ĐÚNG CHUẨN SGK & W3C -->
+              <div style="background: #f0fdf4; border: 1.5px solid #86efac; border-radius: var(--radius-sm); padding: 0.85rem;">
+                <span class="compare-tag success" style="margin-bottom: 0.45rem;">✅ CÁCH VIẾT CHUẨN THEO SGK</span>
+                <pre style="background: #0f172a; color: #cbd5e1; padding: 0.75rem; border-radius: 4px; font-size: 0.8rem; font-family: var(--font-mono); margin: 0.35rem 0 0; line-height: 1.55;"><span class="hl-tag">&lt;ul&gt;</span>
+  <span class="hl-tag">&lt;li&gt;</span><span class="hl-text">Miền Bắc</span>
+    <span class="hl-comm">&lt;!-- Danh sách con NẰM TRỌN TRONG thẻ li cha --&gt;</span>
+    <span class="hl-tag">&lt;ol&gt;</span>
+      <span class="hl-tag">&lt;li&gt;</span><span class="hl-text">Hà Nội</span><span class="hl-tag">&lt;/li&gt;</span>
+      <span class="hl-tag">&lt;li&gt;</span><span class="hl-text">Hải Phòng</span><span class="hl-tag">&lt;/li&gt;</span>
+    <span class="hl-tag">&lt;/ol&gt;</span>
+  <span class="hl-tag">&lt;/li&gt;</span> <span class="hl-comm">&lt;!-- Đóng thẻ li cha ở đây --&gt;</span>
+  <span class="hl-tag">&lt;li&gt;</span><span class="hl-text">Miền Nam</span><span class="hl-tag">&lt;/li&gt;</span>
+<span class="hl-tag">&lt;/ul&gt;</span></pre>
+              </div>
+
+              <!-- Lỗi sai thường gặp -->
+              <div style="background: #fef2f2; border: 1.5px solid #fca5a5; border-radius: var(--radius-sm); padding: 0.85rem;">
+                <span class="compare-tag danger" style="margin-bottom: 0.45rem;">❌ LỖI SAI KINH ĐIỂN CẦN TRÁNH</span>
+                <pre style="background: #0f172a; color: #cbd5e1; padding: 0.75rem; border-radius: 4px; font-size: 0.8rem; font-family: var(--font-mono); margin: 0.35rem 0 0; line-height: 1.55;"><span class="hl-tag">&lt;ul&gt;</span>
+  <span class="hl-tag">&lt;li&gt;</span><span class="hl-text">Miền Bắc</span><span class="hl-tag">&lt;/li&gt;</span> <span class="hl-comm">&lt;!-- ĐÃ ĐÓNG LI QUÁ SỚM! --&gt;</span>
+  
+  <span class="hl-comm">&lt;!-- Đặt ol lơ lửng làm con trực tiếp của ul là SAI CÚ PHÁP --&gt;</span>
+  <span class="hl-tag">&lt;ol&gt;</span>
+    <span class="hl-tag">&lt;li&gt;</span><span class="hl-text">Hà Nội</span><span class="hl-tag">&lt;/li&gt;</span>
+  <span class="hl-tag">&lt;/ol&gt;</span>
+  
+  <span class="hl-tag">&lt;li&gt;</span><span class="hl-text">Miền Nam</span><span class="hl-tag">&lt;/li&gt;</span>
+<span class="hl-tag">&lt;/ul&gt;</span></pre>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- =================================================================
+             PHÒNG THÍ NGHIỆM TƯƠNG TÁC DANH SÁCH (INTERACTIVE LIST PLAYGROUND)
+             ================================================================= -->
+        <div id="interactive-playground" class="interactive-panel">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.85rem; flex-wrap: wrap; gap: 0.5rem;">
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+              <span style="font-size: 1.2rem;">🧪</span>
+              <strong style="color: var(--text-primary); font-size: 0.98rem;">Phòng Thử Nghiệm: Trải nghiệm thay đổi thuộc tính Danh sách tức thì</strong>
+            </div>
+            <span style="font-size: 0.78rem; color: var(--text-muted);">Thay đổi tùy chọn bên dưới để xem trình duyệt tự động cập nhật</span>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-bottom: 1rem;">
+            <div>
+              <label class="control-label" for="select-list-tag">Loại danh sách:</label>
+              <select id="select-list-tag" class="control-select" style="width: 100%;" onchange="updateInteractiveList()">
+                <option value="ol">Thẻ &lt;ol&gt; (Có thứ tự - Ordered List)</option>
+                <option value="ul">Thẻ &lt;ul&gt; (Không thứ tự - Unordered List)</option>
+                <option value="dl" selected>Thẻ &lt;dl&gt; (Danh sách mô tả - Description List)</option>
+              </select>
+            </div>
+
+            <div id="wrapper-ol-type" style="display: none;">
+              <label class="control-label" for="select-ol-type">Kiểu đánh số (type):</label>
+              <select id="select-ol-type" class="control-select" style="width: 100%;" onchange="updateInteractiveList()">
+                <option value="1">1, 2, 3 (Số thông thường)</option>
+                <option value="A">A, B, C (Chữ in hoa)</option>
+                <option value="a">a, b, c (Chữ in thường)</option>
+                <option value="I">I, II, III (Số La Mã hoa)</option>
+                <option value="i">i, ii, iii (Số La Mã thường)</option>
+              </select>
+            </div>
+
+            <div id="wrapper-ol-start" style="display: none;">
+              <label class="control-label" for="input-ol-start">Bắt đầu từ số (start):</label>
+              <input id="input-ol-start" type="number" class="control-input" style="width: 100%;" value="1" min="1" max="99" oninput="updateInteractiveList()">
+            </div>
+
+            <div id="wrapper-ul-style" style="display: none;">
+              <label class="control-label" for="select-ul-style">Dấu đầu dòng (list-style-type):</label>
+              <select id="select-ul-style" class="control-select" style="width: 100%;" onchange="updateInteractiveList()">
+                <option value="disc">disc (Chấm tròn đặc ●)</option>
+                <option value="circle">circle (Vòng tròn rỗng ○)</option>
+                <option value="square">square (Hình vuông ■)</option>
+                <option value="none">none (Không ký hiệu)</option>
+              </select>
+            </div>
+
+            <div id="wrapper-dl-info">
+              <label class="control-label" for="select-dl-preset">Mẫu nội dung mô tả &lt;dl&gt;:</label>
+              <select id="select-dl-preset" class="control-select" style="width: 100%;" onchange="updateInteractiveList()">
+                <option value="sgk" selected>Mẫu SGK Hình 9.3 (Kem &amp; Trà sữa)</option>
+                <option value="web">Mẫu Thuật ngữ Web (HTML5, CSS3, JS)</option>
+                <option value="food">Mẫu Thực đơn đặc sản (Bánh tráng, Trà đào)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <!-- Mã nguồn sinh ra -->
+            <div>
+              <div style="font-size: 0.78rem; font-weight: 700; color: var(--text-muted); margin-bottom: 0.35rem; text-transform: uppercase;">
+                Mã HTML tự động sinh ra:
+              </div>
+              <pre id="output-list-code" style="background: #0f172a; color: #7ee787; padding: 0.85rem; border-radius: var(--radius-sm); font-family: var(--font-mono); font-size: 0.82rem; margin: 0; min-height: 120px; box-sizing: border-box;"></pre>
+            </div>
+
+            <!-- Kết quả hiển thị Web -->
+            <div>
+              <div style="font-size: 0.78rem; font-weight: 700; color: var(--text-muted); margin-bottom: 0.35rem; text-transform: uppercase;">
+                Trình duyệt hiển thị thực tế:
+              </div>
+              <div id="output-list-render" class="preview-box"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- =================================================================
+             XƯỞNG THỬ NGHIỆM SANDBOX CHO DANH SÁCH
+             ================================================================= -->
+        <div class="card" style="margin-top: 1.5rem; padding: 1.25rem;">
+          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.85rem;">
+            <div style="display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap;">
+              <span style="font-size: 0.85rem; font-weight: 600; color: var(--text-primary);">Nạp nhanh mã mẫu danh sách:</span>
+              <button class="btn btn-secondary btn-sm" type="button" onclick="loadSample('list_dl_sgk')">
+                📖 Kem &amp; Trà sữa (SGK Hình 9.3)
+              </button>
+              <button class="btn btn-secondary btn-sm" type="button" onclick="loadSample('list_nested')">
+                📋 Danh sách lồng nhau
+              </button>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 0.4rem;">
+              <button class="btn-mini-run" type="button" onclick="runSandboxCompile()" style="padding: 0.4rem 0.85rem; font-size: 0.82rem;">
+                ▶ Chạy mã (Compile)
+              </button>
+              <button class="btn btn-secondary btn-sm" type="button" onclick="resetSandbox()">
+                ↺ Đặt lại
+              </button>
+            </div>
+          </div>
+
+          <div class="sandbox-container">
+            <div class="sandbox-editor">
+              <div style="background: #161b22; padding: 0.4rem 0.75rem; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #30363d; font-family: var(--font-mono); font-size: 0.75rem; color: #8b949e;">
+                <span>💻 test-danh-sach.html</span>
+                <span id="sandbox-status" style="color: #58a6ff;">● Tự động biên dịch khi gõ</span>
+              </div>
+              <textarea id="sandbox-code" class="sandbox-textarea" spellcheck="false" placeholder="Gõ mã HTML danh sách vào đây..."></textarea>
+            </div>
+
+            <div class="sandbox-preview">
+              <div style="background: #f8fafc; padding: 0.4rem 0.75rem; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #e2e8f0; font-size: 0.78rem; font-weight: 600; color: #475569;">
+                <span>🌐 KẾT QUẢ HIỂN THỊ TRÌNH DUYỆT</span>
+                <span class="compare-tag success" style="font-size: 0.7rem; padding: 0.1rem 0.45rem;">LIVE RENDER</span>
+              </div>
+              <iframe id="sandbox-iframe" title="Khung hiển thị kết quả HTML danh sách"></iframe>
+            </div>
+          </div>
+        </div>
+
+        <!-- THANH CHUYỂN TIẾP SANG HOẠT ĐỘNG 2.2 -->
+        <div style="margin-top: 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; padding: 1.5rem; background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); border: 2px solid #93c5fd; border-radius: var(--radius-md); box-shadow: var(--shadow-sm);">
+          <div style="max-width: 650px;">
+            <span style="display: inline-block; background: #2563eb; color: #ffffff; font-size: 0.78rem; font-weight: 700; padding: 0.25rem 0.75rem; border-radius: 9999px; text-transform: uppercase; margin-bottom: 0.4rem;">✓ HOÀN THÀNH KHÁM PHÁ 2.1</span>
+            <h4 style="margin: 0; color: #1e3a8a; font-size: 1.25rem; font-weight: 800;">
+              Xuất sắc! Em đã nắm vững toàn bộ kiến thức về Danh sách HTML (&lt;ol&gt;, &lt;ul&gt;, &lt;dl&gt;)
+            </h4>
+            <p style="margin: 0.4rem 0 0; color: #1d4ed8; font-size: 0.92rem; line-height: 1.6;">
+              Bây giờ, hãy tiếp tục tiến sang <strong>Hoạt động 2.2</strong> để khám phá cách tạo và định dạng <strong>Bảng trong HTML</strong>. Sau khi học xong cả 2 phần (2.1 và 2.2), cả lớp sẽ cùng thực hiện bài kiểm tra ngắn đánh giá chặng trước khi vào giờ thực hành nhé!
+            </p>
+          </div>
+          <div>
+            <a href="hd2-2.html" class="btn btn-primary" style="font-size: 1.05rem; padding: 0.85rem 1.75rem; font-weight: 800; box-shadow: 0 4px 16px rgba(29, 78, 216, 0.35); display: inline-flex; align-items: center; gap: 0.6rem;">
+              <span>Tiến sang Hoạt Động 2.2: Thiết Lập Bảng (15')</span>
+              <span>→</span>
+            </a>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ĐIỀU HƯỚNG TRANG -->
+      <div class="page-nav-bar">
+        <a href="hd1.html" class="btn btn-secondary">← Hoạt động 1: Khởi động</a>
+        <a href="hd2-2.html" class="btn btn-primary">
+          Tiếp theo: Hoạt động 2.2 (Thiết lập Bảng) →
+        </a>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>© 2026 Tin học 12 Thống nhất - Bài 9: Tạo danh sách, bảng. THPT Thực hành ĐH Sư phạm.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+  <script>
+    /* ==========================================================================
+       1. INTERACTIVE LIST PLAYGROUND CONTROLLER (HỖ TRỢ <ol>, <ul> VÀ <dl>)
+       ========================================================================== */
+    function updateInteractiveList() {
+      const tag = document.getElementById('select-list-tag')?.value || 'dl';
+      const olType = document.getElementById('select-ol-type')?.value || '1';
+      const olStart = document.getElementById('input-ol-start')?.value || '1';
+      const ulStyle = document.getElementById('select-ul-style')?.value || 'disc';
+      const dlPreset = document.getElementById('select-dl-preset')?.value || 'sgk';
+
+      const wrapOlType = document.getElementById('wrapper-ol-type');
+      const wrapOlStart = document.getElementById('wrapper-ol-start');
+      const wrapUlStyle = document.getElementById('wrapper-ul-style');
+      const wrapDlInfo = document.getElementById('wrapper-dl-info');
+
+      let codeStr = '';
+      let renderHtml = '';
+
+      if (tag === 'ol') {
+        if (wrapOlType) wrapOlType.style.display = 'block';
+        if (wrapOlStart) wrapOlStart.style.display = 'block';
+        if (wrapUlStyle) wrapUlStyle.style.display = 'none';
+        if (wrapDlInfo) wrapDlInfo.style.display = 'none';
+
+        codeStr = `<ol type="${olType}" start="${olStart}">
+  <li>Bước 1: Chuẩn bị nguyên liệu</li>
+  <li>Bước 2: Tiến hành chế biến</li>
+  <li>Bước 3: Trình bày và thưởng thức</li>
+</ol>`;
+        renderHtml = `<ol type="${olType}" start="${olStart}" style="margin: 0; padding-left: 1.5rem; line-height: 1.7; font-size: 0.92rem;">
+  <li><strong>Bước 1: Chuẩn bị nguyên liệu</strong></li>
+  <li><strong>Bước 2: Tiến hành chế biến</strong></li>
+  <li><strong>Bước 3: Trình bày và thưởng thức</strong></li>
+</ol>`;
+      } else if (tag === 'ul') {
+        if (wrapOlType) wrapOlType.style.display = 'none';
+        if (wrapOlStart) wrapOlStart.style.display = 'none';
+        if (wrapUlStyle) wrapUlStyle.style.display = 'block';
+        if (wrapDlInfo) wrapDlInfo.style.display = 'none';
+
+        codeStr = `<ul style="list-style-type: ${ulStyle};">
+  <li>HTML5: Cấu trúc trang web</li>
+  <li>CSS3: Định dạng giao diện</li>
+  <li>JavaScript: Tạo tương tác thông minh</li>
+</ul>`;
+        renderHtml = `<ul style="list-style-type: ${ulStyle}; margin: 0; padding-left: 1.5rem; line-height: 1.7; font-size: 0.92rem;">
+  <li><strong>HTML5: Cấu trúc trang web</strong></li>
+  <li><strong>CSS3: Định dạng giao diện</strong></li>
+  <li><strong>JavaScript: Tạo tương tác thông minh</strong></li>
+</ul>`;
+      } else if (tag === 'dl') {
+        if (wrapOlType) wrapOlType.style.display = 'none';
+        if (wrapOlStart) wrapOlStart.style.display = 'none';
+        if (wrapUlStyle) wrapUlStyle.style.display = 'none';
+        if (wrapDlInfo) wrapDlInfo.style.display = 'block';
+
+        if (dlPreset === 'sgk') {
+          codeStr = `<dl>
+  <dt><b>Kem</b></dt>
+  <dd>Món ăn ngọt, ở dạng đông lạnh.</dd>
+  <dt><b>Trà sữa</b></dt>
+  <dd>Đồ uống làm từ hai nguyên liệu trà và sữa.</dd>
+</dl>`;
+          renderHtml = `<dl style="margin: 0; line-height: 1.7; font-size: 0.95rem;">
+  <dt style="font-weight: 700; color: #0f172a;"><b>Kem</b></dt>
+  <dd style="margin-left: 2rem; color: #334155; margin-bottom: 0.5rem;">Món ăn ngọt, ở dạng đông lạnh.</dd>
+  <dt style="font-weight: 700; color: #0f172a;"><b>Trà sữa</b></dt>
+  <dd style="margin-left: 2rem; color: #334155;">Đồ uống làm từ hai nguyên liệu trà và sữa.</dd>
+</dl>`;
+        } else if (dlPreset === 'web') {
+          codeStr = `<dl>
+  <dt>HTML5</dt>
+  <dd>Ngôn ngữ đánh dấu siêu văn bản, tạo cấu trúc trang web.</dd>
+  <dt>CSS3</dt>
+  <dd>Ngôn ngữ định kiểu, tùy biến màu sắc và giao diện.</dd>
+  <dt>JavaScript</dt>
+  <dd>Ngôn ngữ lập trình tạo sự tương tác thông minh.</dd>
+</dl>`;
+          renderHtml = `<dl style="margin: 0; line-height: 1.6; font-size: 0.92rem;">
+  <dt style="font-weight: 700; color: #1e293b; margin-top: 0.25rem;">HTML5</dt>
+  <dd style="margin-left: 1.5rem; color: #475569; margin-bottom: 0.45rem;">Ngôn ngữ đánh dấu siêu văn bản, tạo cấu trúc trang web.</dd>
+  <dt style="font-weight: 700; color: #1e293b;">CSS3</dt>
+  <dd style="margin-left: 1.5rem; color: #475569; margin-bottom: 0.45rem;">Ngôn ngữ định kiểu, tùy biến màu sắc và giao diện.</dd>
+  <dt style="font-weight: 700; color: #1e293b;">JavaScript</dt>
+  <dd style="margin-left: 1.5rem; color: #475569;">Ngôn ngữ lập trình tạo sự tương tác thông minh.</dd>
+</dl>`;
+        } else {
+          codeStr = `<dl>
+  <dt>Bánh tráng trộn</dt>
+  <dd>Món ăn vặt thơm ngon đậm đà kèm trứng cút và xoài sợi.</dd>
+  <dt>Trà đào cam sả</dt>
+  <dd>Đồ uống thanh nhiệt cực mát lạnh cho ngày hè oi bức.</dd>
+  <dt>Chè khúc bạch</dt>
+  <dd>Món tráng miệng ngọt nhẹ thanh mát giải nhiệt.</dd>
+</dl>`;
+          renderHtml = `<dl style="margin: 0; line-height: 1.6; font-size: 0.92rem;">
+  <dt style="font-weight: 700; color: #1e293b; margin-top: 0.25rem;">Bánh tráng trộn</dt>
+  <dd style="margin-left: 1.5rem; color: #475569; margin-bottom: 0.45rem;">Món ăn vặt thơm ngon đậm đà kèm trứng cút và xoài sợi.</dd>
+  <dt style="font-weight: 700; color: #1e293b;">Trà đào cam sả</dt>
+  <dd style="margin-left: 1.5rem; color: #475569; margin-bottom: 0.45rem;">Đồ uống thanh nhiệt cực mát lạnh cho ngày hè oi bức.</dd>
+  <dt style="font-weight: 700; color: #1e293b;">Chè khúc bạch</dt>
+  <dd style="margin-left: 1.5rem; color: #475569;">Món tráng miệng ngọt nhẹ thanh mát giải nhiệt.</dd>
+</dl>`;
+        }
+      }
+
+      const codeEl = document.getElementById('output-list-code');
+      const renderEl = document.getElementById('output-list-render');
+      if (codeEl) codeEl.innerText = codeStr;
+      if (renderEl) renderEl.innerHTML = renderHtml;
+    }
+
+    /* ==========================================================================
+       2. LIVE SANDBOX SAMPLES & RUNNER
+       ========================================================================== */
+    const SANDBOX_SAMPLES = {
+      list_dl_sgk: `<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Ví dụ Hình 9.3 SGK Tin học 12</title>
+  <style>
+    body { font-family: "Times New Roman", Times, serif; padding: 25px; line-height: 1.6; font-size: 1.1rem; }
+    h3 { font-family: sans-serif; color: #b45309; }
+    dt { font-weight: bold; margin-top: 10px; }
+    dd { margin-left: 40px; margin-bottom: 10px; }
+  </style>
+</head>
+<body>
+  <h3>HÌNH 9.3. DANH SÁCH MÔ TẢ (SGK TRANG 51)</h3>
+  <dl>
+    <dt><b>Kem</b></dt>
+    <dd>Món ăn ngọt, ở dạng đông lạnh.</dd>
+    <dt><b>Trà sữa</b></dt>
+    <dd>Đồ uống làm từ hai nguyên liệu trà và sữa.</dd>
+  </dl>
+</body>
+</html>`,
+
+      list_nested: `<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Danh sách lồng nhau chuẩn SGK</title>
+  <style>
+    body { font-family: sans-serif; padding: 15px; }
+    h2 { color: #1d4ed8; }
+  </style>
+</head>
+<body>
+  <h2>CÁC CÂU LẠC BỘ THỂ THAO TRƯỜNG THTH-DHSP</h2>
+  <ul>
+    <li>
+      <strong>Môn Thể thao đối kháng:</strong>
+      <ol type="A">
+        <li>Cầu lông (Sân thể thao số 1)</li>
+        <li>Bóng bàn (Phòng đa năng)</li>
+      </ol>
+    </li>
+    <li>
+      <strong>Môn Thể thao đồng đội:</strong>
+      <ol type="A">
+        <li>Bóng đá nam & nữ (Sân cỏ nhân tạo)</li>
+        <li>Bóng rổ (Sân bóng rổ trung tâm)</li>
+      </ol>
+    </li>
+  </ul>
+</body>
+</html>`
+    };
+
+    function loadSample(key) {
+      const textarea = document.getElementById('sandbox-code');
+      if (!textarea || !SANDBOX_SAMPLES[key]) return;
+      textarea.value = SANDBOX_SAMPLES[key];
+      runSandboxCompile();
+      if (typeof showToast === 'function') {
+        showToast('✓ Đã nạp mã mẫu thành công!');
+      }
+    }
+
+    function resetSandbox() {
+      loadSample('list_dl_sgk');
+    }
+
+    function runSandboxCompile() {
+      const textarea = document.getElementById('sandbox-code');
+      const iframe = document.getElementById('sandbox-iframe');
+      const statusEl = document.getElementById('sandbox-status');
+      if (!textarea || !iframe) return;
+
+      const doc = iframe.contentDocument || iframe.contentWindow.document;
+      doc.open();
+      doc.write(textarea.value);
+      doc.close();
+
+      if (statusEl) {
+        statusEl.innerText = '✓ Vừa biên dịch xong!';
+        setTimeout(() => {
+          statusEl.innerText = '● Tự động biên dịch khi gõ';
+        }, 1200);
+      }
+    }
+
+    function copySnippet(elementId) {
+      const el = document.getElementById(elementId);
+      if (!el) return;
+      navigator.clipboard.writeText(el.innerText).then(() => {
+        if (typeof showToast === 'function') showToast('📋 Đã sao chép mã nguồn vào bộ nhớ tạm!');
+      });
+    }
+
+    function toggleSnippetView(snippetId, mode) {
+      const codeEl = document.getElementById('code-' + snippetId);
+      const previewEl = document.getElementById('preview-' + snippetId);
+      const btnCode = document.getElementById('btn-tab-' + snippetId + '-code');
+      const btnPreview = document.getElementById('btn-tab-' + snippetId + '-preview');
+
+      if (!codeEl || !previewEl) return;
+
+      if (mode === 'preview') {
+        codeEl.style.display = 'none';
+        previewEl.style.display = 'block';
+        btnCode?.classList.remove('active-tool');
+        btnPreview?.classList.add('active-tool');
+      } else {
+        previewEl.style.display = 'none';
+        codeEl.style.display = 'block';
+        btnPreview?.classList.remove('active-tool');
+        btnCode?.classList.add('active-tool');
+      }
+    }
+
+    function sendToSandbox(sampleKey) {
+      loadSample(sampleKey);
+      const sandboxEl = document.getElementById('sandbox-code');
+      if (sandboxEl) {
+        sandboxEl.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    window.addEventListener('load', () => {
+      updateInteractiveList();
+      resetSandbox();
+
+      const textarea = document.getElementById('sandbox-code');
+      if (textarea) {
+        textarea.addEventListener('input', () => {
+          runSandboxCompile();
+        });
+      }
+    });
+
+  </script>
+</body>
+</html>

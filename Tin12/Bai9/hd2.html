@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="refresh" content="0; url=hd2-1.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chuyển tiếp đến Hoạt động 2.1 | Tin học 12</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script>
+    // Kiểm tra nếu có hash #phase2.2 hoặc #kham-pha-2 thì chuyển sang hd2-2.html, còn lại sang hd2-1.html
+    const hash = window.location.hash.toLowerCase();
+    if (hash.includes('2.2') || hash.includes('kham-pha-2') || hash.includes('bang')) {
+      window.location.replace('hd2-2.html');
+    } else {
+      window.location.replace('hd2-1.html');
+    }
+  </script>
+</head>
+<body style="font-family: sans-serif; display: flex; align-items: center; justify-content: center; min-height: 100vh; background: #f8fafc; text-align: center; padding: 20px;">
+  <div style="background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.08); max-width: 500px;">
+    <h2 style="color: #1d4ed8; margin-bottom: 12px;">Đang chuyển hướng bài học...</h2>
+    <p style="color: #475569; margin-bottom: 20px; line-height: 1.6;">
+      Hoạt động 2 đã được tách thành hai trang độc lập theo chuẩn giáo án Công văn 5512:
+    </p>
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+      <a href="hd2-1.html" style="background: #2563eb; color: white; padding: 10px 16px; border-radius: 6px; text-decoration: none; font-weight: bold;">
+        👉 Hoạt động 2.1: Tạo Danh Sách Trong HTML
+      </a>
+      <a href="hd2-2.html" style="background: #0284c7; color: white; padding: 10px 16px; border-radius: 6px; text-decoration: none; font-weight: bold;">
+        👉 Hoạt động 2.2: Thiết Lập Bảng Trong HTML
+      </a>
+    </div>
+  </div>
+</body>
+</html>

@@ -683,8 +683,11 @@
           <svg style="width:16px;height:16px;" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
           Mã nguồn GitHub
         </a>
-        <a href="./Bai8/index.html" class="btn btn-primary btn-sm" style="background: #059669; border-color: #059669;">
-          🚀 Mở Bài 8 (Mới nhất)
+        <a href="./Bai9/index.html" class="btn btn-primary btn-sm" style="background: #2563eb; border-color: #2563eb;">
+          🚀 Mở Bài 9 (Mới nhất)
+        </a>
+        <a href="./Bai8/index.html" class="btn btn-secondary btn-sm">
+          Bài 8 (Sẵn sàng)
         </a>
         <a href="./Bai7/index.html" class="btn btn-secondary btn-sm">
           Bài 7 (Sẵn sàng)
@@ -955,11 +958,52 @@
                         </div>
                       </div>
 
-                      <!-- BÀI 9 (CHƯA CÓ) -->
-                      <div class="tree-row" onclick="showNodeDetail('bai9')">
-                        <span class="tree-icon">📄</span>
-                        <span class="tree-label">Bai_09_Tao_Danh_Sach_Bang_Bieu.html</span>
-                        <span class="tree-badge badge-empty">Chưa có</span>
+                      <!-- BÀI 9: TẠO DANH SÁCH, BẢNG (SẴN SÀNG) -->
+                      <div class="tree-group">
+                        <div class="tree-row is-ready" data-node="bai9" onclick="showNodeDetail('bai9')">
+                          <span class="tree-toggle" data-target="bai9-children">▼</span>
+                          <span class="tree-icon" style="color:#2563eb;">📂</span>
+                          <span class="tree-label">
+                            <strong>Bai_09_Tao_Danh_Sach_Bang</strong>
+                          </span>
+                          <span class="tree-badge badge-ready">SẴN SÀNG</span>
+                        </div>
+
+                        <!-- CÁC HOẠT ĐỘNG CỦA BÀI 9 -->
+                        <div class="tree-children" id="bai9-children">
+                          <a href="./Bai9/index.html" class="tree-row" data-node="bai9_index" onclick="event.stopPropagation(); showNodeDetail('bai9_index')">
+                            <span class="tree-icon" style="color:#ea580c;">🌐</span>
+                            <span class="tree-label">index.html (Tổng quan bài học)</span>
+                          </a>
+                          <a href="./Bai9/hd1.html" class="tree-row" data-node="bai9_hd1" onclick="event.stopPropagation(); showNodeDetail('bai9_hd1')">
+                            <span class="tree-icon" style="color:#0284c7;">⚡</span>
+                            <span class="tree-label">hd1.html (HĐ 1: Khởi động ẩm thực 10')</span>
+                          </a>
+                          <a href="./Bai9/hd2-1.html" class="tree-row" data-node="bai9_hd21" onclick="event.stopPropagation(); showNodeDetail('bai9_hd21')">
+                            <span class="tree-icon" style="color:#1d4ed8;">📋</span>
+                            <span class="tree-label">hd2-1.html (HĐ 2.1: Danh sách HTML5)</span>
+                          </a>
+                          <a href="./Bai9/hd2-2.html" class="tree-row" data-node="bai9_hd22" onclick="event.stopPropagation(); showNodeDetail('bai9_hd22')">
+                            <span class="tree-icon" style="color:#7c3aed;">📊</span>
+                            <span class="tree-label">hd2-2.html (HĐ 2.2: Bảng HTML &amp; Kiểm tra chặng)</span>
+                          </a>
+                          <a href="./Bai9/hd3.html" class="tree-row" data-node="bai9_hd3" onclick="event.stopPropagation(); showNodeDetail('bai9_hd3')">
+                            <span class="tree-icon" style="color:#059669;">💻</span>
+                            <span class="tree-label">hd3.html (HĐ 3: Thực hành lập trình CLB.html)</span>
+                          </a>
+                          <a href="./Bai9/hd4.html" class="tree-row" data-node="bai9_hd4" onclick="event.stopPropagation(); showNodeDetail('bai9_hd4')">
+                            <span class="tree-icon" style="color:#d97706;">📈</span>
+                            <span class="tree-label">hd4.html (HĐ 4: Infographic &amp; Luyện tập)</span>
+                          </a>
+                          <a href="./Bai9/phieu-bai-tap-1.html" class="tree-row" data-node="bai9_phieu1" onclick="event.stopPropagation(); showNodeDetail('bai9_phieu1')">
+                            <span class="tree-icon" style="color:#8b5cf6;">📝</span>
+                            <span class="tree-label">phieu-bai-tap-1.html (Phiếu 1: Danh sách)</span>
+                          </a>
+                          <a href="./Bai9/phieu-bai-tap-2.html" class="tree-row" data-node="bai9_phieu2" onclick="event.stopPropagation(); showNodeDetail('bai9_phieu2')">
+                            <span class="tree-icon" style="color:#059669;">📝</span>
+                            <span class="tree-label">phieu-bai-tap-2.html (Phiếu 2: Bảng biểu)</span>
+                          </a>
+                        </div>
                       </div>
 
                       <!-- BÀI 10 (CHƯA CÓ) -->
@@ -1297,7 +1341,103 @@
         actionUrl: './Bai8/phieu-bai-tap-2.html',
         isReady: true
       },
-      bai9: { tag: 'CHỦ ĐỀ F', title: 'Bài 9: Tạo danh sách và bảng biểu trên web (Chưa có)', status: 'Chưa có', statusClass: 'badge-empty', desc: 'Bài học này sẽ được cập nhật tiếp theo.', isReady: false },
+      bai9: {
+        tag: 'BÀI 9 (CHỦ ĐỀ 4)',
+        title: 'Bài 9: Tạo Danh Sách và Bảng (HTML5)',
+        status: '● Sẵn sàng',
+        statusClass: 'badge-ready',
+        desc: 'Khám phá các thẻ danh sách ol, ul, dl, cấu trúc bảng table, tr, td, th, thuộc tính gộp ô rowspan, colspan và không gian code thực hành CLB.html.',
+        actionText: 'Vào Học Bài 9',
+        actionUrl: './Bai9/index.html',
+        isReady: true,
+        activities: [
+          { num: 'Hoạt động 1', name: 'Khởi Động: Nhận Diện Bố Cục Ẩm Thực (10\')', desc: 'Đối sánh danh sách thường bằng thẻ p vs danh sách chuẩn HTML.', url: './Bai9/hd1.html' },
+          { num: 'Hoạt động 2.1', name: 'Khám Phá 1: Danh Sách HTML5 (ol, ul, dl)', desc: 'Tìm hiểu danh sách có thứ tự, không thứ tự, danh sách mô tả và Phiếu 1.', url: './Bai9/hd2-1.html' },
+          { num: 'Hoạt động 2.2', name: 'Khám Phá 2: Bảng & Đánh Giá Chặng', desc: 'Thiết lập bảng dữ liệu, gộp ô rowspan/colspan và bài kiểm tra chặng 5 câu.', url: './Bai9/hd2-2.html' },
+          { num: 'Hoạt động 3', name: 'Luyện Tập: Lập Trình CLB.html (30\')', desc: 'Không gian code thực hành tạo danh sách CLB & bảng lịch hoạt động có gộp ô.', url: './Bai9/hd3.html' },
+          { num: 'Hoạt động 4', name: 'Infographic Đồ Họa & Vận Dụng', desc: 'Cheat Sheet tóm tắt kiến thức và bảng đối chiếu HTML.', url: './Bai9/hd4.html' }
+        ]
+      },
+      bai9_index: {
+        tag: 'BÀI 9',
+        title: 'Trang Chủ & Lộ Trình 4 Hoạt Động Bài 9',
+        status: '● Sẵn sàng',
+        statusClass: 'badge-ready',
+        desc: 'Trang điều hướng trung tâm Bài 9 với mục tiêu cần đạt và học liệu đi kèm.',
+        actionText: 'Mở Trang Tổng Quan',
+        actionUrl: './Bai9/index.html',
+        isReady: true
+      },
+      bai9_hd1: {
+        tag: 'HOẠT ĐỘNG 1',
+        title: 'Khởi Động: Khám Phá Nhu Cầu Danh Sách & Bảng (10\')',
+        status: '● Sẵn sàng',
+        statusClass: 'badge-ready',
+        desc: 'Tình huống thực tế menu ẩm thực và so sánh cấu trúc mã nguồn.',
+        actionText: 'Vào Hoạt Động 1',
+        actionUrl: './Bai9/hd1.html',
+        isReady: true
+      },
+      bai9_hd21: {
+        tag: 'HOẠT ĐỘNG 2.1',
+        title: 'Khám Phá 1: Danh Sách HTML5 & Phiếu 1',
+        status: '● Sẵn sàng',
+        statusClass: 'badge-ready',
+        desc: 'Khám phá thẻ ol, ul, dl và thuộc tính type, start.',
+        actionText: 'Vào Hoạt Động 2.1',
+        actionUrl: './Bai9/hd2-1.html',
+        isReady: true
+      },
+      bai9_hd22: {
+        tag: 'HOẠT ĐỘNG 2.2',
+        title: 'Khám Phá 2: Thiết Lập Bảng & Đánh Giá Chặng',
+        status: '● Sẵn sàng',
+        statusClass: 'badge-ready',
+        desc: 'Cấu trúc table, caption, rowspan, colspan và bảng kiểm tra chặng thời gian thực.',
+        actionText: 'Vào Hoạt Động 2.2',
+        actionUrl: './Bai9/hd2-2.html',
+        isReady: true
+      },
+      bai9_hd3: {
+        tag: 'HOẠT ĐỘNG 3',
+        title: 'Luyện Tập: Thực Hành Tự Lập Trình CLB.html (30\')',
+        status: '● Sẵn sàng',
+        statusClass: 'badge-ready',
+        desc: 'Không gian lập trình thực hành, học sinh tự code trang CLB.html và nộp bài thời gian thực.',
+        actionText: 'Vào Hoạt Động 3',
+        actionUrl: './Bai9/hd3.html',
+        isReady: true
+      },
+      bai9_hd4: {
+        tag: 'HOẠT ĐỘNG 4',
+        title: 'Vận Dụng & Cheat Sheet Infographic',
+        status: '● Sẵn sàng',
+        statusClass: 'badge-ready',
+        desc: 'Infographic tóm tắt kiến thức, so sánh cấu trúc và bài tập vận dụng.',
+        actionText: 'Vào Hoạt Động 4',
+        actionUrl: './Bai9/hd4.html',
+        isReady: true
+      },
+      bai9_phieu1: {
+        tag: 'PHIẾU HỌC TẬP',
+        title: 'Phiếu Học Tập Số 1: Danh Sách HTML',
+        status: '● Sẵn sàng',
+        statusClass: 'badge-ready',
+        desc: 'Kiểm tra nhanh kiến thức về thẻ ol, ul, dl và thuộc tính danh sách.',
+        actionText: 'Mở Phiếu 1',
+        actionUrl: './Bai9/phieu-bai-tap-1.html',
+        isReady: true
+      },
+      bai9_phieu2: {
+        tag: 'PHIẾU HỌC TẬP',
+        title: 'Phiếu Học Tập Số 2: Thiết Lập Bảng HTML',
+        status: '● Sẵn sàng',
+        statusClass: 'badge-ready',
+        desc: 'Kiểm tra nhanh kiến thức về thẻ table, caption, rowspan, colspan.',
+        actionText: 'Mở Phiếu 2',
+        actionUrl: './Bai9/phieu-bai-tap-2.html',
+        isReady: true
+      },
       bai10: { tag: 'CHỦ ĐỀ F', title: 'Bài 10: Biểu mẫu Web và form tương tác (Chưa có)', status: 'Chưa có', statusClass: 'badge-empty', desc: 'Bài học này sẽ được cập nhật tiếp theo.', isReady: false },
       empty: { tag: 'HỌC LIỆU', title: 'Nội dung đang chuẩn bị (Chưa có)', status: 'Chưa có', statusClass: 'badge-empty', desc: 'Học liệu bài học này chưa được đưa lên hệ thống.', isReady: false }
     };
