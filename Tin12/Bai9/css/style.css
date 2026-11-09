@@ -2069,8 +2069,87 @@ p, .text-prose {
 }
 
 /* ==========================================================================
-   COMPREHENSIVE MOBILE RESPONSIVE SUITE (< 768px & < 480px)
+   COMPREHENSIVE RESPONSIVE SUITE (< 1024px, < 768px & < 480px)
    ========================================================================== */
+@media (max-width: 1024px) {
+  .site-header {
+    padding: 0.45rem 0 0.35rem;
+  }
+
+  .nav-wrapper {
+    flex-direction: column;
+    align-items: stretch;
+    height: auto;
+    gap: 0.5rem;
+  }
+
+  .nav-wrapper > div:first-child {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  .nav-links {
+    display: flex;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 0.2rem 0;
+    gap: 0.35rem;
+    width: 100%;
+  }
+
+  .nav-links::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nav-link {
+    padding: 0.35rem 0.65rem;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+    border-radius: var(--radius-pill);
+  }
+
+  .nav-tools {
+    display: none;
+  }
+
+  /* Stepper Section on Tablet/Mobile */
+  .stepper-section {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 0.5rem 0;
+  }
+
+  .stepper-section::-webkit-scrollbar {
+    display: none;
+  }
+
+  .stepper-nav {
+    min-width: 580px;
+    padding: 0 0.5rem;
+    justify-content: flex-start;
+    gap: 0.75rem;
+  }
+
+  .stepper-step {
+    padding: 0.2rem 0.5rem;
+    flex-shrink: 0;
+  }
+
+  .step-label {
+    font-size: 0.75rem;
+    white-space: nowrap;
+  }
+
+  .stepper-line {
+    display: none;
+  }
+}
+
 @media (max-width: 768px) {
   /* Layout & Container */
   :root {
@@ -2105,25 +2184,6 @@ p, .text-prose {
     font-size: 0.9rem !important;
   }
 
-  /* Mobile Site Header & Scrollable Nav */
-  .site-header {
-    padding: 0.45rem 0 0.35rem;
-  }
-
-  .nav-wrapper {
-    flex-direction: column;
-    align-items: stretch;
-    height: auto;
-    gap: 0.5rem;
-  }
-
-  .nav-wrapper > div:first-child {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-  }
-
   .brand-badge {
     gap: 0.5rem;
   }
@@ -2139,65 +2199,6 @@ p, .text-prose {
 
   .brand-text .subtitle {
     font-size: 0.65rem;
-  }
-
-  .nav-links {
-    display: flex;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    padding: 0.2rem 0;
-    gap: 0.35rem;
-    width: 100%;
-  }
-
-  .nav-links::-webkit-scrollbar {
-    display: none;
-  }
-
-  .nav-link {
-    padding: 0.35rem 0.65rem;
-    font-size: 0.8rem;
-    white-space: nowrap;
-    flex-shrink: 0;
-    border-radius: var(--radius-pill);
-  }
-
-  .nav-tools {
-    display: none;
-  }
-
-  /* Mobile Stepper Section */
-  .stepper-section {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    padding: 0.5rem 0;
-  }
-
-  .stepper-section::-webkit-scrollbar {
-    display: none;
-  }
-
-  .stepper-nav {
-    min-width: 540px;
-    padding: 0 0.5rem;
-    justify-content: flex-start;
-    gap: 0.75rem;
-  }
-
-  .stepper-step {
-    padding: 0.2rem 0.5rem;
-    flex-shrink: 0;
-  }
-
-  .step-label {
-    font-size: 0.75rem;
-    white-space: nowrap;
-  }
-
-  .stepper-line {
-    display: none;
   }
 
   /* Mobile Hero Banner */

@@ -8,18 +8,45 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Fira+Code:wght@400;500;600&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=20261108_04">
+  <link rel="stylesheet" href="css/style.css?v=20261109_02">
   <style>
+    /* ==========================================================================
+       RESPONSIVE CORE FIXES FOR HOẠT ĐỘNG 2.1
+       ========================================================================== */
+    html, body {
+      overflow-x: hidden !important;
+      width: 100% !important;
+      max-width: 100vw !important;
+      box-sizing: border-box;
+    }
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    /* Đảm bảo các khung code và pre luôn co giãn an toàn, không làm vỡ grid */
+    pre, code {
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+
+    .grid-2, .grid-2 > *, .card, .syntax-card, .interactive-panel, .sandbox-container > * {
+      min-width: 0 !important;
+      max-width: 100% !important;
+    }
+
     .syntax-card {
       background: #0f172a;
       border: 1px solid #334155;
       border-radius: var(--radius-sm);
       overflow: hidden;
       margin-bottom: 0.85rem;
+      max-width: 100%;
+      min-width: 0;
+      width: 100%;
     }
     .syntax-header {
       background: #1e293b;
-      padding: 0.45rem 0.85rem;
+      padding: 0.5rem 0.85rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -27,6 +54,8 @@
       font-size: 0.78rem;
       color: #94a3b8;
       font-family: var(--font-mono);
+      flex-wrap: wrap;
+      gap: 0.5rem;
     }
     .syntax-body {
       padding: 0.85rem;
@@ -35,7 +64,11 @@
       line-height: 1.6;
       color: #e2e8f0;
       overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
       margin: 0;
+      max-width: 100%;
+      box-sizing: border-box;
+      white-space: pre;
     }
     .hl-tag { color: #f43f5e; font-weight: 600; }
     .hl-attr { color: #38bdf8; }
@@ -47,12 +80,13 @@
       background: rgba(255, 255, 255, 0.08);
       border: 1px solid rgba(255, 255, 255, 0.2);
       color: #e2e8f0;
-      padding: 0.25rem 0.6rem;
+      padding: 0.3rem 0.6rem;
       border-radius: 4px;
       font-size: 0.75rem;
       cursor: pointer;
       transition: all 0.15s ease;
       font-family: var(--font-body);
+      white-space: nowrap;
     }
     .btn-mini-tool:hover {
       background: rgba(255, 255, 255, 0.18);
@@ -71,14 +105,18 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.35rem;
       font-size: 0.75rem;
       color: #475569;
       font-family: var(--font-mono);
+      word-break: break-all;
     }
     .snippet-preview-body {
       background: #ffffff;
       padding: 0.95rem;
       min-height: 110px;
+      overflow-x: auto;
     }
 
     .interactive-panel {
@@ -87,6 +125,8 @@
       border-radius: var(--radius-md);
       padding: 1.25rem;
       margin-top: 1.25rem;
+      max-width: 100%;
+      overflow: hidden;
     }
     .control-label {
       font-size: 0.84rem;
@@ -104,6 +144,8 @@
       color: var(--text-primary);
       outline: none;
       font-family: inherit;
+      max-width: 100%;
+      box-sizing: border-box;
     }
     .control-select:focus, .control-input:focus {
       border-color: var(--color-brand);
@@ -115,6 +157,25 @@
       border-radius: var(--radius-sm);
       padding: 1rem;
       min-height: 120px;
+      overflow-x: auto;
+      max-width: 100%;
+      box-sizing: border-box;
+    }
+
+    #output-list-code {
+      background: #0f172a;
+      color: #7ee787;
+      padding: 0.85rem;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      margin: 0;
+      min-height: 120px;
+      box-sizing: border-box;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      max-width: 100%;
+      white-space: pre;
     }
 
     .sandbox-container {
@@ -122,6 +183,7 @@
       grid-template-columns: 1fr 1fr;
       gap: 1rem;
       margin-top: 1rem;
+      width: 100%;
     }
     @media (max-width: 900px) {
       .sandbox-container { grid-template-columns: 1fr; }
@@ -133,9 +195,12 @@
       overflow: hidden;
       display: flex;
       flex-direction: column;
+      min-width: 0;
+      width: 100%;
     }
     .sandbox-textarea {
       width: 100%;
+      max-width: 100%;
       height: 220px;
       background: #0d1117;
       color: #7ee787;
@@ -157,6 +222,8 @@
       display: flex;
       flex-direction: column;
       box-shadow: var(--shadow-sm);
+      min-width: 0;
+      width: 100%;
     }
     .sandbox-preview iframe {
       width: 100%;
@@ -175,6 +242,7 @@
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.03em;
+      white-space: nowrap;
     }
 
     .sgk-figure-box {
@@ -184,6 +252,9 @@
       padding: 0.85rem;
       margin-top: 0.5rem;
       font-family: inherit;
+      max-width: 100%;
+      overflow-x: auto;
+      box-sizing: border-box;
     }
     .sgk-caption-tag {
       text-align: center;
@@ -194,187 +265,72 @@
       font-weight: 500;
     }
 
-    /* REALTIME DASHBOARD STYLES */
-    .submissions-dashboard-card {
-      background: #ffffff;
-      border: 1.5px solid #cbd5e1;
-      border-radius: 16px;
-      padding: 1.75rem 2rem;
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
-      margin-bottom: 2.5rem;
+    /* Responsive cho thanh chuyển tiếp hoạt động 2.2 */
+    .next-hd-box {
       margin-top: 2rem;
-    }
-
-    .dashboard-header {
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
+      align-items: center;
       flex-wrap: wrap;
       gap: 1.25rem;
-      margin-bottom: 1.5rem;
-      padding-bottom: 1.25rem;
-      border-bottom: 1.5px solid #f1f5f9;
+      padding: 1.5rem;
+      background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+      border: 2px solid #93c5fd;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
     }
-
-    .live-status-pill {
+    .next-hd-btn {
+      font-size: 1.05rem;
+      padding: 0.85rem 1.75rem;
+      font-weight: 800;
+      box-shadow: 0 4px 16px rgba(29, 78, 216, 0.35);
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
-      background: #ecfdf5;
-      border: 1px solid #a7f3d0;
-      color: #065f46;
-      font-size: 0.78rem;
-      font-weight: 800;
-      padding: 0.3rem 0.75rem;
-      border-radius: 9999px;
-      letter-spacing: 0.5px;
-    }
-
-    .live-dot {
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-      background: #10b981;
-      box-shadow: 0 0 0 rgba(16, 185, 129, 0.5);
-      animation: pulseLive 1.8s infinite;
-    }
-
-    @keyframes pulseLive {
-      0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
-      70% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
-    }
-
-    .dashboard-actions {
-      display: flex;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-
-    .stats-row {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .stat-box {
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
-      border-radius: 12px;
-      padding: 1rem 1.25rem;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .stat-icon {
-      width: 44px;
-      height: 44px;
-      border-radius: 10px;
-      background: #ffffff;
-      display: flex;
-      align-items: center;
+      gap: 0.6rem;
+      text-align: center;
       justify-content: center;
-      font-size: 1.4rem;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      max-width: 100%;
+      white-space: normal;
     }
 
-    .stat-info .stat-value {
-      font-size: 1.5rem;
-      font-weight: 800;
-      color: #0f172a;
-      line-height: 1.2;
+    @media (max-width: 768px) {
+      .next-hd-box {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        padding: 1.15rem !important;
+      }
+      .next-hd-btn {
+        width: 100% !important;
+        font-size: 0.95rem !important;
+        padding: 0.75rem 1rem !important;
+      }
+      .syntax-header {
+        flex-direction: column !important;
+        align-items: stretch !important;
+      }
+      .syntax-header > div {
+        justify-content: flex-start !important;
+      }
+      .btn-mini-tool {
+        padding: 0.28rem 0.5rem !important;
+        font-size: 0.72rem !important;
+      }
     }
 
-    .stat-info .stat-label {
-      font-size: 0.82rem;
-      color: #64748b;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.3px;
-    }
-
-    .table-responsive {
-      width: 100%;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      border-radius: 10px;
-      border: 1px solid #e2e8f0;
-    }
-
-    .submissions-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.92rem;
-    }
-
-    .submissions-table th, .submissions-table td {
-      padding: 0.85rem 1rem;
-      border-bottom: 1px solid #e2e8f0;
-      text-align: left;
-    }
-
-    .submissions-table th {
-      background: #f8fafc;
-      font-weight: 700;
-      color: #475569;
-      font-size: 0.82rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .score-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
-      padding: 0.25rem 0.65rem;
-      border-radius: 9999px;
-      font-weight: 700;
-      font-size: 0.85rem;
-    }
-
-    .score-badge.high { background: #dcfce7; color: #15803d; border: 1px solid #86efac; }
-    .score-badge.medium { background: #fef9c3; color: #a16207; border: 1px solid #fde047; }
-    .score-badge.low { background: #fee2e2; color: #b91c1c; border: 1px solid #fca5a5; }
-
-    /* Modal phóng to xem bài làm học sinh */
-    .qr-zoom-modal {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(15, 23, 42, 0.7);
-      backdrop-filter: blur(5px);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 99999;
-      padding: 1rem;
-      box-sizing: border-box;
-    }
-    .qr-zoom-modal.active {
-      display: flex;
-    }
-
-    .teacher-modal-overlay {
-      position: fixed !important;
-      inset: 0 !important;
-      width: 100vw !important;
-      height: 100vh !important;
-      background: rgba(15, 23, 42, 0.75) !important;
-      backdrop-filter: blur(8px) !important;
-      display: none !important;
-      align-items: center !important;
-      justify-content: center !important;
-      z-index: 999999 !important;
-      padding: 1.5rem !important;
-      box-sizing: border-box !important;
-    }
-    .teacher-modal-overlay.active {
-      display: flex !important;
+    @media (max-width: 480px) {
+      .container {
+        padding-left: 0.75rem !important;
+        padding-right: 0.75rem !important;
+      }
+      .card, .interactive-panel {
+        padding: 0.85rem !important;
+      }
+      .hero-title {
+        font-size: 1.35rem !important;
+      }
+      .section-title {
+        font-size: 1.2rem !important;
+      }
     }
   </style>
 </head>
@@ -583,9 +539,9 @@
                 <div class="syntax-header">
                   <div style="display: flex; gap: 0.35rem; align-items: center; flex-wrap: wrap;">
                     <button id="btn-tab-ol-code" class="btn-mini-tool active-tool" type="button" onclick="toggleSnippetView('ol', 'code')">💻 Mã HTML</button>
-                    <button id="btn-tab-ol-preview" class="btn-mini-tool" type="button" onclick="toggleSnippetView('ol', 'preview')" style="color: #7ee787; border-color: rgba(126, 231, 135, 0.4);">▶ Xem kết quả Web (Compile)</button>
+                    <button id="btn-tab-ol-preview" class="btn-mini-tool" type="button" onclick="toggleSnippetView('ol', 'preview')" style="color: #7ee787; border-color: rgba(126, 231, 135, 0.4);">▶ Xem kết quả Web</button>
                   </div>
-                  <div style="display: flex; gap: 0.35rem; align-items: center;">
+                  <div style="display: flex; gap: 0.35rem; align-items: center; flex-wrap: wrap;">
                     <button class="btn-mini-tool" type="button" onclick="sendToSandbox('list_nested')" title="Mở mã trong Sandbox">⚡ Sửa mã</button>
                     <button class="btn-mini-tool" type="button" onclick="copySnippet('code-ol')">Sao chép</button>
                   </div>
@@ -642,6 +598,13 @@
                 <div class="syntax-header">
                   <div style="display: flex; gap: 0.35rem; align-items: center; flex-wrap: wrap;">
                     <button id="btn-tab-ul-code" class="btn-mini-tool active-tool" type="button" onclick="toggleSnippetView('ul', 'code')">💻 Mã HTML</button>
+                    <button id="btn-tab-ul-preview" class="btn-mini-tool" type="button" onclick="toggleSnippetView('ul', 'preview')" style="color: #7ee787; border-color: rgba(126, 231, 135, 0.4);">▶ Xem kết quả Web</button>
+                  </div>
+                  <div style="display: flex; gap: 0.35rem; align-items: center; flex-wrap: wrap;">
+                    <button class="btn-mini-tool" type="button" onclick="sendToSandbox('list_nested')" title="Mở mã trong Sandbox">⚡ Sửa mã</button>
+                    <button class="btn-mini-tool" type="button" onclick="copySnippet('code-ul')">Sao chép</button>
+                  </div>
+                </div>
                     <button id="btn-tab-ul-preview" class="btn-mini-tool" type="button" onclick="toggleSnippetView('ul', 'preview')" style="color: #7ee787; border-color: rgba(126, 231, 135, 0.4);">▶ Xem kết quả Web (Compile)</button>
                   </div>
                   <div style="display: flex; gap: 0.35rem; align-items: center;">
@@ -738,9 +701,9 @@
                   <div class="syntax-header" style="background: #1e293b; color: #fde047;">
                     <div style="display: flex; gap: 0.35rem; align-items: center; flex-wrap: wrap;">
                       <button id="btn-tab-dl-code" class="btn-mini-tool active-tool" type="button" onclick="toggleSnippetView('dl', 'code')">💻 Mã HTML</button>
-                      <button id="btn-tab-dl-preview" class="btn-mini-tool" type="button" onclick="toggleSnippetView('dl', 'preview')" style="color: #fde047; border-color: rgba(253, 224, 71, 0.4);">▶ Xem kết quả Web (Compile)</button>
+                      <button id="btn-tab-dl-preview" class="btn-mini-tool" type="button" onclick="toggleSnippetView('dl', 'preview')" style="color: #fde047; border-color: rgba(253, 224, 71, 0.4);">▶ Xem kết quả Web</button>
                     </div>
-                    <div style="display: flex; gap: 0.35rem; align-items: center;">
+                    <div style="display: flex; gap: 0.35rem; align-items: center; flex-wrap: wrap;">
                       <button class="btn-mini-tool" type="button" onclick="sendToSandbox('list_dl_sgk')" title="Mở mã trong Sandbox">⚡ Sửa mã</button>
                       <button class="btn-mini-tool" type="button" onclick="copySnippet('code-dl')">Sao chép</button>
                     </div>
@@ -773,7 +736,7 @@
               </div>
 
               <!-- KHUNG MÔ PHỎNG TRỰC TIẾP HÌNH 9.3 TRÊN TRÌNH DUYỆT -->
-              <div style="display: flex; flex-direction: column; justify-content: center;">
+              <div style="display: flex; flex-direction: column; justify-content: center; min-width: 0;">
                 <div class="sgk-figure-box" style="border: 2px solid #cbd5e1; box-shadow: var(--shadow-xs);">
                   <div style="background: #f1f5f9; padding: 0.35rem 0.65rem; border-bottom: 1px solid #e2e8f0; font-size: 0.76rem; font-family: var(--font-mono); color: #64748b; margin: -0.85rem -0.85rem 0.65rem -0.85rem;">
                     🌐 Hiển thị trên màn hình trình duyệt (Render)
@@ -781,9 +744,9 @@
                   
                   <div style="background: #ffffff; padding: 0.6rem 0.5rem; font-family: 'Times New Roman', Times, serif; font-size: 1.05rem; line-height: 1.6;">
                     <div style="font-weight: 700; color: #000;">Kem</div>
-                    <div style="margin-left: 3.5rem; color: #111;">Món ăn ngọt, ở dạng đông lạnh.</div>
+                    <div class="sgk-dd-indent" style="margin-left: clamp(1.25rem, 5vw, 3.5rem); color: #111;">Món ăn ngọt, ở dạng đông lạnh.</div>
                     <div style="font-weight: 700; color: #000; margin-top: 0.35rem;">Trà sữa</div>
-                    <div style="margin-left: 3.5rem; color: #111;">Đồ uống làm từ hai nguyên liệu trà và sữa.</div>
+                    <div class="sgk-dd-indent" style="margin-left: clamp(1.25rem, 5vw, 3.5rem); color: #111;">Đồ uống làm từ hai nguyên liệu trà và sữa.</div>
                   </div>
                 </div>
                 <div class="sgk-caption-tag">
@@ -812,9 +775,9 @@
 
             <div class="grid-2">
               <!-- Cách viết ĐÚNG CHUẨN SGK & W3C -->
-              <div style="background: #f0fdf4; border: 1.5px solid #86efac; border-radius: var(--radius-sm); padding: 0.85rem;">
+              <div style="background: #f0fdf4; border: 1.5px solid #86efac; border-radius: var(--radius-sm); padding: 0.85rem; min-width: 0; max-width: 100%;">
                 <span class="compare-tag success" style="margin-bottom: 0.45rem;">✅ CÁCH VIẾT CHUẨN THEO SGK</span>
-                <pre style="background: #0f172a; color: #cbd5e1; padding: 0.75rem; border-radius: 4px; font-size: 0.8rem; font-family: var(--font-mono); margin: 0.35rem 0 0; line-height: 1.55;"><span class="hl-tag">&lt;ul&gt;</span>
+                <pre class="syntax-body" style="background: #0f172a; color: #cbd5e1; padding: 0.75rem; border-radius: 4px; font-size: 0.8rem; font-family: var(--font-mono); margin: 0.35rem 0 0; line-height: 1.55; overflow-x: auto; max-width: 100%;"><span class="hl-tag">&lt;ul&gt;</span>
   <span class="hl-tag">&lt;li&gt;</span><span class="hl-text">Miền Bắc</span>
     <span class="hl-comm">&lt;!-- Danh sách con NẰM TRỌN TRONG thẻ li cha --&gt;</span>
     <span class="hl-tag">&lt;ol&gt;</span>
@@ -827,9 +790,9 @@
               </div>
 
               <!-- Lỗi sai thường gặp -->
-              <div style="background: #fef2f2; border: 1.5px solid #fca5a5; border-radius: var(--radius-sm); padding: 0.85rem;">
+              <div style="background: #fef2f2; border: 1.5px solid #fca5a5; border-radius: var(--radius-sm); padding: 0.85rem; min-width: 0; max-width: 100%;">
                 <span class="compare-tag danger" style="margin-bottom: 0.45rem;">❌ LỖI SAI KINH ĐIỂN CẦN TRÁNH</span>
-                <pre style="background: #0f172a; color: #cbd5e1; padding: 0.75rem; border-radius: 4px; font-size: 0.8rem; font-family: var(--font-mono); margin: 0.35rem 0 0; line-height: 1.55;"><span class="hl-tag">&lt;ul&gt;</span>
+                <pre class="syntax-body" style="background: #0f172a; color: #cbd5e1; padding: 0.75rem; border-radius: 4px; font-size: 0.8rem; font-family: var(--font-mono); margin: 0.35rem 0 0; line-height: 1.55; overflow-x: auto; max-width: 100%;"><span class="hl-tag">&lt;ul&gt;</span>
   <span class="hl-tag">&lt;li&gt;</span><span class="hl-text">Miền Bắc</span><span class="hl-tag">&lt;/li&gt;</span> <span class="hl-comm">&lt;!-- ĐÃ ĐÓNG LI QUÁ SỚM! --&gt;</span>
   
   <span class="hl-comm">&lt;!-- Đặt ol lơ lửng làm con trực tiếp của ul là SAI CÚ PHÁP --&gt;</span>
@@ -857,7 +820,7 @@
             <span style="font-size: 0.78rem; color: var(--text-muted);">Thay đổi tùy chọn bên dưới để xem trình duyệt tự động cập nhật</span>
           </div>
 
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-bottom: 1rem;">
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr)); gap: 0.75rem; margin-bottom: 1rem;">
             <div>
               <label class="control-label" for="select-list-tag">Loại danh sách:</label>
               <select id="select-list-tag" class="control-select" style="width: 100%;" onchange="updateInteractiveList()">
@@ -909,7 +872,7 @@
               <div style="font-size: 0.78rem; font-weight: 700; color: var(--text-muted); margin-bottom: 0.35rem; text-transform: uppercase;">
                 Mã HTML tự động sinh ra:
               </div>
-              <pre id="output-list-code" style="background: #0f172a; color: #7ee787; padding: 0.85rem; border-radius: var(--radius-sm); font-family: var(--font-mono); font-size: 0.82rem; margin: 0; min-height: 120px; box-sizing: border-box;"></pre>
+              <pre id="output-list-code" class="syntax-body" style="background: #0f172a; color: #7ee787; padding: 0.85rem; border-radius: var(--radius-sm); font-family: var(--font-mono); font-size: 0.82rem; margin: 0; min-height: 120px; box-sizing: border-box; overflow-x: auto; max-width: 100%;"></pre>
             </div>
 
             <!-- Kết quả hiển thị Web -->
@@ -967,18 +930,18 @@
         </div>
 
         <!-- THANH CHUYỂN TIẾP SANG HOẠT ĐỘNG 2.2 -->
-        <div style="margin-top: 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; padding: 1.5rem; background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); border: 2px solid #93c5fd; border-radius: var(--radius-md); box-shadow: var(--shadow-sm);">
-          <div style="max-width: 650px;">
+        <div class="next-hd-box">
+          <div style="max-width: 650px; min-width: 0;">
             <span style="display: inline-block; background: #2563eb; color: #ffffff; font-size: 0.78rem; font-weight: 700; padding: 0.25rem 0.75rem; border-radius: 9999px; text-transform: uppercase; margin-bottom: 0.4rem;">✓ HOÀN THÀNH KHÁM PHÁ 2.1</span>
-            <h4 style="margin: 0; color: #1e3a8a; font-size: 1.25rem; font-weight: 800;">
+            <h4 style="margin: 0; color: #1e3a8a; font-size: 1.25rem; font-weight: 800; line-height: 1.35;">
               Xuất sắc! Em đã nắm vững toàn bộ kiến thức về Danh sách HTML (&lt;ol&gt;, &lt;ul&gt;, &lt;dl&gt;)
             </h4>
             <p style="margin: 0.4rem 0 0; color: #1d4ed8; font-size: 0.92rem; line-height: 1.6;">
               Bây giờ, hãy tiếp tục tiến sang <strong>Hoạt động 2.2</strong> để khám phá cách tạo và định dạng <strong>Bảng trong HTML</strong>. Sau khi học xong cả 2 phần (2.1 và 2.2), cả lớp sẽ cùng thực hiện bài kiểm tra ngắn đánh giá chặng trước khi vào giờ thực hành nhé!
             </p>
           </div>
-          <div>
-            <a href="hd2-2.html" class="btn btn-primary" style="font-size: 1.05rem; padding: 0.85rem 1.75rem; font-weight: 800; box-shadow: 0 4px 16px rgba(29, 78, 216, 0.35); display: inline-flex; align-items: center; gap: 0.6rem;">
+          <div style="width: auto; min-width: 0;">
+            <a href="hd2-2.html" class="btn btn-primary next-hd-btn">
               <span>Tiến sang Hoạt Động 2.2: Thiết Lập Bảng (15')</span>
               <span>→</span>
             </a>
@@ -1038,7 +1001,7 @@
   <li>Bước 2: Tiến hành chế biến</li>
   <li>Bước 3: Trình bày và thưởng thức</li>
 </ol>`;
-        renderHtml = `<ol type="${olType}" start="${olStart}" style="margin: 0; padding-left: 1.5rem; line-height: 1.7; font-size: 0.92rem;">
+        renderHtml = `<ol type="${olType}" start="${olStart}" style="margin: 0; padding-left: clamp(1.2rem, 4vw, 1.8rem); line-height: 1.7; font-size: 0.92rem;">
   <li><strong>Bước 1: Chuẩn bị nguyên liệu</strong></li>
   <li><strong>Bước 2: Tiến hành chế biến</strong></li>
   <li><strong>Bước 3: Trình bày và thưởng thức</strong></li>
@@ -1054,7 +1017,7 @@
   <li>CSS3: Định dạng giao diện</li>
   <li>JavaScript: Tạo tương tác thông minh</li>
 </ul>`;
-        renderHtml = `<ul style="list-style-type: ${ulStyle}; margin: 0; padding-left: 1.5rem; line-height: 1.7; font-size: 0.92rem;">
+        renderHtml = `<ul style="list-style-type: ${ulStyle}; margin: 0; padding-left: clamp(1.2rem, 4vw, 1.8rem); line-height: 1.7; font-size: 0.92rem;">
   <li><strong>HTML5: Cấu trúc trang web</strong></li>
   <li><strong>CSS3: Định dạng giao diện</strong></li>
   <li><strong>JavaScript: Tạo tương tác thông minh</strong></li>
@@ -1074,9 +1037,9 @@
 </dl>`;
           renderHtml = `<dl style="margin: 0; line-height: 1.7; font-size: 0.95rem;">
   <dt style="font-weight: 700; color: #0f172a;"><b>Kem</b></dt>
-  <dd style="margin-left: 2rem; color: #334155; margin-bottom: 0.5rem;">Món ăn ngọt, ở dạng đông lạnh.</dd>
+  <dd style="margin-left: clamp(1rem, 4vw, 2rem); color: #334155; margin-bottom: 0.5rem;">Món ăn ngọt, ở dạng đông lạnh.</dd>
   <dt style="font-weight: 700; color: #0f172a;"><b>Trà sữa</b></dt>
-  <dd style="margin-left: 2rem; color: #334155;">Đồ uống làm từ hai nguyên liệu trà và sữa.</dd>
+  <dd style="margin-left: clamp(1rem, 4vw, 2rem); color: #334155;">Đồ uống làm từ hai nguyên liệu trà và sữa.</dd>
 </dl>`;
         } else if (dlPreset === 'web') {
           codeStr = `<dl>
@@ -1089,11 +1052,11 @@
 </dl>`;
           renderHtml = `<dl style="margin: 0; line-height: 1.6; font-size: 0.92rem;">
   <dt style="font-weight: 700; color: #1e293b; margin-top: 0.25rem;">HTML5</dt>
-  <dd style="margin-left: 1.5rem; color: #475569; margin-bottom: 0.45rem;">Ngôn ngữ đánh dấu siêu văn bản, tạo cấu trúc trang web.</dd>
+  <dd style="margin-left: clamp(1rem, 4vw, 1.5rem); color: #475569; margin-bottom: 0.45rem;">Ngôn ngữ đánh dấu siêu văn bản, tạo cấu trúc trang web.</dd>
   <dt style="font-weight: 700; color: #1e293b;">CSS3</dt>
-  <dd style="margin-left: 1.5rem; color: #475569; margin-bottom: 0.45rem;">Ngôn ngữ định kiểu, tùy biến màu sắc và giao diện.</dd>
+  <dd style="margin-left: clamp(1rem, 4vw, 1.5rem); color: #475569; margin-bottom: 0.45rem;">Ngôn ngữ định kiểu, tùy biến màu sắc và giao diện.</dd>
   <dt style="font-weight: 700; color: #1e293b;">JavaScript</dt>
-  <dd style="margin-left: 1.5rem; color: #475569;">Ngôn ngữ lập trình tạo sự tương tác thông minh.</dd>
+  <dd style="margin-left: clamp(1rem, 4vw, 1.5rem); color: #475569;">Ngôn ngữ lập trình tạo sự tương tác thông minh.</dd>
 </dl>`;
         } else {
           codeStr = `<dl>
@@ -1106,11 +1069,11 @@
 </dl>`;
           renderHtml = `<dl style="margin: 0; line-height: 1.6; font-size: 0.92rem;">
   <dt style="font-weight: 700; color: #1e293b; margin-top: 0.25rem;">Bánh tráng trộn</dt>
-  <dd style="margin-left: 1.5rem; color: #475569; margin-bottom: 0.45rem;">Món ăn vặt thơm ngon đậm đà kèm trứng cút và xoài sợi.</dd>
+  <dd style="margin-left: clamp(1rem, 4vw, 1.5rem); color: #475569; margin-bottom: 0.45rem;">Món ăn vặt thơm ngon đậm đà kèm trứng cút và xoài sợi.</dd>
   <dt style="font-weight: 700; color: #1e293b;">Trà đào cam sả</dt>
-  <dd style="margin-left: 1.5rem; color: #475569; margin-bottom: 0.45rem;">Đồ uống thanh nhiệt cực mát lạnh cho ngày hè oi bức.</dd>
+  <dd style="margin-left: clamp(1rem, 4vw, 1.5rem); color: #475569; margin-bottom: 0.45rem;">Đồ uống thanh nhiệt cực mát lạnh cho ngày hè oi bức.</dd>
   <dt style="font-weight: 700; color: #1e293b;">Chè khúc bạch</dt>
-  <dd style="margin-left: 1.5rem; color: #475569;">Món tráng miệng ngọt nhẹ thanh mát giải nhiệt.</dd>
+  <dd style="margin-left: clamp(1rem, 4vw, 1.5rem); color: #475569;">Món tráng miệng ngọt nhẹ thanh mát giải nhiệt.</dd>
 </dl>`;
         }
       }
