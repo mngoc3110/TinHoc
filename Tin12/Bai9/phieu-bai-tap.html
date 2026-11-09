@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phiếu Bài Tập: Tạo Danh Sách & Bảng Trong HTML | Tin học 12</title>
+  <meta name="description" content="Phiếu học tập trực tuyến tổng hợp - Đánh giá chặng 2.1 & 2.2: Tạo Danh Sách & Thiết Lập Bảng Trong HTML. Môn Tin học 12.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Fira+Code:wght@400;500;600&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=20261108_03">
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary-color: #1d4ed8;
+      --primary-hover: #1e40af;
+      --success-color: #059669;
+      --card-bg: #ffffff;
+      --border-color: #e2e8f0;
+    }
+
+    body {
+      background-color: #f1f5f9;
+      color: #0f172a;
+      font-family: 'Plus Jakarta Sans', 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      width: 100%;
+    }
+
+    .worksheet-header {
+      background: linear-gradient(135deg, #1e3a8a 0%, #1d4ed8 50%, #2563eb 100%);
+      color: #ffffff;
+      padding: 1.75rem 1rem;
+      box-shadow: 0 4px 20px rgba(29, 78, 216, 0.25);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .worksheet-header-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 0.35rem 0.85rem;
+      border-radius: 9999px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: #ffffff;
+      transition: all 0.2s ease;
+    }
+
+    .badge-pill:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: translateY(-1px);
+    }
+
+    .worksheet-title {
+      font-size: 1.6rem;
+      font-weight: 800;
+      margin: 0.4rem 0 0.2rem 0;
+      letter-spacing: -0.02em;
+    }
+
+    .worksheet-meta {
+      font-size: 0.9rem;
+      opacity: 0.92;
+      line-height: 1.5;
+    }
+
+    .worksheet-main {
+      max-width: 960px;
+      margin: 1.5rem auto 3rem auto;
+      padding: 0 1rem;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .student-info-card {
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 10px -1px rgba(0, 0, 0, 0.05);
+      border: 1px solid var(--border-color);
+      margin-bottom: 2rem;
+      border-top: 5px solid #2563eb;
+      box-sizing: border-box;
+      width: 100%;
+    }
+
+    .card-heading {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #1e3a8a;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      border-bottom: 1px dashed #cbd5e1;
+      padding-bottom: 0.75rem;
+    }
+
+    .mode-switcher {
+      display: inline-flex;
+      background: #f1f5f9;
+      padding: 0.25rem;
+      border-radius: 8px;
+      gap: 0.25rem;
+      border: 1px solid #cbd5e1;
+    }
+
+    .mode-btn {
+      padding: 0.45rem 0.9rem;
+      font-size: 0.82rem;
+      font-weight: 700;
+      border: none;
+      background: transparent;
+      color: #64748b;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-family: inherit;
+    }
+
+    .mode-btn.active {
+      background: #2563eb;
+      color: #ffffff;
+      box-shadow: 0 1px 3px rgba(37, 99, 235, 0.3);
+    }
+
+    .pair-students-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.25rem;
+      margin-top: 1rem;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    @media (max-width: 768px) {
+      .pair-students-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .student-sub-card {
+      background: #f8fafc;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 1.1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      transition: all 0.2s ease;
+      min-width: 0;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .student-sub-card:focus-within {
+      border-color: #93c5fd;
+      background: #ffffff;
+    }
+
+    .student-sub-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #1e40af;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr);
+      gap: 1rem;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    @media (max-width: 768px) {
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      min-width: 0;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .form-label {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: #334155;
+    }
+
+    .form-label span.req {
+      color: #dc2626;
+    }
+
+    .form-control {
+      width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
+      padding: 0.65rem 0.85rem;
+      font-size: 0.95rem;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 8px;
+      background: #f8fafc;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: #2563eb;
+      background: #ffffff;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+
+    /* TIÊU ĐỀ PHÂN ĐOẠN (SECTION DIVIDER) */
+    .section-divider-card {
+      background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+      border: 1.5px solid #bfdbfe;
+      border-left: 6px solid #2563eb;
+      border-radius: 12px;
+      padding: 1.15rem 1.5rem;
+      margin: 2rem 0 1.25rem 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .section-divider-card.theme-emerald {
+      background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+      border-color: #a7f3d0;
+      border-left-color: #059669;
+    }
+
+    .section-heading-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #1e3a8a;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .theme-emerald .section-heading-title {
+      color: #065f46;
+    }
+
+    .section-heading-sub {
+      font-size: 0.85rem;
+      color: #475569;
+      margin-top: 0.2rem;
+    }
+
+    .theme-emerald .section-heading-sub {
+      color: #047857;
+    }
+
+    .section-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.3rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      background: #ffffff;
+      color: #1e40af;
+      border: 1px solid #bfdbfe;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    }
+
+    .theme-emerald .section-badge {
+      color: #065f46;
+      border-color: #a7f3d0;
+    }
+
+    .question-card {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 3px 8px -1px rgba(0, 0, 0, 0.05);
+      border: 1px solid var(--border-color);
+      margin-bottom: 1.25rem;
+      transition: all 0.2s ease;
+    }
+
+    .question-card:hover {
+      box-shadow: 0 6px 14px -2px rgba(0, 0, 0, 0.08);
+      border-color: #cbd5e1;
+    }
+
+    .q-number-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 30px;
+      height: 30px;
+      background: #eff6ff;
+      color: #1d4ed8;
+      font-weight: 800;
+      border-radius: 9999px;
+      font-size: 0.92rem;
+      margin-right: 0.65rem;
+      border: 1px solid #bfdbfe;
+      flex-shrink: 0;
+    }
+
+    .theme-p2-badge {
+      background: #ecfdf5;
+      color: #059669;
+      border-color: #a7f3d0;
+    }
+
+    .q-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #0f172a;
+      line-height: 1.55;
+      margin-bottom: 0.85rem;
+      display: flex;
+      align-items: flex-start;
+    }
+
+    .options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      margin-top: 0.75rem;
+    }
+
+    .option-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 0.85rem 1rem;
+      background: #f8fafc;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      font-size: 0.93rem;
+      line-height: 1.5;
+    }
+
+    .option-label:hover {
+      background: #eff6ff;
+      border-color: #bfdbfe;
+    }
+
+    .option-label input[type="radio"] {
+      margin-top: 0.2rem;
+      width: 18px;
+      height: 18px;
+      accent-color: #2563eb;
+      flex-shrink: 0;
+    }
+
+    .feedback-banner {
+      margin-top: 1rem;
+      padding: 0.85rem 1.15rem;
+      border-radius: 8px;
+      font-size: 0.92rem;
+      line-height: 1.55;
+      display: none;
+    }
+
+    .feedback-banner.show-correct {
+      display: block;
+      background: #ecfdf5;
+      border: 1.5px solid #a7f3d0;
+      color: #065f46;
+    }
+
+    .feedback-banner.show-wrong {
+      display: block;
+      background: #fef2f2;
+      border: 1.5px solid #fecaca;
+      color: #991b1b;
+    }
+
+    .submit-bar {
+      position: sticky;
+      bottom: 1rem;
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      padding: 1.1rem 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      z-index: 40;
+    }
+
+    /* Modal kết quả */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      padding: 1rem;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-card {
+      background: #ffffff;
+      border-radius: 16px;
+      max-width: 620px;
+      width: 100%;
+      padding: 2.25rem 2rem;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      animation: modalFadeIn 0.25s ease-out;
+    }
+
+    @keyframes modalFadeIn {
+      from { transform: scale(0.95); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==========================================
+       HEADER PHIẾU BÀI TẬP TỔNG HỢP
+       ========================================== -->
+  <header class="worksheet-header">
+    <div class="worksheet-header-inner">
+      <div>
+        <div style="display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 0.35rem;">
+          <a href="hd2-2.html" class="badge-pill">← Quay lại Hoạt động 2.2</a>
+          <span class="badge-pill">Tin học 12 • Cánh Diều</span>
+          <span class="badge-pill">Đánh giá chặng 2.1 &amp; 2.2</span>
+        </div>
+        <h1 class="worksheet-title">📝 Phiếu Học Tập: Làm Chủ Danh Sách &amp; Bảng HTML</h1>
+        <div class="worksheet-meta">
+          Bài 9: Tạo Danh Sách, Bảng • Kiểm tra cốt lõi để tự tin mở khóa bước sang <strong>Hoạt động 3: Luyện tập CLB (30')</strong>!
+        </div>
+      </div>
+
+      <div style="text-align: right; background: rgba(255,255,255,0.15); padding: 0.65rem 1.15rem; border-radius: 10px; border: 1px solid rgba(255,255,255,0.25);">
+        <div style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.9;">Thời gian đề xuất</div>
+        <div style="font-size: 1.4rem; font-weight: 800;">10 - 15 phút</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==========================================
+       NỘI DUNG CHÍNH PHIẾU HỌC TẬP
+       ========================================== -->
+  <main class="worksheet-main">
+
+    <!-- THÔNG TIN HỌC SINH / NHÓM HỌC TẬP -->
+    <div class="student-info-card">
+      <div class="card-heading">
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+          <span style="font-size: 1.3rem;">👤</span>
+          <span>THÔNG TIN HỌC SINH / NHÓM THỰC HIỆN</span>
+        </div>
+        <div class="mode-switcher">
+          <button type="button" class="mode-btn active" id="btn-mode-pair" onclick="switchStudentMode('pair')">
+            👥 Cặp đôi (2 bạn)
+          </button>
+          <button type="button" class="mode-btn" id="btn-mode-single" onclick="switchStudentMode('single')">
+            👤 Cá nhân (1 bạn)
+          </button>
+        </div>
+      </div>
+
+      <!-- CHẾ ĐỘ 1: LÀM THEO CẶP (PAIR WORK - MẶC ĐỊNH) -->
+      <div id="wrapper-mode-pair">
+        <div style="font-size: 0.86rem; color: #64748b; margin-bottom: 0.75rem;">
+          💡 Hai bạn ngồi cùng máy thảo luận và cùng thống nhất phương án chọn.
+        </div>
+        <div class="pair-students-grid">
+          <!-- HỌC SINH 1 -->
+          <div class="student-sub-card">
+            <div class="student-sub-title">
+              <span>🧑‍💻 Học sinh 1 (Thành viên chính)</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="hs1-name">Họ và tên <span class="req">*</span></label>
+              <input type="text" id="hs1-name" class="form-control" placeholder="Ví dụ: Nguyễn Văn An" required autocomplete="off">
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+              <div class="form-group">
+                <label class="form-label" for="hs1-stt">Số máy / STT <span class="req">*</span></label>
+                <input type="text" id="hs1-stt" class="form-control" placeholder="Máy 01" required autocomplete="off">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="hs1-class">Lớp <span class="req">*</span></label>
+                <input type="text" id="hs1-class" class="form-control" value="12A1" required autocomplete="off">
+              </div>
+            </div>
+          </div>
+
+          <!-- HỌC SINH 2 -->
+          <div class="student-sub-card">
+            <div class="student-sub-title">
+              <span>🧑‍💻 Học sinh 2 (Thành viên cùng nhóm)</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="hs2-name">Họ và tên (Bạn cùng máy)</label>
+              <input type="text" id="hs2-name" class="form-control" placeholder="Ví dụ: Trần Thị Bình" autocomplete="off">
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+              <div class="form-group">
+                <label class="form-label" for="hs2-stt">Số máy / STT</label>
+                <input type="text" id="hs2-stt" class="form-control" placeholder="Máy 01" autocomplete="off">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="hs2-class">Lớp</label>
+                <input type="text" id="hs2-class" class="form-control" value="12A1" autocomplete="off">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CHẾ ĐỘ 2: LÀM ĐƠN LẺ CÁ NHÂN (SINGLE WORK) -->
+      <div id="wrapper-mode-single" style="display: none;">
+        <div style="font-size: 0.86rem; color: #64748b; margin-bottom: 0.75rem;">
+          💡 Nhập thông tin cá nhân của bạn để ghi nhận điểm số vào sổ đánh giá lớp.
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label" for="single-name">Họ và tên học sinh <span class="req">*</span></label>
+            <input type="text" id="single-name" class="form-control" placeholder="Ví dụ: Lê Minh Hoàng" autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="single-class">Lớp <span class="req">*</span></label>
+            <input type="text" id="single-class" class="form-control" value="12A1" autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="single-stt">Số máy / STT <span class="req">*</span></label>
+            <input type="text" id="single-stt" class="form-control" placeholder="Máy 15" autocomplete="off">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====================================================================
+         PHẦN 1: KHÁM PHÁ DANH SÁCH HTML (<ol>, <ul>, <dl>) - 5 CÂU (5.0 ĐIỂM)
+         ==================================================================== -->
+    <div class="section-divider-card">
+      <div>
+        <h2 class="section-heading-title">
+          <span>📋 PHẦN 1: LÀM CHỦ DANH SÁCH HTML (&lt;ol&gt;, &lt;ul&gt;, &lt;dl&gt;)</span>
+        </h2>
+        <div class="section-heading-sub">
+          Gồm 5 câu trắc nghiệm (Câu 1 đến Câu 5) • Kiểm tra kỹ năng phân cấp danh sách, thứ tự và danh sách mô tả.
+        </div>
+      </div>
+      <span class="section-badge">5 Câu • 5.0 Điểm</span>
+    </div>
+
+    <!-- CÂU 1 -->
+    <div class="question-card" id="q1-box">
+      <div class="q-title">
+        <span class="q-number-badge">1</span>
+        <div>Trong ngôn ngữ HTML, cặp thẻ nào sau đây được dùng để tạo <strong>danh sách có thứ tự</strong> (được trình duyệt tự động đánh số thứ tự 1, 2, 3...)?</div>
+      </div>
+      <div class="options-list">
+        <label class="option-label">
+          <input type="radio" name="ans-q1" value="A">
+          <span><strong>A.</strong> Cặp thẻ <code>&lt;ol&gt;...&lt;/ol&gt;</code> (Ordered List)</span>
+        </label>
+        <label class="option-label">
+          <input type="radio" name="ans-q1" value="B">
+          <span><strong>B.</strong> Cặp thẻ <code>&lt;ul&gt;...&lt;/ul&gt;</code> (Unordered List)</span>
+        </label>
+        <label class="option-label">
+          <input type="radio" name="ans-q1" value="C">
+          <span><strong>C.</strong> Cặp thẻ <code>&lt;dl&gt;...&lt;/dl&gt;</code> (Description List)</span>
+        </label>
+        <label class="option-label">
+          <input type="radio" name="ans-q1" value="D">
+          <span><strong>D.</strong> Cặp thẻ <code>&lt;list&gt;...&lt;/list&gt;</code></span>
+        </label>
+      </div>
+      <div class="feedback-banner" id="fb-q1"></div>
+    </div>
+
+    <!-- CÂU 2 -->
+    <div class="question-card" id="q2-box">
+      <div class="q-title">
+        <span class="q-number-badge">2</span>
+        <div>Bạn muốn tạo một danh sách có thứ tự được đánh số bằng <strong>chữ số La Mã in hoa (I, II, III...)</strong> và bắt đầu đếm từ <strong>số 5 (V, VI, VII...)</strong>. Cú pháp khai báo thuộc tính nào sau đây là chuẩn xác?</div>
+      </div>
+      <div class="options-list">
+        <label class="option-label">
+          <input type="radio" name="ans-q2" value="A">
+          <span><strong>A.</strong> <code>&lt;ol type="I" start="5"&gt;</code></span>
+        </label>
+        <label class="option-label">
+          <input type="radio" name="ans-q2" value="B">
+          <span><strong>B.</strong> <code>&lt;ol type="1" start="V"&gt;</code></span>
+        </label>
+        <label class="option-label">
+          <input type="radio" name="ans-q2" value="C">
+          <span><strong>C.</strong> <code>&lt;ul type="roman" start="5"&gt;</code></span>
+        </label>
+        <label class="option-label">
+          <input type="radio" name="ans-q2" value="D">
+          <span><strong>D.</strong> <code>&lt;ol from="5" style="I"&gt;</code></span>
+        </label>
+      </div>
+      <div class="feedback-banner" id="fb-q2"></div>
+    </div>
+
+    <!-- CÂU 3 -->
+    <div class="question-card" id="q3-box" style="border-left: 4px solid #d97706;">
+      <div class="q-title">
+        <span class="q-number-badge" style="background:#fef3c7; color:#b45309; border-color:#fde68a;">3</span>
+        <div>Trong danh sách mô tả <code>&lt;dl&gt;</code> (Description List - ví dụ món Kem và Trà sữa trang 51 SGK), nhận định nào sau đây là <strong>CHÍNH XÁC NHẤT</strong> về chức năng của cặp thẻ <code>&lt;dt&gt;</code> và <code>&lt;dd&gt;</code>?</div>
+      </div>
+      <div class="options-list">
+        <label class="option-label">
+          <input type="radio" name="ans-q3" value="A">
+          <span><strong>A.</strong> <code>&lt;dt&gt;</code> là tên thuật ngữ/tiêu đề mục, <code>&lt;dd&gt;</code> là phần mô tả chi tiết được trình duyệt tự động thụt lề vào trong; hoàn toàn không dùng thẻ <code>&lt;li&gt;</code>.</span>
+        </label>
+        <label class="option-label">
+          <input type="radio" name="ans-q3" value="B">
+          <span><strong>B.</strong> <code>&lt;dt&gt;</code> và <code>&lt;dd&gt;</code> bắt buộc phải được bọc bên trong thẻ <code>&lt;li&gt;</code> thì trình duyệt mới hiểu.</span>
+        </label>
+        <label class="option-label">
+          <input type="radio" name="ans-q3" value="C">
+          <span><strong>C.</strong> <code>&lt;dd&gt;</code> là thuật ngữ cần định nghĩa, còn <code>&lt;dt&gt;</code> là nội dung chi tiết.</span>
+        </label>
+        <label class="option-label">
+          <input type="radio" name="ans-q3" value="D">
+          <span><strong>D.</strong> Thẻ <code>&lt;dl&gt;</code> tự động đánh số thứ tự 1, 2, 3 cho các mục <code>&lt;dt&gt;</code>.</span>
+        </label>
+      </div>
+      <div class="feedback-banner" id="fb-q3"></div>
+    </div>
+
+    <!-- CÂU 4 -->
+    <div class="question-card" id="q4-box">
+      <div class="q-title">
+        <span class="q-number-badge">4</span>
+        <div>Khi thiết kế <strong>danh sách đa tầng lồng nhau (Nested list)</strong>, quy tắc viết cấu trúc nào sau đây là chuẩn mực theo khuyến nghị của tổ chức W3C?</div>
+      </div>
+      <div class="options-list">
+        <label class="option-label">
+          <input type="radio" name="ans-q4" value="A">
+          <span><strong>A.</strong> Thẻ danh sách con (<code>&lt;ul&gt;</code> hoặc <code>&lt;ol&gt;</code>) phải được đặt trọn vẹn bên trong cặp thẻ <code>&lt;li&gt;...&lt;/li&gt;</code> của mục danh sách cha.</span>
+        </label>
+        <label class="option-label">
+          <input type="radio" name="ans-q4" value="B">
+          <span><strong>B.</strong> Thẻ danh sách con được đặt ngang hàng ngay sau khi thẻ <code>&lt;/li&gt;</code> của mục cha đã đóng.</span>
+        </label>
+        <label class="option-label">
+          <input type="radio" name="ans-q4" value="C">
+          <span><strong>C.</strong> Không thể lồng thẻ <code>&lt;ul&gt;</code> vào trong thẻ <code>&lt;ol&gt;</code> mà chỉ có thể lồng hai thẻ cùng loại.</span>
+        </label>
+        <label class="option-label">
+          <input type="radio" name="ans-q4" value="D">
+          <span><strong>D.</strong> Thẻ danh sách con bắt buộc phải bọc trong thẻ đoạn văn <code>&lt;p&gt;</code>.</span>
+        </label>
+      </div>
+      <div class="feedback-banner" id="fb-q4"></div>
+    </div>
+
+    <!-- CÂU 5 -->
+    <div class="question-card" id="q5-box">
+      <div class="q-title">
+        <span class="q-number-badge">5</span>
+        <div>Bạn được giao nhiệm vụ tạo trang web <strong>Từ điển thuật ngữ lập trình Web</strong> gồm các mục: <em>HTML5, CSS3, JavaScript</em> kèm phần mô tả chi tiết chức năng của từng ngôn ngữ. Cấu trúc HTML nào dưới đây đảm bảo đúng ngữ nghĩa (Semantic HTML) và trình bày tự nhiên nhất?</div>
+      </div>
+      <div class="options-list">
+        <label class="option-label">
+          <input type="radio" name="ans-q5" value="A">
+          <span><strong>A.</strong> Sử dụng thẻ <code>&lt;dl&gt;</code>, đặt tên ngôn ngữ trong thẻ <code>&lt;dt&gt;</code> và phần giải thích trong thẻ <code>&lt;dd&gt;</code>.</span>
+        </label>
+        <label class="option-label">
+          <input type="radio" name="ans-q5" value="B">
+          <span><strong>B.</strong> Viết tất cả vào thẻ <code>&lt;p&gt;</code> tự do và tự gõ dấu gạch đầu dòng bằng bàn phím.</span>
+        </label>
+        <label class="option-label">
+          <input type="radio" name="ans-q5" value="C">
+          <span><strong>C.</strong> Dùng thẻ <code>&lt;ol&gt;</code> để đánh số từ 1 đến 3 cho các ngôn ngữ.</span>
+        </label>
+        <label class="option-label">
+          <input type="radio" name="ans-q5" value="D">
+          <span><strong>D.</strong> Dùng thẻ <code>&lt;h1&gt;</code> cho mỗi từ khóa và <code>&lt;span&gt;</code> cho giải thích.</span>
+        </label>
+      </div>
+      <div class="feedback-banner" id="fb-q5"></div>
+    </div>
+
+    <!-- ====================================================================
+         PHẦN 2: THIẾT LẬP BẢNG DỮ LIỆU & KỸ THUẬT GỘP Ô - 5 CÂU (5.0 ĐIỂM)
+         ==================================================================== -->
+    <div class="section-divider-card theme-emerald">
+      <div>
+        <h2 class="section-heading-title">
+          <span>📊 PHẦN 2: THIẾT LẬP BẢNG DỮ LIỆU &amp; KỸ THUẬT GỘP Ô (&lt;table&gt;, colspan, rowspan)</span>
+        </h2>
+        <div class="section-heading-sub">
+          Gồm 5 câu trắc nghiệm (Câu 6 đến Câu 10) • Kiểm tra cấu trúc phân cấp bảng, thẻ tiêu đề &lt;caption&gt;, &lt;th&gt; vs &lt;td&gt;, và kỹ thuật gộp ô.
+        </div>
+      </div>
+      <span class="section-badge">5 Câu • 5.0 Điểm</span>
+    </div>
+
+    <!-- CÂU 6 (Từ P2-Q1) -->
+    <div class="question-card" id="q6-box">
+      <div class="q-title">
+        <span class="q-number-badge theme-p2-badge">6</span>
+        <div>Cấu trúc phân cấp chuẩn của một <strong>bảng dữ liệu trong HTML</strong> được tổ chức theo thứ tự từ ngoài vào trong như thế nào?</div>
+      </div>
+      <div class="options-list">
+        <label class="option-label">
+          <input type="radio" name="ans-q6" value="A">
+          <span><strong>A.</strong> <code>&lt;table&gt;</code> chứa các hàng <code>&lt;tr&gt;</code>, mỗi hàng <code>&lt;tr&gt;</code> chứa các ô tiêu đề <code>&lt;th&gt;</code> hoặc ô dữ liệu <code>&lt;td&gt;</code>.</span>
+        </label>
+        <label class="option-label">
+          <input type="radio" name="ans-q6" value="B">
+          <span><strong>B.</strong> <code>&lt;table&gt;</code> chứa trực tiếp các ô <code>&lt;td&gt;</code>, bên trong <code>&lt;td&gt;</code> chứa các hàng <code>&lt;tr&gt;</code>.</span>
+        </label>
+        <label class="option-label">
+          <input type="radio" name="ans-q6" value="C">
+          <span><strong>C.</strong> Thẻ <code>&lt;tr&gt;</code> bao bọc bên ngoài thẻ <code>&lt;table&gt;</code>.</span>
+        </label>
+        <label class="option-label">
+          <input type="radio" name="ans-q6" value="D">
+          <span><strong>D.</strong> Thẻ <code>&lt;td&gt;</code> chứa thẻ <code>&lt;th&gt;</code>, sau đó mới đến thẻ <code>&lt;tr&gt;</code>.</span>
+        </label>
+      </div>
+      <div class="feedback-banner" id="fb-q6"></div>
+    </div>
+
+    <!-- CÂU 7 (Từ P2-Q2) -->
+    <div class="question-card" id="q7-box">
+      <div class="q-title">
+        <span class="q-number-badge theme-p2-badge">7</span>
+        <div>Theo chuẩn SGK trang 54, thẻ <code>&lt;caption&gt;</code> dùng để đặt tiêu đề cho bảng và sự khác biệt mặc định quan trọng nhất giữa thẻ tiêu đề <code>&lt;th&gt;</code> (Table Header) và thẻ dữ liệu <code>&lt;td&gt;</code> (Table Data) là gì?</div>
+      </div>
+      <div class="options-list">
+        <label class="option-label">
+          <input type="radio" name="ans-q7" value="A">
+          <span><strong>A.</strong> Thẻ <code>&lt;caption&gt;</code> được đặt ngay sau <code>&lt;table&gt;</code> và trước <code>&lt;tr&gt;</code> đầu tiên; thẻ <code>&lt;th&gt;</code> in đậm và căn giữa tự động, còn <code>&lt;td&gt;</code> là chữ thường căn trái mặc định.</span>
+        </label>
+        <label class="option-label">
+          <input type="radio" name="ans-q7" value="B">
+          <span><strong>B.</strong> Thẻ <code>&lt;caption&gt;</code> phải đặt ở cuối cùng dưới đáy bảng; <code>&lt;th&gt;</code> và <code>&lt;td&gt;</code> hiển thị hoàn toàn giống nhau.</span>
+        </label>
+        <label class="option-label">
+          <input type="radio" name="ans-q7" value="C">
+          <span><strong>C.</strong> Thẻ <code>&lt;td&gt;</code> in đậm căn giữa, còn <code>&lt;th&gt;</code> là chữ thường căn trái.</span>
+        </label>
+        <label class="option-label">
+          <input type="radio" name="ans-q7" value="D">
+          <span><strong>D.</strong> Thẻ <code>&lt;caption&gt;</code> đặt ở bất kỳ đâu ngoài thẻ <code>&lt;table&gt;</code>; <code>&lt;th&gt;</code> chỉ dùng chứa số liệu còn <code>&lt;td&gt;</code> chứa chữ.</span>
+        </label>
+      </div>
+      <div class="feedback-banner" id="fb-q7"></div>
+    </div>
+
+    <!-- CÂU 8 (Từ P2-Q3) -->
+    <div class="question-card" id="q8-box">
+      <div class="q-title">
+        <span class="q-number-badge theme-p2-badge">8</span>
+        <div>Một bảng có <strong>4 cột</strong>. Tại hàng thứ nhất, ô đầu tiên được khai báo là <code>&lt;td colspan="3"&gt;Tiêu đề lớn&lt;/td&gt;</code>. Để bảng không bị méo lệch cột, trong hàng này cần viết thêm bao nhiêu thẻ <code>&lt;td&gt;</code> nữa?</div>
+      </div>
+      <div class="options-list">
+        <label class="option-label">
+          <input type="radio" name="ans-q8" value="A">
+          <span><strong>A.</strong> Cần viết thêm đúng <strong>1 thẻ</strong> <code>&lt;td&gt;</code> nữa (vì ô đầu đã gộp chiếm 3 cột, $3 + 1 = 4$ cột).</span>
+        </label>
+        <label class="option-label">
+          <input type="radio" name="ans-q8" value="B">
+          <span><strong>B.</strong> Cần viết thêm 3 thẻ <code>&lt;td&gt;</code> nữa.</span>
+        </label>
+        <label class="option-label">
+          <input type="radio" name="ans-q8" value="C">
+          <span><strong>C.</strong> Cần viết thêm 4 thẻ <code>&lt;td&gt;</code> nữa.</span>
+        </label>
+        <label class="option-label">
+          <input type="radio" name="ans-q8" value="D">
+          <span><strong>D.</strong> Không cần viết thêm thẻ nào vì <code>colspan="3"</code> đã tự động lấp đầy cả bảng.</span>
+        </label>
+      </div>
+      <div class="feedback-banner" id="fb-q8"></div>
+    </div>
+
+    <!-- CÂU 9 (Từ P2-Q4) -->
+    <div class="question-card" id="q9-box">
+      <div class="q-title">
+        <span class="q-number-badge theme-p2-badge">9</span>
+        <div>Thuộc tính nào sau đây của thẻ <code>&lt;td&gt;</code> hoặc <code>&lt;th&gt;</code> được sử dụng để <strong>gộp nhiều ô liên tiếp theo chiều dọc (qua nhiều hàng)</strong>?</div>
+      </div>
+      <div class="options-list">
+        <label class="option-label">
+          <input type="radio" name="ans-q9" value="A">
+          <span><strong>A.</strong> <code>rowspan="n"</code> (với n là số hàng cần gộp trải dài qua).</span>
+        </label>
+        <label class="option-label">
+          <input type="radio" name="ans-q9" value="B">
+          <span><strong>B.</strong> <code>colspan="n"</code> (với n là số hàng cần gộp).</span>
+        </label>
+        <label class="option-label">
+          <input type="radio" name="ans-q9" value="C">
+          <span><strong>C.</strong> <code>spanrow="n"</code></span>
+        </label>
+        <label class="option-label">
+          <input type="radio" name="ans-q9" value="D">
+          <span><strong>D.</strong> <code>merge="row"</code></span>
+        </label>
+      </div>
+      <div class="feedback-banner" id="fb-q9"></div>
+    </div>
+
+    <!-- CÂU 10 (Từ P2-Q5) -->
+    <div class="question-card" id="q10-box" style="border-left: 4px solid #059669;">
+      <div class="q-title">
+        <span class="q-number-badge theme-p2-badge" style="background:#ecfdf5; color:#047857; border-color:#a7f3d0;">10</span>
+        <div>Trong bảng Thời khóa biểu, ngày <strong>"Thứ Bảy"</strong> diễn ra 2 tiết liên tiếp (Tiết 1 và Tiết 2) đều là môn <strong>"Tin học"</strong>. Để ô "Thứ Bảy" trải dài chiếm cả 2 hàng Tiết 1 và Tiết 2, người lập trình cần khai báo như thế nào cho chuẩn xác?</div>
+      </div>
+      <div class="options-list">
+        <label class="option-label">
+          <input type="radio" name="ans-q10" value="A">
+          <span><strong>A.</strong> Đặt <code>rowspan="2"</code> trên ô "Thứ Bảy" ở hàng Tiết 1, và <strong>bỏ bớt 1 thẻ <code>&lt;td&gt;</code> ở đầu hàng Tiết 2</strong> vì ô trên đã chiếm chỗ xuống.</span>
+        </label>
+        <label class="option-label">
+          <input type="radio" name="ans-q10" value="B">
+          <span><strong>B.</strong> Đặt <code>colspan="2"</code> trên cả hai hàng Tiết 1 và Tiết 2.</span>
+        </label>
+        <label class="option-label">
+          <input type="radio" name="ans-q10" value="C">
+          <span><strong>C.</strong> Đặt <code>rowspan="2"</code> ở cả hai hàng Tiết 1 và Tiết 2 mà không cần xóa bớt thẻ nào.</span>
+        </label>
+        <label class="option-label">
+          <input type="radio" name="ans-q10" value="D">
+          <span><strong>D.</strong> Chỉ cần gõ chữ "Thứ Bảy (Tiết 1 + Tiết 2)" vào một ô bình thường.</span>
+        </label>
+      </div>
+      <div class="feedback-banner" id="fb-q10"></div>
+    </div>
+
+    <!-- THANH NỘP BÀI (STICKY ACTION BAR) -->
+    <div class="submit-bar">
+      <div>
+        <span style="font-weight: 700; color: #1e3a8a; font-size: 1rem;">Phiếu Học Tập: Danh Sách &amp; Bảng HTML</span><br>
+        <span style="font-size: 0.85rem; color: #64748b;">Tổng cộng 10 câu hỏi trắc nghiệm & tình huống • Thang điểm 10.0</span>
+      </div>
+
+      <div style="display: flex; gap: 0.65rem; flex-wrap: wrap;">
+        <button type="button" class="btn btn-secondary" onclick="printStudentWorksheet()" style="font-size: 0.9rem;">
+          🖨️ In Phiếu
+        </button>
+        <button type="button" class="btn btn-primary" onclick="submitWorksheet()" style="background: #2563eb; color: #fff; font-weight: 700; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35); font-size: 0.95rem;">
+          🚀 Nộp Bài &amp; Chấm Điểm Ngay
+        </button>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ==========================================
+       MODAL THÔNG BÁO KẾT QUẢ & BIÊN NHẬN
+       ========================================== -->
+  <div class="modal-overlay" id="result-modal">
+    <div class="modal-card">
+      <div style="font-size: 3.5rem; margin-bottom: 0.5rem;">🎉</div>
+      <h2 style="font-size: 1.5rem; font-weight: 800; color: #1e3a8a; margin-bottom: 0.25rem;">Chúc Mừng Bạn Đã Hoàn Thành!</h2>
+      <p style="color: #64748b; font-size: 0.95rem; margin-bottom: 1.5rem;" id="modal-student-info">
+        Học sinh: <strong>Nguyễn Văn An</strong> • Lớp: <strong>12A1</strong>
+      </p>
+
+      <div style="background: #f8fafc; border: 2px dashed #cbd5e1; border-radius: 12px; padding: 1.25rem; margin-bottom: 1.5rem;">
+        <div style="font-size: 0.88rem; color: #64748b; margin-bottom: 0.25rem;">KẾT QUẢ ĐÁNH GIÁ CHẶNG</div>
+        <div style="font-size: 2.75rem; font-weight: 800; color: #1d4ed8;" id="modal-score">10.0 / 10</div>
+        <div style="font-size: 0.82rem; color: #059669; font-weight: 600;" id="modal-sub-status">
+          ✓ Đã lưu hệ thống &amp; truyền trực tiếp tới màn hình Giáo viên
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; font-size: 0.82rem; color: #64748b; margin-bottom: 1.5rem; border-top: 1px solid #e2e8f0; padding-top: 0.75rem;">
+        <div>Mã biên nhận: <code id="receipt-id" style="font-weight: 700; color: #0f172a;">MD-9821</code></div>
+        <div>Thời gian nộp: <span id="receipt-time">--:--</span></div>
+      </div>
+
+      <div style="display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;">
+        <button type="button" class="btn btn-secondary" onclick="closeResultModal()">
+          🔍 Xem Lời Giải Thích Chi Tiết
+        </button>
+        <a href="hd3.html" class="btn btn-primary" style="background: #10b981; border-color: #10b981; color: #ffffff; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 0.4rem;">
+          👉 Tiến sang HĐ 3: Luyện tập CLB →
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPT XỬ LÝ NỘP BÀI, CHẤM ĐIỂM, LOCALSTORAGE & BROADCAST CHANNEL -->
+  <script>
+    let isPairMode = true;
+
+    function switchStudentMode(mode) {
+      isPairMode = mode === 'pair';
+      const btnPair = document.getElementById('btn-mode-pair');
+      const btnSingle = document.getElementById('btn-mode-single');
+      const wrapPair = document.getElementById('wrapper-mode-pair');
+      const wrapSingle = document.getElementById('wrapper-mode-single');
+
+      if (isPairMode) {
+        btnPair.classList.add('active');
+        btnSingle.classList.remove('active');
+        wrapPair.style.display = 'block';
+        wrapSingle.style.display = 'none';
+      } else {
+        btnSingle.classList.add('active');
+        btnPair.classList.remove('active');
+        wrapSingle.style.display = 'block';
+        wrapPair.style.display = 'none';
+      }
+    }
+
+    // LẮNG NGHE TÍN HIỆU ĐÓN LỚP MỚI TỪ GIÁO VIÊN QUA BROADCAST CHANNEL
+    try {
+      const bcListen = new BroadcastChannel('bai9_classroom_channel');
+      bcListen.onmessage = (event) => {
+        if (event.data && (event.data.type === 'CLASSROOM_RESET_ALL' || event.data.type === 'RESET_SUBMISSIONS')) {
+          console.log('[BROADCAST] Nhận tín hiệu xóa dữ liệu đón lớp mới từ giáo viên');
+          localStorage.removeItem('bai9_worksheet_submissions');
+          localStorage.removeItem('bai9_last_submission');
+          document.querySelectorAll('input[type="text"]').forEach(input => {
+            if (input.id.includes('class')) {
+              input.value = '12A1';
+            } else {
+              input.value = '';
+            }
+          });
+          document.querySelectorAll('input[type="radio"]').forEach(radio => radio.checked = false);
+          document.querySelectorAll('.feedback-banner').forEach(fb => {
+            fb.style.display = 'none';
+            fb.className = 'feedback-banner';
+          });
+          document.getElementById('result-modal')?.classList.remove('active');
+        }
+      };
+    } catch (e) {
+      console.warn('BroadcastChannel error:', e);
+    }
+
+    function submitWorksheet() {
+      let studentName = '';
+      let studentClass = '';
+      let studentNumber = '';
+      let student1 = null;
+      let student2 = null;
+
+      if (isPairMode) {
+        const hs1 = document.getElementById('hs1-name')?.value.trim();
+        const hs2 = document.getElementById('hs2-name')?.value.trim();
+        const stt1 = document.getElementById('hs1-stt')?.value.trim();
+        const stt2 = document.getElementById('hs2-stt')?.value.trim();
+        const c1 = document.getElementById('hs1-class')?.value.trim() || '12A1';
+
+        if (!hs1) {
+          alert('Vui lòng nhập họ và tên của học sinh 1!');
+          document.getElementById('hs1-name')?.focus();
+          return;
+        }
+        studentName = hs2 ? `${hs1} & ${hs2}` : hs1;
+        studentClass = c1;
+        studentNumber = stt1 ? (stt2 ? `${stt1}, ${stt2}` : stt1) : 'N/A';
+        student1 = { name: hs1, stt: stt1 || 'N/A' };
+        if (hs2) {
+          student2 = { name: hs2, stt: stt2 || 'N/A' };
+        }
+      } else {
+        const sName = document.getElementById('single-name')?.value.trim();
+        const sClass = document.getElementById('single-class')?.value.trim() || '12A1';
+        const sStt = document.getElementById('single-stt')?.value.trim();
+
+        if (!sName) {
+          alert('Vui lòng nhập họ và tên học sinh!');
+          document.getElementById('single-name')?.focus();
+          return;
+        }
+        studentName = sName;
+        studentClass = sClass;
+        studentNumber = sStt || 'N/A';
+        student1 = { name: sName, stt: sStt || 'N/A' };
+      }
+
+      // Kiểm tra đáp án 10 câu
+      const answers = {};
+      let unanswered = 0;
+      for (let i = 1; i <= 10; i++) {
+        const val = document.querySelector(`input[name="ans-q${i}"]:checked`)?.value || '';
+        answers['q' + i] = val;
+        if (!val) unanswered++;
+      }
+
+      if (unanswered > 0) {
+        if (!confirm(`Bạn vẫn còn ${unanswered} câu hỏi chưa chọn đáp án. Bạn có chắc chắn muốn nộp bài ngay bây giờ không?`)) {
+          return;
+        }
+      }
+
+      const keys = {
+        q1: { correct: 'A', explain: 'Thẻ <ol> (Ordered List) là thẻ chuẩn W3C để tạo danh sách có thứ tự.' },
+        q2: { correct: 'A', explain: 'type="I" quy định số La Mã hoa, start="5" quy định bắt đầu đếm từ giá trị 5.' },
+        q3: { correct: 'A', explain: 'Thẻ <dl> chứa cặp thẻ <dt> (thuật ngữ) và <dd> (mô tả được tự động thụt lề), hoàn toàn không dùng thẻ <li>.' },
+        q4: { correct: 'A', explain: 'Chuẩn W3C quy định danh sách con phải nằm trọn vẹn bên trong cặp thẻ <li>...</li> của mục cha.' },
+        q5: { correct: 'A', explain: 'Từ điển thuật ngữ là trường hợp sử dụng kinh điển và chuẩn ngữ nghĩa nhất của danh sách mô tả <dl>.' },
+        q6: { correct: 'A', explain: 'Cấu trúc bảng HTML chuẩn: <table> bao bọc <tr> (hàng), bên trong <tr> chứa <th> (tiêu đề) hoặc <td> (dữ liệu).' },
+        q7: { correct: 'A', explain: '<caption> đặt ngay sau <table> và trước <tr> đầu tiên; <th> tự động in đậm và căn giữa, <td> chữ thường căn trái mặc định.' },
+        q8: { correct: 'A', explain: 'Ô đầu đã chiếm 3 cột (colspan="3"), bảng có 4 cột nên chỉ cần thêm đúng 1 ô nữa (3 + 1 = 4).' },
+        q9: { correct: 'A', explain: 'rowspan (Row Span) trải dài một ô qua nhiều hàng liên tiếp theo chiều dọc.' },
+        q10: { correct: 'A', explain: 'Khi ô ở hàng 1 dùng rowspan="2", nó chiếm luôn vị trí tương ứng ở hàng 2, nên hàng 2 phải bỏ bớt 1 thẻ <td> đi.' }
+      };
+
+      let correctCount = 0;
+      const results = {};
+      for (let i = 1; i <= 10; i++) {
+        const qKey = 'q' + i;
+        const userAns = answers[qKey];
+        const isCorrect = userAns === keys[qKey].correct;
+        if (isCorrect) correctCount++;
+
+        results[qKey] = {
+          userAnswer: userAns,
+          correctAnswer: keys[qKey].correct,
+          isCorrect: isCorrect,
+          score: isCorrect ? 1.0 : 0.0,
+          explanation: keys[qKey].explain
+        };
+
+        const fbEl = document.getElementById('fb-' + qKey);
+        if (fbEl) {
+          fbEl.className = 'feedback-banner ' + (isCorrect ? 'show-correct' : 'show-wrong');
+          fbEl.innerHTML = `<strong>${isCorrect ? '✓ Chính xác!' : '✗ Chưa đúng:'}</strong> ${keys[qKey].explain}`;
+        }
+      }
+
+      // Mỗi câu 1 điểm -> thang điểm 10
+      const totalScore = Number((correctCount * 1.0).toFixed(1));
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString('vi-VN') + ' - ' + now.toLocaleDateString('vi-VN');
+      const receiptId = 'MD-' + Math.floor(1000 + Math.random() * 9000) + '-' + Math.random().toString(36).substring(2, 4).toUpperCase();
+
+      const submissionData = {
+        id: receiptId,
+        worksheetId: 'phieu_tong_hop',
+        worksheetTitle: 'Phiếu học tập: Danh sách & Bảng HTML',
+        isPair: isPairMode,
+        studentName: studentName,
+        student1: student1,
+        student2: student2,
+        className: studentClass,
+        studentNumber: studentNumber || 'N/A',
+        score: totalScore,
+        maxScore: 10.0,
+        correctCount: correctCount,
+        totalQuestions: 10,
+        answers: answers,
+        results: results,
+        submittedAt: timeStr,
+        timestamp: Date.now()
+      };
+
+      // 1. Lưu LocalStorage
+      try {
+        const localList = JSON.parse(localStorage.getItem('bai9_worksheet_submissions') || '[]');
+        localList.unshift(submissionData);
+        localStorage.setItem('bai9_worksheet_submissions', JSON.stringify(localList));
+        localStorage.setItem('bai9_last_submission', JSON.stringify(submissionData));
+      } catch (err) {
+        console.warn('LocalStorage error:', err);
+      }
+
+      // 2. Phát sóng BroadcastChannel đến màn hình Giáo viên (Realtime giữa các tab)
+      try {
+        const bc = new BroadcastChannel('bai9_classroom_channel');
+        bc.postMessage({ type: 'NEW_SUBMISSION', data: submissionData });
+      } catch (err) {
+        console.warn('BroadcastChannel error:', err);
+      }
+
+      // 3. Gửi lên Server API
+      try {
+        const apiSubmit = window.location.pathname.includes('/Bai9') ? '/api/bai9/submit' : '/api/submit';
+        fetch(apiSubmit, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(submissionData)
+        }).then(res => res.json()).then(data => {
+          console.log('Server API saved successfully:', data);
+        }).catch(err => {
+          console.log('Server API offline, stored locally in LocalStorage & BroadcastChannel.');
+        });
+      } catch (e) {}
+
+      // Hiển thị Modal chúc mừng và mã biên nhận
+      document.getElementById('modal-student-info').innerHTML = `Học sinh: <strong>${studentName}</strong> • Lớp: <strong>${studentClass}</strong> (${studentNumber})`;
+      document.getElementById('modal-score').textContent = `${totalScore.toFixed(1)} / 10`;
+      document.getElementById('receipt-id').textContent = receiptId;
+      document.getElementById('receipt-time').textContent = timeStr;
+      document.getElementById('result-modal').classList.add('active');
+    }
+
+    function closeResultModal() {
+      document.getElementById('result-modal').classList.remove('active');
+    }
+
+    function printStudentWorksheet() {
+      window.print();
+    }
+  </script>
+</body>
+</html>

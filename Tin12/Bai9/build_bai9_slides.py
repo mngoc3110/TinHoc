@@ -785,38 +785,77 @@ def build_all_slides():
                 "Danh sách con (<ol> hoặc <ul>) BẮT BUỘC phải nằm trọn vẹn bên trong cặp thẻ <li>...</li> của mục cha. Không được đóng </li> trước khi danh sách con kết thúc!", theme='green')
 
     # =========================================================================
-    # SLIDE 13: HĐ 2.1 - PHIẾU HỌC TẬP SỐ 1 (QR + UI)
+    # SLIDE 13: HĐ 2.1 - TỔNG KẾT & CHUYỂN TIẾP (SO SÁNH 3 LOẠI DANH SÁCH)
     # =========================================================================
     s13 = prs.slides.add_slide(blank)
     set_slide_background(s13)
-    add_header(s13, "HĐ 2.1: ĐÁNH GIÁ NHANH", "PHIẾU HỌC TẬP SỐ 1: KIỂM TRA NHANH KHÁM PHÁ 1", "Quét mã QR để làm bài trắc nghiệm nhanh 5 phút", badge_theme='amber')
+    add_header(s13, "HĐ 2.1: TỔNG KẾT NHANH", "BẢNG SO SÁNH 3 KIỂU DANH SÁCH HTML", "Nắm vững đặc trưng từng loại danh sách trước khi chuyển sang Khám phá 2: Thiết lập Bảng", badge_theme='green')
     add_footer(s13, 13)
 
-    add_card(s13, Inches(0.65), Inches(1.8), Inches(4.8), Inches(4.9), border_color=COLOR_ROYAL, border_width=2)
-    qr1_path = os.path.join(ASSETS_DIR, 'qr_phieu1.png')
-    if os.path.exists(qr1_path):
-        s13.shapes.add_picture(qr1_path, Inches(1.4), Inches(2.05), Inches(3.3), Inches(3.3))
-    
-    link_b = s13.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(0.85), Inches(5.5), Inches(4.4), Inches(0.55))
-    link_b.fill.solid(); link_b.fill.fore_color.rgb = RGBColor(238, 242, 255)
-    link_b.line.color.rgb = COLOR_ROYAL
-    p = link_b.text_frame.paragraphs[0]
-    p.text = "🔗 minda.io.vn/Tin12/Bai9/phieu-bai-tap-1.html"
-    p.font.name = FONT_CODE; p.font.size = Pt(11); p.font.bold = True; p.font.color.rgb = COLOR_ROYAL
-    p.alignment = PP_ALIGN.CENTER
+    col_w = Inches(3.85)
+    gap = Inches(0.24)
+    left_start = Inches(0.65)
 
-    p_p1_ui = os.path.join(ASSETS_DIR, 'illus_phieu1_ui.png')
-    if os.path.exists(p_p1_ui):
-        add_card(s13, Inches(5.65), Inches(1.8), Inches(7.03), Inches(4.9), bg_color=COLOR_WHITE, border_color=COLOR_CARD_BORDER)
-        s13.shapes.add_picture(p_p1_ui, Inches(5.8), Inches(2.2), Inches(6.73), Inches(2.5))
-        tb_p1 = s13.shapes.add_textbox(Inches(5.8), Inches(4.9), Inches(6.73), Inches(1.6))
-        tf_p1 = tb_p1.text_frame; tf_p1.word_wrap = True
-        p = tf_p1.paragraphs[0]; p.text = "🎯 TRỌNG TÂM 3 CÂU HỎI:"
-        p.font.name = FONT_HEADING; p.font.size = Pt(14); p.font.bold = True; p.font.color.rgb = COLOR_AMBER
-        p2 = tf_p1.add_paragraph(); p2.text = "• Cú pháp đánh số từ 10 (<ol start=\"10\">)"
-        p2.font.name = FONT_BODY; p2.font.size = Pt(14); p2.font.color.rgb = COLOR_TEXT_BODY
-        p3 = tf_p1.add_paragraph(); p3.text = "• Thẻ mô tả chi tiết tự thụt lề (<dd>)"
-        p3.font.name = FONT_BODY; p3.font.size = Pt(14); p3.font.color.rgb = COLOR_TEXT_BODY
+    # Cột 1: <ol>
+    c1_x = left_start
+    add_card(s13, c1_x, Inches(1.8), col_w, Inches(4.9), bg_color=COLOR_WHITE, border_color=COLOR_ROYAL, border_width=1.5)
+    tb_c1 = s13.shapes.add_textbox(c1_x + Inches(0.2), Inches(1.95), col_w - Inches(0.4), Inches(4.5))
+    tf_c1 = tb_c1.text_frame; tf_c1.word_wrap = True
+    p = tf_c1.paragraphs[0]; p.text = "1️⃣ Danh Sách Có Thứ Tự"
+    p.font.name = FONT_HEADING; p.font.size = Pt(17); p.font.bold = True; p.font.color.rgb = COLOR_ROYAL
+    p = tf_c1.add_paragraph(); p.text = "<ol> • Ordered List"
+    p.font.name = FONT_CODE; p.font.size = Pt(13); p.font.bold = True; p.font.color.rgb = COLOR_PRIMARY
+    p = tf_c1.add_paragraph()
+    p = tf_c1.add_paragraph(); p.text = "• Ý nghĩa: Trình tự quan trọng (các bước, thứ hạng xếp hạng)."
+    p.font.name = FONT_BODY; p.font.size = Pt(13); p.font.color.rgb = COLOR_TEXT_BODY
+    p = tf_c1.add_paragraph(); p.text = "• Thẻ mục con: <li> (List item)."
+    p.font.name = FONT_BODY; p.font.size = Pt(13); p.font.color.rgb = COLOR_TEXT_BODY
+    p = tf_c1.add_paragraph(); p.text = "• Thuộc tính cốt lõi:"
+    p.font.name = FONT_BODY; p.font.size = Pt(13); p.font.bold = True; p.font.color.rgb = COLOR_PRIMARY
+    p = tf_c1.add_paragraph(); p.text = "  - type=\"1|a|A|i|I\""
+    p.font.name = FONT_CODE; p.font.size = Pt(12); p.font.color.rgb = COLOR_TEXT_MUTED
+    p = tf_c1.add_paragraph(); p.text = "  - start=\"n\" (bắt đầu từ n)"
+    p.font.name = FONT_CODE; p.font.size = Pt(12); p.font.color.rgb = COLOR_TEXT_MUTED
+
+    # Cột 2: <ul>
+    c2_x = c1_x + col_w + gap
+    add_card(s13, c2_x, Inches(1.8), col_w, Inches(4.9), bg_color=COLOR_WHITE, border_color=COLOR_EMERALD, border_width=1.5)
+    tb_c2 = s13.shapes.add_textbox(c2_x + Inches(0.2), Inches(1.95), col_w - Inches(0.4), Inches(4.5))
+    tf_c2 = tb_c2.text_frame; tf_c2.word_wrap = True
+    p = tf_c2.paragraphs[0]; p.text = "2️⃣ Danh Sách Không Thứ Tự"
+    p.font.name = FONT_HEADING; p.font.size = Pt(17); p.font.bold = True; p.font.color.rgb = COLOR_DARK_GREEN
+    p = tf_c2.add_paragraph(); p.text = "<ul> • Unordered List"
+    p.font.name = FONT_CODE; p.font.size = Pt(13); p.font.bold = True; p.font.color.rgb = COLOR_EMERALD
+    p = tf_c2.add_paragraph()
+    p = tf_c2.add_paragraph(); p.text = "• Ý nghĩa: Trình tự không quan trọng (menu, danh sách tính năng)."
+    p.font.name = FONT_BODY; p.font.size = Pt(13); p.font.color.rgb = COLOR_TEXT_BODY
+    p = tf_c2.add_paragraph(); p.text = "• Thẻ mục con: <li> (List item)."
+    p.font.name = FONT_BODY; p.font.size = Pt(13); p.font.color.rgb = COLOR_TEXT_BODY
+    p = tf_c2.add_paragraph(); p.text = "• Dấu đầu mục mặc định: Chấm đen (disc)."
+    p.font.name = FONT_BODY; p.font.size = Pt(13); p.font.color.rgb = COLOR_TEXT_BODY
+    p = tf_c2.add_paragraph(); p.text = "• Định dạng CSS:"
+    p.font.name = FONT_BODY; p.font.size = Pt(13); p.font.bold = True; p.font.color.rgb = COLOR_EMERALD
+    p = tf_c2.add_paragraph(); p.text = "  - list-style-type: circle | square | none"
+    p.font.name = FONT_CODE; p.font.size = Pt(12); p.font.color.rgb = COLOR_TEXT_MUTED
+
+    # Cột 3: <dl>
+    c3_x = c2_x + col_w + gap
+    add_card(s13, c3_x, Inches(1.8), col_w, Inches(4.9), bg_color=COLOR_WHITE, border_color=COLOR_AMBER, border_width=1.5)
+    tb_c3 = s13.shapes.add_textbox(c3_x + Inches(0.2), Inches(1.95), col_w - Inches(0.4), Inches(4.5))
+    tf_c3 = tb_c3.text_frame; tf_c3.word_wrap = True
+    p = tf_c3.paragraphs[0]; p.text = "3️⃣ Danh Sách Mô Tả"
+    p.font.name = FONT_HEADING; p.font.size = Pt(17); p.font.bold = True; p.font.color.rgb = COLOR_AMBER
+    p = tf_c3.add_paragraph(); p.text = "<dl> • Description List"
+    p.font.name = FONT_CODE; p.font.size = Pt(13); p.font.bold = True; p.font.color.rgb = COLOR_AMBER
+    p = tf_c3.add_paragraph()
+    p = tf_c3.add_paragraph(); p.text = "• Ý nghĩa: Thuật ngữ kèm giải thích (menu món ăn, từ điển)."
+    p.font.name = FONT_BODY; p.font.size = Pt(13); p.font.color.rgb = COLOR_TEXT_BODY
+    p = tf_c3.add_paragraph(); p.text = "• KHÔNG dùng thẻ <li>! Dùng bộ đôi:"
+    p.font.name = FONT_BODY; p.font.size = Pt(13); p.font.bold = True; p.font.color.rgb = COLOR_AMBER
+    p = tf_c3.add_paragraph(); p.text = "  - <dt>: Thuật ngữ / Tên mục"
+    p.font.name = FONT_CODE; p.font.size = Pt(12); p.font.color.rgb = COLOR_TEXT_BODY
+    p = tf_c3.add_paragraph(); p.text = "  - <dd>: Mô tả chi tiết (tự động thụt lề vào trong)"
+    p.font.name = FONT_CODE; p.font.size = Pt(12); p.font.color.rgb = COLOR_TEXT_BODY
 
     # =========================================================================
     # SLIDE 14: HĐ 2.2 - HEADER CHUYỂN TIẾP THIẾT LẬP BẢNG
@@ -1077,23 +1116,23 @@ def build_all_slides():
     p.font.name = FONT_HEADING; p.font.size = Pt(14); p.font.bold = True; p.font.color.rgb = COLOR_PURPLE
 
     # =========================================================================
-    # SLIDE 21: ĐÁNH GIÁ CHẶNG (QR + UI)
+    # SLIDE 21: ĐÁNH GIÁ CHẶNG (QR + UI PHIẾU BÀI TẬP TỔNG HỢP)
     # =========================================================================
     s21 = prs.slides.add_slide(blank)
     set_slide_background(s21)
-    add_header(s21, "ĐÁNH GIÁ CHẶNG (10')", "BÀI KIỂM TRA NHANH: LÀM CHỦ DANH SÁCH & BẢNG HTML", "Vượt qua 5 câu trắc nghiệm để mở khóa bước vào Hoạt động 3 Thực hành!", badge_theme='amber')
+    add_header(s21, "ĐÁNH GIÁ CHẶNG 2.1 & 2.2 (10')", "PHIẾU BÀI TẬP: LÀM CHỦ DANH SÁCH & BẢNG HTML", "Quét mã QR để làm bài trắc nghiệm tổng hợp 10 câu trước khi vào Hoạt động 3!", badge_theme='amber')
     add_footer(s21, 21)
 
     add_card(s21, Inches(0.65), Inches(1.8), Inches(4.8), Inches(4.9), border_color=COLOR_AMBER, border_width=2)
-    qr2_path = os.path.join(ASSETS_DIR, 'qr_phieu2.png')
-    if os.path.exists(qr2_path):
-        s21.shapes.add_picture(qr2_path, Inches(1.4), Inches(2.05), Inches(3.3), Inches(3.3))
+    qr_unified_path = os.path.join(ASSETS_DIR, 'qr_phieubaitap.png')
+    if os.path.exists(qr_unified_path):
+        s21.shapes.add_picture(qr_unified_path, Inches(1.4), Inches(2.05), Inches(3.3), Inches(3.3))
 
     link_b2 = s21.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(0.85), Inches(5.5), Inches(4.4), Inches(0.55))
     link_b2.fill.solid(); link_b2.fill.fore_color.rgb = RGBColor(254, 243, 199)
     link_b2.line.color.rgb = COLOR_AMBER
     p = link_b2.text_frame.paragraphs[0]
-    p.text = "🔗 minda.io.vn/Tin12/Bai9/phieu-bai-tap-2.html"
+    p.text = "🔗 minda.io.vn/Tin12/Bai9/phieu-bai-tap.html"
     p.font.name = FONT_CODE; p.font.size = Pt(11); p.font.bold = True; p.font.color.rgb = COLOR_AMBER
     p.alignment = PP_ALIGN.CENTER
 
@@ -1103,8 +1142,8 @@ def build_all_slides():
         s21.shapes.add_picture(p_dg_ui, Inches(5.8), Inches(2.1), Inches(6.73), Inches(3.2))
         tb_dg = s21.shapes.add_textbox(Inches(5.8), Inches(5.4), Inches(6.73), Inches(1.2))
         tf_dg = tb_dg.text_frame; tf_dg.word_wrap = True
-        p = tf_dg.paragraphs[0]; p.text = "🎯 Đạt điểm tối đa: 5/5 điểm để nhận huy hiệu Hoàn thành chặng!"
-        p.font.name = FONT_HEADING; p.font.size = Pt(15); p.font.bold = True; p.font.color.rgb = COLOR_PRIMARY
+        p = tf_dg.paragraphs[0]; p.text = "🎯 Tổng hợp 10 câu cốt lõi (5 câu Danh sách + 5 câu Bảng) • Thang điểm 10.0!"
+        p.font.name = FONT_HEADING; p.font.size = Pt(14); p.font.bold = True; p.font.color.rgb = COLOR_PRIMARY
 
     # =========================================================================
     # SLIDE 22: HĐ 3 - GIỚI THIỆU THỰC HÀNH CLB.HTML

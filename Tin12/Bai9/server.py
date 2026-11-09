@@ -148,8 +148,8 @@ class ClassroomRequestHandler(http.server.BaseHTTPRequestHandler):
                     return
 
                 submissions = get_submissions()
-                worksheet_id = payload.get('worksheetId', 'phieu1')
-                worksheet_title = payload.get('worksheetTitle', 'Phiếu bài tập số 2' if worksheet_id == 'phieu2' else 'Phiếu bài tập số 1')
+                worksheet_id = payload.get('worksheetId', 'phieu_tong_hop')
+                worksheet_title = payload.get('worksheetTitle', 'Phiếu học tập: Danh sách & Bảng HTML')
                 
                 new_record = {
                     'id': payload.get('id', 'MD-' + str(int(time.time() * 1000) % 9000 + 1000)),
@@ -379,10 +379,8 @@ class ClassroomRequestHandler(http.server.BaseHTTPRequestHandler):
         target_path = path
         if target_path in ['/', '/bai9']:
             target_path = '/Tin12/Bai9/index.html'
-        elif target_path in ['/phieu1', '/phieubaitap1', '/phieu-bai-tap-1.html']:
-            target_path = '/Tin12/Bai9/phieu-bai-tap-1.html'
-        elif target_path in ['/phieu2', '/phieubaitap2', '/phieu-bai-tap-2.html']:
-            target_path = '/Tin12/Bai9/phieu-bai-tap-2.html'
+        elif target_path in ['/phieu', '/phieubaitap', '/phieu-bai-tap.html', '/phieu1', '/phieubaitap1', '/phieu-bai-tap-1.html', '/phieu2', '/phieubaitap2', '/phieu-bai-tap-2.html']:
+            target_path = '/Tin12/Bai9/phieu-bai-tap.html'
         elif target_path in ['/hd1', '/hd1.html']:
             target_path = '/Tin12/Bai9/hd1.html'
         elif target_path in ['/hd2-1', '/hd2-1.html']:
@@ -456,8 +454,7 @@ if __name__ == '__main__':
     with httpd:
         print("=================================================================")
         print(f"🚀 MÁY CHỦ BÀI 9 (PYTHON) ĐANG HOẠT ĐỘNG TẠI CỔNG {port_to_use}")
-        print(f"📱 Link Phiếu 1 (Danh sách):   http://localhost:{port_to_use}/phieu1")
-        print(f"📱 Link Phiếu 2 (Bảng & Gộp):  http://localhost:{port_to_use}/phieu2")
+        print(f"📱 Link Phiếu bài tập (Tổng hợp): http://localhost:{port_to_use}/phieu")
         print(f"🖥️  Link Bài giảng HĐ 2.1:      http://localhost:{port_to_use}/hd2-1")
         print(f"🖥️  Link Bài giảng HĐ 2.2:      http://localhost:{port_to_use}/hd2-2")
         print(f"💻 Link Thực hành CLB HĐ 3:    http://localhost:{port_to_use}/hd3")

@@ -1171,7 +1171,7 @@
             </li>
             <li class="mission-meta-item">
               <svg style="width:20px;height:20px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
-              <span><strong>Đường link truy cập:</strong> <code style="background: rgba(0,0,0,0.25); color: #fff; padding: 0.2rem 0.5rem; border-radius: 4px;">https://minda.io.vn/Tin12/Bai9/phieu-bai-tap-1.html</code></span>
+              <span><strong>Đường link truy cập:</strong> <code style="background: rgba(0,0,0,0.25); color: #fff; padding: 0.2rem 0.5rem; border-radius: 4px;">https://minda.io.vn/Tin12/Bai9/phieu-bai-tap.html</code></span>
             </li>
             <li class="mission-meta-item">
               <svg style="width:20px;height:20px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
@@ -1180,17 +1180,11 @@
           </ul>
 
           <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1rem;">
-            <a href="phieu-bai-tap-1.html" target="_blank" class="btn btn-primary" style="background:#ffffff; color:#1d4ed8; font-weight:700; box-shadow:0 4px 14px rgba(0,0,0,0.15); font-size: 0.92rem;">
-              🔗 Mở Phiếu 1 (Danh sách) ↗
+            <a href="phieu-bai-tap.html" target="_blank" class="btn btn-primary" style="background:#ffffff; color:#1d4ed8; font-weight:700; box-shadow:0 4px 14px rgba(0,0,0,0.15); font-size: 0.95rem;">
+              📝 Mở Phiếu Bài Tập Trực Tuyến ↗
             </a>
-            <a href="phieu-bai-tap-2.html" target="_blank" class="btn btn-primary" style="background:#ffffff; color:#0284c7; font-weight:700; box-shadow:0 4px 14px rgba(0,0,0,0.15); font-size: 0.92rem;">
-              🔗 Mở Phiếu 2 (Bảng &amp; Gộp ô) ↗
-            </a>
-            <button type="button" class="btn btn-secondary" onclick="openQrZoom('phieu1')" style="background:rgba(255,255,255,0.15); color:#fff; border-color:rgba(255,255,255,0.3); font-size: 0.9rem;">
-              🔍 Phóng to QR Phiếu 1
-            </button>
-            <button type="button" class="btn btn-secondary" onclick="openQrZoom('phieu2')" style="background:rgba(255,255,255,0.15); color:#fff; border-color:rgba(255,255,255,0.3); font-size: 0.9rem;">
-              🔍 Phóng to QR Phiếu 2
+            <button type="button" class="btn btn-secondary" onclick="openQrZoom()" style="background:rgba(255,255,255,0.15); color:#fff; border-color:rgba(255,255,255,0.3); font-size: 0.92rem;">
+              🔍 Phóng to QR Code Chiếu Bảng
             </button>
             <a href="hd3.html" class="btn btn-secondary" style="background: #10b981; border-color: #10b981; color: #fff; font-weight: 700; font-size: 0.92rem;">
               👉 Tiến sang HĐ 3: Thực hành CLB →
@@ -1200,7 +1194,7 @@
 
         <!-- MÃ QR TRỰC QUAN -->
         <div class="mission-qr-box">
-          <img src="assets/qr_phieu1.svg" alt="Mã QR quét làm Phiếu bài tập" class="qr-image-display" onclick="openQrZoom('phieu1')" style="cursor: pointer;" title="Bấm để phóng to">
+          <img src="assets/qr_phieubaitap.svg" alt="Mã QR quét làm Phiếu bài tập" class="qr-image-display" onclick="openQrZoom()" style="cursor: pointer;" title="Bấm để phóng to">
           <div class="qr-hint">
             📱 Quét bằng điện thoại hoặc gõ link để làm bài ngay!
           </div>
@@ -2307,27 +2301,18 @@
     }
 
         // Quản lý Modal QR Zoom
-    function openQrZoom(type = 'phieu1') {
+    function openQrZoom() {
       const modal = document.getElementById('qr-zoom-modal');
       const titleEl = document.getElementById('qr-zoom-title');
       const imgEl = document.getElementById('qr-zoom-img');
       const urlEl = document.getElementById('qr-zoom-url');
 
-      if (type === 'phieu2') {
-        if (titleEl) titleEl.textContent = 'QUÉT MÃ ĐỂ LÀM PHIẾU BÀI TẬP SỐ 2 (THIẾT LẬP BẢNG)';
-        if (imgEl) {
-          imgEl.src = 'assets/qr_phieu2.svg';
-          imgEl.alt = 'Mã QR Phiếu bài tập số 2';
-        }
-        if (urlEl) urlEl.textContent = 'https://minda.io.vn/Tin12/Bai9/phieu-bai-tap-2.html';
-      } else {
-        if (titleEl) titleEl.textContent = 'QUÉT MÃ ĐỂ LÀM PHIẾU BÀI TẬP SỐ 1 (DANH SÁCH HTML)';
-        if (imgEl) {
-          imgEl.src = 'assets/qr_phieu1.svg';
-          imgEl.alt = 'Mã QR Phiếu bài tập số 1';
-        }
-        if (urlEl) urlEl.textContent = 'https://minda.io.vn/Tin12/Bai9/phieu-bai-tap-1.html';
+      if (titleEl) titleEl.textContent = 'QUÉT MÃ ĐỂ LÀM PHIẾU BÀI TẬP: DANH SÁCH & BẢNG HTML';
+      if (imgEl) {
+        imgEl.src = 'assets/qr_phieubaitap.svg';
+        imgEl.alt = 'Mã QR Phiếu bài tập';
       }
+      if (urlEl) urlEl.textContent = 'https://minda.io.vn/Tin12/Bai9/phieu-bai-tap.html';
       if (modal) modal.classList.add('active');
     }
 
@@ -2375,9 +2360,9 @@ window.addEventListener('load', () => {
       <p style="color: #64748b; font-size: 0.92rem; margin-bottom: 1.25rem;">
         Học sinh dùng điện thoại hoặc máy tính bảng quét mã bên dưới để vào làm bài:
       </p>
-      <img id="qr-zoom-img" src="assets/qr_phieu1.svg" alt="Mã QR phóng to" style="width: 260px; height: 260px; object-fit: contain; margin: 0 auto; display: block; border: 1px solid #cbd5e1; border-radius: 12px; padding: 0.5rem; background: #fff;">
+      <img id="qr-zoom-img" src="assets/qr_phieubaitap.svg" alt="Mã QR phóng to" style="width: 260px; height: 260px; object-fit: contain; margin: 0 auto; display: block; border: 1px solid #cbd5e1; border-radius: 12px; padding: 0.5rem; background: #fff;">
       <div id="qr-zoom-url" style="margin-top: 1.25rem; font-family: monospace; font-size: 0.95rem; color: #1d4ed8; font-weight: bold; background: #eff6ff; padding: 0.5rem; border-radius: 6px; word-break: break-all;">
-        https://minda.io.vn/Tin12/Bai9/phieu-bai-tap-1.html
+        https://minda.io.vn/Tin12/Bai9/phieu-bai-tap.html
       </div>
       <button type="button" class="btn btn-secondary" onclick="closeQrZoom()" style="margin-top: 1.25rem; width: 100%;">
         Đóng cửa sổ (Esc)
