@@ -143,7 +143,7 @@ def add_footer(slide, slide_num=None):
     box_r = slide.shapes.add_textbox(Inches(8.5), Inches(7.05), Inches(4.18), Inches(0.35))
     tf_r = box_r.text_frame
     p_r = tf_r.paragraphs[0]
-    p_r.text = "Trường THPT Thực hành ĐH Sư phạm"
+    p_r.text = "THTH-DHSP"
     if slide_num:
         p_r.text += f" • {slide_num}"
     p_r.alignment = PP_ALIGN.RIGHT
@@ -299,8 +299,9 @@ def build_all_slides():
     b_tag.fill.solid(); b_tag.fill.fore_color.rgb = RGBColor(238, 242, 255)
     b_tag.line.color.rgb = RGBColor(199, 210, 254); b_tag.line.width = Pt(1)
     tf = b_tag.text_frame; tf.vertical_anchor = MSO_ANCHOR.MIDDLE
-    p = tf.paragraphs[0]; p.text = "TRƯỜNG THPT THỰC HÀNH - ĐẠI HỌC SƯ PHẠM TP.HCM • TIN HỌC 12"
-    p.font.name = FONT_HEADING; p.font.size = Pt(11.5); p.font.bold = True; p.font.color.rgb = COLOR_PRIMARY
+    p = tf.paragraphs[0]; p.text = "THTH-DHSP • TIN HỌC 12"
+    p.font.name = FONT_HEADING; p.font.size = Pt(13); p.font.bold = True; p.font.color.rgb = COLOR_PRIMARY
+    p.alignment = PP_ALIGN.CENTER
 
     t_box = s1.shapes.add_textbox(Inches(1.15), Inches(1.85), Inches(6.7), Inches(2.2))
     tf_t = t_box.text_frame; tf_t.word_wrap = True
@@ -1167,7 +1168,7 @@ def build_all_slides():
     p = tf_h3.paragraphs[0]; p.text = "HOẠT ĐỘNG 3: THỰC HÀNH LẬP TRÌNH (30 PHÚT)"
     p.font.name = FONT_HEADING; p.font.size = Pt(26); p.font.bold = True; p.font.color.rgb = COLOR_DARK_GREEN
     p.alignment = PP_ALIGN.CENTER
-    p2 = tf_h3.add_paragraph(); p2.text = "Dự án: Xây dựng trang web giới thiệu Câu lạc bộ trường THPT Thực hành: CLB.html"
+    p2 = tf_h3.add_paragraph(); p2.text = "Dự án: Xây dựng trang web giới thiệu Câu lạc bộ THTH-DHSP: CLB.html"
     p2.font.name = FONT_BODY; p2.font.size = Pt(15.5); p2.font.color.rgb = COLOR_TEXT_MUTED
     p2.alignment = PP_ALIGN.CENTER
 
@@ -1390,10 +1391,10 @@ def build_all_slides():
 
     card_end = add_card(s28, Inches(1.8), Inches(1.0), Inches(9.73), Inches(5.5), bg_color=COLOR_WHITE, border_color=COLOR_ROYAL, border_width=2)
 
-    s_tag = s28.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(2.86), Inches(1.5), Inches(7.6), Inches(0.48))
+    s_tag = s28.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(4.36), Inches(1.5), Inches(4.6), Inches(0.48))
     s_tag.fill.solid(); s_tag.fill.fore_color.rgb = RGBColor(238, 242, 255); s_tag.line.color.rgb = COLOR_ROYAL
-    p = s_tag.text_frame.paragraphs[0]; p.text = "TRƯỜNG THPT THỰC HÀNH - ĐẠI HỌC SƯ PHẠM TP. HỒ CHÍ MINH"
-    p.font.name = FONT_HEADING; p.font.size = Pt(13); p.font.bold = True; p.font.color.rgb = COLOR_PRIMARY
+    p = s_tag.text_frame.paragraphs[0]; p.text = "THTH-DHSP"
+    p.font.name = FONT_HEADING; p.font.size = Pt(14); p.font.bold = True; p.font.color.rgb = COLOR_PRIMARY
     p.alignment = PP_ALIGN.CENTER
 
     tb_e = s28.shapes.add_textbox(Inches(2.2), Inches(2.3), Inches(8.93), Inches(2.0))
