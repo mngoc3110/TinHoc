@@ -149,7 +149,7 @@
             <div class="syntax-card">
               <div class="syntax-header">
                 <span>💻 Cặp thẻ &lt;label for&gt; khớp &lt;input id&gt;</span>
-                <button type="button" class="btn-mini-tool" onclick="renderSnippet('h21_0')">▶ Chạy thử &amp; Xem kết quả</button>
+                <button type="button" id="btn-h21_0" class="btn-mini-tool" onclick="toggleSnippet('h21_0')">▶ Bấm xem kết quả hiển thị</button>
               </div>
               <pre class="syntax-body">&lt;form action=&quot;xuly.html&quot;&gt;
   &lt;label for=&quot;user&quot;&gt;Tên đăng nhập:&lt;/label&gt;&lt;br&gt;
@@ -158,7 +158,7 @@
   &lt;input id=&quot;pwd&quot; type=&quot;password&quot; name=&quot;password&quot; placeholder=&quot;••••••&quot;&gt;
 &lt;/form&gt;</pre>
             </div>
-            <div class="mini-compiler-box" style="border:1px solid #cbd5e1;border-radius:8px;overflow:hidden;">
+            <div id="box-h21_0" class="mini-compiler-box" style="display:none;border:1px solid #cbd5e1;border-radius:8px;overflow:hidden;margin-top:0.65rem;">
               <div class="snippet-preview-bar"><span>🌐 KẾT QUẢ HIỂN THỊ</span><span style="color:#16a34a;">HTML5 Live</span></div>
               <iframe id="prev-h21_0" style="width:100%;height:190px;border:none;background:#fff;" title="Preview h21_0"></iframe>
             </div>
@@ -183,13 +183,13 @@
                 </div>
 
 <div class="sgk-fig-box"><img src="assets/sgk/sgk_bang12_1.png" alt="Bảng 12.1. Các loại phần tử input thông dụng trong biểu mẫu (SGK tr.68)"><div class="sgk-fig-cap">Bảng 12.1. Các loại phần tử input thông dụng trong biểu mẫu (SGK tr.68)</div></div>
-<div style="background:#f0fdfa;border:1.5px solid #5eead4;border-radius:10px;padding:0.9rem 1rem;margin-top:0.9rem;"><strong style="color:#0f766e;">❓ Câu hỏi củng cố (Hộp xanh SGK):</strong><ul style="margin:0.5rem 0 0;padding-left:1.2rem;line-height:1.6;"><li><strong>Điều gì xảy ra nếu 2 nút radio Nam và Nữ được đặt thuộc tính name khác nhau (name='gt1' và name='gt2')?</strong><br><button type="button" class="btn btn-secondary btn-sm" style="margin-top:0.35rem;" onclick="this.nextElementSibling.style.display='block'">💡 Xem gợi ý</button><div style="display:none;margin-top:0.4rem;color:#166534;background:#f0fdf4;padding:0.55rem 0.75rem;border-radius:6px;border:1px solid #86efac;">Trình duyệt sẽ coi đó là 2 nhóm độc lập, dẫn tới người dùng có thể bấm chọn <strong>cả Nam và Nữ cùng lúc</strong>, sai hoàn toàn mục đích chọn 1 giá trị.</div></li><li><strong>Sự khác nhau giữa <code>&lt;input type="submit"&gt;</code> và <code>&lt;input type="button"&gt;</code> là gì?</strong><br><button type="button" class="btn btn-secondary btn-sm" style="margin-top:0.35rem;" onclick="this.nextElementSibling.style.display='block'">💡 Xem gợi ý</button><div style="display:none;margin-top:0.4rem;color:#166534;background:#f0fdf4;padding:0.55rem 0.75rem;border-radius:6px;border:1px solid #86efac;"><code>submit</code> tự động thu thập và gửi toàn bộ dữ liệu biểu mẫu tới địa chỉ <code>action</code>; còn <code>button</code> chỉ tạo một nút bấm trống để lập trình thêm sự kiện JavaScript.</div></li></ul></div>
+<div style="background:#f0fdfa;border:1.5px solid #5eead4;border-radius:10px;padding:0.9rem 1rem;margin-top:0.9rem;"><strong style="color:#0f766e;">❓ Câu hỏi củng cố (Hộp xanh SGK):</strong><ul style="margin:0.5rem 0 0;padding-left:1.2rem;line-height:1.6;"><li><strong>Điều gì xảy ra nếu 2 nút radio Nam và Nữ được đặt thuộc tính name khác nhau (name='gt1' và name='gt2')?</strong><br><button type="button" class="btn btn-secondary btn-sm" style="margin-top:0.35rem;" onclick="const b=this.nextElementSibling; const open=b.style.display!=='none'; b.style.display=open?'none':'block'; this.textContent=open?'💡 Bấm xem gợi ý trả lời':'🙈 Ẩn gợi ý';">💡 Bấm xem gợi ý trả lời</button><div style="display:none;margin-top:0.4rem;color:#166534;background:#f0fdf4;padding:0.55rem 0.75rem;border-radius:6px;border:1px solid #86efac;">Trình duyệt sẽ coi đó là 2 nhóm độc lập, dẫn tới người dùng có thể bấm chọn <strong>cả Nam và Nữ cùng lúc</strong>, sai hoàn toàn mục đích chọn 1 giá trị.</div></li><li><strong>Sự khác nhau giữa <code>&lt;input type="submit"&gt;</code> và <code>&lt;input type="button"&gt;</code> là gì?</strong><br><button type="button" class="btn btn-secondary btn-sm" style="margin-top:0.35rem;" onclick="const b=this.nextElementSibling; const open=b.style.display!=='none'; b.style.display=open?'none':'block'; this.textContent=open?'💡 Bấm xem gợi ý trả lời':'🙈 Ẩn gợi ý';">💡 Bấm xem gợi ý trả lời</button><div style="display:none;margin-top:0.4rem;color:#166534;background:#f0fdf4;padding:0.55rem 0.75rem;border-radius:6px;border:1px solid #86efac;"><code>submit</code> tự động thu thập và gửi toàn bộ dữ liệu biểu mẫu tới địa chỉ <code>action</code>; còn <code>button</code> chỉ tạo một nút bấm trống để lập trình thêm sự kiện JavaScript.</div></li></ul></div>
           </div>
           <div>
             <div class="syntax-card">
               <div class="syntax-header">
                 <span>💻 Thử radio (chọn 1), checkbox (chọn nhiều) &amp; submit</span>
-                <button type="button" class="btn-mini-tool" onclick="renderSnippet('h21_1')">▶ Chạy thử &amp; Xem kết quả</button>
+                <button type="button" id="btn-h21_1" class="btn-mini-tool" onclick="toggleSnippet('h21_1')">▶ Bấm xem kết quả hiển thị</button>
               </div>
               <pre class="syntax-body">&lt;form onsubmit=&quot;alert(&#x27;Đã bấm Gửi form!&#x27;);return false;&quot;&gt;
   &lt;strong&gt;Chọn lớp (radio - chọn 1):&lt;/strong&gt;&lt;br&gt;
@@ -201,7 +201,7 @@
   &lt;input type=&quot;submit&quot; value=&quot;Nộp phiếu&quot;&gt;
 &lt;/form&gt;</pre>
             </div>
-            <div class="mini-compiler-box" style="border:1px solid #cbd5e1;border-radius:8px;overflow:hidden;">
+            <div id="box-h21_1" class="mini-compiler-box" style="display:none;border:1px solid #cbd5e1;border-radius:8px;overflow:hidden;margin-top:0.65rem;">
               <div class="snippet-preview-bar"><span>🌐 KẾT QUẢ HIỂN THỊ</span><span style="color:#16a34a;">HTML5 Live</span></div>
               <iframe id="prev-h21_1" style="width:100%;height:190px;border:none;background:#fff;" title="Preview h21_1"></iframe>
             </div>
@@ -221,11 +221,16 @@
   &lt;input type=&quot;radio&quot; name=&quot;nhom&quot; checked&gt; Lựa chọn A
   &lt;input type=&quot;radio&quot; name=&quot;nhom&quot;&gt; Lựa chọn B
 &lt;/form&gt;</textarea>
-            <button type="button" class="btn btn-primary btn-sm" style="margin-top:0.5rem;" onclick="runSb21()">▶ Biên dịch ngay</button>
+            <button type="button" class="btn btn-primary btn-sm" style="margin-top:0.5rem;" onclick="runSb21()">▶ Biên dịch &amp; Xem kết quả</button>
           </div>
-          <div style="border:1.5px solid #cbd5e1;border-radius:8px;overflow:hidden;background:#fff;">
-            <div class="snippet-preview-bar"><span>🌐 Kết quả hiển thị trực tiếp</span></div>
-            <iframe id="sb21-frame" style="width:100%;height:205px;border:none;background:#fff;" title="Sandbox 2.1"></iframe>
+          <div>
+            <div id="sb21-placeholder" style="padding:2.5rem 1rem;text-align:center;color:#64748b;font-size:0.9rem;border:1.5px dashed #cbd5e1;border-radius:8px;background:#fff;height:100%;display:flex;align-items:center;justify-content:center;">
+              <div>👆 Em hãy đọc / chỉnh sửa mã nguồn rồi bấm <strong>"▶ Biên dịch &amp; Xem kết quả"</strong> để xem trang web hiển thị.</div>
+            </div>
+            <div id="sb21-box" style="display:none;border:1.5px solid #cbd5e1;border-radius:8px;overflow:hidden;background:#fff;">
+              <div class="snippet-preview-bar"><span>🌐 Kết quả hiển thị trực tiếp</span></div>
+              <iframe id="sb21-frame" style="width:100%;height:205px;border:none;background:#fff;" title="Sandbox 2.1"></iframe>
+            </div>
           </div>
         </div>
       </section>
@@ -374,17 +379,26 @@
       const doc = fr.contentDocument || fr.contentWindow.document;
       doc.open(); doc.write(SNIPPETS[id]); doc.close();
     }
+    function toggleSnippet(id) {
+      const box = document.getElementById('box-' + id);
+      const btn = document.getElementById('btn-' + id);
+      if (!box) return;
+      const isHidden = box.style.display === 'none';
+      box.style.display = isHidden ? 'block' : 'none';
+      if (btn) btn.textContent = isHidden ? '🙈 Ẩn kết quả' : '▶ Bấm xem kết quả hiển thị';
+      if (isHidden) renderSnippet(id);
+    }
     function runSb21() {
       const ta = document.getElementById('sb21-code');
       const fr = document.getElementById('sb21-frame');
+      const box = document.getElementById('sb21-box');
+      const ph = document.getElementById('sb21-placeholder');
       if (!ta || !fr) return;
+      if (ph) ph.style.display = 'none';
+      if (box) box.style.display = 'block';
       const doc = fr.contentDocument || fr.contentWindow.document;
       doc.open(); doc.write(ta.value); doc.close();
     }
-    window.addEventListener('DOMContentLoaded', () => {
-      Object.keys(SNIPPETS).forEach(renderSnippet);
-      runSb21();
-    });
   </script>
 </body>
 </html>

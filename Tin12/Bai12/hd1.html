@@ -148,7 +148,7 @@
             </ul>
           </div>
           <div style="margin-top:1rem;">
-            <button type="button" class="btn btn-secondary btn-sm" onclick="document.getElementById('hd1-hint').style.display='block'">💡 Gợi ý trả lời nhanh</button>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="toggleHd1Hint(this)">💡 Bấm xem gợi ý trả lời</button>
             <div id="hd1-hint" style="display:none;margin-top:0.75rem;padding:0.9rem;background:#f0fdf4;border:1px solid #86efac;border-radius:8px;color:#166534;font-size:0.9rem;line-height:1.55;">
               1) Thẻ <code>&lt;p&gt;</code> chỉ hiển thị văn bản tĩnh; phải dùng <code>&lt;form&gt;</code> và các điều khiển nhập liệu như <code>&lt;input&gt;</code> mới có ô gõ và nút bấm.<br>2) Khối lớp/Giới tính chỉ chọn 1 -> dùng <code>radio</code>; Danh sách CLB tham gia/Sở thích có thể chọn nhiều -> dùng <code>checkbox</code>.
             </div>
@@ -164,7 +164,7 @@
           <h3 style="margin-top:0;color:#0f172a;">🔬 Mô phỏng trực quan trước – sau</h3>
           <div class="mode-switch">
             <button type="button" id="btn-m-before" class="active" onclick="setCompareMode('before')">Chưa áp dụng kỹ thuật mới</button>
-            <button type="button" id="btn-m-after" onclick="setCompareMode('after')">Sau khi áp dụng (Chuẩn)</button>
+            <button type="button" id="btn-m-after" onclick="setCompareMode('after')">💡 Bấm xem giải pháp chuẩn</button>
           </div>
           <div class="syntax-card">
             <div class="syntax-header">
@@ -339,6 +339,13 @@
         const doc = frame.contentDocument || frame.contentWindow.document;
         doc.open(); doc.write(src); doc.close();
       }
+    }
+    function toggleHd1Hint(btn) {
+      const box = document.getElementById('hd1-hint');
+      if (!box) return;
+      const open = box.style.display !== 'none';
+      box.style.display = open ? 'none' : 'block';
+      if (btn) btn.textContent = open ? '💡 Bấm xem gợi ý trả lời' : '🙈 Ẩn gợi ý';
     }
     window.addEventListener('DOMContentLoaded', () => setCompareMode('before'));
   </script>

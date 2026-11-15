@@ -36,12 +36,14 @@
     .infographic-tab.active { background:#4f46e5; color:#fff; border-color:#4f46e5; }
     .infographic-canvas-wrap { background:#f8fafc; border:1.5px solid #cbd5e1; border-radius:14px; padding:1rem; min-height:380px; display:flex; align-items:center; justify-content:center; overflow-x:auto; }
     .flashcard-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(235px, 1fr)); gap:1rem; }
-    .flashcard { perspective:1000px; height:210px; cursor:pointer; }
-    .flashcard-inner { position:relative; width:100%; height:100%; transition:transform 0.55s; transform-style:preserve-3d; }
-    .flashcard.flipped .flashcard-inner { transform:rotateY(180deg); }
-    .flashcard-front, .flashcard-back { position:absolute; inset:0; backface-visibility:hidden; border-radius:14px; padding:1.15rem; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; }
+    .flashcard { -webkit-perspective:1000px; perspective:1000px; height:215px; cursor:pointer; }
+    .flashcard-inner { position:relative; width:100%; height:100%; transition:transform 0.55s; -webkit-transform-style:preserve-3d; transform-style:preserve-3d; }
+    .flashcard.flipped .flashcard-inner { -webkit-transform:rotateY(180deg); transform:rotateY(180deg); }
+    .flashcard-front, .flashcard-back { position:absolute; inset:0; -webkit-backface-visibility:hidden; backface-visibility:hidden; border-radius:14px; padding:1.15rem; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; transition:opacity 0.2s ease, visibility 0.2s ease; }
     .flashcard-front { background:#fff; border:1.5px solid #cbd5e1; box-shadow:0 4px 12px rgba(0,0,0,0.04); }
-    .flashcard-back { background:linear-gradient(135deg,#1e3a8a,#312e81); color:#f8fafc; transform:rotateY(180deg); }
+    .flashcard-back { background:linear-gradient(135deg,#1e3a8a,#312e81); color:#f8fafc; -webkit-transform:rotateY(180deg); transform:rotateY(180deg); }
+    .flashcard:not(.flipped) .flashcard-back { visibility:hidden; opacity:0; pointer-events:none; }
+    .flashcard.flipped .flashcard-front { visibility:hidden; opacity:0; pointer-events:none; }
     
   </style>
 </head>
@@ -135,8 +137,8 @@
   <section class="hero-banner" style="padding:2rem 0; background:linear-gradient(135deg,#4338ca 0%,#6366f1 55%,#9333ea 100%);">
     <div class="container">
       <div class="badge-tag" style="background:rgba(255,255,255,0.2);color:#fff;">📊 HOẠT ĐỘNG 4 • TỔNG KẾT INFOGRAPHIC &amp; VẬN DỤNG SGK</div>
-      <h1 class="hero-title" style="font-size:1.95rem;">Infographic Tổng Hợp &amp; Giải Bài Tập Cuối Bài</h1>
-      <p class="hero-subtitle">Bài 12: Tạo biểu mẫu • Sơ đồ hóa kiến thức trọng tâm, thẻ lật Flashcards 3D và toàn bộ đáp án Luyện tập, Vận dụng SGK Kết nối tri thức.</p>
+      <h1 class="hero-title" style="font-size:1.95rem;">Infographic Tổng Hợp &amp; Luyện Tập Cuối Bài</h1>
+      <p class="hero-subtitle">Bài 12: Tạo biểu mẫu • Sơ đồ hóa kiến thức trọng tâm, thẻ lật Flashcards 3D và tự luyện câu hỏi Luyện tập, Vận dụng SGK Kết nối tri thức (bấm vào từng câu để đối chiếu gợi ý).</p>
     </div>
   </section>
 
@@ -165,7 +167,10 @@
 
       <!-- FLASHCARDS 3D -->
       <section class="card" style="margin-bottom:1.5rem;">
-        <h2 style="margin:0 0 0.85rem;color:#1e3a8a;font-size:1.3rem;">2. Góc Lật Thẻ Ghi Nhớ (Interactive Flashcards 3D)</h2>
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.85rem;">
+          <h2 style="margin:0;color:#1e3a8a;font-size:1.3rem;">2. Góc Lật Thẻ Ghi Nhớ (Interactive Flashcards 3D)</h2>
+          <span class="sgk-badge">👆 Bấm vào từng thẻ để lật xem đáp án</span>
+        </div>
         <div class="flashcard-grid">
           <div class="flashcard" onclick="this.classList.toggle('flipped')">
             <div class="flashcard-inner">
@@ -177,6 +182,7 @@
               <div class="flashcard-back">
                 <strong style="color:#60a5fa;margin-bottom:0.5rem;">✅ Đáp án ghi nhớ:</strong>
                 <div style="font-size:0.9rem;line-height:1.55;">Vì trình duyệt dựa vào <strong>cùng giá trị <code>name</code></strong> để hiểu chúng thuộc một nhóm loại trừ lẫn nhau (chọn cái này sẽ tự bỏ chọn cái kia).</div>
+                <span style="font-size:0.75rem;color:#93c5fd;margin-top:0.65rem;">👆 Nhấn lần nữa để úp thẻ lại</span>
               </div>
             </div>
           </div>
@@ -190,6 +196,7 @@
               <div class="flashcard-back">
                 <strong style="color:#60a5fa;margin-bottom:0.5rem;">✅ Đáp án ghi nhớ:</strong>
                 <div style="font-size:0.9rem;line-height:1.55;">Bọc chữ trong thẻ label có thuộc tính <code>for</code> trùng với <code>id</code> của ô nhập: <code>&lt;label for="hoten"&gt;Họ và tên&lt;/label&gt;</code>.</div>
+                <span style="font-size:0.75rem;color:#93c5fd;margin-top:0.65rem;">👆 Nhấn lần nữa để úp thẻ lại</span>
               </div>
             </div>
           </div>
@@ -203,6 +210,7 @@
               <div class="flashcard-back">
                 <strong style="color:#60a5fa;margin-bottom:0.5rem;">✅ Đáp án ghi nhớ:</strong>
                 <div style="font-size:0.9rem;line-height:1.55;">Dùng thẻ ghép <code>&lt;textarea rows="4" cols="40"&gt;&lt;/textarea&gt;</code> (không dùng <code>&lt;input type="text"&gt;</code> chỉ gõ được 1 dòng).</div>
+                <span style="font-size:0.75rem;color:#93c5fd;margin-top:0.65rem;">👆 Nhấn lần nữa để úp thẻ lại</span>
               </div>
             </div>
           </div>
@@ -216,6 +224,7 @@
               <div class="flashcard-back">
                 <strong style="color:#60a5fa;margin-bottom:0.5rem;">✅ Đáp án ghi nhớ:</strong>
                 <div style="font-size:0.9rem;line-height:1.55;">Kết hợp cặp thẻ <code>&lt;fieldset&gt;</code> bao ngoài và <code>&lt;legend&gt;Tiêu đề nhóm&lt;/legend&gt;</code> ngay bên trong.</div>
+                <span style="font-size:0.75rem;color:#93c5fd;margin-top:0.65rem;">👆 Nhấn lần nữa để úp thẻ lại</span>
               </div>
             </div>
           </div>
@@ -233,7 +242,7 @@
           <p style="margin:0 0 0.7rem;color:#1e293b;line-height:1.55;">Trình bày công dụng của cặp thẻ <code>&lt;label for="..."&gt;</code> và giải thích lỗi nếu 2 nút radio đặt khác thuộc tính <code>name</code>.</p>
           <textarea id="ans-input-1" rows="3" placeholder="Em hãy viết câu trả lời / đoạn mã của mình tại đây..." oninput="saveHd4Ans(1, this.value)" style="width:100%;padding:0.7rem;border:1.5px solid #cbd5e1;border-radius:8px;font-family:'Fira Code',sans-serif;font-size:0.86rem;"></textarea>
           <div style="margin-top:0.6rem;">
-            <button type="button" class="btn btn-secondary btn-sm" onclick="const g=document.getElementById('ans-guide-1'); g.style.display=g.style.display==='none'?'block':'none';">💡 Xem Đáp án chuẩn SGK</button>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="toggleSgkAnswer(1, this)">💡 Bấm xem gợi ý &amp; đáp án đối chiếu</button>
           </div>
           <div id="ans-guide-1" style="display:none;margin-top:0.75rem;padding:0.9rem 1rem;background:#f0fdf4;border:1.5px solid #86efac;border-radius:8px;color:#14532d;font-size:0.9rem;line-height:1.6;">
             <strong>Gợi ý chuẩn SGK:</strong><br>• Thẻ <code>&lt;label for="id"&gt;</code> gắn nhãn mô tả rõ nghĩa cho ô nhập liệu có cùng <code>id</code>, giúp người dùng bấm vào nhãn vẫn kích hoạt được ô nhập (tăng khả năng tiếp cận).<br>• Nếu 2 nút <code>radio</code> đặt khác <code>name</code>, trình duyệt không gom nhóm nên người dùng tích được cả 2 cùng lúc, sai logic chọn duy nhất 1 phương án.
@@ -247,7 +256,7 @@
           <p style="margin:0 0 0.7rem;color:#1e293b;line-height:1.55;">Hãy thiết kế đoạn mã HTML tạo biểu mẫu đăng kí tham gia CLB trường THTH-DHSP gồm: Họ tên (<code>text</code>), Khối lớp (<code>select</code>), Nguyện vọng CLB (<code>checkbox</code>), Ý kiến đề xuất (<code>textarea</code>) và nút Gửi (<code>submit</code>), phân nhóm bằng <code>&lt;fieldset&gt;</code>.</p>
           <textarea id="ans-input-2" rows="3" placeholder="Em hãy viết câu trả lời / đoạn mã của mình tại đây..." oninput="saveHd4Ans(2, this.value)" style="width:100%;padding:0.7rem;border:1.5px solid #cbd5e1;border-radius:8px;font-family:'Fira Code',sans-serif;font-size:0.86rem;"></textarea>
           <div style="margin-top:0.6rem;">
-            <button type="button" class="btn btn-secondary btn-sm" onclick="const g=document.getElementById('ans-guide-2'); g.style.display=g.style.display==='none'?'block':'none';">💡 Xem Đáp án chuẩn SGK</button>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="toggleSgkAnswer(2, this)">💡 Bấm xem gợi ý &amp; đáp án đối chiếu</button>
           </div>
           <div id="ans-guide-2" style="display:none;margin-top:0.75rem;padding:0.9rem 1rem;background:#f0fdf4;border:1.5px solid #86efac;border-radius:8px;color:#14532d;font-size:0.9rem;line-height:1.6;">
             <pre style='background:#0f172a;color:#e2e8f0;padding:0.75rem;border-radius:8px;overflow:auto;'>&lt;form action="xuly.html"&gt;
@@ -466,6 +475,13 @@
         cur['q' + idx] = val;
         localStorage.setItem('bai12_hd4_answers', JSON.stringify(cur));
       } catch (e) {}
+    }
+    function toggleSgkAnswer(idx, btn) {
+      const g = document.getElementById('ans-guide-' + idx);
+      if (!g) return;
+      const open = g.style.display !== 'none';
+      g.style.display = open ? 'none' : 'block';
+      if (btn) btn.textContent = open ? '💡 Bấm xem gợi ý & đáp án đối chiếu' : '🙈 Ẩn đáp án';
     }
     window.addEventListener('DOMContentLoaded', () => {
       renderInfographic('cards', document.querySelector('.infographic-tab'));

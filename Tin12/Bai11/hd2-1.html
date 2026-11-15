@@ -153,13 +153,13 @@
             <div class="syntax-card">
               <div class="syntax-header">
                 <span>💻 Thẻ &lt;img&gt; chỉ đặt width để giữ nguyên tỉ lệ</span>
-                <button type="button" class="btn-mini-tool" onclick="renderSnippet('h21_0')">▶ Chạy thử &amp; Xem kết quả</button>
+                <button type="button" id="btn-h21_0" class="btn-mini-tool" onclick="toggleSnippet('h21_0')">▶ Bấm xem kết quả hiển thị</button>
               </div>
               <pre class="syntax-body">&lt;h4&gt;Chèn ảnh đúng tỉ lệ (chỉ đặt width)&lt;/h4&gt;
 &lt;img src=&quot;assets/sgk/sgk_hinh11_2.png&quot; alt=&quot;Minh họa ảnh CLB&quot; width=&quot;240&quot;&gt;
 &lt;p style=&quot;font-size:12px;color:#475569;&quot;&gt;(Trình duyệt tự động tính height tương ứng)&lt;/p&gt;</pre>
             </div>
-            <div class="mini-compiler-box" style="border:1px solid #cbd5e1;border-radius:8px;overflow:hidden;">
+            <div id="box-h21_0" class="mini-compiler-box" style="display:none;border:1px solid #cbd5e1;border-radius:8px;overflow:hidden;margin-top:0.65rem;">
               <div class="snippet-preview-bar"><span>🌐 KẾT QUẢ HIỂN THỊ</span><span style="color:#16a34a;">HTML5 Live</span></div>
               <iframe id="prev-h21_0" style="width:100%;height:190px;border:none;background:#fff;" title="Preview h21_0"></iframe>
             </div>
@@ -184,13 +184,13 @@
                 </div>
 
 <div class="sgk-fig-box"><img src="assets/sgk/sgk_hinh11_4.png" alt="Hình 11.4. Chèn video vào trang web CLB (SGK tr.64)"><div class="sgk-fig-cap">Hình 11.4. Chèn video vào trang web CLB (SGK tr.64)</div></div>
-<div style="background:#f0fdfa;border:1.5px solid #5eead4;border-radius:10px;padding:0.9rem 1rem;margin-top:0.9rem;"><strong style="color:#0f766e;">❓ Câu hỏi củng cố (Hộp xanh SGK):</strong><ul style="margin:0.5rem 0 0;padding-left:1.2rem;line-height:1.6;"><li><strong>Vì sao nên viết thẻ <code>&lt;source&gt;</code> bên trong cặp thẻ <code>&lt;audio&gt;</code> hoặc <code>&lt;video&gt;</code> thay vì chỉ ghi thuộc tính <code>src</code> trực tiếp?</strong><br><button type="button" class="btn btn-secondary btn-sm" style="margin-top:0.35rem;" onclick="this.nextElementSibling.style.display='block'">💡 Xem gợi ý</button><div style="display:none;margin-top:0.4rem;color:#166534;background:#f0fdf4;padding:0.55rem 0.75rem;border-radius:6px;border:1px solid #86efac;">Vì mỗi trình duyệt có thể hỗ trợ những định dạng tệp khác nhau (MP4/WebM hoặc MP3/OGG). Khai báo nhiều thẻ <code>&lt;source&gt;</code> giúp trình duyệt tự chọn phát định dạng đầu tiên nó hỗ trợ.</div></li><li><strong>Thẻ <code>&lt;audio&gt;</code> có hỗ trợ thuộc tính <code>width</code>, <code>height</code> và <code>poster</code> giống thẻ <code>&lt;video&gt;</code> không?</strong><br><button type="button" class="btn btn-secondary btn-sm" style="margin-top:0.35rem;" onclick="this.nextElementSibling.style.display='block'">💡 Xem gợi ý</button><div style="display:none;margin-top:0.4rem;color:#166534;background:#f0fdf4;padding:0.55rem 0.75rem;border-radius:6px;border:1px solid #86efac;"><strong>Không.</strong> Âm thanh không có khung hình video nên <code>&lt;audio&gt;</code> không có <code>width</code>, <code>height</code> hay <code>poster</code>.</div></li></ul></div>
+<div style="background:#f0fdfa;border:1.5px solid #5eead4;border-radius:10px;padding:0.9rem 1rem;margin-top:0.9rem;"><strong style="color:#0f766e;">❓ Câu hỏi củng cố (Hộp xanh SGK):</strong><ul style="margin:0.5rem 0 0;padding-left:1.2rem;line-height:1.6;"><li><strong>Vì sao nên viết thẻ <code>&lt;source&gt;</code> bên trong cặp thẻ <code>&lt;audio&gt;</code> hoặc <code>&lt;video&gt;</code> thay vì chỉ ghi thuộc tính <code>src</code> trực tiếp?</strong><br><button type="button" class="btn btn-secondary btn-sm" style="margin-top:0.35rem;" onclick="const b=this.nextElementSibling; const open=b.style.display!=='none'; b.style.display=open?'none':'block'; this.textContent=open?'💡 Bấm xem gợi ý trả lời':'🙈 Ẩn gợi ý';">💡 Bấm xem gợi ý trả lời</button><div style="display:none;margin-top:0.4rem;color:#166534;background:#f0fdf4;padding:0.55rem 0.75rem;border-radius:6px;border:1px solid #86efac;">Vì mỗi trình duyệt có thể hỗ trợ những định dạng tệp khác nhau (MP4/WebM hoặc MP3/OGG). Khai báo nhiều thẻ <code>&lt;source&gt;</code> giúp trình duyệt tự chọn phát định dạng đầu tiên nó hỗ trợ.</div></li><li><strong>Thẻ <code>&lt;audio&gt;</code> có hỗ trợ thuộc tính <code>width</code>, <code>height</code> và <code>poster</code> giống thẻ <code>&lt;video&gt;</code> không?</strong><br><button type="button" class="btn btn-secondary btn-sm" style="margin-top:0.35rem;" onclick="const b=this.nextElementSibling; const open=b.style.display!=='none'; b.style.display=open?'none':'block'; this.textContent=open?'💡 Bấm xem gợi ý trả lời':'🙈 Ẩn gợi ý';">💡 Bấm xem gợi ý trả lời</button><div style="display:none;margin-top:0.4rem;color:#166534;background:#f0fdf4;padding:0.55rem 0.75rem;border-radius:6px;border:1px solid #86efac;"><strong>Không.</strong> Âm thanh không có khung hình video nên <code>&lt;audio&gt;</code> không có <code>width</code>, <code>height</code> hay <code>poster</code>.</div></li></ul></div>
           </div>
           <div>
             <div class="syntax-card">
               <div class="syntax-header">
                 <span>💻 Cú pháp chuẩn &lt;audio&gt; và &lt;video&gt; kèm &lt;source&gt;</span>
-                <button type="button" class="btn-mini-tool" onclick="renderSnippet('h21_1')">▶ Chạy thử &amp; Xem kết quả</button>
+                <button type="button" id="btn-h21_1" class="btn-mini-tool" onclick="toggleSnippet('h21_1')">▶ Bấm xem kết quả hiển thị</button>
               </div>
               <pre class="syntax-body">&lt;h4&gt;Trình phát Âm thanh &amp;amp; Video chuẩn HTML5&lt;/h4&gt;
 &lt;audio controls&gt;
@@ -202,7 +202,7 @@
   &lt;source src=&quot;clb.webm&quot; type=&quot;video/webm&quot;&gt;
 &lt;/video&gt;</pre>
             </div>
-            <div class="mini-compiler-box" style="border:1px solid #cbd5e1;border-radius:8px;overflow:hidden;">
+            <div id="box-h21_1" class="mini-compiler-box" style="display:none;border:1px solid #cbd5e1;border-radius:8px;overflow:hidden;margin-top:0.65rem;">
               <div class="snippet-preview-bar"><span>🌐 KẾT QUẢ HIỂN THỊ</span><span style="color:#16a34a;">HTML5 Live</span></div>
               <iframe id="prev-h21_1" style="width:100%;height:190px;border:none;background:#fff;" title="Preview h21_1"></iframe>
             </div>
@@ -220,11 +220,16 @@
 &lt;audio controls&gt;
   &lt;source src=&quot;demo.mp3&quot; type=&quot;audio/mpeg&quot;&gt;
 &lt;/audio&gt;</textarea>
-            <button type="button" class="btn btn-primary btn-sm" style="margin-top:0.5rem;" onclick="runSb21()">▶ Biên dịch ngay</button>
+            <button type="button" class="btn btn-primary btn-sm" style="margin-top:0.5rem;" onclick="runSb21()">▶ Biên dịch &amp; Xem kết quả</button>
           </div>
-          <div style="border:1.5px solid #cbd5e1;border-radius:8px;overflow:hidden;background:#fff;">
-            <div class="snippet-preview-bar"><span>🌐 Kết quả hiển thị trực tiếp</span></div>
-            <iframe id="sb21-frame" style="width:100%;height:205px;border:none;background:#fff;" title="Sandbox 2.1"></iframe>
+          <div>
+            <div id="sb21-placeholder" style="padding:2.5rem 1rem;text-align:center;color:#64748b;font-size:0.9rem;border:1.5px dashed #cbd5e1;border-radius:8px;background:#fff;height:100%;display:flex;align-items:center;justify-content:center;">
+              <div>👆 Em hãy đọc / chỉnh sửa mã nguồn rồi bấm <strong>"▶ Biên dịch &amp; Xem kết quả"</strong> để xem trang web hiển thị.</div>
+            </div>
+            <div id="sb21-box" style="display:none;border:1.5px solid #cbd5e1;border-radius:8px;overflow:hidden;background:#fff;">
+              <div class="snippet-preview-bar"><span>🌐 Kết quả hiển thị trực tiếp</span></div>
+              <iframe id="sb21-frame" style="width:100%;height:205px;border:none;background:#fff;" title="Sandbox 2.1"></iframe>
+            </div>
           </div>
         </div>
       </section>
@@ -373,17 +378,26 @@
       const doc = fr.contentDocument || fr.contentWindow.document;
       doc.open(); doc.write(SNIPPETS[id]); doc.close();
     }
+    function toggleSnippet(id) {
+      const box = document.getElementById('box-' + id);
+      const btn = document.getElementById('btn-' + id);
+      if (!box) return;
+      const isHidden = box.style.display === 'none';
+      box.style.display = isHidden ? 'block' : 'none';
+      if (btn) btn.textContent = isHidden ? '🙈 Ẩn kết quả' : '▶ Bấm xem kết quả hiển thị';
+      if (isHidden) renderSnippet(id);
+    }
     function runSb21() {
       const ta = document.getElementById('sb21-code');
       const fr = document.getElementById('sb21-frame');
+      const box = document.getElementById('sb21-box');
+      const ph = document.getElementById('sb21-placeholder');
       if (!ta || !fr) return;
+      if (ph) ph.style.display = 'none';
+      if (box) box.style.display = 'block';
       const doc = fr.contentDocument || fr.contentWindow.document;
       doc.open(); doc.write(ta.value); doc.close();
     }
-    window.addEventListener('DOMContentLoaded', () => {
-      Object.keys(SNIPPETS).forEach(renderSnippet);
-      runSb21();
-    });
   </script>
 </body>
 </html>

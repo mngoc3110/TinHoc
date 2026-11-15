@@ -149,7 +149,7 @@
             <div class="syntax-card">
               <div class="syntax-header">
                 <span>💻 Thử nghiệm 5 họ phông và đơn vị cỡ chữ</span>
-                <button type="button" class="btn-mini-tool" onclick="renderSnippet('h21_0')">▶ Chạy thử &amp; Xem kết quả</button>
+                <button type="button" id="btn-h21_0" class="btn-mini-tool" onclick="toggleSnippet('h21_0')">▶ Bấm xem kết quả hiển thị</button>
               </div>
               <pre class="syntax-body">&lt;style&gt;
   .s1 { font-family: &quot;Times New Roman&quot;, serif; font-size: 18px; }
@@ -160,7 +160,7 @@
 &lt;p class=&quot;s2&quot;&gt;Họ sans-serif (không chân hiện đại)&lt;/p&gt;
 &lt;p class=&quot;s3&quot;&gt;Họ monospace (hiển thị mã nguồn 14pt)&lt;/p&gt;</pre>
             </div>
-            <div class="mini-compiler-box" style="border:1px solid #cbd5e1;border-radius:8px;overflow:hidden;">
+            <div id="box-h21_0" class="mini-compiler-box" style="display:none;border:1px solid #cbd5e1;border-radius:8px;overflow:hidden;margin-top:0.65rem;">
               <div class="snippet-preview-bar"><span>🌐 KẾT QUẢ HIỂN THỊ</span><span style="color:#16a34a;">HTML5 Live</span></div>
               <iframe id="prev-h21_0" style="width:100%;height:190px;border:none;background:#fff;" title="Preview h21_0"></iframe>
             </div>
@@ -182,13 +182,13 @@
                 </div>
 
 <div class="sgk-fig-box"><img src="assets/sgk/sgk_hinh14_3.png" alt="Hình 14.3. Minh họa font-style và font-weight (SGK tr.77)"><div class="sgk-fig-cap">Hình 14.3. Minh họa font-style và font-weight (SGK tr.77)</div></div>
-<div style="background:#f0fdfa;border:1.5px solid #5eead4;border-radius:10px;padding:0.9rem 1rem;margin-top:0.9rem;"><strong style="color:#0f766e;">❓ Câu hỏi củng cố (Hộp xanh SGK):</strong><ul style="margin:0.5rem 0 0;padding-left:1.2rem;line-height:1.6;"><li><strong>Phát biểu: 'Giá trị font-weight: 300 hiển thị chữ in đậm còn font-style: italics dùng để in nghiêng' đúng ở điểm nào và sai ở điểm nào?</strong><br><button type="button" class="btn btn-secondary btn-sm" style="margin-top:0.35rem;" onclick="this.nextElementSibling.style.display='block'">💡 Xem gợi ý</button><div style="display:none;margin-top:0.4rem;color:#166534;background:#f0fdf4;padding:0.55rem 0.75rem;border-radius:6px;border:1px solid #86efac;"><strong>Cả 2 phần đều chưa chính xác:</strong> chữ in đậm chỉ áp dụng từ giá trị <code>500</code> trở lên (ví dụ <code>700</code> hoặc <code>bold</code>); và từ khóa in nghiêng chuẩn CSS là <code>italic</code> (không có chữ 's').</div></li></ul></div>
+<div style="background:#f0fdfa;border:1.5px solid #5eead4;border-radius:10px;padding:0.9rem 1rem;margin-top:0.9rem;"><strong style="color:#0f766e;">❓ Câu hỏi củng cố (Hộp xanh SGK):</strong><ul style="margin:0.5rem 0 0;padding-left:1.2rem;line-height:1.6;"><li><strong>Phát biểu: 'Giá trị font-weight: 300 hiển thị chữ in đậm còn font-style: italics dùng để in nghiêng' đúng ở điểm nào và sai ở điểm nào?</strong><br><button type="button" class="btn btn-secondary btn-sm" style="margin-top:0.35rem;" onclick="const b=this.nextElementSibling; const open=b.style.display!=='none'; b.style.display=open?'none':'block'; this.textContent=open?'💡 Bấm xem gợi ý trả lời':'🙈 Ẩn gợi ý';">💡 Bấm xem gợi ý trả lời</button><div style="display:none;margin-top:0.4rem;color:#166534;background:#f0fdf4;padding:0.55rem 0.75rem;border-radius:6px;border:1px solid #86efac;"><strong>Cả 2 phần đều chưa chính xác:</strong> chữ in đậm chỉ áp dụng từ giá trị <code>500</code> trở lên (ví dụ <code>700</code> hoặc <code>bold</code>); và từ khóa in nghiêng chuẩn CSS là <code>italic</code> (không có chữ 's').</div></li></ul></div>
           </div>
           <div>
             <div class="syntax-card">
               <div class="syntax-header">
                 <span>💻 Kiểm chứng font-style và font-weight</span>
-                <button type="button" class="btn-mini-tool" onclick="renderSnippet('h21_1')">▶ Chạy thử &amp; Xem kết quả</button>
+                <button type="button" id="btn-h21_1" class="btn-mini-tool" onclick="toggleSnippet('h21_1')">▶ Bấm xem kết quả hiển thị</button>
               </div>
               <pre class="syntax-body">&lt;style&gt;
   .nghieng { font-style: italic; color: #059669; }
@@ -197,7 +197,7 @@
 &lt;p class=&quot;nghieng&quot;&gt;Dòng này in nghiêng bằng font-style: italic;&lt;/p&gt;
 &lt;p class=&quot;dam700&quot;&gt;Dòng này in đậm bằng font-weight: 700;&lt;/p&gt;</pre>
             </div>
-            <div class="mini-compiler-box" style="border:1px solid #cbd5e1;border-radius:8px;overflow:hidden;">
+            <div id="box-h21_1" class="mini-compiler-box" style="display:none;border:1px solid #cbd5e1;border-radius:8px;overflow:hidden;margin-top:0.65rem;">
               <div class="snippet-preview-bar"><span>🌐 KẾT QUẢ HIỂN THỊ</span><span style="color:#16a34a;">HTML5 Live</span></div>
               <iframe id="prev-h21_1" style="width:100%;height:190px;border:none;background:#fff;" title="Preview h21_1"></iframe>
             </div>
@@ -215,11 +215,16 @@
   p { font-family: Arial, sans-serif; font-size: 17px; font-weight: 700; color: #1e3a8a; }
 &lt;/style&gt;
 &lt;p&gt;Kiểm tra trực quan định dạng chữ!&lt;/p&gt;</textarea>
-            <button type="button" class="btn btn-primary btn-sm" style="margin-top:0.5rem;" onclick="runSb21()">▶ Biên dịch ngay</button>
+            <button type="button" class="btn btn-primary btn-sm" style="margin-top:0.5rem;" onclick="runSb21()">▶ Biên dịch &amp; Xem kết quả</button>
           </div>
-          <div style="border:1.5px solid #cbd5e1;border-radius:8px;overflow:hidden;background:#fff;">
-            <div class="snippet-preview-bar"><span>🌐 Kết quả hiển thị trực tiếp</span></div>
-            <iframe id="sb21-frame" style="width:100%;height:205px;border:none;background:#fff;" title="Sandbox 2.1"></iframe>
+          <div>
+            <div id="sb21-placeholder" style="padding:2.5rem 1rem;text-align:center;color:#64748b;font-size:0.9rem;border:1.5px dashed #cbd5e1;border-radius:8px;background:#fff;height:100%;display:flex;align-items:center;justify-content:center;">
+              <div>👆 Em hãy đọc / chỉnh sửa mã nguồn rồi bấm <strong>"▶ Biên dịch &amp; Xem kết quả"</strong> để xem trang web hiển thị.</div>
+            </div>
+            <div id="sb21-box" style="display:none;border:1.5px solid #cbd5e1;border-radius:8px;overflow:hidden;background:#fff;">
+              <div class="snippet-preview-bar"><span>🌐 Kết quả hiển thị trực tiếp</span></div>
+              <iframe id="sb21-frame" style="width:100%;height:205px;border:none;background:#fff;" title="Sandbox 2.1"></iframe>
+            </div>
           </div>
         </div>
       </section>
@@ -368,17 +373,26 @@
       const doc = fr.contentDocument || fr.contentWindow.document;
       doc.open(); doc.write(SNIPPETS[id]); doc.close();
     }
+    function toggleSnippet(id) {
+      const box = document.getElementById('box-' + id);
+      const btn = document.getElementById('btn-' + id);
+      if (!box) return;
+      const isHidden = box.style.display === 'none';
+      box.style.display = isHidden ? 'block' : 'none';
+      if (btn) btn.textContent = isHidden ? '🙈 Ẩn kết quả' : '▶ Bấm xem kết quả hiển thị';
+      if (isHidden) renderSnippet(id);
+    }
     function runSb21() {
       const ta = document.getElementById('sb21-code');
       const fr = document.getElementById('sb21-frame');
+      const box = document.getElementById('sb21-box');
+      const ph = document.getElementById('sb21-placeholder');
       if (!ta || !fr) return;
+      if (ph) ph.style.display = 'none';
+      if (box) box.style.display = 'block';
       const doc = fr.contentDocument || fr.contentWindow.document;
       doc.open(); doc.write(ta.value); doc.close();
     }
-    window.addEventListener('DOMContentLoaded', () => {
-      Object.keys(SNIPPETS).forEach(renderSnippet);
-      runSb21();
-    });
   </script>
 </body>
 </html>

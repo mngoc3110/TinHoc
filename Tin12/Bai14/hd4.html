@@ -36,12 +36,14 @@
     .infographic-tab.active { background:#4f46e5; color:#fff; border-color:#4f46e5; }
     .infographic-canvas-wrap { background:#f8fafc; border:1.5px solid #cbd5e1; border-radius:14px; padding:1rem; min-height:380px; display:flex; align-items:center; justify-content:center; overflow-x:auto; }
     .flashcard-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(235px, 1fr)); gap:1rem; }
-    .flashcard { perspective:1000px; height:210px; cursor:pointer; }
-    .flashcard-inner { position:relative; width:100%; height:100%; transition:transform 0.55s; transform-style:preserve-3d; }
-    .flashcard.flipped .flashcard-inner { transform:rotateY(180deg); }
-    .flashcard-front, .flashcard-back { position:absolute; inset:0; backface-visibility:hidden; border-radius:14px; padding:1.15rem; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; }
+    .flashcard { -webkit-perspective:1000px; perspective:1000px; height:215px; cursor:pointer; }
+    .flashcard-inner { position:relative; width:100%; height:100%; transition:transform 0.55s; -webkit-transform-style:preserve-3d; transform-style:preserve-3d; }
+    .flashcard.flipped .flashcard-inner { -webkit-transform:rotateY(180deg); transform:rotateY(180deg); }
+    .flashcard-front, .flashcard-back { position:absolute; inset:0; -webkit-backface-visibility:hidden; backface-visibility:hidden; border-radius:14px; padding:1.15rem; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; transition:opacity 0.2s ease, visibility 0.2s ease; }
     .flashcard-front { background:#fff; border:1.5px solid #cbd5e1; box-shadow:0 4px 12px rgba(0,0,0,0.04); }
-    .flashcard-back { background:linear-gradient(135deg,#1e3a8a,#312e81); color:#f8fafc; transform:rotateY(180deg); }
+    .flashcard-back { background:linear-gradient(135deg,#1e3a8a,#312e81); color:#f8fafc; -webkit-transform:rotateY(180deg); transform:rotateY(180deg); }
+    .flashcard:not(.flipped) .flashcard-back { visibility:hidden; opacity:0; pointer-events:none; }
+    .flashcard.flipped .flashcard-front { visibility:hidden; opacity:0; pointer-events:none; }
     
   </style>
 </head>
@@ -135,8 +137,8 @@
   <section class="hero-banner" style="padding:2rem 0; background:linear-gradient(135deg,#4338ca 0%,#6366f1 55%,#9333ea 100%);">
     <div class="container">
       <div class="badge-tag" style="background:rgba(255,255,255,0.2);color:#fff;">📊 HOẠT ĐỘNG 4 • TỔNG KẾT INFOGRAPHIC &amp; VẬN DỤNG SGK</div>
-      <h1 class="hero-title" style="font-size:1.95rem;">Infographic Tổng Hợp &amp; Giải Bài Tập Cuối Bài</h1>
-      <p class="hero-subtitle">Bài 14: Định dạng văn bản bằng CSS • Sơ đồ hóa kiến thức trọng tâm, thẻ lật Flashcards 3D và toàn bộ đáp án Luyện tập, Vận dụng SGK Kết nối tri thức.</p>
+      <h1 class="hero-title" style="font-size:1.95rem;">Infographic Tổng Hợp &amp; Luyện Tập Cuối Bài</h1>
+      <p class="hero-subtitle">Bài 14: Định dạng văn bản bằng CSS • Sơ đồ hóa kiến thức trọng tâm, thẻ lật Flashcards 3D và tự luyện câu hỏi Luyện tập, Vận dụng SGK Kết nối tri thức (bấm vào từng câu để đối chiếu gợi ý).</p>
     </div>
   </section>
 
@@ -165,7 +167,10 @@
 
       <!-- FLASHCARDS 3D -->
       <section class="card" style="margin-bottom:1.5rem;">
-        <h2 style="margin:0 0 0.85rem;color:#1e3a8a;font-size:1.3rem;">2. Góc Lật Thẻ Ghi Nhớ (Interactive Flashcards 3D)</h2>
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.85rem;">
+          <h2 style="margin:0;color:#1e3a8a;font-size:1.3rem;">2. Góc Lật Thẻ Ghi Nhớ (Interactive Flashcards 3D)</h2>
+          <span class="sgk-badge">👆 Bấm vào từng thẻ để lật xem đáp án</span>
+        </div>
         <div class="flashcard-grid">
           <div class="flashcard" onclick="this.classList.toggle('flipped')">
             <div class="flashcard-inner">
@@ -177,6 +182,7 @@
               <div class="flashcard-back">
                 <strong style="color:#60a5fa;margin-bottom:0.5rem;">✅ Đáp án ghi nhớ:</strong>
                 <div style="font-size:0.9rem;line-height:1.55;"><strong>Không.</strong> Theo chuẩn CSS và SGK Tin học 12, <code>text-decoration</code> (giống <code>border</code>) <strong>không</strong> có tính kế thừa.</div>
+                <span style="font-size:0.75rem;color:#93c5fd;margin-top:0.65rem;">👆 Nhấn lần nữa để úp thẻ lại</span>
               </div>
             </div>
           </div>
@@ -190,6 +196,7 @@
               <div class="flashcard-back">
                 <strong style="color:#60a5fa;margin-bottom:0.5rem;">✅ Đáp án ghi nhớ:</strong>
                 <div style="font-size:0.9rem;line-height:1.55;"><code>font-style: italic;</code> (không có chữ <code>s</code>) mới là giá trị chuẩn.</div>
+                <span style="font-size:0.75rem;color:#93c5fd;margin-top:0.65rem;">👆 Nhấn lần nữa để úp thẻ lại</span>
               </div>
             </div>
           </div>
@@ -203,6 +210,7 @@
               <div class="flashcard-back">
                 <strong style="color:#60a5fa;margin-bottom:0.5rem;">✅ Đáp án ghi nhớ:</strong>
                 <div style="font-size:0.9rem;line-height:1.55;"><strong>Màu đỏ (red)</strong> vì khi cùng mức độ ưu tiên, mẫu định dạng viết SAU CÙNG sẽ ghi đè mẫu viết trước.</div>
+                <span style="font-size:0.75rem;color:#93c5fd;margin-top:0.65rem;">👆 Nhấn lần nữa để úp thẻ lại</span>
               </div>
             </div>
           </div>
@@ -216,6 +224,7 @@
               <div class="flashcard-back">
                 <strong style="color:#60a5fa;margin-bottom:0.5rem;">✅ Đáp án ghi nhớ:</strong>
                 <div style="font-size:0.9rem;line-height:1.55;"><code>*</code> có độ ưu tiên <strong>thấp nhất</strong>; ngược lại <code>!important</code> mang độ ưu tiên <strong>cao nhất</strong>.</div>
+                <span style="font-size:0.75rem;color:#93c5fd;margin-top:0.65rem;">👆 Nhấn lần nữa để úp thẻ lại</span>
               </div>
             </div>
           </div>
@@ -233,7 +242,7 @@
           <p style="margin:0 0 0.7rem;color:#1e293b;line-height:1.55;">Nếu trong thẻ <code>&lt;style&gt;</code> viết lần lượt <code>p { color: blue; }</code> và sau đó viết <code>p { color: red; }</code> thì kết quả hiển thị thế nào? Muốn giữ màu xanh bất chấp dòng sau thì làm sao?</p>
           <textarea id="ans-input-1" rows="3" placeholder="Em hãy viết câu trả lời / đoạn mã của mình tại đây..." oninput="saveHd4Ans(1, this.value)" style="width:100%;padding:0.7rem;border:1.5px solid #cbd5e1;border-radius:8px;font-family:'Fira Code',sans-serif;font-size:0.86rem;"></textarea>
           <div style="margin-top:0.6rem;">
-            <button type="button" class="btn btn-secondary btn-sm" onclick="const g=document.getElementById('ans-guide-1'); g.style.display=g.style.display==='none'?'block':'none';">💡 Xem Đáp án chuẩn SGK</button>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="toggleSgkAnswer(1, this)">💡 Bấm xem gợi ý &amp; đáp án đối chiếu</button>
           </div>
           <div id="ans-guide-1" style="display:none;margin-top:0.75rem;padding:0.9rem 1rem;background:#f0fdf4;border:1.5px solid #86efac;border-radius:8px;color:#14532d;font-size:0.9rem;line-height:1.6;">
             Theo quy tắc xếp tầng (Cascading), dòng viết sau thắng nên đoạn văn hiện <strong>màu đỏ</strong>. Muốn ưu tiên tuyệt đối cho màu xanh, thêm <code>!important</code>: <code>p { color: blue !important; }</code>.
@@ -247,7 +256,7 @@
           <p style="margin:0 0 0.7rem;color:#1e293b;line-height:1.55;">Dựa vào hình minh họa bài hát <em>Trời Hà Nội xanh</em> (tr.82), hãy đề xuất mã CSS trình bày tiêu đề căn giữa, tên tác giả in nghiêng và lời bài hát giãn dòng 1.7.</p>
           <textarea id="ans-input-2" rows="3" placeholder="Em hãy viết câu trả lời / đoạn mã của mình tại đây..." oninput="saveHd4Ans(2, this.value)" style="width:100%;padding:0.7rem;border:1.5px solid #cbd5e1;border-radius:8px;font-family:'Fira Code',sans-serif;font-size:0.86rem;"></textarea>
           <div style="margin-top:0.6rem;">
-            <button type="button" class="btn btn-secondary btn-sm" onclick="const g=document.getElementById('ans-guide-2'); g.style.display=g.style.display==='none'?'block':'none';">💡 Xem Đáp án chuẩn SGK</button>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="toggleSgkAnswer(2, this)">💡 Bấm xem gợi ý &amp; đáp án đối chiếu</button>
           </div>
           <div id="ans-guide-2" style="display:none;margin-top:0.75rem;padding:0.9rem 1rem;background:#f0fdf4;border:1.5px solid #86efac;border-radius:8px;color:#14532d;font-size:0.9rem;line-height:1.6;">
             <pre style='background:#0f172a;color:#e2e8f0;padding:0.75rem;border-radius:8px;overflow:auto;'>body { font-family: Georgia, serif; line-height: 1.7; color: #1e293b; }
@@ -264,7 +273,7 @@ h1 { text-align: center; color: #0284c7; font-weight: 700; }
           <p style="margin:0 0 0.7rem;color:#1e293b;line-height:1.55;">Làm sao để bỏ dấu gạch chân mặc định của tất cả các liên kết trên thanh điều hướng trang CLB và đổi sang chữ đậm phông không chân?</p>
           <textarea id="ans-input-3" rows="3" placeholder="Em hãy viết câu trả lời / đoạn mã của mình tại đây..." oninput="saveHd4Ans(3, this.value)" style="width:100%;padding:0.7rem;border:1.5px solid #cbd5e1;border-radius:8px;font-family:'Fira Code',sans-serif;font-size:0.86rem;"></textarea>
           <div style="margin-top:0.6rem;">
-            <button type="button" class="btn btn-secondary btn-sm" onclick="const g=document.getElementById('ans-guide-3'); g.style.display=g.style.display==='none'?'block':'none';">💡 Xem Đáp án chuẩn SGK</button>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="toggleSgkAnswer(3, this)">💡 Bấm xem gợi ý &amp; đáp án đối chiếu</button>
           </div>
           <div id="ans-guide-3" style="display:none;margin-top:0.75rem;padding:0.9rem 1rem;background:#f0fdf4;border:1.5px solid #86efac;border-radius:8px;color:#14532d;font-size:0.9rem;line-height:1.6;">
             Dùng thuộc tính <code>text-decoration: none;</code> kết hợp <code>font-family: sans-serif; font-weight: 700;</code> cho bộ chọn <code>nav a</code>.
@@ -473,6 +482,13 @@ h1 { text-align: center; color: #0284c7; font-weight: 700; }
         cur['q' + idx] = val;
         localStorage.setItem('bai14_hd4_answers', JSON.stringify(cur));
       } catch (e) {}
+    }
+    function toggleSgkAnswer(idx, btn) {
+      const g = document.getElementById('ans-guide-' + idx);
+      if (!g) return;
+      const open = g.style.display !== 'none';
+      g.style.display = open ? 'none' : 'block';
+      if (btn) btn.textContent = open ? '💡 Bấm xem gợi ý & đáp án đối chiếu' : '🙈 Ẩn đáp án';
     }
     window.addEventListener('DOMContentLoaded', () => {
       renderInfographic('cards', document.querySelector('.infographic-tab'));

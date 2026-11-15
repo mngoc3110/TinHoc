@@ -36,12 +36,14 @@
     .infographic-tab.active { background:#4f46e5; color:#fff; border-color:#4f46e5; }
     .infographic-canvas-wrap { background:#f8fafc; border:1.5px solid #cbd5e1; border-radius:14px; padding:1rem; min-height:380px; display:flex; align-items:center; justify-content:center; overflow-x:auto; }
     .flashcard-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(235px, 1fr)); gap:1rem; }
-    .flashcard { perspective:1000px; height:210px; cursor:pointer; }
-    .flashcard-inner { position:relative; width:100%; height:100%; transition:transform 0.55s; transform-style:preserve-3d; }
-    .flashcard.flipped .flashcard-inner { transform:rotateY(180deg); }
-    .flashcard-front, .flashcard-back { position:absolute; inset:0; backface-visibility:hidden; border-radius:14px; padding:1.15rem; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; }
+    .flashcard { -webkit-perspective:1000px; perspective:1000px; height:215px; cursor:pointer; }
+    .flashcard-inner { position:relative; width:100%; height:100%; transition:transform 0.55s; -webkit-transform-style:preserve-3d; transform-style:preserve-3d; }
+    .flashcard.flipped .flashcard-inner { -webkit-transform:rotateY(180deg); transform:rotateY(180deg); }
+    .flashcard-front, .flashcard-back { position:absolute; inset:0; -webkit-backface-visibility:hidden; backface-visibility:hidden; border-radius:14px; padding:1.15rem; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; transition:opacity 0.2s ease, visibility 0.2s ease; }
     .flashcard-front { background:#fff; border:1.5px solid #cbd5e1; box-shadow:0 4px 12px rgba(0,0,0,0.04); }
-    .flashcard-back { background:linear-gradient(135deg,#1e3a8a,#312e81); color:#f8fafc; transform:rotateY(180deg); }
+    .flashcard-back { background:linear-gradient(135deg,#1e3a8a,#312e81); color:#f8fafc; -webkit-transform:rotateY(180deg); transform:rotateY(180deg); }
+    .flashcard:not(.flipped) .flashcard-back { visibility:hidden; opacity:0; pointer-events:none; }
+    .flashcard.flipped .flashcard-front { visibility:hidden; opacity:0; pointer-events:none; }
     
   </style>
 </head>
@@ -135,8 +137,8 @@
   <section class="hero-banner" style="padding:2rem 0; background:linear-gradient(135deg,#4338ca 0%,#6366f1 55%,#9333ea 100%);">
     <div class="container">
       <div class="badge-tag" style="background:rgba(255,255,255,0.2);color:#fff;">📊 HOẠT ĐỘNG 4 • TỔNG KẾT INFOGRAPHIC &amp; VẬN DỤNG SGK</div>
-      <h1 class="hero-title" style="font-size:1.95rem;">Infographic Tổng Hợp &amp; Giải Bài Tập Cuối Bài</h1>
-      <p class="hero-subtitle">Bài 15: Tạo màu cho chữ và nền • Sơ đồ hóa kiến thức trọng tâm, thẻ lật Flashcards 3D và toàn bộ đáp án Luyện tập, Vận dụng SGK Kết nối tri thức.</p>
+      <h1 class="hero-title" style="font-size:1.95rem;">Infographic Tổng Hợp &amp; Luyện Tập Cuối Bài</h1>
+      <p class="hero-subtitle">Bài 15: Tạo màu cho chữ và nền • Sơ đồ hóa kiến thức trọng tâm, thẻ lật Flashcards 3D và tự luyện câu hỏi Luyện tập, Vận dụng SGK Kết nối tri thức (bấm vào từng câu để đối chiếu gợi ý).</p>
     </div>
   </section>
 
@@ -165,7 +167,10 @@
 
       <!-- FLASHCARDS 3D -->
       <section class="card" style="margin-bottom:1.5rem;">
-        <h2 style="margin:0 0 0.85rem;color:#1e3a8a;font-size:1.3rem;">2. Góc Lật Thẻ Ghi Nhớ (Interactive Flashcards 3D)</h2>
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.85rem;">
+          <h2 style="margin:0;color:#1e3a8a;font-size:1.3rem;">2. Góc Lật Thẻ Ghi Nhớ (Interactive Flashcards 3D)</h2>
+          <span class="sgk-badge">👆 Bấm vào từng thẻ để lật xem đáp án</span>
+        </div>
         <div class="flashcard-grid">
           <div class="flashcard" onclick="this.classList.toggle('flipped')">
             <div class="flashcard-inner">
@@ -177,6 +182,7 @@
               <div class="flashcard-back">
                 <strong style="color:#60a5fa;margin-bottom:0.5rem;">✅ Đáp án ghi nhớ:</strong>
                 <div style="font-size:0.9rem;line-height:1.55;"><strong>Không.</strong> Thẻ <code>&lt;p&gt;</code> kế thừa màu chữ <code>navy</code> từ <code>color</code>, còn <code>border</code> <strong>KHÔNG</strong> có tính kế thừa.</div>
+                <span style="font-size:0.75rem;color:#93c5fd;margin-top:0.65rem;">👆 Nhấn lần nữa để úp thẻ lại</span>
               </div>
             </div>
           </div>
@@ -190,6 +196,7 @@
               <div class="flashcard-back">
                 <strong style="color:#60a5fa;margin-bottom:0.5rem;">✅ Đáp án ghi nhớ:</strong>
                 <div style="font-size:0.9rem;line-height:1.55;">Khi <strong>r = g = b</strong> (ví dụ <code>rgb(100,100,100)</code>) sẽ cho màu xám. Vì mỗi kênh chạy từ 0 đến 255 nên có đúng <strong>256 màu xám</strong>.</div>
+                <span style="font-size:0.75rem;color:#93c5fd;margin-top:0.65rem;">👆 Nhấn lần nữa để úp thẻ lại</span>
               </div>
             </div>
           </div>
@@ -203,6 +210,7 @@
               <div class="flashcard-back">
                 <strong style="color:#60a5fa;margin-bottom:0.5rem;">✅ Đáp án ghi nhớ:</strong>
                 <div style="font-size:0.9rem;line-height:1.55;">Khi <code>L = 100%</code> luôn là <strong>màu Trắng</strong>; tại <code>0%</code> luôn là Đen. <code>hsl(120, 100%, 50%)</code> là màu <strong>Xanh Lục</strong> (0° Đỏ, 60° Vàng, 120° Lục, 240° Lam).</div>
+                <span style="font-size:0.75rem;color:#93c5fd;margin-top:0.65rem;">👆 Nhấn lần nữa để úp thẻ lại</span>
               </div>
             </div>
           </div>
@@ -216,6 +224,7 @@
               <div class="flashcard-back">
                 <strong style="color:#60a5fa;margin-bottom:0.5rem;">✅ Đáp án ghi nhớ:</strong>
                 <div style="font-size:0.9rem;line-height:1.55;">Chỉ <strong><code>h2 ~ p</code></strong> chọn được <code>&lt;p&gt;B&lt;/p&gt;</code> và <code>&lt;p&gt;C&lt;/p&gt;</code>; <code>h2 + p</code> KHÔNG chọn được thẻ nào vì có thẻ <code>&lt;div&gt;</code> chen ngay sau <code>&lt;h2&gt;</code>.</div>
+                <span style="font-size:0.75rem;color:#93c5fd;margin-top:0.65rem;">👆 Nhấn lần nữa để úp thẻ lại</span>
               </div>
             </div>
           </div>
@@ -233,7 +242,7 @@
           <p style="margin:0 0 0.7rem;color:#1e293b;line-height:1.55;">Hãy liệt kê danh sách 17 tên màu được chuẩn hóa từ CSS2.1 (16 màu gốc và 1 màu bổ sung sau).</p>
           <textarea id="ans-input-1" rows="3" placeholder="Em hãy viết câu trả lời / đoạn mã của mình tại đây..." oninput="saveHd4Ans(1, this.value)" style="width:100%;padding:0.7rem;border:1.5px solid #cbd5e1;border-radius:8px;font-family:'Fira Code',sans-serif;font-size:0.86rem;"></textarea>
           <div style="margin-top:0.6rem;">
-            <button type="button" class="btn btn-secondary btn-sm" onclick="const g=document.getElementById('ans-guide-1'); g.style.display=g.style.display==='none'?'block':'none';">💡 Xem Đáp án chuẩn SGK</button>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="toggleSgkAnswer(1, this)">💡 Bấm xem gợi ý &amp; đáp án đối chiếu</button>
           </div>
           <div id="ans-guide-1" style="display:none;margin-top:0.75rem;padding:0.9rem 1rem;background:#f0fdf4;border:1.5px solid #86efac;border-radius:8px;color:#14532d;font-size:0.9rem;line-height:1.6;">
             Gồm 16 màu gốc: <code>aqua, black, blue, fuchsia, gray, green, lime, maroon, navy, olive, purple, red, silver, teal, white, yellow</code> và 1 màu bổ sung: <strong><code>orange</code></strong> (tổng 17 màu; sang CSS3 có 140 màu).
@@ -247,7 +256,7 @@
           <p style="margin:0 0 0.7rem;color:#1e293b;line-height:1.55;">Quan sát <a href='./assets/sgk/sgk_hinh15_tree.png' target='_blank'>sơ đồ cây phần tử HTML (SGK tr.88)</a>: Cho biết sự khác biệt giữa <code>div p</code>, <code>div &gt; p</code>, <code>h1 + p</code> và <code>h1 ~ p</code>.</p>
           <textarea id="ans-input-2" rows="3" placeholder="Em hãy viết câu trả lời / đoạn mã của mình tại đây..." oninput="saveHd4Ans(2, this.value)" style="width:100%;padding:0.7rem;border:1.5px solid #cbd5e1;border-radius:8px;font-family:'Fira Code',sans-serif;font-size:0.86rem;"></textarea>
           <div style="margin-top:0.6rem;">
-            <button type="button" class="btn btn-secondary btn-sm" onclick="const g=document.getElementById('ans-guide-2'); g.style.display=g.style.display==='none'?'block':'none';">💡 Xem Đáp án chuẩn SGK</button>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="toggleSgkAnswer(2, this)">💡 Bấm xem gợi ý &amp; đáp án đối chiếu</button>
           </div>
           <div id="ans-guide-2" style="display:none;margin-top:0.75rem;padding:0.9rem 1rem;background:#f0fdf4;border:1.5px solid #86efac;border-radius:8px;color:#14532d;font-size:0.9rem;line-height:1.6;">
             • <code>div p</code>: chọn mọi nút <code>p</code> nằm trong nhánh con/cháu dưới <code>div</code>.<br>• <code>div &gt; p</code>: chỉ chọn nút <code>p</code> nối cạnh trực tiếp ngay dưới <code>div</code>.<br>• <code>h1 + p</code>: chỉ chọn nút <code>p</code> nằm kế cận bên phải <code>h1</code> dưới cùng một cha.<br>• <code>h1 ~ p</code>: chọn toàn bộ các nút <code>p</code> nằm phía bên phải sau <code>h1</code> có chung nút cha.
@@ -261,7 +270,7 @@
           <p style="margin:0 0 0.7rem;color:#1e293b;line-height:1.55;">Giải thích ý nghĩa của các bộ chọn 3 thành phần: <code>E1 E2 E3</code>, <code>E1 &gt; E2 &gt; E3</code>, <code>E + F + G</code> và <code>E &gt; F + G</code>.</p>
           <textarea id="ans-input-3" rows="3" placeholder="Em hãy viết câu trả lời / đoạn mã của mình tại đây..." oninput="saveHd4Ans(3, this.value)" style="width:100%;padding:0.7rem;border:1.5px solid #cbd5e1;border-radius:8px;font-family:'Fira Code',sans-serif;font-size:0.86rem;"></textarea>
           <div style="margin-top:0.6rem;">
-            <button type="button" class="btn btn-secondary btn-sm" onclick="const g=document.getElementById('ans-guide-3'); g.style.display=g.style.display==='none'?'block':'none';">💡 Xem Đáp án chuẩn SGK</button>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="toggleSgkAnswer(3, this)">💡 Bấm xem gợi ý &amp; đáp án đối chiếu</button>
           </div>
           <div id="ans-guide-3" style="display:none;margin-top:0.75rem;padding:0.9rem 1rem;background:#f0fdf4;border:1.5px solid #86efac;border-radius:8px;color:#14532d;font-size:0.9rem;line-height:1.6;">
             • <code>E1 E2 E3</code>: Chọn phần tử <code>E3</code> nằm trong <code>E2</code>, và <code>E2</code> nằm trong <code>E1</code> (hậu duệ nhiều cấp).<br>• <code>E1 &gt; E2 &gt; E3</code>: Chọn <code>E3</code> là con trực tiếp của <code>E2</code>, và <code>E2</code> là con trực tiếp của <code>E1</code>.<br>• <code>E + F + G</code>: Chọn <code>G</code> ngay sau <code>F</code>, và <code>F</code> ngay sau <code>E</code> (3 phần tử anh em liền kề cùng cha).<br>• <code>E &gt; F + G</code>: Chọn <code>G</code> đứng ngay sau phần tử <code>F</code> (chỉ xét khi <code>F</code> là con trực tiếp của <code>E</code>, lúc đó <code>G</code> cũng cùng cha <code>E</code>).
@@ -275,7 +284,7 @@
           <p style="margin:0 0 0.7rem;color:#1e293b;line-height:1.55;">Làm sao để phối màu đồng bộ (nền trang, thanh tiêu đề, đường viền thẻ thông báo) cho website CLB cuối Học kì I mà chữ vẫn dễ đọc trên mọi thiết bị?</p>
           <textarea id="ans-input-4" rows="3" placeholder="Em hãy viết câu trả lời / đoạn mã của mình tại đây..." oninput="saveHd4Ans(4, this.value)" style="width:100%;padding:0.7rem;border:1.5px solid #cbd5e1;border-radius:8px;font-family:'Fira Code',sans-serif;font-size:0.86rem;"></textarea>
           <div style="margin-top:0.6rem;">
-            <button type="button" class="btn btn-secondary btn-sm" onclick="const g=document.getElementById('ans-guide-4'); g.style.display=g.style.display==='none'?'block':'none';">💡 Xem Đáp án chuẩn SGK</button>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="toggleSgkAnswer(4, this)">💡 Bấm xem gợi ý &amp; đáp án đối chiếu</button>
           </div>
           <div id="ans-guide-4" style="display:none;margin-top:0.75rem;padding:0.9rem 1rem;background:#f0fdf4;border:1.5px solid #86efac;border-radius:8px;color:#14532d;font-size:0.9rem;line-height:1.6;">
             Sử dụng cặp màu tương phản chuẩn dựa trên hệ <strong>HSL</strong> hoặc <strong>Hex</strong>: nền tổng thể sáng nhẹ (<code>#f8fafc</code>), chữ thân bài tối dịu (<code>#1e293b</code>), viền thẻ <code>border: 1px solid #cbd5e1</code> kết hợp bộ chọn <code>.card &gt; h3</code> nhấn màu thương hiệu CLB.
@@ -484,6 +493,13 @@
         cur['q' + idx] = val;
         localStorage.setItem('bai15_hd4_answers', JSON.stringify(cur));
       } catch (e) {}
+    }
+    function toggleSgkAnswer(idx, btn) {
+      const g = document.getElementById('ans-guide-' + idx);
+      if (!g) return;
+      const open = g.style.display !== 'none';
+      g.style.display = open ? 'none' : 'block';
+      if (btn) btn.textContent = open ? '💡 Bấm xem gợi ý & đáp án đối chiếu' : '🙈 Ẩn đáp án';
     }
     window.addEventListener('DOMContentLoaded', () => {
       renderInfographic('cards', document.querySelector('.infographic-tab'));

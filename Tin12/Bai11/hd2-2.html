@@ -163,14 +163,14 @@
             <div class="syntax-card">
               <div class="syntax-header">
                 <span>💻 Khung &lt;iframe&gt; hiển thị trang giới thiệu</span>
-                <button type="button" class="btn-mini-tool" onclick="renderSnippet('h22_0')">▶ Chạy thử &amp; Xem kết quả</button>
+                <button type="button" id="btn-h22_0" class="btn-mini-tool" onclick="toggleSnippet('h22_0')">▶ Bấm xem kết quả hiển thị</button>
               </div>
               <pre class="syntax-body">&lt;h4&gt;Khung nội tuyến &amp;lt;iframe&amp;gt;&lt;/h4&gt;
 &lt;iframe name=&quot;khung_xem&quot; width=&quot;100%&quot; height=&quot;125&quot; style=&quot;border:2px solid #2563eb;border-radius:8px;&quot;
   srcdoc=&quot;&lt;h3 style=&#x27;color:#1e3a8a;font-family:sans-serif;&#x27;&gt;Chào mừng đến CLB THTH-DHSP!&lt;/h3&gt;&lt;p style=&#x27;font-family:sans-serif;&#x27;&gt;Nội dung này đang chạy bên trong thẻ iframe.&lt;/p&gt;&quot;&gt;
 &lt;/iframe&gt;</pre>
             </div>
-            <div class="mini-compiler-box" style="border:1px solid #cbd5e1;border-radius:8px;overflow:hidden;">
+            <div id="box-h22_0" class="mini-compiler-box" style="display:none;border:1px solid #cbd5e1;border-radius:8px;overflow:hidden;margin-top:0.65rem;">
               <div class="snippet-preview-bar"><span>🌐 KẾT QUẢ HIỂN THỊ</span><span style="color:#16a34a;">HTML5 Live</span></div>
               <iframe id="prev-h22_0" style="width:100%;height:190px;border:none;background:#fff;" title="Preview h22_0"></iframe>
             </div>
@@ -193,13 +193,13 @@
                 </div>
 
 
-<div style="background:#f0fdfa;border:1.5px solid #5eead4;border-radius:10px;padding:0.9rem 1rem;margin-top:0.9rem;"><strong style="color:#0f766e;">❓ Câu hỏi củng cố (Hộp xanh SGK):</strong><ul style="margin:0.5rem 0 0;padding-left:1.2rem;line-height:1.6;"><li><strong>Sự khác nhau giữa <code>&lt;a href="the_thao.html" target="_blank"&gt;</code> và <code>&lt;a href="the_thao.html" target="khung_clb"&gt;</code> (với <code>&lt;iframe name="khung_clb"&gt;</code>) là gì?</strong><br><button type="button" class="btn btn-secondary btn-sm" style="margin-top:0.35rem;" onclick="this.nextElementSibling.style.display='block'">💡 Xem gợi ý</button><div style="display:none;margin-top:0.4rem;color:#166534;background:#f0fdf4;padding:0.55rem 0.75rem;border-radius:6px;border:1px solid #86efac;"><code>target="_blank"</code> mở trang <code>the_thao.html</code> sang một tab trình duyệt hoàn toàn mới; còn <code>target="khung_clb"</code> tải trang đó hiển thị ngay bên trong khung nội tuyến có <code>name="khung_clb"</code>.</div></li><li><strong>Nếu muốn nhúng một video YouTube từ nút Chia sẻ -> Nhúng (Embed), YouTube cung cấp cho ta thẻ HTML nào?</strong><br><button type="button" class="btn btn-secondary btn-sm" style="margin-top:0.35rem;" onclick="this.nextElementSibling.style.display='block'">💡 Xem gợi ý</button><div style="display:none;margin-top:0.4rem;color:#166534;background:#f0fdf4;padding:0.55rem 0.75rem;border-radius:6px;border:1px solid #86efac;">YouTube cung cấp sẵn đoạn mã thẻ <code>&lt;iframe src="https://www.youtube.com/embed/..."&gt;&lt;/iframe&gt;</code>.</div></li></ul></div>
+<div style="background:#f0fdfa;border:1.5px solid #5eead4;border-radius:10px;padding:0.9rem 1rem;margin-top:0.9rem;"><strong style="color:#0f766e;">❓ Câu hỏi củng cố (Hộp xanh SGK):</strong><ul style="margin:0.5rem 0 0;padding-left:1.2rem;line-height:1.6;"><li><strong>Sự khác nhau giữa <code>&lt;a href="the_thao.html" target="_blank"&gt;</code> và <code>&lt;a href="the_thao.html" target="khung_clb"&gt;</code> (với <code>&lt;iframe name="khung_clb"&gt;</code>) là gì?</strong><br><button type="button" class="btn btn-secondary btn-sm" style="margin-top:0.35rem;" onclick="const b=this.nextElementSibling; const open=b.style.display!=='none'; b.style.display=open?'none':'block'; this.textContent=open?'💡 Bấm xem gợi ý trả lời':'🙈 Ẩn gợi ý';">💡 Bấm xem gợi ý trả lời</button><div style="display:none;margin-top:0.4rem;color:#166534;background:#f0fdf4;padding:0.55rem 0.75rem;border-radius:6px;border:1px solid #86efac;"><code>target="_blank"</code> mở trang <code>the_thao.html</code> sang một tab trình duyệt hoàn toàn mới; còn <code>target="khung_clb"</code> tải trang đó hiển thị ngay bên trong khung nội tuyến có <code>name="khung_clb"</code>.</div></li><li><strong>Nếu muốn nhúng một video YouTube từ nút Chia sẻ -> Nhúng (Embed), YouTube cung cấp cho ta thẻ HTML nào?</strong><br><button type="button" class="btn btn-secondary btn-sm" style="margin-top:0.35rem;" onclick="const b=this.nextElementSibling; const open=b.style.display!=='none'; b.style.display=open?'none':'block'; this.textContent=open?'💡 Bấm xem gợi ý trả lời':'🙈 Ẩn gợi ý';">💡 Bấm xem gợi ý trả lời</button><div style="display:none;margin-top:0.4rem;color:#166534;background:#f0fdf4;padding:0.55rem 0.75rem;border-radius:6px;border:1px solid #86efac;">YouTube cung cấp sẵn đoạn mã thẻ <code>&lt;iframe src="https://www.youtube.com/embed/..."&gt;&lt;/iframe&gt;</code>.</div></li></ul></div>
           </div>
           <div>
             <div class="syntax-card">
               <div class="syntax-header">
                 <span>💻 Menu điều khiển nội dung trong iframe</span>
-                <button type="button" class="btn-mini-tool" onclick="renderSnippet('h22_1')">▶ Chạy thử &amp; Xem kết quả</button>
+                <button type="button" id="btn-h22_1" class="btn-mini-tool" onclick="toggleSnippet('h22_1')">▶ Bấm xem kết quả hiển thị</button>
               </div>
               <pre class="syntax-body">&lt;p&gt;
   Chọn mục xem trong khung: 
@@ -210,7 +210,7 @@
   srcdoc=&quot;&lt;p style=&#x27;font-family:sans-serif;color:#64748b;&#x27;&gt;Hãy nhấp một liên kết ở trên để tải trang vào đây...&lt;/p&gt;&quot;&gt;
 &lt;/iframe&gt;</pre>
             </div>
-            <div class="mini-compiler-box" style="border:1px solid #cbd5e1;border-radius:8px;overflow:hidden;">
+            <div id="box-h22_1" class="mini-compiler-box" style="display:none;border:1px solid #cbd5e1;border-radius:8px;overflow:hidden;margin-top:0.65rem;">
               <div class="snippet-preview-bar"><span>🌐 KẾT QUẢ HIỂN THỊ</span><span style="color:#16a34a;">HTML5 Live</span></div>
               <iframe id="prev-h22_1" style="width:100%;height:190px;border:none;background:#fff;" title="Preview h22_1"></iframe>
             </div>
@@ -225,11 +225,16 @@
         <div class="grid-2" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1rem;">
           <div>
             <textarea id="sb22-code" style="width:100%;height:210px;padding:0.85rem;border-radius:8px;border:1.5px solid #334155;background:#0f172a;color:#e2e8f0;font-family:'Fira Code',monospace;font-size:0.85rem;">&lt;iframe name=&quot;box1&quot; width=&quot;100%&quot; height=&quot;130&quot; style=&quot;border:2px solid #0284c7;&quot; srcdoc=&quot;&lt;h4&gt;Nội dung ban đầu trong iframe&lt;/h4&gt;&quot;&gt;&lt;/iframe&gt;</textarea>
-            <button type="button" class="btn btn-primary btn-sm" style="margin-top:0.5rem;background:#0284c7;border-color:#0284c7;" onclick="runSb22()">▶ Chạy mô phỏng</button>
+            <button type="button" class="btn btn-primary btn-sm" style="margin-top:0.5rem;background:#0284c7;border-color:#0284c7;" onclick="runSb22()">▶ Biên dịch &amp; Xem kết quả</button>
           </div>
-          <div style="border:1.5px solid #cbd5e1;border-radius:8px;overflow:hidden;background:#fff;">
-            <div class="snippet-preview-bar"><span>🌐 KẾT QUẢ HIỂN THỊ</span></div>
-            <iframe id="sb22-frame" style="width:100%;height:215px;border:none;background:#fff;" title="Sandbox 2.2"></iframe>
+          <div>
+            <div id="sb22-placeholder" style="padding:2.5rem 1rem;text-align:center;color:#64748b;font-size:0.9rem;border:1.5px dashed #cbd5e1;border-radius:8px;background:#fff;height:100%;display:flex;align-items:center;justify-content:center;">
+              <div>👆 Em hãy đọc / chỉnh sửa mã nguồn rồi bấm <strong>"▶ Biên dịch &amp; Xem kết quả"</strong> để xem trang web hiển thị.</div>
+            </div>
+            <div id="sb22-box" style="display:none;border:1.5px solid #cbd5e1;border-radius:8px;overflow:hidden;background:#fff;">
+              <div class="snippet-preview-bar"><span>🌐 KẾT QUẢ HIỂN THỊ</span></div>
+              <iframe id="sb22-frame" style="width:100%;height:215px;border:none;background:#fff;" title="Sandbox 2.2"></iframe>
+            </div>
           </div>
         </div>
       </section>
@@ -267,10 +272,13 @@
           </div>
           <div style="display:flex;gap:0.45rem;flex-wrap:wrap;">
             <button type="button" class="btn btn-secondary btn-sm" onclick="loadSubmissionsP2()">🔄 Làm mới</button>
-            <button type="button" class="btn btn-secondary btn-sm" onclick="copySubmissionsToClipboard()" style="background:#ecfdf5;color:#047857;border-color:#a7f3d0;">📋 Sao chép Google Sheets</button>
-            <button type="button" class="btn btn-secondary btn-sm" onclick="exportSubmissionsToCSV()">📥 Xuất CSV</button>
-            <button type="button" class="btn btn-secondary btn-sm" onclick="generateDummySubmissions()" style="color:#6366f1;">🧪 Dữ liệu mẫu</button>
-            <button type="button" class="btn btn-secondary btn-sm" onclick="clearSubmissions()" style="color:#dc2626;">🗑️ Xóa danh sách</button>
+            <button type="button" id="p2-teacher-unlock-btn" class="btn btn-secondary btn-sm" onclick="openTeacherLoginModal()">🔐 Giáo viên đăng nhập để quản lý</button>
+            <span id="p2-teacher-tools" style="display:none;gap:0.45rem;flex-wrap:wrap;">
+              <button type="button" class="btn btn-secondary btn-sm" onclick="copySubmissionsToClipboard()" style="background:#ecfdf5;color:#047857;border-color:#a7f3d0;">📋 Sao chép Google Sheets</button>
+              <button type="button" class="btn btn-secondary btn-sm" onclick="exportSubmissionsToCSV()">📥 Xuất CSV</button>
+              <button type="button" class="btn btn-secondary btn-sm" onclick="generateDummySubmissions()" style="color:#6366f1;">🧪 Dữ liệu mẫu</button>
+              <button type="button" class="btn btn-secondary btn-sm" onclick="clearSubmissions()" style="color:#dc2626;">🗑️ Xóa danh sách</button>
+            </span>
           </div>
         </div>
 
@@ -472,10 +480,23 @@
       const doc = fr.contentDocument || fr.contentWindow.document;
       doc.open(); doc.write(SNIPPETS[id]); doc.close();
     }
+    function toggleSnippet(id) {
+      const box = document.getElementById('box-' + id);
+      const btn = document.getElementById('btn-' + id);
+      if (!box) return;
+      const isHidden = box.style.display === 'none';
+      box.style.display = isHidden ? 'block' : 'none';
+      if (btn) btn.textContent = isHidden ? '🙈 Ẩn kết quả' : '▶ Bấm xem kết quả hiển thị';
+      if (isHidden) renderSnippet(id);
+    }
     function runSb22() {
       const ta = document.getElementById('sb22-code');
       const fr = document.getElementById('sb22-frame');
+      const box = document.getElementById('sb22-box');
+      const ph = document.getElementById('sb22-placeholder');
       if (!ta || !fr) return;
+      if (ph) ph.style.display = 'none';
+      if (box) box.style.display = 'block';
       const doc = fr.contentDocument || fr.contentWindow.document;
       doc.open(); doc.write(ta.value); doc.close();
     }
@@ -516,6 +537,10 @@
       const shown = getFilteredList();
       const tbody = document.getElementById('submissions-tbody-p2');
       const isAuth = isTeacherAuthenticated();
+      const tools = document.getElementById('p2-teacher-tools');
+      const unlockBtn = document.getElementById('p2-teacher-unlock-btn');
+      if (tools) tools.style.display = isAuth ? 'inline-flex' : 'none';
+      if (unlockBtn) unlockBtn.style.display = isAuth ? 'none' : 'inline-flex';
       if (!shown.length) {
         if (tbody) tbody.innerHTML = '<tr><td colspan="10" style="text-align:center;padding:2rem;color:#94a3b8;">📭 Chưa có bài nộp nào. Kết quả sẽ cập nhật ngay khi học sinh bấm Nộp bài.</td></tr>';
         document.getElementById('stat-count-p2').textContent = '0';
@@ -616,6 +641,7 @@
       a.download = `Bang_Diem_Bai11_${new Date().toISOString().slice(0,10)}.csv`; a.click();
     }
     function generateDummySubmissions() {
+      if (!isTeacherAuthenticated()) { openTeacherLoginModal(); return; }
       const now = new Date().toLocaleTimeString('vi-VN');
       const d = [
         { id:'MD-01', worksheetId:'phieubaitap', isPair:true, studentName:'Nguyễn An & Trần Bình', className:'12A1', studentNumber:'Máy 02', score:9.5, submittedAt:now, answers:{}, results:{} },
@@ -637,8 +663,6 @@
       alert('✓ Đã dọn sạch dữ liệu & làm mới toàn bộ máy trạm!');
     }
     window.addEventListener('DOMContentLoaded', () => {
-      Object.keys(SNIPPETS).forEach(renderSnippet);
-      runSb22();
       loadSubmissionsP2();
       try {
         const bc = new BroadcastChannel('bai11_classroom_channel');

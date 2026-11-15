@@ -146,7 +146,7 @@
       <div id="ws-result-banner" style="display:none;margin-bottom:1.25rem;"></div>
       <div class="card" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;">
         <span style="color:#475569;font-size:0.9rem;">Kiểm tra kỹ các câu đã chọn trước khi gửi bài.</span>
-        <button type="button" class="btn btn-primary" style="font-size:1rem;font-weight:800;padding:0.8rem 1.8rem;background:#059669;border-color:#059669;" onclick="submitWorksheet(false)">
+        <button type="button" id="btn-ws-submit" class="btn btn-primary" style="font-size:1rem;font-weight:800;padding:0.8rem 1.8rem;background:#059669;border-color:#059669;" onclick="submitWorksheet(false)">
           ✅ NỘP BÀI &amp; CHẤM ĐIỂM NGAY
         </button>
       </div>
@@ -170,6 +170,7 @@
     let wsMode = 'single';
     let isSubmitted = false;
     let remainingSec = EXAM_MINUTES * 60;
+    const gradedState = {};
 
     function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
     function setWsMode(m) {
@@ -183,6 +184,7 @@
       mount.innerHTML = QUESTIONS.map((q, qi) => {
         const pts = Number(q.points || 1.0);
         const codeHtml = q.code ? `<pre style="background:#0f172a;color:#e2e8f0;padding:0.85rem;border-radius:8px;overflow-x:auto;font-family:'Fira Code',monospace;font-size:0.84rem;margin:0.6rem 0;">${esc(q.code)}</pre>` : '';
+        const fbToggleHtml = `<div style="margin-top:0.6rem;"><button type="button" id="btn-fb-${q.id}" class="btn btn-secondary btn-sm" style="display:none;" onclick="toggleQuestionFeedback('${q.id}', this)">💡 Bấm xem đáp án &amp; giải thích câu này</button></div><div id="fb-${q.id}" style="display:none;margin-top:0.65rem;padding:0.75rem;border-radius:8px;font-size:0.86rem;"></div>`;
         if (q.type === 'tf') {
           const stHtml = q.statements.map((st, si) => {
             const letter = ['a','b','c','d'][si];
@@ -201,7 +203,7 @@
             <div style="font-size:0.96rem;color:#0f172a;line-height:1.55;">${esc(q.prompt)}</div>
             ${codeHtml}
             ${stHtml}
-            <div id="fb-${q.id}" style="display:none;margin-top:0.65rem;padding:0.75rem;border-radius:8px;font-size:0.86rem;"></div>
+            ${fbToggleHtml}
           </div>`;
         } else {
           const optsHtml = ['A','B','C','D'].map(k => `<label class="opt-label" id="opt-${q.id}-${k}">
@@ -215,10 +217,62 @@
             <div style="font-size:0.96rem;color:#0f172a;line-height:1.55;">${esc(q.prompt)}</div>
             ${codeHtml}
             ${optsHtml}
-            <div id="fb-${q.id}" style="display:none;margin-top:0.65rem;padding:0.75rem;border-radius:8px;font-size:0.86rem;"></div>
+            ${fbToggleHtml}
           </div>`;
         }
       }).join('');
+    }
+
+    function applyQuestionHighlight(qid, show) {
+      const st = gradedState[qid];
+      if (!st) return;
+      if (st.type === 'tf') {
+        ['a','b','c','d'].forEach(letter => {
+          const row = document.getElementById(`tf-row-${qid}-${letter}`);
+          if (!row) return;
+          row.style.background = show ? (st.okMap[letter] ? '#dcfce7' : '#fee2e2') : '#f8fafc';
+        });
+      } else {
+        const corrEl = document.getElementById(`opt-${qid}-${st.correct}`);
+        if (corrEl) {
+          corrEl.style.background = show ? '#dcfce7' : '#fff';
+          corrEl.style.borderColor = show ? '#22c55e' : '#e2e8f0';
+        }
+        if (!st.ok && st.userVal) {
+          const bad = document.getElementById(`opt-${qid}-${st.userVal}`);
+          if (bad) {
+            bad.style.background = show ? '#fee2e2' : '#fff';
+            bad.style.borderColor = show ? '#ef4444' : '#e2e8f0';
+          }
+        }
+      }
+    }
+
+    function setQuestionReveal(qid, show) {
+      const fb = document.getElementById('fb-' + qid);
+      const btn = document.getElementById('btn-fb-' + qid);
+      if (fb) fb.style.display = show ? 'block' : 'none';
+      if (btn) btn.textContent = show ? '🙈 Ẩn đáp án câu này' : '💡 Bấm xem đáp án & giải thích câu này';
+      applyQuestionHighlight(qid, show);
+    }
+
+    function toggleQuestionFeedback(qid, btn) {
+      const fb = document.getElementById('fb-' + qid);
+      if (!fb) return;
+      const willShow = fb.style.display === 'none';
+      setQuestionReveal(qid, willShow);
+      const master = document.getElementById('btn-toggle-all-fb');
+      if (master) {
+        const allOpen = QUESTIONS.every(q => document.getElementById('fb-' + q.id)?.style.display !== 'none');
+        master.textContent = allOpen ? '🙈 Ẩn toàn bộ Đáp án & Lời giải' : '🔍 Bấm để xem Đáp án & Lời giải chi tiết';
+      }
+    }
+
+    function toggleAllWorksheetAnswers(masterBtn) {
+      const allOpen = QUESTIONS.every(q => document.getElementById('fb-' + q.id)?.style.display !== 'none');
+      const willShow = !allOpen;
+      QUESTIONS.forEach(q => setQuestionReveal(q.id, willShow));
+      if (masterBtn) masterBtn.textContent = willShow ? '🙈 Ẩn toàn bộ Đáp án & Lời giải' : '🔍 Bấm để xem Đáp án & Lời giải chi tiết';
     }
 
     function submitWorksheet(forceTimeout) {
@@ -236,24 +290,27 @@
         const maxQ = Number(q.points || 1.0);
         maxScore += maxQ;
         const fb = document.getElementById(`fb-${q.id}`);
+        const btnFb = document.getElementById(`btn-fb-${q.id}`);
         if (q.type === 'tf') {
-          const userTF = {};
+          const userTF = {}, okMap = {};
           let correctCnt = 0;
           ['a','b','c','d'].forEach((letter, si) => {
             const checked = document.querySelector(`input[name="${q.id}_${letter}"]:checked`);
             const val = checked ? checked.value : '';
             userTF[letter] = val;
             const target = q.statements[si].correct ? 'Đúng' : 'Sai';
-            const row = document.getElementById(`tf-row-${q.id}-${letter}`);
-            if (val === target) { correctCnt++; if (row) row.style.background = '#dcfce7'; }
-            else if (row) row.style.background = '#fee2e2';
+            const hit = val === target;
+            okMap[letter] = hit;
+            if (hit) correctCnt++;
           });
           const ratio = correctCnt === 4 ? 1.0 : (correctCnt === 3 ? 0.5 : (correctCnt === 2 ? 0.25 : (correctCnt === 1 ? 0.1 : 0.0)));
           const qScore = +(maxQ * ratio).toFixed(2);
           totalScore += qScore;
           answers[q.id] = userTF;
           results[q.id] = { userAnswer: userTF, score: qScore, correctCnt };
-          if (fb) { fb.style.display='block'; fb.style.background='#f0fdf4'; fb.style.border='1px solid #86efac'; fb.innerHTML = `<strong>Đạt ${qScore} / ${maxQ}đ (Đúng ${correctCnt}/4 ý)</strong><br>${esc(q.explain || '')}`; }
+          gradedState[q.id] = { type:'tf', okMap };
+          if (fb) { fb.style.display='none'; fb.style.background='#f0fdf4'; fb.style.border='1px solid #86efac'; fb.innerHTML = `<strong>Đạt ${qScore} / ${maxQ}đ (Đúng ${correctCnt}/4 ý)</strong><br>${esc(q.explain || '')}`; }
+          if (btnFb) btnFb.style.display = 'inline-flex';
         } else {
           const checked = document.querySelector(`input[name="${q.id}"]:checked`);
           const val = checked ? checked.value : '';
@@ -262,12 +319,15 @@
           totalScore += qScore;
           answers[q.id] = val;
           results[q.id] = { userAnswer: val, correctAnswer: q.correct, isCorrect: ok, score: qScore };
-          const corrEl = document.getElementById(`opt-${q.id}-${q.correct}`);
-          if (corrEl) { corrEl.style.background = '#dcfce7'; corrEl.style.borderColor = '#22c55e'; }
-          if (!ok && val) { const bad = document.getElementById(`opt-${q.id}-${val}`); if (bad) { bad.style.background = '#fee2e2'; bad.style.borderColor = '#ef4444'; } }
-          if (fb) { fb.style.display='block'; fb.style.background = ok ? '#f0fdf4' : '#fef2f2'; fb.style.border='1px solid ' + (ok ? '#86efac' : '#fca5a5'); fb.innerHTML = `<strong>${ok ? '✅ Chính xác!' : '❌ Chưa đúng (Đáp án: ' + q.correct + ')'}</strong><br>${esc(q.explain || '')}`; }
+          gradedState[q.id] = { type:'mcq', userVal: val, correct: q.correct, ok };
+          if (fb) { fb.style.display='none'; fb.style.background = ok ? '#f0fdf4' : '#fef2f2'; fb.style.border='1px solid ' + (ok ? '#86efac' : '#fca5a5'); fb.innerHTML = `<strong>${ok ? '✅ Chính xác!' : '❌ Chưa đúng (Đáp án: ' + q.correct + ')'}</strong><br>${esc(q.explain || '')}`; }
+          if (btnFb) btnFb.style.display = 'inline-flex';
         }
       });
+
+      document.querySelectorAll('#questions-mount input[type="radio"]').forEach(inp => { inp.disabled = true; });
+      const subBtn = document.getElementById('btn-ws-submit');
+      if (subBtn) { subBtn.disabled = true; subBtn.textContent = '✅ Đã nộp bài'; }
 
       const norm10 = maxScore > 0 ? +(totalScore / maxScore * 10).toFixed(2) : 0;
       const payload = {
@@ -292,7 +352,8 @@
       rb.style.display = 'block';
       rb.innerHTML = `<div class="card" style="background:linear-gradient(135deg,#059669,#10b981);color:#fff;text-align:center;">
         <h2 style="margin:0;color:#fff;">🎉 ĐIỂM CỦA EM: ${norm10.toFixed(2)} / 10.00</h2>
-        <p style="margin:0.4rem 0 0;">Đã ghi nhận bài làm của <strong>${esc(studentName)} (${cls})</strong> lên hệ thống Giáo viên! Em có thể xem lại đáp án chi tiết ở từng câu bên trên.</p>
+        <p style="margin:0.4rem 0 0;">Đã ghi nhận bài làm của <strong>${esc(studentName)} (${cls})</strong> lên hệ thống Giáo viên! Bấm nút bên dưới nếu muốn xem đáp án chi tiết.</p>
+        <button type="button" id="btn-toggle-all-fb" class="btn btn-secondary" style="margin-top:0.85rem;background:#fff;color:#065f46;border:none;font-weight:800;" onclick="toggleAllWorksheetAnswers(this)">🔍 Bấm để xem Đáp án &amp; Lời giải chi tiết</button>
       </div>`;
       rb.scrollIntoView({ behavior:'smooth' });
     }

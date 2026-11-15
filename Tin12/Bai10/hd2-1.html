@@ -153,7 +153,7 @@
             <div class="syntax-card">
               <div class="syntax-header">
                 <span>💻 Cú pháp thẻ &lt;a&gt; và target</span>
-                <button type="button" class="btn-mini-tool" onclick="renderSnippet('h21_0')">▶ Chạy thử &amp; Xem kết quả</button>
+                <button type="button" id="btn-h21_0" class="btn-mini-tool" onclick="toggleSnippet('h21_0')">▶ Bấm xem kết quả hiển thị</button>
               </div>
               <pre class="syntax-body">&lt;p&gt;Liên kết ngoài mở tab mới:&lt;br&gt;
   &lt;a href=&quot;https://nxbgd.vn&quot; target=&quot;_blank&quot;&gt;Trang chủ NXB Giáo dục&lt;/a&gt;
@@ -162,7 +162,7 @@
   &lt;a href=&quot;thong_tin.html&quot;&gt;Xem thông tin CLB&lt;/a&gt;
 &lt;/p&gt;</pre>
             </div>
-            <div class="mini-compiler-box" style="border:1px solid #cbd5e1;border-radius:8px;overflow:hidden;">
+            <div id="box-h21_0" class="mini-compiler-box" style="display:none;border:1px solid #cbd5e1;border-radius:8px;overflow:hidden;margin-top:0.65rem;">
               <div class="snippet-preview-bar"><span>🌐 KẾT QUẢ HIỂN THỊ</span><span style="color:#16a34a;">HTML5 Live</span></div>
               <iframe id="prev-h21_0" style="width:100%;height:190px;border:none;background:#fff;" title="Preview h21_0"></iframe>
             </div>
@@ -189,13 +189,13 @@
                 </div>
 
 <div class="sgk-fig-box"><img src="assets/sgk/sgk_hinh10_1_sub.png" alt="Hình 10.1. Cấu trúc cây thư mục website trong SGK tr.58"><div class="sgk-fig-cap">Hình 10.1. Cấu trúc cây thư mục website trong SGK tr.58</div></div>
-<div style="background:#f0fdfa;border:1.5px solid #5eead4;border-radius:10px;padding:0.9rem 1rem;margin-top:0.9rem;"><strong style="color:#0f766e;">❓ Câu hỏi củng cố (Hộp xanh SGK):</strong><ul style="margin:0.5rem 0 0;padding-left:1.2rem;line-height:1.6;"><li><strong>Tại sao khi tạo liên kết giữa các trang trong cùng một website nên dùng đường dẫn tương đối thay vì đường dẫn ổ đĩa tuyệt đối (C:\...)?</strong><br><button type="button" class="btn btn-secondary btn-sm" style="margin-top:0.35rem;" onclick="this.nextElementSibling.style.display='block'">💡 Xem gợi ý</button><div style="display:none;margin-top:0.4rem;color:#166534;background:#f0fdf4;padding:0.55rem 0.75rem;border-radius:6px;border:1px solid #86efac;">Vì khi sao chép thư mục website sang máy khác hoặc tải lên máy chủ Internet, vị trí tương đối giữa các tệp vẫn giữ nguyên nên liên kết hoạt động bình thường; ngược lại đường dẫn ổ đĩa C:\... sẽ bị lỗi không tìm thấy tệp.</div></li><li><strong>Từ tệp bai_tap/trang1.html muốn tạo liên kết về index.html ở thư mục cha thì thuộc tính href viết thế nào?</strong><br><button type="button" class="btn btn-secondary btn-sm" style="margin-top:0.35rem;" onclick="this.nextElementSibling.style.display='block'">💡 Xem gợi ý</button><div style="display:none;margin-top:0.4rem;color:#166534;background:#f0fdf4;padding:0.55rem 0.75rem;border-radius:6px;border:1px solid #86efac;">Viết là <code>href="../index.html"</code> (dấu <code>../</code> dùng để lùi lên 1 cấp thư mục cha).</div></li></ul></div>
+<div style="background:#f0fdfa;border:1.5px solid #5eead4;border-radius:10px;padding:0.9rem 1rem;margin-top:0.9rem;"><strong style="color:#0f766e;">❓ Câu hỏi củng cố (Hộp xanh SGK):</strong><ul style="margin:0.5rem 0 0;padding-left:1.2rem;line-height:1.6;"><li><strong>Tại sao khi tạo liên kết giữa các trang trong cùng một website nên dùng đường dẫn tương đối thay vì đường dẫn ổ đĩa tuyệt đối (C:\...)?</strong><br><button type="button" class="btn btn-secondary btn-sm" style="margin-top:0.35rem;" onclick="const b=this.nextElementSibling; const open=b.style.display!=='none'; b.style.display=open?'none':'block'; this.textContent=open?'💡 Bấm xem gợi ý trả lời':'🙈 Ẩn gợi ý';">💡 Bấm xem gợi ý trả lời</button><div style="display:none;margin-top:0.4rem;color:#166534;background:#f0fdf4;padding:0.55rem 0.75rem;border-radius:6px;border:1px solid #86efac;">Vì khi sao chép thư mục website sang máy khác hoặc tải lên máy chủ Internet, vị trí tương đối giữa các tệp vẫn giữ nguyên nên liên kết hoạt động bình thường; ngược lại đường dẫn ổ đĩa C:\... sẽ bị lỗi không tìm thấy tệp.</div></li><li><strong>Từ tệp bai_tap/trang1.html muốn tạo liên kết về index.html ở thư mục cha thì thuộc tính href viết thế nào?</strong><br><button type="button" class="btn btn-secondary btn-sm" style="margin-top:0.35rem;" onclick="const b=this.nextElementSibling; const open=b.style.display!=='none'; b.style.display=open?'none':'block'; this.textContent=open?'💡 Bấm xem gợi ý trả lời':'🙈 Ẩn gợi ý';">💡 Bấm xem gợi ý trả lời</button><div style="display:none;margin-top:0.4rem;color:#166534;background:#f0fdf4;padding:0.55rem 0.75rem;border-radius:6px;border:1px solid #86efac;">Viết là <code>href="../index.html"</code> (dấu <code>../</code> dùng để lùi lên 1 cấp thư mục cha).</div></li></ul></div>
           </div>
           <div>
             <div class="syntax-card">
               <div class="syntax-header">
                 <span>💻 Đường dẫn tương đối qua các cấp thư mục</span>
-                <button type="button" class="btn-mini-tool" onclick="renderSnippet('h21_1')">▶ Chạy thử &amp; Xem kết quả</button>
+                <button type="button" id="btn-h21_1" class="btn-mini-tool" onclick="toggleSnippet('h21_1')">▶ Bấm xem kết quả hiển thị</button>
               </div>
               <pre class="syntax-body">&lt;h4&gt;Các dạng đường dẫn tương đối&lt;/h4&gt;
 &lt;ul&gt;
@@ -205,7 +205,7 @@
   &lt;li&gt;Lùi rồi vào nhánh khác: &lt;a href=&quot;../thuvien/tailieu.html&quot;&gt;../thuvien/tailieu.html&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;</pre>
             </div>
-            <div class="mini-compiler-box" style="border:1px solid #cbd5e1;border-radius:8px;overflow:hidden;">
+            <div id="box-h21_1" class="mini-compiler-box" style="display:none;border:1px solid #cbd5e1;border-radius:8px;overflow:hidden;margin-top:0.65rem;">
               <div class="snippet-preview-bar"><span>🌐 KẾT QUẢ HIỂN THỊ</span><span style="color:#16a34a;">HTML5 Live</span></div>
               <iframe id="prev-h21_1" style="width:100%;height:190px;border:none;background:#fff;" title="Preview h21_1"></iframe>
             </div>
@@ -230,11 +230,16 @@
 &lt;/p&gt;
 &lt;hr style=&quot;margin-top:90px;&quot;&gt;
 &lt;h4 id=&quot;phan2&quot;&gt;Đây là Phần 2 của trang&lt;/h4&gt;</textarea>
-            <button type="button" class="btn btn-primary btn-sm" style="margin-top:0.5rem;" onclick="runSb21()">▶ Biên dịch ngay</button>
+            <button type="button" class="btn btn-primary btn-sm" style="margin-top:0.5rem;" onclick="runSb21()">▶ Biên dịch &amp; Xem kết quả</button>
           </div>
-          <div style="border:1.5px solid #cbd5e1;border-radius:8px;overflow:hidden;background:#fff;">
-            <div class="snippet-preview-bar"><span>🌐 Kết quả hiển thị trực tiếp</span></div>
-            <iframe id="sb21-frame" style="width:100%;height:205px;border:none;background:#fff;" title="Sandbox 2.1"></iframe>
+          <div>
+            <div id="sb21-placeholder" style="padding:2.5rem 1rem;text-align:center;color:#64748b;font-size:0.9rem;border:1.5px dashed #cbd5e1;border-radius:8px;background:#fff;height:100%;display:flex;align-items:center;justify-content:center;">
+              <div>👆 Em hãy đọc / chỉnh sửa mã nguồn rồi bấm <strong>"▶ Biên dịch &amp; Xem kết quả"</strong> để xem trang web hiển thị.</div>
+            </div>
+            <div id="sb21-box" style="display:none;border:1.5px solid #cbd5e1;border-radius:8px;overflow:hidden;background:#fff;">
+              <div class="snippet-preview-bar"><span>🌐 Kết quả hiển thị trực tiếp</span></div>
+              <iframe id="sb21-frame" style="width:100%;height:205px;border:none;background:#fff;" title="Sandbox 2.1"></iframe>
+            </div>
           </div>
         </div>
       </section>
@@ -383,17 +388,26 @@
       const doc = fr.contentDocument || fr.contentWindow.document;
       doc.open(); doc.write(SNIPPETS[id]); doc.close();
     }
+    function toggleSnippet(id) {
+      const box = document.getElementById('box-' + id);
+      const btn = document.getElementById('btn-' + id);
+      if (!box) return;
+      const isHidden = box.style.display === 'none';
+      box.style.display = isHidden ? 'block' : 'none';
+      if (btn) btn.textContent = isHidden ? '🙈 Ẩn kết quả' : '▶ Bấm xem kết quả hiển thị';
+      if (isHidden) renderSnippet(id);
+    }
     function runSb21() {
       const ta = document.getElementById('sb21-code');
       const fr = document.getElementById('sb21-frame');
+      const box = document.getElementById('sb21-box');
+      const ph = document.getElementById('sb21-placeholder');
       if (!ta || !fr) return;
+      if (ph) ph.style.display = 'none';
+      if (box) box.style.display = 'block';
       const doc = fr.contentDocument || fr.contentWindow.document;
       doc.open(); doc.write(ta.value); doc.close();
     }
-    window.addEventListener('DOMContentLoaded', () => {
-      Object.keys(SNIPPETS).forEach(renderSnippet);
-      runSb21();
-    });
   </script>
 </body>
 </html>

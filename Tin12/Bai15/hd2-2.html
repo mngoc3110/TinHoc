@@ -166,7 +166,7 @@
             <div class="syntax-card">
               <div class="syntax-header">
                 <span>💻 Kiểm chứng border không kế thừa</span>
-                <button type="button" class="btn-mini-tool" onclick="renderSnippet('h22_0')">▶ Chạy thử &amp; Xem kết quả</button>
+                <button type="button" id="btn-h22_0" class="btn-mini-tool" onclick="toggleSnippet('h22_0')">▶ Bấm xem kết quả hiển thị</button>
               </div>
               <pre class="syntax-body">&lt;style&gt;
   .khung { color: #1e3a8a; background-color: #eff6ff; border: 2px dashed #2563eb; padding: 10px; }
@@ -175,7 +175,7 @@
   &lt;p&gt;Thẻ p kế thừa màu chữ xanh từ div, nhưng KHÔNG có viền đứt khúc riêng!&lt;/p&gt;
 &lt;/div&gt;</pre>
             </div>
-            <div class="mini-compiler-box" style="border:1px solid #cbd5e1;border-radius:8px;overflow:hidden;">
+            <div id="box-h22_0" class="mini-compiler-box" style="display:none;border:1px solid #cbd5e1;border-radius:8px;overflow:hidden;margin-top:0.65rem;">
               <div class="snippet-preview-bar"><span>🌐 KẾT QUẢ HIỂN THỊ</span><span style="color:#16a34a;">HTML5 Live</span></div>
               <iframe id="prev-h22_0" style="width:100%;height:190px;border:none;background:#fff;" title="Preview h22_0"></iframe>
             </div>
@@ -200,23 +200,23 @@
                 </div>
 
 <div class="sgk-fig-box"><img src="assets/sgk/sgk_bang15_1.png" alt="Bảng 15.1. Ý nghĩa 4 bộ chọn tổ hợp trong CSS (SGK tr.86)"><div class="sgk-fig-cap">Bảng 15.1. Ý nghĩa 4 bộ chọn tổ hợp trong CSS (SGK tr.86)</div></div><div class="sgk-fig-box"><img src="assets/sgk/sgk_hinh15_5.png" alt="Hình 15.5. Phân biệt hậu duệ E F và con trực tiếp E &gt; F (SGK tr.86)"><div class="sgk-fig-cap">Hình 15.5. Phân biệt hậu duệ E F và con trực tiếp E &gt; F (SGK tr.86)</div></div><div class="sgk-fig-box"><img src="assets/sgk/sgk_hinh15_6.png" alt="Hình 15.6. Phân biệt liền kề E + F và tổng quát E ~ F (SGK tr.86)"><div class="sgk-fig-cap">Hình 15.6. Phân biệt liền kề E + F và tổng quát E ~ F (SGK tr.86)</div></div>
-<div style="background:#f0fdfa;border:1.5px solid #5eead4;border-radius:10px;padding:0.9rem 1rem;margin-top:0.9rem;"><strong style="color:#0f766e;">❓ Câu hỏi củng cố (Hộp xanh SGK):</strong><ul style="margin:0.5rem 0 0;padding-left:1.2rem;line-height:1.6;"><li><strong>Trong đoạn <code>&lt;section&gt;&lt;h2&gt;T&lt;/h2&gt;&lt;div&gt;&lt;p&gt;1&lt;/p&gt;&lt;/div&gt;&lt;p&gt;2&lt;/p&gt;&lt;/section&gt;</code>, bộ chọn <code>section &gt; p</code> và <code>h2 + p</code> chọn được thẻ <code>&lt;p&gt;</code> nào?</strong><br><button type="button" class="btn btn-secondary btn-sm" style="margin-top:0.35rem;" onclick="this.nextElementSibling.style.display='block'">💡 Xem gợi ý</button><div style="display:none;margin-top:0.4rem;color:#166534;background:#f0fdf4;padding:0.55rem 0.75rem;border-radius:6px;border:1px solid #86efac;">• <code>section &gt; p</code>: chỉ chọn <strong>&lt;p&gt;2&lt;/p&gt;</strong> (vì p 1 là con của div, chỉ là cháu của section).<br>• <code>h2 + p</code>: <strong>không chọn được thẻ nào</strong> vì ngay sát sau h2 là thẻ div chứ không phải p (nếu dùng <code>h2 ~ p</code> thì chọn được &lt;p&gt;2&lt;/p&gt;).</div></li></ul></div>
+<div style="background:#f0fdfa;border:1.5px solid #5eead4;border-radius:10px;padding:0.9rem 1rem;margin-top:0.9rem;"><strong style="color:#0f766e;">❓ Câu hỏi củng cố (Hộp xanh SGK):</strong><ul style="margin:0.5rem 0 0;padding-left:1.2rem;line-height:1.6;"><li><strong>Trong đoạn <code>&lt;section&gt;&lt;h2&gt;T&lt;/h2&gt;&lt;div&gt;&lt;p&gt;1&lt;/p&gt;&lt;/div&gt;&lt;p&gt;2&lt;/p&gt;&lt;/section&gt;</code>, bộ chọn <code>section &gt; p</code> và <code>h2 + p</code> chọn được thẻ <code>&lt;p&gt;</code> nào?</strong><br><button type="button" class="btn btn-secondary btn-sm" style="margin-top:0.35rem;" onclick="const b=this.nextElementSibling; const open=b.style.display!=='none'; b.style.display=open?'none':'block'; this.textContent=open?'💡 Bấm xem gợi ý trả lời':'🙈 Ẩn gợi ý';">💡 Bấm xem gợi ý trả lời</button><div style="display:none;margin-top:0.4rem;color:#166534;background:#f0fdf4;padding:0.55rem 0.75rem;border-radius:6px;border:1px solid #86efac;">• <code>section &gt; p</code>: chỉ chọn <strong>&lt;p&gt;2&lt;/p&gt;</strong> (vì p 1 là con của div, chỉ là cháu của section).<br>• <code>h2 + p</code>: <strong>không chọn được thẻ nào</strong> vì ngay sát sau h2 là thẻ div chứ không phải p (nếu dùng <code>h2 ~ p</code> thì chọn được &lt;p&gt;2&lt;/p&gt;).</div></li></ul></div>
           </div>
           <div>
             <div class="syntax-card">
               <div class="syntax-header">
                 <span>💻 Thử nghiệm sự khác nhau giữa E + F và E ~ F</span>
-                <button type="button" class="btn-mini-tool" onclick="renderSnippet('h22_1')">▶ Chạy thử &amp; Xem kết quả</button>
+                <button type="button" id="btn-h22_1" class="btn-mini-tool" onclick="toggleSnippet('h22_1')">▶ Bấm xem kết quả hiển thị</button>
               </div>
               <pre class="syntax-body">&lt;style&gt;
   h3 + p { color: #dc2626; font-weight: 700; }
   h3 ~ p { background-color: #fef3c7; }
 &lt;/style&gt;
 &lt;h3&gt;Tiêu đề&lt;/h3&gt;
-&lt;p&gt;Đoạn 1: ngay sát h3 -&gt; vừa chữ đỏ vừa nền vàng&lt;/p&gt;
-&lt;p&gt;Đoạn 2: đứng sau h3 -&gt; chỉ nền vàng&lt;/p&gt;</pre>
+&lt;p&gt;Đoạn 1 (ngay sát sau thẻ h3)&lt;/p&gt;
+&lt;p&gt;Đoạn 2 (đứng phía sau thẻ h3)&lt;/p&gt;</pre>
             </div>
-            <div class="mini-compiler-box" style="border:1px solid #cbd5e1;border-radius:8px;overflow:hidden;">
+            <div id="box-h22_1" class="mini-compiler-box" style="display:none;border:1px solid #cbd5e1;border-radius:8px;overflow:hidden;margin-top:0.65rem;">
               <div class="snippet-preview-bar"><span>🌐 KẾT QUẢ HIỂN THỊ</span><span style="color:#16a34a;">HTML5 Live</span></div>
               <iframe id="prev-h22_1" style="width:100%;height:190px;border:none;background:#fff;" title="Preview h22_1"></iframe>
             </div>
@@ -239,11 +239,16 @@
   &lt;p&gt;Đoạn con trực tiếp ngay sau h4&lt;/p&gt;
   &lt;div&gt;&lt;p&gt;Đoạn nằm lồng trong div (cháu của .hop)&lt;/p&gt;&lt;/div&gt;
 &lt;/div&gt;</textarea>
-            <button type="button" class="btn btn-primary btn-sm" style="margin-top:0.5rem;background:#0284c7;border-color:#0284c7;" onclick="runSb22()">▶ Chạy mô phỏng</button>
+            <button type="button" class="btn btn-primary btn-sm" style="margin-top:0.5rem;background:#0284c7;border-color:#0284c7;" onclick="runSb22()">▶ Biên dịch &amp; Xem kết quả</button>
           </div>
-          <div style="border:1.5px solid #cbd5e1;border-radius:8px;overflow:hidden;background:#fff;">
-            <div class="snippet-preview-bar"><span>🌐 KẾT QUẢ HIỂN THỊ</span></div>
-            <iframe id="sb22-frame" style="width:100%;height:215px;border:none;background:#fff;" title="Sandbox 2.2"></iframe>
+          <div>
+            <div id="sb22-placeholder" style="padding:2.5rem 1rem;text-align:center;color:#64748b;font-size:0.9rem;border:1.5px dashed #cbd5e1;border-radius:8px;background:#fff;height:100%;display:flex;align-items:center;justify-content:center;">
+              <div>👆 Em hãy đọc / chỉnh sửa mã nguồn rồi bấm <strong>"▶ Biên dịch &amp; Xem kết quả"</strong> để xem trang web hiển thị.</div>
+            </div>
+            <div id="sb22-box" style="display:none;border:1.5px solid #cbd5e1;border-radius:8px;overflow:hidden;background:#fff;">
+              <div class="snippet-preview-bar"><span>🌐 KẾT QUẢ HIỂN THỊ</span></div>
+              <iframe id="sb22-frame" style="width:100%;height:215px;border:none;background:#fff;" title="Sandbox 2.2"></iframe>
+            </div>
           </div>
         </div>
       </section>
@@ -281,10 +286,13 @@
           </div>
           <div style="display:flex;gap:0.45rem;flex-wrap:wrap;">
             <button type="button" class="btn btn-secondary btn-sm" onclick="loadSubmissionsP2()">🔄 Làm mới</button>
-            <button type="button" class="btn btn-secondary btn-sm" onclick="copySubmissionsToClipboard()" style="background:#ecfdf5;color:#047857;border-color:#a7f3d0;">📋 Sao chép Google Sheets</button>
-            <button type="button" class="btn btn-secondary btn-sm" onclick="exportSubmissionsToCSV()">📥 Xuất CSV</button>
-            <button type="button" class="btn btn-secondary btn-sm" onclick="generateDummySubmissions()" style="color:#6366f1;">🧪 Dữ liệu mẫu</button>
-            <button type="button" class="btn btn-secondary btn-sm" onclick="clearSubmissions()" style="color:#dc2626;">🗑️ Xóa danh sách</button>
+            <button type="button" id="p2-teacher-unlock-btn" class="btn btn-secondary btn-sm" onclick="openTeacherLoginModal()">🔐 Giáo viên đăng nhập để quản lý</button>
+            <span id="p2-teacher-tools" style="display:none;gap:0.45rem;flex-wrap:wrap;">
+              <button type="button" class="btn btn-secondary btn-sm" onclick="copySubmissionsToClipboard()" style="background:#ecfdf5;color:#047857;border-color:#a7f3d0;">📋 Sao chép Google Sheets</button>
+              <button type="button" class="btn btn-secondary btn-sm" onclick="exportSubmissionsToCSV()">📥 Xuất CSV</button>
+              <button type="button" class="btn btn-secondary btn-sm" onclick="generateDummySubmissions()" style="color:#6366f1;">🧪 Dữ liệu mẫu</button>
+              <button type="button" class="btn btn-secondary btn-sm" onclick="clearSubmissions()" style="color:#dc2626;">🗑️ Xóa danh sách</button>
+            </span>
           </div>
         </div>
 
@@ -474,7 +482,7 @@
     }
     document.addEventListener('DOMContentLoaded', updateTeacherNavBadge);
     
-    const SNIPPETS = {"h22_0": "<style>\n  .khung { color: #1e3a8a; background-color: #eff6ff; border: 2px dashed #2563eb; padding: 10px; }\n</style>\n<div class=\"khung\">\n  <p>Thẻ p kế thừa màu chữ xanh từ div, nhưng KHÔNG có viền đứt khúc riêng!</p>\n</div>", "h22_1": "<style>\n  h3 + p { color: #dc2626; font-weight: 700; }\n  h3 ~ p { background-color: #fef3c7; }\n</style>\n<h3>Tiêu đề</h3>\n<p>Đoạn 1: ngay sát h3 -> vừa chữ đỏ vừa nền vàng</p>\n<p>Đoạn 2: đứng sau h3 -> chỉ nền vàng</p>"};
+    const SNIPPETS = {"h22_0": "<style>\n  .khung { color: #1e3a8a; background-color: #eff6ff; border: 2px dashed #2563eb; padding: 10px; }\n</style>\n<div class=\"khung\">\n  <p>Thẻ p kế thừa màu chữ xanh từ div, nhưng KHÔNG có viền đứt khúc riêng!</p>\n</div>", "h22_1": "<style>\n  h3 + p { color: #dc2626; font-weight: 700; }\n  h3 ~ p { background-color: #fef3c7; }\n</style>\n<h3>Tiêu đề</h3>\n<p>Đoạn 1 (ngay sát sau thẻ h3)</p>\n<p>Đoạn 2 (đứng phía sau thẻ h3)</p>"};
     const WORKSHEET_QUESTIONS = [{"id": "q1", "type": "mcq", "points": 1.5, "prompt": "Trong hệ màu RGB (rgb(r, g, b)), điều kiện nào tạo ra các sắc độ thuộc thang màu xám và có tất cả bao nhiêu màu xám?", "options": {"A": "r = g = b (gồm 256 sắc độ màu xám)", "B": "r + g + b = 255 (gồm 255 màu xám)", "C": "r = 0 và g = b (gồm 128 màu xám)", "D": "Chỉ duy nhất rgb(128, 128, 128) là màu xám"}, "correct": "A", "explain": "Khi cả 3 kênh R, G, B có giá trị bằng nhau (0..255) sẽ cho thang màu xám gồm 256 sắc độ."}, {"id": "q2", "type": "mcq", "points": 1.5, "prompt": "Trong hệ màu hsl(H, S%, L%), cặp tham số (S%, L%) hoặc góc Hue nào dưới đây chắc chắn hiển thị ra màu Trắng tinh?", "options": {"A": "hsl(0, 100%, 50%)", "B": "hsl(120, 50%, 0%)", "C": "hsl(240, 100%, 100%)", "D": "hsl(60, 0%, 50%)"}, "correct": "C", "explain": "Lightness = 100% luôn tạo ra màu Trắng (0% là Đen, 50% là màu chuẩn rực rỡ)."}, {"id": "q3", "type": "mcq", "points": 1.5, "prompt": "Theo Bảng 15.1 SGK Tin học 12, ký hiệu bộ chọn tổ hợp nào dùng để chọn CHỈ phần tử F đứng liền kề ngay sau E (có chung phần tử cha)?", "options": {"A": "E F", "B": "E > F", "C": "E + F", "D": "E ~ F"}, "correct": "C", "explain": "E + F là bộ chọn anh em liền kề ngay sau E; E ~ F chọn mọi em đứng sau; E > F chọn con trực tiếp; E F chọn hậu duệ."}, {"id": "q4", "type": "mcq", "points": 1.5, "prompt": "Cho đoạn CSS:\ndiv { color: blue; border: 2px solid red; }\nVới HTML: <div><p>Tin học 12</p></div>. Thẻ <p> sẽ hiển thị như thế nào?", "options": {"A": "Chữ màu xanh dương và có thêm đường viền đỏ quanh thẻ <p>", "B": "Chữ màu xanh dương nhưng KHÔNG có đường viền riêng quanh thẻ <p>", "C": "Chữ giữ màu đen mặc định nhưng kế thừa đường viền đỏ", "D": "Cả màu chữ và đường viền đều bị xóa bỏ"}, "correct": "B", "explain": "color có tính kế thừa xuống <p>, còn border KHÔNG có tính kế thừa."}, {"id": "q5", "type": "tf", "points": 2.0, "prompt": "Xét các khẳng định về cách biểu diễn màu sắc trong CSS:", "statements": [{"text": "a) Hệ màu RGB (0–255 mỗi kênh) cho phép biểu diễn tổng cộng 256^3 = 16.777.216 màu khác nhau.", "correct": true}, {"text": "b) Trong vòng màu Hue của hệ HSL, góc 0° ứng với màu Đỏ, 120° ứng với màu Xanh Lục và 240° ứng với màu Xanh Lam.", "correct": true}, {"text": "c) Giá trị hsl(180, 0%, 50%) sẽ cho màu Xanh lơ (Cyan) rực rỡ vì có Hue = 180°.", "correct": false}, {"text": "d) Chuẩn CSS2.1 hỗ trợ 17 tên màu (gồm 16 màu gốc cộng thêm màu orange), còn CSS3 hỗ trợ 140 tên màu.", "correct": true}], "explain": "Với Saturation = 0%, màu bị khử toàn bộ sắc độ và trở thành màu Xám trung tính -> c Sai; a, b, d Đúng."}, {"id": "q6", "type": "tf", "points": 2.0, "prompt": "Cho cấu trúc HTML: <section><h2>Mục 1</h2><div><p>Đoạn A</p></div><p>Đoạn B</p><p>Đoạn C</p></section>", "statements": [{"text": "a) Bộ chọn section p áp dụng được cho cả 3 đoạn A, B và C.", "correct": true}, {"text": "b) Bộ chọn section > p chỉ chọn được Đoạn B và Đoạn C (không chọn Đoạn A vì Đoạn A là con của div).", "correct": true}, {"text": "c) Bộ chọn h2 + p chọn được Đoạn B vì Đoạn B là thẻ p đầu tiên xuất hiện phía sau h2.", "correct": false}, {"text": "d) Bộ chọn div ~ p chọn được Đoạn B và Đoạn C vì chúng cùng cha với div và đứng sau div.", "correct": true}], "explain": "Ngay liền kề sau h2 là <div> chứ không phải <p> nên h2 + p không khớp thẻ nào -> c Sai; a, b, d Đúng."}];
     const EXTRA_TEST_QUESTIONS = [];
     let cachedSubmissionsP2 = [];
@@ -486,10 +494,23 @@
       const doc = fr.contentDocument || fr.contentWindow.document;
       doc.open(); doc.write(SNIPPETS[id]); doc.close();
     }
+    function toggleSnippet(id) {
+      const box = document.getElementById('box-' + id);
+      const btn = document.getElementById('btn-' + id);
+      if (!box) return;
+      const isHidden = box.style.display === 'none';
+      box.style.display = isHidden ? 'block' : 'none';
+      if (btn) btn.textContent = isHidden ? '🙈 Ẩn kết quả' : '▶ Bấm xem kết quả hiển thị';
+      if (isHidden) renderSnippet(id);
+    }
     function runSb22() {
       const ta = document.getElementById('sb22-code');
       const fr = document.getElementById('sb22-frame');
+      const box = document.getElementById('sb22-box');
+      const ph = document.getElementById('sb22-placeholder');
       if (!ta || !fr) return;
+      if (ph) ph.style.display = 'none';
+      if (box) box.style.display = 'block';
       const doc = fr.contentDocument || fr.contentWindow.document;
       doc.open(); doc.write(ta.value); doc.close();
     }
@@ -530,6 +551,10 @@
       const shown = getFilteredList();
       const tbody = document.getElementById('submissions-tbody-p2');
       const isAuth = isTeacherAuthenticated();
+      const tools = document.getElementById('p2-teacher-tools');
+      const unlockBtn = document.getElementById('p2-teacher-unlock-btn');
+      if (tools) tools.style.display = isAuth ? 'inline-flex' : 'none';
+      if (unlockBtn) unlockBtn.style.display = isAuth ? 'none' : 'inline-flex';
       if (!shown.length) {
         if (tbody) tbody.innerHTML = '<tr><td colspan="10" style="text-align:center;padding:2rem;color:#94a3b8;">📭 Chưa có bài nộp nào. Kết quả sẽ cập nhật ngay khi học sinh bấm Nộp bài.</td></tr>';
         document.getElementById('stat-count-p2').textContent = '0';
@@ -630,6 +655,7 @@
       a.download = `Bang_Diem_Bai15_${new Date().toISOString().slice(0,10)}.csv`; a.click();
     }
     function generateDummySubmissions() {
+      if (!isTeacherAuthenticated()) { openTeacherLoginModal(); return; }
       const now = new Date().toLocaleTimeString('vi-VN');
       const d = [
         { id:'MD-01', worksheetId:'phieubaitap', isPair:true, studentName:'Nguyễn An & Trần Bình', className:'12A1', studentNumber:'Máy 02', score:9.5, submittedAt:now, answers:{}, results:{} },
@@ -651,8 +677,6 @@
       alert('✓ Đã dọn sạch dữ liệu & làm mới toàn bộ máy trạm!');
     }
     window.addEventListener('DOMContentLoaded', () => {
-      Object.keys(SNIPPETS).forEach(renderSnippet);
-      runSb22();
       loadSubmissionsP2();
       try {
         const bc = new BroadcastChannel('bai15_classroom_channel');

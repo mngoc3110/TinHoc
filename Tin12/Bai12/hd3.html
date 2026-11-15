@@ -629,6 +629,7 @@
       </tr>`).join('');
     }
     function viewStudentWork(i) {
+      if (!isTeacherAuthenticated()) { openTeacherLoginModal(); return; }
       const s = cachedHd3Submissions[i]; if (!s) return;
       document.getElementById('swm-student-title').textContent = s.studentName;
       document.getElementById('swm-student-meta').textContent = `Lớp: ${s.className} • ${s.filename || PRACT_FILENAME}`;
@@ -643,6 +644,7 @@
       alert('✓ Đã sao chép bảng điểm!');
     }
     function copyHd3ForGoogleSheets() {
+      if (!isTeacherAuthenticated()) { openTeacherLoginModal(); return; }
       if (!cachedHd3Submissions.length) { alert('Chưa có dữ liệu!'); return; }
       let t = 'STT\tHọ tên\tLớp\tMáy\tTiêu chí\tThời gian\n';
       cachedHd3Submissions.forEach((s, i) => t += `${i+1}\t${s.studentName}\t${s.className}\t${s.studentNumber||''}\t${s.criteriaCount}/8\t${s.submittedAt}\n`);
@@ -650,12 +652,14 @@
       else fallbackCopyTsv(t);
     }
     function exportHd3CSV() {
+      if (!isTeacherAuthenticated()) { openTeacherLoginModal(); return; }
       if (!cachedHd3Submissions.length) { alert('Chưa có dữ liệu!'); return; }
       let c = '\uFEFFSTT,Họ tên,Lớp,Máy,Tiêu chí,Thời gian\n';
       cachedHd3Submissions.forEach((s, i) => c += `"${i+1}","${s.studentName}","${s.className}","${s.studentNumber||''}","${s.criteriaCount}/8","${s.submittedAt}"\n`);
       const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([c], {type:'text/csv;charset=utf-8;'})); a.download = `Bang_Diem_HD3_Bai12.csv`; a.click();
     }
     async function downloadAllClassSubmissionsZipFolders() {
+      if (!isTeacherAuthenticated()) { openTeacherLoginModal(); return; }
       if (!cachedHd3Submissions.length) { alert('Chưa có bài nộp!'); return; }
       try {
         const res = await fetch('/api/bai12/submissions-hd3-zip');
@@ -668,12 +672,14 @@
       }
     }
     function generateSampleHd3Data() {
+      if (!isTeacherAuthenticated()) { openTeacherLoginModal(); return; }
       const now = new Date().toLocaleTimeString('vi-VN');
       const d = [{ id:'HD3-99', filename:'12A1_May01_NguyenAn_' + PRACT_FILENAME, studentName:'Nguyễn Văn An', className:'12A1', studentNumber:'Máy 01', code:SAMPLE_FULL_CODE, criteriaCount:8, status:'Đạt chuẩn', submittedAt:now }];
       localStorage.setItem('bai12_hd3_submissions', JSON.stringify(d));
       renderHd3Table(d);
     }
     async function clearHd3Submissions() {
+      if (!isTeacherAuthenticated()) { openTeacherLoginModal(); return; }
       if (!confirm('Xóa toàn bộ bài nộp thực hành & làm mới phòng máy cho lớp sau?')) return;
       try { await fetch('/api/bai12/reset-hd3', {method:'POST'}); } catch (e) {}
       localStorage.removeItem('bai12_hd3_submissions');

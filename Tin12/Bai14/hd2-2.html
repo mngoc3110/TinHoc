@@ -167,7 +167,7 @@
             <div class="syntax-card">
               <div class="syntax-header">
                 <span>💻 Định dạng đoạn văn bản chuyên nghiệp</span>
-                <button type="button" class="btn-mini-tool" onclick="renderSnippet('h22_0')">▶ Chạy thử &amp; Xem kết quả</button>
+                <button type="button" id="btn-h22_0" class="btn-mini-tool" onclick="toggleSnippet('h22_0')">▶ Bấm xem kết quả hiển thị</button>
               </div>
               <pre class="syntax-body">&lt;style&gt;
   .doan {
@@ -179,7 +179,7 @@
 &lt;/style&gt;
 &lt;p class=&quot;doan&quot;&gt;Đoạn văn này tự động thụt đầu dòng 28px, căn đều hai bên và giãn dòng 1.75 dễ đọc. Kèm &lt;a href=&quot;#&quot;&gt;liên kết bỏ gạch chân&lt;/a&gt;.&lt;/p&gt;</pre>
             </div>
-            <div class="mini-compiler-box" style="border:1px solid #cbd5e1;border-radius:8px;overflow:hidden;">
+            <div id="box-h22_0" class="mini-compiler-box" style="display:none;border:1px solid #cbd5e1;border-radius:8px;overflow:hidden;margin-top:0.65rem;">
               <div class="snippet-preview-bar"><span>🌐 KẾT QUẢ HIỂN THỊ</span><span style="color:#16a34a;">HTML5 Live</span></div>
               <iframe id="prev-h22_0" style="width:100%;height:190px;border:none;background:#fff;" title="Preview h22_0"></iframe>
             </div>
@@ -203,23 +203,23 @@
                 </div>
 
 <div class="sgk-fig-box"><img src="assets/sgk/sgk_hinh14_6.png" alt="Hình 14.6. Cơ chế áp dụng theo tầng Cascading (SGK tr.79)"><div class="sgk-fig-cap">Hình 14.6. Cơ chế áp dụng theo tầng Cascading (SGK tr.79)</div></div>
-<div style="background:#f0fdfa;border:1.5px solid #5eead4;border-radius:10px;padding:0.9rem 1rem;margin-top:0.9rem;"><strong style="color:#0f766e;">❓ Câu hỏi củng cố (Hộp xanh SGK):</strong><ul style="margin:0.5rem 0 0;padding-left:1.2rem;line-height:1.6;"><li><strong>Nếu có 3 quy tắc: * { color: gray; }, p { color: green !important; }, p { color: red; } thì chữ trong thẻ <p> màu gì?</strong><br><button type="button" class="btn btn-secondary btn-sm" style="margin-top:0.35rem;" onclick="this.nextElementSibling.style.display='block'">💡 Xem gợi ý</button><div style="display:none;margin-top:0.4rem;color:#166534;background:#f0fdf4;padding:0.55rem 0.75rem;border-radius:6px;border:1px solid #86efac;">Chữ hiển thị màu <strong>xanh lá (green)</strong> vì khai báo đó có kèm từ khóa <code>!important</code> đạt độ ưu tiên cao nhất.</div></li><li><strong>Vì sao không nên lạm dụng !important ở mọi dòng CSS?</strong><br><button type="button" class="btn btn-secondary btn-sm" style="margin-top:0.35rem;" onclick="this.nextElementSibling.style.display='block'">💡 Xem gợi ý</button><div style="display:none;margin-top:0.4rem;color:#166534;background:#f0fdf4;padding:0.55rem 0.75rem;border-radius:6px;border:1px solid #86efac;">Vì lạm dụng <code>!important</code> phá vỡ thứ tự kế thừa và xếp tầng tự nhiên, khiến việc bảo trì ghi đè giao diện về sau rất khó kiểm soát.</div></li></ul></div>
+<div style="background:#f0fdfa;border:1.5px solid #5eead4;border-radius:10px;padding:0.9rem 1rem;margin-top:0.9rem;"><strong style="color:#0f766e;">❓ Câu hỏi củng cố (Hộp xanh SGK):</strong><ul style="margin:0.5rem 0 0;padding-left:1.2rem;line-height:1.6;"><li><strong>Nếu có 3 quy tắc: * { color: gray; }, p { color: green !important; }, p { color: red; } thì chữ trong thẻ <p> màu gì?</strong><br><button type="button" class="btn btn-secondary btn-sm" style="margin-top:0.35rem;" onclick="const b=this.nextElementSibling; const open=b.style.display!=='none'; b.style.display=open?'none':'block'; this.textContent=open?'💡 Bấm xem gợi ý trả lời':'🙈 Ẩn gợi ý';">💡 Bấm xem gợi ý trả lời</button><div style="display:none;margin-top:0.4rem;color:#166534;background:#f0fdf4;padding:0.55rem 0.75rem;border-radius:6px;border:1px solid #86efac;">Chữ hiển thị màu <strong>xanh lá (green)</strong> vì khai báo đó có kèm từ khóa <code>!important</code> đạt độ ưu tiên cao nhất.</div></li><li><strong>Vì sao không nên lạm dụng !important ở mọi dòng CSS?</strong><br><button type="button" class="btn btn-secondary btn-sm" style="margin-top:0.35rem;" onclick="const b=this.nextElementSibling; const open=b.style.display!=='none'; b.style.display=open?'none':'block'; this.textContent=open?'💡 Bấm xem gợi ý trả lời':'🙈 Ẩn gợi ý';">💡 Bấm xem gợi ý trả lời</button><div style="display:none;margin-top:0.4rem;color:#166534;background:#f0fdf4;padding:0.55rem 0.75rem;border-radius:6px;border:1px solid #86efac;">Vì lạm dụng <code>!important</code> phá vỡ thứ tự kế thừa và xếp tầng tự nhiên, khiến việc bảo trì ghi đè giao diện về sau rất khó kiểm soát.</div></li></ul></div>
           </div>
           <div>
             <div class="syntax-card">
               <div class="syntax-header">
                 <span>💻 Kiểm chứng Cascading &amp; !important</span>
-                <button type="button" class="btn-mini-tool" onclick="renderSnippet('h22_1')">▶ Chạy thử &amp; Xem kết quả</button>
+                <button type="button" id="btn-h22_1" class="btn-mini-tool" onclick="toggleSnippet('h22_1')">▶ Bấm xem kết quả hiển thị</button>
               </div>
               <pre class="syntax-body">&lt;style&gt;
   * { color: gray; }
   p { color: #059669 !important; }
   p { color: #dc2626; }
 &lt;/style&gt;
-&lt;div&gt;Chữ trong div (ăn theo bộ chọn * màu xám)&lt;/div&gt;
-&lt;p&gt;Chữ trong p (dù đỏ viết sau nhưng xanh lá có !important vẫn thắng!)&lt;/p&gt;</pre>
+&lt;div&gt;Chữ trong thẻ div (áp dụng bộ chọn *)&lt;/div&gt;
+&lt;p&gt;Chữ trong thẻ p này sẽ hiển thị màu gì?&lt;/p&gt;</pre>
             </div>
-            <div class="mini-compiler-box" style="border:1px solid #cbd5e1;border-radius:8px;overflow:hidden;">
+            <div id="box-h22_1" class="mini-compiler-box" style="display:none;border:1px solid #cbd5e1;border-radius:8px;overflow:hidden;margin-top:0.65rem;">
               <div class="snippet-preview-bar"><span>🌐 KẾT QUẢ HIỂN THỊ</span><span style="color:#16a34a;">HTML5 Live</span></div>
               <iframe id="prev-h22_1" style="width:100%;height:190px;border:none;background:#fff;" title="Preview h22_1"></iframe>
             </div>
@@ -238,11 +238,16 @@
   p { color: crimson; }
 &lt;/style&gt;
 &lt;p&gt;Hãy thử xóa !important để thấy quy luật viết sau thắng trước!&lt;/p&gt;</textarea>
-            <button type="button" class="btn btn-primary btn-sm" style="margin-top:0.5rem;background:#0284c7;border-color:#0284c7;" onclick="runSb22()">▶ Chạy mô phỏng</button>
+            <button type="button" class="btn btn-primary btn-sm" style="margin-top:0.5rem;background:#0284c7;border-color:#0284c7;" onclick="runSb22()">▶ Biên dịch &amp; Xem kết quả</button>
           </div>
-          <div style="border:1.5px solid #cbd5e1;border-radius:8px;overflow:hidden;background:#fff;">
-            <div class="snippet-preview-bar"><span>🌐 KẾT QUẢ HIỂN THỊ</span></div>
-            <iframe id="sb22-frame" style="width:100%;height:215px;border:none;background:#fff;" title="Sandbox 2.2"></iframe>
+          <div>
+            <div id="sb22-placeholder" style="padding:2.5rem 1rem;text-align:center;color:#64748b;font-size:0.9rem;border:1.5px dashed #cbd5e1;border-radius:8px;background:#fff;height:100%;display:flex;align-items:center;justify-content:center;">
+              <div>👆 Em hãy đọc / chỉnh sửa mã nguồn rồi bấm <strong>"▶ Biên dịch &amp; Xem kết quả"</strong> để xem trang web hiển thị.</div>
+            </div>
+            <div id="sb22-box" style="display:none;border:1.5px solid #cbd5e1;border-radius:8px;overflow:hidden;background:#fff;">
+              <div class="snippet-preview-bar"><span>🌐 KẾT QUẢ HIỂN THỊ</span></div>
+              <iframe id="sb22-frame" style="width:100%;height:215px;border:none;background:#fff;" title="Sandbox 2.2"></iframe>
+            </div>
           </div>
         </div>
       </section>
@@ -280,10 +285,13 @@
           </div>
           <div style="display:flex;gap:0.45rem;flex-wrap:wrap;">
             <button type="button" class="btn btn-secondary btn-sm" onclick="loadSubmissionsP2()">🔄 Làm mới</button>
-            <button type="button" class="btn btn-secondary btn-sm" onclick="copySubmissionsToClipboard()" style="background:#ecfdf5;color:#047857;border-color:#a7f3d0;">📋 Sao chép Google Sheets</button>
-            <button type="button" class="btn btn-secondary btn-sm" onclick="exportSubmissionsToCSV()">📥 Xuất CSV</button>
-            <button type="button" class="btn btn-secondary btn-sm" onclick="generateDummySubmissions()" style="color:#6366f1;">🧪 Dữ liệu mẫu</button>
-            <button type="button" class="btn btn-secondary btn-sm" onclick="clearSubmissions()" style="color:#dc2626;">🗑️ Xóa danh sách</button>
+            <button type="button" id="p2-teacher-unlock-btn" class="btn btn-secondary btn-sm" onclick="openTeacherLoginModal()">🔐 Giáo viên đăng nhập để quản lý</button>
+            <span id="p2-teacher-tools" style="display:none;gap:0.45rem;flex-wrap:wrap;">
+              <button type="button" class="btn btn-secondary btn-sm" onclick="copySubmissionsToClipboard()" style="background:#ecfdf5;color:#047857;border-color:#a7f3d0;">📋 Sao chép Google Sheets</button>
+              <button type="button" class="btn btn-secondary btn-sm" onclick="exportSubmissionsToCSV()">📥 Xuất CSV</button>
+              <button type="button" class="btn btn-secondary btn-sm" onclick="generateDummySubmissions()" style="color:#6366f1;">🧪 Dữ liệu mẫu</button>
+              <button type="button" class="btn btn-secondary btn-sm" onclick="clearSubmissions()" style="color:#dc2626;">🗑️ Xóa danh sách</button>
+            </span>
           </div>
         </div>
 
@@ -473,7 +481,7 @@
     }
     document.addEventListener('DOMContentLoaded', updateTeacherNavBadge);
     
-    const SNIPPETS = {"h22_0": "<style>\n  .doan {\n    line-height: 1.75;\n    text-align: justify;\n    text-indent: 28px;\n  }\n  a { text-decoration: none; color: #dc2626; font-weight: bold; }\n</style>\n<p class=\"doan\">Đoạn văn này tự động thụt đầu dòng 28px, căn đều hai bên và giãn dòng 1.75 dễ đọc. Kèm <a href=\"#\">liên kết bỏ gạch chân</a>.</p>", "h22_1": "<style>\n  * { color: gray; }\n  p { color: #059669 !important; }\n  p { color: #dc2626; }\n</style>\n<div>Chữ trong div (ăn theo bộ chọn * màu xám)</div>\n<p>Chữ trong p (dù đỏ viết sau nhưng xanh lá có !important vẫn thắng!)</p>"};
+    const SNIPPETS = {"h22_0": "<style>\n  .doan {\n    line-height: 1.75;\n    text-align: justify;\n    text-indent: 28px;\n  }\n  a { text-decoration: none; color: #dc2626; font-weight: bold; }\n</style>\n<p class=\"doan\">Đoạn văn này tự động thụt đầu dòng 28px, căn đều hai bên và giãn dòng 1.75 dễ đọc. Kèm <a href=\"#\">liên kết bỏ gạch chân</a>.</p>", "h22_1": "<style>\n  * { color: gray; }\n  p { color: #059669 !important; }\n  p { color: #dc2626; }\n</style>\n<div>Chữ trong thẻ div (áp dụng bộ chọn *)</div>\n<p>Chữ trong thẻ p này sẽ hiển thị màu gì?</p>"};
     const WORKSHEET_QUESTIONS = [{"id": "q1", "type": "mcq", "points": 1.5, "prompt": "Trong 5 họ phông chữ cơ bản của CSS, họ phông chữ nào có đặc điểm mọi ký tự đều chiếm chiều rộng bằng nhau (rất hay dùng để hiển thị đoạn mã lập trình)?", "options": {"A": "serif", "B": "sans-serif", "C": "monospace", "D": "cursive"}, "correct": "C", "explain": "monospace (đơn cách) có chiều rộng mỗi ký tự giống hệt nhau; sans-serif không chân, serif có chân."}, {"id": "q2", "type": "mcq", "points": 1.5, "prompt": "Để loại bỏ đường gạch chân mặc định dưới các liên kết thẻ <a> trên thanh menu trang web, ta dùng khai báo CSS nào?", "options": {"A": "text-underline: none;", "B": "text-decoration: none;", "C": "font-style: plain;", "D": "border-bottom: 0;"}, "correct": "B", "explain": "Thuộc tính text-decoration: none xóa gạch chân mặc định của thẻ <a>."}, {"id": "q3", "type": "mcq", "points": 1.5, "prompt": "Thuộc tính nào quy định độ dày (đậm) của nét chữ, bắt đầu hiển thị in đậm từ mức giá trị 500 trở lên (như bold = 700)?", "options": {"A": "font-style", "B": "font-size", "C": "font-weight", "D": "line-height"}, "correct": "C", "explain": "font-weight chỉnh độ dày nét chữ (100..900, normal=400, bold=700, từ 500 trở lên hiển thị đậm)."}, {"id": "q4", "type": "mcq", "points": 1.5, "prompt": "Cho đoạn CSS sau:\n* { color: black; }\np { color: green !important; }\np { color: blue; }\nVăn bản nằm trong thẻ <p> sẽ có màu gì?", "options": {"A": "black", "B": "green", "C": "blue", "D": "Không đổi màu vì bị lỗi trùng lặp"}, "correct": "B", "explain": "Từ khóa !important có độ ưu tiên cao nhất nên color: green được áp dụng bất chấp quy tắc viết sau."}, {"id": "q5", "type": "tf", "points": 2.0, "prompt": "Xét các phát biểu về thuộc tính định dạng phông chữ và dòng văn bản trong CSS:", "statements": [{"text": "a) Tên phông chữ có dấu cách như Times New Roman nên đặt trong dấu nháy kép khi viết ở font-family.", "correct": true}, {"text": "b) Thuộc tính text-align: justify; giúp căn thẳng đều văn bản theo cả hai lề trái và phải.", "correct": true}, {"text": "c) Để in nghiêng văn bản, giá trị chuẩn cần khai báo là font-style: bold;", "correct": false}, {"text": "d) Thuộc tính text-indent dùng giá trị âm (ví dụ -20px) sẽ đẩy dòng đầu tiên lùi ra phía bên trái.", "correct": true}], "explain": "font-style: italic dùng để in nghiêng (bold thuộc font-weight) -> c Sai; a, b, d Đúng."}, {"id": "q6", "type": "tf", "points": 2.0, "prompt": "Xét cơ chế kế thừa và thứ tự ưu tiên (Cascading) trên đoạn mã:\n<div style=\"font-family: Arial; color: navy;\"><p>Xin chào</p></div>", "statements": [{"text": "a) Thẻ <p> bên trong sẽ tự động hiển thị bằng phông Arial và màu chữ navy nhờ tính kế thừa.", "correct": true}, {"text": "b) Thuộc tính text-decoration cũng luôn kế thừa giống hệt như color và font-family.", "correct": false}, {"text": "c) Bộ chọn * có độ ưu tiên thấp nhất trong thứ tự áp dụng các mẫu định dạng.", "correct": true}, {"text": "d) Nếu cùng mức bộ chọn và không có !important, quy tắc viết sau trong tệp CSS sẽ ghi đè quy tắc trước.", "correct": true}], "explain": "Thuộc tính text-decoration KHÔNG kế thừa theo quy định chuẩn CSS -> b Sai; a, c, d Đúng."}];
     const EXTRA_TEST_QUESTIONS = [];
     let cachedSubmissionsP2 = [];
@@ -485,10 +493,23 @@
       const doc = fr.contentDocument || fr.contentWindow.document;
       doc.open(); doc.write(SNIPPETS[id]); doc.close();
     }
+    function toggleSnippet(id) {
+      const box = document.getElementById('box-' + id);
+      const btn = document.getElementById('btn-' + id);
+      if (!box) return;
+      const isHidden = box.style.display === 'none';
+      box.style.display = isHidden ? 'block' : 'none';
+      if (btn) btn.textContent = isHidden ? '🙈 Ẩn kết quả' : '▶ Bấm xem kết quả hiển thị';
+      if (isHidden) renderSnippet(id);
+    }
     function runSb22() {
       const ta = document.getElementById('sb22-code');
       const fr = document.getElementById('sb22-frame');
+      const box = document.getElementById('sb22-box');
+      const ph = document.getElementById('sb22-placeholder');
       if (!ta || !fr) return;
+      if (ph) ph.style.display = 'none';
+      if (box) box.style.display = 'block';
       const doc = fr.contentDocument || fr.contentWindow.document;
       doc.open(); doc.write(ta.value); doc.close();
     }
@@ -529,6 +550,10 @@
       const shown = getFilteredList();
       const tbody = document.getElementById('submissions-tbody-p2');
       const isAuth = isTeacherAuthenticated();
+      const tools = document.getElementById('p2-teacher-tools');
+      const unlockBtn = document.getElementById('p2-teacher-unlock-btn');
+      if (tools) tools.style.display = isAuth ? 'inline-flex' : 'none';
+      if (unlockBtn) unlockBtn.style.display = isAuth ? 'none' : 'inline-flex';
       if (!shown.length) {
         if (tbody) tbody.innerHTML = '<tr><td colspan="10" style="text-align:center;padding:2rem;color:#94a3b8;">📭 Chưa có bài nộp nào. Kết quả sẽ cập nhật ngay khi học sinh bấm Nộp bài.</td></tr>';
         document.getElementById('stat-count-p2').textContent = '0';
@@ -629,6 +654,7 @@
       a.download = `Bang_Diem_Bai14_${new Date().toISOString().slice(0,10)}.csv`; a.click();
     }
     function generateDummySubmissions() {
+      if (!isTeacherAuthenticated()) { openTeacherLoginModal(); return; }
       const now = new Date().toLocaleTimeString('vi-VN');
       const d = [
         { id:'MD-01', worksheetId:'phieubaitap', isPair:true, studentName:'Nguyễn An & Trần Bình', className:'12A1', studentNumber:'Máy 02', score:9.5, submittedAt:now, answers:{}, results:{} },
@@ -650,8 +676,6 @@
       alert('✓ Đã dọn sạch dữ liệu & làm mới toàn bộ máy trạm!');
     }
     window.addEventListener('DOMContentLoaded', () => {
-      Object.keys(SNIPPETS).forEach(renderSnippet);
-      runSb22();
       loadSubmissionsP2();
       try {
         const bc = new BroadcastChannel('bai14_classroom_channel');

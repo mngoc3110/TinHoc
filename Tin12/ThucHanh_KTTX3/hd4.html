@@ -36,12 +36,14 @@
     .infographic-tab.active { background:#4f46e5; color:#fff; border-color:#4f46e5; }
     .infographic-canvas-wrap { background:#f8fafc; border:1.5px solid #cbd5e1; border-radius:14px; padding:1rem; min-height:380px; display:flex; align-items:center; justify-content:center; overflow-x:auto; }
     .flashcard-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(235px, 1fr)); gap:1rem; }
-    .flashcard { perspective:1000px; height:210px; cursor:pointer; }
-    .flashcard-inner { position:relative; width:100%; height:100%; transition:transform 0.55s; transform-style:preserve-3d; }
-    .flashcard.flipped .flashcard-inner { transform:rotateY(180deg); }
-    .flashcard-front, .flashcard-back { position:absolute; inset:0; backface-visibility:hidden; border-radius:14px; padding:1.15rem; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; }
+    .flashcard { -webkit-perspective:1000px; perspective:1000px; height:215px; cursor:pointer; }
+    .flashcard-inner { position:relative; width:100%; height:100%; transition:transform 0.55s; -webkit-transform-style:preserve-3d; transform-style:preserve-3d; }
+    .flashcard.flipped .flashcard-inner { -webkit-transform:rotateY(180deg); transform:rotateY(180deg); }
+    .flashcard-front, .flashcard-back { position:absolute; inset:0; -webkit-backface-visibility:hidden; backface-visibility:hidden; border-radius:14px; padding:1.15rem; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; transition:opacity 0.2s ease, visibility 0.2s ease; }
     .flashcard-front { background:#fff; border:1.5px solid #cbd5e1; box-shadow:0 4px 12px rgba(0,0,0,0.04); }
-    .flashcard-back { background:linear-gradient(135deg,#1e3a8a,#312e81); color:#f8fafc; transform:rotateY(180deg); }
+    .flashcard-back { background:linear-gradient(135deg,#1e3a8a,#312e81); color:#f8fafc; -webkit-transform:rotateY(180deg); transform:rotateY(180deg); }
+    .flashcard:not(.flipped) .flashcard-back { visibility:hidden; opacity:0; pointer-events:none; }
+    .flashcard.flipped .flashcard-front { visibility:hidden; opacity:0; pointer-events:none; }
     
   </style>
 </head>
@@ -135,8 +137,8 @@
   <section class="hero-banner" style="padding:2rem 0; background:linear-gradient(135deg,#4338ca 0%,#6366f1 55%,#9333ea 100%);">
     <div class="container">
       <div class="badge-tag" style="background:rgba(255,255,255,0.2);color:#fff;">📊 HOẠT ĐỘNG 4 • TỔNG KẾT INFOGRAPHIC &amp; VẬN DỤNG SGK</div>
-      <h1 class="hero-title" style="font-size:1.95rem;">Infographic Tổng Hợp &amp; Giải Bài Tập Cuối Bài</h1>
-      <p class="hero-subtitle">Thực hành tổng hợp HTML &amp; KTTX3 • Sơ đồ hóa kiến thức trọng tâm, thẻ lật Flashcards 3D và toàn bộ đáp án Luyện tập, Vận dụng SGK Kết nối tri thức.</p>
+      <h1 class="hero-title" style="font-size:1.95rem;">Infographic Tổng Hợp &amp; Luyện Tập Cuối Bài</h1>
+      <p class="hero-subtitle">Thực hành tổng hợp HTML &amp; KTTX3 • Sơ đồ hóa kiến thức trọng tâm, thẻ lật Flashcards 3D và tự luyện câu hỏi Luyện tập, Vận dụng SGK Kết nối tri thức (bấm vào từng câu để đối chiếu gợi ý).</p>
     </div>
   </section>
 
@@ -165,7 +167,10 @@
 
       <!-- FLASHCARDS 3D -->
       <section class="card" style="margin-bottom:1.5rem;">
-        <h2 style="margin:0 0 0.85rem;color:#1e3a8a;font-size:1.3rem;">2. Góc Lật Thẻ Ghi Nhớ (Interactive Flashcards 3D)</h2>
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.85rem;">
+          <h2 style="margin:0;color:#1e3a8a;font-size:1.3rem;">2. Góc Lật Thẻ Ghi Nhớ (Interactive Flashcards 3D)</h2>
+          <span class="sgk-badge">👆 Bấm vào từng thẻ để lật xem đáp án</span>
+        </div>
         <div class="flashcard-grid">
           <div class="flashcard" onclick="this.classList.toggle('flipped')">
             <div class="flashcard-inner">
@@ -177,6 +182,7 @@
               <div class="flashcard-back">
                 <strong style="color:#60a5fa;margin-bottom:0.5rem;">✅ Đáp án ghi nhớ:</strong>
                 <div style="font-size:0.9rem;line-height:1.55;">Mỗi hàng trong 2 hàng kế tiếp bên dưới phải <strong>bớt đi 1 thẻ <code>&lt;td&gt;</code></strong> tại vị trí cột bị chiếm.</div>
+                <span style="font-size:0.75rem;color:#93c5fd;margin-top:0.65rem;">👆 Nhấn lần nữa để úp thẻ lại</span>
               </div>
             </div>
           </div>
@@ -190,6 +196,7 @@
               <div class="flashcard-back">
                 <strong style="color:#60a5fa;margin-bottom:0.5rem;">✅ Đáp án ghi nhớ:</strong>
                 <div style="font-size:0.9rem;line-height:1.55;">Để trình duyệt tự tính <code>height</code> theo đúng tỉ lệ khung hình gốc, giúp ảnh không bị kéo dãn méo mó.</div>
+                <span style="font-size:0.75rem;color:#93c5fd;margin-top:0.65rem;">👆 Nhấn lần nữa để úp thẻ lại</span>
               </div>
             </div>
           </div>
@@ -203,6 +210,7 @@
               <div class="flashcard-back">
                 <strong style="color:#60a5fa;margin-bottom:0.5rem;">✅ Đáp án ghi nhớ:</strong>
                 <div style="font-size:0.9rem;line-height:1.55;">Khi hai thẻ <code>&lt;input type="radio"&gt;</code> đó quên khai báo <code>name</code> hoặc đặt giá trị <code>name</code> khác nhau.</div>
+                <span style="font-size:0.75rem;color:#93c5fd;margin-top:0.65rem;">👆 Nhấn lần nữa để úp thẻ lại</span>
               </div>
             </div>
           </div>
@@ -216,6 +224,7 @@
               <div class="flashcard-back">
                 <strong style="color:#60a5fa;margin-bottom:0.5rem;">✅ Đáp án ghi nhớ:</strong>
                 <div style="font-size:0.9rem;line-height:1.55;">Viết <code>href="../../index.html"</code> (mỗi cụm <code>../</code> lùi lên 1 cấp).</div>
+                <span style="font-size:0.75rem;color:#93c5fd;margin-top:0.65rem;">👆 Nhấn lần nữa để úp thẻ lại</span>
               </div>
             </div>
           </div>
@@ -233,7 +242,7 @@
           <p style="margin:0 0 0.7rem;color:#1e293b;line-height:1.55;">Cho mã HTML: <code>&lt;table border="1"&gt;&lt;tr&gt;&lt;th colspan="3"&gt;CLB&lt;/th&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;A&lt;/td&gt;&lt;td&gt;B&lt;/td&gt;&lt;td&gt;C&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</code>. Bảng này có mấy hàng, mấy cột và ô CLB hiển thị căn lề thế nào?</p>
           <textarea id="ans-input-1" rows="3" placeholder="Em hãy viết câu trả lời / đoạn mã của mình tại đây..." oninput="saveHd4Ans(1, this.value)" style="width:100%;padding:0.7rem;border:1.5px solid #cbd5e1;border-radius:8px;font-family:'Fira Code',sans-serif;font-size:0.86rem;"></textarea>
           <div style="margin-top:0.6rem;">
-            <button type="button" class="btn btn-secondary btn-sm" onclick="const g=document.getElementById('ans-guide-1'); g.style.display=g.style.display==='none'?'block':'none';">💡 Xem Đáp án chuẩn SGK</button>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="toggleSgkAnswer(1, this)">💡 Bấm xem gợi ý &amp; đáp án đối chiếu</button>
           </div>
           <div id="ans-guide-1" style="display:none;margin-top:0.75rem;padding:0.9rem 1rem;background:#f0fdf4;border:1.5px solid #86efac;border-radius:8px;color:#14532d;font-size:0.9rem;line-height:1.6;">
             Bảng có <strong>2 hàng, 3 cột</strong>. Ô tiêu đề 'CLB' dùng thẻ <code>&lt;th&gt;</code> và <code>colspan="3"</code> nên nó kéo dài 3 cột, chữ <strong>in đậm và căn giữa</strong>.
@@ -247,7 +256,7 @@
           <p style="margin:0 0 0.7rem;color:#1e293b;line-height:1.55;">Tìm 2 lỗi trong đoạn mã sau: <code>&lt;audio poster="bia.jpg" controls src="music.mp3"&gt;&lt;/audio&gt; &lt;form&gt;&lt;input type="radio" name="r1"&gt;Có &lt;input type="radio" name="r2"&gt;Không&lt;/form&gt;</code></p>
           <textarea id="ans-input-2" rows="3" placeholder="Em hãy viết câu trả lời / đoạn mã của mình tại đây..." oninput="saveHd4Ans(2, this.value)" style="width:100%;padding:0.7rem;border:1.5px solid #cbd5e1;border-radius:8px;font-family:'Fira Code',sans-serif;font-size:0.86rem;"></textarea>
           <div style="margin-top:0.6rem;">
-            <button type="button" class="btn btn-secondary btn-sm" onclick="const g=document.getElementById('ans-guide-2'); g.style.display=g.style.display==='none'?'block':'none';">💡 Xem Đáp án chuẩn SGK</button>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="toggleSgkAnswer(2, this)">💡 Bấm xem gợi ý &amp; đáp án đối chiếu</button>
           </div>
           <div id="ans-guide-2" style="display:none;margin-top:0.75rem;padding:0.9rem 1rem;background:#f0fdf4;border:1.5px solid #86efac;border-radius:8px;color:#14532d;font-size:0.9rem;line-height:1.6;">
             <strong>2 lỗi sai:</strong><br>1) Thẻ <code>&lt;audio&gt;</code> không hỗ trợ thuộc tính <code>poster</code> (thuộc tính này chỉ dành cho <code>&lt;video&gt;</code>).<br>2) Hai nút <code>radio</code> đặt khác <code>name</code> (<code>r1</code> vs <code>r2</code>) nên chọn được cả hai cùng lúc -> phải sửa chung <code>name="r"</code>.
@@ -261,7 +270,7 @@
           <p style="margin:0 0 0.7rem;color:#1e293b;line-height:1.55;">Nêu kế hoạch ghép toàn bộ bài thực hành Website_CLB.html với một khung <code>&lt;iframe&gt;</code> chung ở trang <code>index.html</code> của dự án.</p>
           <textarea id="ans-input-3" rows="3" placeholder="Em hãy viết câu trả lời / đoạn mã của mình tại đây..." oninput="saveHd4Ans(3, this.value)" style="width:100%;padding:0.7rem;border:1.5px solid #cbd5e1;border-radius:8px;font-family:'Fira Code',sans-serif;font-size:0.86rem;"></textarea>
           <div style="margin-top:0.6rem;">
-            <button type="button" class="btn btn-secondary btn-sm" onclick="const g=document.getElementById('ans-guide-3'); g.style.display=g.style.display==='none'?'block':'none';">💡 Xem Đáp án chuẩn SGK</button>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="toggleSgkAnswer(3, this)">💡 Bấm xem gợi ý &amp; đáp án đối chiếu</button>
           </div>
           <div id="ans-guide-3" style="display:none;margin-top:0.75rem;padding:0.9rem 1rem;background:#f0fdf4;border:1.5px solid #86efac;border-radius:8px;color:#14532d;font-size:0.9rem;line-height:1.6;">
             Tại <code>index.html</code>, đặt thanh menu các liên kết <code>href="the_thao.html"</code>, <code>href="dang_ki_thi.html"</code> đều mang <code>target="khung_chinh"</code> và đặt 1 thẻ <code>&lt;iframe name="khung_chinh" width="100%" height="480"&gt;&lt;/iframe&gt;</code> ở giữa trang.
@@ -470,6 +479,13 @@
         cur['q' + idx] = val;
         localStorage.setItem('kttx3_hd4_answers', JSON.stringify(cur));
       } catch (e) {}
+    }
+    function toggleSgkAnswer(idx, btn) {
+      const g = document.getElementById('ans-guide-' + idx);
+      if (!g) return;
+      const open = g.style.display !== 'none';
+      g.style.display = open ? 'none' : 'block';
+      if (btn) btn.textContent = open ? '💡 Bấm xem gợi ý & đáp án đối chiếu' : '🙈 Ẩn đáp án';
     }
     window.addEventListener('DOMContentLoaded', () => {
       renderInfographic('cards', document.querySelector('.infographic-tab'));

@@ -1961,6 +1961,7 @@
     }
 
     function generateDummySubmissions(type = 'checkpoint') {
+      if (!isTeacherAuthenticated()) { openTeacherLoginModal(); return; }
       const now = new Date();
       const timeStr = now.toLocaleTimeString('vi-VN') + ' - ' + now.toLocaleDateString('vi-VN');
 
