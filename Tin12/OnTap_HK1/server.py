@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-BACKEND PYTHON SERVER - Tuần 15: Ôn tập & Đề thi thử Cuối HK1 (45p) (Tin học 12 • THTH-DHSP)
+BACKEND PYTHON SERVER - Ôn tập & Đề thi thử Cuối HK1 (45p) (Tin học 12 • THTH-DHSP)
 Chạy: python3 server.py (mặc định Port 3015)
 """
 import http.server
@@ -184,5 +184,5 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 if __name__ == '__main__':
     socketserver.TCPServer.allow_reuse_address = True
     with socketserver.TCPServer(('', PORT), Handler) as httpd:
-        print(f'Tuần 15: Ôn tập & Đề thi thử Cuối HK1 (45p) Python server on http://localhost:{PORT}')
+        print(f'Ôn tập & Đề thi thử Cuối HK1 (45p) Python server on http://localhost:{PORT}')
         httpd.serve_forever()

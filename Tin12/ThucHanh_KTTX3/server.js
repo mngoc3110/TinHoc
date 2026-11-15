@@ -1,5 +1,5 @@
 /**
- * BACKEND NODE.JS - TUẦN 14: THỰC HÀNH TỔNG HỢP HTML & KTTX3 (TIN HỌC 12 • THTH-DHSP)
+ * BACKEND NODE.JS - THỰC HÀNH TỔNG HỢP HTML & KTTX3 (TIN HỌC 12 • THTH-DHSP)
  * Hệ thống thu thập bài nộp, kiểm tra trực tuyến & bảng điều khiển Giáo viên Realtime
  * Chạy độc lập: node server.js (Port 3014) hoặc qua Tin12/hub_server.js (Port 3020)
  */
@@ -233,5 +233,5 @@ const server = http.createServer((req, res) => {
 });
 
 server.listen(PORT, () => {
-  console.log(`Tuần 14: Thực hành tổng hợp HTML & KTTX3 Server listening on http://localhost:${PORT}`);
+  console.log(`Thực hành tổng hợp HTML & KTTX3 Server listening on http://localhost:${PORT}`);
 });

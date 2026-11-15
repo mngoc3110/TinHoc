@@ -421,7 +421,7 @@ SLIDES_DATA = [
     "pill": "TIN HỌC 12 • KẾT NỐI TRI THỨC • CHỦ ĐỀ F",
     "title": "BÀI 10: TẠO LIÊN KẾT",
     "subtitle": "Thẻ <a>, Đường dẫn tuyệt đối & tương đối (../), Liên kết neo #id, Liên kết ảnh & Kiểm tra KTTX2 (15p)",
-    "meta": "Tuần 11 (Tiết 21–22)",
+    "meta": "Tiết 21–22 (2 tiết)",
     "url": "https://minda.io.vn/Tin12/Bai10/index.html"
   },
   {
@@ -911,7 +911,7 @@ SLIDES_DATA = [
       "Thuần thục thẻ <a href=\"URL\" target=\"_blank\"> và cách lồng <img> để tạo ảnh liên kết.",
       "Nắm vững nguyên tắc đường dẫn tương đối (thumuc/tep.html và ../tep.html) cho website đa trang.",
       "Hoàn thiện CLB.html (hd3.html) & kiểm tra lại kết quả bài KTTX2 (15 phút).",
-      "Chuẩn bị cho Bài 11 (Tuần 12): Chèn tệp tin đa phương tiện & khung nội tuyến (<img>, <video>, <audio>, <iframe>)."
+      "Chuẩn bị cho Bài 11: Chèn tệp tin đa phương tiện & khung nội tuyến (<img>, <video>, <audio>, <iframe>)."
     ]
   }
 ]

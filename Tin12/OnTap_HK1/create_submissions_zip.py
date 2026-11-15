@@ -17,7 +17,7 @@ def create_zip():
         if os.path.exists(HD3_DATA_FILE):
             with open(HD3_DATA_FILE, "r", encoding="utf-8") as f:
                 subs = json.load(f)
-            lines = [f"BẢNG TỔNG HỢP BÀI THỰC HÀNH - TUẦN 15: ÔN TẬP & ĐỀ THI THỬ CUỐI HK1 (45P) (THTH-DHSP)", "=" * 60]
+            lines = [f"BẢNG TỔNG HỢP BÀI THỰC HÀNH - ÔN TẬP & ĐỀ THI THỬ CUỐI HK1 (45P) (THTH-DHSP)", "=" * 60]
             for i, s in enumerate(subs, 1):
                 lines.append(
                     f"{i}. [{s.get('className','')} - {s.get('studentNumber','')}] "

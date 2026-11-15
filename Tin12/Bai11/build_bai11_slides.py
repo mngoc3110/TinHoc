@@ -421,7 +421,7 @@ SLIDES_DATA = [
     "pill": "TIN HỌC 12 • KẾT NỐI TRI THỨC • CHỦ ĐỀ F",
     "title": "BÀI 11: CHÈN TỆP TIN ĐA PHƯƠNG TIỆN VÀ KHUNG NỘI TUYẾN",
     "subtitle": "Làm chủ thẻ <img>, <audio>, <video>, <source> và <iframe> điều hướng thông minh",
-    "meta": "Tuần 12 (Tiết 23–24)",
+    "meta": "Tiết 23–24 (2 tiết)",
     "url": "https://minda.io.vn/Tin12/Bai11/index.html"
   },
   {
@@ -891,7 +891,7 @@ SLIDES_DATA = [
       "<img> là thẻ trống: đặt 1 kích thước width/height để ảnh tự co giãn đúng tỉ lệ.",
       "<audio> và <video> cần controls để điều khiển; chỉ <video> có width, height, poster.",
       "<iframe name=\"...\"> kết hợp <a target=\"...\"> giúp mở trang con ngay trong khung.",
-      "Chuẩn bị cho Bài 12 (Tuần 13): Tạo biểu mẫu (<form>, <input>, <select>, <textarea>, <fieldset>)."
+      "Chuẩn bị cho Bài 12: Tạo biểu mẫu (<form>, <input>, <select>, <textarea>, <fieldset>)."
     ]
   }
 ]

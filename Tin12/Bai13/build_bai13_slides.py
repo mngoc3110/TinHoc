@@ -418,10 +418,10 @@ def build_from_slides_data(slides_data, lesson_short, assets_dir, out_pptx):
 SLIDES_DATA = [
   {
     "kind": "cover",
-    "pill": "TIN HỌC 12 • KẾT NỐI TRI THỨC • TUẦN 16",
+    "pill": "TIN HỌC 12 • KẾT NỐI TRI THỨC • CHỦ ĐỀ F",
     "title": "BÀI 13: KHÁI NIỆM, VAI TRÒ CỦA CSS",
     "subtitle": "Cascading Style Sheets — Tách biệt định dạng khỏi HTML, Cấu trúc quy tắc & 3 cách thiết lập CSS",
-    "meta": "Tuần 16 (Tiết 31–32)",
+    "meta": "Tiết 31–32 (2 tiết)",
     "url": "https://minda.io.vn/Tin12/Bai13/index.html"
   },
   {
@@ -907,7 +907,7 @@ SLIDES_DATA = [
     "takeaways": [
       "Cú pháp chuẩn: bộ_chọn { thuộc_tính: giá_trị; } với chú thích /* ... */.",
       "Ưu tiên External CSS (<link rel=\"stylesheet\" href=\"...\">) để đồng bộ nhiều trang web.",
-      "Chuẩn bị Bài 14 (Tuần 17): Định dạng văn bản bằng CSS (font, text-align, kế thừa & Cascading!)."
+      "Chuẩn bị Bài 14: Định dạng văn bản bằng CSS (font, text-align, kế thừa & Cascading!)."
     ]
   }
 ]

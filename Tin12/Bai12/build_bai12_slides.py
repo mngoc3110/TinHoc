@@ -421,7 +421,7 @@ SLIDES_DATA = [
     "pill": "TIN HỌC 12 • KẾT NỐI TRI THỨC • CHỦ ĐỀ F",
     "title": "BÀI 12: TẠO BIỂU MẪU (HTML FORM)",
     "subtitle": "Thu thập dữ liệu tương tác với <form>, <label>, <input>, <select>, <textarea> và <fieldset>",
-    "meta": "Tuần 13 (Tiết 25–26)",
+    "meta": "Tiết 25–26 (2 tiết)",
     "url": "https://minda.io.vn/Tin12/Bai12/index.html"
   },
   {
@@ -849,7 +849,7 @@ SLIDES_DATA = [
     "kind": "two_col",
     "badge": "TỔNG KẾT PHẦN HTML (BÀI 7 – BÀI 12)",
     "title": "NHÌN LẠI CHẶNG ĐƯỜNG XÂY DỰNG WEB HTML5",
-    "sub": "Sẵn sàng cho Thực hành tổng hợp & KTTX3 ở Tuần 14",
+    "sub": "Sẵn sàng cho bài Thực hành tổng hợp HTML & Kiểm tra KTTX3",
     "theme": "purple",
     "left": {
       "heading": "🧱 Cấu trúc & Nội dung (Bài 7–10)",
@@ -879,7 +879,7 @@ SLIDES_DATA = [
       "Mọi phần tử nhập liệu đặt trong <form>; dùng <label for> khớp id của thẻ nhập.",
       "Nhóm nút radio bắt buộc dùng CHUNG thuộc tính name; checkbox dùng để chọn nhiều mục.",
       "Kết hợp <select>, <textarea>, <fieldset>, <legend> giúp biểu mẫu gọn gàng, trực quan.",
-      "Chuẩn bị Tuần 14: Thực hành tổng hợp HTML (Bài 7–12) và Kiểm tra thường xuyên 3 (KTTX3)."
+      "Chuẩn bị bài tiếp theo: Thực hành tổng hợp HTML (Bài 7–12) và Kiểm tra thường xuyên 3 (KTTX3)."
     ]
   }
 ]

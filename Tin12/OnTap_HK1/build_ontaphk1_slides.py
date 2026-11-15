@@ -418,10 +418,10 @@ def build_from_slides_data(slides_data, lesson_short, assets_dir, out_pptx):
 SLIDES_DATA = [
   {
     "kind": "cover",
-    "pill": "TIN HỌC 12 • KẾT NỐI TRI THỨC • TUẦN 15",
+    "pill": "TIN HỌC 12 • KẾT NỐI TRI THỨC • ÔN TẬP HỌC KÌ I",
     "title": "ÔN TẬP HỌC KỲ 1 & ĐỀ THI THỬ CUỐI HK1",
     "subtitle": "Tổng hợp trọn bộ Chủ đề A (AI), B (Mạng), D (Đạo đức số), F (HTML5) & Đề thi thử 45 phút (28 câu)",
-    "meta": "Tuần 15 (Tiết 29–30)",
+    "meta": "Tiết 29–30 (2 tiết)",
     "url": "https://minda.io.vn/Tin12/OnTap_HK1/index.html"
   },
   {
@@ -895,22 +895,22 @@ SLIDES_DATA = [
   },
   {
     "kind": "image_focus",
-    "badge": "HƯỚNG TỚI TUẦN 16 – 18",
+    "badge": "HƯỚNG TỚI CHẶNG CSS (BÀI 13 – 15)",
     "title": "BƯỚC TIẾP THEO SAU KỲ THI HK1: THẾ GIỚI CSS!",
-    "sub": "Tuần 16–18: Bài 13, 14, 15 mở ra nghệ thuật tạo kiểu dáng website",
+    "sub": "Bài 13, 14, 15 mở ra nghệ thuật tạo kiểu dáng website",
     "theme": "purple",
-    "heading": "🎨 Dự kiến nội dung 3 tuần cuối HK1:",
+    "heading": "🎨 Nội dung chặng CSS tiếp theo (Bài 13–15):",
     "bullets": [
-      "Bài 13 (Tuần 16): Khái niệm, vai trò & 3 cách nhúng CSS.",
-      "Bài 14 (Tuần 17): Định dạng chữ (font, line-height, text-align, kế thừa).",
-      "Bài 15 (Tuần 18): Hệ màu RGB/HSL, border và bộ chọn tổ hợp."
+      "Bài 13: Khái niệm, vai trò & 3 cách nhúng CSS.",
+      "Bài 14: Định dạng chữ (font, line-height, text-align, kế thừa).",
+      "Bài 15: Hệ màu RGB/HSL, border và bộ chọn tổ hợp."
     ],
     "image": "sgk_hinh15_tree.png",
     "caption": "Minh họa cây phần tử HTML – Nền tảng cho bộ chọn CSS (Bài 13–15)"
   },
   {
     "kind": "code_result",
-    "badge": "BẬT MÍ CSS (TUẦN 16)",
+    "badge": "BẬT MÍ CSS (BÀI 13)",
     "title": "XEM TRƯỚC SỨC MẠNH CỦA CSS TRÊN TRANG HTML",
     "sub": "Từ trang HTML thô sang giao diện màu sắc, bo góc chuyên nghiệp",
     "theme": "blue",
@@ -953,11 +953,11 @@ SLIDES_DATA = [
     "takeaways": [
       "Đã nắm vững ma trận 28 câu = 10 điểm chuẩn Bộ GD&ĐT (24 MCQ + 4 Đúng/Sai).",
       "Làm lại Đề thi thử 45 phút (phieu-bai-tap.html) đến khi nắm chắc lời giải mọi câu hỏi.",
-      "Chuẩn bị cho Tuần 16 (Bài 13): Khái niệm, vai trò của CSS — mở đầu chặng thiết kế giao diện web!"
+      "Chuẩn bị cho Bài 13: Khái niệm, vai trò của CSS — mở đầu chặng thiết kế giao diện web!"
     ]
   }
 ]
-LESSON_SHORT = "Tuần 15: Ôn tập & Đề thi thử Cuối HK1 (45p)"
+LESSON_SHORT = "Ôn tập & Đề thi thử Cuối HK1 (45p)"
 OUT_PPTX_NAME = "OnTapHK1_TrinhChieu.pptx"
 
 if __name__ == "__main__":

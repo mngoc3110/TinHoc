@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-BACKEND PYTHON SERVER - Tuần 14: Thực hành tổng hợp HTML & KTTX3 (Tin học 12 • THTH-DHSP)
+BACKEND PYTHON SERVER - Thực hành tổng hợp HTML & KTTX3 (Tin học 12 • THTH-DHSP)
 Chạy: python3 server.py (mặc định Port 3014)
 """
 import http.server
@@ -184,5 +184,5 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 if __name__ == '__main__':
     socketserver.TCPServer.allow_reuse_address = True
     with socketserver.TCPServer(('', PORT), Handler) as httpd:
-        print(f'Tuần 14: Thực hành tổng hợp HTML & KTTX3 Python server on http://localhost:{PORT}')
+        print(f'Thực hành tổng hợp HTML & KTTX3 Python server on http://localhost:{PORT}')
         httpd.serve_forever()

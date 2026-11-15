@@ -418,15 +418,15 @@ def build_from_slides_data(slides_data, lesson_short, assets_dir, out_pptx):
 SLIDES_DATA = [
   {
     "kind": "cover",
-    "pill": "TIN HỌC 12 • KẾT NỐI TRI THỨC • TUẦN 14",
+    "pill": "TIN HỌC 12 • KẾT NỐI TRI THỨC • CHỦ ĐỀ F",
     "title": "THỰC HÀNH TỔNG HỢP HTML & KIỂM TRA KTTX3",
     "subtitle": "Tổng hợp kiến thức Bài 7–12: Website_CLB.html đa phương tiện + Kiểm tra thường xuyên 3 (15 phút)",
-    "meta": "Tuần 14 (Tiết 27–28)",
+    "meta": "Tiết 27–28 (2 tiết)",
     "url": "https://minda.io.vn/Tin12/ThucHanh_KTTX3/index.html"
   },
   {
     "kind": "objectives",
-    "title": "MỤC TIÊU TUẦN 14 & ĐÁNH GIÁ KTTX3",
+    "title": "MỤC TIÊU BÀI THỰC HÀNH & ĐÁNH GIÁ KTTX3",
     "sub": "Hoàn thiện chặng HTML5 trước khi sang Ôn thi Cuối HK1",
     "cards": [
       {
@@ -843,7 +843,7 @@ SLIDES_DATA = [
   },
   {
     "kind": "two_col",
-    "badge": "HĐ 4 • ĐỊNH HƯỚNG TUẦN 15",
+    "badge": "HĐ 4 • ĐỊNH HƯỚNG ÔN TẬP HK1",
     "title": "CHUẨN BỊ CHO ÔN TẬP & THI THỬ HK1",
     "sub": "Hệ thống kiến thức 4 chủ đề A, B, D và F",
     "theme": "blue",
@@ -864,7 +864,7 @@ SLIDES_DATA = [
         "Tổng 28 câu theo đúng mẫu TN THPT 2025/2026.",
         "Phần I: 24 câu MCQ (0.25đ × 24 = 6.0 điểm).",
         "Phần II: 4 câu Đúng/Sai (1.0đ × 4 = 4.0 điểm).",
-        "Sẵn sàng làm đề thi thử trực tuyến ở Tuần 15!"
+        "Sẵn sàng làm đề thi thử trực tuyến Cuối Học kì 1!"
       ]
     }
   },
@@ -874,11 +874,11 @@ SLIDES_DATA = [
     "title": "MỐI QUAN HỆ GIỮA CÁC THẺ & BỐ CỤC",
     "sub": "Kết thúc phần HTML cấu trúc — Chuẩn bị bước vào CSS",
     "theme": "emerald",
-    "heading": "🎨 Vì sao sang Tuần 16 ta cần học CSS?",
+    "heading": "🎨 Vì sao chặng tiếp theo ta cần học CSS?",
     "bullets": [
       "HTML giúp tổ chức khung xương, nội dung, ảnh và biểu mẫu.",
       "Tuy nhiên dùng HTML thuần khiến trang thiếu màu sắc, bố cục cứng.",
-      "Từ Tuần 16 (Bài 13–15), CSS sẽ làm đẹp toàn bộ dự án trên!"
+      "Từ Bài 13–15, CSS sẽ làm đẹp toàn bộ dự án trên!"
     ],
     "image": "sgk_hinh10_2.png",
     "caption": "Minh họa kết cấu siêu liên kết nội bộ hoàn thiện phần HTML"
@@ -904,11 +904,11 @@ SLIDES_DATA = [
     "takeaways": [
       "Đảm bảo đã nộp đủ bài KTTX3 (phieu-bai-tap.html) và bài code Website_CLB.html (hd3.html).",
       "Ôn tập kỹ 4 bước sửa lỗi HTML thường gặp: đóng thẻ, rowspan/colspan, ../ và radio chung name.",
-      "Chuẩn bị Tuần 15: Ôn tập Học kỳ 1 & Thi thử Cuối HK1 (45 phút – 28 câu chuẩn BGD&ĐT)."
+      "Chuẩn bị chuyên đề tiếp theo: Ôn tập Học kỳ 1 & Thi thử Cuối HK1 (45 phút – 28 câu chuẩn BGD&ĐT)."
     ]
   }
 ]
-LESSON_SHORT = "Tuần 14: Thực hành tổng hợp HTML & KTTX3"
+LESSON_SHORT = "Thực hành tổng hợp HTML & KTTX3"
 OUT_PPTX_NAME = "KTTX3_TrinhChieu.pptx"
 
 if __name__ == "__main__":

@@ -418,10 +418,10 @@ def build_from_slides_data(slides_data, lesson_short, assets_dir, out_pptx):
 SLIDES_DATA = [
   {
     "kind": "cover",
-    "pill": "TIN HỌC 12 • KNTT • TUẦN 18 (TIẾT 35–36)",
+    "pill": "TIN HỌC 12 • KẾT NỐI TRI THỨC • CHỦ ĐỀ F",
     "title": "BÀI 15: TẠO MÀU CHO CHỮ VÀ NỀN",
     "subtitle": "Hệ màu RGB/Hex & HSL • Đường viền Border • Bộ chọn tổ hợp CSS • Thực hành Loi_ich_CSS.html",
-    "meta": "Tuần 18 (Tiết 35–36) • Khép lại Học kì I",
+    "meta": "Tiết 35–36 (2 tiết) • Khép lại Học kì I",
     "url": "https://minda.io.vn/Tin12/Bai15/index.html"
   },
   {

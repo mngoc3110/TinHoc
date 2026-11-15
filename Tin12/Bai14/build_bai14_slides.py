@@ -418,10 +418,10 @@ def build_from_slides_data(slides_data, lesson_short, assets_dir, out_pptx):
 SLIDES_DATA = [
   {
     "kind": "cover",
-    "pill": "TIN HỌC 12 • KẾT NỐI TRI THỨC • TUẦN 17",
+    "pill": "TIN HỌC 12 • KẾT NỐI TRI THỨC • CHỦ ĐỀ F",
     "title": "BÀI 14: ĐỊNH DẠNG VĂN BẢN BẰNG CSS",
     "subtitle": "Làm chủ Phông chữ (font-*), Dòng văn bản (text-*), Tính kế thừa & Thứ tự ưu tiên Cascading",
-    "meta": "Tuần 17 (Tiết 33–34)",
+    "meta": "Tiết 33–34 (2 tiết)",
     "url": "https://minda.io.vn/Tin12/Bai14/index.html"
   },
   {
@@ -907,7 +907,7 @@ SLIDES_DATA = [
     "takeaways": [
       "Thuộc lòng 5 họ phông chữ, cách dùng font-style: italic, font-weight >= 500 để in đậm.",
       "Nhớ text-decoration KHÔNG kế thừa; Cascading viết sau thắng trước; !important cao nhất.",
-      "Chuẩn bị cho Bài 15 (Tuần 18 - Tiết cuối HK1): Hệ màu RGB/HSL, border và Bộ chọn tổ hợp!"
+      "Chuẩn bị cho Bài 15: Tạo màu cho chữ và nền (Hệ màu RGB/HSL, border và Bộ chọn tổ hợp!)."
     ]
   }
 ]

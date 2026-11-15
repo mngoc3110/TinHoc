@@ -1,5 +1,5 @@
 /**
- * BACKEND NODE.JS - TUẦN 15: ÔN TẬP & ĐỀ THI THỬ CUỐI HK1 (45P) (TIN HỌC 12 • THTH-DHSP)
+ * BACKEND NODE.JS - ÔN TẬP & ĐỀ THI THỬ CUỐI HK1 (45P) (TIN HỌC 12 • THTH-DHSP)
  * Hệ thống thu thập bài nộp, kiểm tra trực tuyến & bảng điều khiển Giáo viên Realtime
  * Chạy độc lập: node server.js (Port 3015) hoặc qua Tin12/hub_server.js (Port 3020)
  */
@@ -233,5 +233,5 @@ const server = http.createServer((req, res) => {
 });
 
 server.listen(PORT, () => {
-  console.log(`Tuần 15: Ôn tập & Đề thi thử Cuối HK1 (45p) Server listening on http://localhost:${PORT}`);
+  console.log(`Ôn tập & Đề thi thử Cuối HK1 (45p) Server listening on http://localhost:${PORT}`);
 });
