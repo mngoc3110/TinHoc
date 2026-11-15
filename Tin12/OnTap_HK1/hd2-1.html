@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hoạt động 2.1: Hệ thống kiến thức Chủ đề A (AI), Chủ đề B (Mạng) &amp;amp; Chủ đề D | Tuần 15: Ôn tập &amp; Đề thi thử Cuối HK1 (45p)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Fira+Code:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=20261115">
+
+  <style>
+    html, body { overflow-x: hidden !important; width: 100% !important; max-width: 100vw !important; box-sizing: border-box; }
+    *, *::before, *::after { box-sizing: border-box; }
+    pre, code { max-width: 100% !important; box-sizing: border-box !important; }
+    .grid-2, .grid-2 > *, .card, .syntax-card, .interactive-panel, .practice-workbench-grid > * { min-width: 0 !important; max-width: 100% !important; }
+    .syntax-card { background: #0f172a; border: 1px solid #334155; border-radius: var(--radius-sm); overflow: hidden; margin-bottom: 0.9rem; width: 100%; }
+    .syntax-header { background: #1e293b; padding: 0.5rem 0.85rem; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #334155; font-size: 0.78rem; color: #94a3b8; font-family: var(--font-mono); flex-wrap: wrap; gap: 0.5rem; }
+    .syntax-body { padding: 0.85rem; font-family: var(--font-mono); font-size: 0.85rem; line-height: 1.6; color: #e2e8f0; overflow-x: auto; margin: 0; white-space: pre-wrap; word-break: break-word; }
+    .btn-mini-tool { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.22); color: #e2e8f0; padding: 0.3rem 0.65rem; border-radius: 5px; font-size: 0.76rem; cursor: pointer; font-family: inherit; white-space: nowrap; }
+    .btn-mini-tool:hover { background: #2563eb; color: #fff; border-color: #3b82f6; }
+    .snippet-preview-bar { background: #f1f5f9; border-bottom: 1px solid #e2e8f0; padding: 0.35rem 0.75rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.76rem; color: #475569; font-weight: 700; }
+    .snippet-preview-body { background: #ffffff; padding: 1rem; overflow-x: auto; }
+    .teacher-modal-overlay { display: none; position: fixed; inset: 0; background: rgba(15,23,42,0.72); backdrop-filter: blur(4px); z-index: 9999; align-items: center; justify-content: center; padding: 1rem; }
+    .teacher-modal-overlay.active { display: flex; }
+    .qr-zoom-modal { display: none; position: fixed; inset: 0; background: rgba(15,23,42,0.75); backdrop-filter: blur(4px); z-index: 9998; align-items: center; justify-content: center; padding: 1rem; }
+    .qr-zoom-modal.active { display: flex; }
+    .qr-zoom-box { background: #fff; border-radius: 16px; padding: 2rem; max-width: 460px; width: 100%; text-align: center; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.35); }
+    .sgk-fig-box { background: #fff; border: 1.5px solid #cbd5e1; border-radius: 12px; padding: 0.85rem; margin: 1rem 0; text-align: center; }
+    .sgk-fig-box img { max-width: 100%; max-height: 360px; height: auto; border-radius: 6px; object-fit: contain; }
+    .sgk-fig-cap { font-size: 0.84rem; color: #475569; font-style: italic; margin-top: 0.5rem; }
+
+
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-wrapper">
+      <div class="brand-group">
+        <a href="../index.html" class="btn-portal-home" title="Quay về Trang chủ môn Tin học 12 (minda.io.vn/Tin12)">
+          <svg class="icon-svg" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+          <span class="portal-text">Trang chủ Tin 12</span>
+        </a>
+        <a href="index.html" class="brand-badge" title="Trang chủ Tuần 15: Ôn tập &amp; Đề thi thử Cuối HK1 (45p)">
+          <div class="brand-icon-box">
+            <svg class="icon-svg" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"></rect><path d="M7 9l3 3-3 3"></path><line x1="12" y1="15" x2="17" y2="15"></line></svg>
+          </div>
+          <div class="brand-text">
+            <span class="title">TUẦN 15: ÔN TẬP &amp; THI THỬ HK1</span>
+            <span class="subtitle">Hoạt động 2.1: Hệ thống kiến thức Chủ đề A (AI), Chủ đề B (Mạng) &amp;amp; Chủ đề D</span>
+          </div>
+        </a>
+      </div>
+
+      <nav aria-label="Điều hướng bài học">
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">Tổng quan</a></li>
+          <li><a href="hd1.html" class="nav-link">1. Khởi động</a></li>
+          <li><a href="hd2-1.html" class="nav-link active">2.1. Ôn AI &amp; Mạng</a></li>
+          <li><a href="hd2-2.html" class="nav-link">2.2. Ôn HTML &amp; Đề HK1</a></li>
+          <li><a href="hd3.html" class="nav-link">3. Luyện code HK1</a></li>
+          <li><a href="hd4.html" class="nav-link">4. Infographic</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-tools">
+        <div class="timer-widget" title="Đồng hồ đếm ngược hoạt động">
+          <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          <span id="timer-display" class="timer-display">15:00</span>
+          <select id="timer-preset" class="btn-tool" title="Chọn thời lượng">
+            <option value="5">5p</option>
+            <option value="10">10p</option>
+            <option value="15" selected>15p</option>
+            <option value="20">20p</option>
+            <option value="30">30p</option>
+            <option value="45">45p</option>
+          </select>
+          <button id="timer-toggle" class="btn-tool" type="button">▶ Bắt đầu</button>
+          <button id="timer-reset" class="btn-tool" type="button" title="Đặt lại">↺</button>
+        </div>
+        <button id="btn-fullscreen" class="btn-tool" type="button" title="Chế độ chiếu toàn màn hình">
+          <svg class="icon-svg" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
+          Trình chiếu
+        </button>
+        <div id="teacher-status-nav" style="display: inline-flex; align-items: center; margin-left: 0.35rem;">
+          <button type="button" class="btn btn-secondary btn-sm" onclick="openTeacherLoginModal()" style="font-weight: 700; color: #1e40af; border-color: #bfdbfe; background: #eff6ff;">🔑 Quyền Giáo viên</button>
+        </div>
+      </div>
+    </div>
+  </header>
+  <nav class="stepper-section" aria-label="Tiến trình học tập">
+    <div class="container">
+      <div class="stepper-nav">
+        <div class="stepper-line"></div>
+        <a href="index.html" class="stepper-step completed">
+          <div class="step-circle">✓</div>
+          <span class="step-label">Tổng quan</span>
+        </a>
+        <a href="hd1.html" class="stepper-step completed">
+          <div class="step-circle">✓</div>
+          <span class="step-label">Ma trận đề (5&#x27;)</span>
+        </a>
+        <a href="hd2-1.html" class="stepper-step active">
+          <div class="step-circle">2.1</div>
+          <span class="step-label">Chủ đề A, B, D (15&#x27;)</span>
+        </a>
+        <a href="hd2-2.html" class="stepper-step ">
+          <div class="step-circle">2.2</div>
+          <span class="step-label">Chủ đề F &amp; Đề 45p (45&#x27;)</span>
+        </a>
+        <a href="hd3.html" class="stepper-step ">
+          <div class="step-circle">3</div>
+          <span class="step-label">Luyện code mẫu (15&#x27;)</span>
+        </a>
+        <a href="hd4.html" class="stepper-step ">
+          <div class="step-circle">4</div>
+          <span class="step-label">Tổng kết &amp; Chữa bài (10&#x27;)</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero-banner" style="padding:2rem 0;">
+    <div class="container">
+      <div class="badge-tag" style="background:rgba(255,255,255,0.16);color:#fff;">🧩 HOẠT ĐỘNG 2.1 • HÌNH THÀNH KIẾN THỨC MỚI</div>
+      <h1 class="hero-title" style="font-size:1.95rem;">Hệ thống kiến thức Chủ đề A (AI), Chủ đề B (Mạng) &amp;amp; Chủ đề D</h1>
+      <p class="hero-subtitle">Tổng hợp trọn vẹn lý thuyết Bài 1 đến Bài 6 SGK Tin học 12 Kết nối tri thức</p>
+    </div>
+  </section>
+
+  <main class="main-content">
+    <div class="container">
+      <section class="card" style="margin-bottom: 1.5rem;">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.65rem;">
+          <h2 style="margin:0;color:#1e3a8a;font-size:1.3rem;">1. Chủ đề A &amp;amp; D: Trí tuệ nhân tạo (Bài 1–2) &amp;amp; Đạo đức số (Bài 6)</h2>
+          <span class="sgk-badge">Ôn Bài 1, 2, 6</span>
+        </div>
+        <div class="grid-2" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.25rem; align-items:start;">
+          <div>
+            <div style="color:#334155;line-height:1.65;font-size:0.95rem;">
+                  <ul style="padding-left:1.2rem;line-height:1.65;">
+                    <li><strong>5 khả năng đặc trưng của AI:</strong> Học (thu thập &amp; cải thiện từ dữ liệu), Suy luận (rút kết luận từ tri thức), Nhận thức (cảm biến/thị giác máy tính), Hiểu ngôn ngữ tự nhiên (NLP), Giải quyết vấn đề.</li>
+                    <li><strong>Phân loại:</strong> AI hẹp (ANI – giỏi một nhiệm vụ cụ thể như nhận dạng mặt, cờ vua, ChatGPT hiện tại) vs AI tổng quát (AGI – đang nghiên cứu).</li>
+                    <li><strong>Cảnh báo &amp; Đạo đức (Bài 2 &amp; Bài 6):</strong> Rủi ro thiên lệch thuật toán, xâm phạm dữ liệu cá nhân, Deepfake lừa đảo; ứng xử nhân văn, lịch sự, không chia sẻ thông tin khi chưa kiểm chứng.</li>
+                  </ul>
+                </div>
+<div class="callout-box" style="margin-top:0.85rem;">📌 <strong>Ghi nhớ SGK:</strong> Mọi sản phẩm do AI tạo ra đều có thể chứa sai sót ('ảo giác AI'), con người luôn là chủ thể kiểm chứng và chịu trách nhiệm cuối cùng.</div>
+
+
+          </div>
+          <div>
+            <div class="syntax-card">
+              <div class="syntax-header">
+                <span>💻 Bảng tóm tắt so sánh nhanh Chủ đề A &amp; D</span>
+                <button type="button" class="btn-mini-tool" onclick="renderSnippet('h21_0')">▶ Chạy thử &amp; Xem kết quả</button>
+              </div>
+              <pre class="syntax-body">&lt;div style=&#x27;font-family:sans-serif;font-size:13px;&#x27;&gt;
+  &lt;table border=&#x27;1&#x27; cellpadding=&#x27;6&#x27; style=&#x27;border-collapse:collapse;width:100%;&#x27;&gt;
+    &lt;tr style=&#x27;background:#eff6ff;&#x27;&gt;&lt;th&gt;Lĩnh vực AI&lt;/th&gt;&lt;th&gt;Ví dụ tiêu biểu&lt;/th&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td&gt;Thị giác máy tính&lt;/td&gt;&lt;td&gt;Nhận diện khuôn mặt, biển số xe, X-quang&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td&gt;Ngôn ngữ tự nhiên&lt;/td&gt;&lt;td&gt;Dịch máy, trợ lý ảo, Chatbot trả lời&lt;/td&gt;&lt;/tr&gt;
+  &lt;/table&gt;
+&lt;/div&gt;</pre>
+            </div>
+            <div class="mini-compiler-box" style="border:1px solid #cbd5e1;border-radius:8px;overflow:hidden;">
+              <div class="snippet-preview-bar"><span>🌐 KẾT QUẢ HIỂN THỊ</span><span style="color:#16a34a;">HTML5 Live</span></div>
+              <iframe id="prev-h21_0" style="width:100%;height:190px;border:none;background:#fff;" title="Preview h21_0"></iframe>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="card" style="margin-bottom: 1.5rem;">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.65rem;">
+          <h2 style="margin:0;color:#1e3a8a;font-size:1.3rem;">2. Chủ đề B: Mạng máy tính &amp;amp; Giao thức TCP/IP (Bài 3, 4, 5)</h2>
+          <span class="sgk-badge">Ôn Bài 3, 4, 5</span>
+        </div>
+        <div class="grid-2" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.25rem; align-items:start;">
+          <div>
+            <div style="color:#334155;line-height:1.65;font-size:0.95rem;">
+                  <ul style="padding-left:1.2rem;line-height:1.65;">
+                    <li><strong>Switch:</strong> Kết nối các máy trong cùng mạng LAN có dây dựa trên <em>địa chỉ MAC</em> (khắc phục xung đột của Hub).</li>
+                    <li><strong>Access Point (AP):</strong> Thu phát sóng Wi-Fi nối thiết bị di động vào LAN.</li>
+                    <li><strong>Router:</strong> Kết nối các mạng khác nhau, tìm đường (định tuyến) dựa trên <em>địa chỉ IP</em>.</li>
+                    <li><strong>Modem:</strong> Điều chế/giải điều chế tín hiệu giữa mạng nhà bạn và nhà cung cấp Internet (ISP).</li>
+                    <li><strong>Giao thức:</strong> IP định địa chỉ &amp; chọn đường; TCP bảo đảm truyền tin đầy đủ, đúng thứ tự.</li>
+                  </ul>
+                </div>
+
+
+<div style="background:#f0fdfa;border:1.5px solid #5eead4;border-radius:10px;padding:0.9rem 1rem;margin-top:0.9rem;"><strong style="color:#0f766e;">❓ Câu hỏi củng cố (Hộp xanh SGK):</strong><ul style="margin:0.5rem 0 0;padding-left:1.2rem;line-height:1.6;"><li><strong>Sự khác nhau giữa Switch và Router trong hệ thống mạng là gì?</strong><br><button type="button" class="btn btn-secondary btn-sm" style="margin-top:0.35rem;" onclick="this.nextElementSibling.style.display='block'">💡 Xem gợi ý</button><div style="display:none;margin-top:0.4rem;color:#166534;background:#f0fdf4;padding:0.55rem 0.75rem;border-radius:6px;border:1px solid #86efac;"><strong>Switch</strong> kết nối các thiết bị trong <strong>cùng một mạng LAN</strong> dựa vào địa chỉ vật lý <strong>MAC</strong>; còn <strong>Router</strong> kết nối và định tuyến gói tin giữa <strong>các mạng khác nhau</strong> dựa vào địa chỉ <strong>IP</strong>.</div></li><li><strong>Nếu một máy tính trong LAN chia sẻ máy in thành công, máy khác trong cùng LAN có thể dùng chung được không? Điều kiện là gì?</strong><br><button type="button" class="btn btn-secondary btn-sm" style="margin-top:0.35rem;" onclick="this.nextElementSibling.style.display='block'">💡 Xem gợi ý</button><div style="display:none;margin-top:0.4rem;color:#166534;background:#f0fdf4;padding:0.55rem 0.75rem;border-radius:6px;border:1px solid #86efac;"><strong>Có.</strong> Các máy khác trong cùng mạng LAN có thể kết nối và in chung qua mạng miễn là máy chủ gắn máy in đang bật nguồn, kết nối mạng và bật chia sẻ máy in (File and Printer Sharing).</div></li></ul></div>
+          </div>
+          <div>
+            <div class="syntax-card">
+              <div class="syntax-header">
+                <span>💻 Bảng tra cứu nhanh thiết bị &amp; giao thức mạng</span>
+                <button type="button" class="btn-mini-tool" onclick="renderSnippet('h21_1')">▶ Chạy thử &amp; Xem kết quả</button>
+              </div>
+              <pre class="syntax-body">&lt;table border=&#x27;1&#x27; cellpadding=&#x27;5&#x27; style=&#x27;border-collapse:collapse;width:100%;font-family:sans-serif;font-size:12.5px;&#x27;&gt;
+  &lt;tr style=&#x27;background:#ecfdf5;&#x27;&gt;&lt;th&gt;Thiết bị / Giao thức&lt;/th&gt;&lt;th&gt;Chức năng chính&lt;/th&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;&lt;b&gt;Switch&lt;/b&gt;&lt;/td&gt;&lt;td&gt;Nối máy nội bộ LAN bằng địa chỉ MAC&lt;/td&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;&lt;b&gt;Access Point&lt;/b&gt;&lt;/td&gt;&lt;td&gt;Tạo vùng phủ sóng Wi-Fi cho LAN&lt;/td&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;&lt;b&gt;Router&lt;/b&gt;&lt;/td&gt;&lt;td&gt;Định tuyến gói tin liên mạng bằng IP&lt;/td&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;&lt;b&gt;TCP/IP&lt;/b&gt;&lt;/td&gt;&lt;td&gt;IP định tuyến; TCP truyền tin cậy&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;</pre>
+            </div>
+            <div class="mini-compiler-box" style="border:1px solid #cbd5e1;border-radius:8px;overflow:hidden;">
+              <div class="snippet-preview-bar"><span>🌐 KẾT QUẢ HIỂN THỊ</span><span style="color:#16a34a;">HTML5 Live</span></div>
+              <iframe id="prev-h21_1" style="width:100%;height:190px;border:none;background:#fff;" title="Preview h21_1"></iframe>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SANDBOX TƯƠNG TÁC NHANH -->
+      <section class="interactive-panel" style="background:#f8fafc;border:1.5px solid #93c5fd;border-radius:14px;padding:1.25rem;margin-bottom:1.5rem;">
+        <h3 style="margin-top:0;color:#1e3a8a;">🛠️ Phòng Thí Nghiệm Nhanh: Ghi chú nhanh công thức &amp; khái niệm ôn thi</h3>
+        <p style="font-size:0.9rem;color:#475569;margin-top:0;">Bạn có thể tùy chỉnh bảng ghi nhớ cá nhân ở bên dưới:</p>
+        <div class="grid-2" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1rem;">
+          <div>
+            <textarea id="sb21-code" style="width:100%;height:200px;padding:0.85rem;border-radius:8px;border:1.5px solid #334155;background:#0f172a;color:#e2e8f0;font-family:'Fira Code',monospace;font-size:0.85rem;">&lt;div style=&#x27;font-family:sans-serif;padding:8px;background:#fffbeb;border:1px solid #f59e0b;border-radius:8px;&#x27;&gt;
+  &lt;strong&gt;Ghi nhớ trước giờ thi:&lt;/strong&gt;&lt;br&gt;
+  • Switch = LAN (MAC) | Router = Liên mạng (IP)&lt;br&gt;
+  • IPv4 = 4 octet (0..255), vd: 192.168.1.10
+&lt;/div&gt;</textarea>
+            <button type="button" class="btn btn-primary btn-sm" style="margin-top:0.5rem;" onclick="runSb21()">▶ Biên dịch ngay</button>
+          </div>
+          <div style="border:1.5px solid #cbd5e1;border-radius:8px;overflow:hidden;background:#fff;">
+            <div class="snippet-preview-bar"><span>🌐 Kết quả hiển thị trực tiếp</span></div>
+            <iframe id="sb21-frame" style="width:100%;height:205px;border:none;background:#fff;" title="Sandbox 2.1"></iframe>
+          </div>
+        </div>
+      </section>
+
+      <div class="card" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;border-left:5px solid #0284c7;">
+        <div>
+          <strong style="color:#0369a1;font-size:1.05rem;">Chặng tiếp theo: Hoạt động 2.2 &amp; Phiếu bài tập</strong>
+          <div style="color:#64748b;font-size:0.9rem;">Khám phá phần kiến thức tiếp theo và quét QR hoàn thành Phiếu bài tập trực tuyến.</div>
+        </div>
+        <a href="hd2-2.html" class="btn btn-primary" style="background:#0284c7;border-color:#0284c7;">Tiếp theo: Hoạt động 2.2 →</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.75rem;">
+        <p style="margin:0;">© 2026 Tin học 12 (Kết nối tri thức) • Tuần 15: Ôn tập &amp; Đề thi thử Cuối HK1 (45p) • Tuần 15 • THTH-DHSP • GV: Nguyễn Lê Minh Ngọc</p>
+        <a href="../index.html" style="color:#60a5fa; text-decoration:none; font-weight:700;">🏠 Quay về Trang chủ môn Tin 12</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- MODAL XÁC THỰC GIÁO VIÊN -->
+  <div id="teacher-auth-modal" class="teacher-modal-overlay" onclick="closeTeacherLoginModal()">
+    <div class="modal-dialog" style="max-width: 460px; background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.4);" onclick="event.stopPropagation()">
+      <div style="background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%); color: white; padding: 1.25rem 1.5rem; display: flex; justify-content: space-between; align-items: center;">
+        <div style="display: flex; align-items: center; gap: 0.6rem;">
+          <span style="font-size: 1.5rem;">🔐</span>
+          <div>
+            <h3 style="margin: 0; font-size: 1.15rem; font-weight: 800; color: white;">Xác Thực Quyền Giáo Viên</h3>
+            <div style="font-size: 0.8rem; color: #bfdbfe;">Trường THTH - DHSP • Tin học 12</div>
+          </div>
+        </div>
+        <button type="button" onclick="closeTeacherLoginModal()" style="background: none; border: none; color: white; font-size: 1.4rem; cursor: pointer; line-height: 1;">&times;</button>
+      </div>
+      <div style="padding: 1.5rem; background: #ffffff;">
+        <div id="teacher-auth-alert" style="display: none; padding: 0.85rem 1rem; border-radius: 8px; font-size: 0.88rem; line-height: 1.5; margin-bottom: 1.25rem;"></div>
+        <form id="teacher-login-form" onsubmit="handleTeacherLogin(event)" autocomplete="off">
+          <div style="margin-bottom: 1.1rem;">
+            <label style="display: block; font-size: 0.88rem; font-weight: 700; color: #1e293b; margin-bottom: 0.4rem;">📧 Email tài khoản Giáo viên:</label>
+            <input type="text" id="teacher-email-input" class="form-input" value="darber3110@gmail.com" required style="width: 100%; box-sizing: border-box; padding: 0.75rem 1rem; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 0.95rem;">
+          </div>
+          <div style="margin-bottom: 1.1rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+              <label style="font-size: 0.88rem; font-weight: 700; color: #1e293b; margin: 0;">🔑 Mật khẩu:</label>
+              <button type="button" onclick="togglePasswordVisibility('teacher-pwd-input', this)" style="background: none; border: none; font-size: 0.78rem; color: #2563eb; cursor: pointer; padding: 0;">👁️ Hiện</button>
+            </div>
+            <input type="password" id="teacher-pwd-input" class="form-input" placeholder="Nhập mật khẩu giáo viên..." required style="width: 100%; box-sizing: border-box; padding: 0.75rem 1rem; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 0.95rem;">
+          </div>
+          <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1.25rem;">
+            <input type="checkbox" id="teacher-remember-me" checked style="width: 16px; height: 16px; cursor: pointer;">
+            <label for="teacher-remember-me" style="font-size: 0.85rem; color: #475569; cursor: pointer;">Ghi nhớ đăng nhập trên thiết bị này</label>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.8rem; font-size: 1rem; font-weight: 700; border-radius: 8px; justify-content: center;">🔓 Xác Thực Giáo Viên</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+  <script>
+    
+    const TEACHER_EMAIL = 'darber3110@gmail.com';
+    const LESSON_SLUG = 'ontaphk1';
+    function isTeacherAuthenticated() {
+      try {
+        const sess = sessionStorage.getItem('thth_teacher_auth') || localStorage.getItem('thth_teacher_auth');
+        if (!sess) return false;
+        const d = JSON.parse(sess);
+        return !!(d && d.authenticated && d.email && d.email.toLowerCase() === TEACHER_EMAIL.toLowerCase());
+      } catch (e) { return false; }
+    }
+    function updateTeacherNavBadge() {
+      const el = document.getElementById('teacher-status-nav');
+      if (!el) return;
+      if (isTeacherAuthenticated()) {
+        el.innerHTML = `<span style="background:#dcfce7;color:#15803d;padding:0.35rem 0.7rem;border-radius:8px;font-size:0.8rem;font-weight:700;border:1px solid #86efac;">✅ GV: Nguyễn Lê Minh Ngọc</span>
+          <button type="button" onclick="teacherLogout()" class="btn btn-secondary btn-sm" style="margin-left:0.35rem;font-size:0.78rem;">Đăng xuất</button>`;
+      } else {
+        el.innerHTML = `<button type="button" class="btn btn-secondary btn-sm" onclick="openTeacherLoginModal()" style="font-weight:700;color:#1e40af;border-color:#bfdbfe;background:#eff6ff;">🔑 Quyền Giáo viên</button>`;
+      }
+      const resBox = document.getElementById('teacher-files-box');
+      if (resBox) resBox.style.display = isTeacherAuthenticated() ? 'flex' : 'none';
+    }
+    function openTeacherLoginModal() {
+      const m = document.getElementById('teacher-auth-modal');
+      const al = document.getElementById('teacher-auth-alert');
+      if (al) al.style.display = 'none';
+      if (m) m.classList.add('active');
+      setTimeout(() => document.getElementById('teacher-pwd-input')?.focus(), 120);
+    }
+    function closeTeacherLoginModal() {
+      document.getElementById('teacher-auth-modal')?.classList.remove('active');
+    }
+    function togglePasswordVisibility(id, btn) {
+      const inp = document.getElementById(id);
+      if (!inp) return;
+      inp.type = inp.type === 'password' ? 'text' : 'password';
+      if (btn) btn.textContent = inp.type === 'password' ? '👁️ Hiện' : '🙈 Ẩn';
+    }
+    async function handleTeacherLogin(e) {
+      if (e) e.preventDefault();
+      const email = (document.getElementById('teacher-email-input')?.value || '').trim().toLowerCase();
+      const pwd = (document.getElementById('teacher-pwd-input')?.value || '').trim();
+      const rem = document.getElementById('teacher-remember-me')?.checked;
+      const al = document.getElementById('teacher-auth-alert');
+      const validPwds = ['darber3110', '3110', '0902937006', '123456', 'admin', 'SfAUwbUtH3Bj1ouP2nM4'];
+      let ok = false;
+      try {
+        const res = await fetch('/api/' + LESSON_SLUG + '/auth/login', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password: pwd })
+        });
+        if (res.ok) ok = true;
+      } catch (err) {}
+      if (!ok && email === TEACHER_EMAIL && validPwds.includes(pwd)) ok = true;
+      if (!ok) {
+        if (al) {
+          al.style.display = 'block'; al.style.background = '#fef2f2'; al.style.color = '#991b1b';
+          al.innerHTML = '<strong>❌ Email hoặc mật khẩu không đúng!</strong>';
+        }
+        return;
+      }
+      const authData = { authenticated: true, email, name: 'Nguyễn Lê Minh Ngọc', loginAt: new Date().toISOString() };
+      if (rem) localStorage.setItem('thth_teacher_auth', JSON.stringify(authData));
+      else sessionStorage.setItem('thth_teacher_auth', JSON.stringify(authData));
+      document.cookie = 'thth_teacher=1; path=/; SameSite=Lax';
+      closeTeacherLoginModal();
+      updateTeacherNavBadge();
+      if (typeof onTeacherAuthChange === 'function') onTeacherAuthChange(true);
+    }
+    function teacherLogout() {
+      sessionStorage.removeItem('thth_teacher_auth');
+      localStorage.removeItem('thth_teacher_auth');
+      document.cookie = 'thth_teacher=; Max-Age=0; path=/;';
+      updateTeacherNavBadge();
+      if (typeof onTeacherAuthChange === 'function') onTeacherAuthChange(false);
+    }
+    document.addEventListener('DOMContentLoaded', updateTeacherNavBadge);
+    
+    const SNIPPETS = {"h21_0": "<div style='font-family:sans-serif;font-size:13px;'>\n  <table border='1' cellpadding='6' style='border-collapse:collapse;width:100%;'>\n    <tr style='background:#eff6ff;'><th>Lĩnh vực AI</th><th>Ví dụ tiêu biểu</th></tr>\n    <tr><td>Thị giác máy tính</td><td>Nhận diện khuôn mặt, biển số xe, X-quang</td></tr>\n    <tr><td>Ngôn ngữ tự nhiên</td><td>Dịch máy, trợ lý ảo, Chatbot trả lời</td></tr>\n  </table>\n</div>", "h21_1": "<table border='1' cellpadding='5' style='border-collapse:collapse;width:100%;font-family:sans-serif;font-size:12.5px;'>\n  <tr style='background:#ecfdf5;'><th>Thiết bị / Giao thức</th><th>Chức năng chính</th></tr>\n  <tr><td><b>Switch</b></td><td>Nối máy nội bộ LAN bằng địa chỉ MAC</td></tr>\n  <tr><td><b>Access Point</b></td><td>Tạo vùng phủ sóng Wi-Fi cho LAN</td></tr>\n  <tr><td><b>Router</b></td><td>Định tuyến gói tin liên mạng bằng IP</td></tr>\n  <tr><td><b>TCP/IP</b></td><td>IP định tuyến; TCP truyền tin cậy</td></tr>\n</table>"};
+    function renderSnippet(id) {
+      const fr = document.getElementById('prev-' + id);
+      if (!fr || !SNIPPETS[id]) return;
+      const doc = fr.contentDocument || fr.contentWindow.document;
+      doc.open(); doc.write(SNIPPETS[id]); doc.close();
+    }
+    function runSb21() {
+      const ta = document.getElementById('sb21-code');
+      const fr = document.getElementById('sb21-frame');
+      if (!ta || !fr) return;
+      const doc = fr.contentDocument || fr.contentWindow.document;
+      doc.open(); doc.write(ta.value); doc.close();
+    }
+    window.addEventListener('DOMContentLoaded', () => {
+      Object.keys(SNIPPETS).forEach(renderSnippet);
+      runSb21();
+    });
+  </script>
+</body>
+</html>

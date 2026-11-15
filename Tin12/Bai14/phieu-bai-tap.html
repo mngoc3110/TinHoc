@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phiếu Bài Tập Kiến Thức Bài 14: Định Dạng Văn Bản Bằng CSS | Bài 14: Định dạng văn bản bằng CSS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Fira+Code:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=20261115">
+
+  <style>
+    html, body { overflow-x: hidden !important; width: 100% !important; max-width: 100vw !important; box-sizing: border-box; }
+    *, *::before, *::after { box-sizing: border-box; }
+    pre, code { max-width: 100% !important; box-sizing: border-box !important; }
+    .grid-2, .grid-2 > *, .card, .syntax-card, .interactive-panel, .practice-workbench-grid > * { min-width: 0 !important; max-width: 100% !important; }
+    .syntax-card { background: #0f172a; border: 1px solid #334155; border-radius: var(--radius-sm); overflow: hidden; margin-bottom: 0.9rem; width: 100%; }
+    .syntax-header { background: #1e293b; padding: 0.5rem 0.85rem; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #334155; font-size: 0.78rem; color: #94a3b8; font-family: var(--font-mono); flex-wrap: wrap; gap: 0.5rem; }
+    .syntax-body { padding: 0.85rem; font-family: var(--font-mono); font-size: 0.85rem; line-height: 1.6; color: #e2e8f0; overflow-x: auto; margin: 0; white-space: pre-wrap; word-break: break-word; }
+    .btn-mini-tool { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.22); color: #e2e8f0; padding: 0.3rem 0.65rem; border-radius: 5px; font-size: 0.76rem; cursor: pointer; font-family: inherit; white-space: nowrap; }
+    .btn-mini-tool:hover { background: #2563eb; color: #fff; border-color: #3b82f6; }
+    .snippet-preview-bar { background: #f1f5f9; border-bottom: 1px solid #e2e8f0; padding: 0.35rem 0.75rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.76rem; color: #475569; font-weight: 700; }
+    .snippet-preview-body { background: #ffffff; padding: 1rem; overflow-x: auto; }
+    .teacher-modal-overlay { display: none; position: fixed; inset: 0; background: rgba(15,23,42,0.72); backdrop-filter: blur(4px); z-index: 9999; align-items: center; justify-content: center; padding: 1rem; }
+    .teacher-modal-overlay.active { display: flex; }
+    .qr-zoom-modal { display: none; position: fixed; inset: 0; background: rgba(15,23,42,0.75); backdrop-filter: blur(4px); z-index: 9998; align-items: center; justify-content: center; padding: 1rem; }
+    .qr-zoom-modal.active { display: flex; }
+    .qr-zoom-box { background: #fff; border-radius: 16px; padding: 2rem; max-width: 460px; width: 100%; text-align: center; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.35); }
+    .sgk-fig-box { background: #fff; border: 1.5px solid #cbd5e1; border-radius: 12px; padding: 0.85rem; margin: 1rem 0; text-align: center; }
+    .sgk-fig-box img { max-width: 100%; max-height: 360px; height: auto; border-radius: 6px; object-fit: contain; }
+    .sgk-fig-cap { font-size: 0.84rem; color: #475569; font-style: italic; margin-top: 0.5rem; }
+
+
+    .mode-switch { display:inline-flex; background:#f1f5f9; padding:0.25rem; border-radius:8px; border:1px solid #cbd5e1; }
+    .mode-switch button { border:none; background:transparent; padding:0.4rem 0.9rem; border-radius:6px; font-weight:700; font-size:0.84rem; color:#475569; cursor:pointer; font-family:inherit; }
+    .mode-switch button.active { background:#2563eb; color:#fff; }
+    .q-card { background:#fff; border:1.5px solid #e2e8f0; border-radius:12px; padding:1.2rem; margin-bottom:1.1rem; }
+    .opt-label { display:flex; align-items:flex-start; gap:0.6rem; padding:0.6rem 0.85rem; border:1.5px solid #e2e8f0; border-radius:8px; cursor:pointer; margin-top:0.45rem; background:#fff; }
+    .opt-label:hover { background:#eff6ff; border-color:#93c5fd; }
+    .tf-row { display:grid; grid-template-columns: 1fr auto; gap:0.75rem; align-items:center; padding:0.55rem 0.75rem; border:1px solid #e2e8f0; border-radius:8px; margin-top:0.45rem; background:#f8fafc; }
+    @media (max-width:600px) { .tf-row { grid-template-columns: 1fr; } }
+    
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-wrapper">
+      <div class="brand-group">
+        <a href="../index.html" class="btn-portal-home" title="Quay về Trang chủ môn Tin học 12 (minda.io.vn/Tin12)">
+          <svg class="icon-svg" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+          <span class="portal-text">Trang chủ Tin 12</span>
+        </a>
+        <a href="index.html" class="brand-badge" title="Trang chủ Bài 14: Định dạng văn bản bằng CSS">
+          <div class="brand-icon-box">
+            <svg class="icon-svg" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"></rect><path d="M7 9l3 3-3 3"></path><line x1="12" y1="15" x2="17" y2="15"></line></svg>
+          </div>
+          <div class="brand-text">
+            <span class="title">BÀI 14: ĐỊNH DẠNG VĂN BẢN CSS</span>
+            <span class="subtitle">Phiếu Bài Tập Kiến Thức Bài 14: Định Dạng Văn Bản Bằng CSS</span>
+          </div>
+        </a>
+      </div>
+
+      <nav aria-label="Điều hướng bài học">
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">Tổng quan</a></li>
+          <li><a href="hd1.html" class="nav-link">1. Khởi động</a></li>
+          <li><a href="hd2-1.html" class="nav-link">2.1. Phông &amp; Màu</a></li>
+          <li><a href="hd2-2.html" class="nav-link active">2.2. Dòng &amp; Ưu tiên</a></li>
+          <li><a href="hd3.html" class="nav-link">3. Thực hành</a></li>
+          <li><a href="hd4.html" class="nav-link">4. Infographic</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-tools">
+        <div class="timer-widget" title="Đồng hồ đếm ngược hoạt động">
+          <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          <span id="timer-display" class="timer-display">15:00</span>
+          <select id="timer-preset" class="btn-tool" title="Chọn thời lượng">
+            <option value="5">5p</option>
+            <option value="10">10p</option>
+            <option value="15" selected>15p</option>
+            <option value="20">20p</option>
+            <option value="30">30p</option>
+            <option value="45">45p</option>
+          </select>
+          <button id="timer-toggle" class="btn-tool" type="button">▶ Bắt đầu</button>
+          <button id="timer-reset" class="btn-tool" type="button" title="Đặt lại">↺</button>
+        </div>
+        <button id="btn-fullscreen" class="btn-tool" type="button" title="Chế độ chiếu toàn màn hình">
+          <svg class="icon-svg" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
+          Trình chiếu
+        </button>
+
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div class="container" style="max-width: 900px;">
+      <div class="card" style="border-top:5px solid #2563eb; margin-bottom:1.15rem;">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.75rem;">
+          <div>
+            <span class="sgk-badge">PHIẾU BÀI TẬP BÀI 14</span>
+            <h1 style="margin:0.4rem 0 0.25rem;color:#1e3a8a;font-size:1.6rem;">Phiếu Bài Tập Kiến Thức Bài 14: Định Dạng Văn Bản Bằng CSS</h1>
+            <p style="margin:0;color:#475569;font-size:0.93rem;">Gồm 4 câu Trắc nghiệm 4 lựa chọn và 2 câu Đúng/Sai chuẩn Bộ GD&amp;ĐT (chấm điểm tự động ngay khi nộp).</p>
+          </div>
+          <a href="hd2-2.html" class="btn btn-secondary btn-sm">← Quay lại HĐ 2.2</a>
+        </div>
+      </div>
+
+
+      <div style="background:#fffbeb;border:1.5px solid #f59e0b;border-radius:10px;padding:0.85rem 1rem;margin-bottom:1.25rem;font-size:0.88rem;color:#92400e;">
+        📌 <strong>Quy tắc chấm điểm câu Đúng/Sai chuẩn Bộ GD&amp;ĐT:</strong> Đúng <strong>1 ý</strong> đạt <strong>10%</strong> điểm câu; đúng <strong>2 ý</strong> đạt <strong>25%</strong>; đúng <strong>3 ý</strong> đạt <strong>50%</strong>; đúng cả <strong>4 ý</strong> đạt <strong>100%</strong> số điểm câu.
+      </div>
+
+      <!-- THÔNG TIN HỌC SINH -->
+      <div class="card" style="margin-bottom:1.25rem;">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.75rem;">
+          <strong style="color:#1e3a8a;">👤 Thông tin người làm bài</strong>
+          <div class="mode-switch">
+            <button type="button" id="ws-btn-single" class="active" onclick="setWsMode('single')">Cá nhân</button>
+            <button type="button" id="ws-btn-pair" onclick="setWsMode('pair')">Nhóm 2 bạn</button>
+          </div>
+        </div>
+        <div id="ws-single-box" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:0.75rem;">
+          <input type="text" id="ws-name-1" placeholder="Họ và tên học sinh *" style="padding:0.65rem 0.85rem;border:1.5px solid #cbd5e1;border-radius:8px;">
+          <select id="ws-class" style="padding:0.65rem 0.85rem;border:1.5px solid #cbd5e1;border-radius:8px;">
+            <option value="12A1">Lớp 12A1</option><option value="12A2">Lớp 12A2</option><option value="12A3">Lớp 12A3</option><option value="12A4">Lớp 12A4</option><option value="12E">Lớp 12E</option>
+          </select>
+          <input type="text" id="ws-machine" placeholder="Số máy / STT..." style="padding:0.65rem 0.85rem;border:1.5px solid #cbd5e1;border-radius:8px;">
+        </div>
+        <div id="ws-pair-box" style="display:none;margin-top:0.75rem;">
+          <input type="text" id="ws-name-2" placeholder="Họ và tên bạn thứ 2..." style="width:100%;padding:0.65rem 0.85rem;border:1.5px solid #cbd5e1;border-radius:8px;">
+        </div>
+      </div>
+
+      <!-- CÂU HỎI -->
+      <div id="questions-mount"></div>
+
+      <!-- KẾT QUẢ & NÚT NỘP -->
+      <div id="ws-result-banner" style="display:none;margin-bottom:1.25rem;"></div>
+      <div class="card" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;">
+        <span style="color:#475569;font-size:0.9rem;">Kiểm tra kỹ các câu đã chọn trước khi gửi bài.</span>
+        <button type="button" class="btn btn-primary" style="font-size:1rem;font-weight:800;padding:0.8rem 1.8rem;background:#059669;border-color:#059669;" onclick="submitWorksheet(false)">
+          ✅ NỘP BÀI &amp; CHẤM ĐIỂM NGAY
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.75rem;">
+        <p style="margin:0;">© 2026 Tin học 12 (Kết nối tri thức) • Bài 14: Định dạng văn bản bằng CSS • Tuần 17 • THTH-DHSP • GV: Nguyễn Lê Minh Ngọc</p>
+        <a href="../index.html" style="color:#60a5fa; text-decoration:none; font-weight:700;">🏠 Quay về Trang chủ môn Tin 12</a>
+      </div>
+    </div>
+  </footer>
+  <script src="js/script.js"></script>
+  <script>
+    const QUESTIONS = [{"id": "q1", "type": "mcq", "points": 1.5, "prompt": "Trong 5 họ phông chữ cơ bản của CSS, họ phông chữ nào có đặc điểm mọi ký tự đều chiếm chiều rộng bằng nhau (rất hay dùng để hiển thị đoạn mã lập trình)?", "options": {"A": "serif", "B": "sans-serif", "C": "monospace", "D": "cursive"}, "correct": "C", "explain": "monospace (đơn cách) có chiều rộng mỗi ký tự giống hệt nhau; sans-serif không chân, serif có chân."}, {"id": "q2", "type": "mcq", "points": 1.5, "prompt": "Để loại bỏ đường gạch chân mặc định dưới các liên kết thẻ <a> trên thanh menu trang web, ta dùng khai báo CSS nào?", "options": {"A": "text-underline: none;", "B": "text-decoration: none;", "C": "font-style: plain;", "D": "border-bottom: 0;"}, "correct": "B", "explain": "Thuộc tính text-decoration: none xóa gạch chân mặc định của thẻ <a>."}, {"id": "q3", "type": "mcq", "points": 1.5, "prompt": "Thuộc tính nào quy định độ dày (đậm) của nét chữ, bắt đầu hiển thị in đậm từ mức giá trị 500 trở lên (như bold = 700)?", "options": {"A": "font-style", "B": "font-size", "C": "font-weight", "D": "line-height"}, "correct": "C", "explain": "font-weight chỉnh độ dày nét chữ (100..900, normal=400, bold=700, từ 500 trở lên hiển thị đậm)."}, {"id": "q4", "type": "mcq", "points": 1.5, "prompt": "Cho đoạn CSS sau:\n* { color: black; }\np { color: green !important; }\np { color: blue; }\nVăn bản nằm trong thẻ <p> sẽ có màu gì?", "options": {"A": "black", "B": "green", "C": "blue", "D": "Không đổi màu vì bị lỗi trùng lặp"}, "correct": "B", "explain": "Từ khóa !important có độ ưu tiên cao nhất nên color: green được áp dụng bất chấp quy tắc viết sau."}, {"id": "q5", "type": "tf", "points": 2.0, "prompt": "Xét các phát biểu về thuộc tính định dạng phông chữ và dòng văn bản trong CSS:", "statements": [{"text": "a) Tên phông chữ có dấu cách như Times New Roman nên đặt trong dấu nháy kép khi viết ở font-family.", "correct": true}, {"text": "b) Thuộc tính text-align: justify; giúp căn thẳng đều văn bản theo cả hai lề trái và phải.", "correct": true}, {"text": "c) Để in nghiêng văn bản, giá trị chuẩn cần khai báo là font-style: bold;", "correct": false}, {"text": "d) Thuộc tính text-indent dùng giá trị âm (ví dụ -20px) sẽ đẩy dòng đầu tiên lùi ra phía bên trái.", "correct": true}], "explain": "font-style: italic dùng để in nghiêng (bold thuộc font-weight) -> c Sai; a, b, d Đúng."}, {"id": "q6", "type": "tf", "points": 2.0, "prompt": "Xét cơ chế kế thừa và thứ tự ưu tiên (Cascading) trên đoạn mã:\n<div style=\"font-family: Arial; color: navy;\"><p>Xin chào</p></div>", "statements": [{"text": "a) Thẻ <p> bên trong sẽ tự động hiển thị bằng phông Arial và màu chữ navy nhờ tính kế thừa.", "correct": true}, {"text": "b) Thuộc tính text-decoration cũng luôn kế thừa giống hệt như color và font-family.", "correct": false}, {"text": "c) Bộ chọn * có độ ưu tiên thấp nhất trong thứ tự áp dụng các mẫu định dạng.", "correct": true}, {"text": "d) Nếu cùng mức bộ chọn và không có !important, quy tắc viết sau trong tệp CSS sẽ ghi đè quy tắc trước.", "correct": true}], "explain": "Thuộc tính text-decoration KHÔNG kế thừa theo quy định chuẩn CSS -> b Sai; a, c, d Đúng."}];
+    const WS_ID = 'phieubaitap';
+    const SLUG = 'bai14';
+    const EXAM_MINUTES = 0;
+    let wsMode = 'single';
+    let isSubmitted = false;
+    let remainingSec = EXAM_MINUTES * 60;
+
+    function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+    function setWsMode(m) {
+      wsMode = m;
+      document.getElementById('ws-btn-single').classList.toggle('active', m === 'single');
+      document.getElementById('ws-btn-pair').classList.toggle('active', m === 'pair');
+      document.getElementById('ws-pair-box').style.display = m === 'pair' ? 'block' : 'none';
+    }
+    function renderQuestions() {
+      const mount = document.getElementById('questions-mount');
+      mount.innerHTML = QUESTIONS.map((q, qi) => {
+        const pts = Number(q.points || 1.0);
+        const codeHtml = q.code ? `<pre style="background:#0f172a;color:#e2e8f0;padding:0.85rem;border-radius:8px;overflow-x:auto;font-family:'Fira Code',monospace;font-size:0.84rem;margin:0.6rem 0;">${esc(q.code)}</pre>` : '';
+        if (q.type === 'tf') {
+          const stHtml = q.statements.map((st, si) => {
+            const letter = ['a','b','c','d'][si];
+            return `<div class="tf-row" id="tf-row-${q.id}-${letter}">
+              <div><strong>${letter})</strong> ${esc(st.text)}</div>
+              <div style="display:flex;gap:0.75rem;white-space:nowrap;">
+                <label style="cursor:pointer;"><input type="radio" name="${q.id}_${letter}" value="Đúng"> Đúng</label>
+                <label style="cursor:pointer;"><input type="radio" name="${q.id}_${letter}" value="Sai"> Sai</label>
+              </div>
+            </div>`;
+          }).join('');
+          return `<div class="q-card" id="card-${q.id}">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;">
+              <strong style="color:#b45309;">Câu ${qi+1} (Đúng / Sai — ${pts.toFixed(1)}đ)</strong>
+            </div>
+            <div style="font-size:0.96rem;color:#0f172a;line-height:1.55;">${esc(q.prompt)}</div>
+            ${codeHtml}
+            ${stHtml}
+            <div id="fb-${q.id}" style="display:none;margin-top:0.65rem;padding:0.75rem;border-radius:8px;font-size:0.86rem;"></div>
+          </div>`;
+        } else {
+          const optsHtml = ['A','B','C','D'].map(k => `<label class="opt-label" id="opt-${q.id}-${k}">
+            <input type="radio" name="${q.id}" value="${k}" style="margin-top:0.2rem;">
+            <span><strong>${k}.</strong> ${esc(q.options[k])}</span>
+          </label>`).join('');
+          return `<div class="q-card" id="card-${q.id}">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;">
+              <strong style="color:#1e3a8a;">Câu ${qi+1} (Trắc nghiệm 4 lựa chọn — ${pts.toFixed(2)}đ)</strong>
+            </div>
+            <div style="font-size:0.96rem;color:#0f172a;line-height:1.55;">${esc(q.prompt)}</div>
+            ${codeHtml}
+            ${optsHtml}
+            <div id="fb-${q.id}" style="display:none;margin-top:0.65rem;padding:0.75rem;border-radius:8px;font-size:0.86rem;"></div>
+          </div>`;
+        }
+      }).join('');
+    }
+
+    function submitWorksheet(forceTimeout) {
+      if (isSubmitted) return;
+      const n1 = document.getElementById('ws-name-1').value.trim();
+      const n2 = document.getElementById('ws-name-2').value.trim();
+      if (!n1 && !forceTimeout) { alert('Vui lòng nhập Họ và tên trước khi nộp bài!'); document.getElementById('ws-name-1').focus(); return; }
+      const studentName = (wsMode === 'pair' && n2) ? `${n1 || 'HS1'} & ${n2}` : (n1 || 'Học sinh (Hết giờ)');
+      const cls = document.getElementById('ws-class').value || '12A1';
+      const machine = document.getElementById('ws-machine').value.trim() || 'Máy HS';
+
+      let totalScore = 0, maxScore = 0;
+      const answers = {}, results = {};
+      QUESTIONS.forEach(q => {
+        const maxQ = Number(q.points || 1.0);
+        maxScore += maxQ;
+        const fb = document.getElementById(`fb-${q.id}`);
+        if (q.type === 'tf') {
+          const userTF = {};
+          let correctCnt = 0;
+          ['a','b','c','d'].forEach((letter, si) => {
+            const checked = document.querySelector(`input[name="${q.id}_${letter}"]:checked`);
+            const val = checked ? checked.value : '';
+            userTF[letter] = val;
+            const target = q.statements[si].correct ? 'Đúng' : 'Sai';
+            const row = document.getElementById(`tf-row-${q.id}-${letter}`);
+            if (val === target) { correctCnt++; if (row) row.style.background = '#dcfce7'; }
+            else if (row) row.style.background = '#fee2e2';
+          });
+          const ratio = correctCnt === 4 ? 1.0 : (correctCnt === 3 ? 0.5 : (correctCnt === 2 ? 0.25 : (correctCnt === 1 ? 0.1 : 0.0)));
+          const qScore = +(maxQ * ratio).toFixed(2);
+          totalScore += qScore;
+          answers[q.id] = userTF;
+          results[q.id] = { userAnswer: userTF, score: qScore, correctCnt };
+          if (fb) { fb.style.display='block'; fb.style.background='#f0fdf4'; fb.style.border='1px solid #86efac'; fb.innerHTML = `<strong>Đạt ${qScore} / ${maxQ}đ (Đúng ${correctCnt}/4 ý)</strong><br>${esc(q.explain || '')}`; }
+        } else {
+          const checked = document.querySelector(`input[name="${q.id}"]:checked`);
+          const val = checked ? checked.value : '';
+          const ok = val === q.correct;
+          const qScore = ok ? maxQ : 0;
+          totalScore += qScore;
+          answers[q.id] = val;
+          results[q.id] = { userAnswer: val, correctAnswer: q.correct, isCorrect: ok, score: qScore };
+          const corrEl = document.getElementById(`opt-${q.id}-${q.correct}`);
+          if (corrEl) { corrEl.style.background = '#dcfce7'; corrEl.style.borderColor = '#22c55e'; }
+          if (!ok && val) { const bad = document.getElementById(`opt-${q.id}-${val}`); if (bad) { bad.style.background = '#fee2e2'; bad.style.borderColor = '#ef4444'; } }
+          if (fb) { fb.style.display='block'; fb.style.background = ok ? '#f0fdf4' : '#fef2f2'; fb.style.border='1px solid ' + (ok ? '#86efac' : '#fca5a5'); fb.innerHTML = `<strong>${ok ? '✅ Chính xác!' : '❌ Chưa đúng (Đáp án: ' + q.correct + ')'}</strong><br>${esc(q.explain || '')}`; }
+        }
+      });
+
+      const norm10 = maxScore > 0 ? +(totalScore / maxScore * 10).toFixed(2) : 0;
+      const payload = {
+        id: 'WS-' + Math.floor(1000 + Math.random()*9000),
+        worksheetId: WS_ID,
+        isPair: wsMode === 'pair',
+        studentName, className: cls, studentNumber: machine,
+        score: norm10,
+        submittedAt: new Date().toLocaleTimeString('vi-VN') + ' - ' + new Date().toLocaleDateString('vi-VN'),
+        answers, results
+      };
+      try {
+        const cur = JSON.parse(localStorage.getItem(SLUG + '_worksheet_submissions') || '[]');
+        cur.unshift(payload);
+        localStorage.setItem(SLUG + '_worksheet_submissions', JSON.stringify(cur));
+      } catch (e) {}
+      try { new BroadcastChannel(SLUG + '_classroom_channel').postMessage({ type:'NEW_SUBMISSION', data:payload }); } catch (e) {}
+      fetch('/api/' + SLUG + '/submit', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload) }).catch(() => {});
+
+      isSubmitted = true;
+      const rb = document.getElementById('ws-result-banner');
+      rb.style.display = 'block';
+      rb.innerHTML = `<div class="card" style="background:linear-gradient(135deg,#059669,#10b981);color:#fff;text-align:center;">
+        <h2 style="margin:0;color:#fff;">🎉 ĐIỂM CỦA EM: ${norm10.toFixed(2)} / 10.00</h2>
+        <p style="margin:0.4rem 0 0;">Đã ghi nhận bài làm của <strong>${esc(studentName)} (${cls})</strong> lên hệ thống Giáo viên! Em có thể xem lại đáp án chi tiết ở từng câu bên trên.</p>
+      </div>`;
+      rb.scrollIntoView({ behavior:'smooth' });
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      renderQuestions();
+      if (EXAM_MINUTES > 0) {
+        setInterval(() => {
+          if (isSubmitted) return;
+          if (remainingSec > 0) {
+            remainingSec--;
+            const m = Math.floor(remainingSec / 60), s = remainingSec % 60;
+            const clk = document.getElementById('exam-clock');
+            if (clk) clk.textContent = String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+          } else { submitWorksheet(true); }
+        }, 1000);
+      }
+      try {
+        new BroadcastChannel(SLUG + '_classroom_channel').onmessage = (ev) => {
+          if (ev.data?.type === 'CLASSROOM_RESET_ALL') {
+            localStorage.removeItem(SLUG + '_worksheet_submissions');
+            location.reload();
+          }
+        };
+      } catch (e) {}
+    });
+  </script>
+</body>
+</html>

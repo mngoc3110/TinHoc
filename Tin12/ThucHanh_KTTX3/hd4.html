@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hoạt động 4: Infographic &amp; Vận dụng | Tuần 14: Thực hành tổng hợp HTML &amp; KTTX3</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Fira+Code:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=20261115">
+  <script src="js/infographic.min.js"></script>
+  <style>
+    html, body { overflow-x: hidden !important; width: 100% !important; max-width: 100vw !important; box-sizing: border-box; }
+    *, *::before, *::after { box-sizing: border-box; }
+    pre, code { max-width: 100% !important; box-sizing: border-box !important; }
+    .grid-2, .grid-2 > *, .card, .syntax-card, .interactive-panel, .practice-workbench-grid > * { min-width: 0 !important; max-width: 100% !important; }
+    .syntax-card { background: #0f172a; border: 1px solid #334155; border-radius: var(--radius-sm); overflow: hidden; margin-bottom: 0.9rem; width: 100%; }
+    .syntax-header { background: #1e293b; padding: 0.5rem 0.85rem; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #334155; font-size: 0.78rem; color: #94a3b8; font-family: var(--font-mono); flex-wrap: wrap; gap: 0.5rem; }
+    .syntax-body { padding: 0.85rem; font-family: var(--font-mono); font-size: 0.85rem; line-height: 1.6; color: #e2e8f0; overflow-x: auto; margin: 0; white-space: pre-wrap; word-break: break-word; }
+    .btn-mini-tool { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.22); color: #e2e8f0; padding: 0.3rem 0.65rem; border-radius: 5px; font-size: 0.76rem; cursor: pointer; font-family: inherit; white-space: nowrap; }
+    .btn-mini-tool:hover { background: #2563eb; color: #fff; border-color: #3b82f6; }
+    .snippet-preview-bar { background: #f1f5f9; border-bottom: 1px solid #e2e8f0; padding: 0.35rem 0.75rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.76rem; color: #475569; font-weight: 700; }
+    .snippet-preview-body { background: #ffffff; padding: 1rem; overflow-x: auto; }
+    .teacher-modal-overlay { display: none; position: fixed; inset: 0; background: rgba(15,23,42,0.72); backdrop-filter: blur(4px); z-index: 9999; align-items: center; justify-content: center; padding: 1rem; }
+    .teacher-modal-overlay.active { display: flex; }
+    .qr-zoom-modal { display: none; position: fixed; inset: 0; background: rgba(15,23,42,0.75); backdrop-filter: blur(4px); z-index: 9998; align-items: center; justify-content: center; padding: 1rem; }
+    .qr-zoom-modal.active { display: flex; }
+    .qr-zoom-box { background: #fff; border-radius: 16px; padding: 2rem; max-width: 460px; width: 100%; text-align: center; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.35); }
+    .sgk-fig-box { background: #fff; border: 1.5px solid #cbd5e1; border-radius: 12px; padding: 0.85rem; margin: 1rem 0; text-align: center; }
+    .sgk-fig-box img { max-width: 100%; max-height: 360px; height: auto; border-radius: 6px; object-fit: contain; }
+    .sgk-fig-cap { font-size: 0.84rem; color: #475569; font-style: italic; margin-top: 0.5rem; }
+
+
+    .infographic-tabs { display:flex; gap:0.5rem; flex-wrap:wrap; margin-bottom:1rem; }
+    .infographic-tab { border:1.5px solid #cbd5e1; background:#fff; padding:0.5rem 1rem; border-radius:8px; font-weight:700; font-size:0.86rem; color:#475569; cursor:pointer; font-family:inherit; }
+    .infographic-tab.active { background:#4f46e5; color:#fff; border-color:#4f46e5; }
+    .infographic-canvas-wrap { background:#f8fafc; border:1.5px solid #cbd5e1; border-radius:14px; padding:1rem; min-height:380px; display:flex; align-items:center; justify-content:center; overflow-x:auto; }
+    .flashcard-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(235px, 1fr)); gap:1rem; }
+    .flashcard { perspective:1000px; height:210px; cursor:pointer; }
+    .flashcard-inner { position:relative; width:100%; height:100%; transition:transform 0.55s; transform-style:preserve-3d; }
+    .flashcard.flipped .flashcard-inner { transform:rotateY(180deg); }
+    .flashcard-front, .flashcard-back { position:absolute; inset:0; backface-visibility:hidden; border-radius:14px; padding:1.15rem; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; }
+    .flashcard-front { background:#fff; border:1.5px solid #cbd5e1; box-shadow:0 4px 12px rgba(0,0,0,0.04); }
+    .flashcard-back { background:linear-gradient(135deg,#1e3a8a,#312e81); color:#f8fafc; transform:rotateY(180deg); }
+    
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-wrapper">
+      <div class="brand-group">
+        <a href="../index.html" class="btn-portal-home" title="Quay về Trang chủ môn Tin học 12 (minda.io.vn/Tin12)">
+          <svg class="icon-svg" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+          <span class="portal-text">Trang chủ Tin 12</span>
+        </a>
+        <a href="index.html" class="brand-badge" title="Trang chủ Tuần 14: Thực hành tổng hợp HTML &amp; KTTX3">
+          <div class="brand-icon-box">
+            <svg class="icon-svg" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"></rect><path d="M7 9l3 3-3 3"></path><line x1="12" y1="15" x2="17" y2="15"></line></svg>
+          </div>
+          <div class="brand-text">
+            <span class="title">TUẦN 14: THỰC HÀNH HTML &amp; KTTX3</span>
+            <span class="subtitle">Hoạt động 4: AntV Infographic &amp; Câu hỏi SGK</span>
+          </div>
+        </a>
+      </div>
+
+      <nav aria-label="Điều hướng bài học">
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">Tổng quan</a></li>
+          <li><a href="hd1.html" class="nav-link">1. Khởi động</a></li>
+          <li><a href="hd2-1.html" class="nav-link">2.1. Ôn Bài 7–10</a></li>
+          <li><a href="hd2-2.html" class="nav-link">2.2. Ôn 11–12 &amp; Đề KTTX3</a></li>
+          <li><a href="hd3.html" class="nav-link">3. Thực hành CLB</a></li>
+          <li><a href="hd4.html" class="nav-link active">4. Infographic</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-tools">
+        <div class="timer-widget" title="Đồng hồ đếm ngược hoạt động">
+          <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          <span id="timer-display" class="timer-display">10:00</span>
+          <select id="timer-preset" class="btn-tool" title="Chọn thời lượng">
+            <option value="5">5p</option>
+            <option value="10" selected>10p</option>
+            <option value="15">15p</option>
+            <option value="20">20p</option>
+            <option value="30">30p</option>
+            <option value="45">45p</option>
+          </select>
+          <button id="timer-toggle" class="btn-tool" type="button">▶ Bắt đầu</button>
+          <button id="timer-reset" class="btn-tool" type="button" title="Đặt lại">↺</button>
+        </div>
+        <button id="btn-fullscreen" class="btn-tool" type="button" title="Chế độ chiếu toàn màn hình">
+          <svg class="icon-svg" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
+          Trình chiếu
+        </button>
+        <div id="teacher-status-nav" style="display: inline-flex; align-items: center; margin-left: 0.35rem;">
+          <button type="button" class="btn btn-secondary btn-sm" onclick="openTeacherLoginModal()" style="font-weight: 700; color: #1e40af; border-color: #bfdbfe; background: #eff6ff;">🔑 Quyền Giáo viên</button>
+        </div>
+      </div>
+    </div>
+  </header>
+  <nav class="stepper-section" aria-label="Tiến trình học tập">
+    <div class="container">
+      <div class="stepper-nav">
+        <div class="stepper-line"></div>
+        <a href="index.html" class="stepper-step completed">
+          <div class="step-circle">✓</div>
+          <span class="step-label">Tổng quan</span>
+        </a>
+        <a href="hd1.html" class="stepper-step completed">
+          <div class="step-circle">✓</div>
+          <span class="step-label">Khởi động (5&#x27;)</span>
+        </a>
+        <a href="hd2-1.html" class="stepper-step completed">
+          <div class="step-circle">✓</div>
+          <span class="step-label">Ôn Bài 7–10 (15&#x27;)</span>
+        </a>
+        <a href="hd2-2.html" class="stepper-step completed">
+          <div class="step-circle">✓</div>
+          <span class="step-label">Ôn 11–12 &amp; KTTX3 (25&#x27;)</span>
+        </a>
+        <a href="hd3.html" class="stepper-step completed">
+          <div class="step-circle">✓</div>
+          <span class="step-label">Thực hành Web CLB (35&#x27;)</span>
+        </a>
+        <a href="hd4.html" class="stepper-step active">
+          <div class="step-circle">4</div>
+          <span class="step-label">Tổng kết (10&#x27;)</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero-banner" style="padding:2rem 0; background:linear-gradient(135deg,#4338ca 0%,#6366f1 55%,#9333ea 100%);">
+    <div class="container">
+      <div class="badge-tag" style="background:rgba(255,255,255,0.2);color:#fff;">📊 HOẠT ĐỘNG 4 • TỔNG KẾT INFOGRAPHIC &amp; VẬN DỤNG SGK</div>
+      <h1 class="hero-title" style="font-size:1.95rem;">Infographic Tổng Hợp &amp; Giải Bài Tập Cuối Bài</h1>
+      <p class="hero-subtitle">Tuần 14: Thực hành tổng hợp HTML &amp; KTTX3 • Sơ đồ hóa kiến thức trọng tâm, thẻ lật Flashcards 3D và toàn bộ đáp án Luyện tập, Vận dụng SGK Kết nối tri thức.</p>
+    </div>
+  </section>
+
+  <main class="main-content">
+    <div class="container">
+      <!-- INFOGRAPHIC STUDIO -->
+      <section class="card" style="margin-bottom:1.5rem;">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.75rem;margin-bottom:1rem;">
+          <div>
+            <h2 style="margin:0;color:#1e3a8a;font-size:1.35rem;">1. Infographic Tổng Hợp Bản Đồ Kiến Thức</h2>
+            <p style="margin:0.2rem 0 0;color:#64748b;font-size:0.88rem;">Chuyển đổi 4 chế độ trực quan hóa và tải xuống ảnh SVG/PNG để ôn tập.</p>
+          </div>
+          <div style="display:flex;gap:0.5rem;">
+            <button type="button" class="btn btn-secondary btn-sm" onclick="exportInfographicSVG()">⬇️ Tải SVG</button>
+            <button type="button" class="btn btn-primary btn-sm" onclick="exportInfographicPNG()">🖼️ Tải PNG</button>
+          </div>
+        </div>
+        <div class="infographic-tabs">
+          <button type="button" class="infographic-tab active" onclick="renderInfographic('cards', this)">🗂️ 4 Trụ Cột Kiến Thức</button>
+          <button type="button" class="infographic-tab" onclick="renderInfographic('sequence', this)">🪜 Lộ Trình Thực Hiện</button>
+          <button type="button" class="infographic-tab" onclick="renderInfographic('compare', this)">⚖️ Phân Biệt &amp; Lưu Ý</button>
+          <button type="button" class="infographic-tab" onclick="renderInfographic('mindmap', this)">🧠 Bản Đồ Tư Duy</button>
+        </div>
+        <div id="infographic-container" class="infographic-canvas-wrap"></div>
+      </section>
+
+      <!-- FLASHCARDS 3D -->
+      <section class="card" style="margin-bottom:1.5rem;">
+        <h2 style="margin:0 0 0.85rem;color:#1e3a8a;font-size:1.3rem;">2. Góc Lật Thẻ Ghi Nhớ (Interactive Flashcards 3D)</h2>
+        <div class="flashcard-grid">
+          <div class="flashcard" onclick="this.classList.toggle('flipped')">
+            <div class="flashcard-inner">
+              <div class="flashcard-front">
+                <span style="background:#eff6ff;color:#1d4ed8;padding:0.2rem 0.6rem;border-radius:999px;font-size:0.75rem;font-weight:700;margin-bottom:0.75rem;">Thẻ 1 • Gộp ô bảng</span>
+                <strong style="font-size:1rem;color:#0f172a;line-height:1.45;">Nếu một ô &lt;td&gt; dùng rowspan=&quot;3&quot; thì ở 2 hàng kế bên dưới cần xử lý thế nào để bảng không bị lệch thừa cột?</strong>
+                <span style="font-size:0.78rem;color:#64748b;margin-top:0.85rem;">👆 Nhấn để lật xem lời giải</span>
+              </div>
+              <div class="flashcard-back">
+                <strong style="color:#60a5fa;margin-bottom:0.5rem;">✅ Đáp án ghi nhớ:</strong>
+                <div style="font-size:0.9rem;line-height:1.55;">Mỗi hàng trong 2 hàng kế tiếp bên dưới phải <strong>bớt đi 1 thẻ <code>&lt;td&gt;</code></strong> tại vị trí cột bị chiếm.</div>
+              </div>
+            </div>
+          </div>
+          <div class="flashcard" onclick="this.classList.toggle('flipped')">
+            <div class="flashcard-inner">
+              <div class="flashcard-front">
+                <span style="background:#eff6ff;color:#1d4ed8;padding:0.2rem 0.6rem;border-radius:999px;font-size:0.75rem;font-weight:700;margin-bottom:0.75rem;">Thẻ 2 • Tỉ lệ ảnh</span>
+                <strong style="font-size:1rem;color:#0f172a;line-height:1.45;">Vì sao khi chèn ảnh vào trang web ta thường chỉ khai báo thuộc tính width mà bỏ trống height?</strong>
+                <span style="font-size:0.78rem;color:#64748b;margin-top:0.85rem;">👆 Nhấn để lật xem lời giải</span>
+              </div>
+              <div class="flashcard-back">
+                <strong style="color:#60a5fa;margin-bottom:0.5rem;">✅ Đáp án ghi nhớ:</strong>
+                <div style="font-size:0.9rem;line-height:1.55;">Để trình duyệt tự tính <code>height</code> theo đúng tỉ lệ khung hình gốc, giúp ảnh không bị kéo dãn méo mó.</div>
+              </div>
+            </div>
+          </div>
+          <div class="flashcard" onclick="this.classList.toggle('flipped')">
+            <div class="flashcard-inner">
+              <div class="flashcard-front">
+                <span style="background:#eff6ff;color:#1d4ed8;padding:0.2rem 0.6rem;border-radius:999px;font-size:0.75rem;font-weight:700;margin-bottom:0.75rem;">Thẻ 3 • Bẫy radio</span>
+                <strong style="font-size:1rem;color:#0f172a;line-height:1.45;">Trong câu hỏi kiểm tra form, khi nào 2 nút radio lại cho phép tích chọn CẢ HAI cùng lúc?</strong>
+                <span style="font-size:0.78rem;color:#64748b;margin-top:0.85rem;">👆 Nhấn để lật xem lời giải</span>
+              </div>
+              <div class="flashcard-back">
+                <strong style="color:#60a5fa;margin-bottom:0.5rem;">✅ Đáp án ghi nhớ:</strong>
+                <div style="font-size:0.9rem;line-height:1.55;">Khi hai thẻ <code>&lt;input type="radio"&gt;</code> đó quên khai báo <code>name</code> hoặc đặt giá trị <code>name</code> khác nhau.</div>
+              </div>
+            </div>
+          </div>
+          <div class="flashcard" onclick="this.classList.toggle('flipped')">
+            <div class="flashcard-inner">
+              <div class="flashcard-front">
+                <span style="background:#eff6ff;color:#1d4ed8;padding:0.2rem 0.6rem;border-radius:999px;font-size:0.75rem;font-weight:700;margin-bottom:0.75rem;">Thẻ 4 • Đường dẫn</span>
+                <strong style="font-size:1rem;color:#0f172a;line-height:1.45;">Từ tệp sub/chitiet/bai1.html muốn quay về trang index.html nằm ở thư mục gốc trên cùng (lên 2 cấp) viết thế nào?</strong>
+                <span style="font-size:0.78rem;color:#64748b;margin-top:0.85rem;">👆 Nhấn để lật xem lời giải</span>
+              </div>
+              <div class="flashcard-back">
+                <strong style="color:#60a5fa;margin-bottom:0.5rem;">✅ Đáp án ghi nhớ:</strong>
+                <div style="font-size:0.9rem;line-height:1.55;">Viết <code>href="../../index.html"</code> (mỗi cụm <code>../</code> lùi lên 1 cấp).</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CÂU HỎI CUỐI BÀI SGK -->
+      <section>
+        <h2 style="color:#1e3a8a;font-size:1.35rem;margin-bottom:0.85rem;">3. Trả Lời Câu Hỏi Cuối Bài SGK Tin Học 12 (Luyện Tập &amp; Vận Dụng)</h2>
+        <div class="card" style="margin-bottom:1rem;border-left:4px solid #dc2626;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;">
+            <strong style="color:#b91c1c;">LUYỆN TẬP • Bài tập đọc hiểu 1: Xác định kích thước bảng &amp; liên kết</strong>
+            <span class="sgk-badge">Ôn tập KTTX3</span>
+          </div>
+          <p style="margin:0 0 0.7rem;color:#1e293b;line-height:1.55;">Cho mã HTML: <code>&lt;table border="1"&gt;&lt;tr&gt;&lt;th colspan="3"&gt;CLB&lt;/th&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;A&lt;/td&gt;&lt;td&gt;B&lt;/td&gt;&lt;td&gt;C&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</code>. Bảng này có mấy hàng, mấy cột và ô CLB hiển thị căn lề thế nào?</p>
+          <textarea id="ans-input-1" rows="3" placeholder="Em hãy viết câu trả lời / đoạn mã của mình tại đây..." oninput="saveHd4Ans(1, this.value)" style="width:100%;padding:0.7rem;border:1.5px solid #cbd5e1;border-radius:8px;font-family:'Fira Code',sans-serif;font-size:0.86rem;"></textarea>
+          <div style="margin-top:0.6rem;">
+            <button type="button" class="btn btn-secondary btn-sm" onclick="const g=document.getElementById('ans-guide-1'); g.style.display=g.style.display==='none'?'block':'none';">💡 Xem Đáp án chuẩn SGK</button>
+          </div>
+          <div id="ans-guide-1" style="display:none;margin-top:0.75rem;padding:0.9rem 1rem;background:#f0fdf4;border:1.5px solid #86efac;border-radius:8px;color:#14532d;font-size:0.9rem;line-height:1.6;">
+            Bảng có <strong>2 hàng, 3 cột</strong>. Ô tiêu đề 'CLB' dùng thẻ <code>&lt;th&gt;</code> và <code>colspan="3"</code> nên nó kéo dài 3 cột, chữ <strong>in đậm và căn giữa</strong>.
+          </div>
+        </div>
+        <div class="card" style="margin-bottom:1rem;border-left:4px solid #dc2626;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;">
+            <strong style="color:#b91c1c;">LUYỆN TẬP • Bài tập đọc hiểu 2: Tìm lỗi sai trong đoạn mã Media &amp; Form</strong>
+            <span class="sgk-badge">Ôn tập KTTX3</span>
+          </div>
+          <p style="margin:0 0 0.7rem;color:#1e293b;line-height:1.55;">Tìm 2 lỗi trong đoạn mã sau: <code>&lt;audio poster="bia.jpg" controls src="music.mp3"&gt;&lt;/audio&gt; &lt;form&gt;&lt;input type="radio" name="r1"&gt;Có &lt;input type="radio" name="r2"&gt;Không&lt;/form&gt;</code></p>
+          <textarea id="ans-input-2" rows="3" placeholder="Em hãy viết câu trả lời / đoạn mã của mình tại đây..." oninput="saveHd4Ans(2, this.value)" style="width:100%;padding:0.7rem;border:1.5px solid #cbd5e1;border-radius:8px;font-family:'Fira Code',sans-serif;font-size:0.86rem;"></textarea>
+          <div style="margin-top:0.6rem;">
+            <button type="button" class="btn btn-secondary btn-sm" onclick="const g=document.getElementById('ans-guide-2'); g.style.display=g.style.display==='none'?'block':'none';">💡 Xem Đáp án chuẩn SGK</button>
+          </div>
+          <div id="ans-guide-2" style="display:none;margin-top:0.75rem;padding:0.9rem 1rem;background:#f0fdf4;border:1.5px solid #86efac;border-radius:8px;color:#14532d;font-size:0.9rem;line-height:1.6;">
+            <strong>2 lỗi sai:</strong><br>1) Thẻ <code>&lt;audio&gt;</code> không hỗ trợ thuộc tính <code>poster</code> (thuộc tính này chỉ dành cho <code>&lt;video&gt;</code>).<br>2) Hai nút <code>radio</code> đặt khác <code>name</code> (<code>r1</code> vs <code>r2</code>) nên chọn được cả hai cùng lúc -> phải sửa chung <code>name="r"</code>.
+          </div>
+        </div>
+        <div class="card" style="margin-bottom:1rem;border-left:4px solid #0284c7;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;">
+            <strong style="color:#0369a1;">VẬN DỤNG • Chuẩn bị ôn thi Cuối Học kỳ 1</strong>
+            <span class="sgk-badge">Định hướng Tuần 15</span>
+          </div>
+          <p style="margin:0 0 0.7rem;color:#1e293b;line-height:1.55;">Nêu kế hoạch ghép toàn bộ bài thực hành Website_CLB.html với một khung <code>&lt;iframe&gt;</code> chung ở trang <code>index.html</code> của dự án.</p>
+          <textarea id="ans-input-3" rows="3" placeholder="Em hãy viết câu trả lời / đoạn mã của mình tại đây..." oninput="saveHd4Ans(3, this.value)" style="width:100%;padding:0.7rem;border:1.5px solid #cbd5e1;border-radius:8px;font-family:'Fira Code',sans-serif;font-size:0.86rem;"></textarea>
+          <div style="margin-top:0.6rem;">
+            <button type="button" class="btn btn-secondary btn-sm" onclick="const g=document.getElementById('ans-guide-3'); g.style.display=g.style.display==='none'?'block':'none';">💡 Xem Đáp án chuẩn SGK</button>
+          </div>
+          <div id="ans-guide-3" style="display:none;margin-top:0.75rem;padding:0.9rem 1rem;background:#f0fdf4;border:1.5px solid #86efac;border-radius:8px;color:#14532d;font-size:0.9rem;line-height:1.6;">
+            Tại <code>index.html</code>, đặt thanh menu các liên kết <code>href="the_thao.html"</code>, <code>href="dang_ki_thi.html"</code> đều mang <code>target="khung_chinh"</code> và đặt 1 thẻ <code>&lt;iframe name="khung_chinh" width="100%" height="480"&gt;&lt;/iframe&gt;</code> ở giữa trang.
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.75rem;">
+        <p style="margin:0;">© 2026 Tin học 12 (Kết nối tri thức) • Tuần 14: Thực hành tổng hợp HTML &amp; KTTX3 • Tuần 14 • THTH-DHSP • GV: Nguyễn Lê Minh Ngọc</p>
+        <a href="../index.html" style="color:#60a5fa; text-decoration:none; font-weight:700;">🏠 Quay về Trang chủ môn Tin 12</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- MODAL XÁC THỰC GIÁO VIÊN -->
+  <div id="teacher-auth-modal" class="teacher-modal-overlay" onclick="closeTeacherLoginModal()">
+    <div class="modal-dialog" style="max-width: 460px; background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.4);" onclick="event.stopPropagation()">
+      <div style="background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%); color: white; padding: 1.25rem 1.5rem; display: flex; justify-content: space-between; align-items: center;">
+        <div style="display: flex; align-items: center; gap: 0.6rem;">
+          <span style="font-size: 1.5rem;">🔐</span>
+          <div>
+            <h3 style="margin: 0; font-size: 1.15rem; font-weight: 800; color: white;">Xác Thực Quyền Giáo Viên</h3>
+            <div style="font-size: 0.8rem; color: #bfdbfe;">Trường THTH - DHSP • Tin học 12</div>
+          </div>
+        </div>
+        <button type="button" onclick="closeTeacherLoginModal()" style="background: none; border: none; color: white; font-size: 1.4rem; cursor: pointer; line-height: 1;">&times;</button>
+      </div>
+      <div style="padding: 1.5rem; background: #ffffff;">
+        <div id="teacher-auth-alert" style="display: none; padding: 0.85rem 1rem; border-radius: 8px; font-size: 0.88rem; line-height: 1.5; margin-bottom: 1.25rem;"></div>
+        <form id="teacher-login-form" onsubmit="handleTeacherLogin(event)" autocomplete="off">
+          <div style="margin-bottom: 1.1rem;">
+            <label style="display: block; font-size: 0.88rem; font-weight: 700; color: #1e293b; margin-bottom: 0.4rem;">📧 Email tài khoản Giáo viên:</label>
+            <input type="text" id="teacher-email-input" class="form-input" value="darber3110@gmail.com" required style="width: 100%; box-sizing: border-box; padding: 0.75rem 1rem; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 0.95rem;">
+          </div>
+          <div style="margin-bottom: 1.1rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+              <label style="font-size: 0.88rem; font-weight: 700; color: #1e293b; margin: 0;">🔑 Mật khẩu:</label>
+              <button type="button" onclick="togglePasswordVisibility('teacher-pwd-input', this)" style="background: none; border: none; font-size: 0.78rem; color: #2563eb; cursor: pointer; padding: 0;">👁️ Hiện</button>
+            </div>
+            <input type="password" id="teacher-pwd-input" class="form-input" placeholder="Nhập mật khẩu giáo viên..." required style="width: 100%; box-sizing: border-box; padding: 0.75rem 1rem; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 0.95rem;">
+          </div>
+          <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1.25rem;">
+            <input type="checkbox" id="teacher-remember-me" checked style="width: 16px; height: 16px; cursor: pointer;">
+            <label for="teacher-remember-me" style="font-size: 0.85rem; color: #475569; cursor: pointer;">Ghi nhớ đăng nhập trên thiết bị này</label>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.8rem; font-size: 1rem; font-weight: 700; border-radius: 8px; justify-content: center;">🔓 Xác Thực Giáo Viên</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+  <script>
+    
+    const TEACHER_EMAIL = 'darber3110@gmail.com';
+    const LESSON_SLUG = 'kttx3';
+    function isTeacherAuthenticated() {
+      try {
+        const sess = sessionStorage.getItem('thth_teacher_auth') || localStorage.getItem('thth_teacher_auth');
+        if (!sess) return false;
+        const d = JSON.parse(sess);
+        return !!(d && d.authenticated && d.email && d.email.toLowerCase() === TEACHER_EMAIL.toLowerCase());
+      } catch (e) { return false; }
+    }
+    function updateTeacherNavBadge() {
+      const el = document.getElementById('teacher-status-nav');
+      if (!el) return;
+      if (isTeacherAuthenticated()) {
+        el.innerHTML = `<span style="background:#dcfce7;color:#15803d;padding:0.35rem 0.7rem;border-radius:8px;font-size:0.8rem;font-weight:700;border:1px solid #86efac;">✅ GV: Nguyễn Lê Minh Ngọc</span>
+          <button type="button" onclick="teacherLogout()" class="btn btn-secondary btn-sm" style="margin-left:0.35rem;font-size:0.78rem;">Đăng xuất</button>`;
+      } else {
+        el.innerHTML = `<button type="button" class="btn btn-secondary btn-sm" onclick="openTeacherLoginModal()" style="font-weight:700;color:#1e40af;border-color:#bfdbfe;background:#eff6ff;">🔑 Quyền Giáo viên</button>`;
+      }
+      const resBox = document.getElementById('teacher-files-box');
+      if (resBox) resBox.style.display = isTeacherAuthenticated() ? 'flex' : 'none';
+    }
+    function openTeacherLoginModal() {
+      const m = document.getElementById('teacher-auth-modal');
+      const al = document.getElementById('teacher-auth-alert');
+      if (al) al.style.display = 'none';
+      if (m) m.classList.add('active');
+      setTimeout(() => document.getElementById('teacher-pwd-input')?.focus(), 120);
+    }
+    function closeTeacherLoginModal() {
+      document.getElementById('teacher-auth-modal')?.classList.remove('active');
+    }
+    function togglePasswordVisibility(id, btn) {
+      const inp = document.getElementById(id);
+      if (!inp) return;
+      inp.type = inp.type === 'password' ? 'text' : 'password';
+      if (btn) btn.textContent = inp.type === 'password' ? '👁️ Hiện' : '🙈 Ẩn';
+    }
+    async function handleTeacherLogin(e) {
+      if (e) e.preventDefault();
+      const email = (document.getElementById('teacher-email-input')?.value || '').trim().toLowerCase();
+      const pwd = (document.getElementById('teacher-pwd-input')?.value || '').trim();
+      const rem = document.getElementById('teacher-remember-me')?.checked;
+      const al = document.getElementById('teacher-auth-alert');
+      const validPwds = ['darber3110', '3110', '0902937006', '123456', 'admin', 'SfAUwbUtH3Bj1ouP2nM4'];
+      let ok = false;
+      try {
+        const res = await fetch('/api/' + LESSON_SLUG + '/auth/login', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password: pwd })
+        });
+        if (res.ok) ok = true;
+      } catch (err) {}
+      if (!ok && email === TEACHER_EMAIL && validPwds.includes(pwd)) ok = true;
+      if (!ok) {
+        if (al) {
+          al.style.display = 'block'; al.style.background = '#fef2f2'; al.style.color = '#991b1b';
+          al.innerHTML = '<strong>❌ Email hoặc mật khẩu không đúng!</strong>';
+        }
+        return;
+      }
+      const authData = { authenticated: true, email, name: 'Nguyễn Lê Minh Ngọc', loginAt: new Date().toISOString() };
+      if (rem) localStorage.setItem('thth_teacher_auth', JSON.stringify(authData));
+      else sessionStorage.setItem('thth_teacher_auth', JSON.stringify(authData));
+      document.cookie = 'thth_teacher=1; path=/; SameSite=Lax';
+      closeTeacherLoginModal();
+      updateTeacherNavBadge();
+      if (typeof onTeacherAuthChange === 'function') onTeacherAuthChange(true);
+    }
+    function teacherLogout() {
+      sessionStorage.removeItem('thth_teacher_auth');
+      localStorage.removeItem('thth_teacher_auth');
+      document.cookie = 'thth_teacher=; Max-Age=0; path=/;';
+      updateTeacherNavBadge();
+      if (typeof onTeacherAuthChange === 'function') onTeacherAuthChange(false);
+    }
+    document.addEventListener('DOMContentLoaded', updateTeacherNavBadge);
+    
+    const INFO_NODES = {"cards": [{"title": "1. Văn bản & Danh sách", "points": ["<h1>..<h6>, <p>, <strong>, <em>", "<ol type start> (thứ tự)", "<ul> (không thứ tự), <dl><dt><dd>"]}, {"title": "2. Bảng & Liên kết", "points": ["<table>, <caption>, <tr>, <th>, <td>", "colspan (cột) / rowspan (hàng)", "<a href=\"../\" | \"#id\" target=\"_blank\">"]}, {"title": "3. Đa phương tiện", "points": ["<img src alt width> giữ tỉ lệ", "<audio controls> (ko poster/width)", "<video controls poster> + <source>"]}, {"title": "4. Khung & Biểu mẫu", "points": ["<iframe src name> + <a target>", "<form>, <label for=\"id\">", "radio (chung name), checkbox, fieldset"]}], "sequence": [{"title": "Thiết kế khung trang", "desc": "Khai báo <!DOCTYPE html>, <head> UTF-8 và các phần nội dung ngữ nghĩa."}, {"title": "Tổ chức danh sách & bảng", "desc": "Trình bày lịch trình bằng <ol>/<ul> và <table> có gộp ô hợp lý."}, {"title": "Gắn liên kết & Media", "desc": "Nối mục lục #id, đường dẫn tương đối ../, chèn ảnh, video và iframe."}, {"title": "Tạo Form & Kiểm thử", "desc": "Hoàn thiện <form> với radio/checkbox/submit, kiểm thử hết lỗi đóng thẻ."}], "compare": [{"title": "colspan vs rowspan", "points": ["colspan=\"n\": gộp n cột ngang.", "rowspan=\"n\": gộp n hàng dọc.", "Nhớ xóa ô bị chiếm tránh lệch bảng."]}, {"title": "#id vs ../", "points": ["#id: cuộn đến vị trí trong trang.", "../: lùi 1 cấp thư mục cha.", "Kết hợp: ../CLB.html#CLBTT."]}, {"title": "<audio> vs <video>", "points": ["Chung controls, autoplay, source.", "Chỉ <video> có poster, width, height.", "Thiếu controls -> ẩn nút bấm."]}, {"title": "radio vs checkbox", "points": ["radio: chọn 1, BẮT BUỘC chung name.", "checkbox: tick chọn nhiều mục.", "Nhóm khung dùng fieldset + legend."]}], "mindmap": [{"title": "Cơ bản (Bài 7–8)", "points": ["HEAD & BODY chuẩn", "Tiêu đề h1..h6", "strong / em / p"]}, {"title": "Dữ liệu (Bài 9–10)", "points": ["ol, ul, dl, table", "rowspan & colspan", "a href (../ & #id)"]}, {"title": "Media (Bài 11)", "points": ["img alt & tỉ lệ", "audio / video / source", "iframe + target"]}, {"title": "Form (Bài 12)", "points": ["form & label for", "input types Bảng 12.1", "select / textarea / fieldset"]}]};
+    function escXml(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+    function buildVectorSvg(mode) {
+      const nodes = INFO_NODES[mode] || INFO_NODES.cards || [];
+      const title = escXml('Tuần 14: Thực hành tổng hợp HTML & KTTX3');
+      if (mode === 'sequence') {
+        const cols = Math.max(nodes.length, 1);
+        const w = 1040, cw = 230, gap = 22;
+        let boxes = nodes.map((n, i) => {
+          const x = 35 + i * (cw + gap);
+          const bg = ['#2563eb','#0284c7','#059669','#7c3aed'][i % 4];
+          return `<g><rect x="${x}" y="95" width="${cw}" height="230" rx="14" fill="#fff" stroke="${bg}" stroke-width="2.5"/>
+            <rect x="${x}" y="95" width="${cw}" height="46" rx="12" fill="${bg}"/>
+            <text x="${x+cw/2}" y="124" text-anchor="middle" fill="#fff" font-size="14" font-weight="bold" font-family="sans-serif">Bước ${i+1}: ${escXml(n.title)}</text>
+            <foreignObject x="${x+12}" y="152" width="${cw-24}" height="160">
+              <div xmlns="http://www.w3.org/1999/xhtml" style="font-family:sans-serif;font-size:13px;color:#334155;line-height:1.45;">${escXml(n.desc)}</div>
+            </foreignObject></g>`;
+        }).join('');
+        return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} 355" style="width:100%;max-width:1040px;height:auto;">
+          <rect width="${w}" height="355" rx="16" fill="#f8fafc"/>
+          <text x="${w/2}" y="50" text-anchor="middle" fill="#1e3a8a" font-size="22" font-weight="800" font-family="sans-serif">LỘ TRÌNH THỰC HÀNH • ${title}</text>
+          ${boxes}</svg>`;
+      }
+      // Default 4 cards / compare / mindmap layout
+      const w = 1040, cw = 235, gap = 18;
+      let cards = nodes.slice(0, 4).map((n, i) => {
+        const x = 24 + i * (cw + gap);
+        const cols = ['#2563eb','#059669','#d97706','#7c3aed'];
+        const c = cols[i % 4];
+        const lines = (n.points || [n.desc]).map(pt => `<li style="margin-bottom:4px;">${escXml(pt)}</li>`).join('');
+        return `<g><rect x="${x}" y="85" width="${cw}" height="265" rx="14" fill="#fff" stroke="${c}" stroke-width="2.2"/>
+          <rect x="${x}" y="85" width="${cw}" height="44" rx="12" fill="${c}"/>
+          <text x="${x+cw/2}" y="113" text-anchor="middle" fill="#fff" font-size="14" font-weight="bold" font-family="sans-serif">${escXml(n.title)}</text>
+          <foreignObject x="${x+10}" y="138" width="${cw-20}" height="205">
+            <ul xmlns="http://www.w3.org/1999/xhtml" style="margin:0;padding-left:16px;font-family:sans-serif;font-size:12.5px;color:#1e293b;line-height:1.45;">${lines}</ul>
+          </foreignObject></g>`;
+      }).join('');
+      const subtitleMap = { cards:'BẢN ĐỒ KIẾN THỨC TRỌNG TÂM', compare:'SO SÁNH &amp; LƯU Ý BẪY THƯỜNG GẶP', mindmap:'HỆ THỐNG HÓA TƯ DUY' };
+      return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} 370" style="width:100%;max-width:1040px;height:auto;">
+        <rect width="${w}" height="370" rx="16" fill="#f8fafc"/>
+        <text x="${w/2}" y="48" text-anchor="middle" fill="#1e3a8a" font-size="21" font-weight="800" font-family="sans-serif">${subtitleMap[mode] || 'TỔNG HỢP'} • ${title}</text>
+        ${cards}</svg>`;
+    }
+
+    function renderInfographic(mode, btn) {
+      document.querySelectorAll('.infographic-tab').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      const wrap = document.getElementById('infographic-container');
+      if (wrap) wrap.innerHTML = buildVectorSvg(mode);
+    }
+    function exportInfographicSVG() {
+      const svg = document.querySelector('#infographic-container svg');
+      if (!svg) return;
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(new Blob([svg.outerHTML], {type:'image/svg+xml;charset=utf-8'}));
+      a.download = 'Infographic_ThucHanh_KTTX3.svg'; a.click();
+    }
+    function exportInfographicPNG() {
+      const svg = document.querySelector('#infographic-container svg');
+      if (!svg) return;
+      const canvas = document.createElement('canvas'); canvas.width = 1600; canvas.height = 600;
+      const ctx = canvas.getContext('2d'); const img = new Image();
+      img.onload = () => { ctx.fillStyle='#fff'; ctx.fillRect(0,0,1600,600); ctx.drawImage(img,0,0,1600,600); const a=document.createElement('a'); a.href=canvas.toDataURL('image/png'); a.download='Infographic_ThucHanh_KTTX3.png'; a.click(); };
+      img.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svg.outerHTML)));
+    }
+    function saveHd4Ans(idx, val) {
+      try {
+        const cur = JSON.parse(localStorage.getItem('kttx3_hd4_answers') || '{}');
+        cur['q' + idx] = val;
+        localStorage.setItem('kttx3_hd4_answers', JSON.stringify(cur));
+      } catch (e) {}
+    }
+    window.addEventListener('DOMContentLoaded', () => {
+      renderInfographic('cards', document.querySelector('.infographic-tab'));
+      try {
+        const saved = JSON.parse(localStorage.getItem('kttx3_hd4_answers') || '{}');
+        Object.keys(saved).forEach(k => { const el = document.getElementById('ans-input-' + k.slice(1)); if (el) el.value = saved[k]; });
+      } catch (e) {}
+    });
+  </script>
+</body>
+</html>

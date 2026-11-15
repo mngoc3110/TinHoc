@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hoạt động 3: Thực hành dang_ki_thi.html | Bài 12: Tạo biểu mẫu</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Fira+Code:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=20261115">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <style>
+    html, body { overflow-x: hidden !important; width: 100% !important; max-width: 100vw !important; box-sizing: border-box; }
+    *, *::before, *::after { box-sizing: border-box; }
+    pre, code { max-width: 100% !important; box-sizing: border-box !important; }
+    .grid-2, .grid-2 > *, .card, .syntax-card, .interactive-panel, .practice-workbench-grid > * { min-width: 0 !important; max-width: 100% !important; }
+    .syntax-card { background: #0f172a; border: 1px solid #334155; border-radius: var(--radius-sm); overflow: hidden; margin-bottom: 0.9rem; width: 100%; }
+    .syntax-header { background: #1e293b; padding: 0.5rem 0.85rem; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #334155; font-size: 0.78rem; color: #94a3b8; font-family: var(--font-mono); flex-wrap: wrap; gap: 0.5rem; }
+    .syntax-body { padding: 0.85rem; font-family: var(--font-mono); font-size: 0.85rem; line-height: 1.6; color: #e2e8f0; overflow-x: auto; margin: 0; white-space: pre-wrap; word-break: break-word; }
+    .btn-mini-tool { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.22); color: #e2e8f0; padding: 0.3rem 0.65rem; border-radius: 5px; font-size: 0.76rem; cursor: pointer; font-family: inherit; white-space: nowrap; }
+    .btn-mini-tool:hover { background: #2563eb; color: #fff; border-color: #3b82f6; }
+    .snippet-preview-bar { background: #f1f5f9; border-bottom: 1px solid #e2e8f0; padding: 0.35rem 0.75rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.76rem; color: #475569; font-weight: 700; }
+    .snippet-preview-body { background: #ffffff; padding: 1rem; overflow-x: auto; }
+    .teacher-modal-overlay { display: none; position: fixed; inset: 0; background: rgba(15,23,42,0.72); backdrop-filter: blur(4px); z-index: 9999; align-items: center; justify-content: center; padding: 1rem; }
+    .teacher-modal-overlay.active { display: flex; }
+    .qr-zoom-modal { display: none; position: fixed; inset: 0; background: rgba(15,23,42,0.75); backdrop-filter: blur(4px); z-index: 9998; align-items: center; justify-content: center; padding: 1rem; }
+    .qr-zoom-modal.active { display: flex; }
+    .qr-zoom-box { background: #fff; border-radius: 16px; padding: 2rem; max-width: 460px; width: 100%; text-align: center; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.35); }
+    .sgk-fig-box { background: #fff; border: 1.5px solid #cbd5e1; border-radius: 12px; padding: 0.85rem; margin: 1rem 0; text-align: center; }
+    .sgk-fig-box img { max-width: 100%; max-height: 360px; height: auto; border-radius: 6px; object-fit: contain; }
+    .sgk-fig-cap { font-size: 0.84rem; color: #475569; font-style: italic; margin-top: 0.5rem; }
+
+
+    .main-view-switcher { display:inline-flex; background:#e2e8f0; padding:0.3rem; border-radius:10px; gap:0.25rem; }
+    .view-btn { border:none; background:transparent; padding:0.5rem 1.15rem; border-radius:8px; font-weight:700; font-size:0.88rem; color:#475569; cursor:pointer; font-family:inherit; }
+    .view-btn.active { background:#fff; color:#1d4ed8; box-shadow:0 2px 5px rgba(0,0,0,0.08); }
+    .student-card { background:#fff; border-radius:14px; border:1px solid #e2e8f0; padding:1.25rem; margin-bottom:1.25rem; }
+    .mode-selector { display:inline-flex; background:#f1f5f9; padding:0.25rem; border-radius:8px; margin-bottom:0.75rem; border:1px solid #e2e8f0; }
+    .mode-tab { padding:0.4rem 1rem; border-radius:6px; border:none; background:transparent; font-size:0.85rem; font-weight:700; color:#64748b; cursor:pointer; font-family:inherit; }
+    .mode-tab.active { background:#2563eb; color:#fff; }
+    .form-grid-single { display:grid; grid-template-columns: minmax(0,2fr) minmax(0,1fr) minmax(0,1fr); gap:0.85rem; }
+    .form-grid-pair { display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap:0.85rem; }
+    @media (max-width:768px) { .form-grid-single, .form-grid-pair { grid-template-columns: 1fr; } }
+    .practice-workbench-grid { display:grid; grid-template-columns: 350px minmax(0,1fr); gap:1.25rem; align-items:start; }
+    @media (max-width:992px) { .practice-workbench-grid { grid-template-columns: 1fr; } }
+    .editor-preview-split { display:grid; grid-template-columns: 1fr 1fr; gap:1rem; }
+    @media (max-width:900px) { .editor-preview-split { grid-template-columns: 1fr; } }
+    .ide-pane, .preview-pane { border:1.5px solid #cbd5e1; border-radius:12px; overflow:hidden; background:#fff; display:flex; flex-direction:column; }
+    .ide-header { background:#0f172a; color:#cbd5e1; padding:0.55rem 0.9rem; display:flex; justify-content:space-between; font-family:monospace; font-size:0.8rem; }
+    .code-editor-area { width:100%; height:440px; padding:1rem; background:#0d1117; color:#e6edf3; border:none; font-family:'Fira Code', monospace; font-size:0.86rem; line-height:1.55; resize:vertical; outline:none; }
+    .preview-frame { width:100%; height:440px; border:none; background:#fff; }
+    .checklist-card { background:#fff; border:1px solid #cbd5e1; border-radius:12px; padding:1rem; margin-bottom:1rem; }
+    .checklist-item { display:flex; gap:0.5rem; font-size:0.8rem; padding:0.42rem 0.5rem; border-radius:6px; margin-bottom:0.35rem; background:#f8fafc; border:1px solid #e2e8f0; align-items:flex-start; }
+    .checklist-item.pass { background:#f0fdf4; border-color:#86efac; color:#166534; }
+    .global-submit-card { background:#fff; border-radius:14px; border:1.5px solid #93c5fd; padding:1.1rem 1.4rem; margin-top:1.25rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; position:sticky; bottom:0.75rem; z-index:90; box-shadow:0 10px 25px rgba(37,99,235,0.12); }
+    .btn-submit-all { background:linear-gradient(135deg,#059669,#10b981); color:#fff; font-weight:800; font-size:1rem; padding:0.75rem 1.75rem; border-radius:10px; border:none; cursor:pointer; font-family:inherit; }
+    .teacher-dashboard-section { display:none; }
+    .teacher-dashboard-section.active { display:block; }
+    .modal-overlay { display:none; position:fixed; inset:0; background:rgba(15,23,42,0.72); z-index:9998; align-items:center; justify-content:center; padding:1rem; }
+    .modal-overlay.active { display:flex; }
+    .modal-box { background:#fff; border-radius:16px; max-width:860px; width:100%; max-height:90vh; overflow:hidden; display:flex; flex-direction:column; }
+    .submissions-table { width:100%; border-collapse:collapse; font-size:0.86rem; }
+    .submissions-table th { background:#1e3a8a; color:#fff; padding:0.7rem 0.6rem; text-align:left; }
+    .submissions-table td { padding:0.6rem; border-bottom:1px solid #e2e8f0; }
+    
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-wrapper">
+      <div class="brand-group">
+        <a href="../index.html" class="btn-portal-home" title="Quay về Trang chủ môn Tin học 12 (minda.io.vn/Tin12)">
+          <svg class="icon-svg" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+          <span class="portal-text">Trang chủ Tin 12</span>
+        </a>
+        <a href="index.html" class="brand-badge" title="Trang chủ Bài 12: Tạo biểu mẫu">
+          <div class="brand-icon-box">
+            <svg class="icon-svg" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"></rect><path d="M7 9l3 3-3 3"></path><line x1="12" y1="15" x2="17" y2="15"></line></svg>
+          </div>
+          <div class="brand-text">
+            <span class="title">BÀI 12: TẠO BIỂU MẪU</span>
+            <span class="subtitle">Hoạt động 3: Thực hành dang_ki_thi.html</span>
+          </div>
+        </a>
+      </div>
+
+      <nav aria-label="Điều hướng bài học">
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">Tổng quan</a></li>
+          <li><a href="hd1.html" class="nav-link">1. Khởi động</a></li>
+          <li><a href="hd2-1.html" class="nav-link">2.1. Form &amp; Input</a></li>
+          <li><a href="hd2-2.html" class="nav-link">2.2. Select &amp; Nhóm</a></li>
+          <li><a href="hd3.html" class="nav-link active">3. Thực hành</a></li>
+          <li><a href="hd4.html" class="nav-link">4. Infographic</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-tools">
+        <div class="timer-widget" title="Đồng hồ đếm ngược hoạt động">
+          <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          <span id="timer-display" class="timer-display">30:00</span>
+          <select id="timer-preset" class="btn-tool" title="Chọn thời lượng">
+            <option value="5">5p</option>
+            <option value="10">10p</option>
+            <option value="15">15p</option>
+            <option value="20">20p</option>
+            <option value="30" selected>30p</option>
+            <option value="45">45p</option>
+          </select>
+          <button id="timer-toggle" class="btn-tool" type="button">▶ Bắt đầu</button>
+          <button id="timer-reset" class="btn-tool" type="button" title="Đặt lại">↺</button>
+        </div>
+        <button id="btn-fullscreen" class="btn-tool" type="button" title="Chế độ chiếu toàn màn hình">
+          <svg class="icon-svg" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
+          Trình chiếu
+        </button>
+        <div id="teacher-status-nav" style="display: inline-flex; align-items: center; margin-left: 0.35rem;">
+          <button type="button" class="btn btn-secondary btn-sm" onclick="openTeacherLoginModal()" style="font-weight: 700; color: #1e40af; border-color: #bfdbfe; background: #eff6ff;">🔑 Quyền Giáo viên</button>
+        </div>
+      </div>
+    </div>
+  </header>
+  <nav class="stepper-section" aria-label="Tiến trình học tập">
+    <div class="container">
+      <div class="stepper-nav">
+        <div class="stepper-line"></div>
+        <a href="index.html" class="stepper-step completed">
+          <div class="step-circle">✓</div>
+          <span class="step-label">Tổng quan</span>
+        </a>
+        <a href="hd1.html" class="stepper-step completed">
+          <div class="step-circle">✓</div>
+          <span class="step-label">Khởi động (5&#x27;)</span>
+        </a>
+        <a href="hd2-1.html" class="stepper-step completed">
+          <div class="step-circle">✓</div>
+          <span class="step-label">Form &amp; Input (20&#x27;)</span>
+        </a>
+        <a href="hd2-2.html" class="stepper-step completed">
+          <div class="step-circle">✓</div>
+          <span class="step-label">Select &amp; Fieldset (15&#x27;)</span>
+        </a>
+        <a href="hd3.html" class="stepper-step active">
+          <div class="step-circle">3</div>
+          <span class="step-label">Thực hành Form (35&#x27;)</span>
+        </a>
+        <a href="hd4.html" class="stepper-step ">
+          <div class="step-circle">4</div>
+          <span class="step-label">Infographic &amp; SGK (15&#x27;)</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero-banner" style="padding:1.85rem 0;">
+    <div class="container">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;">
+        <div>
+          <div class="badge-tag" style="background:rgba(255,255,255,0.16);color:#fff;">💻 HOẠT ĐỘNG 3 • THỰC HÀNH TỰ CODE &amp; NỘP BÀI</div>
+          <h1 class="hero-title" style="font-size:1.85rem;margin-bottom:0.35rem;">Thực hành Biểu mẫu Đăng kí môn thi tốt nghiệp</h1>
+          <p class="hero-subtitle" style="margin:0;">Tự gõ mã tạo tệp <code>dang_ki_thi.html</code> mô phỏng đầy đủ Biểu mẫu Hình 12.3 (SGK tr.70) gồm <code>&lt;fieldset&gt;</code>, <code>&lt;label&gt;</code>, <code>text</code>, <code>radio</code>, <code>checkbox</code>, <code>&lt;select&gt;</code>, <code>&lt;textarea&gt;</code> và nút <code>submit</code>.</p>
+        </div>
+        <div class="main-view-switcher">
+          <button type="button" id="btn-view-student" class="view-btn active" onclick="switchMainView('student')">👨‍💻 Giao diện Học sinh</button>
+          <button type="button" id="btn-view-teacher" class="view-btn" onclick="switchMainView('teacher')">👩‍🏫 Bảng thu bài GV</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main class="main-content">
+    <div class="container">
+
+      <!-- VIEW 1: HỌC SINH -->
+      <div id="view-student-container">
+        <div class="student-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.75rem;margin-bottom:0.65rem;">
+            <strong style="color:#1e3a8a;">👤 Thông tin học sinh nộp tệp <code>dang_ki_thi.html</code></strong>
+            <div class="mode-selector" style="margin:0;">
+              <button type="button" id="btn-mode-single" class="mode-tab active" onclick="setStudentMode('single')">Cá nhân</button>
+              <button type="button" id="btn-mode-pair" class="mode-tab" onclick="setStudentMode('pair')">Nhóm cặp đôi (2 bạn)</button>
+            </div>
+          </div>
+          <div id="form-mode-single" class="form-grid-single">
+            <input type="text" id="student-name-input" class="form-input" placeholder="Họ và tên học sinh..." style="padding:0.6rem 0.8rem;border:1.5px solid #cbd5e1;border-radius:8px;">
+            <select id="student-class-select" style="padding:0.6rem 0.8rem;border:1.5px solid #cbd5e1;border-radius:8px;">
+              <option value="12A1">Lớp 12A1</option><option value="12A2">Lớp 12A2</option><option value="12A3">Lớp 12A3</option><option value="12A4">Lớp 12A4</option><option value="12E">Lớp 12E</option>
+            </select>
+            <input type="text" id="student-number-input" placeholder="Số máy (VD: Máy 05)" style="padding:0.6rem 0.8rem;border:1.5px solid #cbd5e1;border-radius:8px;">
+          </div>
+          <div id="form-mode-pair" class="form-grid-pair" style="display:none;">
+            <input type="text" id="pair-name-1" placeholder="Họ tên bạn 1..." style="padding:0.6rem 0.8rem;border:1.5px solid #cbd5e1;border-radius:8px;">
+            <input type="text" id="pair-name-2" placeholder="Họ tên bạn 2..." style="padding:0.6rem 0.8rem;border:1.5px solid #cbd5e1;border-radius:8px;">
+            <select id="pair-class-select" style="padding:0.6rem 0.8rem;border:1.5px solid #cbd5e1;border-radius:8px;">
+              <option value="12A1">Lớp 12A1</option><option value="12A2">Lớp 12A2</option><option value="12A3">Lớp 12A3</option><option value="12A4">Lớp 12A4</option><option value="12E">Lớp 12E</option>
+            </select>
+            <input type="text" id="pair-machine-input" placeholder="Số máy chung..." style="padding:0.6rem 0.8rem;border:1.5px solid #cbd5e1;border-radius:8px;">
+          </div>
+        </div>
+
+        <div class="practice-workbench-grid">
+          <aside>
+          <div class="card" style="border-left: 4px solid #2563eb; padding: 1rem; margin-bottom: 0.9rem;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.35rem;">
+              <h4 style="margin:0;color:#2563eb;font-size:0.95rem;font-weight:700;">Nhiệm vụ 1: Khung &lt;form&gt; &amp; Thông tin thí sinh</h4>
+              <span class="sgk-badge">SGK tr.70</span>
+            </div>
+            <p style="font-size:0.82rem;color:#334155;margin:0 0 0.4rem;">Xây dựng nhóm đầu tiên theo Hình 12.3:</p>
+            <ul style="font-size:0.8rem;color:#475569;margin:0;padding-left:1rem;line-height:1.5;">
+              <li>Bao toàn bộ biểu mẫu trong cặp thẻ <code>&lt;form&gt;...&lt;/form&gt;</code>.</li>
+              <li>Dùng <code>&lt;fieldset&gt;&lt;legend&gt;Thông tin thí sinh&lt;/legend&gt;</code> bọc ô <code>text</code> (Họ tên) và <code>radio</code> (Giới tính cùng <code>name</code>).</li>
+            </ul>
+          </div>
+          <div class="card" style="border-left: 4px solid #059669; padding: 1rem; margin-bottom: 0.9rem;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.35rem;">
+              <h4 style="margin:0;color:#059669;font-size:0.95rem;font-weight:700;">Nhiệm vụ 2: Khung đăng kí môn thi</h4>
+              <span class="sgk-badge">Hình 12.3 tr.70</span>
+            </div>
+            <p style="font-size:0.82rem;color:#334155;margin:0 0 0.4rem;">Bổ sung điều khiển chọn nhiều và thả xuống:</p>
+            <ul style="font-size:0.8rem;color:#475569;margin:0;padding-left:1rem;line-height:1.5;">
+              <li>Thêm nhóm <code>checkbox</code> chọn môn thi tự chọn (Tin học, Vật lí, Hóa học...).</li>
+              <li>Thêm <code>&lt;select&gt;&lt;option&gt;</code> chọn Cụm thi / Khối ban.</li>
+            </ul>
+          </div>
+          <div class="card" style="border-left: 4px solid #d97706; padding: 1rem; margin-bottom: 0.9rem;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.35rem;">
+              <h4 style="margin:0;color:#d97706;font-size:0.95rem;font-weight:700;">Nhiệm vụ 3: Ghi chú &amp; Gửi biểu mẫu</h4>
+              <span class="sgk-badge">SGK tr.70</span>
+            </div>
+            <p style="font-size:0.82rem;color:#334155;margin:0 0 0.4rem;">Hoàn thiện nút điều khiển cuối form:</p>
+            <ul style="font-size:0.8rem;color:#475569;margin:0;padding-left:1rem;line-height:1.5;">
+              <li>Thêm hộp <code>&lt;textarea rows cols&gt;</code> ghi chú và nút <code>&lt;input type="submit"&gt;</code>.</li>
+              <li>Kiểm tra đạt 8/8 tiêu chí tự động trước khi Nộp bài.</li>
+            </ul>
+          </div>
+            <div class="checklist-card">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.55rem;">
+                <strong style="font-size:0.9rem;color:#1e3a8a;">Kiểm tra tự động</strong>
+                <span id="criteria-score" style="background:#eff6ff;color:#1d4ed8;padding:0.2rem 0.55rem;border-radius:999px;font-size:0.78rem;font-weight:800;">0/8 tiêu chí</span>
+              </div>
+            <div id="chk-item-1" class="checklist-item"><span>⚪</span><div><strong>1. Thẻ &lt;form&gt; bao ngoài:</strong> Có cặp thẻ &lt;form&gt;...&lt;/form&gt;.</div></div>
+            <div id="chk-item-2" class="checklist-item"><span>⚪</span><div><strong>2. Nhóm &lt;fieldset&gt; &amp; &lt;legend&gt;:</strong> Có ít nhất 1 khối &lt;fieldset&gt; và tiêu đề &lt;legend&gt;.</div></div>
+            <div id="chk-item-3" class="checklist-item"><span>⚪</span><div><strong>3. Nhãn &lt;label for&gt;:</strong> Có thẻ &lt;label kèm thuộc tính for=&quot;...&quot;.</div></div>
+            <div id="chk-item-4" class="checklist-item"><span>⚪</span><div><strong>4. Ô nhập văn bản (text):</strong> Có thẻ &lt;input với type=&quot;text&quot;.</div></div>
+            <div id="chk-item-5" class="checklist-item"><span>⚪</span><div><strong>5. Nút chọn đơn (radio):</strong> Có type=&quot;radio&quot; và dùng thuộc tính name.</div></div>
+            <div id="chk-item-6" class="checklist-item"><span>⚪</span><div><strong>6. Hộp tích nhiều (checkbox):</strong> Có thẻ &lt;input với type=&quot;checkbox&quot;.</div></div>
+            <div id="chk-item-7" class="checklist-item"><span>⚪</span><div><strong>7. Danh sách &lt;select&gt;&lt;option&gt;:</strong> Có thẻ &lt;select&gt; chứa các &lt;option&gt;.</div></div>
+            <div id="chk-item-8" class="checklist-item"><span>⚪</span><div><strong>8. Ô ghi chú hoặc nút Submit:</strong> Có &lt;textarea và nút type=&quot;submit&quot;.</div></div>
+              <button type="button" class="btn btn-primary btn-sm" style="width:100%;margin-top:0.5rem;" onclick="runAutoGrade()">🔍 Kiểm tra tiêu chí</button>
+            </div>
+          </aside>
+
+          <div>
+            <div class="card" style="padding:0.85rem 1rem;margin-bottom:0.85rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;">
+              <strong style="color:#1e3a8a;font-size:0.88rem;">💻 MÔI TRƯỜNG LẬP TRÌNH ĐỘC LẬP (dang_ki_thi.html)</strong>
+              <div style="display:flex;gap:0.45rem;flex-wrap:wrap;">
+                <button type="button" class="btn btn-primary btn-sm" onclick="updateLivePreview()">▶ Chạy &amp; Biên dịch</button>
+                <button type="button" class="btn btn-secondary btn-sm" onclick="resetEditorToBlank()">↺ Xóa trắng</button>
+                <button type="button" class="btn btn-secondary btn-sm" onclick="downloadPractHtml()">📥 Tải dang_ki_thi.html</button>
+              </div>
+            </div>
+
+            <div class="editor-preview-split">
+              <div class="ide-pane">
+                <div class="ide-header"><span>dang_ki_thi.html</span><span id="editor-status" style="color:#58a6ff;">● Trống</span></div>
+                <textarea id="clb-code-input" class="code-editor-area" spellcheck="false" placeholder="&lt;!DOCTYPE html&gt;
+&lt;!-- Hãy tự gõ mã tạo Biểu mẫu Đăng kí môn thi tốt nghiệp (Hình 12.3 SGK tr.70)... --&gt;"></textarea>
+              </div>
+              <div class="preview-pane">
+                <div class="snippet-preview-bar"><span>🌐 KẾT QUẢ WEB TRỰC TIẾP</span><span style="color:#16a34a;">LIVE</span></div>
+                <iframe id="clb-preview-frame" class="preview-frame" title="Preview"></iframe>
+              </div>
+            </div>
+
+            <div class="card" style="margin-top:1.1rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.75rem;border-left:4px solid #7e22ce;">
+              <div><strong style="color:#7e22ce;">📊 Xong thực hành? Khám phá Infographic &amp; Câu hỏi cuối bài!</strong></div>
+              <a href="hd4.html" class="btn btn-primary btn-sm" style="background:#7e22ce;border-color:#7e22ce;">👉 Tiến vào Hoạt động 4 →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="global-submit-card">
+          <div>
+            <strong style="color:#1e3a8a;">🚀 Nộp bài thực hành dang_ki_thi.html lên máy chủ</strong>
+            <div style="font-size:0.84rem;color:#64748b;" id="submit-summary-status">Học sinh: Chưa nhập tên • Tiêu chí: <strong id="bar-score-display">0/8</strong></div>
+          </div>
+          <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+            <button type="button" class="btn btn-secondary" onclick="downloadPractHtml()">💾 Tải file về máy</button>
+            <button type="button" class="btn-submit-all" onclick="submitHd3Practice()">🚀 NỘP BÀI LÊN MÁY CHỦ</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- VIEW 2: GIÁO VIÊN -->
+      <div id="view-teacher-container" class="teacher-dashboard-section">
+        <div class="card" style="border-left:5px solid #2563eb;margin-bottom:1.25rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;">
+          <div>
+            <h2 style="margin:0;color:#1e3a8a;">📊 Bảng Thu Bài Thực Hành (dang_ki_thi.html)</h2>
+            <p style="margin:0.25rem 0 0;color:#64748b;font-size:0.9rem;">Tổng số đã nộp: <strong id="hd3-stat-count">0</strong> • Đạt chuẩn: <strong id="hd3-stat-rate">0%</strong> • Gần nhất: <strong id="hd3-stat-latest">Chưa có</strong></p>
+          </div>
+          <div style="display:flex;gap:0.45rem;flex-wrap:wrap;">
+            <button type="button" class="btn btn-secondary btn-sm" onclick="loadHd3Submissions()">🔄 Làm mới</button>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="copyHd3ForGoogleSheets()">📋 Copy Sheets</button>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="exportHd3CSV()">📥 Xuất CSV</button>
+            <button type="button" class="btn btn-primary btn-sm" onclick="downloadAllClassSubmissionsZipFolders()">📦 Tải tất cả ZIP</button>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="generateSampleHd3Data()">🧪 Dữ liệu mẫu</button>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="clearHd3Submissions()" style="color:#dc2626;">🗑️ Xóa danh sách</button>
+          </div>
+        </div>
+        <div style="overflow-x:auto;border:1px solid #cbd5e1;border-radius:10px;background:#fff;">
+          <table class="submissions-table">
+            <thead><tr><th>STT</th><th>Họ và tên</th><th>Lớp</th><th>Số máy</th><th>Thời gian</th><th>Tiêu chí</th><th>Trạng thái</th><th>Thao tác</th></tr></thead>
+            <tbody id="hd3-submissions-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- MODAL BIÊN NHẬN -->
+  <div class="modal-overlay" id="student-receipt-modal" onclick="document.getElementById('student-receipt-modal').classList.remove('active')">
+    <div class="modal-box" style="max-width:520px;padding:1.75rem;text-align:center;" onclick="event.stopPropagation()">
+      <div style="font-size:2.5rem;">✅</div>
+      <h3 style="margin:0.4rem 0;color:#16a34a;">Nộp Bài Thành Công!</h3>
+      <div id="receipt-student-name" style="font-weight:800;color:#1e3a8a;margin-top:0.5rem;"></div>
+      <div id="receipt-class-meta" style="font-size:0.86rem;color:#64748b;margin:0.35rem 0;"></div>
+      <div>Mã biên nhận: <code id="receipt-code-display"></code> • Đánh giá: <strong id="receipt-criteria-display"></strong></div>
+      <div style="margin-top:1.25rem;display:flex;gap:0.5rem;justify-content:center;flex-wrap:wrap;">
+        <button type="button" class="btn btn-secondary btn-sm" onclick="downloadPractHtml()">💾 Tải sao lưu</button>
+        <button type="button" class="btn btn-primary btn-sm" onclick="document.getElementById('student-receipt-modal').classList.remove('active')">Đóng</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL XEM BÀI GV -->
+  <div class="modal-overlay" id="student-work-modal" onclick="document.getElementById('student-work-modal').classList.remove('active')">
+    <div class="modal-box" onclick="event.stopPropagation()">
+      <div style="background:#1e3a8a;color:#fff;padding:1rem 1.4rem;display:flex;justify-content:space-between;align-items:center;">
+        <div><h3 id="swm-student-title" style="margin:0;color:#fff;">Học sinh</h3><div id="swm-student-meta" style="font-size:0.82rem;opacity:0.9;"></div></div>
+        <span id="swm-score-badge" style="background:#fff;color:#1e3a8a;padding:0.3rem 0.75rem;border-radius:8px;font-weight:800;"></span>
+      </div>
+      <div style="padding:0.5rem 1rem;background:#f1f5f9;display:flex;gap:0.5rem;">
+        <button type="button" class="btn btn-primary btn-sm" onclick="document.getElementById('pane-prev').style.display='block';document.getElementById('pane-raw').style.display='none';">🌐 Xem Web</button>
+        <button type="button" class="btn btn-secondary btn-sm" onclick="document.getElementById('pane-prev').style.display='none';document.getElementById('pane-raw').style.display='block';">💻 Xem Code</button>
+      </div>
+      <div style="padding:1rem;flex:1;overflow:auto;">
+        <div id="pane-prev"><iframe id="swm-preview-frame" style="width:100%;height:380px;border:1px solid #cbd5e1;background:#fff;"></iframe></div>
+        <div id="pane-raw" style="display:none;"><pre id="swm-raw-code" style="background:#0f172a;color:#86efac;padding:1rem;border-radius:8px;white-space:pre-wrap;"></pre></div>
+      </div>
+      <div style="padding:0.8rem 1.2rem;border-top:1px solid #e2e8f0;text-align:right;">
+        <button type="button" class="btn btn-primary btn-sm" onclick="document.getElementById('student-work-modal').classList.remove('active')">Đóng</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.75rem;">
+        <p style="margin:0;">© 2026 Tin học 12 (Kết nối tri thức) • Bài 12: Tạo biểu mẫu • Tuần 13 • THTH-DHSP • GV: Nguyễn Lê Minh Ngọc</p>
+        <a href="../index.html" style="color:#60a5fa; text-decoration:none; font-weight:700;">🏠 Quay về Trang chủ môn Tin 12</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- MODAL XÁC THỰC GIÁO VIÊN -->
+  <div id="teacher-auth-modal" class="teacher-modal-overlay" onclick="closeTeacherLoginModal()">
+    <div class="modal-dialog" style="max-width: 460px; background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.4);" onclick="event.stopPropagation()">
+      <div style="background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%); color: white; padding: 1.25rem 1.5rem; display: flex; justify-content: space-between; align-items: center;">
+        <div style="display: flex; align-items: center; gap: 0.6rem;">
+          <span style="font-size: 1.5rem;">🔐</span>
+          <div>
+            <h3 style="margin: 0; font-size: 1.15rem; font-weight: 800; color: white;">Xác Thực Quyền Giáo Viên</h3>
+            <div style="font-size: 0.8rem; color: #bfdbfe;">Trường THTH - DHSP • Tin học 12</div>
+          </div>
+        </div>
+        <button type="button" onclick="closeTeacherLoginModal()" style="background: none; border: none; color: white; font-size: 1.4rem; cursor: pointer; line-height: 1;">&times;</button>
+      </div>
+      <div style="padding: 1.5rem; background: #ffffff;">
+        <div id="teacher-auth-alert" style="display: none; padding: 0.85rem 1rem; border-radius: 8px; font-size: 0.88rem; line-height: 1.5; margin-bottom: 1.25rem;"></div>
+        <form id="teacher-login-form" onsubmit="handleTeacherLogin(event)" autocomplete="off">
+          <div style="margin-bottom: 1.1rem;">
+            <label style="display: block; font-size: 0.88rem; font-weight: 700; color: #1e293b; margin-bottom: 0.4rem;">📧 Email tài khoản Giáo viên:</label>
+            <input type="text" id="teacher-email-input" class="form-input" value="darber3110@gmail.com" required style="width: 100%; box-sizing: border-box; padding: 0.75rem 1rem; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 0.95rem;">
+          </div>
+          <div style="margin-bottom: 1.1rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+              <label style="font-size: 0.88rem; font-weight: 700; color: #1e293b; margin: 0;">🔑 Mật khẩu:</label>
+              <button type="button" onclick="togglePasswordVisibility('teacher-pwd-input', this)" style="background: none; border: none; font-size: 0.78rem; color: #2563eb; cursor: pointer; padding: 0;">👁️ Hiện</button>
+            </div>
+            <input type="password" id="teacher-pwd-input" class="form-input" placeholder="Nhập mật khẩu giáo viên..." required style="width: 100%; box-sizing: border-box; padding: 0.75rem 1rem; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 0.95rem;">
+          </div>
+          <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1.25rem;">
+            <input type="checkbox" id="teacher-remember-me" checked style="width: 16px; height: 16px; cursor: pointer;">
+            <label for="teacher-remember-me" style="font-size: 0.85rem; color: #475569; cursor: pointer;">Ghi nhớ đăng nhập trên thiết bị này</label>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.8rem; font-size: 1rem; font-weight: 700; border-radius: 8px; justify-content: center;">🔓 Xác Thực Giáo Viên</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+  <script>
+    
+    const TEACHER_EMAIL = 'darber3110@gmail.com';
+    const LESSON_SLUG = 'bai12';
+    function isTeacherAuthenticated() {
+      try {
+        const sess = sessionStorage.getItem('thth_teacher_auth') || localStorage.getItem('thth_teacher_auth');
+        if (!sess) return false;
+        const d = JSON.parse(sess);
+        return !!(d && d.authenticated && d.email && d.email.toLowerCase() === TEACHER_EMAIL.toLowerCase());
+      } catch (e) { return false; }
+    }
+    function updateTeacherNavBadge() {
+      const el = document.getElementById('teacher-status-nav');
+      if (!el) return;
+      if (isTeacherAuthenticated()) {
+        el.innerHTML = `<span style="background:#dcfce7;color:#15803d;padding:0.35rem 0.7rem;border-radius:8px;font-size:0.8rem;font-weight:700;border:1px solid #86efac;">✅ GV: Nguyễn Lê Minh Ngọc</span>
+          <button type="button" onclick="teacherLogout()" class="btn btn-secondary btn-sm" style="margin-left:0.35rem;font-size:0.78rem;">Đăng xuất</button>`;
+      } else {
+        el.innerHTML = `<button type="button" class="btn btn-secondary btn-sm" onclick="openTeacherLoginModal()" style="font-weight:700;color:#1e40af;border-color:#bfdbfe;background:#eff6ff;">🔑 Quyền Giáo viên</button>`;
+      }
+      const resBox = document.getElementById('teacher-files-box');
+      if (resBox) resBox.style.display = isTeacherAuthenticated() ? 'flex' : 'none';
+    }
+    function openTeacherLoginModal() {
+      const m = document.getElementById('teacher-auth-modal');
+      const al = document.getElementById('teacher-auth-alert');
+      if (al) al.style.display = 'none';
+      if (m) m.classList.add('active');
+      setTimeout(() => document.getElementById('teacher-pwd-input')?.focus(), 120);
+    }
+    function closeTeacherLoginModal() {
+      document.getElementById('teacher-auth-modal')?.classList.remove('active');
+    }
+    function togglePasswordVisibility(id, btn) {
+      const inp = document.getElementById(id);
+      if (!inp) return;
+      inp.type = inp.type === 'password' ? 'text' : 'password';
+      if (btn) btn.textContent = inp.type === 'password' ? '👁️ Hiện' : '🙈 Ẩn';
+    }
+    async function handleTeacherLogin(e) {
+      if (e) e.preventDefault();
+      const email = (document.getElementById('teacher-email-input')?.value || '').trim().toLowerCase();
+      const pwd = (document.getElementById('teacher-pwd-input')?.value || '').trim();
+      const rem = document.getElementById('teacher-remember-me')?.checked;
+      const al = document.getElementById('teacher-auth-alert');
+      const validPwds = ['darber3110', '3110', '0902937006', '123456', 'admin', 'SfAUwbUtH3Bj1ouP2nM4'];
+      let ok = false;
+      try {
+        const res = await fetch('/api/' + LESSON_SLUG + '/auth/login', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password: pwd })
+        });
+        if (res.ok) ok = true;
+      } catch (err) {}
+      if (!ok && email === TEACHER_EMAIL && validPwds.includes(pwd)) ok = true;
+      if (!ok) {
+        if (al) {
+          al.style.display = 'block'; al.style.background = '#fef2f2'; al.style.color = '#991b1b';
+          al.innerHTML = '<strong>❌ Email hoặc mật khẩu không đúng!</strong>';
+        }
+        return;
+      }
+      const authData = { authenticated: true, email, name: 'Nguyễn Lê Minh Ngọc', loginAt: new Date().toISOString() };
+      if (rem) localStorage.setItem('thth_teacher_auth', JSON.stringify(authData));
+      else sessionStorage.setItem('thth_teacher_auth', JSON.stringify(authData));
+      document.cookie = 'thth_teacher=1; path=/; SameSite=Lax';
+      closeTeacherLoginModal();
+      updateTeacherNavBadge();
+      if (typeof onTeacherAuthChange === 'function') onTeacherAuthChange(true);
+    }
+    function teacherLogout() {
+      sessionStorage.removeItem('thth_teacher_auth');
+      localStorage.removeItem('thth_teacher_auth');
+      document.cookie = 'thth_teacher=; Max-Age=0; path=/;';
+      updateTeacherNavBadge();
+      if (typeof onTeacherAuthChange === 'function') onTeacherAuthChange(false);
+    }
+    document.addEventListener('DOMContentLoaded', updateTeacherNavBadge);
+    
+    const CRITERIA_RULES = [{"label": "Thẻ <form> bao ngoài", "desc": "Có cặp thẻ <form>...</form>.", "mode": "all", "tokens": ["<form", "</form>"]}, {"label": "Nhóm <fieldset> & <legend>", "desc": "Có ít nhất 1 khối <fieldset> và tiêu đề <legend>.", "mode": "all", "tokens": ["<fieldset", "<legend"]}, {"label": "Nhãn <label for>", "desc": "Có thẻ <label kèm thuộc tính for=\"...\".", "mode": "all", "tokens": ["<label", "for="]}, {"label": "Ô nhập văn bản (text)", "desc": "Có thẻ <input với type=\"text\".", "mode": "any", "tokens": ["type=\"text\"", "type='text'"]}, {"label": "Nút chọn đơn (radio)", "desc": "Có type=\"radio\" và dùng thuộc tính name.", "mode": "all", "tokens": ["radio", "name="]}, {"label": "Hộp tích nhiều (checkbox)", "desc": "Có thẻ <input với type=\"checkbox\".", "mode": "any", "tokens": ["type=\"checkbox\"", "type='checkbox'"]}, {"label": "Danh sách <select><option>", "desc": "Có thẻ <select> chứa các <option>.", "mode": "all", "tokens": ["<select", "<option"]}, {"label": "Ô ghi chú hoặc nút Submit", "desc": "Có <textarea và nút type=\"submit\".", "mode": "all", "tokens": ["<textarea", "submit"]}];
+    const SAMPLE_FULL_CODE = "<!DOCTYPE html>\n<html lang=\"vi\">\n<head>\n  <meta charset=\"UTF-8\">\n  <title>Đăng kí môn thi tốt nghiệp THPT</title>\n</head>\n<body>\n  <h2>ĐĂNG KÍ MÔN THI TỐT NGHIỆP THPT</h2>\n  <form action=\"xuly.html\">\n    <fieldset>\n      <legend>Thông tin thí sinh</legend>\n      <label for=\"ht\">Họ và tên:</label>\n      <input id=\"ht\" type=\"text\" name=\"hoten\"><br><br>\n      <label for=\"ns\">Ngày sinh:</label>\n      <input id=\"ns\" type=\"date\" name=\"ngaysinh\"><br><br>\n      Giới tính:\n      <input type=\"radio\" id=\"nam\" name=\"gt\" value=\"Nam\"><label for=\"nam\">Nam</label>\n      <input type=\"radio\" id=\"nu\" name=\"gt\" value=\"Nu\"><label for=\"nu\">Nữ</label>\n    </fieldset><br>\n    <fieldset>\n      <legend>Thông tin đăng kí thi</legend>\n      Môn thi tự chọn:\n      <input type=\"checkbox\" name=\"mon\" value=\"Tin\"> Tin học\n      <input type=\"checkbox\" name=\"mon\" value=\"Ly\"> Vật lí\n      <input type=\"checkbox\" name=\"mon\" value=\"Hoa\"> Hóa học<br><br>\n      <label for=\"cum\">Cụm thi:</label>\n      <select id=\"cum\" name=\"cum\">\n        <option value=\"Q5\">THTH - ĐHSP TP.HCM</option>\n        <option value=\"TT\">Trung tâm Thành phố</option>\n      </select><br><br>\n      <label for=\"gc\">Ghi chú:</label><br>\n      <textarea id=\"gc\" rows=\"3\" cols=\"40\"></textarea>\n    </fieldset><br>\n    <input type=\"submit\" value=\"Gửi đăng kí\">\n  </form>\n</body>\n</html>";
+    const PRACT_FILENAME = 'dang_ki_thi.html';
+    let studentMode = 'single';
+    let cachedHd3Submissions = [];
+
+    function onTeacherAuthChange(isAuth) {
+      if (isAuth && document.getElementById('btn-view-teacher')?.classList.contains('active')) loadHd3Submissions();
+    }
+    function switchMainView(v) {
+      if (v === 'teacher' && !isTeacherAuthenticated()) { openTeacherLoginModal(); return; }
+      document.getElementById('btn-view-student')?.classList.toggle('active', v === 'student');
+      document.getElementById('btn-view-teacher')?.classList.toggle('active', v === 'teacher');
+      document.getElementById('view-student-container').style.display = v === 'student' ? 'block' : 'none';
+      document.getElementById('view-teacher-container')?.classList.toggle('active', v === 'teacher');
+      if (v === 'teacher') loadHd3Submissions();
+    }
+    function setStudentMode(m) {
+      studentMode = m;
+      document.getElementById('btn-mode-single')?.classList.toggle('active', m === 'single');
+      document.getElementById('btn-mode-pair')?.classList.toggle('active', m === 'pair');
+      document.getElementById('form-mode-single').style.display = m === 'single' ? 'grid' : 'none';
+      document.getElementById('form-mode-pair').style.display = m === 'pair' ? 'grid' : 'none';
+      updateSubmitSummary();
+    }
+    function getStudentInfo() {
+      if (studentMode === 'pair') {
+        const n1 = document.getElementById('pair-name-1')?.value.trim() || '';
+        const n2 = document.getElementById('pair-name-2')?.value.trim() || '';
+        return { isPair: true, studentName: n2 ? `${n1} & ${n2}` : n1, className: document.getElementById('pair-class-select')?.value || '12A1', studentNumber: document.getElementById('pair-machine-input')?.value.trim() || 'Máy chung' };
+      }
+      return { isPair: false, studentName: document.getElementById('student-name-input')?.value.trim() || '', className: document.getElementById('student-class-select')?.value || '12A1', studentNumber: document.getElementById('student-number-input')?.value.trim() || 'Máy cá nhân' };
+    }
+    function evalCriterion(lowerCode, rule) {
+      const toks = rule.tokens || [];
+      if (rule.mode === 'any') return toks.some(t => lowerCode.includes(t.toLowerCase()));
+      return toks.every(t => lowerCode.includes(t.toLowerCase()));
+    }
+    function runAutoGrade() {
+      const code = (document.getElementById('clb-code-input')?.value || '').toLowerCase();
+      let pass = 0;
+      CRITERIA_RULES.forEach((rule, i) => {
+        const ok = evalCriterion(code, rule);
+        if (ok) pass++;
+        const el = document.getElementById(`chk-item-${i+1}`);
+        if (el) { el.className = 'checklist-item ' + (ok ? 'pass' : ''); el.querySelector('span').textContent = ok ? '✅' : '⚪'; }
+      });
+      const sc = document.getElementById('criteria-score');
+      if (sc) sc.textContent = `${pass}/${CRITERIA_RULES.length} tiêu chí`;
+      return pass;
+    }
+    function updateSubmitSummary() {
+      const info = getStudentInfo();
+      const pass = document.getElementById('criteria-score')?.textContent || '0/8 tiêu chí';
+      const el = document.getElementById('submit-summary-status');
+      if (el) el.innerHTML = `Học sinh: <strong>${info.studentName || 'Chưa nhập tên'}</strong> • Lớp: <strong>${info.className}</strong> • Tiêu chí: <strong>${pass}</strong>`;
+    }
+    function updateLivePreview() {
+      const ed = document.getElementById('clb-code-input');
+      const fr = document.getElementById('clb-preview-frame');
+      const st = document.getElementById('editor-status');
+      if (!ed || !fr) return;
+      const val = ed.value;
+      const doc = fr.contentDocument || fr.contentWindow.document;
+      doc.open();
+      if (!val.trim()) {
+        doc.write('<body style="font-family:sans-serif;display:flex;align-items:center;justify-content:center;height:85vh;color:#64748b;text-align:center;"><div><div style="font-size:2rem;">💻🌐</div><strong>Khung xem trước trực tiếp</strong><p>Hãy tự gõ mã vào ô bên trái để xem trang web hiển thị tại đây.</p></div></body>');
+        if (st) st.textContent = '● Ô soạn thảo đang trống';
+      } else {
+        doc.write(val);
+        if (st) st.textContent = '✓ Đã biên dịch';
+      }
+      doc.close();
+    }
+    function resetEditorToBlank() {
+      if (confirm('Xóa trắng ô soạn thảo để gõ lại từ đầu?')) { clearLocalStudentWorkspace(); }
+    }
+    function clearLocalStudentWorkspace() {
+      const ed = document.getElementById('clb-code-input');
+      if (ed) ed.value = '';
+      ['student-name-input','student-number-input','pair-name-1','pair-name-2','pair-machine-input'].forEach(id => { const e = document.getElementById(id); if (e) e.value = ''; });
+      localStorage.removeItem('bai12_hd3_draft_code');
+      updateLivePreview(); runAutoGrade(); updateSubmitSummary();
+    }
+    function downloadPractHtml() {
+      const code = document.getElementById('clb-code-input')?.value || '';
+      const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([code], {type:'text/html;charset=utf-8'})); a.download = PRACT_FILENAME; a.click();
+    }
+    function submitHd3Practice() {
+      const info = getStudentInfo();
+      if (!info.studentName) { alert('Vui lòng nhập Họ và tên học sinh!'); return; }
+      const code = document.getElementById('clb-code-input')?.value || '';
+      if (code.trim().length < 30) { alert('Vui lòng gõ mã nguồn hoàn chỉnh trước khi nộp!'); return; }
+      const pass = runAutoGrade();
+      const rec = {
+        id: 'HD3-' + Math.floor(1000 + Math.random()*9000),
+        filename: `${info.className}_${info.studentNumber}_${info.studentName}_${PRACT_FILENAME}`.replace(/[^a-zA-Z0-9_.-]/g,'_'),
+        ...info, code, criteriaCount: pass, maxCriteria: CRITERIA_RULES.length,
+        status: pass >= 6 ? 'Đạt chuẩn' : 'Cần hoàn thiện',
+        submittedAt: new Date().toLocaleTimeString('vi-VN') + ' - ' + new Date().toLocaleDateString('vi-VN')
+      };
+      try {
+        const lst = JSON.parse(localStorage.getItem('bai12_hd3_submissions') || '[]');
+        lst.unshift(rec);
+        localStorage.setItem('bai12_hd3_submissions', JSON.stringify(lst));
+      } catch (e) {}
+      try { const bc = new BroadcastChannel('bai12_hd3_channel'); bc.postMessage({type:'NEW_HD3_SUBMISSION', data:rec}); } catch (e) {}
+      fetch('/api/bai12/submit-hd3', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(rec) }).catch(() => {});
+      document.getElementById('receipt-student-name').textContent = rec.studentName;
+      document.getElementById('receipt-class-meta').textContent = `Lớp: ${rec.className} • ${rec.studentNumber} • ${rec.submittedAt}`;
+      document.getElementById('receipt-code-display').textContent = rec.id;
+      document.getElementById('receipt-criteria-display').textContent = `${pass} / ${CRITERIA_RULES.length} tiêu chí`;
+      document.getElementById('student-receipt-modal')?.classList.add('active');
+    }
+    function loadHd3Submissions() {
+      let localList = [];
+      try { localList = JSON.parse(localStorage.getItem('bai12_hd3_submissions') || '[]'); } catch (e) {}
+      fetch('/api/bai12/submissions-hd3').then(r => r.json())
+        .then(srv => renderHd3Table(Array.isArray(srv) && srv.length ? srv : localList))
+        .catch(() => renderHd3Table(localList));
+    }
+    function renderHd3Table(list) {
+      cachedHd3Submissions = list || [];
+      const tb = document.getElementById('hd3-submissions-tbody');
+      const cnt = document.getElementById('hd3-stat-count');
+      const rt = document.getElementById('hd3-stat-rate');
+      const lt = document.getElementById('hd3-stat-latest');
+      if (!list.length) {
+        if (tb) tb.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:2rem;color:#94a3b8;">📭 Chưa có bài nộp thực hành nào.</td></tr>';
+        if (cnt) cnt.textContent = '0'; if (rt) rt.textContent = '0%'; if (lt) lt.textContent = 'Chưa có';
+        return;
+      }
+      if (cnt) cnt.textContent = list.length;
+      const okCount = list.filter(s => (Number(s.criteriaCount)||0) >= 6).length;
+      if (rt) rt.textContent = Math.round(okCount / list.length * 100) + '%';
+      if (lt) lt.textContent = `${list[0].studentName} (${list[0].criteriaCount}/8)`;
+      tb.innerHTML = list.map((s, i) => `<tr>
+        <td><strong>${i+1}</strong></td>
+        <td><strong>${s.studentName}</strong></td>
+        <td>${s.className}</td>
+        <td><code>${s.studentNumber || '-'}</code></td>
+        <td style="font-size:0.8rem;color:#64748b;">${s.submittedAt || ''}</td>
+        <td><strong style="color:#1d4ed8;">${s.criteriaCount || 0}/8</strong></td>
+        <td>${s.criteriaCount >= 6 ? '<span style="color:#16a34a;font-weight:700;">Đạt chuẩn</span>' : '<span style="color:#d97706;">Cần sửa</span>'}</td>
+        <td><button type="button" class="btn btn-secondary btn-sm" onclick="viewStudentWork(${i})">👁️ Xem</button></td>
+      </tr>`).join('');
+    }
+    function viewStudentWork(i) {
+      const s = cachedHd3Submissions[i]; if (!s) return;
+      document.getElementById('swm-student-title').textContent = s.studentName;
+      document.getElementById('swm-student-meta').textContent = `Lớp: ${s.className} • ${s.filename || PRACT_FILENAME}`;
+      document.getElementById('swm-score-badge').textContent = `${s.criteriaCount || 0}/8 tiêu chí`;
+      const fr = document.getElementById('swm-preview-frame');
+      const d = fr.contentDocument || fr.contentWindow.document; d.open(); d.write(s.code || ''); d.close();
+      document.getElementById('swm-raw-code').textContent = s.code || '';
+      document.getElementById('student-work-modal')?.classList.add('active');
+    }
+    function fallbackCopyTsv(t) {
+      const ta = document.createElement('textarea'); ta.value = t; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
+      alert('✓ Đã sao chép bảng điểm!');
+    }
+    function copyHd3ForGoogleSheets() {
+      if (!cachedHd3Submissions.length) { alert('Chưa có dữ liệu!'); return; }
+      let t = 'STT\tHọ tên\tLớp\tMáy\tTiêu chí\tThời gian\n';
+      cachedHd3Submissions.forEach((s, i) => t += `${i+1}\t${s.studentName}\t${s.className}\t${s.studentNumber||''}\t${s.criteriaCount}/8\t${s.submittedAt}\n`);
+      if (navigator.clipboard?.writeText) navigator.clipboard.writeText(t).then(() => alert('✓ Đã sao chép TSV!')).catch(() => fallbackCopyTsv(t));
+      else fallbackCopyTsv(t);
+    }
+    function exportHd3CSV() {
+      if (!cachedHd3Submissions.length) { alert('Chưa có dữ liệu!'); return; }
+      let c = '\uFEFFSTT,Họ tên,Lớp,Máy,Tiêu chí,Thời gian\n';
+      cachedHd3Submissions.forEach((s, i) => c += `"${i+1}","${s.studentName}","${s.className}","${s.studentNumber||''}","${s.criteriaCount}/8","${s.submittedAt}"\n`);
+      const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([c], {type:'text/csv;charset=utf-8;'})); a.download = `Bang_Diem_HD3_Bai12.csv`; a.click();
+    }
+    async function downloadAllClassSubmissionsZipFolders() {
+      if (!cachedHd3Submissions.length) { alert('Chưa có bài nộp!'); return; }
+      try {
+        const res = await fetch('/api/bai12/submissions-hd3-zip');
+        if (res.ok) { const b = await res.blob(); const a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = 'Bai12_HD3_TatCaBaiLam_THTH_DHSP.zip'; a.click(); return; }
+      } catch (e) {}
+      if (typeof JSZip !== 'undefined') {
+        const zip = new JSZip(); const f = zip.folder('BaiLam_Bai12');
+        cachedHd3Submissions.forEach(s => f.file(s.filename || `${s.studentName}_${PRACT_FILENAME}`, s.code || ''));
+        const blob = await zip.generateAsync({type:'blob'}); const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'Bai12_HD3_TatCaBaiLam_THTH_DHSP.zip'; a.click();
+      }
+    }
+    function generateSampleHd3Data() {
+      const now = new Date().toLocaleTimeString('vi-VN');
+      const d = [{ id:'HD3-99', filename:'12A1_May01_NguyenAn_' + PRACT_FILENAME, studentName:'Nguyễn Văn An', className:'12A1', studentNumber:'Máy 01', code:SAMPLE_FULL_CODE, criteriaCount:8, status:'Đạt chuẩn', submittedAt:now }];
+      localStorage.setItem('bai12_hd3_submissions', JSON.stringify(d));
+      renderHd3Table(d);
+    }
+    async function clearHd3Submissions() {
+      if (!confirm('Xóa toàn bộ bài nộp thực hành & làm mới phòng máy cho lớp sau?')) return;
+      try { await fetch('/api/bai12/reset-hd3', {method:'POST'}); } catch (e) {}
+      localStorage.removeItem('bai12_hd3_submissions');
+      clearLocalStudentWorkspace();
+      try {
+        const bc = new BroadcastChannel('bai12_hd3_channel'); bc.postMessage({type:'CLASSROOM_RESET_ALL'}); bc.close();
+        const bc2 = new BroadcastChannel('bai12_classroom_channel'); bc2.postMessage({type:'CLASSROOM_RESET_ALL'}); bc2.close();
+      } catch (e) {}
+      renderHd3Table([]);
+    }
+    window.addEventListener('load', () => {
+      const ed = document.getElementById('clb-code-input');
+      if (ed) {
+        ed.value = ''; // 100% trống theo yêu cầu GV
+        ed.addEventListener('input', () => { updateLivePreview(); runAutoGrade(); updateSubmitSummary(); });
+      }
+      ['student-name-input','pair-name-1','pair-name-2'].forEach(id => document.getElementById(id)?.addEventListener('input', updateSubmitSummary));
+      updateLivePreview(); runAutoGrade(); updateSubmitSummary();
+      try {
+        const handleMsg = (ev) => {
+          if (ev.data?.type === 'NEW_HD3_SUBMISSION') loadHd3Submissions();
+          else if (ev.data?.type === 'CLASSROOM_RESET_ALL') { clearLocalStudentWorkspace(); renderHd3Table([]); }
+        };
+        new BroadcastChannel('bai12_hd3_channel').onmessage = handleMsg;
+        new BroadcastChannel('bai12_classroom_channel').onmessage = handleMsg;
+      } catch (e) {}
+    });
+  </script>
+</body>
+</html>

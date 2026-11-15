@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hoạt động 2.1: Các cách thiết lập Màu sắc trong CSS (&lt;code&gt;RGB&lt;/code&gt;, &lt;code&gt;HSL&lt;/code&gt;, Tên màu) | Bài 15: Tạo màu cho chữ và nền</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Fira+Code:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=20261115">
+
+  <style>
+    html, body { overflow-x: hidden !important; width: 100% !important; max-width: 100vw !important; box-sizing: border-box; }
+    *, *::before, *::after { box-sizing: border-box; }
+    pre, code { max-width: 100% !important; box-sizing: border-box !important; }
+    .grid-2, .grid-2 > *, .card, .syntax-card, .interactive-panel, .practice-workbench-grid > * { min-width: 0 !important; max-width: 100% !important; }
+    .syntax-card { background: #0f172a; border: 1px solid #334155; border-radius: var(--radius-sm); overflow: hidden; margin-bottom: 0.9rem; width: 100%; }
+    .syntax-header { background: #1e293b; padding: 0.5rem 0.85rem; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #334155; font-size: 0.78rem; color: #94a3b8; font-family: var(--font-mono); flex-wrap: wrap; gap: 0.5rem; }
+    .syntax-body { padding: 0.85rem; font-family: var(--font-mono); font-size: 0.85rem; line-height: 1.6; color: #e2e8f0; overflow-x: auto; margin: 0; white-space: pre-wrap; word-break: break-word; }
+    .btn-mini-tool { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.22); color: #e2e8f0; padding: 0.3rem 0.65rem; border-radius: 5px; font-size: 0.76rem; cursor: pointer; font-family: inherit; white-space: nowrap; }
+    .btn-mini-tool:hover { background: #2563eb; color: #fff; border-color: #3b82f6; }
+    .snippet-preview-bar { background: #f1f5f9; border-bottom: 1px solid #e2e8f0; padding: 0.35rem 0.75rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.76rem; color: #475569; font-weight: 700; }
+    .snippet-preview-body { background: #ffffff; padding: 1rem; overflow-x: auto; }
+    .teacher-modal-overlay { display: none; position: fixed; inset: 0; background: rgba(15,23,42,0.72); backdrop-filter: blur(4px); z-index: 9999; align-items: center; justify-content: center; padding: 1rem; }
+    .teacher-modal-overlay.active { display: flex; }
+    .qr-zoom-modal { display: none; position: fixed; inset: 0; background: rgba(15,23,42,0.75); backdrop-filter: blur(4px); z-index: 9998; align-items: center; justify-content: center; padding: 1rem; }
+    .qr-zoom-modal.active { display: flex; }
+    .qr-zoom-box { background: #fff; border-radius: 16px; padding: 2rem; max-width: 460px; width: 100%; text-align: center; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.35); }
+    .sgk-fig-box { background: #fff; border: 1.5px solid #cbd5e1; border-radius: 12px; padding: 0.85rem; margin: 1rem 0; text-align: center; }
+    .sgk-fig-box img { max-width: 100%; max-height: 360px; height: auto; border-radius: 6px; object-fit: contain; }
+    .sgk-fig-cap { font-size: 0.84rem; color: #475569; font-style: italic; margin-top: 0.5rem; }
+
+
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-wrapper">
+      <div class="brand-group">
+        <a href="../index.html" class="btn-portal-home" title="Quay về Trang chủ môn Tin học 12 (minda.io.vn/Tin12)">
+          <svg class="icon-svg" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+          <span class="portal-text">Trang chủ Tin 12</span>
+        </a>
+        <a href="index.html" class="brand-badge" title="Trang chủ Bài 15: Tạo màu cho chữ và nền">
+          <div class="brand-icon-box">
+            <svg class="icon-svg" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"></rect><path d="M7 9l3 3-3 3"></path><line x1="12" y1="15" x2="17" y2="15"></line></svg>
+          </div>
+          <div class="brand-text">
+            <span class="title">BÀI 15: TẠO MÀU CHỮ &amp; NỀN CSS</span>
+            <span class="subtitle">Hoạt động 2.1: Các cách thiết lập Màu sắc trong CSS (&lt;code&gt;RGB&lt;/code&gt;, &lt;code&gt;HSL&lt;/code&gt;, Tên màu)</span>
+          </div>
+        </a>
+      </div>
+
+      <nav aria-label="Điều hướng bài học">
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">Tổng quan</a></li>
+          <li><a href="hd1.html" class="nav-link">1. Khởi động</a></li>
+          <li><a href="hd2-1.html" class="nav-link active">2.1. Hệ màu CSS</a></li>
+          <li><a href="hd2-2.html" class="nav-link">2.2. Nền &amp; Tổ hợp</a></li>
+          <li><a href="hd3.html" class="nav-link">3. Thực hành</a></li>
+          <li><a href="hd4.html" class="nav-link">4. Infographic</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-tools">
+        <div class="timer-widget" title="Đồng hồ đếm ngược hoạt động">
+          <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          <span id="timer-display" class="timer-display">15:00</span>
+          <select id="timer-preset" class="btn-tool" title="Chọn thời lượng">
+            <option value="5">5p</option>
+            <option value="10">10p</option>
+            <option value="15" selected>15p</option>
+            <option value="20">20p</option>
+            <option value="30">30p</option>
+            <option value="45">45p</option>
+          </select>
+          <button id="timer-toggle" class="btn-tool" type="button">▶ Bắt đầu</button>
+          <button id="timer-reset" class="btn-tool" type="button" title="Đặt lại">↺</button>
+        </div>
+        <button id="btn-fullscreen" class="btn-tool" type="button" title="Chế độ chiếu toàn màn hình">
+          <svg class="icon-svg" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
+          Trình chiếu
+        </button>
+        <div id="teacher-status-nav" style="display: inline-flex; align-items: center; margin-left: 0.35rem;">
+          <button type="button" class="btn btn-secondary btn-sm" onclick="openTeacherLoginModal()" style="font-weight: 700; color: #1e40af; border-color: #bfdbfe; background: #eff6ff;">🔑 Quyền Giáo viên</button>
+        </div>
+      </div>
+    </div>
+  </header>
+  <nav class="stepper-section" aria-label="Tiến trình học tập">
+    <div class="container">
+      <div class="stepper-nav">
+        <div class="stepper-line"></div>
+        <a href="index.html" class="stepper-step completed">
+          <div class="step-circle">✓</div>
+          <span class="step-label">Tổng quan</span>
+        </a>
+        <a href="hd1.html" class="stepper-step completed">
+          <div class="step-circle">✓</div>
+          <span class="step-label">Khởi động (5&#x27;)</span>
+        </a>
+        <a href="hd2-1.html" class="stepper-step active">
+          <div class="step-circle">2.1</div>
+          <span class="step-label">Hệ màu RGB/HSL (20&#x27;)</span>
+        </a>
+        <a href="hd2-2.html" class="stepper-step ">
+          <div class="step-circle">2.2</div>
+          <span class="step-label">Màu nền &amp; Tổ hợp (15&#x27;)</span>
+        </a>
+        <a href="hd3.html" class="stepper-step ">
+          <div class="step-circle">3</div>
+          <span class="step-label">Thực hành Bài 15 (35&#x27;)</span>
+        </a>
+        <a href="hd4.html" class="stepper-step ">
+          <div class="step-circle">4</div>
+          <span class="step-label">Infographic &amp; SGK (15&#x27;)</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero-banner" style="padding:2rem 0;">
+    <div class="container">
+      <div class="badge-tag" style="background:rgba(255,255,255,0.16);color:#fff;">🧩 HOẠT ĐỘNG 2.1 • HÌNH THÀNH KIẾN THỨC MỚI</div>
+      <h1 class="hero-title" style="font-size:1.95rem;">Các cách thiết lập Màu sắc trong CSS (&lt;code&gt;RGB&lt;/code&gt;, &lt;code&gt;HSL&lt;/code&gt;, Tên màu)</h1>
+      <p class="hero-subtitle">Hiểu bản chất 16.777.216 màu RGB/Hex, 256 sắc xám, vòng màu Hue HSL và 17/140 tên màu (SGK tr.83–85)</p>
+    </div>
+  </section>
+
+  <main class="main-content">
+    <div class="container">
+      <section class="card" style="margin-bottom: 1.5rem;">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.65rem;">
+          <h2 style="margin:0;color:#1e3a8a;font-size:1.3rem;">1. Tên màu chuẩn &amp;amp; Hệ màu RGB / Thập lục phân Hex</h2>
+          <span class="sgk-badge">SGK tr.83–84</span>
+        </div>
+        <div class="grid-2" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.25rem; align-items:start;">
+          <div>
+            <div style="color:#334155;line-height:1.65;font-size:0.95rem;">
+                  <p><strong>Tên màu tiếng Anh:</strong> Chuẩn CSS2.1 định nghĩa 16 màu cơ bản (và bổ sung <code>orange</code> thành <strong>17 màu</strong>); chuẩn CSS3 mở rộng lên <strong>140 tên màu</strong> chuẩn.</p>
+                  <p><strong>Hệ màu RGB:</strong> Tổng hợp 3 kênh Đỏ (R), Lục (G), Lam (B) mỗi kênh từ <code>0</code> đến <code>255</code>, tạo ra <code>256 × 256 × 256 = 16.777.216</code> màu. Có thể viết dạng hàm <code>rgb(r, g, b)</code> hoặc mã Hex 6 ký tự <code>#rrggbb</code>. Khi <code>r = g = b</code>, ta thu được <strong>256 sắc độ màu xám</strong> từ đen đến trắng.</p>
+                </div>
+<div class="callout-box" style="margin-top:0.85rem;">📌 <strong>Ghi nhớ SGK:</strong> Khi 3 thành phần <code>r = g = b</code> (ví dụ <code>rgb(120, 120, 120)</code> hoặc <code>#808080</code>) luôn cho ra màu thuộc thang <strong>màu xám (256 sắc độ)</strong>.</div>
+<div class="sgk-fig-box"><img src="assets/sgk/sgk_hinh15_1.png" alt="Hình 15.1. Hệ màu RGB và quy đổi mã thập lục phân Hex (SGK tr.83)"><div class="sgk-fig-cap">Hình 15.1. Hệ màu RGB và quy đổi mã thập lục phân Hex (SGK tr.83)</div></div>
+
+          </div>
+          <div>
+            <div class="syntax-card">
+              <div class="syntax-header">
+                <span>💻 Thử nghiệm Tên màu, RGB và Hex</span>
+                <button type="button" class="btn-mini-tool" onclick="renderSnippet('h21_0')">▶ Chạy thử &amp; Xem kết quả</button>
+              </div>
+              <pre class="syntax-body">&lt;style&gt;
+  .c-name { color: navy; font-weight: 700; }
+  .c-rgb { color: rgb(220, 38, 38); }
+  .c-hex { color: #059669; }
+  .c-gray { color: rgb(110, 110, 110); }
+&lt;/style&gt;
+&lt;p class=&quot;c-name&quot;&gt;Dùng tên màu chuẩn: navy&lt;/p&gt;
+&lt;p class=&quot;c-rgb&quot;&gt;Dùng hệ RGB: rgb(220, 38, 38)&lt;/p&gt;
+&lt;p class=&quot;c-hex&quot;&gt;Dùng mã Hex: #059669&lt;/p&gt;
+&lt;p class=&quot;c-gray&quot;&gt;Màu xám (R=G=B=110)&lt;/p&gt;</pre>
+            </div>
+            <div class="mini-compiler-box" style="border:1px solid #cbd5e1;border-radius:8px;overflow:hidden;">
+              <div class="snippet-preview-bar"><span>🌐 KẾT QUẢ HIỂN THỊ</span><span style="color:#16a34a;">HTML5 Live</span></div>
+              <iframe id="prev-h21_0" style="width:100%;height:190px;border:none;background:#fff;" title="Preview h21_0"></iframe>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="card" style="margin-bottom: 1.5rem;">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.65rem;">
+          <h2 style="margin:0;color:#1e3a8a;font-size:1.3rem;">2. Hệ màu HSL (&lt;code&gt;Hue&lt;/code&gt; – &lt;code&gt;Saturation&lt;/code&gt; – &lt;code&gt;Lightness&lt;/code&gt;)</h2>
+          <span class="sgk-badge">SGK tr.84</span>
+        </div>
+        <div class="grid-2" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.25rem; align-items:start;">
+          <div>
+            <div style="color:#334155;line-height:1.65;font-size:0.95rem;">
+                  <p>Hàm <code>hsl(hue, saturation%, lightness%)</code> mô tả màu cực kỳ trực quan theo góc vòng màu:</p>
+                  <ul style="padding-left:1.2rem;line-height:1.65;">
+                    <li><strong>Hue (0°–360°):</strong> <code>0°/360°</code> Đỏ, <code>60°</code> Vàng, <code>120°</code> Lục, <code>180°</code> Cyan, <code>240°</code> Lam, <code>300°</code> Tím (Magenta).</li>
+                    <li><strong>Saturation (0%–100%):</strong> Độ bão hòa/tươi màu (<code>0%</code> mất sắc ra màu xám).</li>
+                    <li><strong>Lightness (0%–100%):</strong> Độ sáng (<code>0%</code> là đen tuyền, <code>50%</code> là màu chuẩn, <code>100%</code> là trắng tinh).</li>
+                  </ul>
+                </div>
+
+<div class="sgk-fig-box"><img src="assets/sgk/sgk_hinh15_2.png" alt="Hình 15.2. Vòng màu Hue và thang S, L trong HSL (SGK tr.84)"><div class="sgk-fig-cap">Hình 15.2. Vòng màu Hue và thang S, L trong HSL (SGK tr.84)</div></div><div class="sgk-fig-box"><img src="assets/sgk/sgk_hinh15_3.png" alt="Hình 15.3. Ví dụ hiển thị màu chữ/nền dùng HSL (SGK tr.84)"><div class="sgk-fig-cap">Hình 15.3. Ví dụ hiển thị màu chữ/nền dùng HSL (SGK tr.84)</div></div>
+<div style="background:#f0fdfa;border:1.5px solid #5eead4;border-radius:10px;padding:0.9rem 1rem;margin-top:0.9rem;"><strong style="color:#0f766e;">❓ Câu hỏi củng cố (Hộp xanh SGK):</strong><ul style="margin:0.5rem 0 0;padding-left:1.2rem;line-height:1.6;"><li><strong>Giá trị <code>hsl(120, 100%, 50%)</code> và <code>hsl(240, 100%, 100%)</code> lần lượt cho ra màu gì?</strong><br><button type="button" class="btn btn-secondary btn-sm" style="margin-top:0.35rem;" onclick="this.nextElementSibling.style.display='block'">💡 Xem gợi ý</button><div style="display:none;margin-top:0.4rem;color:#166534;background:#f0fdf4;padding:0.55rem 0.75rem;border-radius:6px;border:1px solid #86efac;">• <code>hsl(120, 100%, 50%)</code>: Hue = 120°, L = 50% -> <strong>Màu Xanh Lục thuần (Green/Lime)</strong>.<br>• <code>hsl(240, 100%, 100%)</code>: Vì Lightness = 100% nên bất kể Hue/S bao nhiêu kết quả luôn là <strong>Màu Trắng (White)</strong>!</div></li></ul></div>
+          </div>
+          <div>
+            <div class="syntax-card">
+              <div class="syntax-header">
+                <span>💻 Tạo cặp màu hài hòa từ một góc Hue duy nhất</span>
+                <button type="button" class="btn-mini-tool" onclick="renderSnippet('h21_1')">▶ Chạy thử &amp; Xem kết quả</button>
+              </div>
+              <pre class="syntax-body">&lt;style&gt;
+  .hsl-box {
+    background-color: hsl(210, 90%, 94%);
+    color: hsl(210, 85%, 28%);
+    padding: 10px 14px;
+    border-radius: 8px;
+  }
+&lt;/style&gt;
+&lt;div class=&quot;hsl-box&quot;&gt;Nền Pastel (L=94%) &amp; Chữ Đậm (L=28%) cùng Hue 210°!&lt;/div&gt;</pre>
+            </div>
+            <div class="mini-compiler-box" style="border:1px solid #cbd5e1;border-radius:8px;overflow:hidden;">
+              <div class="snippet-preview-bar"><span>🌐 KẾT QUẢ HIỂN THỊ</span><span style="color:#16a34a;">HTML5 Live</span></div>
+              <iframe id="prev-h21_1" style="width:100%;height:190px;border:none;background:#fff;" title="Preview h21_1"></iframe>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SANDBOX TƯƠNG TÁC NHANH -->
+      <section class="interactive-panel" style="background:#f8fafc;border:1.5px solid #93c5fd;border-radius:14px;padding:1.25rem;margin-bottom:1.5rem;">
+        <h3 style="margin-top:0;color:#1e3a8a;">🛠️ Phòng Thí Nghiệm Nhanh: Phòng thí nghiệm Hệ màu RGB, Hex &amp; HSL</h3>
+        <p style="font-size:0.9rem;color:#475569;margin-top:0;">Thử thay đổi <code>hsl(210, ...)</code> thành <code>hsl(0, 85%, 94%)</code> (tông Đỏ) hoặc chỉnh <code>rgb(r,g,b)</code> thành 3 số bằng nhau:</p>
+        <div class="grid-2" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1rem;">
+          <div>
+            <textarea id="sb21-code" style="width:100%;height:200px;padding:0.85rem;border-radius:8px;border:1.5px solid #334155;background:#0f172a;color:#e2e8f0;font-family:'Fira Code',monospace;font-size:0.85rem;">&lt;style&gt;
+  .demo {
+    background-color: hsl(145, 75%, 93%);
+    color: rgb(6, 95, 70);
+    padding: 12px;
+    font-weight: 700;
+  }
+&lt;/style&gt;
+&lt;div class=&quot;demo&quot;&gt;Kiểm tra tương phản Màu chữ &amp; Màu nền bằng RGB / HSL!&lt;/div&gt;</textarea>
+            <button type="button" class="btn btn-primary btn-sm" style="margin-top:0.5rem;" onclick="runSb21()">▶ Biên dịch ngay</button>
+          </div>
+          <div style="border:1.5px solid #cbd5e1;border-radius:8px;overflow:hidden;background:#fff;">
+            <div class="snippet-preview-bar"><span>🌐 Kết quả hiển thị trực tiếp</span></div>
+            <iframe id="sb21-frame" style="width:100%;height:205px;border:none;background:#fff;" title="Sandbox 2.1"></iframe>
+          </div>
+        </div>
+      </section>
+
+      <div class="card" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;border-left:5px solid #0284c7;">
+        <div>
+          <strong style="color:#0369a1;font-size:1.05rem;">Chặng tiếp theo: Hoạt động 2.2 &amp; Phiếu bài tập</strong>
+          <div style="color:#64748b;font-size:0.9rem;">Khám phá phần kiến thức tiếp theo và quét QR hoàn thành Phiếu bài tập trực tuyến.</div>
+        </div>
+        <a href="hd2-2.html" class="btn btn-primary" style="background:#0284c7;border-color:#0284c7;">Tiếp theo: Hoạt động 2.2 →</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.75rem;">
+        <p style="margin:0;">© 2026 Tin học 12 (Kết nối tri thức) • Bài 15: Tạo màu cho chữ và nền • Tuần 18 • THTH-DHSP • GV: Nguyễn Lê Minh Ngọc</p>
+        <a href="../index.html" style="color:#60a5fa; text-decoration:none; font-weight:700;">🏠 Quay về Trang chủ môn Tin 12</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- MODAL XÁC THỰC GIÁO VIÊN -->
+  <div id="teacher-auth-modal" class="teacher-modal-overlay" onclick="closeTeacherLoginModal()">
+    <div class="modal-dialog" style="max-width: 460px; background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.4);" onclick="event.stopPropagation()">
+      <div style="background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%); color: white; padding: 1.25rem 1.5rem; display: flex; justify-content: space-between; align-items: center;">
+        <div style="display: flex; align-items: center; gap: 0.6rem;">
+          <span style="font-size: 1.5rem;">🔐</span>
+          <div>
+            <h3 style="margin: 0; font-size: 1.15rem; font-weight: 800; color: white;">Xác Thực Quyền Giáo Viên</h3>
+            <div style="font-size: 0.8rem; color: #bfdbfe;">Trường THTH - DHSP • Tin học 12</div>
+          </div>
+        </div>
+        <button type="button" onclick="closeTeacherLoginModal()" style="background: none; border: none; color: white; font-size: 1.4rem; cursor: pointer; line-height: 1;">&times;</button>
+      </div>
+      <div style="padding: 1.5rem; background: #ffffff;">
+        <div id="teacher-auth-alert" style="display: none; padding: 0.85rem 1rem; border-radius: 8px; font-size: 0.88rem; line-height: 1.5; margin-bottom: 1.25rem;"></div>
+        <form id="teacher-login-form" onsubmit="handleTeacherLogin(event)" autocomplete="off">
+          <div style="margin-bottom: 1.1rem;">
+            <label style="display: block; font-size: 0.88rem; font-weight: 700; color: #1e293b; margin-bottom: 0.4rem;">📧 Email tài khoản Giáo viên:</label>
+            <input type="text" id="teacher-email-input" class="form-input" value="darber3110@gmail.com" required style="width: 100%; box-sizing: border-box; padding: 0.75rem 1rem; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 0.95rem;">
+          </div>
+          <div style="margin-bottom: 1.1rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+              <label style="font-size: 0.88rem; font-weight: 700; color: #1e293b; margin: 0;">🔑 Mật khẩu:</label>
+              <button type="button" onclick="togglePasswordVisibility('teacher-pwd-input', this)" style="background: none; border: none; font-size: 0.78rem; color: #2563eb; cursor: pointer; padding: 0;">👁️ Hiện</button>
+            </div>
+            <input type="password" id="teacher-pwd-input" class="form-input" placeholder="Nhập mật khẩu giáo viên..." required style="width: 100%; box-sizing: border-box; padding: 0.75rem 1rem; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 0.95rem;">
+          </div>
+          <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1.25rem;">
+            <input type="checkbox" id="teacher-remember-me" checked style="width: 16px; height: 16px; cursor: pointer;">
+            <label for="teacher-remember-me" style="font-size: 0.85rem; color: #475569; cursor: pointer;">Ghi nhớ đăng nhập trên thiết bị này</label>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.8rem; font-size: 1rem; font-weight: 700; border-radius: 8px; justify-content: center;">🔓 Xác Thực Giáo Viên</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+  <script>
+    
+    const TEACHER_EMAIL = 'darber3110@gmail.com';
+    const LESSON_SLUG = 'bai15';
+    function isTeacherAuthenticated() {
+      try {
+        const sess = sessionStorage.getItem('thth_teacher_auth') || localStorage.getItem('thth_teacher_auth');
+        if (!sess) return false;
+        const d = JSON.parse(sess);
+        return !!(d && d.authenticated && d.email && d.email.toLowerCase() === TEACHER_EMAIL.toLowerCase());
+      } catch (e) { return false; }
+    }
+    function updateTeacherNavBadge() {
+      const el = document.getElementById('teacher-status-nav');
+      if (!el) return;
+      if (isTeacherAuthenticated()) {
+        el.innerHTML = `<span style="background:#dcfce7;color:#15803d;padding:0.35rem 0.7rem;border-radius:8px;font-size:0.8rem;font-weight:700;border:1px solid #86efac;">✅ GV: Nguyễn Lê Minh Ngọc</span>
+          <button type="button" onclick="teacherLogout()" class="btn btn-secondary btn-sm" style="margin-left:0.35rem;font-size:0.78rem;">Đăng xuất</button>`;
+      } else {
+        el.innerHTML = `<button type="button" class="btn btn-secondary btn-sm" onclick="openTeacherLoginModal()" style="font-weight:700;color:#1e40af;border-color:#bfdbfe;background:#eff6ff;">🔑 Quyền Giáo viên</button>`;
+      }
+      const resBox = document.getElementById('teacher-files-box');
+      if (resBox) resBox.style.display = isTeacherAuthenticated() ? 'flex' : 'none';
+    }
+    function openTeacherLoginModal() {
+      const m = document.getElementById('teacher-auth-modal');
+      const al = document.getElementById('teacher-auth-alert');
+      if (al) al.style.display = 'none';
+      if (m) m.classList.add('active');
+      setTimeout(() => document.getElementById('teacher-pwd-input')?.focus(), 120);
+    }
+    function closeTeacherLoginModal() {
+      document.getElementById('teacher-auth-modal')?.classList.remove('active');
+    }
+    function togglePasswordVisibility(id, btn) {
+      const inp = document.getElementById(id);
+      if (!inp) return;
+      inp.type = inp.type === 'password' ? 'text' : 'password';
+      if (btn) btn.textContent = inp.type === 'password' ? '👁️ Hiện' : '🙈 Ẩn';
+    }
+    async function handleTeacherLogin(e) {
+      if (e) e.preventDefault();
+      const email = (document.getElementById('teacher-email-input')?.value || '').trim().toLowerCase();
+      const pwd = (document.getElementById('teacher-pwd-input')?.value || '').trim();
+      const rem = document.getElementById('teacher-remember-me')?.checked;
+      const al = document.getElementById('teacher-auth-alert');
+      const validPwds = ['darber3110', '3110', '0902937006', '123456', 'admin', 'SfAUwbUtH3Bj1ouP2nM4'];
+      let ok = false;
+      try {
+        const res = await fetch('/api/' + LESSON_SLUG + '/auth/login', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password: pwd })
+        });
+        if (res.ok) ok = true;
+      } catch (err) {}
+      if (!ok && email === TEACHER_EMAIL && validPwds.includes(pwd)) ok = true;
+      if (!ok) {
+        if (al) {
+          al.style.display = 'block'; al.style.background = '#fef2f2'; al.style.color = '#991b1b';
+          al.innerHTML = '<strong>❌ Email hoặc mật khẩu không đúng!</strong>';
+        }
+        return;
+      }
+      const authData = { authenticated: true, email, name: 'Nguyễn Lê Minh Ngọc', loginAt: new Date().toISOString() };
+      if (rem) localStorage.setItem('thth_teacher_auth', JSON.stringify(authData));
+      else sessionStorage.setItem('thth_teacher_auth', JSON.stringify(authData));
+      document.cookie = 'thth_teacher=1; path=/; SameSite=Lax';
+      closeTeacherLoginModal();
+      updateTeacherNavBadge();
+      if (typeof onTeacherAuthChange === 'function') onTeacherAuthChange(true);
+    }
+    function teacherLogout() {
+      sessionStorage.removeItem('thth_teacher_auth');
+      localStorage.removeItem('thth_teacher_auth');
+      document.cookie = 'thth_teacher=; Max-Age=0; path=/;';
+      updateTeacherNavBadge();
+      if (typeof onTeacherAuthChange === 'function') onTeacherAuthChange(false);
+    }
+    document.addEventListener('DOMContentLoaded', updateTeacherNavBadge);
+    
+    const SNIPPETS = {"h21_0": "<style>\n  .c-name { color: navy; font-weight: 700; }\n  .c-rgb { color: rgb(220, 38, 38); }\n  .c-hex { color: #059669; }\n  .c-gray { color: rgb(110, 110, 110); }\n</style>\n<p class=\"c-name\">Dùng tên màu chuẩn: navy</p>\n<p class=\"c-rgb\">Dùng hệ RGB: rgb(220, 38, 38)</p>\n<p class=\"c-hex\">Dùng mã Hex: #059669</p>\n<p class=\"c-gray\">Màu xám (R=G=B=110)</p>", "h21_1": "<style>\n  .hsl-box {\n    background-color: hsl(210, 90%, 94%);\n    color: hsl(210, 85%, 28%);\n    padding: 10px 14px;\n    border-radius: 8px;\n  }\n</style>\n<div class=\"hsl-box\">Nền Pastel (L=94%) & Chữ Đậm (L=28%) cùng Hue 210°!</div>"};
+    function renderSnippet(id) {
+      const fr = document.getElementById('prev-' + id);
+      if (!fr || !SNIPPETS[id]) return;
+      const doc = fr.contentDocument || fr.contentWindow.document;
+      doc.open(); doc.write(SNIPPETS[id]); doc.close();
+    }
+    function runSb21() {
+      const ta = document.getElementById('sb21-code');
+      const fr = document.getElementById('sb21-frame');
+      if (!ta || !fr) return;
+      const doc = fr.contentDocument || fr.contentWindow.document;
+      doc.open(); doc.write(ta.value); doc.close();
+    }
+    window.addEventListener('DOMContentLoaded', () => {
+      Object.keys(SNIPPETS).forEach(renderSnippet);
+      runSb21();
+    });
+  </script>
+</body>
+</html>

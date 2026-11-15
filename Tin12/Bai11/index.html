@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bài 11: Chèn tệp tin đa phương tiện và khung nội tuyến vào trang web | Tin học 12 - THTH-DHSP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Fira+Code:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=20261115">
+
+  <style>
+    html, body { overflow-x: hidden !important; width: 100% !important; max-width: 100vw !important; box-sizing: border-box; }
+    *, *::before, *::after { box-sizing: border-box; }
+    pre, code { max-width: 100% !important; box-sizing: border-box !important; }
+    .grid-2, .grid-2 > *, .card, .syntax-card, .interactive-panel, .practice-workbench-grid > * { min-width: 0 !important; max-width: 100% !important; }
+    .syntax-card { background: #0f172a; border: 1px solid #334155; border-radius: var(--radius-sm); overflow: hidden; margin-bottom: 0.9rem; width: 100%; }
+    .syntax-header { background: #1e293b; padding: 0.5rem 0.85rem; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #334155; font-size: 0.78rem; color: #94a3b8; font-family: var(--font-mono); flex-wrap: wrap; gap: 0.5rem; }
+    .syntax-body { padding: 0.85rem; font-family: var(--font-mono); font-size: 0.85rem; line-height: 1.6; color: #e2e8f0; overflow-x: auto; margin: 0; white-space: pre-wrap; word-break: break-word; }
+    .btn-mini-tool { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.22); color: #e2e8f0; padding: 0.3rem 0.65rem; border-radius: 5px; font-size: 0.76rem; cursor: pointer; font-family: inherit; white-space: nowrap; }
+    .btn-mini-tool:hover { background: #2563eb; color: #fff; border-color: #3b82f6; }
+    .snippet-preview-bar { background: #f1f5f9; border-bottom: 1px solid #e2e8f0; padding: 0.35rem 0.75rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.76rem; color: #475569; font-weight: 700; }
+    .snippet-preview-body { background: #ffffff; padding: 1rem; overflow-x: auto; }
+    .teacher-modal-overlay { display: none; position: fixed; inset: 0; background: rgba(15,23,42,0.72); backdrop-filter: blur(4px); z-index: 9999; align-items: center; justify-content: center; padding: 1rem; }
+    .teacher-modal-overlay.active { display: flex; }
+    .qr-zoom-modal { display: none; position: fixed; inset: 0; background: rgba(15,23,42,0.75); backdrop-filter: blur(4px); z-index: 9998; align-items: center; justify-content: center; padding: 1rem; }
+    .qr-zoom-modal.active { display: flex; }
+    .qr-zoom-box { background: #fff; border-radius: 16px; padding: 2rem; max-width: 460px; width: 100%; text-align: center; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.35); }
+    .sgk-fig-box { background: #fff; border: 1.5px solid #cbd5e1; border-radius: 12px; padding: 0.85rem; margin: 1rem 0; text-align: center; }
+    .sgk-fig-box img { max-width: 100%; max-height: 360px; height: auto; border-radius: 6px; object-fit: contain; }
+    .sgk-fig-cap { font-size: 0.84rem; color: #475569; font-style: italic; margin-top: 0.5rem; }
+
+
+    .hero-desktop-grid { display: grid; grid-template-columns: 1.25fr 1fr; gap: 2rem; align-items: center; }
+    .stage-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.15rem; margin-top: 1.25rem; }
+    .stage-card { background: #fff; border: 1.5px solid #e2e8f0; border-radius: 14px; padding: 1.3rem; display: flex; flex-direction: column; justify-content: space-between; gap: 0.9rem; box-shadow: 0 2px 10px rgba(0,0,0,0.03); transition: transform .18s ease, box-shadow .18s ease; }
+    .stage-card:hover { transform: translateY(-3px); box-shadow: 0 12px 24px rgba(30,58,138,0.08); }
+    .stage-pill { display: inline-block; font-size: 0.72rem; font-weight: 800; padding: 0.25rem 0.65rem; border-radius: 999px; letter-spacing: 0.03em; }
+    @media (max-width: 992px) { .hero-desktop-grid { grid-template-columns: 1fr; } .stage-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 600px) { .stage-grid { grid-template-columns: 1fr; } }
+    
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-wrapper">
+      <div class="brand-group">
+        <a href="../index.html" class="btn-portal-home" title="Quay về Trang chủ môn Tin học 12 (minda.io.vn/Tin12)">
+          <svg class="icon-svg" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+          <span class="portal-text">Trang chủ Tin 12</span>
+        </a>
+        <a href="index.html" class="brand-badge" title="Trang chủ Bài 11: Chèn tệp tin đa phương tiện và khung nội tuyến vào trang web">
+          <div class="brand-icon-box">
+            <svg class="icon-svg" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"></rect><path d="M7 9l3 3-3 3"></path><line x1="12" y1="15" x2="17" y2="15"></line></svg>
+          </div>
+          <div class="brand-text">
+            <span class="title">BÀI 11: ĐA PHƯƠNG TIỆN &amp; IFRAME</span>
+            <span class="subtitle">Tuần 12 • Tiết 23 - 24 (2 tiết)</span>
+          </div>
+        </a>
+      </div>
+
+      <nav aria-label="Điều hướng bài học">
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link active">Tổng quan</a></li>
+          <li><a href="hd1.html" class="nav-link">1. Khởi động</a></li>
+          <li><a href="hd2-1.html" class="nav-link">2.1. Ảnh &amp; Video</a></li>
+          <li><a href="hd2-2.html" class="nav-link">2.2. Khung iframe</a></li>
+          <li><a href="hd3.html" class="nav-link">3. Thực hành CLB</a></li>
+          <li><a href="hd4.html" class="nav-link">4. Infographic</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-tools">
+        <div class="timer-widget" title="Đồng hồ đếm ngược hoạt động">
+          <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          <span id="timer-display" class="timer-display">45:00</span>
+          <select id="timer-preset" class="btn-tool" title="Chọn thời lượng">
+            <option value="5">5p</option>
+            <option value="10">10p</option>
+            <option value="15">15p</option>
+            <option value="20">20p</option>
+            <option value="30">30p</option>
+            <option value="45" selected>45p</option>
+          </select>
+          <button id="timer-toggle" class="btn-tool" type="button">▶ Bắt đầu</button>
+          <button id="timer-reset" class="btn-tool" type="button" title="Đặt lại">↺</button>
+        </div>
+        <button id="btn-fullscreen" class="btn-tool" type="button" title="Chế độ chiếu toàn màn hình">
+          <svg class="icon-svg" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
+          Trình chiếu
+        </button>
+        <div id="teacher-status-nav" style="display: inline-flex; align-items: center; margin-left: 0.35rem;">
+          <button type="button" class="btn btn-secondary btn-sm" onclick="openTeacherLoginModal()" style="font-weight: 700; color: #1e40af; border-color: #bfdbfe; background: #eff6ff;">🔑 Quyền Giáo viên</button>
+        </div>
+      </div>
+    </div>
+  </header>
+  <nav class="stepper-section" aria-label="Tiến trình học tập">
+    <div class="container">
+      <div class="stepper-nav">
+        <div class="stepper-line"></div>
+        <a href="index.html" class="stepper-step active">
+          <div class="step-circle">0</div>
+          <span class="step-label">Tổng quan</span>
+        </a>
+        <a href="hd1.html" class="stepper-step ">
+          <div class="step-circle">1</div>
+          <span class="step-label">Khởi động (5&#x27;)</span>
+        </a>
+        <a href="hd2-1.html" class="stepper-step ">
+          <div class="step-circle">2.1</div>
+          <span class="step-label">Ảnh, Audio &amp; Video (20&#x27;)</span>
+        </a>
+        <a href="hd2-2.html" class="stepper-step ">
+          <div class="step-circle">2.2</div>
+          <span class="step-label">Khung iframe (15&#x27;)</span>
+        </a>
+        <a href="hd3.html" class="stepper-step ">
+          <div class="step-circle">3</div>
+          <span class="step-label">Thực hành CLB (35&#x27;)</span>
+        </a>
+        <a href="hd4.html" class="stepper-step ">
+          <div class="step-circle">4</div>
+          <span class="step-label">Infographic &amp; SGK (15&#x27;)</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero-banner">
+    <div class="container">
+      <div class="hero-desktop-grid">
+        <div>
+          <div class="hero-badge-tag"><span>✨ TIN HỌC 12 • TUẦN 12 • CHỦ ĐỀ F: TẠO TRANG WEB</span></div>
+          <h1 class="hero-title" style="font-size: 2.35rem; font-weight: 800; color: #fff; line-height: 1.2; margin-bottom: 0.9rem;">
+            CHÈN TỆP TIN ĐA PHƯƠNG TIỆN &amp; KHUNG NỘI TUYẾN
+          </h1>
+          <p class="hero-subtitle" style="font-size: 1.05rem; color: #cbd5e1; line-height: 1.6; margin-bottom: 1.65rem;">
+            Biến trang web tĩnh thành không gian đa phương tiện sống động: Chèn hình ảnh với thẻ <code>&lt;img&gt;</code> tự động giữ tỉ lệ, phát âm thanh/video bằng <code>&lt;audio&gt;</code>, <code>&lt;video&gt;</code>, <code>&lt;source&gt;</code> và nhúng trang web con trong khung <code>&lt;iframe&gt;</code> kết hợp <code>target</code>.
+          </p>
+          <div style="display: flex; gap: 0.85rem; flex-wrap: wrap;">
+            <a href="hd1.html" class="btn btn-primary" style="font-size:1.02rem;font-weight:700;padding:0.85rem 1.6rem;border-radius:10px;background:#2563eb;">
+              🚀 Bắt đầu học ngay (HĐ 1) →
+            </a>
+            <a href="hd4.html" class="btn btn-secondary" style="font-size:1.02rem;font-weight:700;padding:0.85rem 1.5rem;border-radius:10px;color:#fff;border-color:#64748b;background:rgba(255,255,255,0.12);">
+              📊 Xem Infographic (HĐ 4)
+            </a>
+
+          </div>
+        </div>
+
+        <div style="background: rgba(255,255,255,0.08); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.18); border-radius: 18px; padding: 1.5rem;">
+          <h3 style="color: #60a5fa; font-size: 1.15rem; font-weight: 800; margin-top: 0; margin-bottom: 0.85rem;">🎯 MỤC TIÊU BÀI HỌC CẦN ĐẠT</h3>
+          <ul style="color: #e2e8f0; font-size: 0.93rem; line-height: 1.6; display: flex; flex-direction: column; gap: 0.65rem; padding-left: 1.2rem; margin: 0;">
+            <li><strong>1. Chèn và co giãn hình ảnh:</strong> Sử dụng đúng <code>&lt;img src="..." alt="..." width="..." height="..."&gt;</code> và quy tắc giữ nguyên tỉ lệ khi chỉ đặt 1 kích thước.</li>
+            <li><strong>2. Âm thanh &amp;amp; Video HTML5:</strong> Khai báo <code>&lt;audio&gt;</code>, <code>&lt;video&gt;</code>, thẻ <code>&lt;source&gt;</code> cùng các thuộc tính <code>controls</code>, <code>autoplay</code>, <code>muted</code>, <code>poster</code>.</li>
+            <li><strong>3. Khung nội tuyến &amp;lt;iframe&amp;gt;:</strong> Nhúng một trang HTML khác hoặc video vào trong khung nội tuyến và điều khiển mở liên kết bằng <code>target</code>.</li>
+            <li><strong>4. Định dạng tệp &amp;amp; Bản quyền:</strong> Phân biệt các định dạng ảnh (PNG, JPEG, GIF, WebP), âm thanh (MP3, WAV, OGG), video (MP4, WebM) và tôn trọng bản quyền số.</li>
+            <li><strong>5. Thực hành the_thao.html:</strong> Tự xây dựng trang giới thiệu CLB Thể thao chèn ảnh, âm thanh, video và khung nội tuyến hoàn chỉnh.</li>
+          </ul>
+          <div style="margin-top: 1rem; padding-top: 0.75rem; border-top: 1px dashed rgba(255,255,255,0.2); font-size: 0.82rem; color: #93c5fd;">
+            💡 Năng lực số mục tiêu: <strong>3.2.NC1a, 3.3.NC1a</strong> — Tích hợp hình ảnh, âm thanh, video đa phương tiện và nhúng khung nội tuyến hợp bản quyền, đúng chuẩn HTML5.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main class="main-content">
+    <div class="container">
+      <div style="text-align: center; margin-bottom: 1.25rem;">
+        <h2 style="font-size: 1.65rem; font-weight: 800; color: #1e3a8a; margin-bottom: 0.3rem;">🗺️ Lộ Trình Hoạt Động Bài Học</h2>
+        <p style="color: #64748b; margin: 0;">Thiết kế theo tiến trình sư phạm GDPT 2018: Khởi động → Khám phá kiến thức → Thực hành → Tổng kết &amp; Vận dụng</p>
+      </div>
+
+      <div class="stage-grid">
+        <div class="stage-card" style="border-top: 4px solid #3b82f6;">
+          <div>
+            <span class="stage-pill" style="background:#eff6ff;color:#1d4ed8;">CHẶNG 1 • KHỞI ĐỘNG</span>
+            <h3 style="font-size: 1.15rem; font-weight: 800; color: #0f172a; margin: 0.65rem 0 0.4rem;">⚡ HĐ 1: Tình huống dẫn nhập</h3>
+            <p style="font-size: 0.88rem; color: #475569; line-height: 1.55; margin: 0;">Đối chiếu trang CLB chỉ có văn bản đơn điệu với trang đa phương tiện có ảnh minh họa, âm thanh và video.</p>
+          </div>
+          <a href="hd1.html" class="btn btn-secondary" style="width:100%;justify-content:center;font-weight:700;">Vào Hoạt động 1 →</a>
+        </div>
+
+        <div class="stage-card" style="border-top: 4px solid #0284c7;">
+          <div>
+            <span class="stage-pill" style="background:#e0f2fe;color:#0369a1;">CHẶNG 2 • TRỌNG TÂM</span>
+            <h3 style="font-size: 1.15rem; font-weight: 800; color: #0f172a; margin: 0.65rem 0 0.4rem;">🧩 HĐ 2: Khám phá kiến thức</h3>
+            <p style="font-size: 0.88rem; color: #475569; line-height: 1.55; margin: 0;">Tìm hiểu chi tiết <code>&lt;img&gt;</code>, <code>&lt;audio&gt;</code>, <code>&lt;video&gt;</code>, <code>&lt;iframe&gt;</code> và hoàn thành Phiếu bài tập.</p>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:0.45rem;">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.4rem;">
+              <a href="hd2-1.html" class="btn btn-primary btn-sm" style="justify-content:center;">2.1. Khám phá 1</a>
+              <a href="hd2-2.html" class="btn btn-primary btn-sm" style="justify-content:center;background:#0284c7;border-color:#0284c7;">2.2. Khám phá 2</a>
+            </div>
+            <a href="phieu-bai-tap.html" class="btn btn-secondary btn-sm" style="justify-content:center;background:#f0fdf4;color:#15803d;border-color:#86efac;font-weight:700;">📝 Phiếu bài tập tổng hợp</a>
+
+          </div>
+        </div>
+
+        <div class="stage-card" style="border-top: 4px solid #16a34a;">
+          <div>
+            <span class="stage-pill" style="background:#dcfce7;color:#15803d;">CHẶNG 3 • THỰC HÀNH</span>
+            <h3 style="font-size: 1.15rem; font-weight: 800; color: #0f172a; margin: 0.65rem 0 0.4rem;">💻 HĐ 3: Tự Code &amp; Nộp Bài</h3>
+            <p style="font-size: 0.88rem; color: #475569; line-height: 1.55; margin: 0;">Tự gõ mã <code>the_thao.html</code> và khung tổng hợp chèn đủ ảnh, audio/video, iframe điều hướng <code>target</code>.</p>
+          </div>
+          <a href="hd3.html" class="btn btn-primary" style="width:100%;justify-content:center;background:#16a34a;border-color:#16a34a;font-weight:700;">Mở Phòng Thực Hành →</a>
+        </div>
+
+        <div class="stage-card" style="border-top: 4px solid #9333ea;">
+          <div>
+            <span class="stage-pill" style="background:#f3e8ff;color:#7e22ce;">CHẶNG 4 • TỔNG KẾT</span>
+            <h3 style="font-size: 1.15rem; font-weight: 800; color: #0f172a; margin: 0.65rem 0 0.4rem;">📊 HĐ 4: Infographic &amp; Vận dụng</h3>
+            <p style="font-size: 0.88rem; color: #475569; line-height: 1.55; margin: 0;">Tổng kết 4 chế độ Infographic, Flashcards 3D và giải chi tiết Luyện tập 1–2, Vận dụng SGK tr.66.</p>
+          </div>
+          <a href="hd4.html" class="btn btn-primary" style="width:100%;justify-content:center;background:#7e22ce;border-color:#7e22ce;font-weight:700;">Xem Infographic &amp; Đáp án →</a>
+        </div>
+      </div>
+
+      <!-- KHU VỰC TÀI LIỆU DÀNH RIÊNG CHO GIÁO VIÊN (CHỈ HIỆN SAU KHI ĐĂNG NHẬP) -->
+      <div id="teacher-files-box" style="display:none; margin-top:1.75rem; background:#f8fafc; border:1.5px solid #93c5fd; border-radius:14px; padding:1.15rem 1.5rem; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem;">
+        <div>
+          <strong style="color:#1e3a8a;font-size:1rem;">👩‍🏫 Hồ sơ Giáo viên (Đã xác thực):</strong>
+          <div style="font-size:0.85rem;color:#475569;">Tải trực tiếp Kế hoạch bài dạy và Slide trình chiếu cho tiết dạy trên lớp.</div>
+        </div>
+        <div style="display:flex;gap:0.65rem;flex-wrap:wrap;">
+          <a href="KHBD.docx" class="btn btn-primary btn-sm">📄 Tải KHBD.docx (CV 5512)</a>
+          <a href="Bai11_TrinhChieu.pptx" class="btn btn-secondary btn-sm" style="background:#fff;border-color:#2563eb;color:#1d4ed8;">📽️ Tải Bai11_TrinhChieu.pptx</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.75rem;">
+        <p style="margin:0;">© 2026 Tin học 12 (Kết nối tri thức) • Bài 11: Chèn tệp tin đa phương tiện và khung nội tuyến vào trang web • Tuần 12 • THTH-DHSP • GV: Nguyễn Lê Minh Ngọc</p>
+        <a href="../index.html" style="color:#60a5fa; text-decoration:none; font-weight:700;">🏠 Quay về Trang chủ môn Tin 12</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- MODAL XÁC THỰC GIÁO VIÊN -->
+  <div id="teacher-auth-modal" class="teacher-modal-overlay" onclick="closeTeacherLoginModal()">
+    <div class="modal-dialog" style="max-width: 460px; background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.4);" onclick="event.stopPropagation()">
+      <div style="background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%); color: white; padding: 1.25rem 1.5rem; display: flex; justify-content: space-between; align-items: center;">
+        <div style="display: flex; align-items: center; gap: 0.6rem;">
+          <span style="font-size: 1.5rem;">🔐</span>
+          <div>
+            <h3 style="margin: 0; font-size: 1.15rem; font-weight: 800; color: white;">Xác Thực Quyền Giáo Viên</h3>
+            <div style="font-size: 0.8rem; color: #bfdbfe;">Trường THTH - DHSP • Tin học 12</div>
+          </div>
+        </div>
+        <button type="button" onclick="closeTeacherLoginModal()" style="background: none; border: none; color: white; font-size: 1.4rem; cursor: pointer; line-height: 1;">&times;</button>
+      </div>
+      <div style="padding: 1.5rem; background: #ffffff;">
+        <div id="teacher-auth-alert" style="display: none; padding: 0.85rem 1rem; border-radius: 8px; font-size: 0.88rem; line-height: 1.5; margin-bottom: 1.25rem;"></div>
+        <form id="teacher-login-form" onsubmit="handleTeacherLogin(event)" autocomplete="off">
+          <div style="margin-bottom: 1.1rem;">
+            <label style="display: block; font-size: 0.88rem; font-weight: 700; color: #1e293b; margin-bottom: 0.4rem;">📧 Email tài khoản Giáo viên:</label>
+            <input type="text" id="teacher-email-input" class="form-input" value="darber3110@gmail.com" required style="width: 100%; box-sizing: border-box; padding: 0.75rem 1rem; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 0.95rem;">
+          </div>
+          <div style="margin-bottom: 1.1rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+              <label style="font-size: 0.88rem; font-weight: 700; color: #1e293b; margin: 0;">🔑 Mật khẩu:</label>
+              <button type="button" onclick="togglePasswordVisibility('teacher-pwd-input', this)" style="background: none; border: none; font-size: 0.78rem; color: #2563eb; cursor: pointer; padding: 0;">👁️ Hiện</button>
+            </div>
+            <input type="password" id="teacher-pwd-input" class="form-input" placeholder="Nhập mật khẩu giáo viên..." required style="width: 100%; box-sizing: border-box; padding: 0.75rem 1rem; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 0.95rem;">
+          </div>
+          <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1.25rem;">
+            <input type="checkbox" id="teacher-remember-me" checked style="width: 16px; height: 16px; cursor: pointer;">
+            <label for="teacher-remember-me" style="font-size: 0.85rem; color: #475569; cursor: pointer;">Ghi nhớ đăng nhập trên thiết bị này</label>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.8rem; font-size: 1rem; font-weight: 700; border-radius: 8px; justify-content: center;">🔓 Xác Thực Giáo Viên</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+  <script>
+    const TEACHER_EMAIL = 'darber3110@gmail.com';
+    const LESSON_SLUG = 'bai11';
+    function isTeacherAuthenticated() {
+      try {
+        const sess = sessionStorage.getItem('thth_teacher_auth') || localStorage.getItem('thth_teacher_auth');
+        if (!sess) return false;
+        const d = JSON.parse(sess);
+        return !!(d && d.authenticated && d.email && d.email.toLowerCase() === TEACHER_EMAIL.toLowerCase());
+      } catch (e) { return false; }
+    }
+    function updateTeacherNavBadge() {
+      const el = document.getElementById('teacher-status-nav');
+      if (!el) return;
+      if (isTeacherAuthenticated()) {
+        el.innerHTML = `<span style="background:#dcfce7;color:#15803d;padding:0.35rem 0.7rem;border-radius:8px;font-size:0.8rem;font-weight:700;border:1px solid #86efac;">✅ GV: Nguyễn Lê Minh Ngọc</span>
+          <button type="button" onclick="teacherLogout()" class="btn btn-secondary btn-sm" style="margin-left:0.35rem;font-size:0.78rem;">Đăng xuất</button>`;
+      } else {
+        el.innerHTML = `<button type="button" class="btn btn-secondary btn-sm" onclick="openTeacherLoginModal()" style="font-weight:700;color:#1e40af;border-color:#bfdbfe;background:#eff6ff;">🔑 Quyền Giáo viên</button>`;
+      }
+      const resBox = document.getElementById('teacher-files-box');
+      if (resBox) resBox.style.display = isTeacherAuthenticated() ? 'flex' : 'none';
+    }
+    function openTeacherLoginModal() {
+      const m = document.getElementById('teacher-auth-modal');
+      const al = document.getElementById('teacher-auth-alert');
+      if (al) al.style.display = 'none';
+      if (m) m.classList.add('active');
+      setTimeout(() => document.getElementById('teacher-pwd-input')?.focus(), 120);
+    }
+    function closeTeacherLoginModal() {
+      document.getElementById('teacher-auth-modal')?.classList.remove('active');
+    }
+    function togglePasswordVisibility(id, btn) {
+      const inp = document.getElementById(id);
+      if (!inp) return;
+      inp.type = inp.type === 'password' ? 'text' : 'password';
+      if (btn) btn.textContent = inp.type === 'password' ? '👁️ Hiện' : '🙈 Ẩn';
+    }
+    async function handleTeacherLogin(e) {
+      if (e) e.preventDefault();
+      const email = (document.getElementById('teacher-email-input')?.value || '').trim().toLowerCase();
+      const pwd = (document.getElementById('teacher-pwd-input')?.value || '').trim();
+      const rem = document.getElementById('teacher-remember-me')?.checked;
+      const al = document.getElementById('teacher-auth-alert');
+      const validPwds = ['darber3110', '3110', '0902937006', '123456', 'admin', 'SfAUwbUtH3Bj1ouP2nM4'];
+      let ok = false;
+      try {
+        const res = await fetch('/api/' + LESSON_SLUG + '/auth/login', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password: pwd })
+        });
+        if (res.ok) ok = true;
+      } catch (err) {}
+      if (!ok && email === TEACHER_EMAIL && validPwds.includes(pwd)) ok = true;
+      if (!ok) {
+        if (al) {
+          al.style.display = 'block'; al.style.background = '#fef2f2'; al.style.color = '#991b1b';
+          al.innerHTML = '<strong>❌ Email hoặc mật khẩu không đúng!</strong>';
+        }
+        return;
+      }
+      const authData = { authenticated: true, email, name: 'Nguyễn Lê Minh Ngọc', loginAt: new Date().toISOString() };
+      if (rem) localStorage.setItem('thth_teacher_auth', JSON.stringify(authData));
+      else sessionStorage.setItem('thth_teacher_auth', JSON.stringify(authData));
+      document.cookie = 'thth_teacher=1; path=/; SameSite=Lax';
+      closeTeacherLoginModal();
+      updateTeacherNavBadge();
+      if (typeof onTeacherAuthChange === 'function') onTeacherAuthChange(true);
+    }
+    function teacherLogout() {
+      sessionStorage.removeItem('thth_teacher_auth');
+      localStorage.removeItem('thth_teacher_auth');
+      document.cookie = 'thth_teacher=; Max-Age=0; path=/;';
+      updateTeacherNavBadge();
+      if (typeof onTeacherAuthChange === 'function') onTeacherAuthChange(false);
+    }
+    document.addEventListener('DOMContentLoaded', updateTeacherNavBadge);
+    </script>
+</body>
+</html>

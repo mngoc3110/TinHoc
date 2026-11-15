@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hoạt động 2.2: Hệ thống HTML5 (Bài 7–12) &amp;amp; Đề Thi Thử Cuối HK1 (45 phút) | Tuần 15: Ôn tập &amp; Đề thi thử Cuối HK1 (45p)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Fira+Code:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=20261115">
+
+  <style>
+    html, body { overflow-x: hidden !important; width: 100% !important; max-width: 100vw !important; box-sizing: border-box; }
+    *, *::before, *::after { box-sizing: border-box; }
+    pre, code { max-width: 100% !important; box-sizing: border-box !important; }
+    .grid-2, .grid-2 > *, .card, .syntax-card, .interactive-panel, .practice-workbench-grid > * { min-width: 0 !important; max-width: 100% !important; }
+    .syntax-card { background: #0f172a; border: 1px solid #334155; border-radius: var(--radius-sm); overflow: hidden; margin-bottom: 0.9rem; width: 100%; }
+    .syntax-header { background: #1e293b; padding: 0.5rem 0.85rem; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #334155; font-size: 0.78rem; color: #94a3b8; font-family: var(--font-mono); flex-wrap: wrap; gap: 0.5rem; }
+    .syntax-body { padding: 0.85rem; font-family: var(--font-mono); font-size: 0.85rem; line-height: 1.6; color: #e2e8f0; overflow-x: auto; margin: 0; white-space: pre-wrap; word-break: break-word; }
+    .btn-mini-tool { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.22); color: #e2e8f0; padding: 0.3rem 0.65rem; border-radius: 5px; font-size: 0.76rem; cursor: pointer; font-family: inherit; white-space: nowrap; }
+    .btn-mini-tool:hover { background: #2563eb; color: #fff; border-color: #3b82f6; }
+    .snippet-preview-bar { background: #f1f5f9; border-bottom: 1px solid #e2e8f0; padding: 0.35rem 0.75rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.76rem; color: #475569; font-weight: 700; }
+    .snippet-preview-body { background: #ffffff; padding: 1rem; overflow-x: auto; }
+    .teacher-modal-overlay { display: none; position: fixed; inset: 0; background: rgba(15,23,42,0.72); backdrop-filter: blur(4px); z-index: 9999; align-items: center; justify-content: center; padding: 1rem; }
+    .teacher-modal-overlay.active { display: flex; }
+    .qr-zoom-modal { display: none; position: fixed; inset: 0; background: rgba(15,23,42,0.75); backdrop-filter: blur(4px); z-index: 9998; align-items: center; justify-content: center; padding: 1rem; }
+    .qr-zoom-modal.active { display: flex; }
+    .qr-zoom-box { background: #fff; border-radius: 16px; padding: 2rem; max-width: 460px; width: 100%; text-align: center; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.35); }
+    .sgk-fig-box { background: #fff; border: 1.5px solid #cbd5e1; border-radius: 12px; padding: 0.85rem; margin: 1rem 0; text-align: center; }
+    .sgk-fig-box img { max-width: 100%; max-height: 360px; height: auto; border-radius: 6px; object-fit: contain; }
+    .sgk-fig-cap { font-size: 0.84rem; color: #475569; font-style: italic; margin-top: 0.5rem; }
+
+
+    .mission-card { background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); border: 2px solid #3b82f6; border-radius: 16px; padding: 1.5rem; margin: 1.5rem 0; }
+    .mission-grid { display: grid; grid-template-columns: 1.5fr auto; gap: 1.25rem; align-items: center; }
+    @media (max-width: 768px) { .mission-grid { grid-template-columns: 1fr; } }
+    .submissions-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+    .submissions-table th { background: #1e3a8a; color: #fff; padding: 0.7rem 0.6rem; text-align: left; }
+    .submissions-table td { padding: 0.65rem 0.6rem; border-bottom: 1px solid #e2e8f0; }
+    .badge-rank { padding: 0.2rem 0.55rem; border-radius: 6px; font-size: 0.75rem; font-weight: 700; }
+    .badge-success { background: #dcfce7; color: #166534; }
+    .badge-warning { background: #fef3c7; color: #92400e; }
+    .badge-danger { background: #fee2e2; color: #991b1b; }
+    .stat-mini-grid { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 0.85rem; margin-bottom: 1rem; }
+    @media (max-width: 768px) { .stat-mini-grid { grid-template-columns: repeat(2, 1fr); } }
+    .stat-mini { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 0.9rem; }
+    
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-wrapper">
+      <div class="brand-group">
+        <a href="../index.html" class="btn-portal-home" title="Quay về Trang chủ môn Tin học 12 (minda.io.vn/Tin12)">
+          <svg class="icon-svg" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+          <span class="portal-text">Trang chủ Tin 12</span>
+        </a>
+        <a href="index.html" class="brand-badge" title="Trang chủ Tuần 15: Ôn tập &amp; Đề thi thử Cuối HK1 (45p)">
+          <div class="brand-icon-box">
+            <svg class="icon-svg" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"></rect><path d="M7 9l3 3-3 3"></path><line x1="12" y1="15" x2="17" y2="15"></line></svg>
+          </div>
+          <div class="brand-text">
+            <span class="title">TUẦN 15: ÔN TẬP &amp; THI THỬ HK1</span>
+            <span class="subtitle">Hoạt động 2.2: Hệ thống HTML5 (Bài 7–12) &amp;amp; Đề Thi Thử Cuối HK1 (45 phút)</span>
+          </div>
+        </a>
+      </div>
+
+      <nav aria-label="Điều hướng bài học">
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">Tổng quan</a></li>
+          <li><a href="hd1.html" class="nav-link">1. Khởi động</a></li>
+          <li><a href="hd2-1.html" class="nav-link">2.1. Ôn AI &amp; Mạng</a></li>
+          <li><a href="hd2-2.html" class="nav-link active">2.2. Ôn HTML &amp; Đề HK1</a></li>
+          <li><a href="hd3.html" class="nav-link">3. Luyện code HK1</a></li>
+          <li><a href="hd4.html" class="nav-link">4. Infographic</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-tools">
+        <div class="timer-widget" title="Đồng hồ đếm ngược hoạt động">
+          <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          <span id="timer-display" class="timer-display">15:00</span>
+          <select id="timer-preset" class="btn-tool" title="Chọn thời lượng">
+            <option value="5">5p</option>
+            <option value="10">10p</option>
+            <option value="15" selected>15p</option>
+            <option value="20">20p</option>
+            <option value="30">30p</option>
+            <option value="45">45p</option>
+          </select>
+          <button id="timer-toggle" class="btn-tool" type="button">▶ Bắt đầu</button>
+          <button id="timer-reset" class="btn-tool" type="button" title="Đặt lại">↺</button>
+        </div>
+        <button id="btn-fullscreen" class="btn-tool" type="button" title="Chế độ chiếu toàn màn hình">
+          <svg class="icon-svg" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
+          Trình chiếu
+        </button>
+        <div id="teacher-status-nav" style="display: inline-flex; align-items: center; margin-left: 0.35rem;">
+          <button type="button" class="btn btn-secondary btn-sm" onclick="openTeacherLoginModal()" style="font-weight: 700; color: #1e40af; border-color: #bfdbfe; background: #eff6ff;">🔑 Quyền Giáo viên</button>
+        </div>
+      </div>
+    </div>
+  </header>
+  <nav class="stepper-section" aria-label="Tiến trình học tập">
+    <div class="container">
+      <div class="stepper-nav">
+        <div class="stepper-line"></div>
+        <a href="index.html" class="stepper-step completed">
+          <div class="step-circle">✓</div>
+          <span class="step-label">Tổng quan</span>
+        </a>
+        <a href="hd1.html" class="stepper-step completed">
+          <div class="step-circle">✓</div>
+          <span class="step-label">Ma trận đề (5&#x27;)</span>
+        </a>
+        <a href="hd2-1.html" class="stepper-step completed">
+          <div class="step-circle">✓</div>
+          <span class="step-label">Chủ đề A, B, D (15&#x27;)</span>
+        </a>
+        <a href="hd2-2.html" class="stepper-step active">
+          <div class="step-circle">2.2</div>
+          <span class="step-label">Chủ đề F &amp; Đề 45p (45&#x27;)</span>
+        </a>
+        <a href="hd3.html" class="stepper-step ">
+          <div class="step-circle">3</div>
+          <span class="step-label">Luyện code mẫu (15&#x27;)</span>
+        </a>
+        <a href="hd4.html" class="stepper-step ">
+          <div class="step-circle">4</div>
+          <span class="step-label">Tổng kết &amp; Chữa bài (10&#x27;)</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero-banner" style="padding:2rem 0; background: linear-gradient(135deg, #0c4a6e 0%, #0284c7 100%);">
+    <div class="container">
+      <div class="badge-tag" style="background:rgba(255,255,255,0.18);color:#fff;">🧩 HOẠT ĐỘNG 2.2 • KHÁM PHÁ CHUYÊN SÂU &amp; KIỂM TRA NHANH</div>
+      <h1 class="hero-title" style="font-size:1.95rem;">Hệ thống HTML5 (Bài 7–12) &amp;amp; Đề Thi Thử Cuối HK1 (45 phút)</h1>
+      <p class="hero-subtitle">Ôn tập toàn bộ thẻ HTML trước khi vào làm <strong>Đề Thi Thử 28 Câu (45 phút)</strong> bên dưới</p>
+    </div>
+  </section>
+
+  <main class="main-content">
+    <div class="container">
+      <section class="card" style="margin-bottom: 1.5rem;">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.65rem;">
+          <h2 style="margin:0;color:#1e3a8a;font-size:1.3rem;">1. Tổng hợp nhanh HTML Bài 7–10 (Cấu trúc, Bảng &amp;amp; Liên kết)</h2>
+          <span class="sgk-badge">Ôn Bài 7–10</span>
+        </div>
+        <div class="grid-2" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.25rem; align-items:start;">
+          <div>
+            <div style="color:#334155;line-height:1.65;font-size:0.95rem;">
+                  <p>Nắm chắc các điểm dễ ra đề:</p>
+                  <ul style="padding-left:1.2rem;line-height:1.65;">
+                    <li>Cấu trúc: <code>&lt;title&gt;</code> và <code>&lt;meta charset="utf-8"&gt;</code> đặt trong <code>&lt;head&gt;</code>.</li>
+                    <li>Danh sách: <code>&lt;ol type="A" start="2"&gt;</code>, <code>&lt;ul&gt;</code>, <code>&lt;dl&gt;&lt;dt&gt;&lt;dd&gt;</code>.</li>
+                    <li>Bảng: <code>&lt;th&gt;</code> căn giữa &amp; in đậm; <code>colspan</code> gộp ngang, <code>rowspan</code> gộp dọc.</li>
+                    <li>Liên kết: <code>../</code> lùi thư mục cha, <code>#id</code> nhảy cùng trang, <code>target="_blank"</code> mở tab mới.</li>
+                  </ul>
+                </div>
+
+<div class="sgk-fig-box"><img src="assets/sgk/sgk_hinh10_1.png" alt="Sơ đồ liên kết trang và mục nội bộ (SGK Bài 10)"><div class="sgk-fig-cap">Sơ đồ liên kết trang và mục nội bộ (SGK Bài 10)</div></div>
+
+          </div>
+          <div>
+            <div class="syntax-card">
+              <div class="syntax-header">
+                <span>💻 Kiểm chứng nhanh bảng gộp ô &amp; liên kết</span>
+                <button type="button" class="btn-mini-tool" onclick="renderSnippet('h22_0')">▶ Chạy thử &amp; Xem kết quả</button>
+              </div>
+              <pre class="syntax-body">&lt;table border=&quot;1&quot; cellpadding=&quot;4&quot;&gt;
+  &lt;tr&gt;&lt;th colspan=&quot;2&quot;&gt;Lịch Ôn Thi HK1&lt;/th&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;Chủ đề A, B&lt;/td&gt;&lt;td&gt;Tuần 15&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;a href=&quot;hd1.html&quot;&gt;Xem lại Ma trận Đề HK1&lt;/a&gt;&lt;/p&gt;</pre>
+            </div>
+            <div class="mini-compiler-box" style="border:1px solid #cbd5e1;border-radius:8px;overflow:hidden;">
+              <div class="snippet-preview-bar"><span>🌐 KẾT QUẢ HIỂN THỊ</span><span style="color:#16a34a;">HTML5 Live</span></div>
+              <iframe id="prev-h22_0" style="width:100%;height:190px;border:none;background:#fff;" title="Preview h22_0"></iframe>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="card" style="margin-bottom: 1.5rem;">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.65rem;">
+          <h2 style="margin:0;color:#1e3a8a;font-size:1.3rem;">2. Tổng hợp nhanh HTML Bài 11–12 (Đa phương tiện &amp;amp; Biểu mẫu)</h2>
+          <span class="sgk-badge">Ôn Bài 11–12</span>
+        </div>
+        <div class="grid-2" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.25rem; align-items:start;">
+          <div>
+            <div style="color:#334155;line-height:1.65;font-size:0.95rem;">
+                  <ul style="padding-left:1.2rem;line-height:1.65;">
+                    <li><code>&lt;img src alt width&gt;</code>: chỉ ghi 1 chiều -> tự giữ đúng tỉ lệ khung hình.</li>
+                    <li><code>&lt;video controls width height poster&gt;</code> khác <code>&lt;audio controls&gt;</code> (audio không có poster/width).</li>
+                    <li><code>&lt;iframe name="k"&gt;</code> kết hợp <code>&lt;a target="k"&gt;</code>.</li>
+                    <li>Biểu mẫu: <code>&lt;label for="id"&gt;</code>, <code>radio</code> (chung <code>name</code>), <code>checkbox</code>, <code>&lt;select&gt;</code>, <code>&lt;textarea&gt;</code>, <code>&lt;fieldset&gt;</code>.</li>
+                  </ul>
+                </div>
+
+<div class="sgk-fig-box"><img src="assets/sgk/sgk_bang12_1.png" alt="Bảng 12.1 các kiểu nhập liệu trên biểu mẫu (SGK Bài 12)"><div class="sgk-fig-cap">Bảng 12.1 các kiểu nhập liệu trên biểu mẫu (SGK Bài 12)</div></div>
+<div style="background:#f0fdfa;border:1.5px solid #5eead4;border-radius:10px;padding:0.9rem 1rem;margin-top:0.9rem;"><strong style="color:#0f766e;">❓ Câu hỏi củng cố (Hộp xanh SGK):</strong><ul style="margin:0.5rem 0 0;padding-left:1.2rem;line-height:1.6;"><li><strong>Lưu ý quan trọng nhất khi bấm vào Làm Đề Thi Thử Cuối HK1 (45 phút) ở thẻ bên dưới?</strong><br><button type="button" class="btn btn-secondary btn-sm" style="margin-top:0.35rem;" onclick="this.nextElementSibling.style.display='block'">💡 Xem gợi ý</button><div style="display:none;margin-top:0.4rem;color:#166534;background:#f0fdf4;padding:0.55rem 0.75rem;border-radius:6px;border:1px solid #86efac;">Đề thi gồm 28 câu chuẩn Bộ GD&ĐT (24 MCQ = 6đ, 4 Đúng/Sai = 4đ) với đồng hồ đếm ngược <strong>45 phút</strong>. Hãy làm bài nghiêm túc từ đầu đến cuối trước khi xem lời giải chi tiết!</div></li></ul></div>
+          </div>
+          <div>
+            <div class="syntax-card">
+              <div class="syntax-header">
+                <span>💻 Kiểm chứng Form kết hợp Radio &amp; Fieldset</span>
+                <button type="button" class="btn-mini-tool" onclick="renderSnippet('h22_1')">▶ Chạy thử &amp; Xem kết quả</button>
+              </div>
+              <pre class="syntax-body">&lt;form onsubmit=&quot;return false;&quot;&gt;
+  &lt;fieldset&gt;
+    &lt;legend&gt;Mục tiêu điểm HK1&lt;/legend&gt;
+    &lt;input type=&quot;radio&quot; name=&quot;m&quot; checked&gt; 9 - 10 điểm
+    &lt;input type=&quot;radio&quot; name=&quot;m&quot;&gt; 8 - 9 điểm
+  &lt;/fieldset&gt;
+&lt;/form&gt;</pre>
+            </div>
+            <div class="mini-compiler-box" style="border:1px solid #cbd5e1;border-radius:8px;overflow:hidden;">
+              <div class="snippet-preview-bar"><span>🌐 KẾT QUẢ HIỂN THỊ</span><span style="color:#16a34a;">HTML5 Live</span></div>
+              <iframe id="prev-h22_1" style="width:100%;height:190px;border:none;background:#fff;" title="Preview h22_1"></iframe>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SANDBOX 2.2 -->
+      <section class="interactive-panel" style="background:#f8fafc;border:1.5px solid #38bdf8;border-radius:14px;padding:1.25rem;margin-bottom:1.5rem;">
+        <h3 style="margin-top:0;color:#0369a1;">🧪 Sandbox Tương Tác: Kiểm tra nhanh đoạn mã HTML trước giờ thi</h3>
+        <p style="font-size:0.9rem;color:#475569;margin-top:0;">Thử gõ bất kỳ đoạn mã HTML nào trong Bài 7–12 để xác nhận cách trình duyệt hiển thị:</p>
+        <div class="grid-2" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1rem;">
+          <div>
+            <textarea id="sb22-code" style="width:100%;height:210px;padding:0.85rem;border-radius:8px;border:1.5px solid #334155;background:#0f172a;color:#e2e8f0;font-family:'Fira Code',monospace;font-size:0.85rem;">&lt;img src=&quot;assets/sgk/sgk_hinh11_1.png&quot; alt=&quot;Demo&quot; width=&quot;220&quot;&gt;&lt;br&gt;
+&lt;p&gt;&lt;em&gt;Chúc các em làm bài thi thử 45 phút thật tốt!&lt;/em&gt;&lt;/p&gt;</textarea>
+            <button type="button" class="btn btn-primary btn-sm" style="margin-top:0.5rem;background:#0284c7;border-color:#0284c7;" onclick="runSb22()">▶ Chạy mô phỏng</button>
+          </div>
+          <div style="border:1.5px solid #cbd5e1;border-radius:8px;overflow:hidden;background:#fff;">
+            <div class="snippet-preview-bar"><span>🌐 KẾT QUẢ HIỂN THỊ</span></div>
+            <iframe id="sb22-frame" style="width:100%;height:215px;border:none;background:#fff;" title="Sandbox 2.2"></iframe>
+          </div>
+        </div>
+      </section>
+
+      <!-- NHIỆM VỤ PHIẾU BÀI TẬP THỐNG NHẤT -->
+      <div class="mission-card">
+        <div class="mission-grid">
+          <div>
+            <span style="display:inline-block;background:#2563eb;color:#fff;font-size:0.75rem;font-weight:800;padding:0.25rem 0.7rem;border-radius:999px;">📝 NHIỆM VỤ KIỂM TRA KIẾN THỨC</span>
+            <h3 style="margin:0.6rem 0 0.35rem;color:#1e3a8a;font-size:1.35rem;font-weight:800;">Đề Thi Thử Cuối Học Kỳ 1 Môn Tin Học 12 (28 Câu – 45 Phút)</h3>
+            <p style="margin:0 0 0.9rem;color:#334155;font-size:0.94rem;line-height:1.55;">
+              Học sinh làm bài cá nhân hoặc theo cặp đôi trên một phiếu bài tập thống nhất. Điểm số được chấm tự động và đồng bộ về Bảng điều khiển Giáo viên theo thời gian thực.
+            </p>
+            <div style="display:flex;gap:0.65rem;flex-wrap:wrap;">
+              <a href="phieu-bai-tap.html" class="btn btn-primary" style="font-weight:800;">📝 Mở Phiếu Bài Tập Tổng Hợp →</a>
+              <button type="button" class="btn btn-secondary" onclick="openQrZoom('phieu')" style="background:#fff;color:#1e40af;border-color:#93c5fd;">🔍 Phóng to QR Chiếu Bảng</button>
+            </div>
+          </div>
+          <div style="text-align:center;background:#fff;padding:0.75rem;border-radius:12px;border:1.5px solid #bfdbfe;">
+            <img src="assets/qr_phieubaitap.svg" alt="QR Phiếu bài tập" style="width:120px;height:120px;display:block;margin:0 auto;">
+            <div style="font-size:0.72rem;color:#1e40af;font-weight:700;margin-top:0.3rem;">Quét QR bằng điện thoại</div>
+          </div>
+        </div>
+      </div>
+
+
+
+      <!-- REALTIME DASHBOARD GIÁO VIÊN -->
+      <section class="card" id="dashboard-phieu2" style="border-top:5px solid #1e3a8a;margin-top:1.75rem;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:1rem;margin-bottom:1rem;">
+          <div>
+            <span style="display:inline-flex;align-items:center;gap:0.4rem;background:#ecfdf5;color:#059669;padding:0.2rem 0.65rem;border-radius:999px;font-size:0.76rem;font-weight:700;">● REALTIME TEACHER DASHBOARD</span>
+            <h3 style="margin:0.45rem 0 0.15rem;color:#1e3a8a;font-size:1.3rem;">📊 Bảng Theo Dõi Điểm Phiếu Bài Tập &amp; Kiểm Tra</h3>
+            <p style="margin:0;font-size:0.86rem;color:#64748b;">Dữ liệu tự động cập nhật khi học sinh bấm nộp bài.</p>
+          </div>
+          <div style="display:flex;gap:0.45rem;flex-wrap:wrap;">
+            <button type="button" class="btn btn-secondary btn-sm" onclick="loadSubmissionsP2()">🔄 Làm mới</button>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="copySubmissionsToClipboard()" style="background:#ecfdf5;color:#047857;border-color:#a7f3d0;">📋 Sao chép Google Sheets</button>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="exportSubmissionsToCSV()">📥 Xuất CSV</button>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="generateDummySubmissions()" style="color:#6366f1;">🧪 Dữ liệu mẫu</button>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="clearSubmissions()" style="color:#dc2626;">🗑️ Xóa danh sách</button>
+          </div>
+        </div>
+
+        <div class="stat-mini-grid">
+          <div class="stat-mini"><div style="font-size:1.45rem;font-weight:800;color:#1e3a8a;" id="stat-count-p2">0</div><div style="font-size:0.78rem;color:#64748b;font-weight:700;">ĐÃ NỘP BÀI</div></div>
+          <div class="stat-mini"><div style="font-size:1.45rem;font-weight:800;color:#0284c7;" id="stat-avg-p2">0.0</div><div style="font-size:0.78rem;color:#64748b;font-weight:700;">ĐIỂM TRUNG BÌNH</div></div>
+          <div class="stat-mini"><div style="font-size:1.45rem;font-weight:800;color:#16a34a;" id="stat-high-p2">0.0</div><div style="font-size:0.78rem;color:#64748b;font-weight:700;">ĐIỂM CAO NHẤT</div></div>
+          <div class="stat-mini"><div style="font-size:1.05rem;font-weight:800;color:#0f172a;" id="stat-latest-p2">Chưa có</div><div style="font-size:0.78rem;color:#64748b;font-weight:700;">NỘP GẦN NHẤT</div></div>
+        </div>
+
+        <div style="overflow-x:auto;border:1px solid #cbd5e1;border-radius:10px;background:#fff;">
+          <table class="submissions-table">
+            <thead>
+              <tr>
+                <th>STT</th><th>Hình thức</th><th>Họ và tên</th><th>Lớp</th><th>Số máy</th><th>Loại bài</th><th>Điểm</th><th>Xếp loại</th><th>Thời gian</th><th>Chi tiết</th>
+              </tr>
+            </thead>
+            <tbody id="submissions-tbody-p2">
+              <tr><td colspan="10" style="text-align:center;padding:2rem;color:#94a3b8;">Đang kết nối máy chủ...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <div class="card" style="margin-top:1.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;border-left:5px solid #16a34a;">
+        <div>
+          <strong style="color:#15803d;font-size:1.05rem;">💻 Hoàn thành Khám phá → Bước vào Phòng Thực hành Code!</strong>
+          <div style="color:#64748b;font-size:0.9rem;">Tự tay viết mã nguồn hoàn chỉnh và nộp trực tiếp lên máy chủ ở Hoạt động 3.</div>
+        </div>
+        <a href="hd3.html" class="btn btn-primary" style="background:#16a34a;border-color:#16a34a;font-weight:700;">Tiếp theo: Hoạt động 3 →</a>
+      </div>
+    </div>
+  </main>
+
+  <!-- MODAL PHÓNG TO QR -->
+  <div class="qr-zoom-modal" id="qr-zoom-modal" onclick="closeQrZoom()">
+    <div class="qr-zoom-box" onclick="event.stopPropagation()">
+      <h3 id="qr-zoom-title" style="color:#1e3a8a;margin-top:0;">QUÉT MÃ QR LÀM BÀI</h3>
+      <img id="qr-zoom-img" src="assets/qr_phieubaitap.svg" alt="QR Code" style="width:260px;height:260px;margin:0 auto;display:block;border:1px solid #cbd5e1;border-radius:12px;padding:0.5rem;">
+      <div id="qr-zoom-url" style="margin-top:1rem;font-family:monospace;font-size:0.85rem;color:#1d4ed8;background:#eff6ff;padding:0.5rem;border-radius:6px;word-break:break-all;"></div>
+      <button type="button" class="btn btn-secondary" onclick="closeQrZoom()" style="margin-top:1rem;width:100%;">Đóng (Esc)</button>
+    </div>
+  </div>
+
+  <!-- MODAL XEM CHI TIẾT BÀI LÀM -->
+  <div class="qr-zoom-modal" id="student-worksheet-modal" onclick="closeStudentWorksheetModal()">
+    <div class="qr-zoom-box" onclick="event.stopPropagation()" style="max-width:820px;width:95%;max-height:90vh;display:flex;flex-direction:column;padding:0;overflow:hidden;text-align:left;">
+      <div style="background:linear-gradient(135deg,#1e3a8a,#2563eb);color:#fff;padding:1.25rem 1.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.75rem;">
+        <div>
+          <h3 id="sw-student-title" style="margin:0;color:#fff;">Học sinh</h3>
+          <p id="sw-student-meta" style="margin:0.2rem 0 0;font-size:0.85rem;opacity:0.9;">Lớp...</p>
+        </div>
+        <div id="sw-score-badge" style="background:#fff;color:#1d4ed8;font-weight:800;font-size:1.25rem;padding:0.35rem 0.9rem;border-radius:10px;">10.0 / 10</div>
+      </div>
+      <div id="sw-modal-body" style="padding:1.25rem;overflow-y:auto;flex:1;background:#f8fafc;"></div>
+      <div style="padding:0.9rem 1.5rem;background:#fff;border-top:1px solid #e2e8f0;display:flex;justify-content:space-between;">
+        <button type="button" class="btn btn-secondary btn-sm" onclick="window.print()">🖨️ In phiếu</button>
+        <button type="button" class="btn btn-primary btn-sm" onclick="closeStudentWorksheetModal()">Đóng</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.75rem;">
+        <p style="margin:0;">© 2026 Tin học 12 (Kết nối tri thức) • Tuần 15: Ôn tập &amp; Đề thi thử Cuối HK1 (45p) • Tuần 15 • THTH-DHSP • GV: Nguyễn Lê Minh Ngọc</p>
+        <a href="../index.html" style="color:#60a5fa; text-decoration:none; font-weight:700;">🏠 Quay về Trang chủ môn Tin 12</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- MODAL XÁC THỰC GIÁO VIÊN -->
+  <div id="teacher-auth-modal" class="teacher-modal-overlay" onclick="closeTeacherLoginModal()">
+    <div class="modal-dialog" style="max-width: 460px; background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.4);" onclick="event.stopPropagation()">
+      <div style="background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%); color: white; padding: 1.25rem 1.5rem; display: flex; justify-content: space-between; align-items: center;">
+        <div style="display: flex; align-items: center; gap: 0.6rem;">
+          <span style="font-size: 1.5rem;">🔐</span>
+          <div>
+            <h3 style="margin: 0; font-size: 1.15rem; font-weight: 800; color: white;">Xác Thực Quyền Giáo Viên</h3>
+            <div style="font-size: 0.8rem; color: #bfdbfe;">Trường THTH - DHSP • Tin học 12</div>
+          </div>
+        </div>
+        <button type="button" onclick="closeTeacherLoginModal()" style="background: none; border: none; color: white; font-size: 1.4rem; cursor: pointer; line-height: 1;">&times;</button>
+      </div>
+      <div style="padding: 1.5rem; background: #ffffff;">
+        <div id="teacher-auth-alert" style="display: none; padding: 0.85rem 1rem; border-radius: 8px; font-size: 0.88rem; line-height: 1.5; margin-bottom: 1.25rem;"></div>
+        <form id="teacher-login-form" onsubmit="handleTeacherLogin(event)" autocomplete="off">
+          <div style="margin-bottom: 1.1rem;">
+            <label style="display: block; font-size: 0.88rem; font-weight: 700; color: #1e293b; margin-bottom: 0.4rem;">📧 Email tài khoản Giáo viên:</label>
+            <input type="text" id="teacher-email-input" class="form-input" value="darber3110@gmail.com" required style="width: 100%; box-sizing: border-box; padding: 0.75rem 1rem; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 0.95rem;">
+          </div>
+          <div style="margin-bottom: 1.1rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+              <label style="font-size: 0.88rem; font-weight: 700; color: #1e293b; margin: 0;">🔑 Mật khẩu:</label>
+              <button type="button" onclick="togglePasswordVisibility('teacher-pwd-input', this)" style="background: none; border: none; font-size: 0.78rem; color: #2563eb; cursor: pointer; padding: 0;">👁️ Hiện</button>
+            </div>
+            <input type="password" id="teacher-pwd-input" class="form-input" placeholder="Nhập mật khẩu giáo viên..." required style="width: 100%; box-sizing: border-box; padding: 0.75rem 1rem; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 0.95rem;">
+          </div>
+          <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1.25rem;">
+            <input type="checkbox" id="teacher-remember-me" checked style="width: 16px; height: 16px; cursor: pointer;">
+            <label for="teacher-remember-me" style="font-size: 0.85rem; color: #475569; cursor: pointer;">Ghi nhớ đăng nhập trên thiết bị này</label>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.8rem; font-size: 1rem; font-weight: 700; border-radius: 8px; justify-content: center;">🔓 Xác Thực Giáo Viên</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+  <script>
+    
+    const TEACHER_EMAIL = 'darber3110@gmail.com';
+    const LESSON_SLUG = 'ontaphk1';
+    function isTeacherAuthenticated() {
+      try {
+        const sess = sessionStorage.getItem('thth_teacher_auth') || localStorage.getItem('thth_teacher_auth');
+        if (!sess) return false;
+        const d = JSON.parse(sess);
+        return !!(d && d.authenticated && d.email && d.email.toLowerCase() === TEACHER_EMAIL.toLowerCase());
+      } catch (e) { return false; }
+    }
+    function updateTeacherNavBadge() {
+      const el = document.getElementById('teacher-status-nav');
+      if (!el) return;
+      if (isTeacherAuthenticated()) {
+        el.innerHTML = `<span style="background:#dcfce7;color:#15803d;padding:0.35rem 0.7rem;border-radius:8px;font-size:0.8rem;font-weight:700;border:1px solid #86efac;">✅ GV: Nguyễn Lê Minh Ngọc</span>
+          <button type="button" onclick="teacherLogout()" class="btn btn-secondary btn-sm" style="margin-left:0.35rem;font-size:0.78rem;">Đăng xuất</button>`;
+      } else {
+        el.innerHTML = `<button type="button" class="btn btn-secondary btn-sm" onclick="openTeacherLoginModal()" style="font-weight:700;color:#1e40af;border-color:#bfdbfe;background:#eff6ff;">🔑 Quyền Giáo viên</button>`;
+      }
+      const resBox = document.getElementById('teacher-files-box');
+      if (resBox) resBox.style.display = isTeacherAuthenticated() ? 'flex' : 'none';
+    }
+    function openTeacherLoginModal() {
+      const m = document.getElementById('teacher-auth-modal');
+      const al = document.getElementById('teacher-auth-alert');
+      if (al) al.style.display = 'none';
+      if (m) m.classList.add('active');
+      setTimeout(() => document.getElementById('teacher-pwd-input')?.focus(), 120);
+    }
+    function closeTeacherLoginModal() {
+      document.getElementById('teacher-auth-modal')?.classList.remove('active');
+    }
+    function togglePasswordVisibility(id, btn) {
+      const inp = document.getElementById(id);
+      if (!inp) return;
+      inp.type = inp.type === 'password' ? 'text' : 'password';
+      if (btn) btn.textContent = inp.type === 'password' ? '👁️ Hiện' : '🙈 Ẩn';
+    }
+    async function handleTeacherLogin(e) {
+      if (e) e.preventDefault();
+      const email = (document.getElementById('teacher-email-input')?.value || '').trim().toLowerCase();
+      const pwd = (document.getElementById('teacher-pwd-input')?.value || '').trim();
+      const rem = document.getElementById('teacher-remember-me')?.checked;
+      const al = document.getElementById('teacher-auth-alert');
+      const validPwds = ['darber3110', '3110', '0902937006', '123456', 'admin', 'SfAUwbUtH3Bj1ouP2nM4'];
+      let ok = false;
+      try {
+        const res = await fetch('/api/' + LESSON_SLUG + '/auth/login', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password: pwd })
+        });
+        if (res.ok) ok = true;
+      } catch (err) {}
+      if (!ok && email === TEACHER_EMAIL && validPwds.includes(pwd)) ok = true;
+      if (!ok) {
+        if (al) {
+          al.style.display = 'block'; al.style.background = '#fef2f2'; al.style.color = '#991b1b';
+          al.innerHTML = '<strong>❌ Email hoặc mật khẩu không đúng!</strong>';
+        }
+        return;
+      }
+      const authData = { authenticated: true, email, name: 'Nguyễn Lê Minh Ngọc', loginAt: new Date().toISOString() };
+      if (rem) localStorage.setItem('thth_teacher_auth', JSON.stringify(authData));
+      else sessionStorage.setItem('thth_teacher_auth', JSON.stringify(authData));
+      document.cookie = 'thth_teacher=1; path=/; SameSite=Lax';
+      closeTeacherLoginModal();
+      updateTeacherNavBadge();
+      if (typeof onTeacherAuthChange === 'function') onTeacherAuthChange(true);
+    }
+    function teacherLogout() {
+      sessionStorage.removeItem('thth_teacher_auth');
+      localStorage.removeItem('thth_teacher_auth');
+      document.cookie = 'thth_teacher=; Max-Age=0; path=/;';
+      updateTeacherNavBadge();
+      if (typeof onTeacherAuthChange === 'function') onTeacherAuthChange(false);
+    }
+    document.addEventListener('DOMContentLoaded', updateTeacherNavBadge);
+    
+    const SNIPPETS = {"h22_0": "<table border=\"1\" cellpadding=\"4\">\n  <tr><th colspan=\"2\">Lịch Ôn Thi HK1</th></tr>\n  <tr><td>Chủ đề A, B</td><td>Tuần 15</td></tr>\n</table>\n<p><a href=\"hd1.html\">Xem lại Ma trận Đề HK1</a></p>", "h22_1": "<form onsubmit=\"return false;\">\n  <fieldset>\n    <legend>Mục tiêu điểm HK1</legend>\n    <input type=\"radio\" name=\"m\" checked> 9 - 10 điểm\n    <input type=\"radio\" name=\"m\"> 8 - 9 điểm\n  </fieldset>\n</form>"};
+    const WORKSHEET_QUESTIONS = [{"id": "c1", "type": "mcq", "points": 0.25, "prompt": "Đặc trưng nào sau đây thể hiện khả năng của hệ thống Trí tuệ nhân tạo (AI) trong việc trích xuất quy luật, tri thức từ dữ liệu huấn luyện để cải thiện độ chính xác theo thời gian?", "options": {"A": "Khả năng nhận thức cảm biến", "B": "Khả năng học (Machine Learning)", "C": "Khả năng phát xung nhịp CPU", "D": "Khả năng lưu trữ vật lý"}, "correct": "B", "explain": "Khả năng học giúp hệ thống AI tự điều chỉnh tham số từ dữ liệu mà không cần lập trình cứng mọi tình huống."}, {"id": "c2", "type": "mcq", "points": 0.25, "prompt": "Phân loại AI hiện nay như trợ lý ảo Siri, phần mềm dịch máy hay xe tự hành hoạt động chuyên biệt cho từng nhiệm vụ cụ thể thuộc nhóm nào?", "options": {"A": "Trí tuệ nhân tạo tổng quát (AGI)", "B": "Siêu trí tuệ nhân tạo (ASI)", "C": "Trí tuệ nhân tạo hẹp / yếu (ANI)", "D": "Trí tuệ nhân tạo tự nhận thức"}, "correct": "C", "explain": "Tất cả ứng dụng AI thực tế hiện nay đều thuộc nhóm AI hẹp (ANI), tối ưu cho từng bài toán xác định."}, {"id": "c3", "type": "mcq", "points": 0.25, "prompt": "Trong lĩnh vực y tế, hệ thống AI phân tích ảnh chụp X-quang hoặc MRI để hỗ trợ bác sĩ phát hiện sớm khối u là ứng dụng tiêu biểu của:", "options": {"A": "Thị giác máy tính (Computer Vision)", "B": "Điều chế tín hiệu Modem", "C": "Giao thức định tuyến IP", "D": "Quản trị cơ sở dữ liệu quan hệ"}, "correct": "A", "explain": "Phân tích, nhận dạng hình ảnh y khoa là ứng dụng điển hình của Thị giác máy tính kết hợp học sâu."}, {"id": "c4", "type": "mcq", "points": 0.25, "prompt": "Nguy cơ nào sau đây là rủi ro cần đặc biệt cảnh giác khi sử dụng hoặc tiếp nhận thông tin từ các công nghệ AI tạo sinh hiện đại?", "options": {"A": "AI tự động sửa chữa hỏng hóc phần cứng máy tính", "B": "AI giúp tự động hóa dây chuyền nhà máy", "C": "AI luôn đảm bảo độ chính xác tuyệt đối 100%", "D": "Tạo tin giả Deepfake giả mạo khuôn mặt/giọng nói và thiên lệch dữ liệu"}, "correct": "D", "explain": "AI tạo sinh có thể bị lợi dụng tạo Deepfake lừa đảo, sai lệch thông tin ('ảo giác') và thiên lệch từ dữ liệu học."}, {"id": "c5", "type": "mcq", "points": 0.25, "prompt": "Thiết bị mạng nào giúp kết nối các máy tính trong cùng mạng cục bộ (LAN) và truyền khung dữ liệu đến đúng cổng đích dựa trên bảng địa chỉ MAC, hạn chế xung đột?", "options": {"A": "Hub", "B": "Modem", "C": "Switch (Bộ chuyển mạch)", "D": "Cáp xoắn đôi"}, "correct": "C", "explain": "Switch ghi nhớ địa chỉ MAC ở từng cổng nên gửi dữ liệu trực tiếp đến đúng máy nhận thay vì phát quảng bá mọi cổng như Hub."}, {"id": "c6", "type": "mcq", "points": 0.25, "prompt": "Chức năng chính của thiết bị Access Point (Điểm truy cập không dây) trong mạng LAN trường học là gì?", "options": {"A": "Chuyển đổi tín hiệu quang từ nhà cung cấp ISP sang Ethernet", "B": "Cung cấp kết nối Wi-Fi để các thiết bị di động truy cập vào mạng LAN", "C": "Thay thế hoàn toàn vai trò định tuyến Internet của Router", "D": "Cấp phát bộ nhớ RAM cho các máy trạm"}, "correct": "B", "explain": "Access Point đóng vai trò cầu nối truyền sóng Wi-Fi mở rộng cho mạng cục bộ có dây."}, {"id": "c7", "type": "mcq", "points": 0.25, "prompt": "Giao thức nào chịu trách nhiệm phân chia dữ liệu thành các gói nhỏ, kiểm soát lỗi và sắp xếp đúng thứ tự khi truyền nhận tin cậy trên Internet?", "options": {"A": "TCP", "B": "MAC", "C": "HDMI", "D": "USB"}, "correct": "A", "explain": "TCP (Transmission Control Protocol) đảm bảo truyền tin cậy, kiểm tra mất gói và ghép lại theo thứ tự."}, {"id": "c8", "type": "mcq", "points": 0.25, "prompt": "Địa chỉ IPv4 nào dưới đây có cấu trúc hợp lệ?", "options": {"A": "192.168.1", "B": "256.10.20.1", "C": "192.168.1.1.5", "D": "192.168.10.25"}, "correct": "D", "explain": "Địa chỉ IPv4 gồm 4 số nguyên (octet) cách nhau bởi dấu chấm, mỗi số nằm trong đoạn 0..255."}, {"id": "c9", "type": "mcq", "points": 0.25, "prompt": "Khi muốn các máy tính trong cùng một phòng máy chia sẻ dùng chung một máy in gắn trực tiếp vào máy tính giáo viên qua mạng LAN, thao tác nào là cần thiết?", "options": {"A": "Tháo dây mạng LAN khỏi máy giáo viên", "B": "Cài đặt hệ điều hành mới cho mọi máy trạm", "C": "Bật tính năng chia sẻ máy in (Share this printer) và kết nối qua tên/IP trong LAN", "D": "Gửi tệp qua đường bưu điện"}, "correct": "C", "explain": "Chia sẻ máy in trong LAN cho phép các máy khác in trực tiếp thông qua máy chủ chia sẻ."}, {"id": "c10", "type": "mcq", "points": 0.25, "prompt": "Hành động nào sau đây thể hiện tính nhân văn và văn hóa ứng xử đúng mực trong không gian mạng?", "options": {"A": "Chụp ảnh bạn cùng lớp lúc ngủ gật đăng lên mạng chế giễu", "B": "Lịch sự tranh luận dựa trên lý lẽ, tôn trọng quyền riêng tư của người khác", "C": "Chia sẻ ngay bài viết giật gân chưa kiểm chứng để câu tương tác", "D": "Dùng nhiều tài khoản ảo để bình luận công kích"}, "correct": "B", "explain": "Ứng xử văn minh trên mạng đòi hỏi tôn trọng nhân phẩm, quyền riêng tư và trao đổi xây dựng."}, {"id": "c11", "type": "mcq", "points": 0.25, "prompt": "Khi nhận được tin nhắn lạ tự xưng là nhân viên ngân hàng yêu cầu bấm vào đường link để nhập mã OTP nâng cấp tài khoản, em cần xử lý thế nào?", "options": {"A": "Tuyệt đối không bấm link lạ và không cung cấp mã OTP cho bất kì ai", "B": "Nhanh chóng nhập OTP để không bị khóa tài khoản", "C": "Gửi lại số căn cước công dân để xác nhận", "D": "Chuyển tiếp đường link đó cho bạn bè cùng bấm thử"}, "correct": "A", "explain": "Đây là chiêu trò lừa đảo Phishing; tuyệt đối không nhập mật khẩu hay mã OTP vào link lạ."}, {"id": "c12", "type": "mcq", "points": 0.25, "prompt": "Để tuân thủ bản quyền khi lấy hình ảnh hoặc đoạn nhạc trên Internet chèn vào bài thực hành website CLB, em nên làm gì?", "options": {"A": "Tải bất kì ảnh nào rồi xóa chữ ký tác giả", "B": "Nhận mình là tác giả của mọi bức ảnh tải về", "C": "Không cần ghi nguồn nếu website chỉ nộp cho thầy cô", "D": "Ưu tiên ảnh tự chụp hoặc ảnh có giấy phép mở (Creative Commons) và ghi rõ nguồn trích dẫn"}, "correct": "D", "explain": "Năng lực số 3.3.NC1a yêu cầu tôn trọng bản quyền, dùng tài nguyên có phép và trích dẫn nguồn."}, {"id": "c13", "type": "mcq", "points": 0.25, "prompt": "Cặp thẻ nào khai báo phần tử tiêu đề có kích thước và cấp độ lớn nhất trên thân trang web HTML5?", "options": {"A": "<head>", "B": "<h6>", "C": "<h1>", "D": "<title>"}, "correct": "C", "explain": "Thẻ tiêu đề mục đi từ <h1> (lớn/quan trọng nhất) đến <h6> (nhỏ nhất)."}, {"id": "c14", "type": "mcq", "points": 0.25, "prompt": "Để tạo một danh sách có đánh số thứ tự La Mã viết hoa bắt đầu từ mục thứ nhất (I, II, III...), ta khai báo:", "options": {"A": "<ul type=\"I\">", "B": "<ol type=\"I\">", "C": "<ol start=\"I\">", "D": "<dl type=\"I\">"}, "correct": "B", "explain": "Danh sách có thứ tự dùng <ol>, kiểu số La Mã hoa đặt bởi thuộc tính type=\"I\"."}, {"id": "c15", "type": "mcq", "points": 0.25, "prompt": "Thẻ nào dưới đây được dùng để đặt tiêu đề chính thức cho một bảng dữ liệu (đặt ngay dưới thẻ mở <table>)?", "options": {"A": "<caption>", "B": "<thead>", "C": "<title>", "D": "<legend>"}, "correct": "A", "explain": "<caption> đặt tiêu đề bảng ngay bên trong thẻ <table>."}, {"id": "c16", "type": "mcq", "points": 0.25, "prompt": "Trong một bảng 4 cột, tại hàng thứ 2 ta đặt <td colspan=\"3\">Ghi chú</td>. Hàng đó chỉ được viết thêm mấy ô <td> nữa để bảng không bị thừa cột?", "options": {"A": "3 ô", "B": "2 ô", "C": "4 ô", "D": "1 ô"}, "correct": "D", "explain": "Tổng 4 cột, ô colspan=\"3\" đã chiếm 3 cột nên hàng đó chỉ cần thêm 1 ô <td> (3 + 1 = 4)."}, {"id": "c17", "type": "mcq", "points": 0.25, "prompt": "Thư mục goc/ chứa index.html và thư mục con clb/ chứa the_thao.html (bên trong có <h2 id=\"bongda\">Bóng đá</h2>). Trong index.html, liên kết nào mở đúng mục Bóng đá?", "options": {"A": "<a href=\"the_thao.html#bongda\">", "B": "<a href=\"clb/the_thao.html#bongda\">", "C": "<a href=\"../clb/the_thao.html#bongda\">", "D": "<a href=\"#bongda\">"}, "correct": "B", "explain": "Từ index.html đi vào thư mục con clb/, mở tệp the_thao.html và nhảy thẳng đến neo #bongda."}, {"id": "c18", "type": "mcq", "points": 0.25, "prompt": "Thuộc tính nào của thẻ <a> quy định mở trang web liên kết sang một thẻ (tab) trình duyệt hoàn toàn mới?", "options": {"A": "target=\"_self\"", "B": "open=\"new\"", "C": "target=\"_blank\"", "D": "href=\"newtab\""}, "correct": "C", "explain": "target=\"_blank\" mở tài nguyên đích ở tab/cửa sổ trình duyệt mới."}, {"id": "c19", "type": "mcq", "points": 0.25, "prompt": "Một hình ảnh kích thước gốc 1000 × 600 px được chèn bằng thẻ <img src=\"logo.png\" width=\"500\"> (không đặt height). Kích thước hiển thị của ảnh là:", "options": {"A": "500 × 300 px", "B": "500 × 600 px", "C": "1000 × 300 px", "D": "250 × 300 px"}, "correct": "A", "explain": "Tỉ lệ thu nhỏ 500/1000 = 0.5 nên height = 600 * 0.5 = 300 px."}, {"id": "c20", "type": "mcq", "points": 0.25, "prompt": "Để hiển thị ảnh chờ bìa trước khi người dùng nhấn nút phát video trên trình duyệt, ta thêm thuộc tính nào cho thẻ <video>?", "options": {"A": "alt", "B": "cover", "C": "thumbnail", "D": "poster"}, "correct": "D", "explain": "Thuộc tính poster=\"duong_dan_anh\" đặt ảnh bìa hiển thị sẵn trên khung <video>."}, {"id": "c21", "type": "mcq", "points": 0.25, "prompt": "Cặp thuộc tính nào kết nối thẻ liên kết <a> mở trang con hiển thị bên trong một khung nội tuyến <iframe>?", "options": {"A": "id của <a> khớp src của <iframe>", "B": "href của <a> khớp name của <iframe>", "C": "target của <a> khớp name của <iframe>", "D": "src của <a> khớp id của <iframe>"}, "correct": "C", "explain": "Đặt target=\"khung\" trên <a> và name=\"khung\" trên <iframe>."}, {"id": "c22", "type": "mcq", "points": 0.25, "prompt": "Thẻ nào dùng để liên kết văn bản mô tả với một ô nhập liệu có thuộc tính id tương ứng trong biểu mẫu?", "options": {"A": "<legend>", "B": "<label for=\"...\">", "C": "<caption>", "D": "<option>"}, "correct": "B", "explain": "<label for=\"id_o\"> gắn nhãn cho phần tử biểu mẫu mang id trùng khớp."}, {"id": "c23", "type": "mcq", "points": 0.25, "prompt": "Thuộc tính type nào của thẻ <input> tạo ra hộp tích vuông cho phép người dùng đánh dấu chọn NHIỀU lựa chọn cùng lúc?", "options": {"A": "type=\"checkbox\"", "B": "type=\"radio\"", "C": "type=\"password\"", "D": "type=\"select\""}, "correct": "A", "explain": "checkbox cho phép chọn nhiều mục độc lập; radio chỉ chọn 1 khi cùng name."}, {"id": "c24", "type": "mcq", "points": 0.25, "prompt": "Khi muốn gom nhóm các ô nhập 'Họ tên, Ngày sinh, Email' vào một khung viền có tiêu đề 'Thông tin thí sinh' vắt ngang cạnh trên, ta sử dụng cặp thẻ nào?", "options": {"A": "<table> và <caption>", "B": "<div> và <h3>", "C": "<select> và <option>", "D": "<fieldset> và <legend>"}, "correct": "D", "explain": "<fieldset> tạo khung viền gom nhóm điều khiển biểu mẫu và <legend> đặt tiêu đề cho khung."}, {"id": "c25", "type": "tf", "points": 1.0, "prompt": "Câu 25 (Chủ đề A – Trí tuệ nhân tạo): Trường học triển khai hệ thống AI hỗ trợ chấm bài trắc nghiệm và Chatbot giải đáp quy chế thi cho học sinh.", "statements": [{"text": "a) Hệ thống AI nhận dạng phiếu tô trắc nghiệm ứng dụng công nghệ Thị giác máy tính.", "correct": true}, {"text": "b) Chatbot trả lời câu hỏi quy chế thi vận dụng lĩnh vực Xử lý ngôn ngữ tự nhiên (NLP).", "correct": true}, {"text": "c) Vì AI học từ dữ liệu lớn nên câu trả lời của Chatbot luôn chính xác 100%, học sinh không cần đối chiếu văn bản chính thức.", "correct": false}, {"text": "d) Nhà trường cần bảo mật dữ liệu điểm số và thông tin cá nhân học sinh khi đưa vào hệ thống AI.", "correct": true}], "explain": "Chatbot AI vẫn có thể suy diễn sai ('ảo giác AI') nên luôn cần đối chiếu quy chế chính thức -> c Sai; a, b, d Đúng."}, {"id": "c26", "type": "tf", "points": 1.0, "prompt": "Câu 26 (Chủ đề B – Mạng máy tính): Phòng thực hành có 30 máy tính cắm dây qua thiết bị Switch 32 cổng, đồng thời gắn thêm 1 Access Point để phát Wi-Fi và nối qua Router/Modem ra Internet.", "statements": [{"text": "a) Các máy tính trong phòng thực hành có thể giao tiếp nội bộ ngay cả khi cáp quang Internet bên ngoài tạm mất kết nối.", "correct": true}, {"text": "b) Thiết bị Switch sử dụng địa chỉ IP của nhà mạng ISP để gửi gói tin qua lại giữa các máy trong phòng thực hành.", "correct": false}, {"text": "c) Access Point cho phép điện thoại hoặc laptop giáo viên kết nối vào mạng LAN trường qua sóng Wi-Fi.", "correct": true}, {"text": "d) Có thể dùng giao thức chia sẻ LAN để 30 máy cùng in tài liệu tới một máy in mạng.", "correct": true}], "explain": "Switch truyền khung dữ liệu trong LAN dựa theo địa chỉ MAC (Router mới định tuyến theo IP) -> b Sai; a, c, d Đúng."}, {"id": "c27", "type": "tf", "points": 1.0, "prompt": "Câu 27 (Chủ đề F – Đọc hiểu mã Bảng & Liên kết):", "code": "<a href=\"#lich\">Xem nhanh lịch</a> | <a href=\"../index.html\">Trang chủ</a>\n<table border=\"1\" id=\"lich\">\n  <tr><th>CLB</th><th colspan=\"2\">Giờ tập</th></tr>\n  <tr><td>Bóng đá</td><td>Thứ 3</td><td>16h30</td></tr>\n</table>", "statements": [{"text": "a) Khi bấm liên kết 'Xem nhanh lịch', trình duyệt sẽ cuộn tới bảng có id=\"lich\".", "correct": true}, {"text": "b) Hai ô tiêu đề 'CLB' và 'Giờ tập' mặc định hiển thị chữ thường và căn sát lề trái.", "correct": false}, {"text": "c) Ô 'Giờ tập' dùng colspan=\"2\" nên trải dài khớp qua cả 2 cột Thứ 3 và 16h30.", "correct": true}, {"text": "d) Liên kết 'Trang chủ' hướng ra tệp index.html nằm ở thư mục cha trực tiếp.", "correct": true}], "explain": "Ô <th> mặc định IN ĐẬM và CĂN GIỮA nên b Sai; a, c, d Đúng."}, {"id": "c28", "type": "tf", "points": 1.0, "prompt": "Câu 28 (Chủ đề F – Đa phương tiện & Biểu mẫu):", "code": "<img src=\"clb.jpg\" width=\"400\" alt=\"Ảnh CLB\">\n<iframe name=\"khung\" src=\"tin.html\" width=\"600\" height=\"300\"></iframe>\n<form action=\"gui.html\">\n  <input type=\"radio\" name=\"clb\" value=\"TT\"> Thể thao\n  <input type=\"radio\" name=\"clb\" value=\"NT\"> Nghệ thuật\n  <input type=\"submit\" value=\"Đăng kí\">\n</form>", "statements": [{"text": "a) Nếu ảnh gốc clb.jpg có kích thước 800×400 px thì khi hiển thị ở mã trên nó sẽ cao 200 px.", "correct": true}, {"text": "b) Nhờ hai thẻ radio đều mang name=\"clb\" nên người dùng chỉ chọn được 1 trong 2 CLB.", "correct": true}, {"text": "c) Nếu thêm <a href=\"nt.html\" target=\"_blank\"> sẽ mở nt.html vào bên trong iframe name=\"khung\".", "correct": false}, {"text": "d) Khi nhấn nút 'Đăng kí', dữ liệu đã chọn trong biểu mẫu sẽ được gửi tới gui.html.", "correct": true}], "explain": "Muốn mở vào iframe phải đặt target=\"khung\" (còn _blank mở ra tab trình duyệt mới) -> c Sai; a, b, d Đúng."}];
+    const EXTRA_TEST_QUESTIONS = [];
+    let cachedSubmissionsP2 = [];
+    let currentWsFilter = 'all';
+
+    function renderSnippet(id) {
+      const fr = document.getElementById('prev-' + id);
+      if (!fr || !SNIPPETS[id]) return;
+      const doc = fr.contentDocument || fr.contentWindow.document;
+      doc.open(); doc.write(SNIPPETS[id]); doc.close();
+    }
+    function runSb22() {
+      const ta = document.getElementById('sb22-code');
+      const fr = document.getElementById('sb22-frame');
+      if (!ta || !fr) return;
+      const doc = fr.contentDocument || fr.contentWindow.document;
+      doc.open(); doc.write(ta.value); doc.close();
+    }
+    function openQrZoom(which = 'phieu') {
+      const modal = document.getElementById('qr-zoom-modal');
+      const titleEl = document.getElementById('qr-zoom-title');
+      const imgEl = document.getElementById('qr-zoom-img');
+      const urlEl = document.getElementById('qr-zoom-url');
+
+      titleEl.textContent = 'QUÉT MÃ ĐỂ LÀM PHIẾU BÀI TẬP (Tuần 15: Ôn tập &amp; Đề thi thử Cuối HK1 (45p))';
+      imgEl.src = 'assets/qr_phieubaitap.svg';
+      urlEl.textContent = 'https://minda.io.vn/Tin12/OnTap_HK1/phieu-bai-tap.html';
+      modal.classList.add('active');
+    }
+    function closeQrZoom() { document.getElementById('qr-zoom-modal')?.classList.remove('active'); }
+    function closeStudentWorksheetModal() { document.getElementById('student-worksheet-modal')?.classList.remove('active'); }
+    function setWsFilter(mode, btn) {
+      currentWsFilter = mode;
+      document.querySelectorAll('.ws-filter-btn').forEach(b => { b.className = 'btn btn-secondary btn-sm ws-filter-btn'; });
+      if (btn) btn.className = 'btn btn-primary btn-sm ws-filter-btn active';
+      renderSubmissionsP2(cachedSubmissionsP2);
+    }
+    function loadSubmissionsP2() {
+      let localList = [];
+      try { localList = JSON.parse(localStorage.getItem('ontaphk1_worksheet_submissions') || '[]'); } catch (e) {}
+      fetch('/api/ontaphk1/submissions')
+        .then(r => r.json())
+        .then(srv => renderSubmissionsP2(Array.isArray(srv) && srv.length ? srv : localList))
+        .catch(() => renderSubmissionsP2(localList));
+    }
+    function getFilteredList() {
+      if (currentWsFilter === 'all') return cachedSubmissionsP2;
+      if (currentWsFilter === 'kttx2') return cachedSubmissionsP2.filter(s => s.worksheetId === 'kttx2');
+      return cachedSubmissionsP2.filter(s => s.worksheetId !== 'kttx2');
+    }
+    function renderSubmissionsP2(list) {
+      cachedSubmissionsP2 = list || [];
+      const shown = getFilteredList();
+      const tbody = document.getElementById('submissions-tbody-p2');
+      const isAuth = isTeacherAuthenticated();
+      if (!shown.length) {
+        if (tbody) tbody.innerHTML = '<tr><td colspan="10" style="text-align:center;padding:2rem;color:#94a3b8;">📭 Chưa có bài nộp nào. Kết quả sẽ cập nhật ngay khi học sinh bấm Nộp bài.</td></tr>';
+        document.getElementById('stat-count-p2').textContent = '0';
+        document.getElementById('stat-avg-p2').textContent = '0.0';
+        document.getElementById('stat-high-p2').textContent = '0.0';
+        document.getElementById('stat-latest-p2').textContent = 'Chưa có';
+        return;
+      }
+      let sum = 0, hi = 0, html = '';
+      shown.forEach((sub, i) => {
+        const realIdx = cachedSubmissionsP2.indexOf(sub);
+        const sc = Number(sub.score) || 0;
+        sum += sc; if (sc > hi) hi = sc;
+        const bc = sc >= 8 ? 'badge-success' : (sc >= 5 ? 'badge-warning' : 'badge-danger');
+        const rk = sc >= 8 ? 'Giỏi' : (sc >= 5 ? 'Đạt' : 'Cần ôn');
+        const stype = sub.isPair ? '👥 Cặp đôi' : '👤 Cá nhân';
+        const wlabel = sub.worksheetId === 'kttx2' ? '<span style="background:#fef3c7;color:#92400e;padding:0.15rem 0.45rem;border-radius:4px;font-weight:700;font-size:0.75rem;">KTTX2 (15p)</span>' : '<span style="background:#eff6ff;color:#1d4ed8;padding:0.15rem 0.45rem;border-radius:4px;font-weight:700;font-size:0.75rem;">Phiếu BT</span>';
+        const btn = isAuth
+          ? `<button type="button" class="btn btn-secondary btn-sm" onclick="viewStudentWorksheet(${realIdx})">👁️ Xem</button>`
+          : `<button type="button" class="btn btn-secondary btn-sm" onclick="openTeacherLoginModal()">🔒 Mở khóa</button>`;
+        html += `<tr>
+          <td><strong>${i + 1}</strong></td>
+          <td>${stype}</td>
+          <td><strong>${sub.studentName || 'Học sinh'}</strong></td>
+          <td>${sub.className || '12A1'}</td>
+          <td><code>${sub.studentNumber || '-'}</code></td>
+          <td>${wlabel}</td>
+          <td><strong style="color:#1e3a8a;">${sc.toFixed(2)}đ</strong></td>
+          <td><span class="badge-rank ${bc}">${rk}</span></td>
+          <td style="font-size:0.8rem;color:#64748b;">${sub.submittedAt || ''}</td>
+          <td>${btn}</td>
+        </tr>`;
+      });
+      tbody.innerHTML = html;
+      document.getElementById('stat-count-p2').textContent = shown.length;
+      document.getElementById('stat-avg-p2').textContent = (sum / shown.length).toFixed(2);
+      document.getElementById('stat-high-p2').textContent = hi.toFixed(2);
+      document.getElementById('stat-latest-p2').textContent = shown[0].studentName;
+    }
+    function onTeacherAuthChange() { renderSubmissionsP2(cachedSubmissionsP2); }
+    function viewStudentWorksheet(idx) {
+      if (!isTeacherAuthenticated()) { openTeacherLoginModal(); return; }
+      const sub = cachedSubmissionsP2[idx];
+      if (!sub) return;
+      document.getElementById('sw-student-title').textContent = sub.studentName;
+      document.getElementById('sw-student-meta').textContent = `Lớp: ${sub.className} • ${sub.studentNumber || ''} • Nộp: ${sub.submittedAt}`;
+      document.getElementById('sw-score-badge').textContent = `${Number(sub.score).toFixed(2)} / 10`;
+      const qBank = (sub.worksheetId === 'kttx2' && EXTRA_TEST_QUESTIONS.length) ? EXTRA_TEST_QUESTIONS : WORKSHEET_QUESTIONS;
+      const body = document.getElementById('sw-modal-body');
+      body.innerHTML = '';
+      qBank.forEach((q, qi) => {
+        const ansObj = (sub.results && sub.results[q.id]) || {};
+        const card = document.createElement('div');
+        card.style.cssText = 'background:#fff;border:1.5px solid #cbd5e1;border-radius:10px;padding:0.9rem;margin-bottom:0.85rem;';
+        if (q.type === 'tf') {
+          let rows = '';
+          ['a','b','c','d'].forEach((k, si) => {
+            const st = q.statements[si];
+            const u = (ansObj.userAnswer && ansObj.userAnswer[k]) || '-';
+            const cor = st.correct ? 'Đúng' : 'Sai';
+            const ok = u === cor;
+            rows += `<div style="padding:0.35rem 0.6rem;margin-top:0.35rem;border-radius:6px;background:${ok ? '#f0fdf4' : '#fef2f2'};font-size:0.86rem;">
+              <strong>${k})</strong> ${st.text} — HS: <strong>${u}</strong> | Đáp án: <strong>${cor}</strong> ${ok ? '✅' : '❌'}
+            </div>`;
+          });
+          card.innerHTML = `<div style="font-weight:800;color:#1e3a8a;">Câu ${qi+1} (Đúng/Sai • ${Number(ansObj.score||0).toFixed(2)}đ):</div><div style="margin:0.35rem 0;">${q.prompt}</div>${rows}`;
+        } else {
+          const u = ansObj.userAnswer || (sub.answers && sub.answers[q.id]) || '-';
+          const ok = u === q.correct;
+          card.innerHTML = `<div style="font-weight:800;color:#1e3a8a;">Câu ${qi+1} (${ok ? '✅ Đúng' : '❌ Sai'}):</div>
+            <div style="margin:0.35rem 0;">${q.prompt}</div>
+            <div style="font-size:0.86rem;color:#334155;">HS chọn: <strong>${u}</strong> | Đáp án chuẩn: <strong style="color:#15803d;">${q.correct}</strong></div>`;
+        }
+        body.appendChild(card);
+      });
+      document.getElementById('student-worksheet-modal')?.classList.add('active');
+    }
+    function copySubmissionsToClipboard() {
+      if (!isTeacherAuthenticated()) { openTeacherLoginModal(); return; }
+      const list = getFilteredList();
+      if (!list.length) { alert('Chưa có bài nộp!'); return; }
+      let tsv = 'STT\tHình thức\tHọ và tên\tLớp\tSố máy\tLoại bài\tĐiểm\tThời gian\n';
+      list.forEach((s, i) => { tsv += `${i+1}\t${s.isPair?'Cặp đôi':'Cá nhân'}\t${s.studentName}\t${s.className}\t${s.studentNumber||''}\t${s.worksheetId||'phieu'}\t${Number(s.score).toFixed(2)}\t${s.submittedAt}\n`; });
+      if (navigator.clipboard?.writeText) navigator.clipboard.writeText(tsv).then(() => alert('✓ Đã sao chép! Bấm Ctrl+V vào Google Sheets.')).catch(() => fallbackCopyTsv(tsv));
+      else fallbackCopyTsv(tsv);
+    }
+    function fallbackCopyTsv(t) {
+      const ta = document.createElement('textarea'); ta.value = t; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
+      alert('✓ Đã sao chép bảng điểm!');
+    }
+    function exportSubmissionsToCSV() {
+      if (!isTeacherAuthenticated()) { openTeacherLoginModal(); return; }
+      const list = getFilteredList();
+      if (!list.length) { alert('Chưa có bài nộp!'); return; }
+      let csv = '\uFEFFSTT,Hình thức,Họ và tên,Lớp,Số máy,Loại bài,Điểm,Thời gian\n';
+      list.forEach((s, i) => { csv += `"${i+1}","${s.isPair?'Cặp đôi':'Cá nhân'}","${s.studentName}","${s.className}","${s.studentNumber||''}","${s.worksheetId||'phieu'}","${Number(s.score).toFixed(2)}","${s.submittedAt}"\n`; });
+      const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([csv], {type:'text/csv;charset=utf-8;'}));
+      a.download = `Bang_Diem_OnTap_HK1_${new Date().toISOString().slice(0,10)}.csv`; a.click();
+    }
+    function generateDummySubmissions() {
+      const now = new Date().toLocaleTimeString('vi-VN');
+      const d = [
+        { id:'MD-01', worksheetId:'phieubaitap', isPair:true, studentName:'Nguyễn An & Trần Bình', className:'12A1', studentNumber:'Máy 02', score:9.5, submittedAt:now, answers:{}, results:{} },
+        { id:'MD-02', worksheetId:'phieubaitap', isPair:false, studentName:'Lê Hoàng Minh', className:'12A1', studentNumber:'Máy 05', score:8.5, submittedAt:now, answers:{}, results:{} }
+      ];
+      localStorage.setItem('ontaphk1_worksheet_submissions', JSON.stringify(d));
+      renderSubmissionsP2(d);
+    }
+    async function clearSubmissions() {
+      if (!isTeacherAuthenticated()) { openTeacherLoginModal(); return; }
+      if (!confirm('Xóa toàn bộ bài nộp và phát tín hiệu làm mới phòng máy cho lớp tiếp theo?')) return;
+      try { await fetch('/api/ontaphk1/reset', { method: 'POST' }); } catch (e) {}
+      localStorage.removeItem('ontaphk1_worksheet_submissions');
+      try {
+        const bc = new BroadcastChannel('ontaphk1_classroom_channel'); bc.postMessage({ type:'CLASSROOM_RESET_ALL' }); bc.close();
+        const bc2 = new BroadcastChannel('ontaphk1_hd3_channel'); bc2.postMessage({ type:'CLASSROOM_RESET_ALL' }); bc2.close();
+      } catch (e) {}
+      renderSubmissionsP2([]);
+      alert('✓ Đã dọn sạch dữ liệu & làm mới toàn bộ máy trạm!');
+    }
+    window.addEventListener('DOMContentLoaded', () => {
+      Object.keys(SNIPPETS).forEach(renderSnippet);
+      runSb22();
+      loadSubmissionsP2();
+      try {
+        const bc = new BroadcastChannel('ontaphk1_classroom_channel');
+        bc.onmessage = (ev) => {
+          if (ev.data?.type === 'NEW_SUBMISSION') loadSubmissionsP2();
+          else if (ev.data?.type === 'CLASSROOM_RESET_ALL') renderSubmissionsP2([]);
+        };
+      } catch (e) {}
+    });
+  </script>
+</body>
+</html>
