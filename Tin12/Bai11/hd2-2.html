@@ -29,6 +29,7 @@
     .sgk-fig-box { background: #fff; border: 1.5px solid #cbd5e1; border-radius: 12px; padding: 0.85rem; margin: 1rem 0; text-align: center; }
     .sgk-fig-box img { max-width: 100%; max-height: 360px; height: auto; border-radius: 6px; object-fit: contain; }
     .sgk-fig-cap { font-size: 0.84rem; color: #475569; font-style: italic; margin-top: 0.5rem; }
+    .exam-gated-hidden { display: none !important; }
 
 
     .mission-card { background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); border: 2px solid #3b82f6; border-radius: 16px; padding: 1.5rem; margin: 1.5rem 0; }
@@ -262,8 +263,9 @@
 
 
 
-      <!-- REALTIME DASHBOARD GIÁO VIÊN -->
-      <section class="card" id="dashboard-phieu2" style="border-top:5px solid #1e3a8a;margin-top:1.75rem;">
+      <!-- ĐIỀU KHIỂN ĐỀ KIỂM TRA & REALTIME DASHBOARD GIÁO VIÊN -->
+      <div id="teacher-exam-control-panel" style="display:none;margin-top:1.75rem;"></div>
+      <section class="card" id="dashboard-phieu2" style="border-top:5px solid #1e3a8a;margin-top:1.25rem;">
         <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:1rem;margin-bottom:1rem;">
           <div>
             <span style="display:inline-flex;align-items:center;gap:0.4rem;background:#ecfdf5;color:#059669;padding:0.2rem 0.65rem;border-radius:999px;font-size:0.76rem;font-weight:700;">● REALTIME TEACHER DASHBOARD</span>
@@ -392,25 +394,40 @@
     
     const TEACHER_EMAIL = 'darber3110@gmail.com';
     const LESSON_SLUG = 'bai11';
-    function isTeacherAuthenticated() {
+    window.__lessonExamStatus = window.__lessonExamStatus || { isTeacher: false, exams: {} };
+
+    function getTeacherToken() {
       try {
         const sess = sessionStorage.getItem('thth_teacher_auth') || localStorage.getItem('thth_teacher_auth');
-        if (!sess) return false;
+        if (!sess) return '';
         const d = JSON.parse(sess);
-        return !!(d && d.authenticated && d.email && d.email.toLowerCase() === TEACHER_EMAIL.toLowerCase());
-      } catch (e) { return false; }
+        if (d && d.authenticated && d.token && d.email && d.email.toLowerCase() === TEACHER_EMAIL.toLowerCase()) {
+          return String(d.token);
+        }
+      } catch (e) {}
+      return '';
+    }
+    function getTeacherHeaders(extra = {}) {
+      const tok = getTeacherToken();
+      return tok ? { ...extra, 'X-Teacher-Token': tok } : { ...extra };
+    }
+    function isTeacherAuthenticated() {
+      return !!getTeacherToken();
     }
     function updateTeacherNavBadge() {
       const el = document.getElementById('teacher-status-nav');
-      if (!el) return;
-      if (isTeacherAuthenticated()) {
-        el.innerHTML = `<span style="background:#dcfce7;color:#15803d;padding:0.35rem 0.7rem;border-radius:8px;font-size:0.8rem;font-weight:700;border:1px solid #86efac;">✅ GV: Nguyễn Lê Minh Ngọc</span>
-          <button type="button" onclick="teacherLogout()" class="btn btn-secondary btn-sm" style="margin-left:0.35rem;font-size:0.78rem;">Đăng xuất</button>`;
-      } else {
-        el.innerHTML = `<button type="button" class="btn btn-secondary btn-sm" onclick="openTeacherLoginModal()" style="font-weight:700;color:#1e40af;border-color:#bfdbfe;background:#eff6ff;">🔑 Quyền Giáo viên</button>`;
+      const auth = isTeacherAuthenticated();
+      if (el) {
+        if (auth) {
+          el.innerHTML = `<span style="background:#dcfce7;color:#15803d;padding:0.35rem 0.7rem;border-radius:8px;font-size:0.8rem;font-weight:700;border:1px solid #86efac;">✅ GV: Nguyễn Lê Minh Ngọc</span>
+            <button type="button" onclick="teacherLogout()" class="btn btn-secondary btn-sm" style="margin-left:0.35rem;font-size:0.78rem;">Đăng xuất</button>`;
+        } else {
+          el.innerHTML = `<button type="button" class="btn btn-secondary btn-sm" onclick="openTeacherLoginModal()" style="font-weight:700;color:#1e40af;border-color:#bfdbfe;background:#eff6ff;">🔑 Quyền Giáo viên</button>`;
+        }
       }
       const resBox = document.getElementById('teacher-files-box');
-      if (resBox) resBox.style.display = isTeacherAuthenticated() ? 'flex' : 'none';
+      if (resBox) resBox.style.display = auth ? 'flex' : 'none';
+      renderTeacherExamControls();
     }
     function openTeacherLoginModal() {
       const m = document.getElementById('teacher-auth-modal');
@@ -434,39 +451,152 @@
       const pwd = (document.getElementById('teacher-pwd-input')?.value || '').trim();
       const rem = document.getElementById('teacher-remember-me')?.checked;
       const al = document.getElementById('teacher-auth-alert');
-      const validPwds = ['darber3110', '3110', '0902937006', '123456', 'admin', 'SfAUwbUtH3Bj1ouP2nM4'];
-      let ok = false;
+      let authRes = null;
       try {
         const res = await fetch('/api/' + LESSON_SLUG + '/auth/login', {
           method: 'POST', headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email, password: pwd })
         });
-        if (res.ok) ok = true;
+        if (res.ok) authRes = await res.json();
       } catch (err) {}
-      if (!ok && email === TEACHER_EMAIL && validPwds.includes(pwd)) ok = true;
-      if (!ok) {
+      if (!authRes || !authRes.authenticated || !authRes.token) {
         if (al) {
           al.style.display = 'block'; al.style.background = '#fef2f2'; al.style.color = '#991b1b';
-          al.innerHTML = '<strong>❌ Email hoặc mật khẩu không đúng!</strong>';
+          al.innerHTML = '<strong>❌ Email hoặc mật khẩu không đúng (hoặc không kết nối được máy chủ xác thực)!</strong>';
         }
         return;
       }
-      const authData = { authenticated: true, email, name: 'Nguyễn Lê Minh Ngọc', loginAt: new Date().toISOString() };
+      const authData = {
+        authenticated: true,
+        email: authRes.email || email,
+        name: authRes.name || 'Nguyễn Lê Minh Ngọc',
+        token: authRes.token,
+        loginAt: new Date().toISOString()
+      };
       if (rem) localStorage.setItem('thth_teacher_auth', JSON.stringify(authData));
       else sessionStorage.setItem('thth_teacher_auth', JSON.stringify(authData));
-      document.cookie = 'thth_teacher=1; path=/; SameSite=Lax';
       closeTeacherLoginModal();
       updateTeacherNavBadge();
+      await syncLessonExamGates();
       if (typeof onTeacherAuthChange === 'function') onTeacherAuthChange(true);
     }
-    function teacherLogout() {
+    async function teacherLogout() {
       sessionStorage.removeItem('thth_teacher_auth');
       localStorage.removeItem('thth_teacher_auth');
       document.cookie = 'thth_teacher=; Max-Age=0; path=/;';
+      try { await fetch('/api/' + LESSON_SLUG + '/auth/logout', { method: 'POST' }); } catch (e) {}
       updateTeacherNavBadge();
+      await syncLessonExamGates();
       if (typeof onTeacherAuthChange === 'function') onTeacherAuthChange(false);
     }
-    document.addEventListener('DOMContentLoaded', updateTeacherNavBadge);
+    function applyLessonExamGates(statusData) {
+      const exams = (statusData && statusData.exams) || {};
+      const serverTeacher = !!(statusData && statusData.isTeacher);
+      const clientTeacher = isTeacherAuthenticated();
+      const teacherView = clientTeacher || serverTeacher;
+      document.querySelectorAll('[data-exam-gate]').forEach(el => {
+        const wsId = el.getAttribute('data-exam-gate');
+        const st = exams[LESSON_SLUG + ':' + wsId];
+        const visible = teacherView || !!(st && st.isOpen);
+        el.classList.toggle('exam-gated-hidden', !visible);
+      });
+      document.querySelectorAll('[data-exam-locked-notice]').forEach(el => {
+        const wsId = el.getAttribute('data-exam-locked-notice');
+        const st = exams[LESSON_SLUG + ':' + wsId];
+        const showNotice = !teacherView && !(st && st.isOpen);
+        el.style.display = showNotice ? '' : 'none';
+      });
+      renderTeacherExamControls();
+    }
+    function renderTeacherExamControls() {
+      const panel = document.getElementById('teacher-exam-control-panel');
+      if (!panel) return;
+      const exams = (window.__lessonExamStatus && window.__lessonExamStatus.exams) || {};
+      const list = Object.values(exams).filter(x => x.slug === LESSON_SLUG);
+      if (!isTeacherAuthenticated() || !list.length) {
+        panel.style.display = 'none';
+        return;
+      }
+      panel.style.display = 'block';
+      const curPage = (window.location.pathname || '').split('/').pop();
+      panel.innerHTML = list.map(ex => {
+        const remMin = ex.remainingOpenSec != null ? Math.ceil(ex.remainingOpenSec / 60) : null;
+        const badge = ex.isOpen
+          ? `<span style="background:#dcfce7;color:#15803d;padding:0.25rem 0.65rem;border-radius:999px;font-size:0.78rem;font-weight:800;border:1px solid #86efac;">🟢 ĐANG MỞ ĐỀ${remMin !== null ? ' (còn ~' + remMin + 'p)' : ''}</span>`
+          : `<span style="background:#fee2e2;color:#991b1b;padding:0.25rem 0.65rem;border-radius:999px;font-size:0.78rem;font-weight:800;border:1px solid #fca5a5;">🔒 ĐANG KHÓA (Học sinh bị ẩn &amp; chặn)</span>`;
+        const defMins = Number(ex.minutes || 15);
+        const durOpts = [15, 20, 30, 45, 0].map(m =>
+          `<option value="${m}" ${m === defMins ? 'selected' : ''}>${m > 0 ? 'Mở ' + m + ' phút' : 'Mở không giới hạn'}</option>`
+        ).join('');
+        const openLink = curPage !== ex.file ? `<a href="${ex.file}" class="btn btn-secondary btn-sm" style="background:#fff;border-color:#93c5fd;color:#1d4ed8;">📄 Mở trang đề</a>` : '';
+        return `<div style="background:#fffbeb;border:2px solid #f59e0b;border-radius:14px;padding:1rem 1.25rem;margin-bottom:1.15rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.85rem;">
+          <div>
+            <div style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;margin-bottom:0.25rem;">
+              <strong style="color:#92400e;font-size:0.98rem;">🎛️ Điều khiển Đề kiểm tra: ${ex.title}</strong>
+              ${badge}
+            </div>
+            <div style="font-size:0.82rem;color:#78350f;">Chỉ Giáo viên đã xác thực máy chủ mới mở/khóa được đề. Học sinh tự động nhận trạng thái trong 5 giây.</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:0.45rem;flex-wrap:wrap;">
+            <select id="ctrl-dur-${ex.worksheetId}" style="padding:0.38rem 0.55rem;border:1.5px solid #cbd5e1;border-radius:8px;font-size:0.82rem;font-weight:700;background:#fff;">${durOpts}</select>
+            <button type="button" class="btn btn-primary btn-sm" style="background:#059669;border-color:#059669;font-weight:800;" onclick="controlLessonExam('${ex.worksheetId}','open')">🔓 ${ex.isOpen ? 'Gia hạn / Mở lại' : 'Mở đề'}</button>
+            <button type="button" class="btn btn-secondary btn-sm" style="color:#dc2626;border-color:#fca5a5;background:#fff;font-weight:800;" onclick="controlLessonExam('${ex.worksheetId}','close')">🔒 Khóa đề</button>
+            <label style="display:inline-flex;align-items:center;gap:0.35rem;font-size:0.82rem;font-weight:700;color:#1e3a8a;background:#fff;border:1px solid #cbd5e1;padding:0.35rem 0.6rem;border-radius:8px;cursor:pointer;">
+              <input type="checkbox" id="ctrl-rev-${ex.worksheetId}" ${ex.allowReview ? 'checked' : ''} onchange="controlLessonExam('${ex.worksheetId}','set_review',this.checked)">
+              👁️ Đáp án sau nộp
+            </label>
+            ${openLink}
+          </div>
+        </div>`;
+      }).join('');
+    }
+    async function controlLessonExam(wsId, action, reviewOverride) {
+      if (!isTeacherAuthenticated()) { openTeacherLoginModal(); return; }
+      const durEl = document.getElementById('ctrl-dur-' + wsId);
+      const revEl = document.getElementById('ctrl-rev-' + wsId);
+      const durationMinutes = durEl ? Number(durEl.value || 0) : 15;
+      const allowReview = typeof reviewOverride === 'boolean' ? reviewOverride : (revEl ? !!revEl.checked : false);
+      try {
+        const res = await fetch('/api/' + LESSON_SLUG + '/exam/control', {
+          method: 'POST',
+          headers: getTeacherHeaders({ 'Content-Type': 'application/json' }),
+          body: JSON.stringify({ examId: wsId, action, durationMinutes, allowReview })
+        });
+        if (res.status === 401) {
+          alert('Phiên xác thực Giáo viên đã hết hạn hoặc không hợp lệ. Vui lòng đăng nhập lại!');
+          await teacherLogout();
+          openTeacherLoginModal();
+          return;
+        }
+        const data = await res.json();
+        if (!res.ok) { alert(data.error || 'Không thể cập nhật trạng thái đề.'); return; }
+        await syncLessonExamGates();
+        if (typeof onExamStatusUpdate === 'function') onExamStatusUpdate(window.__lessonExamStatus);
+      } catch (e) {
+        alert('Lỗi kết nối máy chủ điều khiển đề: ' + e.message);
+      }
+    }
+    async function syncLessonExamGates() {
+      try {
+        const res = await fetch('/api/' + LESSON_SLUG + '/exam/status', {
+          headers: getTeacherHeaders(),
+          cache: 'no-store'
+        });
+        if (!res.ok) return null;
+        const data = await res.json();
+        window.__lessonExamStatus = data;
+        applyLessonExamGates(data);
+        if (typeof onExamStatusUpdate === 'function') onExamStatusUpdate(data);
+        return data;
+      } catch (e) { return null; }
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+      updateTeacherNavBadge();
+      syncLessonExamGates();
+      if (document.querySelector('[data-exam-gate], #teacher-exam-control-panel')) {
+        setInterval(syncLessonExamGates, 10000);
+      }
+    });
     
     const SNIPPETS = {"h22_0": "<h4>Khung nội tuyến &lt;iframe&gt;</h4>\n<iframe name=\"khung_xem\" width=\"100%\" height=\"125\" style=\"border:2px solid #2563eb;border-radius:8px;\"\n  srcdoc=\"<h3 style='color:#1e3a8a;font-family:sans-serif;'>Chào mừng đến CLB THTH-DHSP!</h3><p style='font-family:sans-serif;'>Nội dung này đang chạy bên trong thẻ iframe.</p>\">\n</iframe>", "h22_1": "<p>\n  Chọn mục xem trong khung: \n  <a href=\"hd1.html\" target=\"khung_mini\">Xem HĐ 1</a> | \n  <a href=\"hd2-1.html\" target=\"khung_mini\">Xem HĐ 2.1</a>\n</p>\n<iframe name=\"khung_mini\" width=\"100%\" height=\"120\" style=\"border:1.5px dashed #0284c7;\"\n  srcdoc=\"<p style='font-family:sans-serif;color:#64748b;'>Hãy nhấp một liên kết ở trên để tải trang vào đây...</p>\">\n</iframe>"};
     const WORKSHEET_QUESTIONS = [{"id": "q1", "type": "mcq", "points": 1.5, "prompt": "Một tệp ảnh banner.png có kích thước gốc 800 × 600 px được chèn bằng thẻ <img src=\"banner.png\" width=\"400\" alt=\"Banner\">. Kích thước ảnh hiển thị trên trình duyệt là:", "options": {"A": "400 × 600 px", "B": "400 × 300 px", "C": "800 × 300 px", "D": "400 × 400 px"}, "correct": "B", "explain": "Tỉ lệ gốc 800/600 = 4/3. Khi đặt width=400 và không ghi height, trình duyệt tính height = 400 * 600 / 800 = 300 px."}, {"id": "q2", "type": "mcq", "points": 1.5, "prompt": "Thuộc tính nào sau đây KHÔNG thuộc về thẻ <audio> trong HTML5?", "options": {"A": "controls", "B": "autoplay", "C": "muted", "D": "poster"}, "correct": "D", "explain": "Thuộc tính poster (ảnh bìa chờ) chỉ dùng cho thẻ <video>, không dùng trên <audio>."}, {"id": "q3", "type": "mcq", "points": 1.5, "prompt": "Cặp thuộc tính nào giúp nhấp vào liên kết <a> sẽ mở trang đích hiển thị gọn bên trong thẻ <iframe> có sẵn trên trang?", "options": {"A": "name trên <iframe> trùng với target trên <a>", "B": "id trên <iframe> trùng với href trên <a>", "C": "src trên <iframe> trùng với name trên <a>", "D": "target=\"_blank\" trên <a>"}, "correct": "A", "explain": "Đặt name='ten_khung' trên <iframe> và target='ten_khung' trên thẻ <a>."}, {"id": "q4", "type": "mcq", "points": 1.5, "prompt": "Mục đích chính của việc sử dụng thuộc tính alt trong thẻ <img> là gì?", "options": {"A": "Tự động nén dung lượng ảnh nhẹ hơn", "B": "Hiển thị văn bản thay thế khi ảnh không tải được và hỗ trợ trình đọc màn hình", "C": "Tạo liên kết cho hình ảnh", "D": "Canh giữa hình ảnh trên trang web"}, "correct": "B", "explain": "alt (Alternative Text) cung cấp văn bản mô tả thay thế khi ảnh bị lỗi đường dẫn và giúp người khiếm thị tiếp cận nội dung."}, {"id": "q5", "type": "tf", "points": 2.0, "prompt": "Xét các phát biểu về chèn tệp tin đa phương tiện trong HTML5:", "statements": [{"text": "a) Thẻ <img> là thẻ đơn nên không viết thẻ đóng </img>.", "correct": true}, {"text": "b) Thuộc tính controls trên thẻ <audio> dùng để ẩn toàn bộ thanh phát nhạc.", "correct": false}, {"text": "c) Đặt nhiều thẻ <source> trong <video> giúp hỗ trợ nhiều định dạng trên các trình duyệt khác nhau.", "correct": true}, {"text": "d) Định dạng ảnh PNG thích hợp cho logo nhờ hỗ trợ nền trong suốt.", "correct": true}], "explain": "controls dùng để HIỆN thanh điều khiển (nên b Sai); a, c, d đều Đúng."}, {"id": "q6", "type": "tf", "points": 2.0, "prompt": "Cho đoạn mã HTML sau trên trang web Trường học:\n<a href=\"the_thao.html\" target=\"khung_chinh\">Xem Thể thao</a>\n<iframe name=\"khung_chinh\" src=\"gioi_thieu.html\" width=\"720\" height=\"400\"></iframe>", "statements": [{"text": "a) Khi vừa tải trang, khung nội tuyến sẽ hiển thị nội dung của gioi_thieu.html.", "correct": true}, {"text": "b) Khi người dùng nhấp 'Xem Thể thao', toàn bộ trang web hiện tại bị chuyển sang tab mới.", "correct": false}, {"text": "c) Khi nhấp 'Xem Thể thao', nội dung the_thao.html được tải vào bên trong vùng 720×400 của iframe.", "correct": true}, {"text": "d) Không gian hiển thị của iframe trên trang web là 720×400 pixel.", "correct": true}], "explain": "Vì target='khung_chinh' khớp với name='khung_chinh', trang con mở ngay trong iframe chứ không mở tab mới nên b Sai; a, c, d Đúng."}];
@@ -522,7 +652,7 @@
     function loadSubmissionsP2() {
       let localList = [];
       try { localList = JSON.parse(localStorage.getItem('bai11_worksheet_submissions') || '[]'); } catch (e) {}
-      fetch('/api/bai11/submissions')
+      fetch('/api/bai11/submissions', { headers: getTeacherHeaders(), cache: 'no-store' })
         .then(r => r.json())
         .then(srv => renderSubmissionsP2(Array.isArray(srv) && srv.length ? srv : localList))
         .catch(() => renderSubmissionsP2(localList));
@@ -580,17 +710,38 @@
       document.getElementById('stat-high-p2').textContent = hi.toFixed(2);
       document.getElementById('stat-latest-p2').textContent = shown[0].studentName;
     }
-    function onTeacherAuthChange() { renderSubmissionsP2(cachedSubmissionsP2); }
-    function viewStudentWorksheet(idx) {
+    function onTeacherAuthChange() { loadSubmissionsP2(); }
+    const __cachedExamBanks = {};
+    async function viewStudentWorksheet(idx) {
       if (!isTeacherAuthenticated()) { openTeacherLoginModal(); return; }
       const sub = cachedSubmissionsP2[idx];
       if (!sub) return;
       document.getElementById('sw-student-title').textContent = sub.studentName;
       document.getElementById('sw-student-meta').textContent = `Lớp: ${sub.className} • ${sub.studentNumber || ''} • Nộp: ${sub.submittedAt}`;
       document.getElementById('sw-score-badge').textContent = `${Number(sub.score).toFixed(2)} / 10`;
-      const qBank = (sub.worksheetId === 'kttx2' && EXTRA_TEST_QUESTIONS.length) ? EXTRA_TEST_QUESTIONS : WORKSHEET_QUESTIONS;
+      const wsId = sub.worksheetId || 'phieubaitap';
+      let qBank = (wsId === 'kttx2' && EXTRA_TEST_QUESTIONS.length) ? EXTRA_TEST_QUESTIONS : WORKSHEET_QUESTIONS;
+      if (!qBank || !qBank.length) {
+        if (__cachedExamBanks[wsId]) {
+          qBank = __cachedExamBanks[wsId];
+        } else {
+          try {
+            const res = await fetch('/api/bai11/exam?examId=' + encodeURIComponent(wsId), { headers: getTeacherHeaders(), cache: 'no-store' });
+            if (res.ok) {
+              const d = await res.json();
+              qBank = d.teacherQuestions || d.questions || [];
+              __cachedExamBanks[wsId] = qBank;
+            }
+          } catch (e) {}
+        }
+      }
       const body = document.getElementById('sw-modal-body');
       body.innerHTML = '';
+      if (!qBank || !qBank.length) {
+        body.innerHTML = '<div style="padding:1rem;color:#991b1b;background:#fef2f2;border-radius:8px;">Không tải được ngân hàng câu hỏi. Vui lòng đăng nhập lại quyền Giáo viên.</div>';
+        document.getElementById('student-worksheet-modal')?.classList.add('active');
+        return;
+      }
       qBank.forEach((q, qi) => {
         const ansObj = (sub.results && sub.results[q.id]) || {};
         const card = document.createElement('div');
@@ -653,7 +804,7 @@
     async function clearSubmissions() {
       if (!isTeacherAuthenticated()) { openTeacherLoginModal(); return; }
       if (!confirm('Xóa toàn bộ bài nộp và phát tín hiệu làm mới phòng máy cho lớp tiếp theo?')) return;
-      try { await fetch('/api/bai11/reset', { method: 'POST' }); } catch (e) {}
+      try { await fetch('/api/bai11/reset', { method: 'POST', headers: getTeacherHeaders() }); } catch (e) {}
       localStorage.removeItem('bai11_worksheet_submissions');
       try {
         const bc = new BroadcastChannel('bai11_classroom_channel'); bc.postMessage({ type:'CLASSROOM_RESET_ALL' }); bc.close();

@@ -29,6 +29,7 @@
     .sgk-fig-box { background: #fff; border: 1.5px solid #cbd5e1; border-radius: 12px; padding: 0.85rem; margin: 1rem 0; text-align: center; }
     .sgk-fig-box img { max-width: 100%; max-height: 360px; height: auto; border-radius: 6px; object-fit: contain; }
     .sgk-fig-cap { font-size: 0.84rem; color: #475569; font-style: italic; margin-top: 0.5rem; }
+    .exam-gated-hidden { display: none !important; }
 
 
     .mission-card { background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); border: 2px solid #3b82f6; border-radius: 16px; padding: 1.5rem; margin: 1.5rem 0; }
@@ -74,7 +75,7 @@
           <li><a href="hd2-2.html" class="nav-link active">2.2. Neo #id &amp; Ảnh</a></li>
           <li><a href="hd3.html" class="nav-link">3. Thực hành CLB</a></li>
           <li><a href="hd4.html" class="nav-link">4. Infographic</a></li>
-          <li><a href="kttx2.html" class="nav-link">📝 KTTX2 (15p)</a></li>
+          <li data-exam-gate="kttx2" class="exam-gated-hidden"><a href="kttx2.html" data-exam-gate="kttx2" class="nav-link exam-gated-hidden">📝 KTTX2 (15p)</a></li>
         </ul>
       </nav>
 
@@ -129,7 +130,7 @@
         </a>
         <a href="hd4.html" class="stepper-step ">
           <div class="step-circle">4</div>
-          <span class="step-label">Tổng kết &amp; KTTX2 (25&#x27;)</span>
+          <span class="step-label">Tổng kết (15&#x27;)</span>
         </a>
       </div>
     </div>
@@ -271,7 +272,7 @@
       </div>
 
 
-      <div class="card" style="background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%); border: 2px solid #f59e0b; border-radius: 16px; padding: 1.5rem; margin-bottom: 1.5rem;">
+      <div class="card exam-gated-hidden" data-exam-gate="kttx2" style="background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%); border: 2px solid #f59e0b; border-radius: 16px; padding: 1.5rem; margin-bottom: 1.5rem;">
         <div style="display:grid; grid-template-columns: 1.5fr auto; gap:1.25rem; align-items:center;">
           <div>
             <span style="display:inline-block;background:#d97706;color:#fff;font-size:0.75rem;font-weight:800;padding:0.25rem 0.7rem;border-radius:999px;">⏱️ KIỂM TRA THƯỜNG XUYÊN 2 (15 PHÚT)</span>
@@ -289,8 +290,9 @@
         </div>
       </div>
 
-      <!-- REALTIME DASHBOARD GIÁO VIÊN -->
-      <section class="card" id="dashboard-phieu2" style="border-top:5px solid #1e3a8a;margin-top:1.75rem;">
+      <!-- ĐIỀU KHIỂN ĐỀ KIỂM TRA & REALTIME DASHBOARD GIÁO VIÊN -->
+      <div id="teacher-exam-control-panel" style="display:none;margin-top:1.75rem;"></div>
+      <section class="card" id="dashboard-phieu2" style="border-top:5px solid #1e3a8a;margin-top:1.25rem;">
         <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:1rem;margin-bottom:1rem;">
           <div>
             <span style="display:inline-flex;align-items:center;gap:0.4rem;background:#ecfdf5;color:#059669;padding:0.2rem 0.65rem;border-radius:999px;font-size:0.76rem;font-weight:700;">● REALTIME TEACHER DASHBOARD</span>
@@ -312,7 +314,7 @@
         <div style="display:flex;gap:0.4rem;flex-wrap:wrap;margin-bottom:0.85rem;">
           <button type="button" class="btn btn-primary btn-sm ws-filter-btn active" onclick="setWsFilter('all', this)">📋 Tất cả bài nộp</button>
           <button type="button" class="btn btn-secondary btn-sm ws-filter-btn" onclick="setWsFilter('phieu', this)">📝 Phiếu bài tập</button>
-          <button type="button" class="btn btn-secondary btn-sm ws-filter-btn" onclick="setWsFilter('kttx2', this)">⏱️ Đề KTTX2 (15p)</button>
+          <button type="button" class="btn btn-secondary btn-sm ws-filter-btn exam-gated-hidden" data-exam-gate="kttx2" onclick="setWsFilter('kttx2', this)">⏱️ Đề KTTX2 (15p)</button>
         </div>
         <div class="stat-mini-grid">
           <div class="stat-mini"><div style="font-size:1.45rem;font-weight:800;color:#1e3a8a;" id="stat-count-p2">0</div><div style="font-size:0.78rem;color:#64748b;font-weight:700;">ĐÃ NỘP BÀI</div></div>
@@ -424,25 +426,40 @@
     
     const TEACHER_EMAIL = 'darber3110@gmail.com';
     const LESSON_SLUG = 'bai10';
-    function isTeacherAuthenticated() {
+    window.__lessonExamStatus = window.__lessonExamStatus || { isTeacher: false, exams: {} };
+
+    function getTeacherToken() {
       try {
         const sess = sessionStorage.getItem('thth_teacher_auth') || localStorage.getItem('thth_teacher_auth');
-        if (!sess) return false;
+        if (!sess) return '';
         const d = JSON.parse(sess);
-        return !!(d && d.authenticated && d.email && d.email.toLowerCase() === TEACHER_EMAIL.toLowerCase());
-      } catch (e) { return false; }
+        if (d && d.authenticated && d.token && d.email && d.email.toLowerCase() === TEACHER_EMAIL.toLowerCase()) {
+          return String(d.token);
+        }
+      } catch (e) {}
+      return '';
+    }
+    function getTeacherHeaders(extra = {}) {
+      const tok = getTeacherToken();
+      return tok ? { ...extra, 'X-Teacher-Token': tok } : { ...extra };
+    }
+    function isTeacherAuthenticated() {
+      return !!getTeacherToken();
     }
     function updateTeacherNavBadge() {
       const el = document.getElementById('teacher-status-nav');
-      if (!el) return;
-      if (isTeacherAuthenticated()) {
-        el.innerHTML = `<span style="background:#dcfce7;color:#15803d;padding:0.35rem 0.7rem;border-radius:8px;font-size:0.8rem;font-weight:700;border:1px solid #86efac;">✅ GV: Nguyễn Lê Minh Ngọc</span>
-          <button type="button" onclick="teacherLogout()" class="btn btn-secondary btn-sm" style="margin-left:0.35rem;font-size:0.78rem;">Đăng xuất</button>`;
-      } else {
-        el.innerHTML = `<button type="button" class="btn btn-secondary btn-sm" onclick="openTeacherLoginModal()" style="font-weight:700;color:#1e40af;border-color:#bfdbfe;background:#eff6ff;">🔑 Quyền Giáo viên</button>`;
+      const auth = isTeacherAuthenticated();
+      if (el) {
+        if (auth) {
+          el.innerHTML = `<span style="background:#dcfce7;color:#15803d;padding:0.35rem 0.7rem;border-radius:8px;font-size:0.8rem;font-weight:700;border:1px solid #86efac;">✅ GV: Nguyễn Lê Minh Ngọc</span>
+            <button type="button" onclick="teacherLogout()" class="btn btn-secondary btn-sm" style="margin-left:0.35rem;font-size:0.78rem;">Đăng xuất</button>`;
+        } else {
+          el.innerHTML = `<button type="button" class="btn btn-secondary btn-sm" onclick="openTeacherLoginModal()" style="font-weight:700;color:#1e40af;border-color:#bfdbfe;background:#eff6ff;">🔑 Quyền Giáo viên</button>`;
+        }
       }
       const resBox = document.getElementById('teacher-files-box');
-      if (resBox) resBox.style.display = isTeacherAuthenticated() ? 'flex' : 'none';
+      if (resBox) resBox.style.display = auth ? 'flex' : 'none';
+      renderTeacherExamControls();
     }
     function openTeacherLoginModal() {
       const m = document.getElementById('teacher-auth-modal');
@@ -466,43 +483,156 @@
       const pwd = (document.getElementById('teacher-pwd-input')?.value || '').trim();
       const rem = document.getElementById('teacher-remember-me')?.checked;
       const al = document.getElementById('teacher-auth-alert');
-      const validPwds = ['darber3110', '3110', '0902937006', '123456', 'admin', 'SfAUwbUtH3Bj1ouP2nM4'];
-      let ok = false;
+      let authRes = null;
       try {
         const res = await fetch('/api/' + LESSON_SLUG + '/auth/login', {
           method: 'POST', headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email, password: pwd })
         });
-        if (res.ok) ok = true;
+        if (res.ok) authRes = await res.json();
       } catch (err) {}
-      if (!ok && email === TEACHER_EMAIL && validPwds.includes(pwd)) ok = true;
-      if (!ok) {
+      if (!authRes || !authRes.authenticated || !authRes.token) {
         if (al) {
           al.style.display = 'block'; al.style.background = '#fef2f2'; al.style.color = '#991b1b';
-          al.innerHTML = '<strong>❌ Email hoặc mật khẩu không đúng!</strong>';
+          al.innerHTML = '<strong>❌ Email hoặc mật khẩu không đúng (hoặc không kết nối được máy chủ xác thực)!</strong>';
         }
         return;
       }
-      const authData = { authenticated: true, email, name: 'Nguyễn Lê Minh Ngọc', loginAt: new Date().toISOString() };
+      const authData = {
+        authenticated: true,
+        email: authRes.email || email,
+        name: authRes.name || 'Nguyễn Lê Minh Ngọc',
+        token: authRes.token,
+        loginAt: new Date().toISOString()
+      };
       if (rem) localStorage.setItem('thth_teacher_auth', JSON.stringify(authData));
       else sessionStorage.setItem('thth_teacher_auth', JSON.stringify(authData));
-      document.cookie = 'thth_teacher=1; path=/; SameSite=Lax';
       closeTeacherLoginModal();
       updateTeacherNavBadge();
+      await syncLessonExamGates();
       if (typeof onTeacherAuthChange === 'function') onTeacherAuthChange(true);
     }
-    function teacherLogout() {
+    async function teacherLogout() {
       sessionStorage.removeItem('thth_teacher_auth');
       localStorage.removeItem('thth_teacher_auth');
       document.cookie = 'thth_teacher=; Max-Age=0; path=/;';
+      try { await fetch('/api/' + LESSON_SLUG + '/auth/logout', { method: 'POST' }); } catch (e) {}
       updateTeacherNavBadge();
+      await syncLessonExamGates();
       if (typeof onTeacherAuthChange === 'function') onTeacherAuthChange(false);
     }
-    document.addEventListener('DOMContentLoaded', updateTeacherNavBadge);
+    function applyLessonExamGates(statusData) {
+      const exams = (statusData && statusData.exams) || {};
+      const serverTeacher = !!(statusData && statusData.isTeacher);
+      const clientTeacher = isTeacherAuthenticated();
+      const teacherView = clientTeacher || serverTeacher;
+      document.querySelectorAll('[data-exam-gate]').forEach(el => {
+        const wsId = el.getAttribute('data-exam-gate');
+        const st = exams[LESSON_SLUG + ':' + wsId];
+        const visible = teacherView || !!(st && st.isOpen);
+        el.classList.toggle('exam-gated-hidden', !visible);
+      });
+      document.querySelectorAll('[data-exam-locked-notice]').forEach(el => {
+        const wsId = el.getAttribute('data-exam-locked-notice');
+        const st = exams[LESSON_SLUG + ':' + wsId];
+        const showNotice = !teacherView && !(st && st.isOpen);
+        el.style.display = showNotice ? '' : 'none';
+      });
+      renderTeacherExamControls();
+    }
+    function renderTeacherExamControls() {
+      const panel = document.getElementById('teacher-exam-control-panel');
+      if (!panel) return;
+      const exams = (window.__lessonExamStatus && window.__lessonExamStatus.exams) || {};
+      const list = Object.values(exams).filter(x => x.slug === LESSON_SLUG);
+      if (!isTeacherAuthenticated() || !list.length) {
+        panel.style.display = 'none';
+        return;
+      }
+      panel.style.display = 'block';
+      const curPage = (window.location.pathname || '').split('/').pop();
+      panel.innerHTML = list.map(ex => {
+        const remMin = ex.remainingOpenSec != null ? Math.ceil(ex.remainingOpenSec / 60) : null;
+        const badge = ex.isOpen
+          ? `<span style="background:#dcfce7;color:#15803d;padding:0.25rem 0.65rem;border-radius:999px;font-size:0.78rem;font-weight:800;border:1px solid #86efac;">🟢 ĐANG MỞ ĐỀ${remMin !== null ? ' (còn ~' + remMin + 'p)' : ''}</span>`
+          : `<span style="background:#fee2e2;color:#991b1b;padding:0.25rem 0.65rem;border-radius:999px;font-size:0.78rem;font-weight:800;border:1px solid #fca5a5;">🔒 ĐANG KHÓA (Học sinh bị ẩn &amp; chặn)</span>`;
+        const defMins = Number(ex.minutes || 15);
+        const durOpts = [15, 20, 30, 45, 0].map(m =>
+          `<option value="${m}" ${m === defMins ? 'selected' : ''}>${m > 0 ? 'Mở ' + m + ' phút' : 'Mở không giới hạn'}</option>`
+        ).join('');
+        const openLink = curPage !== ex.file ? `<a href="${ex.file}" class="btn btn-secondary btn-sm" style="background:#fff;border-color:#93c5fd;color:#1d4ed8;">📄 Mở trang đề</a>` : '';
+        return `<div style="background:#fffbeb;border:2px solid #f59e0b;border-radius:14px;padding:1rem 1.25rem;margin-bottom:1.15rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.85rem;">
+          <div>
+            <div style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;margin-bottom:0.25rem;">
+              <strong style="color:#92400e;font-size:0.98rem;">🎛️ Điều khiển Đề kiểm tra: ${ex.title}</strong>
+              ${badge}
+            </div>
+            <div style="font-size:0.82rem;color:#78350f;">Chỉ Giáo viên đã xác thực máy chủ mới mở/khóa được đề. Học sinh tự động nhận trạng thái trong 5 giây.</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:0.45rem;flex-wrap:wrap;">
+            <select id="ctrl-dur-${ex.worksheetId}" style="padding:0.38rem 0.55rem;border:1.5px solid #cbd5e1;border-radius:8px;font-size:0.82rem;font-weight:700;background:#fff;">${durOpts}</select>
+            <button type="button" class="btn btn-primary btn-sm" style="background:#059669;border-color:#059669;font-weight:800;" onclick="controlLessonExam('${ex.worksheetId}','open')">🔓 ${ex.isOpen ? 'Gia hạn / Mở lại' : 'Mở đề'}</button>
+            <button type="button" class="btn btn-secondary btn-sm" style="color:#dc2626;border-color:#fca5a5;background:#fff;font-weight:800;" onclick="controlLessonExam('${ex.worksheetId}','close')">🔒 Khóa đề</button>
+            <label style="display:inline-flex;align-items:center;gap:0.35rem;font-size:0.82rem;font-weight:700;color:#1e3a8a;background:#fff;border:1px solid #cbd5e1;padding:0.35rem 0.6rem;border-radius:8px;cursor:pointer;">
+              <input type="checkbox" id="ctrl-rev-${ex.worksheetId}" ${ex.allowReview ? 'checked' : ''} onchange="controlLessonExam('${ex.worksheetId}','set_review',this.checked)">
+              👁️ Đáp án sau nộp
+            </label>
+            ${openLink}
+          </div>
+        </div>`;
+      }).join('');
+    }
+    async function controlLessonExam(wsId, action, reviewOverride) {
+      if (!isTeacherAuthenticated()) { openTeacherLoginModal(); return; }
+      const durEl = document.getElementById('ctrl-dur-' + wsId);
+      const revEl = document.getElementById('ctrl-rev-' + wsId);
+      const durationMinutes = durEl ? Number(durEl.value || 0) : 15;
+      const allowReview = typeof reviewOverride === 'boolean' ? reviewOverride : (revEl ? !!revEl.checked : false);
+      try {
+        const res = await fetch('/api/' + LESSON_SLUG + '/exam/control', {
+          method: 'POST',
+          headers: getTeacherHeaders({ 'Content-Type': 'application/json' }),
+          body: JSON.stringify({ examId: wsId, action, durationMinutes, allowReview })
+        });
+        if (res.status === 401) {
+          alert('Phiên xác thực Giáo viên đã hết hạn hoặc không hợp lệ. Vui lòng đăng nhập lại!');
+          await teacherLogout();
+          openTeacherLoginModal();
+          return;
+        }
+        const data = await res.json();
+        if (!res.ok) { alert(data.error || 'Không thể cập nhật trạng thái đề.'); return; }
+        await syncLessonExamGates();
+        if (typeof onExamStatusUpdate === 'function') onExamStatusUpdate(window.__lessonExamStatus);
+      } catch (e) {
+        alert('Lỗi kết nối máy chủ điều khiển đề: ' + e.message);
+      }
+    }
+    async function syncLessonExamGates() {
+      try {
+        const res = await fetch('/api/' + LESSON_SLUG + '/exam/status', {
+          headers: getTeacherHeaders(),
+          cache: 'no-store'
+        });
+        if (!res.ok) return null;
+        const data = await res.json();
+        window.__lessonExamStatus = data;
+        applyLessonExamGates(data);
+        if (typeof onExamStatusUpdate === 'function') onExamStatusUpdate(data);
+        return data;
+      } catch (e) { return null; }
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+      updateTeacherNavBadge();
+      syncLessonExamGates();
+      if (document.querySelector('[data-exam-gate], #teacher-exam-control-panel')) {
+        setInterval(syncLessonExamGates, 10000);
+      }
+    });
     
     const SNIPPETS = {"h22_0": "<p>Mục lục nhanh: \n  <a href=\"#CLBTT\">CLB Thể thao</a> | \n  <a href=\"#CLBNT\">CLB Nghệ thuật</a>\n</p>\n<div style=\"height:100px;background:#f1f5f9;padding:8px;\">Nội dung giới thiệu chung...</div>\n<h3 id=\"CLBTT\" style=\"color:#1d4ed8;\">1. Câu lạc bộ Thể thao</h3>\n<p>Hoạt động bóng đá, cầu lông, bơi lội.</p>\n<h3 id=\"CLBNT\" style=\"color:#059669;\">2. Câu lạc bộ Nghệ thuật</h3>\n<p>Hoạt động âm nhạc, hội họa, nhiếp ảnh.</p>", "h22_1": "<p>Nhấn vào biểu tượng bên dưới để mở trang ĐHBK:</p>\n<a href=\"https://hcmue.edu.vn\" target=\"_blank\" title=\"Mở ĐHSP TP.HCM\">\n  <div style=\"display:inline-block;padding:10px 18px;background:#1e3a8a;color:#fff;border-radius:8px;font-weight:bold;\">\n    🏫 LOGO ĐẠI HỌC SƯ PHẠM (BẤM ĐỂ MỞ)\n  </div>\n</a>"};
     const WORKSHEET_QUESTIONS = [{"id": "q1", "type": "mcq", "points": 1.5, "prompt": "Trong HTML5, thẻ nào dùng để tạo siêu liên kết và thuộc tính nào xác định địa chỉ đích?", "options": {"A": "Thẻ <link> và thuộc tính src", "B": "Thẻ <a> và thuộc tính href", "C": "Thẻ <a> và thuộc tính src", "D": "Thẻ <u> và thuộc tính url"}, "correct": "B", "explain": "Thẻ <a> (anchor) kết hợp thuộc tính href='URL' dùng để tạo siêu liên kết."}, {"id": "q2", "type": "mcq", "points": 1.5, "prompt": "Để mở trang liên kết ra một thẻ (tab) trình duyệt mới mà không làm mất trang hiện tại, ta thêm thuộc tính nào vào thẻ <a>?", "options": {"A": "open=\"new\"", "B": "target=\"_self\"", "C": "target=\"_blank\"", "D": "window=\"tab\""}, "correct": "C", "explain": "Thuộc tính target='_blank' mở trang đích ở thẻ/cửa sổ trình duyệt mới."}, {"id": "q3", "type": "mcq", "points": 1.5, "prompt": "Từ trang đang mở ở thuvien/tailieu.html, đường dẫn tương đối nào mở được tệp index.html ở thư mục cha trực tiếp?", "options": {"A": "index.html", "B": "/thuvien/index.html", "C": "../../index.html", "D": "../index.html"}, "correct": "D", "explain": "../ đi lên 1 cấp thư mục cha, sau đó trỏ tới index.html."}, {"id": "q4", "type": "mcq", "points": 1.5, "prompt": "Cú pháp nào đúng để biến hình ảnh icon.png thành một siêu liên kết dẫn tới trang dangki.html?", "code": "", "options": {"A": "<img src=\"icon.png\" href=\"dangki.html\">", "B": "<a href=\"dangki.html\"><img src=\"icon.png\" alt=\"Đăng kí\"></a>", "C": "<a src=\"icon.png\">dangki.html</a>", "D": "<img href=\"dangki.html\">icon.png</img>"}, "correct": "B", "explain": "Muốn ảnh bấm thành liên kết phải đặt thẻ <img> lồng bên trong cặp thẻ <a>...</a>."}, {"id": "q5", "type": "tf", "points": 2.0, "prompt": "Xét các nhận định sau về đường dẫn URL trong thiết kế website:", "statements": [{"text": "a) Đường dẫn bắt đầu bằng https://nxbgd.vn là đường dẫn tuyệt đối.", "correct": true}, {"text": "b) Khi liên kết giữa các trang trong cùng một thư mục dự án nên ưu tiên dùng đường dẫn tuyệt đối ổ C:\\.", "correct": false}, {"text": "c) Nếu đổi tên miền website, các liên kết nội bộ viết bằng đường dẫn tương đối vẫn hoạt động bình thường.", "correct": true}, {"text": "d) Để trỏ vào thư mục con img/ lấy tệp anh.jpg từ trang cùng cấp thư mục cha, ta viết href=\"img/anh.jpg\".", "correct": true}], "explain": "a Đúng, b Sai (phải dùng tương đối), c Đúng, d Đúng."}, {"id": "q6", "type": "tf", "points": 2.0, "prompt": "Một học sinh viết mã HTML cho trang CLB.html có <h2 id=\"CLBTT\">CLB Thể thao</h2>:", "statements": [{"text": "a) Thuộc tính id=\"CLBTT\" giúp đánh dấu vị trí mục tiêu trong trang.", "correct": true}, {"text": "b) Trong trang CLB.html, liên kết <a href=\"CLBTT\"> sẽ cuộn xuống mục CLB Thể thao.", "correct": false}, {"text": "c) Liên kết <a href=\"#CLBTT\"> ở đầu trang CLB.html giúp cuộn thẳng xuống tiêu đề <h2> đó.", "correct": true}, {"text": "d) Từ trang index.html (cùng thư mục), có thể viết href=\"CLB.html#CLBTT\" để mở và nhảy tới đúng mục đó.", "correct": true}], "explain": "Phải có dấu # trước tên id (href='#CLBTT'), nên ý b Sai; các ý a, c, d Đúng."}];
-    const EXTRA_TEST_QUESTIONS = [{"id": "k1", "type": "mcq", "points": 0.75, "prompt": "Trong cấu trúc một văn bản HTML chuẩn, phần nội dung chứa tiêu đề tab trình duyệt (<title>) và khai báo bảng mã UTF-8 (<meta>) được đặt bên trong thẻ nào?", "options": {"A": "<body>", "B": "<footer>", "C": "<head>", "D": "<section>"}, "correct": "C", "explain": "<head> chứa siêu dữ liệu của trang web như <meta charset='utf-8'>, <title>, <style>, <link>."}, {"id": "k2", "type": "mcq", "points": 0.75, "prompt": "Trong HTML5, để nhấn mạnh ý nghĩa quan trọng của cụm từ bằng kiểu chữ in đậm mang ngữ nghĩa chuẩn SEO/trợ năng, ta nên dùng cặp thẻ nào?", "options": {"A": "<i>...</i>", "B": "<strong>...</strong>", "C": "<u>...</u>", "D": "<p>...</p>"}, "correct": "B", "explain": "<strong> mang ngữ nghĩa văn bản quan trọng (hiển thị đậm), <em> nhấn mạnh (nghiêng)."}, {"id": "k3", "type": "mcq", "points": 0.75, "prompt": "Để tạo một danh sách có thứ tự bắt đầu bằng các chữ cái in hoa (A, B, C...), ta khai báo thẻ nào sau đây?", "options": {"A": "<ol type=\"A\">", "B": "<ul type=\"A\">", "C": "<ol start=\"A\">", "D": "<dl type=\"A\">"}, "correct": "A", "explain": "Thuộc tính type=\"A\" trên thẻ <ol> giúp đánh dấu các mục theo A, B, C; start chỉ nhận giá trị số nguyên."}, {"id": "k4", "type": "mcq", "points": 0.75, "prompt": "Khi thiết kế bảng thời khóa biểu bằng thẻ <table>, để gộp 3 ô liên tiếp trên cùng một hàng thành 1 ô tiêu đề, ta gán thuộc tính nào cho thẻ <th> hoặc <td>?", "options": {"A": "rowspan=\"3\"", "B": "merge=\"3\"", "C": "span=\"3\"", "D": "colspan=\"3\""}, "correct": "D", "explain": "colspan gộp theo chiều ngang (nhiều cột trên cùng hàng), rowspan gộp theo chiều dọc (nhiều hàng)."}, {"id": "k5", "type": "mcq", "points": 0.75, "prompt": "Thuộc tính bắt buộc phải có trên thẻ <a> để trình duyệt hiểu đây là siêu liên kết trỏ tới một địa chỉ URL khác là:", "options": {"A": "src", "B": "href", "C": "link", "D": "target"}, "correct": "B", "explain": "href (Hypertext Reference) xác định tài nguyên đích của liên kết <a>."}, {"id": "k6", "type": "mcq", "points": 0.75, "prompt": "Trang baiviet/tintuc.html nằm trong thư mục con baiviet/. Muốn tạo liên kết trở về tệp index.html ở thư mục gốc website, cần viết href như thế nào?", "options": {"A": "href=\"index.html\"", "B": "href=\"/baiviet/index.html\"", "C": "href=\"../index.html\"", "D": "href=\"../../index.html\""}, "correct": "C", "explain": "../ giúp quay lên 1 cấp thư mục cha nơi chứa index.html."}, {"id": "k7", "type": "mcq", "points": 0.75, "prompt": "Trong cùng trang tai_lieu.html có phần tử <h2 id=\"mucluc\">Mục lục</h2>. Thẻ liên kết nào nhảy thẳng tới phần tử đó?", "options": {"A": "<a href=\"#mucluc\">Về Mục lục</a>", "B": "<a href=\"mucluc\">Về Mục lục</a>", "C": "<a id=\"#mucluc\">Về Mục lục</a>", "D": "<a src=\"#mucluc\">Về Mục lục</a>"}, "correct": "A", "explain": "Liên kết tới id trong cùng trang bắt đầu bằng dấu # theo sau là giá trị id."}, {"id": "k8", "type": "mcq", "points": 0.75, "prompt": "Đoạn mã HTML nào biến hình ảnh clb.png thành nút bấm dẫn đến trang CLB.html?", "options": {"A": "<img href=\"CLB.html\" src=\"clb.png\">", "B": "<a src=\"clb.png\" href=\"CLB.html\"></a>", "C": "<a id=\"CLB.html\"><img src=\"clb.png\"></a>", "D": "<a href=\"CLB.html\"><img src=\"clb.png\" alt=\"CLB\"></a>"}, "correct": "D", "explain": "Đặt thẻ <img ...> vào bên trong cặp thẻ <a href=\"...\">...</a>."}, {"id": "k9", "type": "tf", "points": 2.0, "prompt": "Một học sinh viết đoạn mã HTML tạo bảng điểm Tin học như sau. Hãy xác định tính Đúng/Sai của các nhận định:", "code": "<table border=\"1\">\n  <caption>Bảng điểm Tin học 12</caption>\n  <tr><th>STT</th><th colspan=\"2\">Thông tin</th></tr>\n  <tr><td>1</td><td>An</td><td>9.5</td></tr>\n</table>", "statements": [{"text": "a) Thẻ <caption> hiển thị tiêu đề cho bảng ngay phía trên bảng.", "correct": true}, {"text": "b) Cột STT và cột Thông tin đều được tạo bởi thẻ <th> nên chữ hiển thị mặc định sẽ in thường và căn lề trái.", "correct": false}, {"text": "c) Thuộc tính colspan=\"2\" ở ô Thông tin giúp gộp 2 cột ngang khớp với 2 ô <td> (An và 9.5) ở hàng dưới.", "correct": true}, {"text": "d) Bảng trên có tổng cộng 2 hàng (<tr>) dữ liệu và tiêu đề.", "correct": true}], "explain": "Thẻ <th> mặc định in ĐẬM và CĂN GIỮA nên b Sai; a, c, d đều Đúng."}, {"id": "k10", "type": "tf", "points": 2.0, "prompt": "Trong một dự án website gồm thư mục gốc web/ chứa index.html, trang_con/ chứa clb.html (có <section id=\"bongda\">) và anh/ chứa logo.png:", "statements": [{"text": "a) Trong index.html, để hiển thị hình logo.png viết <img src=\"anh/logo.png\" alt=\"Logo\">.", "correct": true}, {"text": "b) Trong index.html, thẻ <a href=\"trang_con/clb.html#bongda\"> sẽ mở clb.html và cuộn xuống mục #bongda.", "correct": true}, {"text": "c) Trong clb.html, muốn chèn ảnh logo.png ta chỉ cần viết src=\"anh/logo.png\".", "correct": false}, {"text": "d) Nếu bổ sung thêm <a href=\"https://nxbgd.vn\" target=\"_blank\"> thì người dùng sẽ mở trang NXB Giáo dục trên tab mới.", "correct": true}], "explain": "Vì clb.html nằm trong trang_con/, muốn lấy logo.png trong anh/ phải lùi ra cha trước: ../anh/logo.png nên c Sai; a, b, d Đúng."}];
+    const EXTRA_TEST_QUESTIONS = [];
     let cachedSubmissionsP2 = [];
     let currentWsFilter = 'all';
 
@@ -560,7 +690,7 @@
     function loadSubmissionsP2() {
       let localList = [];
       try { localList = JSON.parse(localStorage.getItem('bai10_worksheet_submissions') || '[]'); } catch (e) {}
-      fetch('/api/bai10/submissions')
+      fetch('/api/bai10/submissions', { headers: getTeacherHeaders(), cache: 'no-store' })
         .then(r => r.json())
         .then(srv => renderSubmissionsP2(Array.isArray(srv) && srv.length ? srv : localList))
         .catch(() => renderSubmissionsP2(localList));
@@ -618,17 +748,38 @@
       document.getElementById('stat-high-p2').textContent = hi.toFixed(2);
       document.getElementById('stat-latest-p2').textContent = shown[0].studentName;
     }
-    function onTeacherAuthChange() { renderSubmissionsP2(cachedSubmissionsP2); }
-    function viewStudentWorksheet(idx) {
+    function onTeacherAuthChange() { loadSubmissionsP2(); }
+    const __cachedExamBanks = {};
+    async function viewStudentWorksheet(idx) {
       if (!isTeacherAuthenticated()) { openTeacherLoginModal(); return; }
       const sub = cachedSubmissionsP2[idx];
       if (!sub) return;
       document.getElementById('sw-student-title').textContent = sub.studentName;
       document.getElementById('sw-student-meta').textContent = `Lớp: ${sub.className} • ${sub.studentNumber || ''} • Nộp: ${sub.submittedAt}`;
       document.getElementById('sw-score-badge').textContent = `${Number(sub.score).toFixed(2)} / 10`;
-      const qBank = (sub.worksheetId === 'kttx2' && EXTRA_TEST_QUESTIONS.length) ? EXTRA_TEST_QUESTIONS : WORKSHEET_QUESTIONS;
+      const wsId = sub.worksheetId || 'phieubaitap';
+      let qBank = (wsId === 'kttx2' && EXTRA_TEST_QUESTIONS.length) ? EXTRA_TEST_QUESTIONS : WORKSHEET_QUESTIONS;
+      if (!qBank || !qBank.length) {
+        if (__cachedExamBanks[wsId]) {
+          qBank = __cachedExamBanks[wsId];
+        } else {
+          try {
+            const res = await fetch('/api/bai10/exam?examId=' + encodeURIComponent(wsId), { headers: getTeacherHeaders(), cache: 'no-store' });
+            if (res.ok) {
+              const d = await res.json();
+              qBank = d.teacherQuestions || d.questions || [];
+              __cachedExamBanks[wsId] = qBank;
+            }
+          } catch (e) {}
+        }
+      }
       const body = document.getElementById('sw-modal-body');
       body.innerHTML = '';
+      if (!qBank || !qBank.length) {
+        body.innerHTML = '<div style="padding:1rem;color:#991b1b;background:#fef2f2;border-radius:8px;">Không tải được ngân hàng câu hỏi. Vui lòng đăng nhập lại quyền Giáo viên.</div>';
+        document.getElementById('student-worksheet-modal')?.classList.add('active');
+        return;
+      }
       qBank.forEach((q, qi) => {
         const ansObj = (sub.results && sub.results[q.id]) || {};
         const card = document.createElement('div');
@@ -691,7 +842,7 @@
     async function clearSubmissions() {
       if (!isTeacherAuthenticated()) { openTeacherLoginModal(); return; }
       if (!confirm('Xóa toàn bộ bài nộp và phát tín hiệu làm mới phòng máy cho lớp tiếp theo?')) return;
-      try { await fetch('/api/bai10/reset', { method: 'POST' }); } catch (e) {}
+      try { await fetch('/api/bai10/reset', { method: 'POST', headers: getTeacherHeaders() }); } catch (e) {}
       localStorage.removeItem('bai10_worksheet_submissions');
       try {
         const bc = new BroadcastChannel('bai10_classroom_channel'); bc.postMessage({ type:'CLASSROOM_RESET_ALL' }); bc.close();

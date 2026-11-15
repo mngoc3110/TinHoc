@@ -29,6 +29,7 @@
     .sgk-fig-box { background: #fff; border: 1.5px solid #cbd5e1; border-radius: 12px; padding: 0.85rem; margin: 1rem 0; text-align: center; }
     .sgk-fig-box img { max-width: 100%; max-height: 360px; height: auto; border-radius: 6px; object-fit: contain; }
     .sgk-fig-cap { font-size: 0.84rem; color: #475569; font-style: italic; margin-top: 0.5rem; }
+    .exam-gated-hidden { display: none !important; }
 
 
     .main-view-switcher { display:inline-flex; background:#e2e8f0; padding:0.3rem; border-radius:10px; gap:0.25rem; }
@@ -405,25 +406,40 @@
     
     const TEACHER_EMAIL = 'darber3110@gmail.com';
     const LESSON_SLUG = 'bai15';
-    function isTeacherAuthenticated() {
+    window.__lessonExamStatus = window.__lessonExamStatus || { isTeacher: false, exams: {} };
+
+    function getTeacherToken() {
       try {
         const sess = sessionStorage.getItem('thth_teacher_auth') || localStorage.getItem('thth_teacher_auth');
-        if (!sess) return false;
+        if (!sess) return '';
         const d = JSON.parse(sess);
-        return !!(d && d.authenticated && d.email && d.email.toLowerCase() === TEACHER_EMAIL.toLowerCase());
-      } catch (e) { return false; }
+        if (d && d.authenticated && d.token && d.email && d.email.toLowerCase() === TEACHER_EMAIL.toLowerCase()) {
+          return String(d.token);
+        }
+      } catch (e) {}
+      return '';
+    }
+    function getTeacherHeaders(extra = {}) {
+      const tok = getTeacherToken();
+      return tok ? { ...extra, 'X-Teacher-Token': tok } : { ...extra };
+    }
+    function isTeacherAuthenticated() {
+      return !!getTeacherToken();
     }
     function updateTeacherNavBadge() {
       const el = document.getElementById('teacher-status-nav');
-      if (!el) return;
-      if (isTeacherAuthenticated()) {
-        el.innerHTML = `<span style="background:#dcfce7;color:#15803d;padding:0.35rem 0.7rem;border-radius:8px;font-size:0.8rem;font-weight:700;border:1px solid #86efac;">✅ GV: Nguyễn Lê Minh Ngọc</span>
-          <button type="button" onclick="teacherLogout()" class="btn btn-secondary btn-sm" style="margin-left:0.35rem;font-size:0.78rem;">Đăng xuất</button>`;
-      } else {
-        el.innerHTML = `<button type="button" class="btn btn-secondary btn-sm" onclick="openTeacherLoginModal()" style="font-weight:700;color:#1e40af;border-color:#bfdbfe;background:#eff6ff;">🔑 Quyền Giáo viên</button>`;
+      const auth = isTeacherAuthenticated();
+      if (el) {
+        if (auth) {
+          el.innerHTML = `<span style="background:#dcfce7;color:#15803d;padding:0.35rem 0.7rem;border-radius:8px;font-size:0.8rem;font-weight:700;border:1px solid #86efac;">✅ GV: Nguyễn Lê Minh Ngọc</span>
+            <button type="button" onclick="teacherLogout()" class="btn btn-secondary btn-sm" style="margin-left:0.35rem;font-size:0.78rem;">Đăng xuất</button>`;
+        } else {
+          el.innerHTML = `<button type="button" class="btn btn-secondary btn-sm" onclick="openTeacherLoginModal()" style="font-weight:700;color:#1e40af;border-color:#bfdbfe;background:#eff6ff;">🔑 Quyền Giáo viên</button>`;
+        }
       }
       const resBox = document.getElementById('teacher-files-box');
-      if (resBox) resBox.style.display = isTeacherAuthenticated() ? 'flex' : 'none';
+      if (resBox) resBox.style.display = auth ? 'flex' : 'none';
+      renderTeacherExamControls();
     }
     function openTeacherLoginModal() {
       const m = document.getElementById('teacher-auth-modal');
@@ -447,39 +463,152 @@
       const pwd = (document.getElementById('teacher-pwd-input')?.value || '').trim();
       const rem = document.getElementById('teacher-remember-me')?.checked;
       const al = document.getElementById('teacher-auth-alert');
-      const validPwds = ['darber3110', '3110', '0902937006', '123456', 'admin', 'SfAUwbUtH3Bj1ouP2nM4'];
-      let ok = false;
+      let authRes = null;
       try {
         const res = await fetch('/api/' + LESSON_SLUG + '/auth/login', {
           method: 'POST', headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email, password: pwd })
         });
-        if (res.ok) ok = true;
+        if (res.ok) authRes = await res.json();
       } catch (err) {}
-      if (!ok && email === TEACHER_EMAIL && validPwds.includes(pwd)) ok = true;
-      if (!ok) {
+      if (!authRes || !authRes.authenticated || !authRes.token) {
         if (al) {
           al.style.display = 'block'; al.style.background = '#fef2f2'; al.style.color = '#991b1b';
-          al.innerHTML = '<strong>❌ Email hoặc mật khẩu không đúng!</strong>';
+          al.innerHTML = '<strong>❌ Email hoặc mật khẩu không đúng (hoặc không kết nối được máy chủ xác thực)!</strong>';
         }
         return;
       }
-      const authData = { authenticated: true, email, name: 'Nguyễn Lê Minh Ngọc', loginAt: new Date().toISOString() };
+      const authData = {
+        authenticated: true,
+        email: authRes.email || email,
+        name: authRes.name || 'Nguyễn Lê Minh Ngọc',
+        token: authRes.token,
+        loginAt: new Date().toISOString()
+      };
       if (rem) localStorage.setItem('thth_teacher_auth', JSON.stringify(authData));
       else sessionStorage.setItem('thth_teacher_auth', JSON.stringify(authData));
-      document.cookie = 'thth_teacher=1; path=/; SameSite=Lax';
       closeTeacherLoginModal();
       updateTeacherNavBadge();
+      await syncLessonExamGates();
       if (typeof onTeacherAuthChange === 'function') onTeacherAuthChange(true);
     }
-    function teacherLogout() {
+    async function teacherLogout() {
       sessionStorage.removeItem('thth_teacher_auth');
       localStorage.removeItem('thth_teacher_auth');
       document.cookie = 'thth_teacher=; Max-Age=0; path=/;';
+      try { await fetch('/api/' + LESSON_SLUG + '/auth/logout', { method: 'POST' }); } catch (e) {}
       updateTeacherNavBadge();
+      await syncLessonExamGates();
       if (typeof onTeacherAuthChange === 'function') onTeacherAuthChange(false);
     }
-    document.addEventListener('DOMContentLoaded', updateTeacherNavBadge);
+    function applyLessonExamGates(statusData) {
+      const exams = (statusData && statusData.exams) || {};
+      const serverTeacher = !!(statusData && statusData.isTeacher);
+      const clientTeacher = isTeacherAuthenticated();
+      const teacherView = clientTeacher || serverTeacher;
+      document.querySelectorAll('[data-exam-gate]').forEach(el => {
+        const wsId = el.getAttribute('data-exam-gate');
+        const st = exams[LESSON_SLUG + ':' + wsId];
+        const visible = teacherView || !!(st && st.isOpen);
+        el.classList.toggle('exam-gated-hidden', !visible);
+      });
+      document.querySelectorAll('[data-exam-locked-notice]').forEach(el => {
+        const wsId = el.getAttribute('data-exam-locked-notice');
+        const st = exams[LESSON_SLUG + ':' + wsId];
+        const showNotice = !teacherView && !(st && st.isOpen);
+        el.style.display = showNotice ? '' : 'none';
+      });
+      renderTeacherExamControls();
+    }
+    function renderTeacherExamControls() {
+      const panel = document.getElementById('teacher-exam-control-panel');
+      if (!panel) return;
+      const exams = (window.__lessonExamStatus && window.__lessonExamStatus.exams) || {};
+      const list = Object.values(exams).filter(x => x.slug === LESSON_SLUG);
+      if (!isTeacherAuthenticated() || !list.length) {
+        panel.style.display = 'none';
+        return;
+      }
+      panel.style.display = 'block';
+      const curPage = (window.location.pathname || '').split('/').pop();
+      panel.innerHTML = list.map(ex => {
+        const remMin = ex.remainingOpenSec != null ? Math.ceil(ex.remainingOpenSec / 60) : null;
+        const badge = ex.isOpen
+          ? `<span style="background:#dcfce7;color:#15803d;padding:0.25rem 0.65rem;border-radius:999px;font-size:0.78rem;font-weight:800;border:1px solid #86efac;">🟢 ĐANG MỞ ĐỀ${remMin !== null ? ' (còn ~' + remMin + 'p)' : ''}</span>`
+          : `<span style="background:#fee2e2;color:#991b1b;padding:0.25rem 0.65rem;border-radius:999px;font-size:0.78rem;font-weight:800;border:1px solid #fca5a5;">🔒 ĐANG KHÓA (Học sinh bị ẩn &amp; chặn)</span>`;
+        const defMins = Number(ex.minutes || 15);
+        const durOpts = [15, 20, 30, 45, 0].map(m =>
+          `<option value="${m}" ${m === defMins ? 'selected' : ''}>${m > 0 ? 'Mở ' + m + ' phút' : 'Mở không giới hạn'}</option>`
+        ).join('');
+        const openLink = curPage !== ex.file ? `<a href="${ex.file}" class="btn btn-secondary btn-sm" style="background:#fff;border-color:#93c5fd;color:#1d4ed8;">📄 Mở trang đề</a>` : '';
+        return `<div style="background:#fffbeb;border:2px solid #f59e0b;border-radius:14px;padding:1rem 1.25rem;margin-bottom:1.15rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.85rem;">
+          <div>
+            <div style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;margin-bottom:0.25rem;">
+              <strong style="color:#92400e;font-size:0.98rem;">🎛️ Điều khiển Đề kiểm tra: ${ex.title}</strong>
+              ${badge}
+            </div>
+            <div style="font-size:0.82rem;color:#78350f;">Chỉ Giáo viên đã xác thực máy chủ mới mở/khóa được đề. Học sinh tự động nhận trạng thái trong 5 giây.</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:0.45rem;flex-wrap:wrap;">
+            <select id="ctrl-dur-${ex.worksheetId}" style="padding:0.38rem 0.55rem;border:1.5px solid #cbd5e1;border-radius:8px;font-size:0.82rem;font-weight:700;background:#fff;">${durOpts}</select>
+            <button type="button" class="btn btn-primary btn-sm" style="background:#059669;border-color:#059669;font-weight:800;" onclick="controlLessonExam('${ex.worksheetId}','open')">🔓 ${ex.isOpen ? 'Gia hạn / Mở lại' : 'Mở đề'}</button>
+            <button type="button" class="btn btn-secondary btn-sm" style="color:#dc2626;border-color:#fca5a5;background:#fff;font-weight:800;" onclick="controlLessonExam('${ex.worksheetId}','close')">🔒 Khóa đề</button>
+            <label style="display:inline-flex;align-items:center;gap:0.35rem;font-size:0.82rem;font-weight:700;color:#1e3a8a;background:#fff;border:1px solid #cbd5e1;padding:0.35rem 0.6rem;border-radius:8px;cursor:pointer;">
+              <input type="checkbox" id="ctrl-rev-${ex.worksheetId}" ${ex.allowReview ? 'checked' : ''} onchange="controlLessonExam('${ex.worksheetId}','set_review',this.checked)">
+              👁️ Đáp án sau nộp
+            </label>
+            ${openLink}
+          </div>
+        </div>`;
+      }).join('');
+    }
+    async function controlLessonExam(wsId, action, reviewOverride) {
+      if (!isTeacherAuthenticated()) { openTeacherLoginModal(); return; }
+      const durEl = document.getElementById('ctrl-dur-' + wsId);
+      const revEl = document.getElementById('ctrl-rev-' + wsId);
+      const durationMinutes = durEl ? Number(durEl.value || 0) : 15;
+      const allowReview = typeof reviewOverride === 'boolean' ? reviewOverride : (revEl ? !!revEl.checked : false);
+      try {
+        const res = await fetch('/api/' + LESSON_SLUG + '/exam/control', {
+          method: 'POST',
+          headers: getTeacherHeaders({ 'Content-Type': 'application/json' }),
+          body: JSON.stringify({ examId: wsId, action, durationMinutes, allowReview })
+        });
+        if (res.status === 401) {
+          alert('Phiên xác thực Giáo viên đã hết hạn hoặc không hợp lệ. Vui lòng đăng nhập lại!');
+          await teacherLogout();
+          openTeacherLoginModal();
+          return;
+        }
+        const data = await res.json();
+        if (!res.ok) { alert(data.error || 'Không thể cập nhật trạng thái đề.'); return; }
+        await syncLessonExamGates();
+        if (typeof onExamStatusUpdate === 'function') onExamStatusUpdate(window.__lessonExamStatus);
+      } catch (e) {
+        alert('Lỗi kết nối máy chủ điều khiển đề: ' + e.message);
+      }
+    }
+    async function syncLessonExamGates() {
+      try {
+        const res = await fetch('/api/' + LESSON_SLUG + '/exam/status', {
+          headers: getTeacherHeaders(),
+          cache: 'no-store'
+        });
+        if (!res.ok) return null;
+        const data = await res.json();
+        window.__lessonExamStatus = data;
+        applyLessonExamGates(data);
+        if (typeof onExamStatusUpdate === 'function') onExamStatusUpdate(data);
+        return data;
+      } catch (e) { return null; }
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+      updateTeacherNavBadge();
+      syncLessonExamGates();
+      if (document.querySelector('[data-exam-gate], #teacher-exam-control-panel')) {
+        setInterval(syncLessonExamGates, 10000);
+      }
+    });
     
     const CRITERIA_RULES = [{"label": "Cấu trúc HTML5 & <style>", "desc": "Có <head>, <body> và khối <style>...</style>.", "mode": "all", "tokens": ["<head", "<body", "<style", "</style>"]}, {"label": "Nội dung Lợi ích CSS", "desc": "Có tiêu đề và nội dung về lợi ích của CSS.", "mode": "any", "tokens": ["lợi ích", "css", "định dạng", "bảo trì"]}, {"label": "Thuộc tính color", "desc": "Có khai báo màu chữ color: ...", "mode": "all", "tokens": ["color:"]}, {"label": "Màu nền background-color", "desc": "Có khai báo thuộc tính background-color: ...", "mode": "all", "tokens": ["background-color:"]}, {"label": "Đường viền border", "desc": "Có khai báo border (hoặc border-left/top/bottom).", "mode": "any", "tokens": ["border:", "border-left:", "border-top:", "border-bottom:"]}, {"label": "Sử dụng mã màu RGB / Hex / HSL", "desc": "Dùng ít nhất 1 hệ màu #, rgb(...) hoặc hsl(...).", "mode": "any", "tokens": ["#", "rgb(", "hsl("]}, {"label": "Có bộ chọn tổ hợp CSS", "desc": "Dùng tổ hợp có dấu > , + , ~ hoặc tổ hợp lồng nhau.", "mode": "any", "tokens": [">", "+", "~", "div p", "ul li", "div h2", "section p"]}, {"label": "Định dạng bổ sung (font/padding)", "desc": "Có font-family, padding hoặc line-height giúp trang thoáng đẹp.", "mode": "any", "tokens": ["font-family:", "padding:", "line-height:", "text-align:"]}];
     const SAMPLE_FULL_CODE = "<!DOCTYPE html>\n<html lang=\"vi\">\n<head>\n  <meta charset=\"UTF-8\">\n  <title>Lợi ích của CSS</title>\n  <style>\n    body {\n      font-family: \"Segoe UI\", Arial, sans-serif;\n      background-color: hsl(210, 40%, 97%);\n      color: #1e293b;\n      line-height: 1.6;\n    }\n    h1 {\n      color: rgb(30, 58, 138);\n      text-align: center;\n    }\n    .box {\n      background-color: #ffffff;\n      border: 2px solid #3b82f6;\n      padding: 14px;\n      margin-bottom: 12px;\n    }\n    .box > h2 {\n      color: hsl(160, 84%, 30%);\n      margin-top: 0;\n    }\n    .box h2 + p {\n      color: #b91c1c;\n      font-weight: 700;\n    }\n    .box ul li {\n      color: #334155;\n    }\n  </style>\n</head>\n<body>\n  <h1>LỢI ÍCH CỦA VIỆC VIẾT TRANG WEB BẰNG CSS</h1>\n  <div class=\"box\">\n    <h2>1. Tách biệt cấu trúc và định dạng</h2>\n    <p>HTML chỉ lo phần nội dung, còn toàn bộ màu sắc, phông chữ giao cho CSS đảm nhiệm.</p>\n    <ul>\n      <li>Mã HTML gọn nhẹ, dễ đọc hiểu và chuẩn SEO.</li>\n      <li>Dễ dàng đổi giao diện sáng/tối trên cùng một dữ liệu.</li>\n    </ul>\n  </div>\n  <div class=\"box\">\n    <h2>2. Tái sử dụng &amp; Dễ dàng bảo trì</h2>\n    <p>Chỉ cần sửa một quy tắc trong tệp CSS ngoài là hàng trăm trang web cập nhật đồng bộ.</p>\n    <p>Tiết kiệm công sức thiết kế và đảm bảo tính nhất quán toàn website.</p>\n  </div>\n</body>\n</html>";
@@ -681,7 +810,7 @@
     async function clearHd3Submissions() {
       if (!isTeacherAuthenticated()) { openTeacherLoginModal(); return; }
       if (!confirm('Xóa toàn bộ bài nộp thực hành & làm mới phòng máy cho lớp sau?')) return;
-      try { await fetch('/api/bai15/reset-hd3', {method:'POST'}); } catch (e) {}
+      try { await fetch('/api/bai15/reset-hd3', {method:'POST', headers: getTeacherHeaders()}); } catch (e) {}
       localStorage.removeItem('bai15_hd3_submissions');
       clearLocalStudentWorkspace();
       try {

@@ -382,6 +382,9 @@
     .tree-children.hidden {
       display: none;
     }
+    .exam-locked-hidden {
+      display: none !important;
+    }
 
     /* RIGHT PANE: DETAIL VIEW */
     .detail-pane {
@@ -1042,7 +1045,7 @@
                             <span class="tree-icon" style="color:#8b5cf6;">📝</span>
                             <span class="tree-label">phieu-bai-tap.html (Phiếu bài tập Bài 10)</span>
                           </a>
-                          <a href="./Bai10/kttx2.html" class="tree-row" data-node="bai10_kttx2" onclick="event.stopPropagation(); showNodeDetail('bai10_kttx2')">
+                          <a href="./Bai10/kttx2.html" class="tree-row exam-locked-hidden" data-node="bai10_kttx2" data-portal-exam="bai10:kttx2" onclick="event.stopPropagation(); showNodeDetail('bai10_kttx2')">
                             <span class="tree-icon" style="color:#dc2626;">⏱️</span>
                             <span class="tree-label">kttx2.html (Kiểm tra thường xuyên 2 • 15 phút)</span>
                           </a>
@@ -1162,7 +1165,7 @@
                             <span class="tree-icon" style="color:#d97706;">📈</span>
                             <span class="tree-label">hd4.html (HĐ 4: Infographic &amp; Tổng kết HTML)</span>
                           </a>
-                          <a href="./ThucHanh_KTTX3/phieu-bai-tap.html" class="tree-row" data-node="kttx3_phieu" onclick="event.stopPropagation(); showNodeDetail('kttx3_phieu')">
+                          <a href="./ThucHanh_KTTX3/phieu-bai-tap.html" class="tree-row exam-locked-hidden" data-node="kttx3_phieu" data-portal-exam="kttx3:phieubaitap" onclick="event.stopPropagation(); showNodeDetail('kttx3_phieu')">
                             <span class="tree-icon" style="color:#dc2626;">📝</span>
                             <span class="tree-label">phieu-bai-tap.html (Đề KTTX3 • 10 câu • 15 phút)</span>
                           </a>
@@ -1202,7 +1205,7 @@
                             <span class="tree-icon" style="color:#d97706;">📈</span>
                             <span class="tree-label">hd4.html (HĐ 4: Infographic &amp; Sơ đồ bẫy đề)</span>
                           </a>
-                          <a href="./OnTap_HK1/phieu-bai-tap.html" class="tree-row" data-node="ontaphk1_phieu" onclick="event.stopPropagation(); showNodeDetail('ontaphk1_phieu')">
+                          <a href="./OnTap_HK1/phieu-bai-tap.html" class="tree-row exam-locked-hidden" data-node="ontaphk1_phieu" data-portal-exam="ontaphk1:phieubaitap" onclick="event.stopPropagation(); showNodeDetail('ontaphk1_phieu')">
                             <span class="tree-icon" style="color:#dc2626;">🏆</span>
                             <span class="tree-label">phieu-bai-tap.html (Đề thi thử HK1 • 45 phút)</span>
                           </a>
@@ -1753,10 +1756,10 @@
       },
       bai10: {
         tag: 'BÀI 10 (CHỦ ĐỀ F)',
-        title: 'Bài 10: Tạo liên kết + Kiểm tra TX2 (15 phút)',
+        title: 'Bài 10: Tạo liên kết',
         status: '● Sẵn sàng',
         statusClass: 'badge-ready',
-        desc: 'Siêu liên kết <a>, đường dẫn tuyệt đối/tương đối, liên kết id/#, ảnh đại diện, thực hành CLB.html và bài KTTX2 (15p).',
+        desc: 'Siêu liên kết <a>, đường dẫn tuyệt đối/tương đối, liên kết id/#, ảnh đại diện và thực hành trang CLB.html.',
         actionText: 'Vào Học Bài 10',
         actionUrl: './Bai10/index.html',
         isReady: true,
@@ -1766,7 +1769,7 @@
           { num: 'HĐ 2.2', name: 'Liên kết id, ảnh & Phiếu BT', desc: 'Neo id, liên kết ảnh và quét QR làm Phiếu BT.', url: './Bai10/hd2-2.html' },
           { num: 'HĐ 3', name: 'Thực hành CLB.html', desc: 'Tự gõ mã tạo liên kết đa trang và nộp bài.', url: './Bai10/hd3.html' },
           { num: 'HĐ 4', name: 'Infographic & Vận dụng', desc: 'Sơ đồ 4 chế độ, Flashcard 3D & tự luyện câu hỏi SGK tr.61.', url: './Bai10/hd4.html' },
-          { num: 'KTTX2', name: 'Kiểm tra TX2 (15 phút)', desc: '10 câu chuẩn BGD (8 MCQ + 2 Đ/S) chấm tự động.', url: './Bai10/kttx2.html' }
+          { num: 'KTTX2', name: 'Kiểm tra TX2 (15 phút)', desc: '10 câu chuẩn BGD (8 MCQ + 2 Đ/S) chấm tự động.', url: './Bai10/kttx2.html', examGate: 'bai10:kttx2' }
         ]
       },
       bai11: {
@@ -1917,27 +1920,67 @@
       NODE_DETAILS[`${u.slug}_hd22`] = { tag: 'HOẠT ĐỘNG 2.2', title: `${u.label} – Khám phá 2 & Phiếu BT`, status: '● Sẵn sàng', statusClass: 'badge-ready', desc: `Kiến thức trọng tâm chặng 2, quét mã QR làm Phiếu bài tập & bảng điều khiển GV.`, actionText: 'Vào HĐ 2.2', actionUrl: `${base}hd2-2.html`, isReady: true };
       NODE_DETAILS[`${u.slug}_hd3`] = { tag: 'HOẠT ĐỘNG 3', title: `${u.label} – Phòng Thực hành IDE`, status: '● Sẵn sàng', statusClass: 'badge-ready', desc: `Soạn thảo mã HTML/CSS trực tiếp, kiểm tra tiêu chí tự động và nộp bài cho GV.`, actionText: 'Vào Phòng Thực Hành', actionUrl: `${base}hd3.html`, isReady: true };
       NODE_DETAILS[`${u.slug}_hd4`] = { tag: 'HOẠT ĐỘNG 4', title: `${u.label} – Infographic & Luyện tập`, status: '● Sẵn sàng', statusClass: 'badge-ready', desc: `Sơ đồ AntV Infographic 4 chế độ, Flashcard 3D & tự luyện câu hỏi SGK.`, actionText: 'Vào Hoạt Động 4', actionUrl: `${base}hd4.html`, isReady: true };
-      NODE_DETAILS[`${u.slug}_phieu`] = { tag: 'PHIẾU BÀI TẬP / ĐỀ KIỂM TRA', title: `${u.label} – Phiếu làm bài trực tuyến`, status: '● Sẵn sàng', statusClass: 'badge-ready', desc: `Làm bài trắc nghiệm + Đúng/Sai chấm điểm tức thì và lưu kết quả lên máy chủ.`, actionText: 'Mở Phiếu Làm Bài', actionUrl: `${base}phieu-bai-tap.html`, isReady: true };
+      NODE_DETAILS[`${u.slug}_phieu`] = { tag: 'PHIẾU BÀI TẬP / ĐỀ KIỂM TRA', title: `${u.label} – Phiếu làm bài trực tuyến`, status: '● Sẵn sàng', statusClass: 'badge-ready', desc: `Làm bài trắc nghiệm + Đúng/Sai chấm điểm tức thì và lưu kết quả lên máy chủ.`, actionText: 'Mở Phiếu Làm Bài', actionUrl: `${base}phieu-bai-tap.html`, isReady: true, ...(u.slug === 'kttx3' ? { examGate: 'kttx3:phieubaitap' } : (u.slug === 'ontaphk1' ? { examGate: 'ontaphk1:phieubaitap' } : {})) };
       if (u.hasKttx2) {
-        NODE_DETAILS[`${u.slug}_kttx2`] = { tag: 'KIỂM TRA THƯỜNG XUYÊN 2', title: 'Đề Kiểm tra Thường xuyên 2 (15 phút)', status: '● Sẵn sàng', statusClass: 'badge-ready', desc: '10 câu hỏi (8 câu Trắc nghiệm + 2 câu Đúng/Sai) tính giờ 15 phút trọng tâm HTML & Liên kết.', actionText: 'Bắt đầu làm KTTX2', actionUrl: `${base}kttx2.html`, isReady: true };
+        NODE_DETAILS[`${u.slug}_kttx2`] = { tag: 'KIỂM TRA THƯỜNG XUYÊN 2', title: 'Đề Kiểm tra Thường xuyên 2 (15 phút)', status: '● Sẵn sàng', statusClass: 'badge-ready', desc: '10 câu hỏi (8 câu Trắc nghiệm + 2 câu Đúng/Sai) tính giờ 15 phút trọng tâm HTML & Liên kết.', actionText: 'Bắt đầu làm KTTX2', actionUrl: `${base}kttx2.html`, isReady: true, examGate: 'bai10:kttx2' };
       }
     });
 
+    window.__portalExamState = {};
+    window.__portalTeacher = false;
+    window.__currentPortalNode = 'bai10';
+
+    function getPortalTeacherToken() {
+      try {
+        const raw = sessionStorage.getItem('thth_teacher_auth') || localStorage.getItem('thth_teacher_auth');
+        if (!raw) return '';
+        const d = JSON.parse(raw);
+        return (d && d.authenticated && d.token) ? String(d.token) : '';
+      } catch (e) { return ''; }
+    }
+
+    function isPortalExamVisible(gateKey) {
+      if (!gateKey) return true;
+      if (window.__portalTeacher) return true;
+      return !!(window.__portalExamState && window.__portalExamState[gateKey] && window.__portalExamState[gateKey].isOpen);
+    }
+
+    async function syncPortalExamGates() {
+      try {
+        const tok = getPortalTeacherToken();
+        const hdrs = tok ? { 'X-Teacher-Token': tok } : {};
+        const res = await fetch('/api/bai10/exam/status?all=1', { headers: hdrs, cache: 'no-store' });
+        if (!res.ok) return;
+        const data = await res.json();
+        window.__portalExamState = data.exams || {};
+        window.__portalTeacher = !!data.isTeacher;
+        document.querySelectorAll('[data-portal-exam]').forEach(el => {
+          const k = el.getAttribute('data-portal-exam');
+          el.classList.toggle('exam-locked-hidden', !isPortalExamVisible(k));
+        });
+        showNodeDetail(window.__currentPortalNode || 'bai10', false);
+      } catch (e) {}
+    }
+
     function showNodeDetail(nodeKey, shouldToggleFolder = true) {
+      window.__currentPortalNode = nodeKey;
       const data = NODE_DETAILS[nodeKey] || NODE_DETAILS.empty;
-      
+      const isGateLocked = !!(data.examGate && !isPortalExamVisible(data.examGate));
+
       document.getElementById('detail-tag').textContent = data.tag;
       document.getElementById('detail-title').textContent = data.title;
       
       const statusElem = document.getElementById('detail-status');
-      statusElem.textContent = data.status;
-      statusElem.className = 'detail-status-pill ' + (data.statusClass || 'badge-empty');
+      statusElem.textContent = isGateLocked ? '🔒 Đang khóa đề' : data.status;
+      statusElem.className = 'detail-status-pill ' + (isGateLocked ? 'badge-empty' : (data.statusClass || 'badge-empty'));
 
-      document.getElementById('detail-desc').textContent = data.desc;
+      document.getElementById('detail-desc').textContent = isGateLocked
+        ? 'Đề kiểm tra đang tạm khóa để bảo mật. Giáo viên sẽ mở đề đúng giờ kiểm tra trên lớp.'
+        : data.desc;
 
       const btnMain = document.getElementById('btn-main-action');
       if (btnMain) {
-        if (data.isReady && data.actionUrl && data.actionUrl !== '#') {
+        if (!isGateLocked && data.isReady && data.actionUrl && data.actionUrl !== '#') {
           btnMain.textContent = data.actionText || 'Mở Bài Học';
           btnMain.href = data.actionUrl;
           btnMain.style.display = 'inline-flex';
@@ -1950,7 +1993,8 @@
       const actGrid = document.getElementById('activities-grid-list');
       const btnSub = document.getElementById('btn-sub-action');
       if (actGrid && data.activities && data.activities.length > 0) {
-        actGrid.innerHTML = data.activities.map(act => `
+        const visibleActs = data.activities.filter(act => !act.examGate || isPortalExamVisible(act.examGate));
+        actGrid.innerHTML = visibleActs.map(act => `
           <a href="${act.url}" class="activity-tile">
             <div>
               <div class="tile-num">${act.num}</div>
@@ -1960,10 +2004,12 @@
             <div class="tile-link">Vào học ngay →</div>
           </a>
         `).join('');
-        if (btnSub) {
-          btnSub.textContent = '⚡ Bắt đầu từ ' + data.activities[0].num;
-          btnSub.href = data.activities[0].url;
+        if (btnSub && visibleActs.length > 0) {
+          btnSub.textContent = '⚡ Bắt đầu từ ' + visibleActs[0].num;
+          btnSub.href = visibleActs[0].url;
           btnSub.style.display = 'inline-flex';
+        } else if (btnSub) {
+          btnSub.style.display = 'none';
         }
       } else if (btnSub) {
         btnSub.style.display = 'none';
@@ -2061,6 +2107,8 @@
     // MẶC ĐỊNH HIỂN THỊ THÔNG TIN BÀI 10 Ở KHUNG PHẢI (CÂY THƯ MỤC GIỮ THU GỌN)
     window.addEventListener('DOMContentLoaded', () => {
       showNodeDetail('bai10', false);
+      syncPortalExamGates();
+      setInterval(syncPortalExamGates, 10000);
     });
   </script>
 </body>

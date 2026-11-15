@@ -1706,14 +1706,22 @@
         return;
       }
 
-      const validPwds = ['darber3110', '3110', '0902937006', '123456', 'admin', 'SfAUwbUtH3Bj1ouP2nM4'];
-      const customPwd = localStorage.getItem('thth_teacher_pwd');
-      if (customPwd) validPwds.push(customPwd);
-
       let isAuthenticated = false;
-      if (email === TEACHER_EMAIL.toLowerCase() && validPwds.includes(pwd)) {
-        isAuthenticated = true;
-      }
+      let teacherToken = '';
+      try {
+        const res = await fetch('/api/bai10/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password: pwd })
+        });
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.authenticated) {
+            isAuthenticated = true;
+            teacherToken = data.token || '';
+          }
+        }
+      } catch (err) {}
 
       if (!isAuthenticated) {
         if (alertBox) {
@@ -1731,6 +1739,7 @@
         authenticated: true,
         email: email,
         name: 'Nguyễn Lê Minh Ngọc',
+        token: teacherToken,
         loginAt: new Date().toISOString()
       };
 
@@ -1739,8 +1748,6 @@
       } else {
         sessionStorage.setItem('thth_teacher_auth', JSON.stringify(authData));
       }
-
-      document.cookie = 'thth_teacher=1; path=/';
 
       closeTeacherLoginModal();
       updateTeacherAuthUI();
@@ -1751,6 +1758,7 @@
       sessionStorage.removeItem('thth_teacher_auth');
       localStorage.removeItem('thth_teacher_auth');
       document.cookie = 'thth_teacher=; Max-Age=0; path=/;';
+      fetch('/api/bai10/auth/logout', { method: 'POST' }).catch(() => {});
       updateTeacherAuthUI();
       renderSubmissionsP2(cachedSubmissionsP2);
     }

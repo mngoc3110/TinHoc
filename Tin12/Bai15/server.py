@@ -172,6 +172,11 @@ class Handler(http.server.SimpleHTTPRequestHandler):
                 self.end_headers()
                 self.wfile.write(raw)
                 return
+        if '.private.' in cp or cp.startswith('/data/') or '/data/' in cp:
+            self.send_response(403)
+            self.end_headers()
+            self.wfile.write(b'403 Forbidden')
+            return
         if cp.endswith('.docx') or cp.endswith('.pptx'):
             if 'thth_teacher=1' not in self.headers.get('Cookie', ''):
                 self.send_response(403)

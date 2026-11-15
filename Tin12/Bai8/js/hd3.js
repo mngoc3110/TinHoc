@@ -285,39 +285,25 @@ Hỗ trợ 24/7`
       let teacherName = 'Thầy/Cô';
 
       // 1. XÁC THỰC TRỰC TIẾP QUA MINDA API (/api/auth/login)
+      let isAuthenticated = false;
+      let teacherName = 'Giáo viên';
+      let teacherToken = '';
+
       try {
-        const formBody = new URLSearchParams();
-        formBody.append('username', email);
-        formBody.append('password', pwd);
-
-        const res = await fetch('/api/auth/login', {
+        const res = await fetch('/api/bai10/auth/login', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: formBody
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password: pwd })
         });
-
         if (res.ok) {
           const data = await res.json();
-          if (data.role === 'teacher' || data.role === 'admin' || email === TEACHER_EMAIL.toLowerCase()) {
+          if (data && data.authenticated) {
             isAuthenticated = true;
-            teacherName = data.full_name || 'Giáo viên';
+            teacherName = data.full_name || data.name || 'Nguyễn Lê Minh Ngọc';
+            teacherToken = data.token || '';
           }
         }
-      } catch (err) {
-        console.warn('API Minda không phản hồi, dùng xác thực dự phòng.');
-      }
-
-      // 2. DỰ PHÒNG NẾU OFFLINE HOẶC MÁY CỤC BỘ
-      if (!isAuthenticated) {
-        const customPwd = localStorage.getItem('thth_teacher_pwd');
-        const validPwds = ['darber3110', '3110', '0902937006', '123456', 'admin', 'SfAUwbUtH3Bj1ouP2nM4'];
-        if (customPwd) validPwds.push(customPwd);
-
-        if (email === TEACHER_EMAIL.toLowerCase() && validPwds.includes(pwd)) {
-          isAuthenticated = true;
-          teacherName = 'Nguyễn Lê Minh Ngọc';
-        }
-      }
+      } catch (err) {}
 
       if (submitBtn) {
         submitBtn.disabled = false;
@@ -338,6 +324,7 @@ Hỗ trợ 24/7`
       const authData = {
         email: email,
         name: teacherName,
+        token: teacherToken,
         authenticated: true,
         loginAt: new Date().toISOString()
       };
@@ -358,6 +345,8 @@ Hỗ trợ 24/7`
       if (confirm('Thầy/Cô có chắc chắn muốn đăng xuất khỏi Bảng quản lý giáo viên?')) {
         sessionStorage.removeItem('thth_teacher_auth');
         localStorage.removeItem('thth_teacher_auth');
+        document.cookie = 'thth_teacher=; Max-Age=0; path=/;';
+        fetch('/api/bai10/auth/logout', { method: 'POST' }).catch(() => {});
         activateStudentView();
         showToast('Đã đăng xuất tài khoản giáo viên!');
       }

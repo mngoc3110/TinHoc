@@ -667,39 +667,25 @@
       let teacherName = 'Giáo viên';
 
       // 1. Xác thực qua MINDA OAuth2 endpoint
+      let isAuthenticated = false;
+      let teacherName = 'Giáo viên';
+      let teacherToken = '';
+
       try {
-        const formBody = new URLSearchParams();
-        formBody.append('username', email);
-        formBody.append('password', pwd);
-
-        const res = await fetch('/api/auth/login', {
+        const res = await fetch('/api/bai10/auth/login', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: formBody
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password: pwd })
         });
-
         if (res.ok) {
           const data = await res.json();
-          if (data.role === 'teacher' || data.role === 'admin' || email === TEACHER_EMAIL.toLowerCase()) {
+          if (data && data.authenticated) {
             isAuthenticated = true;
-            teacherName = data.full_name || 'Nguyễn Lê Minh Ngọc';
+            teacherName = data.full_name || data.name || 'Nguyễn Lê Minh Ngọc';
+            teacherToken = data.token || '';
           }
         }
-      } catch (err) {
-        console.warn('API Minda không phản hồi, thử xác thực dự phòng.');
-      }
-
-      // 2. Xác thực dự phòng
-      if (!isAuthenticated) {
-        const customPwd = localStorage.getItem('thth_teacher_pwd');
-        const validPwds = ['darber3110', '3110', '0902937006', '123456', 'admin', 'SfAUwbUtH3Bj1ouP2nM4'];
-        if (customPwd) validPwds.push(customPwd);
-
-        if (email === TEACHER_EMAIL.toLowerCase() && validPwds.includes(pwd)) {
-          isAuthenticated = true;
-          teacherName = 'Nguyễn Lê Minh Ngọc';
-        }
-      }
+      } catch (err) {}
 
       if (submitBtn) {
         submitBtn.disabled = false;
@@ -720,6 +706,7 @@
         authenticated: true,
         email: email,
         name: teacherName,
+        token: teacherToken,
         loginAt: new Date().toISOString()
       };
 
@@ -728,8 +715,6 @@
       } else {
         sessionStorage.setItem('thth_teacher_auth', JSON.stringify(authData));
       }
-
-      document.cookie = 'thth_teacher=1; path=/';
 
       closeTeacherLoginModal();
       updateTeacherUI();
@@ -740,6 +725,7 @@
       sessionStorage.removeItem('thth_teacher_auth');
       localStorage.removeItem('thth_teacher_auth');
       document.cookie = 'thth_teacher=; Max-Age=0; path=/;';
+      fetch('/api/bai10/auth/logout', { method: 'POST' }).catch(() => {});
       updateTeacherUI();
     }
 

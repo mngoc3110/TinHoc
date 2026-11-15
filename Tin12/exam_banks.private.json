@@ -1,0 +1,809 @@
+{
+  "bai10:kttx2": {
+    "key": "bai10:kttx2",
+    "slug": "bai10",
+    "folder": "Bai10",
+    "shortTitle": "Bài 10: Tạo liên kết",
+    "worksheetId": "kttx2",
+    "file": "kttx2.html",
+    "badge": "KIỂM TRA THƯỜNG XUYÊN 2 • 15 PHÚT • CHỦ ĐỀ F (BÀI 7–10)",
+    "title": "Đề Kiểm Tra Thường Xuyên 2 (Tin học 12 – 15 phút)",
+    "desc": "Phạm vi kiến thức: Bài 7, 8, 9, 10 (HTML cơ bản, định dạng văn bản, danh sách, bảng và tạo liên kết). Gồm 8 câu Trắc nghiệm 4 lựa chọn (6.0 điểm) + 2 câu Đúng/Sai chuẩn TN THPT 2025 (4.0 điểm).",
+    "minutes": 15,
+    "questions": [
+      {
+        "id": "k1",
+        "type": "mcq",
+        "points": 0.75,
+        "prompt": "Trong cấu trúc một văn bản HTML chuẩn, phần nội dung chứa tiêu đề tab trình duyệt (<title>) và khai báo bảng mã UTF-8 (<meta>) được đặt bên trong thẻ nào?",
+        "options": {
+          "A": "<body>",
+          "B": "<footer>",
+          "C": "<head>",
+          "D": "<section>"
+        },
+        "correct": "C",
+        "explain": "<head> chứa siêu dữ liệu của trang web như <meta charset='utf-8'>, <title>, <style>, <link>."
+      },
+      {
+        "id": "k2",
+        "type": "mcq",
+        "points": 0.75,
+        "prompt": "Trong HTML5, để nhấn mạnh ý nghĩa quan trọng của cụm từ bằng kiểu chữ in đậm mang ngữ nghĩa chuẩn SEO/trợ năng, ta nên dùng cặp thẻ nào?",
+        "options": {
+          "A": "<i>...</i>",
+          "B": "<strong>...</strong>",
+          "C": "<u>...</u>",
+          "D": "<p>...</p>"
+        },
+        "correct": "B",
+        "explain": "<strong> mang ngữ nghĩa văn bản quan trọng (hiển thị đậm), <em> nhấn mạnh (nghiêng)."
+      },
+      {
+        "id": "k3",
+        "type": "mcq",
+        "points": 0.75,
+        "prompt": "Để tạo một danh sách có thứ tự bắt đầu bằng các chữ cái in hoa (A, B, C...), ta khai báo thẻ nào sau đây?",
+        "options": {
+          "A": "<ol type=\"A\">",
+          "B": "<ul type=\"A\">",
+          "C": "<ol start=\"A\">",
+          "D": "<dl type=\"A\">"
+        },
+        "correct": "A",
+        "explain": "Thuộc tính type=\"A\" trên thẻ <ol> giúp đánh dấu các mục theo A, B, C; start chỉ nhận giá trị số nguyên."
+      },
+      {
+        "id": "k4",
+        "type": "mcq",
+        "points": 0.75,
+        "prompt": "Khi thiết kế bảng thời khóa biểu bằng thẻ <table>, để gộp 3 ô liên tiếp trên cùng một hàng thành 1 ô tiêu đề, ta gán thuộc tính nào cho thẻ <th> hoặc <td>?",
+        "options": {
+          "A": "rowspan=\"3\"",
+          "B": "merge=\"3\"",
+          "C": "span=\"3\"",
+          "D": "colspan=\"3\""
+        },
+        "correct": "D",
+        "explain": "colspan gộp theo chiều ngang (nhiều cột trên cùng hàng), rowspan gộp theo chiều dọc (nhiều hàng)."
+      },
+      {
+        "id": "k5",
+        "type": "mcq",
+        "points": 0.75,
+        "prompt": "Thuộc tính bắt buộc phải có trên thẻ <a> để trình duyệt hiểu đây là siêu liên kết trỏ tới một địa chỉ URL khác là:",
+        "options": {
+          "A": "src",
+          "B": "href",
+          "C": "link",
+          "D": "target"
+        },
+        "correct": "B",
+        "explain": "href (Hypertext Reference) xác định tài nguyên đích của liên kết <a>."
+      },
+      {
+        "id": "k6",
+        "type": "mcq",
+        "points": 0.75,
+        "prompt": "Trang baiviet/tintuc.html nằm trong thư mục con baiviet/. Muốn tạo liên kết trở về tệp index.html ở thư mục gốc website, cần viết href như thế nào?",
+        "options": {
+          "A": "href=\"index.html\"",
+          "B": "href=\"/baiviet/index.html\"",
+          "C": "href=\"../index.html\"",
+          "D": "href=\"../../index.html\""
+        },
+        "correct": "C",
+        "explain": "../ giúp quay lên 1 cấp thư mục cha nơi chứa index.html."
+      },
+      {
+        "id": "k7",
+        "type": "mcq",
+        "points": 0.75,
+        "prompt": "Trong cùng trang tai_lieu.html có phần tử <h2 id=\"mucluc\">Mục lục</h2>. Thẻ liên kết nào nhảy thẳng tới phần tử đó?",
+        "options": {
+          "A": "<a href=\"#mucluc\">Về Mục lục</a>",
+          "B": "<a href=\"mucluc\">Về Mục lục</a>",
+          "C": "<a id=\"#mucluc\">Về Mục lục</a>",
+          "D": "<a src=\"#mucluc\">Về Mục lục</a>"
+        },
+        "correct": "A",
+        "explain": "Liên kết tới id trong cùng trang bắt đầu bằng dấu # theo sau là giá trị id."
+      },
+      {
+        "id": "k8",
+        "type": "mcq",
+        "points": 0.75,
+        "prompt": "Đoạn mã HTML nào biến hình ảnh clb.png thành nút bấm dẫn đến trang CLB.html?",
+        "options": {
+          "A": "<img href=\"CLB.html\" src=\"clb.png\">",
+          "B": "<a src=\"clb.png\" href=\"CLB.html\"></a>",
+          "C": "<a id=\"CLB.html\"><img src=\"clb.png\"></a>",
+          "D": "<a href=\"CLB.html\"><img src=\"clb.png\" alt=\"CLB\"></a>"
+        },
+        "correct": "D",
+        "explain": "Đặt thẻ <img ...> vào bên trong cặp thẻ <a href=\"...\">...</a>."
+      },
+      {
+        "id": "k9",
+        "type": "tf",
+        "points": 2.0,
+        "prompt": "Một học sinh viết đoạn mã HTML tạo bảng điểm Tin học như sau. Hãy xác định tính Đúng/Sai của các nhận định:",
+        "code": "<table border=\"1\">\n  <caption>Bảng điểm Tin học 12</caption>\n  <tr><th>STT</th><th colspan=\"2\">Thông tin</th></tr>\n  <tr><td>1</td><td>An</td><td>9.5</td></tr>\n</table>",
+        "statements": [
+          {
+            "text": "a) Thẻ <caption> hiển thị tiêu đề cho bảng ngay phía trên bảng.",
+            "correct": true
+          },
+          {
+            "text": "b) Cột STT và cột Thông tin đều được tạo bởi thẻ <th> nên chữ hiển thị mặc định sẽ in thường và căn lề trái.",
+            "correct": false
+          },
+          {
+            "text": "c) Thuộc tính colspan=\"2\" ở ô Thông tin giúp gộp 2 cột ngang khớp với 2 ô <td> (An và 9.5) ở hàng dưới.",
+            "correct": true
+          },
+          {
+            "text": "d) Bảng trên có tổng cộng 2 hàng (<tr>) dữ liệu và tiêu đề.",
+            "correct": true
+          }
+        ],
+        "explain": "Thẻ <th> mặc định in ĐẬM và CĂN GIỮA nên b Sai; a, c, d đều Đúng."
+      },
+      {
+        "id": "k10",
+        "type": "tf",
+        "points": 2.0,
+        "prompt": "Trong một dự án website gồm thư mục gốc web/ chứa index.html, trang_con/ chứa clb.html (có <section id=\"bongda\">) và anh/ chứa logo.png:",
+        "statements": [
+          {
+            "text": "a) Trong index.html, để hiển thị hình logo.png viết <img src=\"anh/logo.png\" alt=\"Logo\">.",
+            "correct": true
+          },
+          {
+            "text": "b) Trong index.html, thẻ <a href=\"trang_con/clb.html#bongda\"> sẽ mở clb.html và cuộn xuống mục #bongda.",
+            "correct": true
+          },
+          {
+            "text": "c) Trong clb.html, muốn chèn ảnh logo.png ta chỉ cần viết src=\"anh/logo.png\".",
+            "correct": false
+          },
+          {
+            "text": "d) Nếu bổ sung thêm <a href=\"https://nxbgd.vn\" target=\"_blank\"> thì người dùng sẽ mở trang NXB Giáo dục trên tab mới.",
+            "correct": true
+          }
+        ],
+        "explain": "Vì clb.html nằm trong trang_con/, muốn lấy logo.png trong anh/ phải lùi ra cha trước: ../anh/logo.png nên c Sai; a, b, d Đúng."
+      }
+    ]
+  },
+  "kttx3:phieubaitap": {
+    "key": "kttx3:phieubaitap",
+    "slug": "kttx3",
+    "folder": "ThucHanh_KTTX3",
+    "shortTitle": "Thực hành tổng hợp HTML & KTTX3",
+    "worksheetId": "phieubaitap",
+    "file": "phieu-bai-tap.html",
+    "badge": "KIỂM TRA THƯỜNG XUYÊN 3 • 15 PHÚT • CHỦ ĐỀ F",
+    "title": "Đề Kiểm Tra Thường Xuyên 3 (Tin học 12 – 15 phút)",
+    "desc": "Phạm vi: Toàn bộ phần HTML5 (Bài 7–12, trọng tâm Bài 10, 11, 12). Cấu trúc: 8 câu Trắc nghiệm 4 lựa chọn (6.0đ) + 2 câu Đúng/Sai chuẩn TN THPT 2025 (4.0đ).",
+    "minutes": 15,
+    "questions": [
+      {
+        "id": "q1",
+        "type": "mcq",
+        "points": 0.75,
+        "prompt": "Trong HTML5, muốn gộp 2 ô liên tiếp theo chiều dọc (thuộc 2 hàng kế nhau trên cùng một cột) thành một ô duy nhất, ta dùng thuộc tính nào trên thẻ <td> hoặc <th>?",
+        "options": {
+          "A": "colspan=\"2\"",
+          "B": "rowspan=\"2\"",
+          "C": "merge=\"row-2\"",
+          "D": "rows=\"2\""
+        },
+        "correct": "B",
+        "explain": "rowspan=\"2\" gộp 2 hàng theo chiều dọc; colspan gộp cột theo chiều ngang."
+      },
+      {
+        "id": "q2",
+        "type": "mcq",
+        "points": 0.75,
+        "prompt": "Trang con tin_tuc/su_kien.html muốn đặt liên kết quay về tệp index.html ở thư mục cha trực tiếp. Thuộc tính href nào viết đúng?",
+        "options": {
+          "A": "href=\"index.html\"",
+          "B": "href=\"tin_tuc/index.html\"",
+          "C": "href=\"../index.html\"",
+          "D": "href=\"../../index.html\""
+        },
+        "correct": "C",
+        "explain": "../ quay ngược ra 1 cấp thư mục cha, sau đó mở index.html."
+      },
+      {
+        "id": "q3",
+        "type": "mcq",
+        "points": 0.75,
+        "prompt": "Một bức ảnh kích thước gốc 1600 × 900 px được nhúng bằng <img src=\"clb.jpg\" width=\"800\" alt=\"CLB\"> (không ghi height). Chiều cao ảnh hiển thị là bao nhiêu?",
+        "options": {
+          "A": "450 px",
+          "B": "400 px",
+          "C": "800 px",
+          "D": "900 px"
+        },
+        "correct": "A",
+        "explain": "Trình duyệt giữ nguyên tỉ lệ gốc: 800 * 900 / 1600 = 450 px."
+      },
+      {
+        "id": "q4",
+        "type": "mcq",
+        "points": 0.75,
+        "prompt": "Phát biểu nào sau đây SAI khi so sánh thẻ <audio> và thẻ <video> trong HTML5?",
+        "options": {
+          "A": "Cả hai đều có thuộc tính controls để hiện thanh điều khiển phát",
+          "B": "Cả hai đều hỗ trợ thẻ con <source> khai báo nhiều định dạng tệp",
+          "C": "Thẻ <video> có thuộc tính poster để đặt ảnh bìa chờ trước khi phát",
+          "D": "Thẻ <audio> cần có thuộc tính poster và width để hiển thị thanh phát"
+        },
+        "correct": "D",
+        "explain": "<audio> phát âm thanh nên KHÔNG có thuộc tính poster hay width/height."
+      },
+      {
+        "id": "q5",
+        "type": "mcq",
+        "points": 0.75,
+        "prompt": "Để bấm vào thẻ <a href=\"the_thao.html\"> sẽ tải nội dung trang the_thao.html vào bên trong <iframe name=\"main_view\"> trên cùng trang web, cần bổ sung thuộc tính gì cho thẻ <a>?",
+        "options": {
+          "A": "href=\"#main_view\"",
+          "B": "target=\"main_view\"",
+          "C": "target=\"_blank\"",
+          "D": "name=\"main_view\""
+        },
+        "correct": "B",
+        "explain": "Thuộc tính target của thẻ <a> trùng khớp với thuộc tính name của thẻ <iframe>."
+      },
+      {
+        "id": "q6",
+        "type": "mcq",
+        "points": 0.75,
+        "prompt": "Trong một biểu mẫu trắc nghiệm bằng thẻ <input type=\"radio\">, điều kiện bắt buộc để người dùng chỉ chọn được duy nhất 1 phương án trong 4 đáp án A, B, C, D là:",
+        "options": {
+          "A": "Cả 4 thẻ phải có cùng thuộc tính id",
+          "B": "Cả 4 thẻ phải có cùng thuộc tính value",
+          "C": "Cả 4 thẻ phải có cùng giá trị thuộc tính name",
+          "D": "Đặt cả 4 thẻ trong thẻ <select>"
+        },
+        "correct": "C",
+        "explain": "Các nút radio thuộc cùng một nhóm lựa chọn duy nhất bắt buộc phải có chung thuộc tính name."
+      },
+      {
+        "id": "q7",
+        "type": "mcq",
+        "points": 0.75,
+        "prompt": "Để tạo ô nhập đoạn văn bản góp ý nhiều dòng có độ cao 5 dòng và độ rộng 40 ký tự, ta dùng thẻ nào?",
+        "options": {
+          "A": "<textarea rows=\"5\" cols=\"40\"></textarea>",
+          "B": "<input type=\"textarea\" rows=\"5\" cols=\"40\">",
+          "C": "<text rows=\"5\" cols=\"40\"></text>",
+          "D": "<select rows=\"5\" cols=\"40\"></select>"
+        },
+        "correct": "A",
+        "explain": "<textarea rows=\"...\" cols=\"...\"></textarea> là thẻ ghép chuẩn tạo vùng nhập nhiều dòng."
+      },
+      {
+        "id": "q8",
+        "type": "mcq",
+        "points": 0.75,
+        "prompt": "Cặp thẻ nào giúp tạo khung viền bao quanh một nhóm điều khiển cùng tiêu đề nhóm vắt ngang cạnh trên khung trong biểu mẫu?",
+        "options": {
+          "A": "<form> và <label>",
+          "B": "<table> và <caption>",
+          "C": "<section> và <h3>",
+          "D": "<fieldset> và <legend>"
+        },
+        "correct": "D",
+        "explain": "<fieldset> tạo khung gom nhóm phần tử form và <legend> hiển thị tiêu đề của nhóm đó."
+      },
+      {
+        "id": "q9",
+        "type": "tf",
+        "points": 2.0,
+        "prompt": "Xét đoạn mã HTML của trang Giới thiệu CLB Trường học như sau:",
+        "code": "<nav><a href=\"#media\">Thư viện</a> | <a href=\"thong_tin.html\" target=\"_blank\">Chi tiết</a></nav>\n<h2 id=\"media\">Hình ảnh &amp; Video</h2>\n<img src=\"clb.png\" alt=\"Ảnh CLB\" width=\"300\">\n<video width=\"480\" height=\"270\" controls poster=\"bia.jpg\">\n  <source src=\"clb.mp4\" type=\"video/mp4\">\n</video>",
+        "statements": [
+          {
+            "text": "a) Khi bấm liên kết 'Thư viện', trình duyệt sẽ cuộn đến tiêu đề <h2 id=\"media\">.",
+            "correct": true
+          },
+          {
+            "text": "b) Khi bấm liên kết 'Chi tiết', trang thong_tin.html sẽ mở đè ngay trên thẻ trình duyệt hiện tại.",
+            "correct": false
+          },
+          {
+            "text": "c) Nếu hình ảnh clb.png bị hỏng đường dẫn, trình duyệt sẽ hiển thị văn bản 'Ảnh CLB'.",
+            "correct": true
+          },
+          {
+            "text": "d) Trước khi người dùng nhấn nút Play trên video, khung video sẽ hiển thị ảnh bia.jpg.",
+            "correct": true
+          }
+        ],
+        "explain": "Vì có target=\"_blank\" nên 'Chi tiết' mở ở MỘT THẺ MỚI (b Sai); các ý a, c, d đều Đúng."
+      },
+      {
+        "id": "q10",
+        "type": "tf",
+        "points": 2.0,
+        "prompt": "Một học sinh xây dựng Biểu mẫu Đăng kí tham gia Câu lạc bộ Tin học như đoạn mã sau:",
+        "code": "<form action=\"xuly.html\">\n  <fieldset>\n    <legend>Thông tin cá nhân</legend>\n    <label for=\"ten\">Họ tên:</label> <input id=\"ten\" type=\"text\" name=\"hoten\"><br>\n    <input type=\"radio\" name=\"k1\" value=\"12\"> Lớp 12\n    <input type=\"radio\" name=\"k2\" value=\"11\"> Lớp 11<br>\n    <input type=\"checkbox\" name=\"nv\" value=\"AI\"> CLB AI\n    <input type=\"checkbox\" name=\"nv\" value=\"Web\"> CLB Web<br>\n    <input type=\"submit\" value=\"Gửi\">\n  </fieldset>\n</form>",
+        "statements": [
+          {
+            "text": "a) Trên cạnh trên của khung viền nhóm nhập liệu sẽ hiển thị dòng chữ 'Thông tin cá nhân'.",
+            "correct": true
+          },
+          {
+            "text": "b) Người dùng có thể tick chọn cùng lúc cả CLB AI và CLB Web.",
+            "correct": true
+          },
+          {
+            "text": "c) Người dùng chỉ chọn được duy nhất Lớp 12 hoặc Lớp 11 do đã dùng kiểu radio.",
+            "correct": false
+          },
+          {
+            "text": "d) Nếu bấm vào chữ 'Họ tên:', con trỏ gõ chữ sẽ chuyển vào ô nhập họ và tên.",
+            "correct": true
+          }
+        ],
+        "explain": "Do hai nút radio đặt khác name (name=\"k1\" và name=\"k2\") nên người dùng tích được cả hai (c Sai); các ý a, b, d đều Đúng."
+      }
+    ]
+  },
+  "ontaphk1:phieubaitap": {
+    "key": "ontaphk1:phieubaitap",
+    "slug": "ontaphk1",
+    "folder": "OnTap_HK1",
+    "shortTitle": "Ôn tập & Đề thi thử Cuối HK1 (45p)",
+    "worksheetId": "phieubaitap",
+    "file": "phieu-bai-tap.html",
+    "badge": "ĐỀ THI THỬ CUỐI HỌC KỲ 1 • 45 PHÚT • CHUẨN BGD&ĐT 2025/2026",
+    "title": "Đề Thi Thử Cuối Học Kỳ 1 Môn Tin Học 12 (28 Câu – 45 Phút)",
+    "desc": "Đề thi tổng hợp 4 Chủ đề HK1 (AI, Mạng, Đạo đức số, HTML5): 24 câu Trắc nghiệm 4 lựa chọn (0.25đ/câu = 6.0đ) + 4 câu Đúng/Sai chuẩn BGD&ĐT (1.0đ/câu = 4.0đ).",
+    "minutes": 45,
+    "questions": [
+      {
+        "id": "c1",
+        "type": "mcq",
+        "points": 0.25,
+        "prompt": "Đặc trưng nào sau đây thể hiện khả năng của hệ thống Trí tuệ nhân tạo (AI) trong việc trích xuất quy luật, tri thức từ dữ liệu huấn luyện để cải thiện độ chính xác theo thời gian?",
+        "options": {
+          "A": "Khả năng nhận thức cảm biến",
+          "B": "Khả năng học (Machine Learning)",
+          "C": "Khả năng phát xung nhịp CPU",
+          "D": "Khả năng lưu trữ vật lý"
+        },
+        "correct": "B",
+        "explain": "Khả năng học giúp hệ thống AI tự điều chỉnh tham số từ dữ liệu mà không cần lập trình cứng mọi tình huống."
+      },
+      {
+        "id": "c2",
+        "type": "mcq",
+        "points": 0.25,
+        "prompt": "Phân loại AI hiện nay như trợ lý ảo Siri, phần mềm dịch máy hay xe tự hành hoạt động chuyên biệt cho từng nhiệm vụ cụ thể thuộc nhóm nào?",
+        "options": {
+          "A": "Trí tuệ nhân tạo tổng quát (AGI)",
+          "B": "Siêu trí tuệ nhân tạo (ASI)",
+          "C": "Trí tuệ nhân tạo hẹp / yếu (ANI)",
+          "D": "Trí tuệ nhân tạo tự nhận thức"
+        },
+        "correct": "C",
+        "explain": "Tất cả ứng dụng AI thực tế hiện nay đều thuộc nhóm AI hẹp (ANI), tối ưu cho từng bài toán xác định."
+      },
+      {
+        "id": "c3",
+        "type": "mcq",
+        "points": 0.25,
+        "prompt": "Trong lĩnh vực y tế, hệ thống AI phân tích ảnh chụp X-quang hoặc MRI để hỗ trợ bác sĩ phát hiện sớm khối u là ứng dụng tiêu biểu của:",
+        "options": {
+          "A": "Thị giác máy tính (Computer Vision)",
+          "B": "Điều chế tín hiệu Modem",
+          "C": "Giao thức định tuyến IP",
+          "D": "Quản trị cơ sở dữ liệu quan hệ"
+        },
+        "correct": "A",
+        "explain": "Phân tích, nhận dạng hình ảnh y khoa là ứng dụng điển hình của Thị giác máy tính kết hợp học sâu."
+      },
+      {
+        "id": "c4",
+        "type": "mcq",
+        "points": 0.25,
+        "prompt": "Nguy cơ nào sau đây là rủi ro cần đặc biệt cảnh giác khi sử dụng hoặc tiếp nhận thông tin từ các công nghệ AI tạo sinh hiện đại?",
+        "options": {
+          "A": "AI tự động sửa chữa hỏng hóc phần cứng máy tính",
+          "B": "AI giúp tự động hóa dây chuyền nhà máy",
+          "C": "AI luôn đảm bảo độ chính xác tuyệt đối 100%",
+          "D": "Tạo tin giả Deepfake giả mạo khuôn mặt/giọng nói và thiên lệch dữ liệu"
+        },
+        "correct": "D",
+        "explain": "AI tạo sinh có thể bị lợi dụng tạo Deepfake lừa đảo, sai lệch thông tin ('ảo giác') và thiên lệch từ dữ liệu học."
+      },
+      {
+        "id": "c5",
+        "type": "mcq",
+        "points": 0.25,
+        "prompt": "Thiết bị mạng nào giúp kết nối các máy tính trong cùng mạng cục bộ (LAN) và truyền khung dữ liệu đến đúng cổng đích dựa trên bảng địa chỉ MAC, hạn chế xung đột?",
+        "options": {
+          "A": "Hub",
+          "B": "Modem",
+          "C": "Switch (Bộ chuyển mạch)",
+          "D": "Cáp xoắn đôi"
+        },
+        "correct": "C",
+        "explain": "Switch ghi nhớ địa chỉ MAC ở từng cổng nên gửi dữ liệu trực tiếp đến đúng máy nhận thay vì phát quảng bá mọi cổng như Hub."
+      },
+      {
+        "id": "c6",
+        "type": "mcq",
+        "points": 0.25,
+        "prompt": "Chức năng chính của thiết bị Access Point (Điểm truy cập không dây) trong mạng LAN trường học là gì?",
+        "options": {
+          "A": "Chuyển đổi tín hiệu quang từ nhà cung cấp ISP sang Ethernet",
+          "B": "Cung cấp kết nối Wi-Fi để các thiết bị di động truy cập vào mạng LAN",
+          "C": "Thay thế hoàn toàn vai trò định tuyến Internet của Router",
+          "D": "Cấp phát bộ nhớ RAM cho các máy trạm"
+        },
+        "correct": "B",
+        "explain": "Access Point đóng vai trò cầu nối truyền sóng Wi-Fi mở rộng cho mạng cục bộ có dây."
+      },
+      {
+        "id": "c7",
+        "type": "mcq",
+        "points": 0.25,
+        "prompt": "Giao thức nào chịu trách nhiệm phân chia dữ liệu thành các gói nhỏ, kiểm soát lỗi và sắp xếp đúng thứ tự khi truyền nhận tin cậy trên Internet?",
+        "options": {
+          "A": "TCP",
+          "B": "MAC",
+          "C": "HDMI",
+          "D": "USB"
+        },
+        "correct": "A",
+        "explain": "TCP (Transmission Control Protocol) đảm bảo truyền tin cậy, kiểm tra mất gói và ghép lại theo thứ tự."
+      },
+      {
+        "id": "c8",
+        "type": "mcq",
+        "points": 0.25,
+        "prompt": "Địa chỉ IPv4 nào dưới đây có cấu trúc hợp lệ?",
+        "options": {
+          "A": "192.168.1",
+          "B": "256.10.20.1",
+          "C": "192.168.1.1.5",
+          "D": "192.168.10.25"
+        },
+        "correct": "D",
+        "explain": "Địa chỉ IPv4 gồm 4 số nguyên (octet) cách nhau bởi dấu chấm, mỗi số nằm trong đoạn 0..255."
+      },
+      {
+        "id": "c9",
+        "type": "mcq",
+        "points": 0.25,
+        "prompt": "Khi muốn các máy tính trong cùng một phòng máy chia sẻ dùng chung một máy in gắn trực tiếp vào máy tính giáo viên qua mạng LAN, thao tác nào là cần thiết?",
+        "options": {
+          "A": "Tháo dây mạng LAN khỏi máy giáo viên",
+          "B": "Cài đặt hệ điều hành mới cho mọi máy trạm",
+          "C": "Bật tính năng chia sẻ máy in (Share this printer) và kết nối qua tên/IP trong LAN",
+          "D": "Gửi tệp qua đường bưu điện"
+        },
+        "correct": "C",
+        "explain": "Chia sẻ máy in trong LAN cho phép các máy khác in trực tiếp thông qua máy chủ chia sẻ."
+      },
+      {
+        "id": "c10",
+        "type": "mcq",
+        "points": 0.25,
+        "prompt": "Hành động nào sau đây thể hiện tính nhân văn và văn hóa ứng xử đúng mực trong không gian mạng?",
+        "options": {
+          "A": "Chụp ảnh bạn cùng lớp lúc ngủ gật đăng lên mạng chế giễu",
+          "B": "Lịch sự tranh luận dựa trên lý lẽ, tôn trọng quyền riêng tư của người khác",
+          "C": "Chia sẻ ngay bài viết giật gân chưa kiểm chứng để câu tương tác",
+          "D": "Dùng nhiều tài khoản ảo để bình luận công kích"
+        },
+        "correct": "B",
+        "explain": "Ứng xử văn minh trên mạng đòi hỏi tôn trọng nhân phẩm, quyền riêng tư và trao đổi xây dựng."
+      },
+      {
+        "id": "c11",
+        "type": "mcq",
+        "points": 0.25,
+        "prompt": "Khi nhận được tin nhắn lạ tự xưng là nhân viên ngân hàng yêu cầu bấm vào đường link để nhập mã OTP nâng cấp tài khoản, em cần xử lý thế nào?",
+        "options": {
+          "A": "Tuyệt đối không bấm link lạ và không cung cấp mã OTP cho bất kì ai",
+          "B": "Nhanh chóng nhập OTP để không bị khóa tài khoản",
+          "C": "Gửi lại số căn cước công dân để xác nhận",
+          "D": "Chuyển tiếp đường link đó cho bạn bè cùng bấm thử"
+        },
+        "correct": "A",
+        "explain": "Đây là chiêu trò lừa đảo Phishing; tuyệt đối không nhập mật khẩu hay mã OTP vào link lạ."
+      },
+      {
+        "id": "c12",
+        "type": "mcq",
+        "points": 0.25,
+        "prompt": "Để tuân thủ bản quyền khi lấy hình ảnh hoặc đoạn nhạc trên Internet chèn vào bài thực hành website CLB, em nên làm gì?",
+        "options": {
+          "A": "Tải bất kì ảnh nào rồi xóa chữ ký tác giả",
+          "B": "Nhận mình là tác giả của mọi bức ảnh tải về",
+          "C": "Không cần ghi nguồn nếu website chỉ nộp cho thầy cô",
+          "D": "Ưu tiên ảnh tự chụp hoặc ảnh có giấy phép mở (Creative Commons) và ghi rõ nguồn trích dẫn"
+        },
+        "correct": "D",
+        "explain": "Năng lực số 3.3.NC1a yêu cầu tôn trọng bản quyền, dùng tài nguyên có phép và trích dẫn nguồn."
+      },
+      {
+        "id": "c13",
+        "type": "mcq",
+        "points": 0.25,
+        "prompt": "Cặp thẻ nào khai báo phần tử tiêu đề có kích thước và cấp độ lớn nhất trên thân trang web HTML5?",
+        "options": {
+          "A": "<head>",
+          "B": "<h6>",
+          "C": "<h1>",
+          "D": "<title>"
+        },
+        "correct": "C",
+        "explain": "Thẻ tiêu đề mục đi từ <h1> (lớn/quan trọng nhất) đến <h6> (nhỏ nhất)."
+      },
+      {
+        "id": "c14",
+        "type": "mcq",
+        "points": 0.25,
+        "prompt": "Để tạo một danh sách có đánh số thứ tự La Mã viết hoa bắt đầu từ mục thứ nhất (I, II, III...), ta khai báo:",
+        "options": {
+          "A": "<ul type=\"I\">",
+          "B": "<ol type=\"I\">",
+          "C": "<ol start=\"I\">",
+          "D": "<dl type=\"I\">"
+        },
+        "correct": "B",
+        "explain": "Danh sách có thứ tự dùng <ol>, kiểu số La Mã hoa đặt bởi thuộc tính type=\"I\"."
+      },
+      {
+        "id": "c15",
+        "type": "mcq",
+        "points": 0.25,
+        "prompt": "Thẻ nào dưới đây được dùng để đặt tiêu đề chính thức cho một bảng dữ liệu (đặt ngay dưới thẻ mở <table>)?",
+        "options": {
+          "A": "<caption>",
+          "B": "<thead>",
+          "C": "<title>",
+          "D": "<legend>"
+        },
+        "correct": "A",
+        "explain": "<caption> đặt tiêu đề bảng ngay bên trong thẻ <table>."
+      },
+      {
+        "id": "c16",
+        "type": "mcq",
+        "points": 0.25,
+        "prompt": "Trong một bảng 4 cột, tại hàng thứ 2 ta đặt <td colspan=\"3\">Ghi chú</td>. Hàng đó chỉ được viết thêm mấy ô <td> nữa để bảng không bị thừa cột?",
+        "options": {
+          "A": "3 ô",
+          "B": "2 ô",
+          "C": "4 ô",
+          "D": "1 ô"
+        },
+        "correct": "D",
+        "explain": "Tổng 4 cột, ô colspan=\"3\" đã chiếm 3 cột nên hàng đó chỉ cần thêm 1 ô <td> (3 + 1 = 4)."
+      },
+      {
+        "id": "c17",
+        "type": "mcq",
+        "points": 0.25,
+        "prompt": "Thư mục goc/ chứa index.html và thư mục con clb/ chứa the_thao.html (bên trong có <h2 id=\"bongda\">Bóng đá</h2>). Trong index.html, liên kết nào mở đúng mục Bóng đá?",
+        "options": {
+          "A": "<a href=\"the_thao.html#bongda\">",
+          "B": "<a href=\"clb/the_thao.html#bongda\">",
+          "C": "<a href=\"../clb/the_thao.html#bongda\">",
+          "D": "<a href=\"#bongda\">"
+        },
+        "correct": "B",
+        "explain": "Từ index.html đi vào thư mục con clb/, mở tệp the_thao.html và nhảy thẳng đến neo #bongda."
+      },
+      {
+        "id": "c18",
+        "type": "mcq",
+        "points": 0.25,
+        "prompt": "Thuộc tính nào của thẻ <a> quy định mở trang web liên kết sang một thẻ (tab) trình duyệt hoàn toàn mới?",
+        "options": {
+          "A": "target=\"_self\"",
+          "B": "open=\"new\"",
+          "C": "target=\"_blank\"",
+          "D": "href=\"newtab\""
+        },
+        "correct": "C",
+        "explain": "target=\"_blank\" mở tài nguyên đích ở tab/cửa sổ trình duyệt mới."
+      },
+      {
+        "id": "c19",
+        "type": "mcq",
+        "points": 0.25,
+        "prompt": "Một hình ảnh kích thước gốc 1000 × 600 px được chèn bằng thẻ <img src=\"logo.png\" width=\"500\"> (không đặt height). Kích thước hiển thị của ảnh là:",
+        "options": {
+          "A": "500 × 300 px",
+          "B": "500 × 600 px",
+          "C": "1000 × 300 px",
+          "D": "250 × 300 px"
+        },
+        "correct": "A",
+        "explain": "Tỉ lệ thu nhỏ 500/1000 = 0.5 nên height = 600 * 0.5 = 300 px."
+      },
+      {
+        "id": "c20",
+        "type": "mcq",
+        "points": 0.25,
+        "prompt": "Để hiển thị ảnh chờ bìa trước khi người dùng nhấn nút phát video trên trình duyệt, ta thêm thuộc tính nào cho thẻ <video>?",
+        "options": {
+          "A": "alt",
+          "B": "cover",
+          "C": "thumbnail",
+          "D": "poster"
+        },
+        "correct": "D",
+        "explain": "Thuộc tính poster=\"duong_dan_anh\" đặt ảnh bìa hiển thị sẵn trên khung <video>."
+      },
+      {
+        "id": "c21",
+        "type": "mcq",
+        "points": 0.25,
+        "prompt": "Cặp thuộc tính nào kết nối thẻ liên kết <a> mở trang con hiển thị bên trong một khung nội tuyến <iframe>?",
+        "options": {
+          "A": "id của <a> khớp src của <iframe>",
+          "B": "href của <a> khớp name của <iframe>",
+          "C": "target của <a> khớp name của <iframe>",
+          "D": "src của <a> khớp id của <iframe>"
+        },
+        "correct": "C",
+        "explain": "Đặt target=\"khung\" trên <a> và name=\"khung\" trên <iframe>."
+      },
+      {
+        "id": "c22",
+        "type": "mcq",
+        "points": 0.25,
+        "prompt": "Thẻ nào dùng để liên kết văn bản mô tả với một ô nhập liệu có thuộc tính id tương ứng trong biểu mẫu?",
+        "options": {
+          "A": "<legend>",
+          "B": "<label for=\"...\">",
+          "C": "<caption>",
+          "D": "<option>"
+        },
+        "correct": "B",
+        "explain": "<label for=\"id_o\"> gắn nhãn cho phần tử biểu mẫu mang id trùng khớp."
+      },
+      {
+        "id": "c23",
+        "type": "mcq",
+        "points": 0.25,
+        "prompt": "Thuộc tính type nào của thẻ <input> tạo ra hộp tích vuông cho phép người dùng đánh dấu chọn NHIỀU lựa chọn cùng lúc?",
+        "options": {
+          "A": "type=\"checkbox\"",
+          "B": "type=\"radio\"",
+          "C": "type=\"password\"",
+          "D": "type=\"select\""
+        },
+        "correct": "A",
+        "explain": "checkbox cho phép chọn nhiều mục độc lập; radio chỉ chọn 1 khi cùng name."
+      },
+      {
+        "id": "c24",
+        "type": "mcq",
+        "points": 0.25,
+        "prompt": "Khi muốn gom nhóm các ô nhập 'Họ tên, Ngày sinh, Email' vào một khung viền có tiêu đề 'Thông tin thí sinh' vắt ngang cạnh trên, ta sử dụng cặp thẻ nào?",
+        "options": {
+          "A": "<table> và <caption>",
+          "B": "<div> và <h3>",
+          "C": "<select> và <option>",
+          "D": "<fieldset> và <legend>"
+        },
+        "correct": "D",
+        "explain": "<fieldset> tạo khung viền gom nhóm điều khiển biểu mẫu và <legend> đặt tiêu đề cho khung."
+      },
+      {
+        "id": "c25",
+        "type": "tf",
+        "points": 1.0,
+        "prompt": "Câu 25 (Chủ đề A – Trí tuệ nhân tạo): Trường học triển khai hệ thống AI hỗ trợ chấm bài trắc nghiệm và Chatbot giải đáp quy chế thi cho học sinh.",
+        "statements": [
+          {
+            "text": "a) Hệ thống AI nhận dạng phiếu tô trắc nghiệm ứng dụng công nghệ Thị giác máy tính.",
+            "correct": true
+          },
+          {
+            "text": "b) Chatbot trả lời câu hỏi quy chế thi vận dụng lĩnh vực Xử lý ngôn ngữ tự nhiên (NLP).",
+            "correct": true
+          },
+          {
+            "text": "c) Vì AI học từ dữ liệu lớn nên câu trả lời của Chatbot luôn chính xác 100%, học sinh không cần đối chiếu văn bản chính thức.",
+            "correct": false
+          },
+          {
+            "text": "d) Nhà trường cần bảo mật dữ liệu điểm số và thông tin cá nhân học sinh khi đưa vào hệ thống AI.",
+            "correct": true
+          }
+        ],
+        "explain": "Chatbot AI vẫn có thể suy diễn sai ('ảo giác AI') nên luôn cần đối chiếu quy chế chính thức -> c Sai; a, b, d Đúng."
+      },
+      {
+        "id": "c26",
+        "type": "tf",
+        "points": 1.0,
+        "prompt": "Câu 26 (Chủ đề B – Mạng máy tính): Phòng thực hành có 30 máy tính cắm dây qua thiết bị Switch 32 cổng, đồng thời gắn thêm 1 Access Point để phát Wi-Fi và nối qua Router/Modem ra Internet.",
+        "statements": [
+          {
+            "text": "a) Các máy tính trong phòng thực hành có thể giao tiếp nội bộ ngay cả khi cáp quang Internet bên ngoài tạm mất kết nối.",
+            "correct": true
+          },
+          {
+            "text": "b) Thiết bị Switch sử dụng địa chỉ IP của nhà mạng ISP để gửi gói tin qua lại giữa các máy trong phòng thực hành.",
+            "correct": false
+          },
+          {
+            "text": "c) Access Point cho phép điện thoại hoặc laptop giáo viên kết nối vào mạng LAN trường qua sóng Wi-Fi.",
+            "correct": true
+          },
+          {
+            "text": "d) Có thể dùng giao thức chia sẻ LAN để 30 máy cùng in tài liệu tới một máy in mạng.",
+            "correct": true
+          }
+        ],
+        "explain": "Switch truyền khung dữ liệu trong LAN dựa theo địa chỉ MAC (Router mới định tuyến theo IP) -> b Sai; a, c, d Đúng."
+      },
+      {
+        "id": "c27",
+        "type": "tf",
+        "points": 1.0,
+        "prompt": "Câu 27 (Chủ đề F – Đọc hiểu mã Bảng & Liên kết):",
+        "code": "<a href=\"#lich\">Xem nhanh lịch</a> | <a href=\"../index.html\">Trang chủ</a>\n<table border=\"1\" id=\"lich\">\n  <tr><th>CLB</th><th colspan=\"2\">Giờ tập</th></tr>\n  <tr><td>Bóng đá</td><td>Thứ 3</td><td>16h30</td></tr>\n</table>",
+        "statements": [
+          {
+            "text": "a) Khi bấm liên kết 'Xem nhanh lịch', trình duyệt sẽ cuộn tới bảng có id=\"lich\".",
+            "correct": true
+          },
+          {
+            "text": "b) Hai ô tiêu đề 'CLB' và 'Giờ tập' mặc định hiển thị chữ thường và căn sát lề trái.",
+            "correct": false
+          },
+          {
+            "text": "c) Ô 'Giờ tập' dùng colspan=\"2\" nên trải dài khớp qua cả 2 cột Thứ 3 và 16h30.",
+            "correct": true
+          },
+          {
+            "text": "d) Liên kết 'Trang chủ' hướng ra tệp index.html nằm ở thư mục cha trực tiếp.",
+            "correct": true
+          }
+        ],
+        "explain": "Ô <th> mặc định IN ĐẬM và CĂN GIỮA nên b Sai; a, c, d Đúng."
+      },
+      {
+        "id": "c28",
+        "type": "tf",
+        "points": 1.0,
+        "prompt": "Câu 28 (Chủ đề F – Đa phương tiện & Biểu mẫu):",
+        "code": "<img src=\"clb.jpg\" width=\"400\" alt=\"Ảnh CLB\">\n<iframe name=\"khung\" src=\"tin.html\" width=\"600\" height=\"300\"></iframe>\n<form action=\"gui.html\">\n  <input type=\"radio\" name=\"clb\" value=\"TT\"> Thể thao\n  <input type=\"radio\" name=\"clb\" value=\"NT\"> Nghệ thuật\n  <input type=\"submit\" value=\"Đăng kí\">\n</form>",
+        "statements": [
+          {
+            "text": "a) Nếu ảnh gốc clb.jpg có kích thước 800×400 px thì khi hiển thị ở mã trên nó sẽ cao 200 px.",
+            "correct": true
+          },
+          {
+            "text": "b) Nhờ hai thẻ radio đều mang name=\"clb\" nên người dùng chỉ chọn được 1 trong 2 CLB.",
+            "correct": true
+          },
+          {
+            "text": "c) Nếu thêm <a href=\"nt.html\" target=\"_blank\"> sẽ mở nt.html vào bên trong iframe name=\"khung\".",
+            "correct": false
+          },
+          {
+            "text": "d) Khi nhấn nút 'Đăng kí', dữ liệu đã chọn trong biểu mẫu sẽ được gửi tới gui.html.",
+            "correct": true
+          }
+        ],
+        "explain": "Muốn mở vào iframe phải đặt target=\"khung\" (còn _blank mở ra tab trình duyệt mới) -> c Sai; a, b, d Đúng."
+      }
+    ]
+  }
+}
