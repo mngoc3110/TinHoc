@@ -49,7 +49,20 @@
     .ide-pane, .preview-pane { border:1.5px solid #cbd5e1; border-radius:12px; overflow:hidden; background:#fff; display:flex; flex-direction:column; }
     .ide-header { background:#0f172a; color:#cbd5e1; padding:0.55rem 0.9rem; display:flex; justify-content:space-between; font-family:monospace; font-size:0.8rem; }
     .code-editor-area { width:100%; height:440px; padding:1rem; background:#0d1117; color:#e6edf3; border:none; font-family:'Fira Code', monospace; font-size:0.86rem; line-height:1.55; resize:vertical; outline:none; }
-    .preview-frame { width:100%; height:440px; border:none; background:#fff; }
+    .preview-frame { width:100%; height:440px; border:none; background:#fff; flex:1; }
+    .mf-project-bar { background:#f8fafc; border:1.5px solid #cbd5e1; border-radius:12px; padding:0.75rem 0.95rem; margin-bottom:0.85rem; }
+    .mf-tabs-row { display:flex; align-items:center; flex-wrap:wrap; gap:0.45rem; margin-bottom:0.6rem; }
+    .mf-file-tabs { display:flex; flex-wrap:wrap; gap:0.4rem; }
+    .mf-tab { display:inline-flex; align-items:center; gap:0.35rem; background:#fff; border:1.5px solid #cbd5e1; border-radius:8px; padding:0.32rem 0.65rem; font-size:0.8rem; font-weight:700; color:#334155; cursor:pointer; font-family:monospace; }
+    .mf-tab.active { background:#1d4ed8; color:#fff; border-color:#1d4ed8; box-shadow:0 2px 6px rgba(29,78,216,0.22); }
+    .mf-tab-close { margin-left:0.2rem; border:none; background:rgba(148,163,184,0.25); color:inherit; border-radius:4px; width:17px; height:17px; line-height:15px; text-align:center; font-size:0.75rem; cursor:pointer; padding:0; }
+    .mf-tab-close:hover { background:#ef4444; color:#fff; }
+    .mf-create-row { display:flex; gap:0.5rem; flex-wrap:wrap; }
+    .mf-new-input { flex:1; min-width:210px; padding:0.45rem 0.7rem; border:1.5px solid #cbd5e1; border-radius:8px; font-family:monospace; font-size:0.82rem; background:#fff; }
+    .vb-nav-bar { display:flex; align-items:center; gap:0.4rem; padding:0.42rem 0.65rem; background:#f1f5f9; border-bottom:1px solid #cbd5e1; }
+    .vb-nav-btn { border:1px solid #cbd5e1; background:#fff; color:#334155; border-radius:6px; padding:0.2rem 0.5rem; font-size:0.82rem; font-weight:700; cursor:pointer; font-family:inherit; }
+    .vb-nav-btn:disabled { opacity:0.42; cursor:not-allowed; }
+    .vb-url-pill { flex:1; background:#fff; border:1px solid #cbd5e1; border-radius:6px; padding:0.22rem 0.6rem; font-family:monospace; font-size:0.76rem; color:#0f172a; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
     .checklist-card { background:#fff; border:1px solid #cbd5e1; border-radius:12px; padding:1rem; margin-bottom:1rem; }
     .checklist-item { display:flex; gap:0.5rem; font-size:0.8rem; padding:0.42rem 0.5rem; border-radius:6px; margin-bottom:0.35rem; background:#f8fafc; border:1px solid #e2e8f0; align-items:flex-start; }
     .checklist-item.pass { background:#f0fdf4; border-color:#86efac; color:#166534; }
@@ -176,7 +189,7 @@
       <div id="view-student-container">
         <div class="student-card">
           <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.75rem;margin-bottom:0.65rem;">
-            <strong style="color:#1e3a8a;">👤 Thông tin học sinh nộp tệp <code>dang_ki_thi.html</code></strong>
+            <strong style="color:#1e3a8a;">👤 Thông tin học sinh nộp bài (tệp chính <code>dang_ki_thi.html</code>)</strong>
             <div class="mode-selector" style="margin:0;">
               <button type="button" id="btn-mode-single" class="mode-tab active" onclick="setStudentMode('single')">Cá nhân</button>
               <button type="button" id="btn-mode-pair" class="mode-tab" onclick="setStudentMode('pair')">Nhóm cặp đôi (2 bạn)</button>
@@ -202,7 +215,7 @@
         <div class="practice-workbench-grid">
           <aside>
           <div class="card" style="border-left: 4px solid #2563eb; padding: 1rem; margin-bottom: 0.9rem;">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.35rem;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.35rem;gap:0.4rem;">
               <h4 style="margin:0;color:#2563eb;font-size:0.95rem;font-weight:700;">Nhiệm vụ 1: Khung &lt;form&gt; &amp; Thông tin thí sinh</h4>
               <span class="sgk-badge">SGK tr.70</span>
             </div>
@@ -213,7 +226,7 @@
             </ul>
           </div>
           <div class="card" style="border-left: 4px solid #059669; padding: 1rem; margin-bottom: 0.9rem;">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.35rem;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.35rem;gap:0.4rem;">
               <h4 style="margin:0;color:#059669;font-size:0.95rem;font-weight:700;">Nhiệm vụ 2: Khung đăng kí môn thi</h4>
               <span class="sgk-badge">Hình 12.3 tr.70</span>
             </div>
@@ -224,7 +237,7 @@
             </ul>
           </div>
           <div class="card" style="border-left: 4px solid #d97706; padding: 1rem; margin-bottom: 0.9rem;">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.35rem;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.35rem;gap:0.4rem;">
               <h4 style="margin:0;color:#d97706;font-size:0.95rem;font-weight:700;">Nhiệm vụ 3: Ghi chú &amp; Gửi biểu mẫu</h4>
               <span class="sgk-badge">SGK tr.70</span>
             </div>
@@ -253,17 +266,18 @@
 
           <div>
             <div class="card" style="padding:0.85rem 1rem;margin-bottom:0.85rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;">
-              <strong style="color:#1e3a8a;font-size:0.88rem;">💻 MÔI TRƯỜNG LẬP TRÌNH ĐỘC LẬP (dang_ki_thi.html)</strong>
+              <strong style="color:#1e3a8a;font-size:0.88rem;">💻 MÔI TRƯỜNG TẠO WEBSITE (dang_ki_thi.html)</strong>
               <div style="display:flex;gap:0.45rem;flex-wrap:wrap;">
                 <button type="button" class="btn btn-primary btn-sm" onclick="updateLivePreview()">▶ Chạy &amp; Biên dịch</button>
                 <button type="button" class="btn btn-secondary btn-sm" onclick="resetEditorToBlank()">↺ Xóa trắng</button>
-                <button type="button" class="btn btn-secondary btn-sm" onclick="downloadPractHtml()">📥 Tải dang_ki_thi.html</button>
+                <button type="button" class="btn btn-secondary btn-sm" onclick="downloadPractHtml()">📥 Tải tệp</button>
+                
               </div>
             </div>
 
             <div class="editor-preview-split">
               <div class="ide-pane">
-                <div class="ide-header"><span>dang_ki_thi.html</span><span id="editor-status" style="color:#58a6ff;">● Trống</span></div>
+                <div class="ide-header"><span id="ide-active-filename">dang_ki_thi.html</span><span id="editor-status" style="color:#58a6ff;">● Trống</span></div>
                 <textarea id="clb-code-input" class="code-editor-area" spellcheck="false" placeholder="&lt;!DOCTYPE html&gt;
 &lt;!-- Hãy tự gõ mã tạo Biểu mẫu Đăng kí môn thi tốt nghiệp (Hình 12.3 SGK tr.70)... --&gt;"></textarea>
               </div>
@@ -341,9 +355,10 @@
         <div><h3 id="swm-student-title" style="margin:0;color:#fff;">Học sinh</h3><div id="swm-student-meta" style="font-size:0.82rem;opacity:0.9;"></div></div>
         <span id="swm-score-badge" style="background:#fff;color:#1e3a8a;padding:0.3rem 0.75rem;border-radius:8px;font-weight:800;"></span>
       </div>
-      <div style="padding:0.5rem 1rem;background:#f1f5f9;display:flex;gap:0.5rem;">
+      <div style="padding:0.5rem 1rem;background:#f1f5f9;display:flex;gap:0.5rem;flex-wrap:wrap;align-items:center;">
         <button type="button" class="btn btn-primary btn-sm" onclick="document.getElementById('pane-prev').style.display='block';document.getElementById('pane-raw').style.display='none';">🌐 Xem Web</button>
         <button type="button" class="btn btn-secondary btn-sm" onclick="document.getElementById('pane-prev').style.display='none';document.getElementById('pane-raw').style.display='block';">💻 Xem Code</button>
+        <div id="swm-file-tabs" style="display:flex;gap:0.35rem;flex-wrap:wrap;margin-left:auto;"></div>
       </div>
       <div style="padding:1rem;flex:1;overflow:auto;">
         <div id="pane-prev"><iframe id="swm-preview-frame" style="width:100%;height:380px;border:1px solid #cbd5e1;background:#fff;"></iframe></div>
@@ -613,8 +628,16 @@
     const CRITERIA_RULES = [{"label": "Thẻ <form> bao ngoài", "desc": "Có cặp thẻ <form>...</form>.", "mode": "all", "tokens": ["<form", "</form>"]}, {"label": "Nhóm <fieldset> & <legend>", "desc": "Có ít nhất 1 khối <fieldset> và tiêu đề <legend>.", "mode": "all", "tokens": ["<fieldset", "<legend"]}, {"label": "Nhãn <label for>", "desc": "Có thẻ <label kèm thuộc tính for=\"...\".", "mode": "all", "tokens": ["<label", "for="]}, {"label": "Ô nhập văn bản (text)", "desc": "Có thẻ <input với type=\"text\".", "mode": "any", "tokens": ["type=\"text\"", "type='text'"]}, {"label": "Nút chọn đơn (radio)", "desc": "Có type=\"radio\" và dùng thuộc tính name.", "mode": "all", "tokens": ["radio", "name="]}, {"label": "Hộp tích nhiều (checkbox)", "desc": "Có thẻ <input với type=\"checkbox\".", "mode": "any", "tokens": ["type=\"checkbox\"", "type='checkbox'"]}, {"label": "Danh sách <select><option>", "desc": "Có thẻ <select> chứa các <option>.", "mode": "all", "tokens": ["<select", "<option"]}, {"label": "Ô ghi chú hoặc nút Submit", "desc": "Có <textarea và nút type=\"submit\".", "mode": "all", "tokens": ["<textarea", "submit"]}];
     const SAMPLE_FULL_CODE = "<!DOCTYPE html>\n<html lang=\"vi\">\n<head>\n  <meta charset=\"UTF-8\">\n  <title>Đăng kí môn thi tốt nghiệp THPT</title>\n</head>\n<body>\n  <h2>ĐĂNG KÍ MÔN THI TỐT NGHIỆP THPT</h2>\n  <form action=\"xuly.html\">\n    <fieldset>\n      <legend>Thông tin thí sinh</legend>\n      <label for=\"ht\">Họ và tên:</label>\n      <input id=\"ht\" type=\"text\" name=\"hoten\"><br><br>\n      <label for=\"ns\">Ngày sinh:</label>\n      <input id=\"ns\" type=\"date\" name=\"ngaysinh\"><br><br>\n      Giới tính:\n      <input type=\"radio\" id=\"nam\" name=\"gt\" value=\"Nam\"><label for=\"nam\">Nam</label>\n      <input type=\"radio\" id=\"nu\" name=\"gt\" value=\"Nu\"><label for=\"nu\">Nữ</label>\n    </fieldset><br>\n    <fieldset>\n      <legend>Thông tin đăng kí thi</legend>\n      Môn thi tự chọn:\n      <input type=\"checkbox\" name=\"mon\" value=\"Tin\"> Tin học\n      <input type=\"checkbox\" name=\"mon\" value=\"Ly\"> Vật lí\n      <input type=\"checkbox\" name=\"mon\" value=\"Hoa\"> Hóa học<br><br>\n      <label for=\"cum\">Cụm thi:</label>\n      <select id=\"cum\" name=\"cum\">\n        <option value=\"Q5\">THTH - ĐHSP TP.HCM</option>\n        <option value=\"TT\">Trung tâm Thành phố</option>\n      </select><br><br>\n      <label for=\"gc\">Ghi chú:</label><br>\n      <textarea id=\"gc\" rows=\"3\" cols=\"40\"></textarea>\n    </fieldset><br>\n    <input type=\"submit\" value=\"Gửi đăng kí\">\n  </form>\n</body>\n</html>";
     const PRACT_FILENAME = 'dang_ki_thi.html';
+    const MULTI_FILE_MODE = false;
+    const STARTER_FILES = ["dang_ki_thi.html"];
+    const SAMPLE_FILES_MAP = {"dang_ki_thi.html": "<!DOCTYPE html>\n<html lang=\"vi\">\n<head>\n  <meta charset=\"UTF-8\">\n  <title>Đăng kí môn thi tốt nghiệp THPT</title>\n</head>\n<body>\n  <h2>ĐĂNG KÍ MÔN THI TỐT NGHIỆP THPT</h2>\n  <form action=\"xuly.html\">\n    <fieldset>\n      <legend>Thông tin thí sinh</legend>\n      <label for=\"ht\">Họ và tên:</label>\n      <input id=\"ht\" type=\"text\" name=\"hoten\"><br><br>\n      <label for=\"ns\">Ngày sinh:</label>\n      <input id=\"ns\" type=\"date\" name=\"ngaysinh\"><br><br>\n      Giới tính:\n      <input type=\"radio\" id=\"nam\" name=\"gt\" value=\"Nam\"><label for=\"nam\">Nam</label>\n      <input type=\"radio\" id=\"nu\" name=\"gt\" value=\"Nu\"><label for=\"nu\">Nữ</label>\n    </fieldset><br>\n    <fieldset>\n      <legend>Thông tin đăng kí thi</legend>\n      Môn thi tự chọn:\n      <input type=\"checkbox\" name=\"mon\" value=\"Tin\"> Tin học\n      <input type=\"checkbox\" name=\"mon\" value=\"Ly\"> Vật lí\n      <input type=\"checkbox\" name=\"mon\" value=\"Hoa\"> Hóa học<br><br>\n      <label for=\"cum\">Cụm thi:</label>\n      <select id=\"cum\" name=\"cum\">\n        <option value=\"Q5\">THTH - ĐHSP TP.HCM</option>\n        <option value=\"TT\">Trung tâm Thành phố</option>\n      </select><br><br>\n      <label for=\"gc\">Ghi chú:</label><br>\n      <textarea id=\"gc\" rows=\"3\" cols=\"40\"></textarea>\n    </fieldset><br>\n    <input type=\"submit\" value=\"Gửi đăng kí\">\n  </form>\n</body>\n</html>"};
     let studentMode = 'single';
     let cachedHd3Submissions = [];
+    let projectFiles = {};
+    STARTER_FILES.forEach(f => { projectFiles[f] = ''; });
+    let activeFile = STARTER_FILES[0] || PRACT_FILENAME;
+    let currentPreviewFile = activeFile;
+    let browserHistory = [];
 
     function onTeacherAuthChange(isAuth) {
       if (isAuth && document.getElementById('btn-view-teacher')?.classList.contains('active')) loadHd3Submissions();
@@ -643,33 +666,277 @@
       }
       return { isPair: false, studentName: document.getElementById('student-name-input')?.value.trim() || '', className: document.getElementById('student-class-select')?.value || '12A1', studentNumber: document.getElementById('student-number-input')?.value.trim() || 'Máy cá nhân' };
     }
-    function evalCriterion(lowerCode, rule) {
+    function escHtmlClient(s) {
+      return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+    function normalizeProjectPath(raw) {
+      let clean = String(raw || '').trim().replace(/\\/g, '/');
+      if (!clean) return '';
+      clean = clean.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd').replace(/Đ/g, 'D');
+      const parts = clean.split('/').filter(Boolean);
+      const safe = [];
+      for (const p of parts) {
+        if (p === '.' || p === '..') continue;
+        const c = p.replace(/[^a-zA-Z0-9._-]/g, '_');
+        if (c && c !== '.' && c !== '..') safe.push(c);
+      }
+      if (!safe.length) return '';
+      if (!/\.(html?|htm)$/i.test(safe[safe.length - 1])) safe[safe.length - 1] += '.html';
+      return safe.join('/');
+    }
+    function resolveVirtualHref(currentFile, rawHref) {
+      const href = String(rawHref || '').trim();
+      if (!href) return { kind: 'empty' };
+      if (href.startsWith('#')) return { kind: 'same_hash', file: currentFile, hash: href.slice(1), raw: href };
+      const lower = href.toLowerCase();
+      if (lower.startsWith('http://') || lower.startsWith('https://') || lower.startsWith('mailto:')) return { kind: 'external', url: href };
+      if (/^[a-zA-Z]:[\\/]/.test(href) || lower.startsWith('file://')) return { kind: 'local_abs', raw: href };
+      const hashIdx = href.indexOf('#');
+      const rawPath = (hashIdx >= 0 ? href.slice(0, hashIdx) : href).split('?')[0];
+      const hashPart = hashIdx >= 0 ? href.slice(hashIdx + 1) : '';
+      if (!rawPath) return { kind: 'same_hash', file: currentFile, hash: hashPart, raw: href };
+      const baseParts = currentFile.includes('/') ? currentFile.split('/').slice(0, -1) : [];
+      const segs = rawPath.replace(/\\/g, '/').split('/');
+      let escapedRoot = false;
+      for (const s of segs) {
+        if (!s || s === '.') continue;
+        if (s === '..') {
+          if (baseParts.length) baseParts.pop();
+          else escapedRoot = true;
+        } else {
+          baseParts.push(s);
+        }
+      }
+      return { kind: escapedRoot ? 'escaped_root' : 'internal', file: baseParts.join('/'), hash: hashPart, raw: href };
+    }
+    function syncActiveEditorToProject() {
+      const ed = document.getElementById('clb-code-input');
+      if (ed && MULTI_FILE_MODE) projectFiles[activeFile] = ed.value;
+    }
+    function renderFileTabs() {
+      if (!MULTI_FILE_MODE) return;
+      const box = document.getElementById('mf-file-tabs');
+      if (!box) return;
+      const names = Object.keys(projectFiles);
+      box.innerHTML = '';
+      names.forEach(fn => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'mf-tab' + (fn === activeFile ? ' active' : '');
+        const hasCode = (projectFiles[fn] || '').trim().length > 0;
+        const label = document.createElement('span');
+        label.textContent = (hasCode ? '● ' : '○ ') + fn;
+        btn.appendChild(label);
+        btn.onclick = () => selectProjectFile(fn);
+        if (fn !== PRACT_FILENAME) {
+          const cls = document.createElement('button');
+          cls.type = 'button';
+          cls.className = 'mf-tab-close';
+          cls.title = 'Xóa tệp ' + fn;
+          cls.textContent = '×';
+          cls.onclick = (e) => removeProjectFile(fn, e);
+          btn.appendChild(cls);
+        }
+        box.appendChild(btn);
+      });
+      const activeHdr = document.getElementById('ide-active-filename');
+      if (activeHdr) activeHdr.textContent = activeFile;
+    }
+    function selectProjectFile(fname) {
+      if (!MULTI_FILE_MODE) return;
+      syncActiveEditorToProject();
+      if (!Object.prototype.hasOwnProperty.call(projectFiles, fname)) projectFiles[fname] = '';
+      activeFile = fname;
+      const ed = document.getElementById('clb-code-input');
+      if (ed) { ed.value = projectFiles[activeFile] || ''; ed.focus(); }
+      renderFileTabs();
+      renderVirtualFrame(document.getElementById('clb-preview-frame'), projectFiles, activeFile, '', { allowCreate: true });
+      runAutoGrade();
+    }
+    function createProjectFile(presetName) {
+      if (!MULTI_FILE_MODE) return;
+      const inp = document.getElementById('mf-new-file-input');
+      const raw = presetName || (inp ? inp.value : '');
+      const clean = normalizeProjectPath(raw);
+      if (!clean) { alert('Vui lòng nhập tên tệp HTML hợp lệ (VD: thong_tin.html hoặc bai_tap/bt1.html).'); return; }
+      if (!Object.prototype.hasOwnProperty.call(projectFiles, clean) && Object.keys(projectFiles).length >= 12) {
+        alert('Tối đa 12 tệp trong một bài thực hành.');
+        return;
+      }
+      if (inp && !presetName) inp.value = '';
+      if (!Object.prototype.hasOwnProperty.call(projectFiles, clean)) projectFiles[clean] = '';
+      selectProjectFile(clean);
+    }
+    function removeProjectFile(fname, ev) {
+      if (ev) ev.stopPropagation();
+      if (fname === PRACT_FILENAME) return;
+      if (!confirm(`Xóa tệp ${fname} khỏi dự án?`)) return;
+      syncActiveEditorToProject();
+      delete projectFiles[fname];
+      if (activeFile === fname) activeFile = PRACT_FILENAME;
+      const ed = document.getElementById('clb-code-input');
+      if (ed) ed.value = projectFiles[activeFile] || '';
+      renderFileTabs();
+      renderVirtualFrame(document.getElementById('clb-preview-frame'), projectFiles, activeFile, '', { allowCreate: true });
+      runAutoGrade();
+    }
+    function updateVbChrome(file, hash) {
+      const addr = document.getElementById('vb-address-bar');
+      if (addr) addr.textContent = `site://${file}${hash ? '#' + hash : ''}`;
+      const bk = document.getElementById('vb-back-btn');
+      if (bk) bk.disabled = browserHistory.length === 0;
+    }
+    function renderVirtualFrame(fr, filesMap, filePath, hash, opts) {
+      if (!fr) return;
+      const isMain = !opts || !opts.isModal;
+      if (isMain) {
+        currentPreviewFile = filePath;
+        updateVbChrome(filePath, hash);
+      }
+      const doc = fr.contentDocument || fr.contentWindow.document;
+      const code = Object.prototype.hasOwnProperty.call(filesMap, filePath) ? filesMap[filePath] : null;
+      const st = isMain ? document.getElementById('editor-status') : null;
+      doc.open();
+      if (code === null) {
+        const canCreate = !!(opts && opts.allowCreate);
+        doc.write(`<body style="font-family:sans-serif;padding:20px;background:#fef2f2;color:#7f1d1d;margin:0;"><div style="background:#fff;border:1.5px solid #fca5a5;border-radius:12px;padding:16px;"><div style="font-weight:800;font-size:15px;margin-bottom:6px;">404 • Không tìm thấy tệp <code>${escHtmlClient(filePath)}</code></div><p style="font-size:13px;color:#334155;line-height:1.5;margin:0 0 12px;">Kiểm tra lại đường dẫn trong thẻ <code>&lt;a href="..."&gt;</code> hoặc em chưa tạo tệp này trong dự án website.</p><div style="display:flex;gap:8px;flex-wrap:wrap;">${canCreate ? `<button id="__vb_create_btn" style="padding:7px 12px;border:none;background:#0284c7;color:#fff;border-radius:7px;cursor:pointer;font-weight:700;">➕ Tạo tệp ${escHtmlClient(filePath)} ngay</button>` : ''}<button id="__vb_err_back" style="padding:7px 12px;border:1px solid #cbd5e1;background:#f8fafc;color:#1e293b;border-radius:7px;cursor:pointer;font-weight:700;">← Quay lại</button></div></div></body>`);
+        doc.close();
+        const cb = doc.getElementById('__vb_create_btn');
+        if (cb) cb.onclick = () => createProjectFile(filePath);
+        const bb = doc.getElementById('__vb_err_back');
+        if (bb) bb.onclick = () => { if (isMain) vbGoBack(); else renderVirtualFrame(fr, filesMap, (opts && opts.homeFile) || PRACT_FILENAME, '', opts); };
+        return;
+      }
+      if (!code.trim()) {
+        const msg = isMain ? `Tệp <code>${escHtmlClient(filePath)}</code> đang TRỐNG. Hãy tự gõ mã HTML vào khung bên trái!` : `Tệp <code>${escHtmlClient(filePath)}</code> không có nội dung.`;
+        doc.write(`<body style="font-family:sans-serif;display:flex;align-items:center;justify-content:center;height:85vh;color:#64748b;text-align:center;margin:0;padding:16px;"><div><div style="font-size:2rem;">💻🌐</div><strong>Khung xem trước trực tiếp</strong><p style="font-size:13px;line-height:1.5;">${msg}</p>${isMain && filePath !== activeFile ? `<button id="__vb_edit_this" style="padding:7px 14px;border:none;background:#2563eb;color:#fff;border-radius:7px;cursor:pointer;font-weight:700;">📝 Soạn mã cho ${escHtmlClient(filePath)}</button>` : ''}</div></body>`);
+        doc.close();
+        const eb = doc.getElementById('__vb_edit_this');
+        if (eb) eb.onclick = () => selectProjectFile(filePath);
+        if (st && filePath === activeFile) st.textContent = '● Ô soạn thảo đang trống';
+        return;
+      }
+      doc.write(code);
+      doc.close();
+      if (st && filePath === activeFile) st.textContent = '✓ Đã biên dịch';
+      if (hash) {
+        const target = doc.getElementById(hash) || doc.getElementsByName(hash)[0];
+        if (target && target.scrollIntoView) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      doc.addEventListener('click', (ev) => {
+        const a = ev.target && ev.target.closest ? ev.target.closest('a[href]') : null;
+        if (!a) return;
+        const href = (a.getAttribute('href') || '').trim();
+        if (!href) return;
+        const res = resolveVirtualHref(filePath, href);
+        if (res.kind === 'external') {
+          ev.preventDefault();
+          window.open(res.url, '_blank', 'noopener');
+          return;
+        }
+        ev.preventDefault();
+        if (res.kind === 'same_hash') {
+          const tgt = doc.getElementById(res.hash) || doc.getElementsByName(res.hash)[0];
+          if (tgt && tgt.scrollIntoView) tgt.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          if (isMain) updateVbChrome(filePath, res.hash);
+          return;
+        }
+        if (res.kind === 'local_abs') {
+          doc.open();
+          doc.write(`<body style="font-family:sans-serif;padding:20px;background:#fffbeb;color:#78350f;margin:0;"><div style="background:#fff;border:1.5px solid #fbbf24;border-radius:12px;padding:16px;"><div style="font-weight:800;margin-bottom:6px;">⚠️ Đang dùng đường dẫn tuyệt đối trên máy cá nhân</div><p style="font-size:13px;line-height:1.5;margin:0 0 10px;">Đường dẫn <code>${escHtmlClient(res.raw)}</code> sẽ bị lỗi khi chuyển thư mục web sang máy khác hoặc tải lên Internet. Hãy đổi sang đường dẫn tương đối (VD: <code>thong_tin.html</code>).</p><button id="__vb_back_abs" style="padding:7px 12px;border:none;background:#d97706;color:#fff;border-radius:7px;cursor:pointer;font-weight:700;">← Quay lại trang trước</button></div></body>`);
+          doc.close();
+          const bAbs = doc.getElementById('__vb_back_abs');
+          if (bAbs) bAbs.onclick = () => renderVirtualFrame(fr, filesMap, filePath, '', opts);
+          return;
+        }
+        if (res.kind === 'escaped_root') {
+          doc.open();
+          doc.write(`<body style="font-family:sans-serif;padding:20px;background:#fef3c7;color:#78350f;margin:0;"><div style="background:#fff;border:1.5px solid #f59e0b;border-radius:12px;padding:16px;"><strong>⚠️ Đường dẫn <code>${escHtmlClient(res.raw)}</code> vượt ra ngoài thư mục gốc dự án!</strong><div style="margin-top:10px;"><button id="__vb_back_esc" style="padding:7px 12px;border:none;background:#2563eb;color:#fff;border-radius:7px;cursor:pointer;font-weight:700;">← Quay lại</button></div></div></body>`);
+          doc.close();
+          const bEsc = doc.getElementById('__vb_back_esc');
+          if (bEsc) bEsc.onclick = () => renderVirtualFrame(fr, filesMap, filePath, '', opts);
+          return;
+        }
+        if (res.kind === 'internal') {
+          if (isMain) browserHistory.push(filePath);
+          renderVirtualFrame(fr, filesMap, res.file, res.hash, opts);
+        }
+      });
+    }
+    function vbGoBack() {
+      if (!browserHistory.length) return;
+      const prev = browserHistory.pop();
+      renderVirtualFrame(document.getElementById('clb-preview-frame'), projectFiles, prev, '', { allowCreate: true });
+    }
+    function vbGoHome() {
+      browserHistory = [];
+      renderVirtualFrame(document.getElementById('clb-preview-frame'), projectFiles, PRACT_FILENAME, '', { allowCreate: true });
+    }
+    function syncIdeToBrowserPage() {
+      if (!MULTI_FILE_MODE) return;
+      if (!Object.prototype.hasOwnProperty.call(projectFiles, currentPreviewFile)) createProjectFile(currentPreviewFile);
+      else selectProjectFile(currentPreviewFile);
+    }
+    function evalCriterion(primaryLower, allFilesMap, rule) {
+      if (rule.mode === 'multi_count') {
+        const minN = Number(rule.min_files || 2);
+        const nonEmpty = Object.values(allFilesMap).filter(c => String(c || '').trim().length >= 15).length;
+        return nonEmpty >= minN;
+      }
+      if (rule.mode === 'cross_link') {
+        const entries = Object.entries(allFilesMap).filter(([, c]) => String(c || '').trim().length >= 15);
+        for (const [srcFile, html] of entries) {
+          const re = /href\s*=\s*["']([^"']+)["']/gi;
+          let m;
+          while ((m = re.exec(html)) !== null) {
+            const res = resolveVirtualHref(srcFile, m[1]);
+            if (res.kind === 'internal' && res.file !== srcFile && Object.prototype.hasOwnProperty.call(allFilesMap, res.file) && String(allFilesMap[res.file] || '').trim().length >= 10) {
+              return true;
+            }
+          }
+        }
+        return false;
+      }
+      let hay = primaryLower;
+      if (rule.target === 'all') hay = Object.values(allFilesMap).join('\n').toLowerCase();
+      else if (rule.target === 'secondary') hay = Object.entries(allFilesMap).filter(([k]) => k !== PRACT_FILENAME).map(([, v]) => v).join('\n').toLowerCase();
       const toks = rule.tokens || [];
-      if (rule.mode === 'any') return toks.some(t => lowerCode.includes(t.toLowerCase()));
-      return toks.every(t => lowerCode.includes(t.toLowerCase()));
+      if (rule.mode === 'any') return toks.some(t => hay.includes(t.toLowerCase()));
+      return toks.every(t => hay.includes(t.toLowerCase()));
     }
     function runAutoGrade() {
-      const code = (document.getElementById('clb-code-input')?.value || '').toLowerCase();
+      syncActiveEditorToProject();
+      const edVal = document.getElementById('clb-code-input')?.value || '';
+      const mapForEval = MULTI_FILE_MODE ? projectFiles : { [PRACT_FILENAME]: edVal };
+      const primaryLower = (mapForEval[PRACT_FILENAME] || '').toLowerCase();
       let pass = 0;
       CRITERIA_RULES.forEach((rule, i) => {
-        const ok = evalCriterion(code, rule);
+        const ok = evalCriterion(primaryLower, mapForEval, rule);
         if (ok) pass++;
         const el = document.getElementById(`chk-item-${i+1}`);
         if (el) { el.className = 'checklist-item ' + (ok ? 'pass' : ''); el.querySelector('span').textContent = ok ? '✅' : '⚪'; }
       });
       const sc = document.getElementById('criteria-score');
       if (sc) sc.textContent = `${pass}/${CRITERIA_RULES.length} tiêu chí`;
+      const bs = document.getElementById('bar-score-display');
+      if (bs) bs.textContent = `${pass}/${CRITERIA_RULES.length}`;
       return pass;
     }
     function updateSubmitSummary() {
       const info = getStudentInfo();
-      const pass = document.getElementById('criteria-score')?.textContent || '0/8 tiêu chí';
+      const pass = document.getElementById('criteria-score')?.textContent || `0/${CRITERIA_RULES.length} tiêu chí`;
       const el = document.getElementById('submit-summary-status');
-      if (el) el.innerHTML = `Học sinh: <strong>${info.studentName || 'Chưa nhập tên'}</strong> • Lớp: <strong>${info.className}</strong> • Tiêu chí: <strong>${pass}</strong>`;
+      if (el) el.innerHTML = `Học sinh: <strong>${info.studentName || 'Chưa nhập tên'}</strong> • Lớp: <strong>${info.className}</strong> • Tiêu chí: <strong id="bar-score-display">${pass}</strong>`;
     }
     function updateLivePreview() {
-      const ed = document.getElementById('clb-code-input');
+      syncActiveEditorToProject();
       const fr = document.getElementById('clb-preview-frame');
+      if (MULTI_FILE_MODE) {
+        renderFileTabs();
+        renderVirtualFrame(fr, projectFiles, activeFile, '', { allowCreate: true });
+        return;
+      }
+      const ed = document.getElementById('clb-code-input');
       const st = document.getElementById('editor-status');
       if (!ed || !fr) return;
       const val = ed.value;
@@ -690,25 +957,52 @@
     function clearLocalStudentWorkspace() {
       const ed = document.getElementById('clb-code-input');
       if (ed) ed.value = '';
+      if (MULTI_FILE_MODE) {
+        projectFiles = {};
+        STARTER_FILES.forEach(f => { projectFiles[f] = ''; });
+        activeFile = STARTER_FILES[0] || PRACT_FILENAME;
+        currentPreviewFile = activeFile;
+        browserHistory = [];
+        renderFileTabs();
+      }
       ['student-name-input','student-number-input','pair-name-1','pair-name-2','pair-machine-input'].forEach(id => { const e = document.getElementById(id); if (e) e.value = ''; });
       localStorage.removeItem('bai12_hd3_draft_code');
       updateLivePreview(); runAutoGrade(); updateSubmitSummary();
     }
     function downloadPractHtml() {
-      const code = document.getElementById('clb-code-input')?.value || '';
-      const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([code], {type:'text/html;charset=utf-8'})); a.download = PRACT_FILENAME; a.click();
+      syncActiveEditorToProject();
+      const targetName = MULTI_FILE_MODE ? activeFile : PRACT_FILENAME;
+      const code = MULTI_FILE_MODE ? (projectFiles[targetName] || '') : (document.getElementById('clb-code-input')?.value || '');
+      const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([code], {type:'text/html;charset=utf-8'})); a.download = targetName.split('/').pop(); a.click();
+    }
+    async function downloadStudentProjectZip() {
+      syncActiveEditorToProject();
+      if (typeof JSZip === 'undefined') { downloadPractHtml(); return; }
+      const zip = new JSZip();
+      Object.entries(projectFiles).forEach(([fn, content]) => zip.file(fn, content || ''));
+      const blob = await zip.generateAsync({ type: 'blob' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'Website_Bai12_ThucHanh.zip';
+      a.click();
     }
     function submitHd3Practice() {
+      syncActiveEditorToProject();
       const info = getStudentInfo();
       if (!info.studentName) { alert('Vui lòng nhập Họ và tên học sinh!'); return; }
-      const code = document.getElementById('clb-code-input')?.value || '';
-      if (code.trim().length < 30) { alert('Vui lòng gõ mã nguồn hoàn chỉnh trước khi nộp!'); return; }
+      const primaryCode = MULTI_FILE_MODE ? (projectFiles[PRACT_FILENAME] || '') : (document.getElementById('clb-code-input')?.value || '');
+      const totalChars = MULTI_FILE_MODE ? Object.values(projectFiles).map(v => String(v || '').trim()).join('').length : primaryCode.trim().length;
+      if (totalChars < 30) { alert('Vui lòng gõ mã nguồn hoàn chỉnh trước khi nộp!'); return; }
       const pass = runAutoGrade();
+      const threshold = Math.max(1, Math.ceil(CRITERIA_RULES.length * 0.7));
+      const filesCopy = MULTI_FILE_MODE ? Object.assign({}, projectFiles) : null;
       const rec = {
         id: 'HD3-' + Math.floor(1000 + Math.random()*9000),
         filename: `${info.className}_${info.studentNumber}_${info.studentName}_${PRACT_FILENAME}`.replace(/[^a-zA-Z0-9_.-]/g,'_'),
-        ...info, code, criteriaCount: pass, maxCriteria: CRITERIA_RULES.length,
-        status: pass >= 6 ? 'Đạt chuẩn' : 'Cần hoàn thiện',
+        ...info, code: primaryCode || (filesCopy ? Object.values(filesCopy).find(v => String(v || '').trim()) || '' : ''),
+        ...(filesCopy ? { files: filesCopy } : {}),
+        criteriaCount: pass, maxCriteria: CRITERIA_RULES.length,
+        status: pass >= threshold ? 'Đạt chuẩn' : 'Cần hoàn thiện',
         submittedAt: new Date().toLocaleTimeString('vi-VN') + ' - ' + new Date().toLocaleDateString('vi-VN')
       };
       try {
@@ -719,7 +1013,8 @@
       try { const bc = new BroadcastChannel('bai12_hd3_channel'); bc.postMessage({type:'NEW_HD3_SUBMISSION', data:rec}); } catch (e) {}
       fetch('/api/bai12/submit-hd3', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(rec) }).catch(() => {});
       document.getElementById('receipt-student-name').textContent = rec.studentName;
-      document.getElementById('receipt-class-meta').textContent = `Lớp: ${rec.className} • ${rec.studentNumber} • ${rec.submittedAt}`;
+      const fCount = filesCopy ? ` • ${Object.keys(filesCopy).length} tệp HTML` : '';
+      document.getElementById('receipt-class-meta').textContent = `Lớp: ${rec.className} • ${rec.studentNumber}${fCount} • ${rec.submittedAt}`;
       document.getElementById('receipt-code-display').textContent = rec.id;
       document.getElementById('receipt-criteria-display').textContent = `${pass} / ${CRITERIA_RULES.length} tiêu chí`;
       document.getElementById('student-receipt-modal')?.classList.add('active');
@@ -737,35 +1032,58 @@
       const cnt = document.getElementById('hd3-stat-count');
       const rt = document.getElementById('hd3-stat-rate');
       const lt = document.getElementById('hd3-stat-latest');
+      const maxC = CRITERIA_RULES.length || 8;
+      const threshold = Math.max(1, Math.ceil(maxC * 0.7));
       if (!list.length) {
         if (tb) tb.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:2rem;color:#94a3b8;">📭 Chưa có bài nộp thực hành nào.</td></tr>';
         if (cnt) cnt.textContent = '0'; if (rt) rt.textContent = '0%'; if (lt) lt.textContent = 'Chưa có';
         return;
       }
       if (cnt) cnt.textContent = list.length;
-      const okCount = list.filter(s => (Number(s.criteriaCount)||0) >= 6).length;
+      const okCount = list.filter(s => (Number(s.criteriaCount)||0) >= threshold).length;
       if (rt) rt.textContent = Math.round(okCount / list.length * 100) + '%';
-      if (lt) lt.textContent = `${list[0].studentName} (${list[0].criteriaCount}/8)`;
+      if (lt) lt.textContent = `${list[0].studentName} (${list[0].criteriaCount}/${list[0].maxCriteria || maxC})`;
       tb.innerHTML = list.map((s, i) => `<tr>
         <td><strong>${i+1}</strong></td>
-        <td><strong>${s.studentName}</strong></td>
+        <td><strong>${s.studentName}</strong>${s.files ? ` <span style="font-size:0.72rem;background:#e0f2fe;color:#0369a1;padding:1px 6px;border-radius:999px;">${Object.keys(s.files).length} tệp</span>` : ''}</td>
         <td>${s.className}</td>
         <td><code>${s.studentNumber || '-'}</code></td>
         <td style="font-size:0.8rem;color:#64748b;">${s.submittedAt || ''}</td>
-        <td><strong style="color:#1d4ed8;">${s.criteriaCount || 0}/8</strong></td>
-        <td>${s.criteriaCount >= 6 ? '<span style="color:#16a34a;font-weight:700;">Đạt chuẩn</span>' : '<span style="color:#d97706;">Cần sửa</span>'}</td>
+        <td><strong style="color:#1d4ed8;">${s.criteriaCount || 0}/${s.maxCriteria || maxC}</strong></td>
+        <td>${(s.criteriaCount||0) >= threshold ? '<span style="color:#16a34a;font-weight:700;">Đạt chuẩn</span>' : '<span style="color:#d97706;">Cần sửa</span>'}</td>
         <td><button type="button" class="btn btn-secondary btn-sm" onclick="viewStudentWork(${i})">👁️ Xem</button></td>
       </tr>`).join('');
     }
     function viewStudentWork(i) {
       if (!isTeacherAuthenticated()) { openTeacherLoginModal(); return; }
       const s = cachedHd3Submissions[i]; if (!s) return;
+      const maxC = s.maxCriteria || CRITERIA_RULES.length || 8;
       document.getElementById('swm-student-title').textContent = s.studentName;
       document.getElementById('swm-student-meta').textContent = `Lớp: ${s.className} • ${s.filename || PRACT_FILENAME}`;
-      document.getElementById('swm-score-badge').textContent = `${s.criteriaCount || 0}/8 tiêu chí`;
-      const fr = document.getElementById('swm-preview-frame');
-      const d = fr.contentDocument || fr.contentWindow.document; d.open(); d.write(s.code || ''); d.close();
-      document.getElementById('swm-raw-code').textContent = s.code || '';
+      document.getElementById('swm-score-badge').textContent = `${s.criteriaCount || 0}/${maxC} tiêu chí`;
+      const filesMap = (s.files && typeof s.files === 'object' && Object.keys(s.files).length) ? s.files : { [PRACT_FILENAME]: s.code || '' };
+      const fileKeys = Object.keys(filesMap);
+      const startFile = Object.prototype.hasOwnProperty.call(filesMap, PRACT_FILENAME) ? PRACT_FILENAME : fileKeys[0];
+      const tabsEl = document.getElementById('swm-file-tabs');
+      if (tabsEl) {
+        tabsEl.innerHTML = '';
+        fileKeys.forEach((fn, idx) => {
+          const b = document.createElement('button');
+          b.type = 'button';
+          b.className = 'btn btn-sm ' + (fn === startFile ? 'btn-primary' : 'btn-secondary');
+          b.style.fontFamily = 'monospace';
+          b.textContent = fn;
+          b.onclick = () => {
+            tabsEl.querySelectorAll('button').forEach(x => { x.className = 'btn btn-sm btn-secondary'; });
+            b.className = 'btn btn-sm btn-primary';
+            document.getElementById('swm-raw-code').textContent = filesMap[fn] || '';
+            renderVirtualFrame(document.getElementById('swm-preview-frame'), filesMap, fn, '', { isModal: true, homeFile: startFile });
+          };
+          tabsEl.appendChild(b);
+        });
+      }
+      document.getElementById('swm-raw-code').textContent = filesMap[startFile] || '';
+      renderVirtualFrame(document.getElementById('swm-preview-frame'), filesMap, startFile, '', { isModal: true, homeFile: startFile });
       document.getElementById('student-work-modal')?.classList.add('active');
     }
     function fallbackCopyTsv(t) {
@@ -776,7 +1094,7 @@
       if (!isTeacherAuthenticated()) { openTeacherLoginModal(); return; }
       if (!cachedHd3Submissions.length) { alert('Chưa có dữ liệu!'); return; }
       let t = 'STT\tHọ tên\tLớp\tMáy\tTiêu chí\tThời gian\n';
-      cachedHd3Submissions.forEach((s, i) => t += `${i+1}\t${s.studentName}\t${s.className}\t${s.studentNumber||''}\t${s.criteriaCount}/8\t${s.submittedAt}\n`);
+      cachedHd3Submissions.forEach((s, i) => t += `${i+1}\t${s.studentName}\t${s.className}\t${s.studentNumber||''}\t${s.criteriaCount}/${s.maxCriteria||CRITERIA_RULES.length}\t${s.submittedAt}\n`);
       if (navigator.clipboard?.writeText) navigator.clipboard.writeText(t).then(() => alert('✓ Đã sao chép TSV!')).catch(() => fallbackCopyTsv(t));
       else fallbackCopyTsv(t);
     }
@@ -784,7 +1102,7 @@
       if (!isTeacherAuthenticated()) { openTeacherLoginModal(); return; }
       if (!cachedHd3Submissions.length) { alert('Chưa có dữ liệu!'); return; }
       let c = '\uFEFFSTT,Họ tên,Lớp,Máy,Tiêu chí,Thời gian\n';
-      cachedHd3Submissions.forEach((s, i) => c += `"${i+1}","${s.studentName}","${s.className}","${s.studentNumber||''}","${s.criteriaCount}/8","${s.submittedAt}"\n`);
+      cachedHd3Submissions.forEach((s, i) => c += `"${i+1}","${s.studentName}","${s.className}","${s.studentNumber||''}","${s.criteriaCount}/${s.maxCriteria||CRITERIA_RULES.length}","${s.submittedAt}"\n`);
       const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([c], {type:'text/csv;charset=utf-8;'})); a.download = `Bang_Diem_HD3_Bai12.csv`; a.click();
     }
     async function downloadAllClassSubmissionsZipFolders() {
@@ -796,14 +1114,26 @@
       } catch (e) {}
       if (typeof JSZip !== 'undefined') {
         const zip = new JSZip(); const f = zip.folder('BaiLam_Bai12');
-        cachedHd3Submissions.forEach(s => f.file(s.filename || `${s.studentName}_${PRACT_FILENAME}`, s.code || ''));
+        cachedHd3Submissions.forEach(s => {
+          if (s.files && typeof s.files === 'object') {
+            const sf = f.folder((s.folderName || `${s.className}_${s.studentNumber}_${s.studentName}`).replace(/[^a-zA-Z0-9_.-]/g, '_'));
+            Object.entries(s.files).forEach(([rel, content]) => sf.file(rel, content || ''));
+          } else {
+            f.file(s.filename || `${s.studentName}_${PRACT_FILENAME}`, s.code || '');
+          }
+        });
         const blob = await zip.generateAsync({type:'blob'}); const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'Bai12_HD3_TatCaBaiLam_THTH_DHSP.zip'; a.click();
       }
     }
     function generateSampleHd3Data() {
       if (!isTeacherAuthenticated()) { openTeacherLoginModal(); return; }
       const now = new Date().toLocaleTimeString('vi-VN');
-      const d = [{ id:'HD3-99', filename:'12A1_May01_NguyenAn_' + PRACT_FILENAME, studentName:'Nguyễn Văn An', className:'12A1', studentNumber:'Máy 01', code:SAMPLE_FULL_CODE, criteriaCount:8, status:'Đạt chuẩn', submittedAt:now }];
+      const sampleRec = {
+        id:'HD3-99', filename:'12A1_May01_NguyenAn_' + PRACT_FILENAME, studentName:'Nguyễn Văn An', className:'12A1', studentNumber:'Máy 01',
+        code:SAMPLE_FULL_CODE, ...(MULTI_FILE_MODE ? { files: Object.assign({}, SAMPLE_FILES_MAP), folderName: '12A1_May01_NguyenAn' } : {}),
+        criteriaCount:CRITERIA_RULES.length, maxCriteria:CRITERIA_RULES.length, status:'Đạt chuẩn', submittedAt:now
+      };
+      const d = [sampleRec];
       localStorage.setItem('bai12_hd3_submissions', JSON.stringify(d));
       renderHd3Table(d);
     }
@@ -823,8 +1153,9 @@
       const ed = document.getElementById('clb-code-input');
       if (ed) {
         ed.value = ''; // 100% trống theo yêu cầu GV
-        ed.addEventListener('input', () => { updateLivePreview(); runAutoGrade(); updateSubmitSummary(); });
+        ed.addEventListener('input', () => { syncActiveEditorToProject(); updateLivePreview(); runAutoGrade(); updateSubmitSummary(); });
       }
+      if (MULTI_FILE_MODE) renderFileTabs();
       ['student-name-input','pair-name-1','pair-name-2'].forEach(id => document.getElementById(id)?.addEventListener('input', updateSubmitSummary));
       updateLivePreview(); runAutoGrade(); updateSubmitSummary();
       try {

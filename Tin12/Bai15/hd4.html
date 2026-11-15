@@ -137,9 +137,9 @@
 
   <section class="hero-banner" style="padding:2rem 0; background:linear-gradient(135deg,#4338ca 0%,#6366f1 55%,#9333ea 100%);">
     <div class="container">
-      <div class="badge-tag" style="background:rgba(255,255,255,0.2);color:#fff;">📊 HOẠT ĐỘNG 4 • TỔNG KẾT INFOGRAPHIC &amp; VẬN DỤNG SGK</div>
-      <h1 class="hero-title" style="font-size:1.95rem;">Infographic Tổng Hợp &amp; Luyện Tập Cuối Bài</h1>
-      <p class="hero-subtitle">Bài 15: Tạo màu cho chữ và nền • Sơ đồ hóa kiến thức trọng tâm, thẻ lật Flashcards 3D và tự luyện câu hỏi Luyện tập, Vận dụng SGK Kết nối tri thức (bấm vào từng câu để đối chiếu gợi ý).</p>
+      <div class="badge-tag" style="background:rgba(255,255,255,0.2);color:#fff;">📊 HOẠT ĐỘNG 4 • INFOGRAPHIC ANTV &amp; VẬN DỤNG SGK</div>
+      <h1 class="hero-title" style="font-size:1.95rem;">AntV Infographic &amp; Luyện Tập Cuối Bài</h1>
+      <p class="hero-subtitle">Bài 15: Tạo màu cho chữ và nền • Sơ đồ hóa kiến thức trọng tâm qua AntV Infographic Studio, thẻ lật Flashcards 3D và câu hỏi Luyện tập, Vận dụng SGK Kết nối tri thức (bấm vào từng câu để xem gợi ý).</p>
     </div>
   </section>
 
@@ -551,13 +551,166 @@
     });
     
     const INFO_NODES = {"cards": [{"title": "1. Hệ màu CSS", "points": ["Tên màu: 17 CSS2.1 / 140 CSS3.", "RGB/Hex: 16,7M màu; R=G=B ra 256 xám.", "HSL: H(0-360°), S(%), L(0 đen-50 chuẩn-100 trắng)."]}, {"title": "2. Chữ, Nền & Viền", "points": ["color: tạo màu chữ (CÓ kế thừa).", "background-color: màu nền hộp.", "border: độ_dày kiểu màu (KHÔNG kế thừa)."]}, {"title": "3. Tổ hợp Bảng 15.1", "points": ["E F: mọi hậu duệ F trong E.", "E > F: F là con trực tiếp của E.", "E + F (liền kề) | E ~ F (cùng cha đứng sau)."]}, {"title": "4. Mở rộng & Thực hành", "points": ["Tổ hợp 3 ngôi: E1 E2 E3, E > F + G.", "Loi_ich_CSS.html (SGK tr.87–88).", "Hoàn thiện màu sắc Website CLB THTH-DHSP."]}], "sequence": [{"title": "Chọn bảng màu tương phản", "desc": "Ưu tiên hệ HSL giữ chung góc Hue để tạo nền nhạt (L~95%) và chữ đậm (L~25%)."}, {"title": "Phủ color & background-color", "desc": "Đặt màu chữ và màu nền cho khối cha để định hình phân cấp thông tin toàn khu vực."}, {"title": "Nhấn khung bằng border", "desc": "Thêm border cho từng thẻ cần đóng khung vì thuộc tính border không tự kế thừa."}, {"title": "Tinh chỉnh tổ hợp DOM", "desc": "Dùng E > F hay E + F để tô màu có chọn lọc mà không làm rối mã HTML bằng quá nhiều class."}], "compare": [{"title": "RGB / Hex vs HSL", "points": ["RGB(r,g,b): pha Đỏ-Lục-Lam (0..255).", "R=G=B tạo đúng 256 màu Xám.", "HSL: tách riêng góc Hue & độ sáng Lightness."]}, {"title": "color vs border", "points": ["color: thẻ con tự kế thừa từ cha.", "border: hoàn toàn KHÔNG kế thừa.", "Cú pháp viền: width style color."]}, {"title": "E F vs E > F", "points": ["E F: cả con, cháu, chắt bên trong E.", "E > F: chỉ đúng con trực tiếp cấp 1.", "Ví dụ div p chọn rộng hơn div > p."]}, {"title": "E + F vs E ~ F", "points": ["Cả hai đều yêu cầu E, F có chung CHA.", "E + F: chỉ đúng 1 thẻ F kề ngay sau E.", "E ~ F: mọi thẻ F xuất hiện sau E."]}], "mindmap": [{"title": "Hệ biểu diễn màu", "points": ["17 tên CSS2.1 / 140 CSS3", "RGB (16.777.216) & Hex", "HSL (Hue 0/60/120/180/240/300)"]}, {"title": "Thuộc tính hộp", "points": ["color (kế thừa chữ)", "background-color (màu nền)", "border (KHÔNG kế thừa)"]}, {"title": "Tổ hợp (Bảng 15.1)", "points": ["E F (hậu duệ) & E > F (con)", "E + F (liền kề) & E ~ F (sau)", "Mở rộng 3 phần tử SGK tr.88"]}, {"title": "Tổng kết HK1", "points": ["Loi_ich_CSS.html (tr.87)", "LT1–2 & VD1–2 (tr.88)", "Phối màu CLB THTH-DHSP"]}]};
-    function escXml(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+    const USE_ANTV_STUDIO = false;
+    const AMIGOS_BANNERS = {};
+    const ANTV_DSL_MAP = {};
+    function escXml(s) { return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+    function wrapSvgLines(text, maxChars) {
+      const words = String(text || '').split(/\s+/).filter(Boolean);
+      const lines = [];
+      let cur = '';
+      words.forEach(w => {
+        if (!cur) cur = w;
+        else if ((cur + ' ' + w).length <= maxChars) cur += ' ' + w;
+        else { lines.push(cur); cur = w; }
+      });
+      if (cur) lines.push(cur);
+      return lines;
+    }
+    function svgTextLines(lines, x, startY, lineH, fill, size, weight, anchor) {
+      const tspans = lines.map((ln, idx) => `<tspan x="${x}" dy="${idx === 0 ? 0 : lineH}">${escXml(ln)}</tspan>`).join('');
+      return `<text x="${x}" y="${startY}" text-anchor="${anchor || 'start'}" fill="${fill}" font-size="${size}" font-weight="${weight || 'normal'}" font-family="system-ui,-apple-system,Segoe UI,Roboto,sans-serif">${tspans}</text>`;
+    }
+
+    function buildStudioSvg(mode) {
+      const nodes = INFO_NODES[mode] || INFO_NODES.cards || [];
+      const title = escXml('Bài 15: Tạo màu cho chữ và nền');
+      const W = 980, H = 440;
+      const defs = `<defs>
+        <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#0f172a"/><stop offset="55%" stop-color="#1e1b4b"/><stop offset="100%" stop-color="#311042"/></linearGradient>
+        <linearGradient id="c0" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#3b82f6"/><stop offset="100%" stop-color="#06b6d4"/></linearGradient>
+        <linearGradient id="c1" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#10b981"/><stop offset="100%" stop-color="#14b8a6"/></linearGradient>
+        <linearGradient id="c2" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#f59e0b"/><stop offset="100%" stop-color="#f97316"/></linearGradient>
+        <linearGradient id="c3" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#ec4899"/></linearGradient>
+      </defs>
+      <rect width="${W}" height="${H}" rx="18" fill="url(#bgGrad)"/>
+      <rect x="14" y="14" width="${W-28}" height="${H-28}" rx="14" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>`;
+
+      if (mode === 'sequence') {
+        const cw = 212, gap = 22, startX = 34;
+        const arrows = [0,1,2].map(i => {
+          const ax = startX + (i + 1) * cw + 4;
+          return `<path d="M ${ax} 250 L ${ax + 12} 250 M ${ax + 7} 244 L ${ax + 13} 250 L ${ax + 7} 256" stroke="#38bdf8" stroke-width="2.5" fill="none" stroke-linecap="round"/>`;
+        }).join('');
+        const boxes = nodes.slice(0, 4).map((n, i) => {
+          const x = startX + i * (cw + gap);
+          const strokeCols = ['#38bdf8','#34d399','#fbbf24','#c084fc'];
+          const tLines = wrapSvgLines(n.title, 20).slice(0, 2);
+          const dLines = wrapSvgLines(n.desc, 25).slice(0, 7);
+          return `<g>
+            <rect x="${x}" y="102" width="${cw}" height="296" rx="16" fill="rgba(15,23,42,0.88)" stroke="${strokeCols[i%4]}" stroke-width="1.8"/>
+            <rect x="${x}" y="102" width="${cw}" height="70" rx="16" fill="url(#c${i%4})"/>
+            <circle cx="${x+28}" cy="137" r="15" fill="rgba(255,255,255,0.22)"/>
+            <text x="${x+28}" y="142" text-anchor="middle" fill="#fff" font-size="14" font-weight="800" font-family="system-ui,sans-serif">${i+1}</text>
+            ${svgTextLines(tLines, x + 52, tLines.length > 1 ? 131 : 142, 17, '#ffffff', 13.5, '800', 'start')}
+            ${svgTextLines(dLines, x + 16, 202, 21, '#e2e8f0', 13, '500', 'start')}
+          </g>`;
+        }).join('');
+        return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" style="width:100%;max-width:980px;height:auto;">
+          ${defs}
+          <text x="${W/2}" y="54" text-anchor="middle" fill="#ffffff" font-size="22" font-weight="800" font-family="system-ui,sans-serif">LỘ TRÌNH THỰC HÀNH • ${title}</text>
+          <text x="${W/2}" y="78" text-anchor="middle" fill="#a5b4fc" font-size="13" font-weight="600" font-family="system-ui,sans-serif">Quy trình 4 bước từ khởi tạo tệp đến kiểm tra đường dẫn liên kết</text>
+          ${arrows}${boxes}</svg>`;
+      }
+
+      if (mode === 'compare') {
+        const cols = nodes.slice(0, 2);
+        const cards = cols.map((n, i) => {
+          const x = i === 0 ? 34 : 504;
+          const cw = 442;
+          const border = i === 0 ? '#f59e0b' : '#10b981';
+          const grad = i === 0 ? 'url(#c2)' : 'url(#c1)';
+          let curY = 188;
+          const ptsSvg = (n.points || [n.desc]).slice(0, 5).map(pt => {
+            const lines = wrapSvgLines('• ' + pt, 49);
+            const block = svgTextLines(lines, x + 22, curY, 19, '#e2e8f0', 13.5, '500', 'start');
+            curY += lines.length * 19 + 10;
+            return block;
+          }).join('');
+          return `<g>
+            <rect x="${x}" y="98" width="${cw}" height="308" rx="16" fill="rgba(15,23,42,0.88)" stroke="${border}" stroke-width="2"/>
+            <rect x="${x}" y="98" width="${cw}" height="56" rx="16" fill="${grad}"/>
+            <text x="${x + cw/2}" y="132" text-anchor="middle" fill="#ffffff" font-size="16" font-weight="800" font-family="system-ui,sans-serif">${escXml(n.title)}</text>
+            ${ptsSvg}
+          </g>`;
+        }).join('');
+        const extraNote = nodes[2] ? `<rect x="34" y="414" width="912" height="16" rx="8" fill="none"/><text x="${W/2}" y="427" text-anchor="middle" fill="#fbbf24" font-size="12" font-weight="700" font-family="system-ui,sans-serif">📌 ${escXml(nodes[2].title)}: ${escXml((nodes[2].points || [nodes[2].desc]).join(' • '))}</text>` : '';
+        return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" style="width:100%;max-width:980px;height:auto;">
+          ${defs}
+          <text x="${W/2}" y="54" text-anchor="middle" fill="#ffffff" font-size="22" font-weight="800" font-family="system-ui,sans-serif">SO SÁNH TRỌNG TÂM • ${title}</text>
+          <text x="${W/2}" y="78" text-anchor="middle" fill="#a5b4fc" font-size="13" font-weight="600" font-family="system-ui,sans-serif">Phân biệt rõ bản chất, cú pháp và khi nào dùng từng loại đường dẫn</text>
+          <circle cx="${W/2}" cy="252" r="20" fill="#312e81" stroke="#818cf8" stroke-width="2"/>
+          <text x="${W/2}" y="257" text-anchor="middle" fill="#fff" font-size="12" font-weight="800" font-family="system-ui,sans-serif">VS</text>
+          ${cards}${extraNote}</svg>`;
+      }
+
+      if (mode === 'mindmap') {
+        const centerTitle = wrapSvgLines(title, 18);
+        const branchPos = [
+          { x: 32, y: 88, cx: 490, cy: 232, tx: 342, ty: 158, g: 'url(#c0)', st: '#38bdf8' },
+          { x: 638, y: 88, cx: 490, cy: 232, tx: 638, ty: 158, g: 'url(#c1)', st: '#34d399' },
+          { x: 32, y: 266, cx: 490, cy: 232, tx: 342, ty: 332, g: 'url(#c2)', st: '#fbbf24' },
+          { x: 638, y: 266, cx: 490, cy: 232, tx: 638, ty: 332, g: 'url(#c3)', st: '#c084fc' }
+        ];
+        const linesSvg = branchPos.map((b, i) => `<path d="M ${b.cx} ${b.cy} Q ${(b.cx+b.tx)/2} ${b.ty} ${b.tx} ${b.ty}" stroke="${b.st}" stroke-width="2.5" fill="none" stroke-opacity="0.75"/>`).join('');
+        const branches = nodes.slice(0, 4).map((n, i) => {
+          const b = branchPos[i];
+          const bw = 310, bh = 148;
+          let py = b.y + 62;
+          const pts = (n.points || [n.desc]).slice(0, 3).map(pt => {
+            const ls = wrapSvgLines('• ' + pt, 36).slice(0, 2);
+            const s = svgTextLines(ls, b.x + 14, py, 16, '#e2e8f0', 12, '500', 'start');
+            py += ls.length * 16 + 6;
+            return s;
+          }).join('');
+          return `<g>
+            <rect x="${b.x}" y="${b.y}" width="${bw}" height="${bh}" rx="14" fill="rgba(15,23,42,0.9)" stroke="${b.st}" stroke-width="1.8"/>
+            <rect x="${b.x}" y="${b.y}" width="${bw}" height="38" rx="14" fill="${b.g}"/>
+            <text x="${b.x + bw/2}" y="${b.y + 24}" text-anchor="middle" fill="#fff" font-size="13.5" font-weight="800" font-family="system-ui,sans-serif">${escXml(n.title)}</text>
+            ${pts}
+          </g>`;
+        }).join('');
+        return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" style="width:100%;max-width:980px;height:auto;">
+          ${defs}
+          <text x="${W/2}" y="50" text-anchor="middle" fill="#ffffff" font-size="21" font-weight="800" font-family="system-ui,sans-serif">BẢN ĐỒ TƯ DUY • ${title}</text>
+          ${linesSvg}${branches}
+          <rect x="382" y="190" width="216" height="84" rx="42" fill="url(#c3)" stroke="#ffffff" stroke-width="2.5"/>
+          ${svgTextLines(centerTitle, 490, centerTitle.length > 1 ? 225 : 237, 20, '#ffffff', 15.5, '800', 'middle')}
+        </svg>`;
+      }
+
+      // Default 'cards' layout (4 pillars)
+      const cw = 218, gap = 16, startX = 30;
+      const cards = nodes.slice(0, 4).map((n, i) => {
+        const x = startX + i * (cw + gap);
+        const st = ['#38bdf8','#34d399','#fbbf24','#c084fc'][i % 4];
+        let py = 182;
+        const pts = (n.points || [n.desc]).slice(0, 4).map(pt => {
+          const ls = wrapSvgLines('• ' + pt, 24);
+          const s = svgTextLines(ls, x + 14, py, 17, '#e2e8f0', 12.2, '500', 'start');
+          py += ls.length * 17 + 8;
+          return s;
+        }).join('');
+        return `<g>
+          <rect x="${x}" y="98" width="${cw}" height="312" rx="16" fill="rgba(15,23,42,0.88)" stroke="${st}" stroke-width="1.8"/>
+          <rect x="${x}" y="98" width="${cw}" height="56" rx="16" fill="url(#c${i%4})"/>
+          ${svgTextLines(wrapSvgLines(n.title, 20).slice(0,2), x + cw/2, 124, 17, '#ffffff', 13.5, '800', 'middle')}
+          ${pts}
+        </g>`;
+      }).join('');
+      return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" style="width:100%;max-width:980px;height:auto;">
+        ${defs}
+        <text x="${W/2}" y="54" text-anchor="middle" fill="#ffffff" font-size="22" font-weight="800" font-family="system-ui,sans-serif">4 TRỤ CỘT KIẾN THỨC • ${title}</text>
+        <text x="${W/2}" y="78" text-anchor="middle" fill="#a5b4fc" font-size="13" font-weight="600" font-family="system-ui,sans-serif">Tóm tắt toàn bộ khái niệm, cú pháp và thuộc tính trọng tâm</text>
+        ${cards}</svg>`;
+    }
 
     function buildVectorSvg(mode) {
+      if (USE_ANTV_STUDIO) return buildStudioSvg(mode);
       const nodes = INFO_NODES[mode] || INFO_NODES.cards || [];
       const title = escXml('Bài 15: Tạo màu cho chữ và nền');
       if (mode === 'sequence') {
-        const cols = Math.max(nodes.length, 1);
         const w = 1040, cw = 230, gap = 22;
         let boxes = nodes.map((n, i) => {
           const x = 35 + i * (cw + gap);
@@ -574,7 +727,6 @@
           <text x="${w/2}" y="50" text-anchor="middle" fill="#1e3a8a" font-size="22" font-weight="800" font-family="sans-serif">LỘ TRÌNH THỰC HÀNH • ${title}</text>
           ${boxes}</svg>`;
       }
-      // Default 4 cards / compare / mindmap layout
       const w = 1040, cw = 235, gap = 18;
       let cards = nodes.slice(0, 4).map((n, i) => {
         const x = 24 + i * (cw + gap);
@@ -595,11 +747,42 @@
         ${cards}</svg>`;
     }
 
+    function buildDefaultDsl(mode) {
+      if (ANTV_DSL_MAP[mode]) return ANTV_DSL_MAP[mode];
+      const nodes = INFO_NODES[mode] || INFO_NODES.cards || [];
+      const tplMap = {
+        sequence: 'list-row-horizontal-icon-arrow',
+        cards: 'list-grid-badge-card',
+        compare: 'compare-binary-vs',
+        mindmap: 'mindmap-radial-tree'
+      };
+      let dsl = `infographic ${tplMap[mode] || 'list-grid-badge-card'}\ndata\n  title Bài 15: Tạo màu cho chữ và nền\n  items\n`;
+      nodes.forEach(n => {
+        dsl += `    - label ${n.title}\n`;
+        if (n.desc) dsl += `      desc ${n.desc}\n`;
+        (n.points || []).forEach(p => { dsl += `      desc ${p}\n`; });
+      });
+      return dsl;
+    }
+
+    function toggleAntvDsl() {
+      const d = document.getElementById('antv-dsl-drawer');
+      if (!d) return;
+      d.style.display = d.style.display === 'none' ? 'block' : 'none';
+    }
+    function copyAntvDsl() {
+      const txt = document.getElementById('antv-dsl-pre')?.textContent || '';
+      if (navigator.clipboard?.writeText) navigator.clipboard.writeText(txt).then(() => alert('✓ Đã sao chép mã AntV DSL!')).catch(() => {});
+    }
     function renderInfographic(mode, btn) {
       document.querySelectorAll('.infographic-tab').forEach(b => b.classList.remove('active'));
       if (btn) btn.classList.add('active');
       const wrap = document.getElementById('infographic-container');
       if (wrap) wrap.innerHTML = buildVectorSvg(mode);
+      const bEl = document.getElementById('amigos-banner-text');
+      if (bEl && AMIGOS_BANNERS[mode]) bEl.textContent = AMIGOS_BANNERS[mode];
+      const dslEl = document.getElementById('antv-dsl-pre');
+      if (dslEl) dslEl.textContent = buildDefaultDsl(mode);
     }
     function exportInfographicSVG() {
       const svg = document.querySelector('#infographic-container svg');
@@ -611,9 +794,10 @@
     function exportInfographicPNG() {
       const svg = document.querySelector('#infographic-container svg');
       if (!svg) return;
-      const canvas = document.createElement('canvas'); canvas.width = 1600; canvas.height = 600;
+      const cw = USE_ANTV_STUDIO ? 1960 : 1600, ch = USE_ANTV_STUDIO ? 880 : 600;
+      const canvas = document.createElement('canvas'); canvas.width = cw; canvas.height = ch;
       const ctx = canvas.getContext('2d'); const img = new Image();
-      img.onload = () => { ctx.fillStyle='#fff'; ctx.fillRect(0,0,1600,600); ctx.drawImage(img,0,0,1600,600); const a=document.createElement('a'); a.href=canvas.toDataURL('image/png'); a.download='Infographic_Bai15.png'; a.click(); };
+      img.onload = () => { ctx.fillStyle = USE_ANTV_STUDIO ? '#0f172a' : '#fff'; ctx.fillRect(0,0,cw,ch); ctx.drawImage(img,0,0,cw,ch); const a=document.createElement('a'); a.href=canvas.toDataURL('image/png'); a.download='Infographic_Bai15.png'; a.click(); };
       img.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svg.outerHTML)));
     }
     function saveHd4Ans(idx, val) {
@@ -631,7 +815,8 @@
       if (btn) btn.textContent = open ? '💡 Bấm xem gợi ý & đáp án đối chiếu' : '🙈 Ẩn đáp án';
     }
     window.addEventListener('DOMContentLoaded', () => {
-      renderInfographic('cards', document.querySelector('.infographic-tab'));
+      const defaultMode = USE_ANTV_STUDIO ? 'sequence' : 'cards';
+      renderInfographic(defaultMode, document.querySelector('.infographic-tab'));
       try {
         const saved = JSON.parse(localStorage.getItem('bai15_hd4_answers') || '{}');
         Object.keys(saved).forEach(k => { const el = document.getElementById('ans-input-' + k.slice(1)); if (el) el.value = saved[k]; });

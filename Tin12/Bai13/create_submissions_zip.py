@@ -11,9 +11,12 @@ OUTPUT_ZIP = os.path.join(BASE_DIR, "Bai13_HD3_TatCaBaiLam_THTH_DHSP.zip")
 def create_zip():
     with zipfile.ZipFile(OUTPUT_ZIP, "w", zipfile.ZIP_DEFLATED) as zf:
         if os.path.exists(HD3_DIR):
-            for fname in sorted(os.listdir(HD3_DIR)):
-                if fname.endswith(".html"):
-                    zf.write(os.path.join(HD3_DIR, fname), arcname=os.path.join("BaiLam_Bai13", fname))
+            for root_dir, _, files in sorted(os.walk(HD3_DIR)):
+                for fname in sorted(files):
+                    if fname.endswith((".html", ".htm")):
+                        full_path = os.path.join(root_dir, fname)
+                        rel_path = os.path.relpath(full_path, HD3_DIR)
+                        zf.write(full_path, arcname=os.path.join("BaiLam_Bai13", rel_path))
         if os.path.exists(HD3_DATA_FILE):
             with open(HD3_DATA_FILE, "r", encoding="utf-8") as f:
                 subs = json.load(f)

@@ -123,6 +123,28 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             data['filename'] = fn
             with open(os.path.join(HD3_DIR, fn), 'w', encoding='utf-8') as f:
                 f.write(data.get('code', ''))
+            files_map = data.get('files')
+            if isinstance(files_map, dict):
+                folder_name = f"{clean_name(data.get('className','12A'))}_{clean_name(data.get('studentNumber','May00'))}_{clean_name(data.get('studentName'))}"
+                student_dir = os.path.join(HD3_DIR, folder_name)
+                os.makedirs(student_dir, exist_ok=True)
+                saved_files = {}
+                for raw_rel, content in files_map.items():
+                    parts = [p for p in str(raw_rel or '').replace('\\', '/').split('/') if p and p not in ('.', '..')]
+                    safe_parts = [''.join(c if (c.isalnum() or c in '._-') else '_' for c in p) for p in parts]
+                    safe_parts = [p for p in safe_parts if p and p not in ('.', '..')]
+                    if not safe_parts:
+                        continue
+                    if not safe_parts[-1].lower().endswith(('.html', '.htm')):
+                        safe_parts[-1] += '.html'
+                    safe_rel = '/'.join(safe_parts)
+                    dest_path = os.path.join(student_dir, safe_rel)
+                    os.makedirs(os.path.dirname(dest_path), exist_ok=True)
+                    with open(dest_path, 'w', encoding='utf-8') as pf:
+                        pf.write(str(content or ''))
+                    saved_files[safe_rel] = str(content or '')
+                data['files'] = saved_files
+                data['folderName'] = folder_name
             lst = read_json(HD3_DATA_FILE)
             lst.insert(0, data)
             write_json(HD3_DATA_FILE, lst)
@@ -134,9 +156,14 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 
         if cp == '/api/reset-hd3':
             write_json(HD3_DATA_FILE, [])
-            for f in os.listdir(HD3_DIR):
-                if f.endswith('.html'):
-                    os.remove(os.path.join(HD3_DIR, f))
+            for root_dir, dirs, files in os.walk(HD3_DIR, topdown=False):
+                for fname in files:
+                    if root_dir != HD3_DIR or fname.endswith('.html'):
+                        os.remove(os.path.join(root_dir, fname))
+                for dname in dirs:
+                    dpath = os.path.join(root_dir, dname)
+                    if not os.listdir(dpath):
+                        os.rmdir(dpath)
             self.send_response(200)
             self.send_header('Content-Type', 'application/json')
             self.end_headers()

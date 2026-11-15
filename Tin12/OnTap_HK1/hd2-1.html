@@ -503,11 +503,40 @@
     });
     
     const SNIPPETS = {"h21_0": "<div style='font-family:sans-serif;font-size:13px;'>\n  <table border='1' cellpadding='6' style='border-collapse:collapse;width:100%;'>\n    <tr style='background:#eff6ff;'><th>Lĩnh vực AI</th><th>Ví dụ tiêu biểu</th></tr>\n    <tr><td>Thị giác máy tính</td><td>Nhận diện khuôn mặt, biển số xe, X-quang</td></tr>\n    <tr><td>Ngôn ngữ tự nhiên</td><td>Dịch máy, trợ lý ảo, Chatbot trả lời</td></tr>\n  </table>\n</div>", "h21_1": "<table border='1' cellpadding='5' style='border-collapse:collapse;width:100%;font-family:sans-serif;font-size:12.5px;'>\n  <tr style='background:#ecfdf5;'><th>Thiết bị / Giao thức</th><th>Chức năng chính</th></tr>\n  <tr><td><b>Switch</b></td><td>Nối máy nội bộ LAN bằng địa chỉ MAC</td></tr>\n  <tr><td><b>Access Point</b></td><td>Tạo vùng phủ sóng Wi-Fi cho LAN</td></tr>\n  <tr><td><b>Router</b></td><td>Định tuyến gói tin liên mạng bằng IP</td></tr>\n  <tr><td><b>TCP/IP</b></td><td>IP định tuyến; TCP truyền tin cậy</td></tr>\n</table>"};
+    function bindPreviewLinkHandler(doc, reloadFn) {
+      if (!doc || !doc.body) return;
+      doc.addEventListener('click', function(ev) {
+        const a = ev.target && ev.target.closest ? ev.target.closest('a[href]') : null;
+        if (!a) return;
+        const href = (a.getAttribute('href') || '').trim();
+        if (!href) return;
+        const lower = href.toLowerCase();
+        if (href.startsWith('#')) {
+          ev.preventDefault();
+          const id = href.slice(1);
+          const target = doc.getElementById(id) || doc.getElementsByName(id)[0];
+          if (target && target.scrollIntoView) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          return;
+        }
+        if (lower.startsWith('http://') || lower.startsWith('https://')) {
+          ev.preventDefault();
+          window.open(href, '_blank', 'noopener');
+          return;
+        }
+        ev.preventDefault();
+        doc.open();
+        doc.write('<body style="font-family:sans-serif;padding:16px;background:#f8fafc;color:#1e293b;margin:0;"><div style="background:#eff6ff;border:1.5px solid #93c5fd;border-radius:10px;padding:14px;"><div style="font-weight:800;color:#1d4ed8;margin-bottom:6px;">🔗 Mô phỏng chuyển trang nội bộ</div><div style="font-size:13px;line-height:1.5;">Liên kết vừa bấm trỏ tới đường dẫn: <code style="background:#e2e8f0;padding:2px 6px;border-radius:4px;">' + href.replace(/&/g,'&amp;').replace(/</g,'&lt;') + '</code></div><div style="font-size:12px;color:#475569;margin-top:6px;">Trong website thực tế nhiều tệp HTML, trình duyệt sẽ mở trang đích này (thực hành tạo nhiều tệp thật tại <strong>Hoạt động 3</strong>).</div><button id="__prev_back_btn" style="margin-top:10px;padding:6px 12px;border:none;background:#2563eb;color:#fff;border-radius:6px;cursor:pointer;font-weight:700;">← Quay lại trang ví dụ</button></div></body>');
+        doc.close();
+        const bk = doc.getElementById('__prev_back_btn');
+        if (bk && typeof reloadFn === 'function') bk.onclick = reloadFn;
+      });
+    }
     function renderSnippet(id) {
       const fr = document.getElementById('prev-' + id);
       if (!fr || !SNIPPETS[id]) return;
       const doc = fr.contentDocument || fr.contentWindow.document;
       doc.open(); doc.write(SNIPPETS[id]); doc.close();
+      bindPreviewLinkHandler(doc, () => renderSnippet(id));
     }
     function toggleSnippet(id) {
       const box = document.getElementById('box-' + id);
@@ -528,6 +557,7 @@
       if (box) box.style.display = 'block';
       const doc = fr.contentDocument || fr.contentWindow.document;
       doc.open(); doc.write(ta.value); doc.close();
+      bindPreviewLinkHandler(doc, runSb21);
     }
   </script>
 </body>

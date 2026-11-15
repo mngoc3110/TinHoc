@@ -420,498 +420,475 @@ SLIDES_DATA = [
     "kind": "cover",
     "pill": "TIN HỌC 12 • KẾT NỐI TRI THỨC • CHỦ ĐỀ F",
     "title": "BÀI 10: TẠO LIÊN KẾT",
-    "subtitle": "Thẻ <a>, Đường dẫn tuyệt đối & tương đối (../), Liên kết neo #id, Liên kết ảnh & Kiểm tra KTTX2 (15p)",
-    "meta": "Tiết 21–22 (2 tiết)",
+    "subtitle": "Siêu văn bản, đường dẫn tuyệt đối/tương đối và kĩ thuật tạo liên kết đa tệp HTML",
+    "meta": "Tiết 19–20 (2 tiết)",
     "url": "https://minda.io.vn/Tin12/Bai10/index.html"
   },
   {
     "kind": "objectives",
-    "title": "MỤC TIÊU BÀI HỌC & NĂNG LỰC SỐ",
-    "sub": "Chuẩn Công văn 5512 & Khung Năng lực số 3.4.NC1.a",
+    "title": "I. MỤC TIÊU BÀI HỌC (CV 5512 & NLS)",
+    "sub": "Chuẩn SGK Kết nối tri thức & Khung Năng lực số 3.4.NC1.a",
     "cards": [
       {
-        "heading": "1. Cú pháp thẻ liên kết <a>",
+        "heading": "1. Năng lực Tin học (1)–(3)",
         "color": "blue",
         "bullets": [
-          "Hiểu bản chất siêu liên kết (Hyperlink).",
-          "Viết đúng <a href=\"URL\">Văn bản</a>.",
-          "Dùng thuộc tính target=\"_blank\" mở tab mới."
+          "(1) Hiểu siêu văn bản, siêu liên kết, vai trò đường dẫn.",
+          "(2) Tạo liên kết bằng thẻ <a>, href, id/# và <img>.",
+          "(3) Chọn đúng URL tuyệt đối vs tương đối (Hình 10.1)."
         ]
       },
       {
-        "heading": "2. Đường dẫn tuyệt đối & tương đối",
+        "heading": "2. Năng lực số 3.4.NC1.a",
         "color": "emerald",
         "bullets": [
-          "Phân biệt URL tuyệt đối (https://...) & tương đối.",
-          "Điều hướng đúng thư mục con và cha (../).",
-          "Tổ chức liên kết đa trang an toàn, không lỗi."
+          "Thiết kế & phát triển nội dung số đa trang HTML.",
+          "Tổ chức website từ >= 2 tệp HTML liên kết logic.",
+          "Quản lí tài nguyên chuẩn theo cấu trúc thư mục."
         ]
       },
       {
-        "heading": "3. Liên kết neo (#id) & Hình ảnh",
+        "heading": "3. Năng lực chung (4)–(6)",
         "color": "amber",
         "bullets": [
-          "Gán định danh id để cuộn tới vị trí cùng trang.",
-          "Trỏ tới vị trí thuộc trang khác (page.html#id).",
-          "Lồng thẻ <img> vào bên trong thẻ <a>."
+          "(4) Tự học, tự thực hành & kiểm thử trên Sandbox.",
+          "(5) Giao tiếp & hợp tác cặp đôi hiệu quả.",
+          "(6) Giải quyết lỗi đường dẫn 404 / ổ đĩa máy cá nhân."
         ]
       },
       {
-        "heading": "4. Thực hành & Đánh giá KTTX2",
+        "heading": "4. Phẩm chất (7)",
         "color": "purple",
         "bullets": [
-          "Nâng cấp dự án CLB.html kết nối thong_tin.html.",
-          "Năng lực số: 3.4.NC1.a tổ chức dữ liệu đa trang.",
-          "Hoàn thành KTTX2 (15 phút) phủ Bài 7–10."
+          "(7) Chăm chỉ: thực hiện nghiêm túc các nhiệm vụ.",
+          "Cẩn thận khi đặt tên tệp không dấu, viết đúng cú pháp.",
+          "Trung thực trong tự đánh giá tiêu chí và nộp bài."
         ]
       }
     ]
   },
   {
     "kind": "roadmap",
-    "title": "TIẾN TRÌNH TỔ CHỨC BÀI HỌC (2 TIẾT)",
+    "title": "TIẾN TRÌNH TỔ CHỨC 4 HOẠT ĐỘNG",
     "rows": [
       {
-        "stage": "1. Khởi động (5')",
+        "stage": "HĐ 1: Khởi động (5')",
         "color": "blue",
-        "desc": "Quan sát CLB.html dạng tĩnh vs trang web đa liên kết; xác định nhu cầu điều hướng nhanh."
+        "desc": "Câu hỏi mở đầu SGK tr.57: Trang web khác sách, báo giấy ở điểm nào? So sánh CLB.html."
       },
       {
-        "stage": "2.1. Thẻ <a> & URL (15')",
+        "stage": "HĐ 2.1: Khám phá 1 (15')",
         "color": "emerald",
-        "desc": "Học cú pháp <a href>, thuộc tính target và 4 quy tắc đường dẫn tương đối (SGK tr.57–59)."
+        "desc": "Mục 1 SGK (tr.57–58): Siêu văn bản, thẻ <a>, đường dẫn tuyệt đối & đường dẫn tương đối."
       },
       {
-        "stage": "2.2. Neo #id & Ảnh (15')",
+        "stage": "HĐ 2.2: Khám phá 2 (20')",
         "color": "amber",
-        "desc": "Thiết lập id + #id, ảnh liên kết và quét QR hoàn thành Phiếu bài tập thống nhất."
+        "desc": "Mục 2 SGK (tr.58–60): Liên kết ngoài, cùng website (Hình 10.1), neo #id, ảnh & Phiếu BT."
       },
       {
-        "stage": "3. Thực hành CLB (30')",
+        "stage": "HĐ 3: Luyện tập (35')",
         "color": "purple",
-        "desc": "Tự gõ mã CLB.html có mục lục #CLBTT, liên kết thong_tin.html và ảnh; nộp lên máy chủ GV."
+        "desc": "Mục 3 SGK (tr.61): Tạo >= 2 tệp HTML trên web (CLB.html, thong_tin.html...), bấm liên kết thật."
       },
       {
-        "stage": "4. Tổng kết & KTTX2 (25')",
+        "stage": "HĐ 4: Infographic (15')",
         "color": "red",
-        "desc": "Infographic, giải câu hỏi SGK tr.61 và làm bài KTTX2 (15 phút) chuẩn TN THPT 2025."
+        "desc": "AntV Infographic Studio (4 chế độ), Flashcard 3D & giải đáp Luyện tập 1–2, Vận dụng tr.61."
       }
     ]
   },
   {
     "kind": "section",
-    "tag": "HOẠT ĐỘNG 1 • KHỞI ĐỘNG",
-    "title": "ĐIỀU HƯỚNG TRONG WEBSITE",
-    "subtitle": "Từ một trang HTML đơn lẻ đến mạng lưới siêu văn bản kết nối",
+    "tag": "HOẠT ĐỘNG 1 • KHỞI ĐỘNG (TR.57)",
+    "title": "TỪ SÁCH BÁO GIẤY ĐẾN SIÊU VĂN BẢN",
+    "subtitle": "Điều gì tạo nên khả năng 'nhảy cóc' diệu kì giữa các trang web trên Internet?",
     "theme": "blue",
     "pills": [
       [
-        "Vấn đề trang đơn",
-        "Trang CLB.html dài khiến người xem phải cuộn tay thủ công.",
-        "amber"
+        "Đọc sách giấy",
+        "Đọc tuần tự từ trang đầu tới trang cuối, tìm mục bằng tay.",
+        "slate"
       ],
       [
-        "Nhu cầu kết nối",
-        "Cần mở sang thong_tin.html hoặc nhảy ngay tới CLB Thể thao.",
+        "Đọc trang web",
+        "Nhấp vào chữ/ảnh liên kết để mở ngay trang mới hoặc đoạn mới.",
         "blue"
       ],
       [
-        "Giải pháp HTML5",
-        "Sử dụng thẻ <a> kết hợp đường dẫn URL & định danh id.",
+        "Bí mật HTML",
+        "Cặp thẻ <a> kết hợp thuộc tính href định địa chỉ trang đích.",
         "emerald"
       ]
     ]
   },
   {
-    "kind": "code_result",
-    "badge": "KHỞI ĐỘNG • SO SÁNH",
-    "title": "TRƯỚC VÀ SAU KHI GẮN THẺ LIÊN KẾT",
-    "sub": "Trực quan sự thay đổi từ văn bản tĩnh sang siêu văn bản",
-    "theme": "blue",
-    "filename": "CLB_demo.html",
-    "code": "<!-- Trước: văn bản tĩnh -->\n<p>Xem lịch tập CLB Thể thao</p>\n<p>Xem trang Thông tin chi tiết</p>\n\n<!-- Sau: gắn siêu liên kết <a> -->\n<a href=\"#CLBTT\">Nhảy tới CLB Thể thao</a> | \n<a href=\"thong_tin.html\">Mở Thông tin CLB</a> |\n<a href=\"https://moet.gov.vn\" target=\"_blank\">\n  Cổng Bộ GD&ĐT\n</a>",
-    "right_heading": "💡 NHẬN XÉT QUAN TRỌNG:",
-    "notes": [
-      "Mặc định liên kết có màu xanh dương và gạch chân.",
-      "Khi rê chuột vào, con trỏ chuyển thành bàn tay.",
-      "Chạm/bấm chuột sẽ nhảy đúng đích được khai báo ở href."
-    ]
+    "kind": "two_col",
+    "badge": "KHỞI ĐỘNG • SGK TR.57",
+    "title": "SO SÁNH TRANG CLB TRƯỚC VÀ SAU KHI GẮN LIÊN KẾT",
+    "left": {
+      "heading": "Chưa tạo liên kết",
+      "color": "amber",
+      "bullets": [
+        "Mọi tiêu đề CLB Thể thao, CLB Nghệ thuật chỉ là chữ tĩnh.",
+        "Muốn xem trang thong_tin.html phải mở thủ công từng tệp.",
+        "Không thể bấm để chuyển nhanh tới website Trường hay sách điện tử."
+      ]
+    },
+    "right": {
+      "heading": "Đã gắn siêu liên kết <a href>",
+      "color": "emerald",
+      "bullets": [
+        "Các mục điều hướng tự đổi màu và gạch chân, có con trỏ hình bàn tay.",
+        "Nhấp vào tên CLB tự động mở ngay trang thong_tin.html.",
+        "Kết nối nhiều trang đơn lẻ thành một website hoàn chỉnh."
+      ]
+    }
   },
   {
     "kind": "section",
-    "tag": "HOẠT ĐỘNG 2.1 • KIẾN THỨC MỚI",
-    "title": "THẺ <a> & ĐƯỜNG DẪN URL",
-    "subtitle": "Cú pháp tạo liên kết và cách xác định đường dẫn tuyệt đối / tương đối",
+    "tag": "HOẠT ĐỘNG 2.1 • KHÁM PHÁ 1 (MỤC 1 SGK)",
+    "title": "1. SIÊU VĂN BẢN VÀ ĐƯỜNG DẪN",
+    "subtitle": "Khám phá bản chất Hypertext, cú pháp thẻ <a> và hai loại đường dẫn (tr.57–58)",
     "theme": "emerald",
     "pills": [
       [
-        "Thẻ <a>",
-        "Hyperlink Anchor: có cặp thẻ mở <a> và đóng </a>.",
+        "Hoạt động 1",
+        "Phân biệt tệp .docx có liên kết và tệp .txt thuần túy.",
         "blue"
       ],
       [
-        "Thuộc tính href",
-        "Chỉ địa chỉ URL đích khi người dùng nhấp chuột.",
+        "Thẻ <a href>",
+        "<a href=\"URL\">Nội dung hiển thị</a>.",
         "emerald"
       ],
       [
-        "Thuộc tính target",
-        "target=\"_blank\" giúp mở liên kết ở một thẻ trình duyệt mới.",
+        "Đường dẫn",
+        "Đường dẫn tuyệt đối vs Đường dẫn tương đối.",
         "purple"
       ]
     ]
-  },
-  {
-    "kind": "two_col",
-    "badge": "HĐ 2.1 • CÚ PHÁP CHUẨN",
-    "title": "CẤU TRÚC THẺ <a> VÀ THUỘC TÍNH CHÍNH",
-    "sub": "SGK Tin học 12 Kết nối tri thức – Trang 57",
-    "theme": "blue",
-    "left": {
-      "heading": "📌 Cú pháp tổng quát",
-      "color": "blue",
-      "bullets": [
-        "<a href=\"URL\">Nội dung hiển thị</a>",
-        "href (Hypertext Reference): bắt buộc chứa địa chỉ đích.",
-        "Nội dung hiển thị có thể là chữ, cụm từ hoặc thẻ <img>.",
-        "Nếu thiếu href, thẻ <a> không hoạt động như liên kết."
-      ]
-    },
-    "right": {
-      "heading": "⚙️ Thuộc tính target điều khiển cửa sổ",
-      "color": "emerald",
-      "bullets": [
-        "target=\"_self\" (mặc định): mở ngay tại thẻ hiện tại.",
-        "target=\"_blank\": mở sang một thẻ (tab) trình duyệt mới.",
-        "Nên dùng _blank khi trỏ sang website bên ngoài.",
-        "Thư mục & tên tệp phải gõ chính xác hoa/thường khi up host Linux."
-      ]
-    }
-  },
-  {
-    "kind": "two_col",
-    "badge": "HĐ 2.1 • PHÂN LOẠI URL",
-    "title": "ĐƯỜNG DẪN TUYỆT ĐỐI VS TƯƠNG ĐỐI",
-    "sub": "SGK Tin học 12 Kết nối tri thức – Trang 58",
-    "theme": "emerald",
-    "left": {
-      "heading": "🌐 Đường dẫn Tuyệt đối (Absolute URL)",
-      "color": "blue",
-      "bullets": [
-        "Chứa đầy đủ giao thức (https://, http://) và tên miền.",
-        "Ví dụ: https://nxbgd.vn hoặc https://minda.io.vn.",
-        "Bắt buộc dùng khi liên kết tới trang thuộc website khác.",
-        "Không nên dùng đường dẫn ổ đĩa máy cá nhân (C:\\...)."
-      ]
-    },
-    "right": {
-      "heading": "📁 Đường dẫn Tương đối (Relative URL)",
-      "color": "emerald",
-      "bullets": [
-        "Chỉ định đường dẫn tính từ vị trí tệp HTML đang đứng.",
-        "Ví dụ: href=\"thong_tin.html\" hoặc href=\"img/logo.png\".",
-        "Dùng cho các tài nguyên nội bộ trong cùng một website.",
-        "Ưu điểm: ngắn gọn, di chuyển cả thư mục website vẫn chạy tốt."
-      ]
-    }
-  },
-  {
-    "kind": "image_focus",
-    "badge": "HĐ 2.1 • SƠ ĐỒ SGK",
-    "title": "4 QUY TẮC VIẾT ĐƯỜNG DẪN TƯƠNG ĐỐI",
-    "sub": "Quan sát cây thư mục website minh họa Hình 10.1 (Trang 58)",
-    "theme": "blue",
-    "heading": "🗺️ Từ trang hiện tại đi đến đích:",
-    "bullets": [
-      "Cùng thư mục: viết trực tiếp tên tệp (vd: thong_tin.html).",
-      "Dưới 1 cấp (thư mục con): thumuc/tep.html.",
-      "Dưới nhiều cấp: thumuc1/thumuc2/tep.html.",
-      "Trên 1 cấp (thư mục cha): ../tep.html.",
-      "Trên n cấp rồi xuống lại: ../../thumuc/tep.html."
-    ],
-    "image": "sgk_hinh10_1_sub.png",
-    "caption": "Cấu trúc thư mục website chuẩn trong SGK Tin học 12 (trang 58)"
-  },
-  {
-    "kind": "image_focus",
-    "badge": "HĐ 2.1 • HÌNH MINH HỌA",
-    "title": "VÍ DỤ LIÊN KẾT ĐA TRANG TRONG SGK",
-    "sub": "SGK Tin học 12 – Trang 58",
-    "theme": "emerald",
-    "heading": "🔍 Giải mã Hộp xanh (SGK tr.58):",
-    "bullets": [
-      "Từ bai_tap/trang1.html trỏ ra index.html: dùng ../index.html.",
-      "Nếu đổi thư mục chứa cả bộ web sang ổ D hoặc up lên host:",
-      "-> Đường dẫn tương đối vẫn hoạt động chính xác 100%.",
-      "-> Đường dẫn tuyệt đối kiểu file:///C:/... sẽ bị hỏng ngay!"
-    ],
-    "image": "sgk_hinh10_1.png",
-    "caption": "Hình 10.1. Minh họa liên kết trang web (SGK Tin học 12 tr.58)"
   },
   {
     "kind": "quiz",
-    "badge": "KIỂM TRA NHANH 2.1",
-    "title": "CÂU HỎI TÌNH HUỐNG CẤU TRÚC THƯ MỤC",
-    "sub": "Vận dụng quy tắc ../ trong bài thi TN THPT",
-    "question": "Tệp baiviet/tintuc.html muốn liên kết tới tệp thuvien/tailieu.html (thư mục baiviet và thuvien cùng nằm trong thư mục gốc web). Thuộc tính href nào đúng?",
+    "badge": "KHÁM PHÁ 1 • HOẠT ĐỘNG 1 (TR.57)",
+    "title": "THẢO LUẬN CẶP ĐÔI: TỆP .DOCX CÓ LIÊN KẾT VS TỆP .TXT",
+    "question": "Khi đọc một văn bản định dạng .docx có chứa đường link và một tệp văn bản thuần túy .txt chứa cùng địa chỉ web đó, em thấy có điểm gì khác biệt?",
     "options": [
-      "A. href=\"tailieu.html\"",
-      "B. href=\"thuvien/tailieu.html\"",
-      "C. href=\"../thuvien/tailieu.html\"",
-      "D. href=\"../../tailieu.html\""
+      "Tệp .txt chỉ lưu các kí tự chữ đơn thuần.",
+      "Tệp .docx cho phép chèn hình ảnh, định dạng chữ và siêu liên kết.",
+      "Trong Word (.docx), liên kết có màu xanh, gạch chân và nhấp mở được trình duyệt."
     ],
     "answer": [
-      "Đáp án đúng: C (href=\"../thuvien/tailieu.html\").",
-      "Giải thích: Từ thư mục con baiviet/ phải dùng ../ để lùi lên thư mục gốc web.",
-      "Sau đó mới đi tiếp vào thư mục con thuvien/ để mở tailieu.html."
+      ".docx mang đặc điểm của siêu văn bản: chứa text + đa phương tiện + liên kết bấm được.",
+      ".txt là văn bản thuần: URL chỉ là chữ chết, phải copy dán mới mở được.",
+      "Web HTML chính là siêu văn bản tiêu chuẩn hóa trên trình duyệt!"
+    ]
+  },
+  {
+    "kind": "two_col",
+    "badge": "KHÁM PHÁ 1 • KIẾN THỨC MỤC 1 (TR.57–58)",
+    "title": "SIÊU VĂN BẢN, SIÊU LIÊN KẾT VÀ CÚ PHÁP THẺ <a>",
+    "left": {
+      "heading": "Khái niệm cốt lõi",
+      "color": "blue",
+      "bullets": [
+        "Siêu văn bản (Hypertext): văn bản tích hợp text, ảnh, âm thanh, video và các liên kết tới phần tử khác.",
+        "Siêu liên kết (Hyperlink): tham chiếu giúp người dùng di chuyển tới vị trí khác trong cùng trang hoặc sang trang web khác khi nhấp chuột.",
+        "Thẻ tạo liên kết: <a> (Anchor) là thẻ đôi, có thuộc tính bắt buộc href."
+      ]
+    },
+    "right": {
+      "heading": "Cú pháp & Lưu ý thẻ <a>",
+      "color": "emerald",
+      "bullets": [
+        "Cú pháp chuẩn: <a href=\"URL\">Nội dung siêu liên kết</a>",
+        "Giá trị của href là địa chỉ URL đích (đặt trong ngoặc kép).",
+        "Nội dung giữa <a> và </a> có thể là chữ hoặc hình ảnh <img>.",
+        "Ví dụ: <a href=\"https://www.nxbgd.vn/\">Trang NXB Giáo dục</a>"
+      ]
+    }
+  },
+  {
+    "kind": "two_col",
+    "badge": "KHÁM PHÁ 1 • GHI NHỚ SGK TR.58",
+    "title": "PHÂN BIỆT ĐƯỜNG DẪN TUYỆT ĐỐI VÀ ĐƯỜNG DẪN TƯƠNG ĐỐI",
+    "left": {
+      "heading": "Đường dẫn Tuyệt đối (Absolute URL)",
+      "color": "amber",
+      "bullets": [
+        "Ghi đầy đủ giao thức (http:// hoặc https://) và tên miền + đường dẫn tài nguyên.",
+        "Ví dụ: https://www.nxbgd.vn/ hoặc https://hanhtrangso.nxbgd.vn/",
+        "Dùng khi liên kết tới trang web NGOÀI website hiện tại.",
+        "Không nên dùng đường dẫn ổ đĩa máy cá nhân (D:\\bai_tap\\bt1.html) vì sẽ hỏng khi chuyển máy!"
+      ]
+    },
+    "right": {
+      "heading": "Đường dẫn Tương đối (Relative URL)",
+      "color": "blue",
+      "bullets": [
+        "Không có giao thức hay tên miền; xác định tương đối so với thư mục chứa tệp HTML hiện tại.",
+        "Ví dụ: thong_tin.html, BT/bai_tap_1.html, ../index.html",
+        "Ưu tiên dùng khi liên kết giữa các tệp trong CÙNG website.",
+        "Giúp website vẫn chạy bình thường khi copy toàn bộ thư mục sang máy khác hoặc tải lên host."
+      ]
+    }
+  },
+  {
+    "kind": "quiz",
+    "badge": "KHÁM PHÁ 1 • CÂU HỎI CUỐI MỤC 1 (TR.58)",
+    "title": "PHÂN LOẠI CÁC ĐƯỜNG DẪN SAU ĐÂY",
+    "question": "Các đường dẫn sau là đường dẫn tuyệt đối hay tương đối? Đường dẫn nào nên tránh dùng khi thiết kế website?",
+    "options": [
+      "a) http://hocmai.vn/khoahoc",
+      "b) bai_tap/bai_tap_1.html",
+      "c) D:\\TinHoc12\\index.html"
+    ],
+    "answer": [
+      "a) Tuyệt đối (trên Internet) – dùng hợp lệ khi trỏ sang trang ngoài.",
+      "b) Tương đối – trỏ vào thư mục con bai_tap, rất chuẩn cho liên kết nội bộ.",
+      "c) Tuyệt đối trên ổ đĩa máy cá nhân – TRÁNH DÙNG vì hỏng link ở máy khác!"
     ]
   },
   {
     "kind": "section",
-    "tag": "HOẠT ĐỘNG 2.2 • KHÁM PHÁ CHUYÊN SÂU",
-    "title": "LIÊN KẾT NEO (#ID) & HÌNH ẢNH",
-    "subtitle": "Cuộn mượt đến vị trí bất kì và biến hình ảnh thành nút bấm điều hướng",
-    "theme": "amber",
+    "tag": "HOẠT ĐỘNG 2.2 • KHÁM PHÁ 2 (MỤC 2 SGK)",
+    "title": "2. CÁC CÁCH TẠO LIÊN KẾT TỚI MỘT TRANG WEB",
+    "subtitle": "Hoạt động 2 & Mục 2a, 2b (SGK tr.58–60): Liên kết ngoài, cùng website, neo #id và hình ảnh",
+    "theme": "purple",
     "pills": [
       [
-        "Bước 1: Gán id",
-        "Đặt thuộc tính id=\"CLBTT\" cho thẻ tiêu đề đích.",
+        "2a) Trang web khác",
+        "Dùng đường dẫn tuyệt đối http:// hoặc https://.",
         "blue"
       ],
       [
-        "Bước 2: Đặt #id",
-        "Tạo <a href=\"#CLBTT\"> hoặc href=\"CLB.html#CLBTT\".",
+        "2b) Cùng website",
+        "Dựa theo sơ đồ Hình 10.1: cùng cấp, thư mục con, ../.",
         "emerald"
       ],
       [
-        "Liên kết ảnh",
-        "Đặt thẻ <img> vào giữa cặp thẻ mở-đóng <a>...</a>.",
+        "Neo #id & Ảnh <img>",
+        "Chuyển vị trí cụ thể trên trang & lồng <img> trong <a>.",
         "amber"
       ]
     ]
   },
   {
     "kind": "code_result",
-    "badge": "HĐ 2.2 • LIÊN KẾT CÙNG TRANG",
-    "title": "KỸ THUẬT TẠO MỤC LỤC NHẢY TRONG TRANG",
-    "sub": "SGK Tin học 12 – Trang 59–60",
-    "theme": "amber",
-    "filename": "CLB.html",
-    "code": "<!-- Bước 2: Tạo mục lục ở đầu trang -->\n<nav>\n  <a href=\"#CLBTT\">Tới CLB Thể thao</a> |\n  <a href=\"#CLBNT\">Tới CLB Nghệ thuật</a>\n</nav>\n\n<!-- Bước 1: Gán định danh id ở phần tử đích -->\n<h2 id=\"CLBTT\">Câu lạc bộ Thể thao</h2>\n<p>Lịch tập bóng đá, cầu lông thứ 3, 5...</p>\n\n<h2 id=\"CLBNT\">Câu lạc bộ Nghệ thuật</h2>\n<p>Lịch sinh hoạt âm nhạc, hội họa thứ 7...</p>",
-    "right_heading": "📌 LƯU Ý KỸ THUẬT:",
+    "badge": "KHÁM PHÁ 2 • MỤC 2a (TR.59)",
+    "title": "LIÊN KẾT TỚI MỘT TRANG WEB KHÁC TRÊN INTERNET",
+    "filename": "index.html",
+    "code": "<!DOCTYPE html>\n<html>\n<body>\n  <h2>Học liệu trực tuyến</h2>\n  <p>Truy cập bộ sách điện tử kết nối tri thức:</p>\n  <a href=\"https://hanhtrangso.nxbgd.vn/sach-dien-tu?book_active=0\">\n    Mở Hành trang số NXB Giáo dục\n  </a>\n</body>\n</html>",
     "notes": [
-      "Giá trị id là duy nhất trên một trang HTML (không trùng tên).",
-      "Tên id không nên có dấu cách hoặc dấu tiếng Việt.",
-      "Từ trang khác nhảy vào id này: href=\"CLB.html#CLBTT\"."
+      "Hoạt động 2 (tr.58): Khi lướt web ta gặp 4 dạng liên kết chính: sang trang ngoài, sang trang cùng web, cuộn tại chỗ và bấm vào hình ảnh.",
+      "Với trang web bên ngoài, bắt buộc dùng đường dẫn tuyệt đối có https:// hoặc http://.",
+      "Nếu quên https://, trình duyệt sẽ tưởng là tên tệp tương đối trong máy và báo lỗi 404!"
     ]
   },
   {
     "kind": "image_focus",
-    "badge": "HĐ 2.2 • LIÊN KẾT TỪ TRANG KHÁC & ẢNH",
-    "title": "LIÊN KẾT HÌNH ẢNH & GIẢI ĐÁP HỘP XANH",
-    "sub": "SGK Tin học 12 – Trang 60",
-    "theme": "purple",
-    "heading": "🖼️ Biến hình ảnh thành liên kết:",
+    "badge": "KHÁM PHÁ 2 • MỤC 2b (HÌNH 10.1 TR.59)",
+    "title": "LIÊN KẾT TRONG CÙNG WEBSITE: SƠ ĐỒ CÂY THƯ MỤC",
+    "heading": "Xác định vị trí từ trang đang đứng",
     "bullets": [
-      "Cú pháp: <a href=\"thong_tin.html\"><img src=\"clb.jpg\" alt=\"CLB\"></a>",
-      "Nếu ảnh là biểu tượng/banner, toàn bộ vùng ảnh đều bấm được.",
-      "Hộp xanh tr.60: href=\"danh_sach.html#Muc2\" mở danh_sach.html và cuộn thẳng đến phần tử có id=\"Muc2\"."
+      "Từ gốc (index.html) tới tệp cùng thư mục: chỉ cần ghi tên tệp, vd: href=\"thong_tin.html\".",
+      "Từ gốc đi XUỐNG thư mục con: ghi tên thư mục + / + tên tệp.",
+      "Ví dụ: href=\"bai_tap/bai_tap_1.html\" hoặc href=\"bai_tap/on_tap/bai_tap_on_tap.html\".",
+      "Lưu ý phân cách thư mục trên web luôn dùng dấu gạch chéo xuôi / (không dùng \\)."
     ],
-    "image": "sgk_hinh10_2.png",
-    "caption": "Hình 10.2. Liên kết tới một vị trí trong cùng trang web (SGK tr.60)"
+    "image": "sgk_hinh10_1.png",
+    "caption": "Hình 10.1a: Sơ đồ thư mục website (SGK Tin học 12, tr.59)"
+  },
+  {
+    "kind": "image_focus",
+    "badge": "KHÁM PHÁ 2 • MỤC 2b (TR.59)",
+    "title": "ĐI NGƯỢC LÊN THƯ MỤC CHA BẰNG KÍ HIỆU ../",
+    "heading": "Khi tệp nguồn nằm trong thư mục con",
+    "bullets": [
+      "Giả sử đang đứng ở tệp bai_tap/bai_tap_1.html (nằm sâu 1 cấp).",
+      "Muốn liên kết quay về index.html ở thư mục cha: viết href=\"../index.html\".",
+      "Kí hiệu ../ có nghĩa là đi lùi lên 1 cấp thư mục cha.",
+      "Từ bai_tap/on_tap/bai_tap_on_tap.html (sâu 2 cấp) về gốc: viết ../../index.html."
+    ],
+    "image": "sgk_hinh10_1_sub.png",
+    "caption": "Hình 10.1b: Liên kết ngược lên thư mục cha bằng ../"
+  },
+  {
+    "kind": "code_result",
+    "badge": "KHÁM PHÁ 2 • MỤC 2b (TR.59–60)",
+    "title": "LIÊN KẾT TỚI MỘT VỊ TRÍ CỤ THỂ TRÊN TRANG (ID & #)",
+    "filename": "thong_tin.html",
+    "code": "<!-- Đánh dấu vị trí đích bằng id -->\n<h2 id=\"Thong_tin\">Thông tin chi tiết CLB</h2>\n<p>Lịch sinh hoạt: Chiều thứ Sáu hằng tuần...</p>\n\n<!-- Liên kết ngay trong cùng trang -->\n<a href=\"#Thong_tin\">Đi tới mục Thông tin</a>\n\n<!-- Hoặc từ index.html trỏ sang đúng đoạn này -->\n<a href=\"thong_tin.html#Thong_tin\">Xem mục Thông tin</a>",
+    "notes": [
+      "Bước 1: Đặt thuộc tính id=\"Ten_vi_tri\" ở thẻ HTML nơi muốn nhảy tới (không dấu cách, phân biệt hoa/thường).",
+      "Bước 2: Dùng href=\"#Ten_vi_tri\" nếu nhảy trong cùng một trang web.",
+      "Bước 3: Ghép ten_tep.html#Ten_vi_tri nếu nhảy từ trang khác tới đúng mục đó!"
+    ]
+  },
+  {
+    "kind": "code_result",
+    "badge": "KHÁM PHÁ 2 • MỤC 2b (TR.60)",
+    "title": "SỬ DỤNG HÌNH ẢNH LÀM SIÊU LIÊN KẾT",
+    "filename": "index.html",
+    "code": "<p>Nhấp vào biểu tượng để xem thông tin:</p>\n<a href=\"thong_tin.html\">\n  <img src=\"images/sun.png\" alt=\"Xem thông tin\">\n</a>\n\n<!-- Có thể kết hợp neo id trên liên kết ảnh -->\n<a href=\"CLB.html#CLBTT\">\n  <img src=\"images/the_thao.png\" alt=\"CLB Thể thao\">\n</a>",
+    "notes": [
+      "Nguyên tắc cực kì đơn giản: Đặt thẻ <img> vào giữa thẻ mở <a> và thẻ đóng </a> thay cho phần chữ.",
+      "Khi di chuột vào hình ảnh, con trỏ đổi thành hình bàn tay và bấm vào sẽ chuyển trang.",
+      "Nhớ luôn thêm thuộc tính alt để trình duyệt mô tả ảnh nếu ảnh chưa kịp tải."
+    ]
+  },
+  {
+    "kind": "quiz",
+    "badge": "KHÁM PHÁ 2 • CÂU HỎI CUỐI MỤC 2 (TR.60)",
+    "title": "VIẾT MÃ DANH SÁCH <ul> LIÊN KẾT THEO HÌNH 10.1",
+    "question": "Hãy viết đoạn mã HTML đặt trong tệp index.html để tạo danh sách không có thứ tự gồm 2 mục liên kết tới trang bai_tap_1.html (trong thư mục bai_tap/) và bai_tap_on_tap.html (trong bai_tap/on_tap/).",
+    "options": [
+      "Tệp nguồn: index.html nằm ở thư mục gốc.",
+      "Đích 1: bai_tap_1.html nằm trong bai_tap/.",
+      "Đích 2: bai_tap_on_tap.html nằm trong bai_tap/on_tap/."
+    ],
+    "answer": [
+      "<ul>",
+      "  <li><a href=\"bai_tap/bai_tap_1.html\">Bài tập 1</a></li>",
+      "  <li><a href=\"bai_tap/on_tap/bai_tap_on_tap.html\">Bài tập ôn tập</a></li>",
+      "</ul>"
+    ]
   },
   {
     "kind": "section",
-    "tag": "NHIỆM VỤ ĐÁNH GIÁ NHANH",
-    "title": "PHIẾU BÀI TẬP BÀI 10",
-    "subtitle": "Quét mã QR hoặc truy cập hd2-2.html -> phieu-bai-tap.html (6 câu chuẩn BGD&ĐT)",
-    "theme": "blue",
+    "tag": "HOẠT ĐỘNG 3 • LUYỆN TẬP (MỤC 3 SGK TR.61)",
+    "title": "THỰC HÀNH TẠO WEBSITE NHIỀU TỆP HTML",
+    "subtitle": "Tạo ít nhất 2 tệp HTML trên Phòng Luyện tập (CLB.html, thong_tin.html & tệp tự tạo thêm)",
+    "theme": "emerald",
     "pills": [
       [
-        "4 Câu MCQ",
-        "Kiến thức thẻ <a>, đường dẫn tuyệt đối/tương đối.",
+        "Bước 1: Tạo >= 2 tệp",
+        "Soạn cả CLB.html và thong_tin.html (hoặc thêm tệp mới).",
         "blue"
       ],
       [
-        "2 Câu Đúng/Sai",
-        "Tình huống thiết kế cây thư mục website CLB.",
+        "Bước 2: Gắn liên kết",
+        "Nối CLB.html <-> thong_tin.html#CLBTT và URL https://.",
         "emerald"
       ],
       [
-        "Chấm realtime",
-        "Hệ thống tự động chấm & lưu bảng điểm giáo viên.",
+        "Bước 3: Chấm 8 tiêu chí",
+        "Bấm link trên Trình duyệt ảo bên phải kiểm tra rồi nộp!",
         "purple"
       ]
     ]
   },
   {
-    "kind": "section",
-    "tag": "HOẠT ĐỘNG 3 • THỰC HÀNH (30 PHÚT)",
-    "title": "HOÀN THIỆN DỰ ÁN CLB.HTML",
-    "subtitle": "Thực hành tự code độc lập trên hd3.html (SGK trang 60–61)",
-    "theme": "purple",
-    "pills": [
-      [
-        "Nhiệm vụ 1",
-        "Gắn id=\"CLBTT\", id=\"CLBNT\" & tạo menu đầu trang.",
-        "blue"
-      ],
-      [
-        "Nhiệm vụ 2",
-        "Gắn liên kết sang thong_tin.html & trang web ngoài.",
-        "emerald"
-      ],
-      [
-        "Nhiệm vụ 3",
-        "Chèn ít nhất 1 hình ảnh lồng trong <a> & nộp bài.",
-        "amber"
-      ]
+    "kind": "image_focus",
+    "badge": "HOẠT ĐỘNG 3 • NHIỆM VỤ SGK TR.61",
+    "title": "XÂY DỰNG BỘ TRANG CLB.HTML & THONG_TIN.HTML",
+    "heading": "Tại sao cần từ 2 tệp HTML trở lên?",
+    "bullets": [
+      "Nếu chỉ có 1 tệp CLB.html đơn lẻ thì liên kết nội bộ <a href=\"thong_tin.html\"> sẽ báo lỗi 404!",
+      "Trên hd3.html đã có sẵn 2 tab CLB.html & thong_tin.html và nút '+ Tạo thêm tệp .html'.",
+      "HS có thể tạo thêm tệp cùng cấp (lich_su_CLB.html) hoặc thư mục con (bai_tap/bt1.html).",
+      "Khi bấm link trong Trình duyệt ảo, web sẽ chuyển trang thật như trình duyệt máy tính!"
+    ],
+    "image": "sgk_hinh10_2.png",
+    "caption": "Hình 10.2: Trang CLB.html liên kết sang thong_tin.html (SGK tr.61)"
+  },
+  {
+    "kind": "code_result",
+    "badge": "HOẠT ĐỘNG 3 • CODE MẪU ĐỐI CHIẾU",
+    "title": "MẪU LIÊN KẾT HAI CHIỀU CLB.HTML <-> THONG_TIN.HTML",
+    "filename": "CLB.html  <-->  thong_tin.html",
+    "code": "<!-- Trong tệp CLB.html -->\n<ul>\n  <li><a href=\"thong_tin.html#CLBTT\">Xem CLB Thể thao</a></li>\n  <li><a href=\"thong_tin.html\">Xem trang Thông tin chung</a></li>\n  <li><a href=\"https://hanhtrangso.nxbgd.vn/\">Hành trang số</a></li>\n</ul>\n\n<!-- Trong tệp thong_tin.html -->\n<h2 id=\"CLBTT\">Câu lạc bộ Thể thao</h2>\n<p>Bóng đá, Bóng rổ, Cầu lông...</p>\n<a href=\"CLB.html\">← Quay về trang CLB.html</a>",
+    "notes": [
+      "Tránh đặt id có dấu tiếng Việt hoặc khoảng trắng (nên dùng id=\"CLBTT\" hoặc id=\"lich_su\").",
+      "Đặt tên tệp không dấu, khớp chữ hoa/thường: CLB.html khác clb.html trên máy chủ Linux!",
+      "Trong bài học hôm nay, học sinh hoàn toàn tập trung vào href, id/# và cấu trúc đa tệp chuẩn SGK."
     ]
   },
   {
-    "kind": "two_col",
-    "badge": "HĐ 3 • HƯỚNG DẪN THỰC HÀNH",
-    "title": "TIÊU CHÍ CHẤM BÀI THỰC HÀNH CLB.HTML",
-    "sub": "8 tiêu chí kiểm tra tự động trước khi bấm Nộp bài",
+    "kind": "section",
+    "tag": "HOẠT ĐỘNG 4 • INFOGRAPHIC & VẬN DỤNG (TR.61)",
+    "title": "TỔNG KẾT ANTV INFOGRAPHIC & GIẢI BÀI TẬP SGK",
+    "subtitle": "Hệ thống hóa 4 trụ cột kiến thức và luyện tập thiết kế hệ thống hồ sơ CLB nhiều tệp",
     "theme": "purple",
-    "left": {
-      "heading": "📋 Tiêu chí 1 – 4 (Cấu trúc & Neo #id)",
-      "color": "blue",
-      "bullets": [
-        "1. Khai báo chuẩn <!DOCTYPE html> và thẻ <head>/<title>.",
-        "2. Giữ bảng hoặc danh sách lịch sinh hoạt CLB (Bài 9).",
-        "3. Có ít nhất 2 phần tử mang thuộc tính id=\"CLBTT\", id=\"CLBNT\".",
-        "4. Có menu/mục lục dùng href=\"#CLBTT\" nhảy trong trang."
+    "pills": [
+      [
+        "AntV Studio",
+        "4 chế độ: Lộ trình, 4 Trụ cột, So sánh, Mindmap.",
+        "purple"
+      ],
+      [
+        "Flashcards 3D",
+        "4 thẻ lật tự kiểm tra lỗi dễ mắc về đường dẫn.",
+        "blue"
+      ],
+      [
+        "SGK tr.61",
+        "Luyện tập 1, Luyện tập 2 & Vận dụng (Hồ sơ CLB).",
+        "emerald"
       ]
-    },
-    "right": {
-      "heading": "🔗 Tiêu chí 5 – 8 (Đa trang & Ảnh)",
-      "color": "emerald",
-      "bullets": [
-        "5. Có liên kết tương đối sang trang href=\"thong_tin.html\".",
-        "6. Có liên kết ngoài dùng đường dẫn tuyệt đối https://...",
-        "7. Dùng target=\"_blank\" mở tab mới cho liên kết ngoài.",
-        "8. Có liên kết bằng hình ảnh (<a ...><img ...></a>)."
-      ]
-    }
+    ]
   },
   {
     "kind": "three_col",
-    "badge": "HOẠT ĐỘNG 4 • INFOGRAPHIC TỔNG HỢP",
-    "title": "3 MẢNH GHÉP CỐT LÕI CỦA BÀI 10",
-    "sub": "Ghi nhớ nhanh trước khi bước vào bài Kiểm tra KTTX2",
-    "theme": "blue",
+    "badge": "HOẠT ĐỘNG 4 • TỔNG KẾT NHANH",
+    "title": "3 ĐIỀU CẦN NHỚ NHẤT CỦA BÀI 10: TẠO LIÊN KẾT",
     "cols": [
       {
-        "heading": "1. Cú pháp thẻ <a>",
+        "heading": "1. Cú pháp <a href>",
         "color": "blue",
-        "subhead": "Siêu liên kết cơ bản",
+        "subhead": "Thẻ đôi tạo liên kết",
         "bullets": [
-          "<a href=\"URL\">Nội dung</a>",
-          "target=\"_blank\" mở tab mới.",
-          "Chèn ảnh giữa <a>...</a> để tạo nút ảnh."
+          "<a href=\"URL\">Chữ/Ảnh</a>",
+          "Tuyệt đối: có https:// cho web ngoài.",
+          "Tương đối: dùng cho các tệp trong cùng web."
         ]
       },
       {
-        "heading": "2. Quy tắc URL",
+        "heading": "2. Điều hướng Thư mục",
         "color": "emerald",
-        "subhead": "Tuyệt đối vs Tương đối",
+        "subhead": "Quy tắc Hình 10.1",
         "bullets": [
-          "Tuyệt đối: https://... (liên kết ngoài).",
-          "Cùng thư mục: thong_tin.html.",
-          "Thư mục cha: ../index.html."
+          "Cùng cấp: ten_tep.html",
+          "Thư mục con: thu_muc/tep.html",
+          "Thư mục cha: ../tep.html"
         ]
       },
       {
-        "heading": "3. Liên kết neo #id",
+        "heading": "3. Neo & Hình ảnh",
         "color": "amber",
-        "subhead": "Điều hướng tại chỗ",
+        "subhead": "Liên kết nâng cao",
         "bullets": [
-          "Đặt id=\"CLBTT\" tại mục đích.",
-          "Gọi href=\"#CLBTT\" trong cùng trang.",
-          "Gọi CLB.html#CLBTT từ trang khác."
+          "Cùng trang: id=\"ten\" + #ten.",
+          "Khác trang + vị trí: tep.html#ten.",
+          "Ảnh link: bọc <img> trong <a>."
         ]
       }
     ]
   },
   {
-    "kind": "two_col",
-    "badge": "HĐ 4 • GIẢI ĐÁP SGK TRANG 61",
-    "title": "ĐÁP ÁN LUYỆN TẬP & VẬN DỤNG",
-    "sub": "Hệ thống câu hỏi cuối bài SGK Tin học 12 Kết nối tri thức",
-    "theme": "emerald",
-    "left": {
-      "heading": "✏️ Luyện tập 1 & 2 (Trang 61)",
-      "color": "blue",
-      "bullets": [
-        "LT1: Dùng URL tuyệt đối cho web ngoài; URL tương đối cho nội bộ để gọn và không lỗi khi đổi domain.",
-        "LT2: Đường dẫn từ index.html -> thuvien/tailieu.html.",
-        "LT2: Từ baiviet/tintuc.html về index.html -> ../index.html.",
-        "LT2: Từ baiviet/tintuc.html sang thuvien/tailieu.html -> ../thuvien/tailieu.html."
-      ]
-    },
-    "right": {
-      "heading": "🚀 Vận dụng (Trang 61)",
-      "color": "emerald",
-      "bullets": [
-        "Mở rộng trang index.html hoặc CLB.html hoàn chỉnh.",
-        "Bổ sung thanh liên kết #gioi_thieu, #lich_hoc, #dang_ki.",
-        "Kết nối chéo giữa index.html <-> thong_tin.html <-> CLB.html.",
-        "Gắn logo trường học bấm về trang chủ trường."
-      ]
-    }
-  },
-  {
-    "kind": "section",
-    "tag": "KIỂM TRA THƯỜNG XUYÊN 2 (15 PHÚT)",
-    "title": "ĐÁNH GIÁ KIẾN THỨC BÀI 7 – BÀI 10",
-    "subtitle": "Truy cập kttx2.html (hoặc quét QR) • 8 câu MCQ (6đ) + 2 câu Đúng/Sai (4đ)",
-    "theme": "red",
-    "pills": [
-      [
-        "Thời lượng 15 phút",
-        "Đồng hồ đếm ngược tự động nộp khi hết giờ.",
-        "red"
-      ],
-      [
-        "Ma trận chuẩn BGD",
-        "Bao quát cấu trúc HTML, định dạng, danh sách, bảng & liên kết.",
-        "blue"
-      ],
-      [
-        "Chấm & thống kê",
-        "Điểm tự động cập nhật về bảng theo dõi GV.",
-        "emerald"
-      ]
-    ]
-  },
-  {
     "kind": "quiz",
-    "badge": "ÔN TẬP KTTX2 • ĐÚNG / SAI MẪU",
-    "title": "TÌNH HUỐNG THIẾT KẾ CẤU TRÚC LIÊN KẾT",
-    "sub": "Chuẩn đề tham khảo TN THPT 2025 môn Tin học",
-    "question": "Một học sinh tạo thư mục DuAn/ chứa index.html và thư mục con trang/ chứa clb.html (có <h2 id='tt'>Thể thao</h2>). Khi viết mã trong index.html:",
+    "badge": "HOẠT ĐỘNG 4 • VẬN DỤNG SGK TR.61",
+    "title": "BÀI TẬP VẬN DỤNG: HỒ SƠ CÁ NHÂN THÀNH VIÊN CLB",
+    "question": "Hãy thiết kế website giới thiệu hồ sơ cá nhân của các thành viên trong câu lạc bộ (mỗi bạn là một tệp HTML riêng), sau đó tạo liên kết từ trang danh sách thành viên tới từng trang hồ sơ.",
     "options": [
-      "a) Liên kết <a href='trang/clb.html'>CLB</a> mở đúng tệp.",
-      "b) Để từ clb.html quay về index.html viết href='index.html'.",
-      "c) Liên kết <a href='trang/clb.html#tt'> nhảy tới mục Thể thao.",
-      "d) Dùng target='_blank' để mở trang ngoài trong thẻ mới."
+      "Trang danh sách: thanh_vien.html (hoặc CLB.html).",
+      "Thư mục hồ sơ con: ho_so/Nguyen_Van_An.html, ho_so/Tran_Binh.html.",
+      "Yêu cầu: Bấm tên bạn nào mở đúng tệp hồ sơ của bạn đó và có nút quay về."
     ],
     "answer": [
-      "a) Đúng — clb.html nằm trong thư mục con trang/.",
-      "b) Sai — clb.html ở thư mục con nên phải dùng ../index.html.",
-      "c) Đúng — kết hợp đường dẫn tương đối và #id.",
-      "d) Đúng — target='_blank' mở cửa sổ/thẻ mới."
+      "Trong thanh_vien.html: <a href=\"ho_so/Nguyen_Van_An.html\">Nguyễn Văn An</a>.",
+      "Trong ho_so/Nguyen_Van_An.html: <a href=\"../thanh_vien.html\">← Về danh sách</a>.",
+      "HS thực hành tạo ngay nhiều tệp trên Phòng Luyện tập hd3.html!"
     ]
   },
   {
     "kind": "thank_you",
-    "title": "HOÀN THÀNH BÀI 10 & KIỂM TRA KTTX2!",
+    "title": "HOÀN THÀNH BÀI 10: TẠO LIÊN KẾT (TIN HỌC 12)",
     "takeaways": [
-      "Thuần thục thẻ <a href=\"URL\" target=\"_blank\"> và cách lồng <img> để tạo ảnh liên kết.",
-      "Nắm vững nguyên tắc đường dẫn tương đối (thumuc/tep.html và ../tep.html) cho website đa trang.",
-      "Hoàn thiện CLB.html (hd3.html) & kiểm tra lại kết quả bài KTTX2 (15 phút).",
-      "Chuẩn bị cho Bài 11: Chèn tệp tin đa phương tiện & khung nội tuyến (<img>, <video>, <audio>, <iframe>)."
+      "Thẻ <a> dùng thuộc tính href để nối siêu văn bản tới URL ngoài (tuyệt đối) hoặc tệp nội bộ (tương đối).",
+      "Muốn liên kết hoạt động thật giữa các trang thì dự án phải có từ 2 tệp HTML trở lên và đặt tên chuẩn không dấu.",
+      "Thực hành thành thạo mô hình đa tệp trên hd3.html và ôn tập kĩ Luyện tập 1, 2, Vận dụng tr.61 trên hd4.html."
     ]
   }
 ]

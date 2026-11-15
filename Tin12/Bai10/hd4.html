@@ -32,10 +32,22 @@
     .exam-gated-hidden { display: none !important; }
 
 
-    .infographic-tabs { display:flex; gap:0.5rem; flex-wrap:wrap; margin-bottom:1rem; }
-    .infographic-tab { border:1.5px solid #cbd5e1; background:#fff; padding:0.5rem 1rem; border-radius:8px; font-weight:700; font-size:0.86rem; color:#475569; cursor:pointer; font-family:inherit; }
-    .infographic-tab.active { background:#4f46e5; color:#fff; border-color:#4f46e5; }
-    .infographic-canvas-wrap { background:#f8fafc; border:1.5px solid #cbd5e1; border-radius:14px; padding:1rem; min-height:380px; display:flex; align-items:center; justify-content:center; overflow-x:auto; }
+    .antv-infographic-container { background:linear-gradient(135deg,#0f172a 0%,#1e1b4b 52%,#2e1065 100%); border:1px solid rgba(139,92,246,0.38); border-radius:20px; padding:1.5rem; box-shadow:0 20px 45px rgba(15,23,42,0.22); position:relative; overflow:hidden; }
+    .antv-header { display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:1rem; margin-bottom:1.1rem; }
+    .antv-badge { display:inline-block; background:rgba(139,92,246,0.24); border:1px solid rgba(196,181,253,0.4); color:#e9d5ff; padding:0.22rem 0.7rem; border-radius:999px; font-size:0.72rem; font-weight:800; letter-spacing:0.04em; }
+    .antv-action-btn { background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.22); color:#f8fafc; padding:0.45rem 0.85rem; border-radius:9px; font-size:0.82rem; font-weight:700; cursor:pointer; font-family:inherit; }
+    .antv-action-btn:hover { background:rgba(255,255,255,0.18); }
+    .antv-action-primary { background:linear-gradient(135deg,#7c3aed,#ec4899); border-color:transparent; }
+    .antv-mode-tabs { display:flex; gap:0.5rem; flex-wrap:wrap; margin-bottom:0.85rem; }
+    .infographic-tab { border:1px solid rgba(255,255,255,0.2); background:rgba(255,255,255,0.08); padding:0.48rem 0.95rem; border-radius:999px; font-weight:700; font-size:0.84rem; color:#e2e8f0; cursor:pointer; font-family:inherit; transition:all 0.2s; }
+    .infographic-tab.active { background:#f8fafc; color:#312e81; border-color:#fff; box-shadow:0 4px 14px rgba(255,255,255,0.2); }
+    .amigos-banner { background:rgba(56,189,248,0.12); border:1px solid rgba(56,189,248,0.34); color:#e0f2fe; border-radius:11px; padding:0.62rem 0.95rem; font-size:0.85rem; margin-bottom:0.9rem; display:flex; align-items:center; gap:0.55rem; line-height:1.45; }
+    .antv-stage-wrap { background:rgba(2,6,23,0.68); border:1px solid rgba(148,163,184,0.22); border-radius:16px; padding:0.85rem; min-height:420px; display:flex; align-items:center; justify-content:center; overflow-x:auto; }
+    .amigos-caption-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:0.75rem; margin-top:1rem; }
+    .amigos-caption-card { background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.14); border-radius:12px; padding:0.78rem 0.85rem; display:flex; gap:0.65rem; align-items:flex-start; }
+    .amigos-cap-num { width:26px; height:26px; border-radius:8px; background:linear-gradient(135deg,#6366f1,#a855f7); color:#fff; font-weight:800; font-size:0.8rem; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+    .amigos-cap-title { color:#fff; font-weight:800; font-size:0.84rem; margin-bottom:0.2rem; }
+    .amigos-cap-desc { color:#cbd5e1; font-size:0.77rem; line-height:1.45; }
     .flashcard-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(235px, 1fr)); gap:1rem; }
     .flashcard { -webkit-perspective:1000px; perspective:1000px; height:215px; cursor:pointer; }
     .flashcard-inner { position:relative; width:100%; height:100%; transition:transform 0.55s; -webkit-transform-style:preserve-3d; transform-style:preserve-3d; }
@@ -71,9 +83,9 @@
         <ul class="nav-links">
           <li><a href="index.html" class="nav-link">Tổng quan</a></li>
           <li><a href="hd1.html" class="nav-link">1. Khởi động</a></li>
-          <li><a href="hd2-1.html" class="nav-link">2.1. Thẻ &lt;a&gt; &amp; URL</a></li>
-          <li><a href="hd2-2.html" class="nav-link">2.2. Neo #id &amp; Ảnh</a></li>
-          <li><a href="hd3.html" class="nav-link">3. Thực hành CLB</a></li>
+          <li><a href="hd2-1.html" class="nav-link">2.1. Khám phá 1</a></li>
+          <li><a href="hd2-2.html" class="nav-link">2.2. Khám phá 2</a></li>
+          <li><a href="hd3.html" class="nav-link">3. Luyện tập</a></li>
           <li><a href="hd4.html" class="nav-link active">4. Infographic</a></li>
           <li data-exam-gate="kttx2" class="exam-gated-hidden"><a href="kttx2.html" data-exam-gate="kttx2" class="nav-link exam-gated-hidden">📝 KTTX2 (15p)</a></li>
         </ul>
@@ -118,19 +130,19 @@
         </a>
         <a href="hd2-1.html" class="stepper-step completed">
           <div class="step-circle">✓</div>
-          <span class="step-label">Thẻ &lt;a&gt; &amp; URL (15&#x27;)</span>
+          <span class="step-label">Khám phá 1 (15&#x27;)</span>
         </a>
         <a href="hd2-2.html" class="stepper-step completed">
           <div class="step-circle">✓</div>
-          <span class="step-label">Neo #id &amp; Ảnh (15&#x27;)</span>
+          <span class="step-label">Khám phá 2 (20&#x27;)</span>
         </a>
         <a href="hd3.html" class="stepper-step completed">
           <div class="step-circle">✓</div>
-          <span class="step-label">Thực hành CLB (30&#x27;)</span>
+          <span class="step-label">Luyện tập đa tệp (35&#x27;)</span>
         </a>
         <a href="hd4.html" class="stepper-step active">
           <div class="step-circle">4</div>
-          <span class="step-label">Tổng kết (15&#x27;)</span>
+          <span class="step-label">Infographic &amp; SGK (15&#x27;)</span>
         </a>
       </div>
     </div>
@@ -138,33 +150,81 @@
 
   <section class="hero-banner" style="padding:2rem 0; background:linear-gradient(135deg,#4338ca 0%,#6366f1 55%,#9333ea 100%);">
     <div class="container">
-      <div class="badge-tag" style="background:rgba(255,255,255,0.2);color:#fff;">📊 HOẠT ĐỘNG 4 • TỔNG KẾT INFOGRAPHIC &amp; VẬN DỤNG SGK</div>
-      <h1 class="hero-title" style="font-size:1.95rem;">Infographic Tổng Hợp &amp; Luyện Tập Cuối Bài</h1>
-      <p class="hero-subtitle">Bài 10: Tạo liên kết • Sơ đồ hóa kiến thức trọng tâm, thẻ lật Flashcards 3D và tự luyện câu hỏi Luyện tập, Vận dụng SGK Kết nối tri thức (bấm vào từng câu để đối chiếu gợi ý).</p>
+      <div class="badge-tag" style="background:rgba(255,255,255,0.2);color:#fff;">📊 HOẠT ĐỘNG 4 • INFOGRAPHIC ANTV &amp; VẬN DỤNG SGK</div>
+      <h1 class="hero-title" style="font-size:1.95rem;">AntV Infographic &amp; Luyện Tập Cuối Bài</h1>
+      <p class="hero-subtitle">Bài 10: Tạo liên kết • Sơ đồ hóa kiến thức trọng tâm qua AntV Infographic Studio, thẻ lật Flashcards 3D và câu hỏi Luyện tập, Vận dụng SGK Kết nối tri thức (bấm vào từng câu để xem gợi ý).</p>
     </div>
   </section>
 
   <main class="main-content">
     <div class="container">
-      <!-- INFOGRAPHIC STUDIO -->
-      <section class="card" style="margin-bottom:1.5rem;">
-        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.75rem;margin-bottom:1rem;">
+      <!-- ANTV INFOGRAPHIC STUDIO (GLASSMORPHIC DARK) -->
+      <section class="antv-infographic-container" style="margin-bottom:1.75rem;">
+        <div class="antv-header">
           <div>
-            <h2 style="margin:0;color:#1e3a8a;font-size:1.35rem;">1. Infographic Tổng Hợp Bản Đồ Kiến Thức</h2>
-            <p style="margin:0.2rem 0 0;color:#64748b;font-size:0.88rem;">Chuyển đổi 4 chế độ trực quan hóa và tải xuống ảnh SVG/PNG để ôn tập.</p>
+            <span class="antv-badge">✨ ANTV INFOGRAPHIC STUDIO • HỌC BẰNG HÌNH ẢNH</span>
+            <h2 style="margin:0.45rem 0 0.2rem;color:#fff;font-size:1.45rem;font-weight:800;">1. AntV Infographic Studio: Hệ Thống Hóa Kiến Thức Bài 10</h2>
+            <p style="margin:0;color:#cbd5e1;font-size:0.88rem;">Chuyển đổi 4 chế độ sơ đồ AntV tương tác, xem mã AntV DSL và tải về ảnh SVG/PNG sắc nét.</p>
           </div>
-          <div style="display:flex;gap:0.5rem;">
-            <button type="button" class="btn btn-secondary btn-sm" onclick="exportInfographicSVG()">⬇️ Tải SVG</button>
-            <button type="button" class="btn btn-primary btn-sm" onclick="exportInfographicPNG()">🖼️ Tải PNG</button>
+          <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+            <button type="button" class="antv-action-btn" onclick="toggleAntvDsl()">📄 Xem mã DSL</button>
+            <button type="button" class="antv-action-btn" onclick="exportInfographicSVG()">⬇️ Tải SVG</button>
+            <button type="button" class="antv-action-btn antv-action-primary" onclick="exportInfographicPNG()">🖼️ Tải PNG</button>
           </div>
         </div>
-        <div class="infographic-tabs">
-          <button type="button" class="infographic-tab active" onclick="renderInfographic('cards', this)">🗂️ 4 Trụ Cột Kiến Thức</button>
-          <button type="button" class="infographic-tab" onclick="renderInfographic('sequence', this)">🪜 Lộ Trình Thực Hiện</button>
-          <button type="button" class="infographic-tab" onclick="renderInfographic('compare', this)">⚖️ Phân Biệt &amp; Lưu Ý</button>
-          <button type="button" class="infographic-tab" onclick="renderInfographic('mindmap', this)">🧠 Bản Đồ Tư Duy</button>
+
+        <div class="antv-mode-tabs">
+          <button type="button" class="infographic-tab active" onclick="renderInfographic('sequence', this)">🪜 Lộ trình thực hiện</button>
+          <button type="button" class="infographic-tab" onclick="renderInfographic('cards', this)">🗂️ 4 Trụ cột kiến thức</button>
+          <button type="button" class="infographic-tab" onclick="renderInfographic('compare', this)">⚖️ Tuyệt đối vs Tương đối</button>
+          <button type="button" class="infographic-tab" onclick="renderInfographic('mindmap', this)">🧠 Bản đồ tư duy</button>
         </div>
-        <div id="infographic-container" class="infographic-canvas-wrap"></div>
+
+        <div id="amigos-banner-box" class="amigos-banner">
+          <span>💡</span>
+          <span id="amigos-banner-text">Nắm vững 4 bước tạo siêu liên kết chuẩn HTML5 trong SGK Kết nối tri thức.</span>
+        </div>
+
+        <div id="infographic-container" class="antv-stage-wrap"></div>
+
+        <div id="antv-dsl-drawer" style="display:none;margin-top:0.9rem;background:#020617;border:1px solid rgba(148,163,184,0.28);border-radius:12px;overflow:hidden;">
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:0.5rem 0.9rem;background:#0f172a;border-bottom:1px solid rgba(148,163,184,0.2);color:#94a3b8;font-size:0.78rem;font-family:monospace;">
+            <span>AntV Infographic DSL Syntax</span>
+            <button type="button" onclick="copyAntvDsl()" style="background:#334155;color:#f8fafc;border:none;border-radius:6px;padding:0.22rem 0.6rem;font-size:0.75rem;cursor:pointer;">📋 Copy DSL</button>
+          </div>
+          <pre id="antv-dsl-pre" style="margin:0;padding:0.85rem 1rem;color:#a5f3fc;font-family:'Fira Code',monospace;font-size:0.78rem;line-height:1.5;overflow-x:auto;"></pre>
+        </div>
+
+        <div class="amigos-caption-grid">
+          <div class="amigos-caption-card">
+            <div class="amigos-cap-num">1</div>
+            <div>
+              <div class="amigos-cap-title">Thẻ &lt;a&gt; &amp; Thuộc tính href</div>
+              <div class="amigos-cap-desc">Luôn là thẻ đôi &lt;a&gt;...&lt;/a&gt;. Thuộc tính href chứa địa chỉ URL cần mở khi người dùng nhấp chuột.</div>
+            </div>
+          </div>
+          <div class="amigos-caption-card">
+            <div class="amigos-cap-num">2</div>
+            <div>
+              <div class="amigos-cap-title">Tuyệt đối vs Tương đối</div>
+              <div class="amigos-cap-desc">Website ngoài: https://... Nội bộ cùng website: dùng đường dẫn tương đối để không hỏng khi chép sang máy khác.</div>
+            </div>
+          </div>
+          <div class="amigos-caption-card">
+            <div class="amigos-cap-num">3</div>
+            <div>
+              <div class="amigos-cap-title">Thư mục Hình 10.1 &amp; ../</div>
+              <div class="amigos-cap-desc">Đi xuống thư mục con dùng dấu /. Đi ngược lên 1 cấp thư mục cha luôn viết kí hiệu ../</div>
+            </div>
+          </div>
+          <div class="amigos-caption-card">
+            <div class="amigos-cap-num">4</div>
+            <div>
+              <div class="amigos-cap-title">Neo #id &amp; Bắt buộc &gt;= 2 tệp</div>
+              <div class="amigos-cap-desc">Nối tới vị trí trên trang bằng tep.html#id. Muốn liên kết nhiều trang thì thư mục web phải có &gt;= 2 tệp HTML.</div>
+            </div>
+          </div>
+        </div>
       </section>
 
       <!-- FLASHCARDS 3D -->
@@ -177,13 +237,13 @@
           <div class="flashcard" onclick="this.classList.toggle('flipped')">
             <div class="flashcard-inner">
               <div class="flashcard-front">
-                <span style="background:#eff6ff;color:#1d4ed8;padding:0.2rem 0.6rem;border-radius:999px;font-size:0.75rem;font-weight:700;margin-bottom:0.75rem;">Thẻ 1 • Cú pháp &lt;a&gt;</span>
-                <strong style="font-size:1rem;color:#0f172a;line-height:1.45;">Thuộc tính nào của thẻ &lt;a&gt; quy định mở trang web đích trong một thẻ trình duyệt mới?</strong>
+                <span style="background:#eff6ff;color:#1d4ed8;padding:0.2rem 0.6rem;border-radius:999px;font-size:0.75rem;font-weight:700;margin-bottom:0.75rem;">Thẻ 1 • Cú pháp &lt;a href&gt;</span>
+                <strong style="font-size:1rem;color:#0f172a;line-height:1.45;">Thẻ nào tạo siêu liên kết và thuộc tính nào bắt buộc chứa địa chỉ trang đích?</strong>
                 <span style="font-size:0.78rem;color:#64748b;margin-top:0.85rem;">👆 Nhấn để lật xem lời giải</span>
               </div>
               <div class="flashcard-back">
                 <strong style="color:#60a5fa;margin-bottom:0.5rem;">✅ Đáp án ghi nhớ:</strong>
-                <div style="font-size:0.9rem;line-height:1.55;">Thuộc tính <code>target="_blank"</code>. Ví dụ: <code>&lt;a href="https://moet.gov.vn" target="_blank"&gt;...&lt;/a&gt;</code>.</div>
+                <div style="font-size:0.9rem;line-height:1.55;">Cặp thẻ đôi <code>&lt;a&gt;...&lt;/a&gt;</code> và thuộc tính bắt buộc <code>href="URL"</code>.</div>
                 <span style="font-size:0.75rem;color:#93c5fd;margin-top:0.65rem;">👆 Nhấn lần nữa để úp thẻ lại</span>
               </div>
             </div>
@@ -191,13 +251,13 @@
           <div class="flashcard" onclick="this.classList.toggle('flipped')">
             <div class="flashcard-inner">
               <div class="flashcard-front">
-                <span style="background:#eff6ff;color:#1d4ed8;padding:0.2rem 0.6rem;border-radius:999px;font-size:0.75rem;font-weight:700;margin-bottom:0.75rem;">Thẻ 2 • Đường dẫn ../</span>
-                <strong style="font-size:1rem;color:#0f172a;line-height:1.45;">Từ tệp sub/trang1.html muốn tạo liên kết về index.html ở thư mục cha thì viết href thế nào?</strong>
+                <span style="background:#eff6ff;color:#1d4ed8;padding:0.2rem 0.6rem;border-radius:999px;font-size:0.75rem;font-weight:700;margin-bottom:0.75rem;">Thẻ 2 • Cấm kị đường dẫn</span>
+                <strong style="font-size:1rem;color:#0f172a;line-height:1.45;">Vì sao không nên viết href=&quot;D:\Web\thong_tin.html&quot; trên trang web?</strong>
                 <span style="font-size:0.78rem;color:#64748b;margin-top:0.85rem;">👆 Nhấn để lật xem lời giải</span>
               </div>
               <div class="flashcard-back">
                 <strong style="color:#60a5fa;margin-bottom:0.5rem;">✅ Đáp án ghi nhớ:</strong>
-                <div style="font-size:0.9rem;line-height:1.55;">Viết <code>href="../index.html"</code>. Mỗi cụm <code>../</code> lùi lên 1 cấp thư mục.</div>
+                <div style="font-size:0.9rem;line-height:1.55;">Vì đó là đường dẫn cục bộ trên ổ đĩa D của máy cá nhân; khi chuyển thư mục web sang máy khác hoặc tải lên Internet, liên kết sẽ hỏng (404).</div>
                 <span style="font-size:0.75rem;color:#93c5fd;margin-top:0.65rem;">👆 Nhấn lần nữa để úp thẻ lại</span>
               </div>
             </div>
@@ -205,13 +265,13 @@
           <div class="flashcard" onclick="this.classList.toggle('flipped')">
             <div class="flashcard-inner">
               <div class="flashcard-front">
-                <span style="background:#eff6ff;color:#1d4ed8;padding:0.2rem 0.6rem;border-radius:999px;font-size:0.75rem;font-weight:700;margin-bottom:0.75rem;">Thẻ 3 • Liên kết #id</span>
-                <strong style="font-size:1rem;color:#0f172a;line-height:1.45;">Để liên kết nhảy thẳng đến mục Thể thao ở cuối trang hiện tại cần làm 2 bước nào?</strong>
+                <span style="background:#eff6ff;color:#1d4ed8;padding:0.2rem 0.6rem;border-radius:999px;font-size:0.75rem;font-weight:700;margin-bottom:0.75rem;">Thẻ 3 • Đi lên thư mục cha</span>
+                <strong style="font-size:1rem;color:#0f172a;line-height:1.45;">Từ bai_tap/bai_tap_1.html (Hình 10.1), viết href thế nào để quay về index.html ở thư mục gốc?</strong>
                 <span style="font-size:0.78rem;color:#64748b;margin-top:0.85rem;">👆 Nhấn để lật xem lời giải</span>
               </div>
               <div class="flashcard-back">
                 <strong style="color:#60a5fa;margin-bottom:0.5rem;">✅ Đáp án ghi nhớ:</strong>
-                <div style="font-size:0.9rem;line-height:1.55;">B1: Gắn <code>id="CLBTT"</code> cho thẻ đích.<br>B2: Tạo <code>&lt;a href="#CLBTT"&gt;</code>.</div>
+                <div style="font-size:0.9rem;line-height:1.55;">Dùng kí hiệu <code>../</code> để đi lùi lên 1 cấp thư mục cha: <code>href="../index.html"</code>.</div>
                 <span style="font-size:0.75rem;color:#93c5fd;margin-top:0.65rem;">👆 Nhấn lần nữa để úp thẻ lại</span>
               </div>
             </div>
@@ -219,13 +279,13 @@
           <div class="flashcard" onclick="this.classList.toggle('flipped')">
             <div class="flashcard-inner">
               <div class="flashcard-front">
-                <span style="background:#eff6ff;color:#1d4ed8;padding:0.2rem 0.6rem;border-radius:999px;font-size:0.75rem;font-weight:700;margin-bottom:0.75rem;">Thẻ 4 • Liên kết ảnh</span>
-                <strong style="font-size:1rem;color:#0f172a;line-height:1.45;">Làm sao để nhấp vào bức ảnh logo.png sẽ mở trang chủ index.html?</strong>
+                <span style="background:#eff6ff;color:#1d4ed8;padding:0.2rem 0.6rem;border-radius:999px;font-size:0.75rem;font-weight:700;margin-bottom:0.75rem;">Thẻ 4 • Liên kết bằng ảnh</span>
+                <strong style="font-size:1rem;color:#0f172a;line-height:1.45;">Viết thế nào để bấm vào hình ảnh sun.png sẽ mở trang thong_tin.html?</strong>
                 <span style="font-size:0.78rem;color:#64748b;margin-top:0.85rem;">👆 Nhấn để lật xem lời giải</span>
               </div>
               <div class="flashcard-back">
                 <strong style="color:#60a5fa;margin-bottom:0.5rem;">✅ Đáp án ghi nhớ:</strong>
-                <div style="font-size:0.9rem;line-height:1.55;">Lồng <code>&lt;img&gt;</code> vào trong <code>&lt;a&gt;</code>:<br><code>&lt;a href="index.html"&gt;&lt;img src="logo.png" alt="Logo"&gt;&lt;/a&gt;</code></div>
+                <div style="font-size:0.9rem;line-height:1.55;">Lồng thẻ <code>&lt;img&gt;</code> vào giữa cặp thẻ <code>&lt;a&gt;</code>: <code>&lt;a href="thong_tin.html"&gt;&lt;img src="images/sun.png" alt="Thông tin"&gt;&lt;/a&gt;</code>.</div>
                 <span style="font-size:0.75rem;color:#93c5fd;margin-top:0.65rem;">👆 Nhấn lần nữa để úp thẻ lại</span>
               </div>
             </div>
@@ -238,50 +298,59 @@
         <h2 style="color:#1e3a8a;font-size:1.35rem;margin-bottom:0.85rem;">3. Trả Lời Câu Hỏi Cuối Bài SGK Tin Học 12 (Luyện Tập &amp; Vận Dụng)</h2>
         <div class="card" style="margin-bottom:1rem;border-left:4px solid #dc2626;">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;">
-            <strong style="color:#b91c1c;">LUYỆN TẬP • Câu 1: Phân biệt đường dẫn tuyệt đối và tương đối</strong>
+            <strong style="color:#b91c1c;">LUYỆN TẬP • Luyện tập 1: Đường dẫn tới vị trí trên trang web khác cùng website</strong>
             <span class="sgk-badge">SGK tr.61</span>
           </div>
-          <p style="margin:0 0 0.7rem;color:#1e293b;line-height:1.55;">Nêu sự khác nhau giữa đường dẫn tuyệt đối và đường dẫn tương đối. Vì sao các trang trong cùng website nên dùng đường dẫn tương đối?</p>
+          <p style="margin:0 0 0.7rem;color:#1e293b;line-height:1.55;">Khi tạo liên kết tới một vị trí trên trang web khác nhưng trong cùng website, em cần chỉ rõ đường dẫn như thế nào?</p>
           <textarea id="ans-input-1" rows="3" placeholder="Em hãy viết câu trả lời / đoạn mã của mình tại đây..." oninput="saveHd4Ans(1, this.value)" style="width:100%;padding:0.7rem;border:1.5px solid #cbd5e1;border-radius:8px;font-family:'Fira Code',sans-serif;font-size:0.86rem;"></textarea>
           <div style="margin-top:0.6rem;">
             <button type="button" class="btn btn-secondary btn-sm" onclick="toggleSgkAnswer(1, this)">💡 Bấm xem gợi ý &amp; đáp án đối chiếu</button>
           </div>
           <div id="ans-guide-1" style="display:none;margin-top:0.75rem;padding:0.9rem 1rem;background:#f0fdf4;border:1.5px solid #86efac;border-radius:8px;color:#14532d;font-size:0.9rem;line-height:1.6;">
-            <strong>Gợi ý chuẩn SGK:</strong><br>• <strong>Đường dẫn tuyệt đối</strong> ghi đầy đủ giao thức (<code>https://</code>) và tên miền, dùng để trỏ ra website bên ngoài.<br>• <strong>Đường dẫn tương đối</strong> chỉ xác định vị trí tương đối tính từ trang hiện tại, ngắn gọn hơn và giữ cho các liên kết không bị hỏng khi di chuyển cả thư mục website sang máy chủ khác hoặc đổi tên miền.
+            <strong>Gợi ý đáp án (SGK tr.61):</strong><br>Ta cần sử dụng <strong>đường dẫn tương đối</strong> tính từ thư mục chứa tệp HTML hiện tại để trỏ tới tệp trang đích (ví dụ <code>thong_tin.html</code>, <code>thu_muc/trang_dich.html</code> hoặc <code>../trang_dich.html</code>), sau đó nối thêm dấu <code>#</code> và tên định danh <code>id</code> của vị trí cụ thể trên trang đó.<br><em>Ví dụ:</em> <code>&lt;a href="thong_tin.html#CLBTT"&gt;Xem mục CLB Thể thao&lt;/a&gt;</code>.
           </div>
         </div>
         <div class="card" style="margin-bottom:1rem;border-left:4px solid #dc2626;">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;">
-            <strong style="color:#b91c1c;">LUYỆN TẬP • Câu 2: Viết đường dẫn tương đối theo cấu trúc thư mục</strong>
+            <strong style="color:#b91c1c;">LUYỆN TẬP • Luyện tập 2: Bổ sung liên kết hữu ích vào trang CLB.html</strong>
             <span class="sgk-badge">SGK tr.61</span>
           </div>
-          <p style="margin:0 0 0.7rem;color:#1e293b;line-height:1.55;">Giả sử thư mục gốc <code>website/</code> chứa <code>index.html</code>, thư mục con <code>thuvien/tailieu.html</code> và thư mục con <code>baiviet/tintuc.html</code>. Hãy viết giá trị <code>href</code> cho 3 liên kết: (a) Từ index.html sang tailieu.html; (b) Từ tintuc.html về index.html; (c) Từ tintuc.html sang tailieu.html.</p>
+          <p style="margin:0 0 0.7rem;color:#1e293b;line-height:1.55;">Mở trang web <code>CLB</code> và thực hiện bổ sung thêm các liên kết tới những trang web hoặc văn bản có ích cho hoạt động của câu lạc bộ.</p>
           <textarea id="ans-input-2" rows="3" placeholder="Em hãy viết câu trả lời / đoạn mã của mình tại đây..." oninput="saveHd4Ans(2, this.value)" style="width:100%;padding:0.7rem;border:1.5px solid #cbd5e1;border-radius:8px;font-family:'Fira Code',sans-serif;font-size:0.86rem;"></textarea>
           <div style="margin-top:0.6rem;">
             <button type="button" class="btn btn-secondary btn-sm" onclick="toggleSgkAnswer(2, this)">💡 Bấm xem gợi ý &amp; đáp án đối chiếu</button>
           </div>
           <div id="ans-guide-2" style="display:none;margin-top:0.75rem;padding:0.9rem 1rem;background:#f0fdf4;border:1.5px solid #86efac;border-radius:8px;color:#14532d;font-size:0.9rem;line-height:1.6;">
-            <strong>Đáp án chính xác:</strong><br>a) <code>href="thuvien/tailieu.html"</code><br>b) <code>href="../index.html"</code><br>c) <code>href="../thuvien/tailieu.html"</code> (lùi ra khỏi <code>baiviet/</code> về thư mục gốc rồi vào <code>thuvien/</code>).
+            <strong>Gợi ý đáp án (SGK tr.61):</strong><br>Trong tệp <code>CLB.html</code>, thêm khối danh sách chứa các liên kết hữu ích (cả tệp nội quy cùng thư mục và website bên ngoài dùng <code>https://</code>):<pre style='background:#0f172a;color:#e2e8f0;padding:0.75rem;border-radius:8px;overflow:auto;'>&lt;h3&gt;Tài liệu &amp; Kênh hữu ích cho thành viên&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href="noi_quy_clb.html"&gt;Nội quy hoạt động Câu lạc bộ&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://hanhtrangso.nxbgd.vn/"&gt;Thư viện sách Hành trang số&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://olp.vn/"&gt;Cổng thông tin Olympic Tin học&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</pre>
           </div>
         </div>
         <div class="card" style="margin-bottom:1rem;border-left:4px solid #0284c7;">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;">
-            <strong style="color:#0369a1;">VẬN DỤNG • Thiết kế hệ thống liên kết cho website CLB trường học</strong>
+            <strong style="color:#0369a1;">VẬN DỤNG • Vận dụng: Website hồ sơ cá nhân các thành viên CLB (Đa tệp HTML)</strong>
             <span class="sgk-badge">SGK tr.61</span>
           </div>
-          <p style="margin:0 0 0.7rem;color:#1e293b;line-height:1.55;">Hãy đề xuất đoạn mã HTML cho trang chủ <code>index.html</code> của website CLB để kết nối sang <code>CLB.html#CLBTT</code>, trang <code>thong_tin.html</code> và tạo logo ảnh liên kết tới website trường.</p>
+          <p style="margin:0 0 0.7rem;color:#1e293b;line-height:1.55;">Thực hành thiết lập hồ sơ cá nhân của các thành viên trong câu lạc bộ (mỗi bạn là một tệp HTML riêng), sau đó tạo liên kết từ trang danh sách thành viên tới từng trang hồ sơ cá nhân đó.</p>
           <textarea id="ans-input-3" rows="3" placeholder="Em hãy viết câu trả lời / đoạn mã của mình tại đây..." oninput="saveHd4Ans(3, this.value)" style="width:100%;padding:0.7rem;border:1.5px solid #cbd5e1;border-radius:8px;font-family:'Fira Code',sans-serif;font-size:0.86rem;"></textarea>
           <div style="margin-top:0.6rem;">
             <button type="button" class="btn btn-secondary btn-sm" onclick="toggleSgkAnswer(3, this)">💡 Bấm xem gợi ý &amp; đáp án đối chiếu</button>
           </div>
           <div id="ans-guide-3" style="display:none;margin-top:0.75rem;padding:0.9rem 1rem;background:#f0fdf4;border:1.5px solid #86efac;border-radius:8px;color:#14532d;font-size:0.9rem;line-height:1.6;">
-            <pre style='background:#0f172a;color:#e2e8f0;padding:0.75rem;border-radius:8px;overflow:auto;'>&lt;nav&gt;
-  &lt;a href="CLB.html#CLBTT"&gt;CLB Thể thao&lt;/a&gt; |
-  &lt;a href="thong_tin.html"&gt;Thông tin đăng kí&lt;/a&gt;
-&lt;/nav&gt;
-&lt;a href="https://hcmue.edu.vn" target="_blank"&gt;
-  &lt;img src="logo.png" alt="Logo trường"&gt;
-&lt;/a&gt;</pre>
+            <strong>Gợi ý thực hành (SGK tr.61):</strong><br>Em có thể thực hiện ngay trên <strong>Phòng Luyện tập Đa tệp (HĐ 3 – hd3.html)</strong> bằng cách tạo các tệp: <code>thanh_vien.html</code>, <code>ho_so/an.html</code>, <code>ho_so/binh.html</code> rồi nối qua lại:<pre style='background:#0f172a;color:#e2e8f0;padding:0.75rem;border-radius:8px;overflow:auto;'>&lt;!-- Tệp thanh_vien.html --&gt;
+&lt;h2&gt;Danh sách thành viên CLB Tin học&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href="ho_so/an.html"&gt;Nguyễn Văn An (Trưởng nhóm)&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="ho_so/binh.html"&gt;Trần Thị Bình (Thiết kế Web)&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!-- Trong tệp ho_so/an.html --&gt;
+&lt;h2&gt;Hồ sơ: Nguyễn Văn An&lt;/h2&gt;
+&lt;p&gt;Sở thích: Lập trình web, bóng rổ.&lt;/p&gt;
+&lt;a href="../thanh_vien.html"&gt;← Quay về Danh sách thành viên&lt;/a&gt;</pre>
           </div>
         </div>
       </section>
@@ -543,14 +612,167 @@
       }
     });
     
-    const INFO_NODES = {"cards": [{"title": "1. Thẻ <a> & Thuộc tính", "points": ["<a href=\"URL\">Nội dung</a>", "href: chỉ định trang/vị trí đích.", "target=\"_blank\": mở sang thẻ mới."]}, {"title": "2. URL Tuyệt đối & Tương đối", "points": ["Tuyệt đối: https://... (web ngoài).", "Cùng cấp: thong_tin.html.", "Lên cha / vào con: ../ và thu_muc/."]}, {"title": "3. Liên kết nội bộ (#id)", "points": ["Gán id=\"ten\" ở thẻ tiêu đề đích.", "Cùng trang: href=\"#ten\".", "Trang khác: href=\"CLB.html#ten\"."]}, {"title": "4. Liên kết Hình ảnh", "points": ["Lồng <img> vào giữa <a>...</a>.", "Luôn thêm alt=\"...\" mô tả ảnh.", "Ứng dụng làm logo/nút điều hướng."]}], "sequence": [{"title": "Xác định cấu trúc web", "desc": "Liệt kê vị trí các tệp HTML (index.html, CLB.html, thong_tin.html) trong thư mục dự án."}, {"title": "Gắn id cho các mục lớn", "desc": "Thêm thuộc tính id=\"CLBTT\", id=\"CLBNT\" ở phần tiêu đề cần nhảy tới."}, {"title": "Viết menu & đường dẫn", "desc": "Tạo thẻ <a href=\"#id\"> cho mục lục và đường dẫn tương đối cho trang con."}, {"title": "Gắn ảnh liên kết & Test", "desc": "Lồng <img> trong <a>, kiểm tra liên kết không bị hỏng rồi nộp bài."}], "compare": [{"title": "URL Tuyệt đối", "points": ["Ghi rõ https:// + tên miền.", "Dùng trỏ ra website bên ngoài.", "Không phụ thuộc vị trí tệp gốc."]}, {"title": "URL Tương đối", "points": ["Tính từ vị trí tệp đang đứng.", "Dùng cho các trang cùng dự án.", "Chuyển thư mục không bị lỗi link."]}, {"title": "href=\"#ten\" vs href=\"tep\"", "points": ["Có # ở đầu: tìm thuộc tính id.", "Không # ở đầu: tìm tên tệp/thư mục.", "Kết hợp: CLB.html#CLBTT."]}, {"title": "Lỗi hay gặp khi viết", "points": ["Quên đóng thẻ </a> làm cả trang xanh.", "Nhầm dấu \\ (Windows) với / (Web).", "Đặt 2 thẻ trùng giá trị id."]}], "mindmap": [{"title": "Thẻ <a> chuẩn HTML5", "points": ["Cặp thẻ <a href=\"...\">...</a>", "Thuộc tính target=\"_blank\"", "Thẻ <img> đặt trong <a>"]}, {"title": "Điều hướng URL", "points": ["Tuyệt đối: https://...", "Cùng cấp / Thư mục con", "Lùi cấp cha bằng ../"]}, {"title": "Neo trong trang", "points": ["Thuộc tính id=\"CLBTT\"", "Liên kết #CLBTT", "Trỏ trang khác kèm #id"]}, {"title": "Thực hành CLB.html", "points": ["Mục lục đầu trang", "Kết nối thong_tin.html", "Sẵn sàng làm KTTX2 (15p)"]}]};
-    function escXml(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+    const INFO_NODES = {"cards": [{"title": "1. Siêu văn bản & Thẻ <a>", "points": ["Siêu văn bản chứa text, ảnh và liên kết.", "Cú pháp: <a href=\"URL\">Nội dung</a>.", "Nội dung thẻ <a> có thể là chữ hoặc ảnh."]}, {"title": "2. Tuyệt đối vs Tương đối", "points": ["Tuyệt đối: đủ https:// và tên miền.", "Tương đối: tính từ tệp HTML hiện tại.", "Tránh tuyệt đối ổ đĩa cục bộ (D:\\...)."]}, {"title": "3. Cấu trúc Hình 10.1", "points": ["Cùng thư mục: thong_tin.html", "Thư mục con: bai_tap/bai_tap_1.html", "Lùi lên cha 1 cấp: ../index.html"]}, {"title": "4. Neo #id & Ảnh link", "points": ["Gắn id=\"CLBTT\" rồi gọi href=\"#CLBTT\".", "Từ trang khác: thong_tin.html#CLBTT.", "Ảnh link: <a href><img src></a>."]}], "sequence": [{"title": "Tạo >= 2 tệp HTML", "desc": "Chuẩn bị tệp chính CLB.html và các tệp đích thong_tin.html trong thư mục web."}, {"title": "Đánh dấu neo id", "desc": "Gắn id=\"CLBTT\" (không dấu, không cách) vào thẻ đích cần nhảy tới."}, {"title": "Gắn <a href=\"...\">", "desc": "Dùng đường dẫn tương đối cho tệp nội bộ và URL https:// cho trang ngoài."}, {"title": "Kiểm thử đa trang", "desc": "Bấm từng liên kết trên trình duyệt, kiểm tra quay về (../) và tránh lỗi 404."}], "compare": [{"title": "Đường dẫn Tuyệt đối (Absolute URL)", "points": ["Có đầy đủ giao thức http:// hoặc https:// và tên miền.", "Ví dụ: https://hanhtrangso.nxbgd.vn/sach-dien-tu", "Bắt buộc dùng khi liên kết tới một website khác bên ngoài.", "Cảnh báo: Không dùng đường dẫn ổ đĩa D:\\... khi xuất bản web."]}, {"title": "Đường dẫn Tương đối (Relative URL)", "points": ["Tính từ vị trí thư mục của tệp HTML hiện tại đang mở.", "Ví dụ: thong_tin.html, bai_tap/bt1.html, ../index.html", "Luôn ưu tiên dùng giữa các trang trong cùng một website.", "Lợi ích: Copy thư mục web sang bất kì máy nào vẫn chạy tốt."]}, {"title": "Lưu ý sống còn", "points": ["Tên tệp & tên id phân biệt hoa/thường trên máy chủ; luôn dùng dấu / (không dùng \\)."]}], "mindmap": [{"title": "Khái niệm cốt lõi", "points": ["Siêu văn bản (Hypertext)", "Siêu liên kết (Hyperlink)", "<a href=\"URL\">...</a>"]}, {"title": "Loại đường dẫn", "points": ["Tuyệt đối: https://...", "Tương đối: vị trí hiện tại", "Không dùng D:\\trên máy"]}, {"title": "Cùng Website (H10.1)", "points": ["Cùng cấp: tep.html", "Vào con: thu_muc/tep.html", "Lên cha: ../tep.html"]}, {"title": "Neo #id & Ảnh", "points": ["id=\"ten\" + href=\"#ten\"", "Khác trang: tep.html#ten", "<a href><img></a>"]}]};
+    const USE_ANTV_STUDIO = true;
+    const AMIGOS_BANNERS = {"sequence": "Lộ trình chuẩn SGK: Xác định tệp đích → Chọn loại đường dẫn (Tuyệt đối/Tương đối) → Gắn <a href> hoặc #id → Bấm kiểm thử điều hướng đa trang.", "cards": "4 trụ cột cốt lõi: (1) Siêu văn bản & Thẻ <a>, (2) URL Tuyệt đối vs Tương đối, (3) Quy tắc thư mục Hình 10.1, (4) Neo #id & Liên kết ảnh.", "compare": "Nhớ nhanh: Website ngoài dùng Tuyệt đối (https://...); Nội bộ cùng website dùng Tương đối (thong_tin.html, ../index.html); Cấm dùng D:\\...!", "mindmap": "Website nhiều tệp là một mạng lưới thống nhất nhờ <a href> nối cùng thư mục, thư mục con (/), thư mục cha (../) và vị trí cụ thể (#id)."};
+    const ANTV_DSL_MAP = {"sequence": "infographic list-row-horizontal-icon-arrow\ndata\n  title Bài 10: Quy trình Tạo liên kết Website đa tệp HTML\n  items\n    - label Bước 1: Tạo >= 2 tệp\n      desc Lập sơ đồ thư mục và tạo tối thiểu 2 tệp (CLB.html, thong_tin.html)\n    - label Bước 2: Gắn neo id\n      desc Đặt id=\"CLBTT\" tại tiêu đề hoặc đoạn văn muốn nhảy tới\n    - label Bước 3: Viết <a href>\n      desc Nối tương đối trong web (thong_tin.html) và https:// ra ngoài\n    - label Bước 4: Kiểm thử link\n      desc Bấm kiểm tra đường dẫn, tránh lỗi 404 và lỗi ổ đĩa D:\\", "cards": "infographic list-grid-badge-card\ndata\n  title Bài 10: 4 Trụ cột Kiến thức Tạo liên kết (SGK tr.57–61)\n  items\n    - label 1. Siêu văn bản & <a>\n      desc Cú pháp <a href=\"URL\">Nội dung</a>; mở URL đích khi nhấp chuột\n    - label 2. Đường dẫn\n      desc Tuyệt đối (https://...) vs Tương đối (cùng tệp, thư mục, ../)\n    - label 3. Thư mục Hình 10.1\n      desc Vào con ghi thu_muc/tep.html; ngược lên cha dùng ../\n    - label 4. Neo & Ảnh link\n      desc #ten_id nhảy tới mục; bọc <img> trong <a> tạo nút ảnh", "compare": "infographic compare-binary-vs\ndata\n  title So sánh Đường dẫn Tuyệt đối vs Đường dẫn Tương đối\n  items\n    - label Đường dẫn Tuyệt đối\n      desc Ghi đủ https:// + tên miền; dùng trỏ ra website khác; không dùng D:\\\n    - label Đường dẫn Tương đối\n      desc Tính từ tệp HTML đang mở; cực gọn; không gãy link khi di chuyển thư mục", "mindmap": "infographic mindmap-radial-tree\ndata\n  title Bản đồ tư duy Bài 10: Tạo liên kết\n  items\n    - label Khái niệm & Cú pháp\n      desc Siêu văn bản, Siêu liên kết, <a href=\"...\">...</a>\n    - label Đường dẫn URL\n      desc Tuyệt đối (Internet) & Tương đối (Nội bộ)\n    - label Vị trí trong Website\n      desc Cùng cấp, Thư mục con (/), Thư mục cha (../)\n    - label Nâng cao & Thực hành\n      desc Neo #id, Liên kết ảnh <img>, Đa tệp CLB.html"};
+    function escXml(s) { return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+    function wrapSvgLines(text, maxChars) {
+      const words = String(text || '').split(/\s+/).filter(Boolean);
+      const lines = [];
+      let cur = '';
+      words.forEach(w => {
+        if (!cur) cur = w;
+        else if ((cur + ' ' + w).length <= maxChars) cur += ' ' + w;
+        else { lines.push(cur); cur = w; }
+      });
+      if (cur) lines.push(cur);
+      return lines;
+    }
+    function svgTextLines(lines, x, startY, lineH, fill, size, weight, anchor) {
+      const tspans = lines.map((ln, idx) => `<tspan x="${x}" dy="${idx === 0 ? 0 : lineH}">${escXml(ln)}</tspan>`).join('');
+      return `<text x="${x}" y="${startY}" text-anchor="${anchor || 'start'}" fill="${fill}" font-size="${size}" font-weight="${weight || 'normal'}" font-family="system-ui,-apple-system,Segoe UI,Roboto,sans-serif">${tspans}</text>`;
+    }
+
+    function buildStudioSvg(mode) {
+      const nodes = INFO_NODES[mode] || INFO_NODES.cards || [];
+      const title = escXml('Bài 10: Tạo liên kết');
+      const W = 980, H = 440;
+      const defs = `<defs>
+        <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#0f172a"/><stop offset="55%" stop-color="#1e1b4b"/><stop offset="100%" stop-color="#311042"/></linearGradient>
+        <linearGradient id="c0" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#3b82f6"/><stop offset="100%" stop-color="#06b6d4"/></linearGradient>
+        <linearGradient id="c1" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#10b981"/><stop offset="100%" stop-color="#14b8a6"/></linearGradient>
+        <linearGradient id="c2" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#f59e0b"/><stop offset="100%" stop-color="#f97316"/></linearGradient>
+        <linearGradient id="c3" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#ec4899"/></linearGradient>
+      </defs>
+      <rect width="${W}" height="${H}" rx="18" fill="url(#bgGrad)"/>
+      <rect x="14" y="14" width="${W-28}" height="${H-28}" rx="14" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>`;
+
+      if (mode === 'sequence') {
+        const cw = 212, gap = 22, startX = 34;
+        const arrows = [0,1,2].map(i => {
+          const ax = startX + (i + 1) * cw + 4;
+          return `<path d="M ${ax} 250 L ${ax + 12} 250 M ${ax + 7} 244 L ${ax + 13} 250 L ${ax + 7} 256" stroke="#38bdf8" stroke-width="2.5" fill="none" stroke-linecap="round"/>`;
+        }).join('');
+        const boxes = nodes.slice(0, 4).map((n, i) => {
+          const x = startX + i * (cw + gap);
+          const strokeCols = ['#38bdf8','#34d399','#fbbf24','#c084fc'];
+          const tLines = wrapSvgLines(n.title, 20).slice(0, 2);
+          const dLines = wrapSvgLines(n.desc, 25).slice(0, 7);
+          return `<g>
+            <rect x="${x}" y="102" width="${cw}" height="296" rx="16" fill="rgba(15,23,42,0.88)" stroke="${strokeCols[i%4]}" stroke-width="1.8"/>
+            <rect x="${x}" y="102" width="${cw}" height="70" rx="16" fill="url(#c${i%4})"/>
+            <circle cx="${x+28}" cy="137" r="15" fill="rgba(255,255,255,0.22)"/>
+            <text x="${x+28}" y="142" text-anchor="middle" fill="#fff" font-size="14" font-weight="800" font-family="system-ui,sans-serif">${i+1}</text>
+            ${svgTextLines(tLines, x + 52, tLines.length > 1 ? 131 : 142, 17, '#ffffff', 13.5, '800', 'start')}
+            ${svgTextLines(dLines, x + 16, 202, 21, '#e2e8f0', 13, '500', 'start')}
+          </g>`;
+        }).join('');
+        return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" style="width:100%;max-width:980px;height:auto;">
+          ${defs}
+          <text x="${W/2}" y="54" text-anchor="middle" fill="#ffffff" font-size="22" font-weight="800" font-family="system-ui,sans-serif">LỘ TRÌNH THỰC HÀNH • ${title}</text>
+          <text x="${W/2}" y="78" text-anchor="middle" fill="#a5b4fc" font-size="13" font-weight="600" font-family="system-ui,sans-serif">Quy trình 4 bước từ khởi tạo tệp đến kiểm tra đường dẫn liên kết</text>
+          ${arrows}${boxes}</svg>`;
+      }
+
+      if (mode === 'compare') {
+        const cols = nodes.slice(0, 2);
+        const cards = cols.map((n, i) => {
+          const x = i === 0 ? 34 : 504;
+          const cw = 442;
+          const border = i === 0 ? '#f59e0b' : '#10b981';
+          const grad = i === 0 ? 'url(#c2)' : 'url(#c1)';
+          let curY = 188;
+          const ptsSvg = (n.points || [n.desc]).slice(0, 5).map(pt => {
+            const lines = wrapSvgLines('• ' + pt, 49);
+            const block = svgTextLines(lines, x + 22, curY, 19, '#e2e8f0', 13.5, '500', 'start');
+            curY += lines.length * 19 + 10;
+            return block;
+          }).join('');
+          return `<g>
+            <rect x="${x}" y="98" width="${cw}" height="308" rx="16" fill="rgba(15,23,42,0.88)" stroke="${border}" stroke-width="2"/>
+            <rect x="${x}" y="98" width="${cw}" height="56" rx="16" fill="${grad}"/>
+            <text x="${x + cw/2}" y="132" text-anchor="middle" fill="#ffffff" font-size="16" font-weight="800" font-family="system-ui,sans-serif">${escXml(n.title)}</text>
+            ${ptsSvg}
+          </g>`;
+        }).join('');
+        const extraNote = nodes[2] ? `<rect x="34" y="414" width="912" height="16" rx="8" fill="none"/><text x="${W/2}" y="427" text-anchor="middle" fill="#fbbf24" font-size="12" font-weight="700" font-family="system-ui,sans-serif">📌 ${escXml(nodes[2].title)}: ${escXml((nodes[2].points || [nodes[2].desc]).join(' • '))}</text>` : '';
+        return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" style="width:100%;max-width:980px;height:auto;">
+          ${defs}
+          <text x="${W/2}" y="54" text-anchor="middle" fill="#ffffff" font-size="22" font-weight="800" font-family="system-ui,sans-serif">SO SÁNH TRỌNG TÂM • ${title}</text>
+          <text x="${W/2}" y="78" text-anchor="middle" fill="#a5b4fc" font-size="13" font-weight="600" font-family="system-ui,sans-serif">Phân biệt rõ bản chất, cú pháp và khi nào dùng từng loại đường dẫn</text>
+          <circle cx="${W/2}" cy="252" r="20" fill="#312e81" stroke="#818cf8" stroke-width="2"/>
+          <text x="${W/2}" y="257" text-anchor="middle" fill="#fff" font-size="12" font-weight="800" font-family="system-ui,sans-serif">VS</text>
+          ${cards}${extraNote}</svg>`;
+      }
+
+      if (mode === 'mindmap') {
+        const centerTitle = wrapSvgLines(title, 18);
+        const branchPos = [
+          { x: 32, y: 88, cx: 490, cy: 232, tx: 342, ty: 158, g: 'url(#c0)', st: '#38bdf8' },
+          { x: 638, y: 88, cx: 490, cy: 232, tx: 638, ty: 158, g: 'url(#c1)', st: '#34d399' },
+          { x: 32, y: 266, cx: 490, cy: 232, tx: 342, ty: 332, g: 'url(#c2)', st: '#fbbf24' },
+          { x: 638, y: 266, cx: 490, cy: 232, tx: 638, ty: 332, g: 'url(#c3)', st: '#c084fc' }
+        ];
+        const linesSvg = branchPos.map((b, i) => `<path d="M ${b.cx} ${b.cy} Q ${(b.cx+b.tx)/2} ${b.ty} ${b.tx} ${b.ty}" stroke="${b.st}" stroke-width="2.5" fill="none" stroke-opacity="0.75"/>`).join('');
+        const branches = nodes.slice(0, 4).map((n, i) => {
+          const b = branchPos[i];
+          const bw = 310, bh = 148;
+          let py = b.y + 62;
+          const pts = (n.points || [n.desc]).slice(0, 3).map(pt => {
+            const ls = wrapSvgLines('• ' + pt, 36).slice(0, 2);
+            const s = svgTextLines(ls, b.x + 14, py, 16, '#e2e8f0', 12, '500', 'start');
+            py += ls.length * 16 + 6;
+            return s;
+          }).join('');
+          return `<g>
+            <rect x="${b.x}" y="${b.y}" width="${bw}" height="${bh}" rx="14" fill="rgba(15,23,42,0.9)" stroke="${b.st}" stroke-width="1.8"/>
+            <rect x="${b.x}" y="${b.y}" width="${bw}" height="38" rx="14" fill="${b.g}"/>
+            <text x="${b.x + bw/2}" y="${b.y + 24}" text-anchor="middle" fill="#fff" font-size="13.5" font-weight="800" font-family="system-ui,sans-serif">${escXml(n.title)}</text>
+            ${pts}
+          </g>`;
+        }).join('');
+        return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" style="width:100%;max-width:980px;height:auto;">
+          ${defs}
+          <text x="${W/2}" y="50" text-anchor="middle" fill="#ffffff" font-size="21" font-weight="800" font-family="system-ui,sans-serif">BẢN ĐỒ TƯ DUY • ${title}</text>
+          ${linesSvg}${branches}
+          <rect x="382" y="190" width="216" height="84" rx="42" fill="url(#c3)" stroke="#ffffff" stroke-width="2.5"/>
+          ${svgTextLines(centerTitle, 490, centerTitle.length > 1 ? 225 : 237, 20, '#ffffff', 15.5, '800', 'middle')}
+        </svg>`;
+      }
+
+      // Default 'cards' layout (4 pillars)
+      const cw = 218, gap = 16, startX = 30;
+      const cards = nodes.slice(0, 4).map((n, i) => {
+        const x = startX + i * (cw + gap);
+        const st = ['#38bdf8','#34d399','#fbbf24','#c084fc'][i % 4];
+        let py = 182;
+        const pts = (n.points || [n.desc]).slice(0, 4).map(pt => {
+          const ls = wrapSvgLines('• ' + pt, 24);
+          const s = svgTextLines(ls, x + 14, py, 17, '#e2e8f0', 12.2, '500', 'start');
+          py += ls.length * 17 + 8;
+          return s;
+        }).join('');
+        return `<g>
+          <rect x="${x}" y="98" width="${cw}" height="312" rx="16" fill="rgba(15,23,42,0.88)" stroke="${st}" stroke-width="1.8"/>
+          <rect x="${x}" y="98" width="${cw}" height="56" rx="16" fill="url(#c${i%4})"/>
+          ${svgTextLines(wrapSvgLines(n.title, 20).slice(0,2), x + cw/2, 124, 17, '#ffffff', 13.5, '800', 'middle')}
+          ${pts}
+        </g>`;
+      }).join('');
+      return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" style="width:100%;max-width:980px;height:auto;">
+        ${defs}
+        <text x="${W/2}" y="54" text-anchor="middle" fill="#ffffff" font-size="22" font-weight="800" font-family="system-ui,sans-serif">4 TRỤ CỘT KIẾN THỨC • ${title}</text>
+        <text x="${W/2}" y="78" text-anchor="middle" fill="#a5b4fc" font-size="13" font-weight="600" font-family="system-ui,sans-serif">Tóm tắt toàn bộ khái niệm, cú pháp và thuộc tính trọng tâm</text>
+        ${cards}</svg>`;
+    }
 
     function buildVectorSvg(mode) {
+      if (USE_ANTV_STUDIO) return buildStudioSvg(mode);
       const nodes = INFO_NODES[mode] || INFO_NODES.cards || [];
       const title = escXml('Bài 10: Tạo liên kết');
       if (mode === 'sequence') {
-        const cols = Math.max(nodes.length, 1);
         const w = 1040, cw = 230, gap = 22;
         let boxes = nodes.map((n, i) => {
           const x = 35 + i * (cw + gap);
@@ -567,7 +789,6 @@
           <text x="${w/2}" y="50" text-anchor="middle" fill="#1e3a8a" font-size="22" font-weight="800" font-family="sans-serif">LỘ TRÌNH THỰC HÀNH • ${title}</text>
           ${boxes}</svg>`;
       }
-      // Default 4 cards / compare / mindmap layout
       const w = 1040, cw = 235, gap = 18;
       let cards = nodes.slice(0, 4).map((n, i) => {
         const x = 24 + i * (cw + gap);
@@ -588,11 +809,42 @@
         ${cards}</svg>`;
     }
 
+    function buildDefaultDsl(mode) {
+      if (ANTV_DSL_MAP[mode]) return ANTV_DSL_MAP[mode];
+      const nodes = INFO_NODES[mode] || INFO_NODES.cards || [];
+      const tplMap = {
+        sequence: 'list-row-horizontal-icon-arrow',
+        cards: 'list-grid-badge-card',
+        compare: 'compare-binary-vs',
+        mindmap: 'mindmap-radial-tree'
+      };
+      let dsl = `infographic ${tplMap[mode] || 'list-grid-badge-card'}\ndata\n  title Bài 10: Tạo liên kết\n  items\n`;
+      nodes.forEach(n => {
+        dsl += `    - label ${n.title}\n`;
+        if (n.desc) dsl += `      desc ${n.desc}\n`;
+        (n.points || []).forEach(p => { dsl += `      desc ${p}\n`; });
+      });
+      return dsl;
+    }
+
+    function toggleAntvDsl() {
+      const d = document.getElementById('antv-dsl-drawer');
+      if (!d) return;
+      d.style.display = d.style.display === 'none' ? 'block' : 'none';
+    }
+    function copyAntvDsl() {
+      const txt = document.getElementById('antv-dsl-pre')?.textContent || '';
+      if (navigator.clipboard?.writeText) navigator.clipboard.writeText(txt).then(() => alert('✓ Đã sao chép mã AntV DSL!')).catch(() => {});
+    }
     function renderInfographic(mode, btn) {
       document.querySelectorAll('.infographic-tab').forEach(b => b.classList.remove('active'));
       if (btn) btn.classList.add('active');
       const wrap = document.getElementById('infographic-container');
       if (wrap) wrap.innerHTML = buildVectorSvg(mode);
+      const bEl = document.getElementById('amigos-banner-text');
+      if (bEl && AMIGOS_BANNERS[mode]) bEl.textContent = AMIGOS_BANNERS[mode];
+      const dslEl = document.getElementById('antv-dsl-pre');
+      if (dslEl) dslEl.textContent = buildDefaultDsl(mode);
     }
     function exportInfographicSVG() {
       const svg = document.querySelector('#infographic-container svg');
@@ -604,9 +856,10 @@
     function exportInfographicPNG() {
       const svg = document.querySelector('#infographic-container svg');
       if (!svg) return;
-      const canvas = document.createElement('canvas'); canvas.width = 1600; canvas.height = 600;
+      const cw = USE_ANTV_STUDIO ? 1960 : 1600, ch = USE_ANTV_STUDIO ? 880 : 600;
+      const canvas = document.createElement('canvas'); canvas.width = cw; canvas.height = ch;
       const ctx = canvas.getContext('2d'); const img = new Image();
-      img.onload = () => { ctx.fillStyle='#fff'; ctx.fillRect(0,0,1600,600); ctx.drawImage(img,0,0,1600,600); const a=document.createElement('a'); a.href=canvas.toDataURL('image/png'); a.download='Infographic_Bai10.png'; a.click(); };
+      img.onload = () => { ctx.fillStyle = USE_ANTV_STUDIO ? '#0f172a' : '#fff'; ctx.fillRect(0,0,cw,ch); ctx.drawImage(img,0,0,cw,ch); const a=document.createElement('a'); a.href=canvas.toDataURL('image/png'); a.download='Infographic_Bai10.png'; a.click(); };
       img.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svg.outerHTML)));
     }
     function saveHd4Ans(idx, val) {
@@ -624,7 +877,8 @@
       if (btn) btn.textContent = open ? '💡 Bấm xem gợi ý & đáp án đối chiếu' : '🙈 Ẩn đáp án';
     }
     window.addEventListener('DOMContentLoaded', () => {
-      renderInfographic('cards', document.querySelector('.infographic-tab'));
+      const defaultMode = USE_ANTV_STUDIO ? 'sequence' : 'cards';
+      renderInfographic(defaultMode, document.querySelector('.infographic-tab'));
       try {
         const saved = JSON.parse(localStorage.getItem('bai10_hd4_answers') || '{}');
         Object.keys(saved).forEach(k => { const el = document.getElementById('ans-input-' + k.slice(1)); if (el) el.value = saved[k]; });

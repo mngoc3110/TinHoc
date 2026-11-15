@@ -466,6 +466,21 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  const sanitizeRelHtmlPath = (relPath) => {
+    const parts = String(relPath || '').replace(/\\/g, '/').split('/').filter(Boolean);
+    const safeParts = [];
+    for (const seg of parts) {
+      if (seg === '.' || seg === '..') continue;
+      const cleaned = seg.replace(/[^a-zA-Z0-9._-]/g, '_');
+      if (cleaned && cleaned !== '.' && cleaned !== '..') safeParts.push(cleaned);
+    }
+    if (!safeParts.length) return '';
+    let last = safeParts[safeParts.length - 1];
+    if (!/\.(html?|htm)$/i.test(last)) last += '.html';
+    safeParts[safeParts.length - 1] = last;
+    return safeParts.join('/');
+  };
+
   if (req.method === 'POST' && cleanPath === '/api/submit-hd3') {
     let body = '';
     req.on('data', c => body += c);
@@ -475,14 +490,30 @@ const server = http.createServer((req, res) => {
         const safeClass = normalizeVN(sub.className || '12A');
         const safeMach = normalizeVN(sub.studentNumber || 'May00');
         const safeName = normalizeVN(sub.studentName || 'HocSinh');
-        const filename = `${safeClass}_${safeMach}_${safeName}_Website_CLB.html`;
+        const folderName = `${safeClass}_${safeMach}_${safeName}`;
+        const filename = `${folderName}_Website_CLB.html`;
         sub.filename = filename;
         fs.writeFileSync(path.join(HD3_DIR, filename), sub.code || '', 'utf8');
+        if (sub.files && typeof sub.files === 'object' && !Array.isArray(sub.files)) {
+          const studentDir = path.join(HD3_DIR, folderName);
+          fs.mkdirSync(studentDir, { recursive: true });
+          const savedFiles = {};
+          for (const [rawRel, content] of Object.entries(sub.files)) {
+            const safeRel = sanitizeRelHtmlPath(rawRel);
+            if (!safeRel) continue;
+            const destPath = path.join(studentDir, safeRel);
+            fs.mkdirSync(path.dirname(destPath), { recursive: true });
+            fs.writeFileSync(destPath, String(content || ''), 'utf8');
+            savedFiles[safeRel] = String(content || '');
+          }
+          sub.files = savedFiles;
+          sub.folderName = folderName;
+        }
         const list = readJson(HD3_DATA_FILE);
         list.unshift(sub);
         writeJson(HD3_DATA_FILE, list);
         res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
-        res.end(JSON.stringify({ status: 'ok', filename, total: list.length }));
+        res.end(JSON.stringify({ status: 'ok', filename, folderName, total: list.length }));
       } catch (e) {
         res.writeHead(400, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ error: e.message }));
@@ -501,8 +532,13 @@ const server = http.createServer((req, res) => {
     if (!isVerifiedTeacher(req)) { sendJson(res, 401, { error: 'Chỉ Giáo viên được phép xóa bài thực hành.' }); return; }
     writeJson(HD3_DATA_FILE, []);
     try {
-      for (const f of fs.readdirSync(HD3_DIR)) {
-        if (f.endsWith('.html')) fs.unlinkSync(path.join(HD3_DIR, f));
+      for (const entry of fs.readdirSync(HD3_DIR, { withFileTypes: true })) {
+        const full = path.join(HD3_DIR, entry.name);
+        if (entry.isDirectory()) {
+          fs.rmSync(full, { recursive: true, force: true });
+        } else if (entry.name.endsWith('.html')) {
+          fs.unlinkSync(full);
+        }
       }
     } catch (e) {}
     res.writeHead(200, { 'Content-Type': 'application/json' });

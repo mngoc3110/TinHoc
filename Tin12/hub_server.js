@@ -627,6 +627,21 @@ const server = http.createServer((req, res) => {
       return;
     }
 
+    const sanitizeRelHtmlPath = (relPath) => {
+      const parts = String(relPath || '').replace(/\\/g, '/').split('/').filter(Boolean);
+      const safeParts = [];
+      for (const seg of parts) {
+        if (seg === '.' || seg === '..') continue;
+        const cleaned = seg.replace(/[^a-zA-Z0-9._-]/g, '_');
+        if (cleaned && cleaned !== '.' && cleaned !== '..') safeParts.push(cleaned);
+      }
+      if (!safeParts.length) return '';
+      let last = safeParts[safeParts.length - 1];
+      if (!/\.(html?|htm)$/i.test(last)) last += '.html';
+      safeParts[safeParts.length - 1] = last;
+      return safeParts.join('/');
+    };
+
     if (req.method === 'POST' && cleanPath === '/api/submit-hd3') {
       readBody(req, body => {
         try {
@@ -634,13 +649,29 @@ const server = http.createServer((req, res) => {
           const safeClass = normalizeVN(sub.className || '12A');
           const safeMach = normalizeVN(sub.studentNumber || 'May00');
           const safeName = normalizeVN(sub.studentName || 'HocSinh');
-          const filename = `${safeClass}_${safeMach}_${safeName}_${paths.defaultExtFile}`;
+          const folderName = `${safeClass}_${safeMach}_${safeName}`;
+          const filename = `${folderName}_${paths.defaultExtFile}`;
           sub.filename = filename;
           fs.writeFileSync(path.join(paths.hd3Dir, filename), sub.code || '', 'utf8');
+          if (sub.files && typeof sub.files === 'object' && !Array.isArray(sub.files)) {
+            const studentDir = path.join(paths.hd3Dir, folderName);
+            fs.mkdirSync(studentDir, { recursive: true });
+            const savedFiles = {};
+            for (const [rawRel, content] of Object.entries(sub.files)) {
+              const safeRel = sanitizeRelHtmlPath(rawRel);
+              if (!safeRel) continue;
+              const destPath = path.join(studentDir, safeRel);
+              fs.mkdirSync(path.dirname(destPath), { recursive: true });
+              fs.writeFileSync(destPath, String(content || ''), 'utf8');
+              savedFiles[safeRel] = String(content || '');
+            }
+            sub.files = savedFiles;
+            sub.folderName = folderName;
+          }
           const list = readJson(paths.hd3DataFile, []);
           list.unshift(sub);
           writeJson(paths.hd3DataFile, list);
-          sendJson(res, 200, { status: 'ok', filename, total: list.length, slug });
+          sendJson(res, 200, { status: 'ok', filename, folderName, total: list.length, slug });
         } catch (e) {
           sendJson(res, 400, { error: e.message });
         }
@@ -660,8 +691,13 @@ const server = http.createServer((req, res) => {
       }
       writeJson(paths.hd3DataFile, []);
       try {
-        for (const f of fs.readdirSync(paths.hd3Dir)) {
-          if (f.endsWith('.html')) fs.unlinkSync(path.join(paths.hd3Dir, f));
+        for (const entry of fs.readdirSync(paths.hd3Dir, { withFileTypes: true })) {
+          const full = path.join(paths.hd3Dir, entry.name);
+          if (entry.isDirectory()) {
+            fs.rmSync(full, { recursive: true, force: true });
+          } else if (entry.name.endsWith('.html')) {
+            fs.unlinkSync(full);
+          }
         }
       } catch (e) {}
       sendJson(res, 200, { status: 'reset_hd3_ok', slug });

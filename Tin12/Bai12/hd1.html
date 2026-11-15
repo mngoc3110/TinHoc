@@ -451,6 +451,33 @@
     
     const CMP_BEFORE = "<h3>PHIẾU ĐĂNG KÍ CLB</h3>\n<p>Họ và tên: .........................</p>\n<p>Khối lớp: [ ] 12A1  [ ] 12A2</p>\n<p>CLB tham gia: [ ] Thể thao  [ ] Nghệ thuật</p>\n<p>[ Nút Gửi đăng kí (chỉ là chữ) ]</p>";
     const CMP_AFTER = "<form onsubmit=\"alert('Đã ghi nhận dữ liệu mẫu!'); return false;\" style=\"font-family:sans-serif;font-size:13px;\">\n  <fieldset style=\"border-radius:8px;border:1.5px solid #2563eb;\">\n    <legend style=\"font-weight:bold;color:#1e3a8a;\">PHIẾU ĐĂNG KÍ CLB</legend>\n    <label for=\"ht\">Họ và tên:</label>\n    <input id=\"ht\" type=\"text\" placeholder=\"Nguyễn Văn An\"><br><br>\n    Giới tính: <input type=\"radio\" name=\"gt\" id=\"n1\" checked><label for=\"n1\">Nam</label>\n    <input type=\"radio\" name=\"gt\" id=\"n2\"><label for=\"n2\">Nữ</label><br><br>\n    CLB: <input type=\"checkbox\"> Thể thao <input type=\"checkbox\"> Nghệ thuật<br><br>\n    <input type=\"submit\" value=\"Gửi đăng kí\" style=\"background:#2563eb;color:#fff;border:none;padding:5px 12px;border-radius:6px;cursor:pointer;\">\n  </fieldset>\n</form>";
+    function bindHd1PreviewLinks(doc, reloadFn) {
+      if (!doc || !doc.body) return;
+      doc.addEventListener('click', function(ev) {
+        const a = ev.target && ev.target.closest ? ev.target.closest('a[href]') : null;
+        if (!a) return;
+        const href = (a.getAttribute('href') || '').trim();
+        if (!href) return;
+        if (href.startsWith('#')) {
+          ev.preventDefault();
+          const id = href.slice(1);
+          const target = doc.getElementById(id) || doc.getElementsByName(id)[0];
+          if (target && target.scrollIntoView) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          return;
+        }
+        if (/^https?:\/\//i.test(href)) {
+          ev.preventDefault();
+          window.open(href, '_blank', 'noopener');
+          return;
+        }
+        ev.preventDefault();
+        doc.open();
+        doc.write('<body style="font-family:sans-serif;padding:16px;background:#f8fafc;color:#1e293b;margin:0;"><div style="background:#eff6ff;border:1.5px solid #93c5fd;border-radius:10px;padding:14px;"><div style="font-weight:800;color:#1d4ed8;margin-bottom:6px;">🔗 Mô phỏng chuyển trang nội bộ</div><div style="font-size:13px;line-height:1.5;">Liên kết vừa bấm trỏ tới: <code style="background:#e2e8f0;padding:2px 6px;border-radius:4px;">' + href.replace(/&/g,'&amp;').replace(/</g,'&lt;') + '</code></div><div style="font-size:12px;color:#475569;margin-top:6px;">Trong Hoạt động 3, em sẽ tự tạo đầy đủ các tệp HTML để bấm liên kết và chuyển trang thật sự.</div><button id="__hd1_back" style="margin-top:10px;padding:6px 12px;border:none;background:#2563eb;color:#fff;border-radius:6px;cursor:pointer;font-weight:700;">← Quay lại CLB.html</button></div></body>');
+        doc.close();
+        const bk = doc.getElementById('__hd1_back');
+        if (bk) bk.onclick = reloadFn;
+      });
+    }
     function setCompareMode(mode) {
       const isAfter = mode === 'after';
       document.getElementById('btn-m-before')?.classList.toggle('active', !isAfter);
@@ -467,6 +494,7 @@
       if (frame) {
         const doc = frame.contentDocument || frame.contentWindow.document;
         doc.open(); doc.write(src); doc.close();
+        bindHd1PreviewLinks(doc, () => setCompareMode(mode));
       }
     }
     function toggleHd1Hint(btn) {

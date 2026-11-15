@@ -6,173 +6,172 @@
     "shortTitle": "Bài 10: Tạo liên kết",
     "worksheetId": "kttx2",
     "file": "kttx2.html",
-    "badge": "KIỂM TRA THƯỜNG XUYÊN 2 • 15 PHÚT • CHỦ ĐỀ F (BÀI 7–10)",
-    "title": "Đề Kiểm Tra Thường Xuyên 2 (Tin học 12 – 15 phút)",
-    "desc": "Phạm vi kiến thức: Bài 7, 8, 9, 10 (HTML cơ bản, định dạng văn bản, danh sách, bảng và tạo liên kết). Gồm 8 câu Trắc nghiệm 4 lựa chọn (6.0 điểm) + 2 câu Đúng/Sai chuẩn TN THPT 2025 (4.0 điểm).",
+    "badge": "KIỂM TRA THƯỜNG XUYÊN 2 (15 PHÚT)",
+    "title": "Đề Kiểm Tra Thường Xuyên 2 • Tin Học 12 (Chủ đề F: Bài 7–10)",
+    "desc": "10 câu hỏi tổng hợp kiến thức HTML cơ bản, định dạng văn bản, danh sách – bảng và Tạo liên kết (8 câu Trắc nghiệm + 2 câu Đúng/Sai).",
     "minutes": 15,
     "questions": [
       {
         "id": "k1",
         "type": "mcq",
         "points": 0.75,
-        "prompt": "Trong cấu trúc một văn bản HTML chuẩn, phần nội dung chứa tiêu đề tab trình duyệt (<title>) và khai báo bảng mã UTF-8 (<meta>) được đặt bên trong thẻ nào?",
+        "prompt": "Cặp thẻ nào tạo tiêu đề lớn nhất (cấp 1) cho nội dung chính của trang web?",
         "options": {
-          "A": "<body>",
-          "B": "<footer>",
-          "C": "<head>",
-          "D": "<section>"
+          "A": "<h6>...</h6>",
+          "B": "<head>...</head>",
+          "C": "<h1>...</h1>",
+          "D": "<title>...</title>"
         },
         "correct": "C",
-        "explain": "<head> chứa siêu dữ liệu của trang web như <meta charset='utf-8'>, <title>, <style>, <link>."
+        "explain": "<h1> là thẻ tiêu đề mục cấp cao nhất (lớn nhất) trong phần body."
       },
       {
         "id": "k2",
         "type": "mcq",
         "points": 0.75,
-        "prompt": "Trong HTML5, để nhấn mạnh ý nghĩa quan trọng của cụm từ bằng kiểu chữ in đậm mang ngữ nghĩa chuẩn SEO/trợ năng, ta nên dùng cặp thẻ nào?",
+        "prompt": "Để làm nổi bật một đoạn văn bản vừa in đậm mang ý nghĩa nhấn mạnh vừa đúng chuẩn HTML5, ta ưu tiên dùng thẻ nào?",
         "options": {
-          "A": "<i>...</i>",
-          "B": "<strong>...</strong>",
-          "C": "<u>...</u>",
-          "D": "<p>...</p>"
+          "A": "<strong>",
+          "B": "<em>",
+          "C": "<mark>",
+          "D": "<u>"
         },
-        "correct": "B",
-        "explain": "<strong> mang ngữ nghĩa văn bản quan trọng (hiển thị đậm), <em> nhấn mạnh (nghiêng)."
+        "correct": "A",
+        "explain": "<strong> in đậm và nhấn mạnh tầm quan trọng ngữ nghĩa."
       },
       {
         "id": "k3",
         "type": "mcq",
         "points": 0.75,
-        "prompt": "Để tạo một danh sách có thứ tự bắt đầu bằng các chữ cái in hoa (A, B, C...), ta khai báo thẻ nào sau đây?",
+        "prompt": "Trong HTML, để tạo danh sách CÓ THỨ TỰ đánh số 1, 2, 3 ta dùng cặp thẻ nào?",
         "options": {
-          "A": "<ol type=\"A\">",
-          "B": "<ul type=\"A\">",
-          "C": "<ol start=\"A\">",
-          "D": "<dl type=\"A\">"
+          "A": "<ul>...</ul>",
+          "B": "<ol>...</ol>",
+          "C": "<dl>...</dl>",
+          "D": "<li>...</li>"
         },
-        "correct": "A",
-        "explain": "Thuộc tính type=\"A\" trên thẻ <ol> giúp đánh dấu các mục theo A, B, C; start chỉ nhận giá trị số nguyên."
+        "correct": "B",
+        "explain": "<ol> (Ordered List) tạo danh sách có thứ tự; <ul> là danh sách không thứ tự."
       },
       {
         "id": "k4",
         "type": "mcq",
         "points": 0.75,
-        "prompt": "Khi thiết kế bảng thời khóa biểu bằng thẻ <table>, để gộp 3 ô liên tiếp trên cùng một hàng thành 1 ô tiêu đề, ta gán thuộc tính nào cho thẻ <th> hoặc <td>?",
+        "prompt": "Để gộp 2 ô liền kề nhau THEO CHIỀU NGANG (2 cột) trong bảng HTML, ta dùng thuộc tính nào trên thẻ <td> hoặc <th>?",
         "options": {
-          "A": "rowspan=\"3\"",
-          "B": "merge=\"3\"",
-          "C": "span=\"3\"",
-          "D": "colspan=\"3\""
+          "A": "rowspan=\"2\"",
+          "B": "colspan=\"2\"",
+          "C": "merge=\"2\"",
+          "D": "span=\"2\""
         },
-        "correct": "D",
-        "explain": "colspan gộp theo chiều ngang (nhiều cột trên cùng hàng), rowspan gộp theo chiều dọc (nhiều hàng)."
+        "correct": "B",
+        "explain": "colspan=\"2\" gộp 2 cột theo chiều ngang; rowspan gộp theo chiều dọc."
       },
       {
         "id": "k5",
         "type": "mcq",
         "points": 0.75,
-        "prompt": "Thuộc tính bắt buộc phải có trên thẻ <a> để trình duyệt hiểu đây là siêu liên kết trỏ tới một địa chỉ URL khác là:",
+        "prompt": "Thuộc tính nào của thẻ <a> dùng để khai báo địa chỉ URL của trang web hoặc vị trí cần liên kết tới?",
         "options": {
           "A": "src",
-          "B": "href",
-          "C": "link",
-          "D": "target"
+          "B": "link",
+          "C": "href",
+          "D": "action"
         },
-        "correct": "B",
-        "explain": "href (Hypertext Reference) xác định tài nguyên đích của liên kết <a>."
+        "correct": "C",
+        "explain": "href (hypertext reference) chứa URL trang đích."
       },
       {
         "id": "k6",
         "type": "mcq",
         "points": 0.75,
-        "prompt": "Trang baiviet/tintuc.html nằm trong thư mục con baiviet/. Muốn tạo liên kết trở về tệp index.html ở thư mục gốc website, cần viết href như thế nào?",
+        "prompt": "Trong những đường dẫn dưới đây, đường dẫn nào thuộc loại ĐƯỜNG DẪN TƯƠNG ĐỐI?",
         "options": {
-          "A": "href=\"index.html\"",
-          "B": "href=\"/baiviet/index.html\"",
-          "C": "href=\"../index.html\"",
-          "D": "href=\"../../index.html\""
+          "A": "https://www.nxbgd.vn/",
+          "B": "http://hocmai.vn/khoahoc",
+          "C": "bai_tap/bai_tap_1.html",
+          "D": "C:\\Users\\Student\\index.html"
         },
         "correct": "C",
-        "explain": "../ giúp quay lên 1 cấp thư mục cha nơi chứa index.html."
+        "explain": "bai_tap/bai_tap_1.html xác định vị trí tương đối tính từ thư mục hiện tại."
       },
       {
         "id": "k7",
         "type": "mcq",
         "points": 0.75,
-        "prompt": "Trong cùng trang tai_lieu.html có phần tử <h2 id=\"mucluc\">Mục lục</h2>. Thẻ liên kết nào nhảy thẳng tới phần tử đó?",
+        "prompt": "Trên cùng một trang web có đoạn văn được gán id=\"CLBTT\". Liên kết nào dưới đây khi nhấp vào sẽ cuộn tới đúng đoạn văn đó?",
         "options": {
-          "A": "<a href=\"#mucluc\">Về Mục lục</a>",
-          "B": "<a href=\"mucluc\">Về Mục lục</a>",
-          "C": "<a id=\"#mucluc\">Về Mục lục</a>",
-          "D": "<a src=\"#mucluc\">Về Mục lục</a>"
+          "A": "<a href=\"CLBTT\">",
+          "B": "<a href=\"#CLBTT\">",
+          "C": "<a id=\"#CLBTT\">",
+          "D": "<a src=\"#CLBTT\">"
         },
-        "correct": "A",
-        "explain": "Liên kết tới id trong cùng trang bắt đầu bằng dấu # theo sau là giá trị id."
+        "correct": "B",
+        "explain": "Đặt dấu # ngay trước tên giá trị id trong thuộc tính href."
       },
       {
         "id": "k8",
         "type": "mcq",
         "points": 0.75,
-        "prompt": "Đoạn mã HTML nào biến hình ảnh clb.png thành nút bấm dẫn đến trang CLB.html?",
+        "prompt": "Khi bấm vào thẻ <a href=\"thong_tin.html\"><img src=\"images/sun.png\"></a> trên trình duyệt, điều gì sẽ xảy ra?",
         "options": {
-          "A": "<img href=\"CLB.html\" src=\"clb.png\">",
-          "B": "<a src=\"clb.png\" href=\"CLB.html\"></a>",
-          "C": "<a id=\"CLB.html\"><img src=\"clb.png\"></a>",
-          "D": "<a href=\"CLB.html\"><img src=\"clb.png\" alt=\"CLB\"></a>"
+          "A": "Trình duyệt mở trang thong_tin.html",
+          "B": "Trình duyệt tải hình ảnh sun.png về máy",
+          "C": "Trình duyệt mở trang web mặc định Google",
+          "D": "Trình duyệt báo lỗi không lồng <img> trong <a>"
         },
-        "correct": "D",
-        "explain": "Đặt thẻ <img ...> vào bên trong cặp thẻ <a href=\"...\">...</a>."
+        "correct": "A",
+        "explain": "<img> nằm trong <a href=\"thong_tin.html\"> trở thành hình ảnh liên kết dẫn sang thong_tin.html."
       },
       {
         "id": "k9",
         "type": "tf",
         "points": 2.0,
-        "prompt": "Một học sinh viết đoạn mã HTML tạo bảng điểm Tin học như sau. Hãy xác định tính Đúng/Sai của các nhận định:",
-        "code": "<table border=\"1\">\n  <caption>Bảng điểm Tin học 12</caption>\n  <tr><th>STT</th><th colspan=\"2\">Thông tin</th></tr>\n  <tr><td>1</td><td>An</td><td>9.5</td></tr>\n</table>",
+        "prompt": "Một học sinh xây dựng trang web giới thiệu Lịch thi đấu giải Bóng rổ bằng bảng và danh sách HTML. Xét các nhận định sau:",
         "statements": [
           {
-            "text": "a) Thẻ <caption> hiển thị tiêu đề cho bảng ngay phía trên bảng.",
+            "text": "a) Dùng thẻ <caption> ngay sau thẻ mở <table> để viết tiêu đề chính cho bảng.",
             "correct": true
           },
           {
-            "text": "b) Cột STT và cột Thông tin đều được tạo bởi thẻ <th> nên chữ hiển thị mặc định sẽ in thường và căn lề trái.",
+            "text": "b) Mỗi hàng của bảng được khai báo bằng cặp thẻ <tr>...</tr>.",
+            "correct": true
+          },
+          {
+            "text": "c) Thẻ <ul> tạo danh sách có đánh số thứ tự tự động 1, 2, 3.",
             "correct": false
           },
           {
-            "text": "c) Thuộc tính colspan=\"2\" ở ô Thông tin giúp gộp 2 cột ngang khớp với 2 ô <td> (An và 9.5) ở hàng dưới.",
-            "correct": true
-          },
-          {
-            "text": "d) Bảng trên có tổng cộng 2 hàng (<tr>) dữ liệu và tiêu đề.",
+            "text": "d) Thuộc tính style=\"color: blue\" có thể dùng để đổi màu chữ tiêu đề.",
             "correct": true
           }
         ],
-        "explain": "Thẻ <th> mặc định in ĐẬM và CĂN GIỮA nên b Sai; a, c, d đều Đúng."
+        "explain": "<ul> tạo danh sách KHÔNG có thứ tự (dấu chấm đầu dòng), nên c Sai; a, b, d Đúng."
       },
       {
         "id": "k10",
         "type": "tf",
         "points": 2.0,
-        "prompt": "Trong một dự án website gồm thư mục gốc web/ chứa index.html, trang_con/ chứa clb.html (có <section id=\"bongda\">) và anh/ chứa logo.png:",
+        "prompt": "Trong dự án website gồm 2 tệp ở cùng thư mục: CLB.html và thong_tin.html (trong đó có <h2 id=\"CLBTT\">CLB Thể thao</h2>). Xét các phát biểu khi tạo liên kết:",
         "statements": [
           {
-            "text": "a) Trong index.html, để hiển thị hình logo.png viết <img src=\"anh/logo.png\" alt=\"Logo\">.",
+            "text": "a) Từ CLB.html, dùng <a href=\"thong_tin.html#CLBTT\"> sẽ mở thong_tin.html và cuộn tới mục CLBTT.",
             "correct": true
           },
           {
-            "text": "b) Trong index.html, thẻ <a href=\"trang_con/clb.html#bongda\"> sẽ mở clb.html và cuộn xuống mục #bongda.",
+            "text": "b) Nếu chuyển trang từ tệp nằm trong thư mục con bai_tap/bt1.html về CLB.html ở thư mục cha, cần viết href=\"../CLB.html\".",
             "correct": true
           },
           {
-            "text": "c) Trong clb.html, muốn chèn ảnh logo.png ta chỉ cần viết src=\"anh/logo.png\".",
+            "text": "c) Nên dùng đường dẫn tuyệt đối D:\\DuAnWeb\\thong_tin.html để trang web chạy ổn định khi đưa lên mạng Internet.",
             "correct": false
           },
           {
-            "text": "d) Nếu bổ sung thêm <a href=\"https://nxbgd.vn\" target=\"_blank\"> thì người dùng sẽ mở trang NXB Giáo dục trên tab mới.",
+            "text": "d) Có thể lồng thẻ <img src=\"images/sun.png\"> vào bên trong cặp thẻ <a href=\"thong_tin.html\">...</a> để biến hình ảnh thành liên kết.",
             "correct": true
           }
         ],
-        "explain": "Vì clb.html nằm trong trang_con/, muốn lấy logo.png trong anh/ phải lùi ra cha trước: ../anh/logo.png nên c Sai; a, b, d Đúng."
+        "explain": "Đường dẫn ổ đĩa cá nhân D:\\... sẽ lỗi ngay khi chuyển máy hoặc đưa lên mạng nên c Sai; a, b, d Đúng."
       }
     ]
   },
