@@ -26,9 +26,21 @@
     .qr-zoom-modal { display: none; position: fixed; inset: 0; background: rgba(15,23,42,0.75); backdrop-filter: blur(4px); z-index: 9998; align-items: center; justify-content: center; padding: 1rem; }
     .qr-zoom-modal.active { display: flex; }
     .qr-zoom-box { background: #fff; border-radius: 16px; padding: 2rem; max-width: 460px; width: 100%; text-align: center; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.35); }
-    .sgk-fig-box { background: #fff; border: 1.5px solid #cbd5e1; border-radius: 12px; padding: 0.85rem; margin: 1rem 0; text-align: center; }
-    .sgk-fig-box img { max-width: 100%; max-height: 360px; height: auto; border-radius: 6px; object-fit: contain; }
+    .sgk-fig-box { background: #fff; border: 1.5px solid #cbd5e1; border-radius: 12px; padding: 0.85rem; margin: 1rem 0; text-align: center; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
+    .sgk-fig-box:hover { border-color: #60a5fa; box-shadow: 0 6px 18px rgba(37,99,235,0.10); }
+    .sgk-fig-box img { max-width: 100%; max-height: 360px; height: auto; border-radius: 6px; object-fit: contain; cursor: zoom-in; transition: transform 0.2s ease; }
     .sgk-fig-cap { font-size: 0.84rem; color: #475569; font-style: italic; margin-top: 0.5rem; }
+    .fig-gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 1rem; margin-top: 1.1rem; }
+    .fig-gallery-grid .sgk-fig-box { margin: 0; }
+    .fig-gallery-grid .sgk-fig-box.span-full { grid-column: 1 / -1; }
+    .fig-gallery-grid .sgk-fig-box img { max-height: 430px; }
+    .fig-gallery-grid .sgk-fig-box.span-full img { max-height: 490px; }
+    .example-cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.7rem; margin: 0.85rem 0; }
+    .ex-card { background: #fff; border: 1.5px solid #cbd5e1; border-radius: 10px; padding: 0.75rem 0.85rem; }
+    .ex-card-blue { background: #eff6ff; border-color: #93c5fd; }
+    .ex-card-emerald { background: #f0fdf4; border-color: #86efac; }
+    .ex-card-amber { background: #fffbeb; border-color: #fcd34d; }
+    .ex-card-rose { background: #fef2f2; border-color: #fca5a5; }
     .exam-gated-hidden { display: none !important; }
 
 
@@ -155,6 +167,7 @@
           <div>
             <div style="color:#334155;line-height:1.65;font-size:0.95rem;"><p>Để liên kết tới một trang web bất kì thuộc website khác trên Internet, ta sử dụng <strong>đường dẫn tuyệt đối</strong> ghi đủ giao thức <code>https://</code> (hoặc <code>http://</code>) trong thuộc tính <code>href</code>.</p>
 <p>Ví dụ SGK tr.59: <code>&lt;a href="https://hanhtrangso.nxbgd.vn/sach-dien-tu?book_active=0"&gt;Hành trang số&lt;/a&gt;</code>.</p></div>
+
 <div class="callout-box" style="margin-top:0.85rem;">📌 <strong>Ghi nhớ SGK:</strong> Khi trỏ tới trang web khác, luôn kiểm tra kĩ giao thức <code>https://</code> ở đầu; nếu thiếu giao thức này, trình duyệt sẽ tìm nhầm thành một tệp tin trên máy cục bộ.</div>
 
 <div style="background:#f0fdfa;border:1.5px solid #5eead4;border-radius:10px;padding:0.9rem 1rem;margin-top:0.9rem;"><strong style="color:#0f766e;">❓ Hoạt động 2 (SGK tr.58):</strong><ul style="margin:0.5rem 0 0;padding-left:1.2rem;line-height:1.6;"><li><strong>Khi lướt web hằng ngày, em thường gặp những kiểu liên kết nào?</strong><br><button type="button" class="btn btn-secondary btn-sm" style="margin-top:0.35rem;" onclick="const b=this.nextElementSibling; const open=b.style.display!=='none'; b.style.display=open?'none':'block'; this.textContent=open?'💡 Bấm xem gợi ý trả lời':'🙈 Ẩn gợi ý';">💡 Bấm xem gợi ý trả lời</button><div style="display:none;margin-top:0.4rem;color:#166534;background:#f0fdf4;padding:0.55rem 0.75rem;border-radius:6px;border:1px solid #86efac;"><strong>Gợi ý trả lời:</strong> Ta thường gặp 4 kiểu liên kết phổ biến: (1) Liên kết chuyển sang một trang web/tên miền khác trên Internet; (2) Liên kết chuyển trang trong cùng một website (menu Trang chủ, Tin tức...); (3) Liên kết cuộn nhanh tới một vị trí ngay trên trang hiện tại (mục lục, nút về đầu trang); (4) Liên kết gắn trên hình ảnh hoặc biểu tượng minh họa.</div></li></ul></div>
@@ -179,8 +192,11 @@
               <div class="snippet-preview-bar"><span>🌐 KẾT QUẢ HIỂN THỊ</span><span style="color:#16a34a;">HTML5 Live</span></div>
               <iframe id="prev-h22_0" style="width:100%;height:190px;border:none;background:#fff;" title="Preview h22_0"></iframe>
             </div>
+<div class="sgk-fig-box" style="margin-top:0.85rem;margin-bottom:0;"><img src="assets/sgk/illus_10_4_kieu_lien_ket_web.png" alt="Hoạt động 2 (SGK tr.58): 4 kiểu siêu liên kết thường gặp trên các trang web thực tế"><div class="sgk-fig-cap">Hoạt động 2 (SGK tr.58): 4 kiểu siêu liên kết thường gặp trên các trang web thực tế</div></div>
           </div>
         </div>
+
+
       </section>
       <section class="card" style="margin-bottom: 1.5rem;">
         <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.65rem;">
@@ -196,7 +212,8 @@
   <li><strong>Đi ngược lên thư mục cha (<code>../</code>):</strong> Khi đang đứng ở tệp <code>bai_tap/bai_tap_1.html</code> muốn quay về <code>index.html</code> ở thư mục cha → viết <code>href="../index.html"</code> (mỗi <code>../</code> lùi lên 1 cấp).</li>
 </ul></div>
 
-<div class="sgk-fig-box"><img src="assets/sgk/sgk_hinh10_1.png" alt="Hình 10.1a: Sơ đồ thư mục website chuẩn (SGK Tin học 12, tr.59)"><div class="sgk-fig-cap">Hình 10.1a: Sơ đồ thư mục website chuẩn (SGK Tin học 12, tr.59)</div></div><div class="sgk-fig-box"><img src="assets/sgk/sgk_hinh10_1_sub.png" alt="Hình 10.1b: Liên kết ngược lên thư mục cha bằng ../ (tr.59)"><div class="sgk-fig-cap">Hình 10.1b: Liên kết ngược lên thư mục cha bằng ../ (tr.59)</div></div>
+
+
 
           </div>
           <div>
@@ -222,8 +239,11 @@
               <div class="snippet-preview-bar"><span>🌐 KẾT QUẢ HIỂN THỊ</span><span style="color:#16a34a;">HTML5 Live</span></div>
               <iframe id="prev-h22_1" style="width:100%;height:190px;border:none;background:#fff;" title="Preview h22_1"></iframe>
             </div>
+<div class="sgk-fig-box" style="margin-top:0.85rem;margin-bottom:0;"><img src="assets/sgk/illus_10_duong_dan_tuong_doi.png" alt="Đối chiếu trực quan 3 hướng đường dẫn tương đối trong cùng Website"><div class="sgk-fig-cap">Đối chiếu trực quan 3 hướng đường dẫn tương đối trong cùng Website</div></div>
           </div>
         </div>
+<div style="margin-top:1.1rem;font-weight:800;color:#1e3a8a;font-size:0.95rem;">🖼️ Sơ đồ Hình 10.1 SGK &amp; Minh họa đường dẫn tương đối trong cùng Website (Bấm vào hình để phóng to):</div><div class="fig-gallery-grid" style="margin-top:0.55rem;"><div class="sgk-fig-box"><img src="assets/sgk/sgk_hinh10_1.png" alt="Hình 10.1a: Sơ đồ thư mục website chuẩn (SGK Tin học 12, tr.59)"><div class="sgk-fig-cap">Hình 10.1a: Sơ đồ thư mục website chuẩn (SGK Tin học 12, tr.59)</div></div><div class="sgk-fig-box"><img src="assets/sgk/sgk_hinh10_1_sub.png" alt="Hình 10.1b: Liên kết ngược lên thư mục cha bằng ../ (tr.59)"><div class="sgk-fig-cap">Hình 10.1b: Liên kết ngược lên thư mục cha bằng ../ (tr.59)</div></div></div>
+
       </section>
       <section class="card" style="margin-bottom: 1.5rem;">
         <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.65rem;">
@@ -238,6 +258,7 @@
     <br>2) Trên cùng trang: viết <code>&lt;a href="#Thong_tin"&gt;...&lt;/a&gt;</code>. Từ trang khác: ghép thêm tên tệp <code>href="thong_tin.html#Thong_tin"</code>.</li>
   <li><strong>Sử dụng hình ảnh làm liên kết:</strong> Đặt thẻ hình ảnh <code>&lt;img src="..."&gt;</code> nằm bên trong cặp thẻ <code>&lt;a href="..."&gt;...&lt;/a&gt;</code>. Ví dụ: <code>&lt;a href="thong_tin.html"&gt;&lt;img src="images/sun.png" alt="Thông tin"&gt;&lt;/a&gt;</code>.</li>
 </ul></div>
+
 <div class="callout-box" style="margin-top:0.85rem;">📌 <strong>Ghi nhớ SGK:</strong> <strong>Ghi nhớ SGK tr.60:</strong> Với liên kết trong cùng website cần chỉ rõ đường dẫn tương đối theo vị trí tệp hiện tại (cùng thư mục, thư mục con, dùng <code>../</code> cho thư mục cha), dùng <code>#id</code> cho vị trí cụ thể và có thể lồng <code>&lt;img&gt;</code> trong <code>&lt;a&gt;</code>.</div>
 
 <div style="background:#f0fdfa;border:1.5px solid #5eead4;border-radius:10px;padding:0.9rem 1rem;margin-top:0.9rem;"><strong style="color:#0f766e;">❓ Câu hỏi cuối Mục 2 (SGK tr.60):</strong><ul style="margin:0.5rem 0 0;padding-left:1.2rem;line-height:1.6;"><li><strong>Theo cấu trúc thư mục ở Hình 10.1, hãy viết đoạn mã HTML đặt trong tệp <code>index.html</code> tạo một danh sách không có thứ tự gồm 2 mục liên kết tới trang <code>bai_tap_1.html</code> và <code>bai_tap_on_tap.html</code>.</strong><br><button type="button" class="btn btn-secondary btn-sm" style="margin-top:0.35rem;" onclick="const b=this.nextElementSibling; const open=b.style.display!=='none'; b.style.display=open?'none':'block'; this.textContent=open?'💡 Bấm xem gợi ý trả lời':'🙈 Ẩn gợi ý';">💡 Bấm xem gợi ý trả lời</button><div style="display:none;margin-top:0.4rem;color:#166534;background:#f0fdf4;padding:0.55rem 0.75rem;border-radius:6px;border:1px solid #86efac;"><strong>Gợi ý đáp án:</strong><br><pre style='background:#0f172a;color:#e2e8f0;padding:0.65rem;border-radius:6px;margin-top:0.35rem;'>&lt;ul&gt;
@@ -269,8 +290,11 @@
               <div class="snippet-preview-bar"><span>🌐 KẾT QUẢ HIỂN THỊ</span><span style="color:#16a34a;">HTML5 Live</span></div>
               <iframe id="prev-h22_2" style="width:100%;height:190px;border:none;background:#fff;" title="Preview h22_2"></iframe>
             </div>
+<div class="sgk-fig-box" style="margin-top:0.85rem;margin-bottom:0;"><img src="assets/sgk/illus_10_neo_id_va_anh_link.png" alt="Sơ đồ cơ chế nhảy vị trí với neo #id và bọc thẻ &lt;img&gt; bên trong &lt;a&gt; để tạo ảnh liên kết"><div class="sgk-fig-cap">Sơ đồ cơ chế nhảy vị trí với neo #id và bọc thẻ &lt;img&gt; bên trong &lt;a&gt; để tạo ảnh liên kết</div></div>
           </div>
         </div>
+
+
       </section>
 
       <!-- SANDBOX 2.2 -->
@@ -477,6 +501,16 @@
       </div>
     </div>
   </div>
+  <!-- MODAL PHÓNG TO HÌNH MINH HỌA -->
+  <div id="img-zoom-modal" class="qr-zoom-modal" onclick="closeImgZoom()">
+    <div class="qr-zoom-box" style="max-width: min(94vw, 1140px); padding: 1.25rem; text-align: center;" onclick="event.stopPropagation()">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:0.75rem;margin-bottom:0.75rem;">
+        <div id="img-zoom-caption" style="font-size:0.95rem;font-weight:700;color:#1e3a8a;text-align:left;"></div>
+        <button type="button" onclick="closeImgZoom()" class="btn btn-secondary btn-sm" style="flex-shrink:0;">✕ Đóng</button>
+      </div>
+      <img id="img-zoom-target" alt="Phóng to hình minh họa" style="max-width:100%;max-height:78vh;height:auto;border-radius:10px;border:1px solid #cbd5e1;background:#fff;display:block;margin:0 auto;">
+    </div>
+  </div>
 
   <script src="js/script.js"></script>
   <script>
@@ -679,12 +713,36 @@
         return data;
       } catch (e) { return null; }
     }
+    function openImgZoom(src, cap) {
+      const m = document.getElementById('img-zoom-modal');
+      const im = document.getElementById('img-zoom-target');
+      const cp = document.getElementById('img-zoom-caption');
+      if (!m || !im || !src) return;
+      im.src = src;
+      im.alt = cap || 'Hình minh họa';
+      if (cp) cp.textContent = cap || 'Hình minh họa chi tiết';
+      m.classList.add('active');
+    }
+    function closeImgZoom() {
+      document.getElementById('img-zoom-modal')?.classList.remove('active');
+    }
+    document.addEventListener('keydown', (ev) => {
+      if (ev.key === 'Escape') closeImgZoom();
+    });
     document.addEventListener('DOMContentLoaded', () => {
       updateTeacherNavBadge();
       syncLessonExamGates();
       if (document.querySelector('[data-exam-gate], #teacher-exam-control-panel')) {
         setInterval(syncLessonExamGates, 10000);
       }
+      document.querySelectorAll('.sgk-fig-box img').forEach(img => {
+        img.title = img.title || 'Bấm để phóng to hình minh họa';
+        img.addEventListener('click', () => {
+          const figBox = img.closest('.sgk-fig-box');
+          const capEl = figBox ? figBox.querySelector('.sgk-fig-cap') : null;
+          openImgZoom(img.getAttribute('src'), (capEl && capEl.textContent) || img.getAttribute('alt') || '');
+        });
+      });
     });
     
     const SNIPPETS = {"h22_0": "<!DOCTYPE html>\n<html lang=\"vi\">\n<body style=\"font-family:sans-serif;padding:12px;\">\n  <h4>Tài liệu học tập trực tuyến (Mục 2a SGK):</h4>\n  <a href=\"https://hanhtrangso.nxbgd.vn/sach-dien-tu?book_active=0\">\n    Mở Sách điện tử Hành trang số NXBGD\n  </a>\n</body>\n</html>", "h22_1": "<!DOCTYPE html>\n<html lang=\"vi\">\n<body style=\"font-family:sans-serif;padding:12px;\">\n  <h4>Menu từ index.html (Hình 10.1):</h4>\n  <ul>\n    <li><a href=\"thong_tin.html\">Cùng thư mục: thong_tin.html</a></li>\n    <li><a href=\"bai_tap/bai_tap_1.html\">Thư mục con: bai_tap/bai_tap_1.html</a></li>\n    <li><a href=\"bai_tap/on_tap/bai_tap_on_tap.html\">Sâu 2 cấp: on_tap/bai_tap_on_tap.html</a></li>\n    <li><a href=\"../index.html\">Từ tệp con lùi lên cha: ../index.html</a></li>\n  </ul>\n</body>\n</html>", "h22_2": "<!DOCTYPE html>\n<html lang=\"vi\">\n<body style=\"font-family:sans-serif;padding:12px;\">\n  <p><a href=\"#Thong_tin\">⬇ Nhảy tới mục Thông tin</a></p>\n  <p>Bấm vào biểu tượng Mặt Trời để mở trang thông tin:</p>\n  <a href=\"thong_tin.html\">\n    <img src=\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='56' height='56'><circle cx='28' cy='28' r='16' fill='%23f59e0b'/><circle cx='28' cy='28' r='22' fill='none' stroke='%23fbbf24' stroke-width='3' stroke-dasharray='4 4'/></svg>\" alt=\"Thông tin CLB\">\n  </a>\n  <div style=\"height:120px;\"></div>\n  <h3 id=\"Thong_tin\" style=\"color:#0284c7;\">Mục Thông tin chi tiết</h3>\n  <p>Đây là vị trí có id=\"Thong_tin\".</p>\n</body>\n</html>"};

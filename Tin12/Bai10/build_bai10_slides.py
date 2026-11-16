@@ -523,43 +523,33 @@ SLIDES_DATA = [
     ]
   },
   {
-    "kind": "two_col",
+    "kind": "image_focus",
     "badge": "KHỞI ĐỘNG • SGK TR.57",
-    "title": "SO SÁNH TRANG CLB TRƯỚC VÀ SAU KHI GẮN LIÊN KẾT",
-    "left": {
-      "heading": "Chưa tạo liên kết",
-      "color": "amber",
-      "bullets": [
-        "Mọi tiêu đề CLB Thể thao, CLB Nghệ thuật chỉ là chữ tĩnh.",
-        "Muốn xem trang thong_tin.html phải mở thủ công từng tệp.",
-        "Không thể bấm để chuyển nhanh tới website Trường hay sách điện tử."
-      ]
-    },
-    "right": {
-      "heading": "Đã gắn siêu liên kết <a href>",
-      "color": "emerald",
-      "bullets": [
-        "Các mục điều hướng tự đổi màu và gạch chân, có con trỏ hình bàn tay.",
-        "Nhấp vào tên CLB tự động mở ngay trang thong_tin.html.",
-        "Kết nối nhiều trang đơn lẻ thành một website hoàn chỉnh."
-      ]
-    }
+    "title": "ĐỌC SÁCH BÁO GIẤY VS ĐỌC TRANG WEB (SIÊU VĂN BẢN)",
+    "heading": "Khác biệt lớn nhất khi đọc web",
+    "bullets": [
+      "Sách, báo giấy đọc tuần tự từ trang này sang trang khác, tìm mục bằng tay.",
+      "Trang web tích hợp nhiều dữ liệu và các siêu liên kết (Hyperlink).",
+      "Nhấp vào liên kết lập tức mở sang trang thong_tin.html hoặc trang ngoài!"
+    ],
+    "image": "illus_10_sach_vs_web.png",
+    "caption": "So sánh đọc sách báo truyền thống (tuyến tính) và đọc trang web siêu văn bản"
   },
   {
     "kind": "section",
     "tag": "HOẠT ĐỘNG 2.1 • KHÁM PHÁ 1 (MỤC 1 SGK)",
     "title": "1. SIÊU VĂN BẢN VÀ ĐƯỜNG DẪN",
-    "subtitle": "Khám phá bản chất Hypertext, cú pháp thẻ <a> và hai loại đường dẫn (tr.57–58)",
+    "subtitle": "Khám phá bản chất Hypertext, ví dụ thực tế .docx vs .txt, thẻ <a> và hai loại đường dẫn (tr.57–58)",
     "theme": "emerald",
     "pills": [
       [
         "Hoạt động 1",
-        "Phân biệt tệp .docx có liên kết và tệp .txt thuần túy.",
+        "Phân biệt tệp .docx (Word) và tệp .txt (Notepad).",
         "blue"
       ],
       [
-        "Thẻ <a href>",
-        "<a href=\"URL\">Nội dung hiển thị</a>.",
+        "Siêu liên kết",
+        "Thẻ <a href=\"URL\">Nội dung</a> & 3 ví dụ.",
         "emerald"
       ],
       [
@@ -570,69 +560,83 @@ SLIDES_DATA = [
     ]
   },
   {
-    "kind": "quiz",
-    "badge": "KHÁM PHÁ 1 • HOẠT ĐỘNG 1 (TR.57)",
-    "title": "THẢO LUẬN CẶP ĐÔI: TỆP .DOCX CÓ LIÊN KẾT VS TỆP .TXT",
-    "question": "Khi đọc một văn bản định dạng .docx có chứa đường link và một tệp văn bản thuần túy .txt chứa cùng địa chỉ web đó, em thấy có điểm gì khác biệt?",
-    "options": [
-      "Tệp .txt chỉ lưu các kí tự chữ đơn thuần.",
-      "Tệp .docx cho phép chèn hình ảnh, định dạng chữ và siêu liên kết.",
-      "Trong Word (.docx), liên kết có màu xanh, gạch chân và nhấp mở được trình duyệt."
+    "kind": "image_focus",
+    "badge": "KHÁM PHÁ 1 • SIÊU VĂN BẢN LÀ GÌ?",
+    "title": "VÍ DỤ TRỰC QUAN: MỘT TRANG SIÊU VĂN BẢN (HYPERTEXT)",
+    "heading": "4 thành phần tạo nên Siêu văn bản",
+    "bullets": [
+      "Tích hợp nhiều dạng dữ liệu: Văn bản, Hình ảnh, Âm thanh & Video.",
+      "Chứa các Siêu liên kết xanh gạch chân dẫn sang nhiều trang khác nhau.",
+      "Ví dụ thực tế: Bài viết Wikipedia, báo điện tử VnExpress, sách Hành trang số."
     ],
-    "answer": [
-      ".docx mang đặc điểm của siêu văn bản: chứa text + đa phương tiện + liên kết bấm được.",
-      ".txt là văn bản thuần: URL chỉ là chữ chết, phải copy dán mới mở được.",
-      "Web HTML chính là siêu văn bản tiêu chuẩn hóa trên trình duyệt!"
-    ]
+    "image": "illus_10_sieu_van_ban_la_gi.png",
+    "caption": "Minh họa cấu trúc một trang Siêu văn bản HTML5 thực tế trên trình duyệt"
   },
   {
-    "kind": "two_col",
-    "badge": "KHÁM PHÁ 1 • KIẾN THỨC MỤC 1 (TR.57–58)",
-    "title": "SIÊU VĂN BẢN, SIÊU LIÊN KẾT VÀ CÚ PHÁP THẺ <a>",
-    "left": {
-      "heading": "Khái niệm cốt lõi",
-      "color": "blue",
-      "bullets": [
-        "Siêu văn bản (Hypertext): văn bản tích hợp text, ảnh, âm thanh, video và các liên kết tới phần tử khác.",
-        "Siêu liên kết (Hyperlink): tham chiếu giúp người dùng di chuyển tới vị trí khác trong cùng trang hoặc sang trang web khác khi nhấp chuột.",
-        "Thẻ tạo liên kết: <a> (Anchor) là thẻ đôi, có thuộc tính bắt buộc href."
-      ]
-    },
-    "right": {
-      "heading": "Cú pháp & Lưu ý thẻ <a>",
-      "color": "emerald",
-      "bullets": [
-        "Cú pháp chuẩn: <a href=\"URL\">Nội dung siêu liên kết</a>",
-        "Giá trị của href là địa chỉ URL đích (đặt trong ngoặc kép).",
-        "Nội dung giữa <a> và </a> có thể là chữ hoặc hình ảnh <img>.",
-        "Ví dụ: <a href=\"https://www.nxbgd.vn/\">Trang NXB Giáo dục</a>"
-      ]
-    }
+    "kind": "image_focus",
+    "badge": "KHÁM PHÁ 1 • HOẠT ĐỘNG 1 (TR.57)",
+    "title": "SO SÁNH TỆP .DOCX (WORD) VÀ TỆP .TXT (NOTEPAD)",
+    "heading": "Vì sao đọc .docx khác hẳn đọc .txt?",
+    "bullets": [
+      ".docx (Word): Có màu chữ, hình ảnh, gạch chân xanh và Ctrl+Click mở link.",
+      ".txt (Notepad): Văn bản thuần túy, chỉ lưu kí tự thô trên một phông đơn sắc.",
+      "Link trong .txt chỉ là chữ tĩnh, muốn mở phải Copy rồi dán sang trình duyệt!"
+    ],
+    "image": "illus_10_docx_vs_txt.png",
+    "caption": "Đối chiếu trực tiếp cửa sổ Microsoft Word (.docx) và Notepad (.txt)"
   },
   {
-    "kind": "two_col",
+    "kind": "image_focus",
+    "badge": "KHÁM PHÁ 1 • SIÊU LIÊN KẾT & THẺ <a>",
+    "title": "SIÊU LIÊN KẾT LÀ GÌ? GIẢI PHẪU THẺ <A> & VÍ DỤ",
+    "heading": "Cấu tạo cú pháp <a href=\"URL\">...</a>",
+    "bullets": [
+      "Cặp thẻ đôi <a>...</a> (Anchor) đánh dấu vùng chứa siêu liên kết.",
+      "Thuộc tính bắt buộc href=\"URL\" khai báo địa chỉ trang đích cần mở.",
+      "Nội dung bên trong có thể là dòng chữ hoặc hình ảnh <img> bấm được!"
+    ],
+    "image": "illus_10_sieu_lien_ket_anatomy.png",
+    "caption": "Giải phẫu cú pháp thẻ <a> và 3 ví dụ siêu liên kết thường gặp"
+  },
+  {
+    "kind": "image_focus",
     "badge": "KHÁM PHÁ 1 • GHI NHỚ SGK TR.58",
-    "title": "PHÂN BIỆT ĐƯỜNG DẪN TUYỆT ĐỐI VÀ ĐƯỜNG DẪN TƯƠNG ĐỐI",
-    "left": {
-      "heading": "Đường dẫn Tuyệt đối (Absolute URL)",
-      "color": "amber",
-      "bullets": [
-        "Ghi đầy đủ giao thức (http:// hoặc https://) và tên miền + đường dẫn tài nguyên.",
-        "Ví dụ: https://www.nxbgd.vn/ hoặc https://hanhtrangso.nxbgd.vn/",
-        "Dùng khi liên kết tới trang web NGOÀI website hiện tại.",
-        "Không nên dùng đường dẫn ổ đĩa máy cá nhân (D:\\bai_tap\\bt1.html) vì sẽ hỏng khi chuyển máy!"
-      ]
-    },
-    "right": {
-      "heading": "Đường dẫn Tương đối (Relative URL)",
-      "color": "blue",
-      "bullets": [
-        "Không có giao thức hay tên miền; xác định tương đối so với thư mục chứa tệp HTML hiện tại.",
-        "Ví dụ: thong_tin.html, BT/bai_tap_1.html, ../index.html",
-        "Ưu tiên dùng khi liên kết giữa các tệp trong CÙNG website.",
-        "Giúp website vẫn chạy bình thường khi copy toàn bộ thư mục sang máy khác hoặc tải lên host."
-      ]
-    }
+    "title": "ĐƯỜNG DẪN TUYỆT ĐỐI (ABSOLUTE URL) & VÍ DỤ",
+    "heading": "Khi nào dùng đường dẫn tuyệt đối?",
+    "bullets": [
+      "Ghi đủ giao thức (http://, https://), tên miền và đường dẫn tệp đích.",
+      "Ví dụ chuẩn: https://www.nxbgd.vn/ hoặc http://hocmai.vn/khoahoc.",
+      "Bắt buộc dùng khi liên kết ra Website khác trên Internet.",
+      "CẢNH BÁO: Tránh dùng đường dẫn ổ đĩa cá nhân D:\\TinHoc12\\index.html!"
+    ],
+    "image": "illus_10_duong_dan_tuyet_doi.png",
+    "caption": "Phân tích từng thành phần đường dẫn tuyệt đối và lưu ý ổ đĩa cá nhân"
+  },
+  {
+    "kind": "image_focus",
+    "badge": "KHÁM PHÁ 1 • GHI NHỚ SGK TR.58",
+    "title": "ĐƯỜNG DẪN TƯƠNG ĐỐI (RELATIVE URL) & CÂY THƯ MỤC",
+    "heading": "3 hướng đi từ tệp HTML đang đứng",
+    "bullets": [
+      "Không có giao thức hay tên miền; xác định tính từ thư mục chứa tệp hiện tại.",
+      "Cùng cấp: href=\"thong_tin.html\". Vào thư mục con: bai_tap/bai_tap_1.html.",
+      "Lùi lên 1 cấp thư mục cha: dùng kí hiệu ../ (vd: ../index.html)."
+    ],
+    "image": "illus_10_duong_dan_tuong_doi.png",
+    "caption": "Minh họa 3 hướng đi của đường dẫn tương đối theo Hình 10.1 SGK"
+  },
+  {
+    "kind": "image_focus",
+    "badge": "KHÁM PHÁ 1 • TÌNH HUỐNG THỰC TẾ",
+    "title": "VÌ SAO PHẢI TRÁNH ĐƯỜNG DẪN Ổ ĐĨA D:\\... ?",
+    "heading": "Chuyện gì xảy ra khi chuyển máy?",
+    "bullets": [
+      "Đường dẫn D:\\TinHoc12\\thong_tin.html chỉ có trên máy cá nhân của em.",
+      "Khi nộp bài sang máy Giáo viên hoặc đưa lên web host, link lập tức báo lỗi 404!",
+      "Đường dẫn tương đối giúp cả thư mục Website chạy ổn định ở mọi nơi."
+    ],
+    "image": "illus_10_so_sanh_di_chuyen_web.png",
+    "caption": "So sánh khi chép Website dùng D:\\... vs đường dẫn tương đối sang máy khác"
   },
   {
     "kind": "quiz",
@@ -673,6 +677,20 @@ SLIDES_DATA = [
         "amber"
       ]
     ]
+  },
+  {
+    "kind": "image_focus",
+    "badge": "KHÁM PHÁ 2 • HOẠT ĐỘNG 2 (TR.58)",
+    "title": "4 KIỂU SIÊU LIÊN KẾT THƯỜNG GẶP KHI LƯỚT WEB",
+    "heading": "Hoạt động 2 SGK tr.58",
+    "bullets": [
+      "(1) Liên kết ra một trang web khác trên Internet (URL https://...).",
+      "(2) Liên kết giữa các trang trong cùng website (đường dẫn tương đối).",
+      "(3) Liên kết cuộn tới một vị trí cụ thể trên trang (#id).",
+      "(4) Liên kết gắn trên hình ảnh, biểu tượng hoặc nút bấm."
+    ],
+    "image": "illus_10_4_kieu_lien_ket_web.png",
+    "caption": "Tổng quan 4 kiểu liên kết phổ biến trong thiết kế web"
   },
   {
     "kind": "code_result",
@@ -737,6 +755,19 @@ SLIDES_DATA = [
       "Khi di chuột vào hình ảnh, con trỏ đổi thành hình bàn tay và bấm vào sẽ chuyển trang.",
       "Nhớ luôn thêm thuộc tính alt để trình duyệt mô tả ảnh nếu ảnh chưa kịp tải."
     ]
+  },
+  {
+    "kind": "image_focus",
+    "badge": "KHÁM PHÁ 2 • NEO #ID & ẢNH LINK (TR.59–60)",
+    "title": "SƠ ĐỒ TẠO NEO VỊ TRÍ (#ID) & HÌNH ẢNH LÀM LIÊN KẾT",
+    "heading": "2 kĩ thuật tạo liên kết nâng cao",
+    "bullets": [
+      "Bước 1: Đóng dấu phần tử đích bằng thuộc tính id=\"Thong_tin\".",
+      "Bước 2: Trên cùng trang viết #Thong_tin; khác trang viết thong_tin.html#Thong_tin.",
+      "Liên kết ảnh: Đặt <img src=\"...\"> bên trong cặp <a href=\"...\">...</a>."
+    ],
+    "image": "illus_10_neo_id_va_anh_link.png",
+    "caption": "Minh họa neo vị trí #id và kĩ thuật lồng <img> trong <a>"
   },
   {
     "kind": "quiz",

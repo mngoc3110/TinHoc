@@ -26,9 +26,21 @@
     .qr-zoom-modal { display: none; position: fixed; inset: 0; background: rgba(15,23,42,0.75); backdrop-filter: blur(4px); z-index: 9998; align-items: center; justify-content: center; padding: 1rem; }
     .qr-zoom-modal.active { display: flex; }
     .qr-zoom-box { background: #fff; border-radius: 16px; padding: 2rem; max-width: 460px; width: 100%; text-align: center; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.35); }
-    .sgk-fig-box { background: #fff; border: 1.5px solid #cbd5e1; border-radius: 12px; padding: 0.85rem; margin: 1rem 0; text-align: center; }
-    .sgk-fig-box img { max-width: 100%; max-height: 360px; height: auto; border-radius: 6px; object-fit: contain; }
+    .sgk-fig-box { background: #fff; border: 1.5px solid #cbd5e1; border-radius: 12px; padding: 0.85rem; margin: 1rem 0; text-align: center; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
+    .sgk-fig-box:hover { border-color: #60a5fa; box-shadow: 0 6px 18px rgba(37,99,235,0.10); }
+    .sgk-fig-box img { max-width: 100%; max-height: 360px; height: auto; border-radius: 6px; object-fit: contain; cursor: zoom-in; transition: transform 0.2s ease; }
     .sgk-fig-cap { font-size: 0.84rem; color: #475569; font-style: italic; margin-top: 0.5rem; }
+    .fig-gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 1rem; margin-top: 1.1rem; }
+    .fig-gallery-grid .sgk-fig-box { margin: 0; }
+    .fig-gallery-grid .sgk-fig-box.span-full { grid-column: 1 / -1; }
+    .fig-gallery-grid .sgk-fig-box img { max-height: 430px; }
+    .fig-gallery-grid .sgk-fig-box.span-full img { max-height: 490px; }
+    .example-cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.7rem; margin: 0.85rem 0; }
+    .ex-card { background: #fff; border: 1.5px solid #cbd5e1; border-radius: 10px; padding: 0.75rem 0.85rem; }
+    .ex-card-blue { background: #eff6ff; border-color: #93c5fd; }
+    .ex-card-emerald { background: #f0fdf4; border-color: #86efac; }
+    .ex-card-amber { background: #fffbeb; border-color: #fcd34d; }
+    .ex-card-rose { background: #fef2f2; border-color: #fca5a5; }
     .exam-gated-hidden { display: none !important; }
 
 
@@ -126,7 +138,7 @@
     <div class="container">
       <div class="badge-tag" style="background:rgba(255,255,255,0.16);color:#fff;">🧩 HOẠT ĐỘNG 2.1 • KHÁM PHÁ 1 (MỤC 1 SGK TR.57–58)</div>
       <h1 class="hero-title" style="font-size:1.95rem;">1. Siêu văn bản và đường dẫn</h1>
-      <p class="hero-subtitle">Khám phá trọn vẹn <strong>Mục 1 SGK (trang 57–58)</strong>: Hoạt động 1 (<code>.docx</code> vs <code>.txt</code>), khái niệm siêu văn bản – siêu liên kết, thẻ <code>&lt;a&gt;</code>, đường dẫn tuyệt đối – tương đối và câu hỏi củng cố.</p>
+      <p class="hero-subtitle">Khám phá trọn vẹn <strong>Mục 1 SGK (trang 57–58)</strong> kèm ví dụ thực tế &amp; nhiều hình ảnh minh họa: <strong>Siêu văn bản</strong>, <strong>Siêu liên kết</strong>, sự khác biệt giữa <code>.docx</code> và <code>.txt</code> (Hoạt động 1), cú pháp thẻ <code>&lt;a&gt;</code> và phân biệt <strong>đường dẫn tuyệt đối – đường dẫn tương đối</strong>.</p>
     </div>
   </section>
 
@@ -134,30 +146,34 @@
     <div class="container">
       <section class="card" style="margin-bottom: 1.5rem;">
         <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.65rem;">
-          <h2 style="margin:0;color:#1e3a8a;font-size:1.3rem;">1a. Hoạt động 1 &amp; Khái niệm Siêu văn bản, Siêu liên kết</h2>
-          <span class="sgk-badge">SGK Tin 12 • Mục 1 (tr.57)</span>
+          <h2 style="margin:0;color:#1e3a8a;font-size:1.3rem;">1a. Siêu văn bản là gì? Sự khác biệt giữa tệp .docx và tệp .txt</h2>
+          <span class="sgk-badge">SGK Tin 12 • Mục 1 &amp; HĐ 1 (tr.57)</span>
         </div>
         <div class="grid-2" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.25rem; align-items:start;">
           <div>
-            <div style="color:#334155;line-height:1.65;font-size:0.95rem;"><p>Trong HTML, một trang web không đứng cô lập mà là một <strong>siêu văn bản (hypertext)</strong>: loại văn bản tích hợp thêm nhiều dạng dữ liệu (văn bản, hình ảnh, âm thanh, video...) và các <strong>siêu liên kết (hyperlink)</strong> tới trang khác hoặc vị trí khác.</p>
-<p>Để tạo siêu liên kết, HTML sử dụng cặp thẻ <code>&lt;a&gt;</code> (viết tắt của <em>anchor</em>) cùng thuộc tính bắt buộc <code>href</code> (<em>hypertext reference</em>):</p>
-<p><code>&lt;a href="URL"&gt;Nội dung hiển thị làm liên kết&lt;/a&gt;</code></p></div>
-<div class="callout-box" style="margin-top:0.85rem;">📌 <strong>Ghi nhớ SGK:</strong> Khi di chuột qua vùng nội dung nằm trong cặp thẻ <code>&lt;a&gt;...&lt;/a&gt;</code>, con trỏ chuột sẽ chuyển thành hình bàn tay và nhấp chuột sẽ chuyển ngay tới địa chỉ ghi trong <code>href</code>.</div>
+            <div style="color:#334155;line-height:1.65;font-size:0.95rem;"><p><strong>Siêu văn bản (Hypertext)</strong> là loại văn bản được tích hợp nhiều dạng dữ liệu khác nhau (văn bản định dạng, hình ảnh, âm thanh, video...) cùng mạng lưới các <strong>siêu liên kết</strong> tới những nội dung hoặc trang web khác. Nhờ vậy người xem có thể đọc <em>phi tuyến tính</em> (bấm nhảy thẳng tới chủ đề mình quan tâm) thay vì đọc lần lượt từ đầu đến cuối.</p>
+<p><strong>Ví dụ thực tế về sự khác biệt khi đọc tệp <code>.docx</code> và tệp <code>.txt</code> (Hoạt động 1):</strong></p>
+<ul>
+  <li><strong>Tệp <code>.docx</code> (Microsoft Word):</strong> Mang đặc điểm của <em>siêu văn bản</em> — giữ nguyên màu sắc, phông chữ đậm/nghiêng, chèn được hình ảnh và biến URL thành liên kết màu xanh gạch chân (nhấn giữ <code>Ctrl + Click</code> sẽ mở ngay trang web).</li>
+  <li><strong>Tệp <code>.txt</code> (Notepad):</strong> Chỉ là <em>văn bản thuần túy (Plain Text)</em> — lưu toàn bộ dưới dạng chữ đơn sắc, không chèn được ảnh; dòng URL chỉ là chữ bình thường không bấm mở được (phải sao chép rồi dán vào trình duyệt).</li>
+</ul></div>
+<div class="example-cards-grid"><div class="ex-card ex-card-blue"><div style="display:inline-block;background:#dbeafe;color:#1d4ed8;padding:0.18rem 0.55rem;border-radius:999px;font-size:0.72rem;font-weight:800;margin-bottom:0.35rem;">Ví dụ Siêu văn bản</div><div style="font-weight:800;color:#0f172a;font-size:0.88rem;margin-bottom:0.25rem;">Wikipedia, Báo điện tử, Hành trang số</div><div style="font-size:0.83rem;color:#334155;line-height:1.48;">Một bài viết <strong>Wikipedia</strong> hay cổng <code>CLB.html</code> tích hợp chữ, ảnh minh họa, âm thanh/video và hàng loạt liên kết xanh dẫn qua lại nhiều trang.</div></div><div class="ex-card ex-card-emerald"><div style="display:inline-block;background:#dcfce7;color:#15803d;padding:0.18rem 0.55rem;border-radius:999px;font-size:0.72rem;font-weight:800;margin-bottom:0.35rem;">Tệp .docx (Word)</div><div style="font-weight:800;color:#0f172a;font-size:0.88rem;margin-bottom:0.25rem;">Có định dạng, ảnh &amp; Link bấm được</div><div style="font-size:0.83rem;color:#334155;line-height:1.48;">Trong <code>Gioi_thieu_CLB.docx</code>, link <code>https://hanhtrangso.nxbgd.vn/</code> hiện màu xanh gạch chân và <strong>Ctrl + Click</strong> mở thẳng trình duyệt.</div></div><div class="ex-card ex-card-amber"><div style="display:inline-block;background:#fef3c7;color:#b45309;padding:0.18rem 0.55rem;border-radius:999px;font-size:0.72rem;font-weight:800;margin-bottom:0.35rem;">Tệp .txt (Notepad)</div><div style="font-weight:800;color:#0f172a;font-size:0.88rem;margin-bottom:0.25rem;">Văn bản thuần túy (Chữ tĩnh)</div><div style="font-size:0.83rem;color:#334155;line-height:1.48;">Trong <code>Gioi_thieu_CLB.txt</code>, link chỉ là kí tự chữ đen bình thường, <strong>không có ảnh</strong>, không định dạng màu và không tự mở khi bấm.</div></div></div>
 
-<div style="background:#f0fdfa;border:1.5px solid #5eead4;border-radius:10px;padding:0.9rem 1rem;margin-top:0.9rem;"><strong style="color:#0f766e;">❓ Hoạt động 1 (SGK tr.57):</strong><ul style="margin:0.5rem 0 0;padding-left:1.2rem;line-height:1.6;"><li><strong>Điểm khác biệt khi đọc một văn bản .docx có chứa liên kết (link) so với đọc một tệp văn bản thuần túy .txt có chứa cùng đường link đó là gì?</strong><br><button type="button" class="btn btn-secondary btn-sm" style="margin-top:0.35rem;" onclick="const b=this.nextElementSibling; const open=b.style.display!=='none'; b.style.display=open?'none':'block'; this.textContent=open?'💡 Bấm xem gợi ý trả lời':'🙈 Ẩn gợi ý';">💡 Bấm xem gợi ý trả lời</button><div style="display:none;margin-top:0.4rem;color:#166534;background:#f0fdf4;padding:0.55rem 0.75rem;border-radius:6px;border:1px solid #86efac;"><strong>Gợi ý đáp án:</strong> Tệp <code>.txt</code> chỉ lưu kí tự văn bản đơn giản nên địa chỉ link chỉ là dòng chữ tĩnh, không bấm mở trực tiếp được. Ngược lại, tệp <code>.docx</code> có tính chất như một siêu văn bản: liên kết được tô màu/gạch chân, nhấp giữ Ctrl + Click sẽ mở thẳng trang đích; đồng thời <code>.docx</code> còn chèn được hình ảnh và định dạng phong phú.</div></li></ul></div>
+
+
           </div>
           <div>
             <div class="syntax-card">
               <div class="syntax-header">
-                <span>💻 Ví dụ mở đầu thẻ &lt;a href&gt;</span>
+                <span>💻 Ví dụ trang Siêu văn bản HTML5 (Chữ + Ảnh + Liên kết)</span>
                 <button type="button" id="btn-h21_0" class="btn-mini-tool" onclick="toggleSnippet('h21_0')">▶ Bấm xem kết quả hiển thị</button>
               </div>
               <pre class="syntax-body">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;vi&quot;&gt;
 &lt;body style=&quot;font-family:sans-serif;padding:12px;&quot;&gt;
-  &lt;h3&gt;Ví dụ siêu liên kết đầu tiên&lt;/h3&gt;
-  &lt;p&gt;Nhấp vào liên kết bên dưới để mở trang web NXB Giáo dục:&lt;/p&gt;
-  &lt;a href=&quot;https://www.nxbgd.vn/&quot;&gt;Trang chủ NXB Giáo dục Việt Nam&lt;/a&gt;
+  &lt;h3 style=&quot;color:#1e3a8a;&quot;&gt;CỔNG CÂU LẠC BỘ TIN HỌC (Siêu văn bản)&lt;/h3&gt;
+  &lt;p&gt;Siêu văn bản kết hợp &lt;strong&gt;chữ định dạng&lt;/strong&gt;, hình ảnh và liên kết:&lt;/p&gt;
+  &lt;a href=&quot;https://hanhtrangso.nxbgd.vn/&quot;&gt;Mở Sách điện tử Hành trang số&lt;/a&gt;
 &lt;/body&gt;
 &lt;/html&gt;</pre>
             </div>
@@ -165,30 +181,77 @@
               <div class="snippet-preview-bar"><span>🌐 KẾT QUẢ HIỂN THỊ</span><span style="color:#16a34a;">HTML5 Live</span></div>
               <iframe id="prev-h21_0" style="width:100%;height:190px;border:none;background:#fff;" title="Preview h21_0"></iframe>
             </div>
+<div class="sgk-fig-box" style="margin-top:0.85rem;margin-bottom:0;"><img src="assets/sgk/illus_10_sieu_van_ban_la_gi.png" alt="Ví dụ trực quan: Một trang Siêu văn bản (Hypertext) tích hợp văn bản, hình ảnh, đa phương tiện và siêu liên kết"><div class="sgk-fig-cap">Ví dụ trực quan: Một trang Siêu văn bản (Hypertext) tích hợp văn bản, hình ảnh, đa phương tiện và siêu liên kết</div></div>
           </div>
         </div>
+<div style="margin-top:1.1rem;font-weight:800;color:#1e3a8a;font-size:0.95rem;">🖼️ Hình ảnh so sánh trực quan tệp .docx (Word) và tệp .txt (Notepad) – Hoạt động 1 SGK tr.57 (Bấm vào hình để phóng to):</div><div class="fig-gallery-grid" style="margin-top:0.55rem;"><div class="sgk-fig-box span-full"><img src="assets/sgk/illus_10_docx_vs_txt.png" alt="Hoạt động 1 (SGK tr.57): Trong Word (.docx) đường link màu xanh gạch chân nhấp Ctrl + Click mở ngay trình duyệt; trong Notepad (.txt) chỉ là kí tự chữ đen thuần túy"><div class="sgk-fig-cap">Hoạt động 1 (SGK tr.57): Trong Word (.docx) đường link màu xanh gạch chân nhấp Ctrl + Click mở ngay trình duyệt; trong Notepad (.txt) chỉ là kí tự chữ đen thuần túy</div></div></div>
+<div style="background:#f0fdfa;border:1.5px solid #5eead4;border-radius:10px;padding:0.9rem 1rem;margin-top:0.9rem;"><strong style="color:#0f766e;">❓ Hoạt động 1 (SGK tr.57):</strong><ul style="margin:0.5rem 0 0;padding-left:1.2rem;line-height:1.6;"><li><strong>Điểm khác biệt khi đọc một văn bản .docx có chứa liên kết (link) so với đọc một tệp văn bản thuần túy .txt có chứa cùng đường link đó là gì?</strong><br><button type="button" class="btn btn-secondary btn-sm" style="margin-top:0.35rem;" onclick="const b=this.nextElementSibling; const open=b.style.display!=='none'; b.style.display=open?'none':'block'; this.textContent=open?'💡 Bấm xem gợi ý trả lời':'🙈 Ẩn gợi ý';">💡 Bấm xem gợi ý trả lời</button><div style="display:none;margin-top:0.4rem;color:#166534;background:#f0fdf4;padding:0.55rem 0.75rem;border-radius:6px;border:1px solid #86efac;"><strong>Gợi ý đáp án:</strong> Tệp <code>.txt</code> chỉ lưu kí tự văn bản đơn giản nên địa chỉ link chỉ là dòng chữ tĩnh, không bấm mở trực tiếp được. Ngược lại, tệp <code>.docx</code> có tính chất như một siêu văn bản: liên kết được tô màu/gạch chân, nhấp giữ Ctrl + Click sẽ mở thẳng trang đích; đồng thời <code>.docx</code> còn chèn được hình ảnh và định dạng phong phú.</div></li></ul></div>
       </section>
       <section class="card" style="margin-bottom: 1.5rem;">
         <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.65rem;">
-          <h2 style="margin:0;color:#1e3a8a;font-size:1.3rem;">1b. Đường dẫn tuyệt đối và Đường dẫn tương đối</h2>
+          <h2 style="margin:0;color:#1e3a8a;font-size:1.3rem;">1b. Siêu liên kết (Hyperlink) là gì? Ví dụ &amp; Cú pháp thẻ a (Anchor)</h2>
+          <span class="sgk-badge">SGK Tin 12 • Mục 1 (tr.57)</span>
+        </div>
+        <div class="grid-2" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.25rem; align-items:start;">
+          <div>
+            <div style="color:#334155;line-height:1.65;font-size:0.95rem;"><p><strong>Siêu liên kết (Hyperlink)</strong> là thành phần tham chiếu gắn trên một đoạn văn bản, cụm từ hoặc hình ảnh của siêu văn bản. Khi người dùng <strong>nhấp chuột</strong> vào siêu liên kết, trình duyệt sẽ lập tức di chuyển tới trang web khác hoặc cuộn tới vị trí tương ứng trên trang.</p>
+<p>Để tạo siêu liên kết trong HTML, ta dùng cặp thẻ đôi <code>&lt;a&gt;...&lt;/a&gt;</code> (viết tắt của <em>anchor</em>) cùng thuộc tính bắt buộc <code>href</code> (<em>hypertext reference</em>):</p>
+<p><code>&lt;a href="URL"&gt;Nội dung hiển thị làm liên kết&lt;/a&gt;</code></p></div>
+<div class="example-cards-grid"><div class="ex-card ex-card-blue"><div style="display:inline-block;background:#dbeafe;color:#1d4ed8;padding:0.18rem 0.55rem;border-radius:999px;font-size:0.72rem;font-weight:800;margin-bottom:0.35rem;">Ví dụ 1 • Liên kết chữ</div><div style="font-weight:800;color:#0f172a;font-size:0.88rem;margin-bottom:0.25rem;">Dẫn tới Website bên ngoài</div><div style="font-size:0.83rem;color:#334155;line-height:1.48;"><code>&lt;a href="https://www.nxbgd.vn/"&gt;NXB Giáo dục&lt;/a&gt;</code> → hiển thị chữ xanh gạch chân, bấm vào mở trang chủ NXBGD.</div></div><div class="ex-card ex-card-emerald"><div style="display:inline-block;background:#dcfce7;color:#15803d;padding:0.18rem 0.55rem;border-radius:999px;font-size:0.72rem;font-weight:800;margin-bottom:0.35rem;">Ví dụ 2 • Liên kết neo</div><div style="font-weight:800;color:#0f172a;font-size:0.88rem;margin-bottom:0.25rem;">Chuyển mục trong cùng Website</div><div style="font-size:0.83rem;color:#334155;line-height:1.48;"><code>&lt;a href="thong_tin.html#CLBTT"&gt;CLB Thể thao&lt;/a&gt;</code> → mở <code>thong_tin.html</code> và nhảy tới mục <code>CLBTT</code>.</div></div><div class="ex-card ex-card-amber"><div style="display:inline-block;background:#fef3c7;color:#b45309;padding:0.18rem 0.55rem;border-radius:999px;font-size:0.72rem;font-weight:800;margin-bottom:0.35rem;">Ví dụ 3 • Liên kết ảnh</div><div style="font-weight:800;color:#0f172a;font-size:0.88rem;margin-bottom:0.25rem;">Bấm hình ảnh để mở trang</div><div style="font-size:0.83rem;color:#334155;line-height:1.48;"><code>&lt;a href="thong_tin.html"&gt;&lt;img src="sun.png"&gt;&lt;/a&gt;</code> → bấm vào biểu tượng Mặt Trời để chuyển trang.</div></div></div>
+<div class="callout-box" style="margin-top:0.85rem;">📌 <strong>Ghi nhớ SGK:</strong> Khi di chuột qua vùng nội dung nằm trong cặp thẻ <code>&lt;a&gt;...&lt;/a&gt;</code>, con trỏ chuột sẽ chuyển thành <strong>hình bàn tay</strong> và nhấp chuột sẽ chuyển ngay tới địa chỉ ghi trong <code>href</code>.</div>
+
+
+          </div>
+          <div>
+            <div class="syntax-card">
+              <div class="syntax-header">
+                <span>💻 Thử nghiệm 3 ví dụ Siêu liên kết thực tế</span>
+                <button type="button" id="btn-h21_1" class="btn-mini-tool" onclick="toggleSnippet('h21_1')">▶ Bấm xem kết quả hiển thị</button>
+              </div>
+              <pre class="syntax-body">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;vi&quot;&gt;
+&lt;body style=&quot;font-family:sans-serif;padding:12px;&quot;&gt;
+  &lt;h3&gt;3 ví dụ Siêu liên kết thường gặp&lt;/h3&gt;
+  &lt;p&gt;1. Ra trang web ngoài: &lt;a href=&quot;https://www.nxbgd.vn/&quot;&gt;Trang chủ NXB Giáo dục&lt;/a&gt;&lt;/p&gt;
+  &lt;p&gt;2. Sang trang cùng website: &lt;a href=&quot;thong_tin.html#CLBTT&quot;&gt;Xem CLB Thể thao&lt;/a&gt;&lt;/p&gt;
+  &lt;p&gt;3. Nhảy ngay trên trang hiện tại: &lt;a href=&quot;#ghi_chu&quot;&gt;Xuống xem Ghi chú ⬇&lt;/a&gt;&lt;/p&gt;
+  &lt;div style=&quot;height:70px;&quot;&gt;&lt;/div&gt;
+  &lt;p id=&quot;ghi_chu&quot; style=&quot;color:#059669;&quot;&gt;&lt;strong&gt;Ghi chú:&lt;/strong&gt; Con trỏ bàn tay cho biết đây là siêu liên kết!&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+            </div>
+            <div id="box-h21_1" class="mini-compiler-box" style="display:none;border:1px solid #cbd5e1;border-radius:8px;overflow:hidden;margin-top:0.65rem;">
+              <div class="snippet-preview-bar"><span>🌐 KẾT QUẢ HIỂN THỊ</span><span style="color:#16a34a;">HTML5 Live</span></div>
+              <iframe id="prev-h21_1" style="width:100%;height:190px;border:none;background:#fff;" title="Preview h21_1"></iframe>
+            </div>
+<div class="sgk-fig-box" style="margin-top:0.85rem;margin-bottom:0;"><img src="assets/sgk/illus_10_sieu_lien_ket_anatomy.png" alt="Giải phẫu cú pháp thẻ &lt;a href=&quot;URL&quot;&gt;Nội dung&lt;/a&gt; và 3 ví dụ nhận diện Siêu liên kết thực tế"><div class="sgk-fig-cap">Giải phẫu cú pháp thẻ &lt;a href=&quot;URL&quot;&gt;Nội dung&lt;/a&gt; và 3 ví dụ nhận diện Siêu liên kết thực tế</div></div>
+          </div>
+        </div>
+
+
+      </section>
+      <section class="card" style="margin-bottom: 1.5rem;">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.65rem;">
+          <h2 style="margin:0;color:#1e3a8a;font-size:1.3rem;">1c. Đường dẫn tuyệt đối và Đường dẫn tương đối (Ví dụ &amp; Hình ảnh)</h2>
           <span class="sgk-badge">SGK Tin 12 • Mục 1 (tr.58)</span>
         </div>
         <div class="grid-2" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.25rem; align-items:start;">
           <div>
             <div style="color:#334155;line-height:1.65;font-size:0.95rem;"><ul>
-  <li><strong>Đường dẫn tuyệt đối (Absolute URL):</strong> Chứa đầy đủ thông tin địa chỉ gồm giao thức (<code>http://</code>, <code>https://</code>), tên miền (domain) và đường dẫn tệp. Ví dụ: <code>https://hanhtrangso.nxbgd.vn/</code>. Thường dùng khi trỏ sang <strong>một website khác</strong> trên Internet.</li>
-  <li><strong>Đường dẫn tương đối (Relative URL):</strong> Không ghi giao thức/tên miền mà xác định vị trí tương đối tính từ <strong>thư mục chứa tệp HTML hiện tại</strong>. Ví dụ: <code>BT/bai_tap_1.html</code>, <code>thong_tin.html</code>, <code>../index.html</code>.</li>
-  <li><strong>Lưu ý quan trọng:</strong> KHÔNG dùng đường dẫn tuyệt đối trên ổ đĩa máy tính cá nhân (như <code>D:\Bai_tap\bt1.html</code>) vì liên kết sẽ bị lỗi khi copy sang máy khác hoặc đưa website lên mạng!</li>
+  <li><strong>Đường dẫn tuyệt đối (Absolute URL):</strong> Chứa đầy đủ thông tin địa chỉ gồm giao thức (<code>http://</code>, <code>https://</code>), tên miền (domain) và đường dẫn tệp. Ví dụ: <code>https://hanhtrangso.nxbgd.vn/</code>, <code>http://hocmai.vn/khoahoc</code>. Thường dùng khi trỏ sang <strong>một website khác</strong> trên Internet.</li>
+  <li><strong>Đường dẫn tương đối (Relative URL):</strong> Không ghi giao thức/tên miền mà xác định vị trí tương đối tính từ <strong>thư mục chứa tệp HTML hiện tại</strong>. Ví dụ: <code>thong_tin.html</code> (cùng thư mục), <code>bai_tap/bai_tap_1.html</code> (vào thư mục con), <code>../index.html</code> (lên thư mục cha).</li>
+  <li><strong>Lưu ý quan trọng:</strong> KHÔNG dùng đường dẫn tuyệt đối trên ổ đĩa máy tính cá nhân (như <code>D:\TinHoc12\index.html</code>) vì liên kết sẽ bị lỗi 404 ngay khi copy sang máy khác hoặc đưa website lên mạng!</li>
 </ul></div>
+<div class="example-cards-grid"><div class="ex-card ex-card-blue"><div style="display:inline-block;background:#dbeafe;color:#1d4ed8;padding:0.18rem 0.55rem;border-radius:999px;font-size:0.72rem;font-weight:800;margin-bottom:0.35rem;">Tuyệt đối Internet</div><div style="font-weight:800;color:#0f172a;font-size:0.88rem;margin-bottom:0.25rem;">https://www.nxbgd.vn/</div><div style="font-size:0.83rem;color:#334155;line-height:1.48;">Có đủ giao thức + tên miền. Dùng để mở <strong>website khác</strong> bên ngoài Internet.</div></div><div class="ex-card ex-card-emerald"><div style="display:inline-block;background:#dcfce7;color:#15803d;padding:0.18rem 0.55rem;border-radius:999px;font-size:0.72rem;font-weight:800;margin-bottom:0.35rem;">Tương đối nội bộ</div><div style="font-weight:800;color:#0f172a;font-size:0.88rem;margin-bottom:0.25rem;">bai_tap/bai_tap_1.html</div><div style="font-size:0.83rem;color:#334155;line-height:1.48;">Tính từ thư mục chứa tệp hiện tại. Gọn, nhanh và <strong>không hỏng link</strong> khi chép sang máy khác.</div></div><div class="ex-card ex-card-rose"><div style="display:inline-block;background:#fee2e2;color:#b91c1c;padding:0.18rem 0.55rem;border-radius:999px;font-size:0.72rem;font-weight:800;margin-bottom:0.35rem;">Cảnh báo lỗi 404</div><div style="font-weight:800;color:#0f172a;font-size:0.88rem;margin-bottom:0.25rem;">D:\TinHoc12\index.html</div><div style="font-size:0.83rem;color:#334155;line-height:1.48;">Đường dẫn tuyệt đối trên <strong>ổ đĩa máy cá nhân</strong> — cấm dùng cho website vì sẽ đứt liên kết!</div></div></div>
 <div class="callout-box" style="margin-top:0.85rem;">📌 <strong>Ghi nhớ SGK:</strong> <strong>Ghi nhớ SGK tr.58:</strong> Đường dẫn tuyệt đối chứa đầy đủ địa chỉ URL (giao thức, tên miền...) dùng cho trang web ngoài. Đường dẫn tương đối xác định dựa trên vị trí tệp hiện tại, rất gọn và giúp giữ nguyên liên kết khi di chuyển cả thư mục website.</div>
 
-<div style="background:#f0fdfa;border:1.5px solid #5eead4;border-radius:10px;padding:0.9rem 1rem;margin-top:0.9rem;"><strong style="color:#0f766e;">❓ Câu hỏi cuối Mục 1 (SGK tr.58):</strong><ul style="margin:0.5rem 0 0;padding-left:1.2rem;line-height:1.6;"><li><strong>Cho 3 đường dẫn: a) <code>http://hocmai.vn/khoahoc</code>; b) <code>bai_tap/bai_tap_1.html</code>; c) <code>D:\TinHoc12\index.html</code>. Hãy phân loại đường dẫn tuyệt đối, tương đối và cho biết đường dẫn nào không nên dùng cho website?</strong><br><button type="button" class="btn btn-secondary btn-sm" style="margin-top:0.35rem;" onclick="const b=this.nextElementSibling; const open=b.style.display!=='none'; b.style.display=open?'none':'block'; this.textContent=open?'💡 Bấm xem gợi ý trả lời':'🙈 Ẩn gợi ý';">💡 Bấm xem gợi ý trả lời</button><div style="display:none;margin-top:0.4rem;color:#166534;background:#f0fdf4;padding:0.55rem 0.75rem;border-radius:6px;border:1px solid #86efac;"><strong>Gợi ý đáp án:</strong><br>• <strong>(a)</strong> <code>http://hocmai.vn/khoahoc</code>: Đường dẫn tuyệt đối trên Internet (dùng khi nối tới trang ngoài).<br>• <strong>(b)</strong> <code>bai_tap/bai_tap_1.html</code>: Đường dẫn tương đối đi vào thư mục con <code>bai_tap</code> (rất chuẩn cho liên kết nội bộ).<br>• <strong>(c)</strong> <code>D:\TinHoc12\index.html</code>: Đường dẫn tuyệt đối cục bộ trên ổ đĩa D — <strong>KHÔNG nên dùng</strong> vì sẽ bị hỏng ngay khi chuyển thư mục web sang máy khác hoặc đưa lên máy chủ!</div></li></ul></div>
+
           </div>
           <div>
             <div class="syntax-card">
               <div class="syntax-header">
                 <span>💻 So sánh Đường dẫn Tuyệt đối &amp; Tương đối</span>
-                <button type="button" id="btn-h21_1" class="btn-mini-tool" onclick="toggleSnippet('h21_1')">▶ Bấm xem kết quả hiển thị</button>
+                <button type="button" id="btn-h21_2" class="btn-mini-tool" onclick="toggleSnippet('h21_2')">▶ Bấm xem kết quả hiển thị</button>
               </div>
               <pre class="syntax-body">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;vi&quot;&gt;
@@ -198,16 +261,21 @@
   &lt;p&gt;&lt;strong&gt;2. Tương đối (cùng thư mục):&lt;/strong&gt;&lt;br&gt;
   &lt;a href=&quot;thong_tin.html&quot;&gt;Trang Thông tin CLB&lt;/a&gt;&lt;/p&gt;
   &lt;p&gt;&lt;strong&gt;3. Tương đối (vào thư mục con):&lt;/strong&gt;&lt;br&gt;
-  &lt;a href=&quot;BT/bai_tap_1.html&quot;&gt;Mở Bài tập 1 trong thư mục BT&lt;/a&gt;&lt;/p&gt;
+  &lt;a href=&quot;bai_tap/bai_tap_1.html&quot;&gt;Mở Bài tập 1 trong thư mục bai_tap&lt;/a&gt;&lt;/p&gt;
+  &lt;p&gt;&lt;strong&gt;4. Tương đối (ngược lên thư mục cha):&lt;/strong&gt;&lt;br&gt;
+  &lt;a href=&quot;../index.html&quot;&gt;Quay về Trang chủ ở thư mục cha&lt;/a&gt;&lt;/p&gt;
 &lt;/body&gt;
 &lt;/html&gt;</pre>
             </div>
-            <div id="box-h21_1" class="mini-compiler-box" style="display:none;border:1px solid #cbd5e1;border-radius:8px;overflow:hidden;margin-top:0.65rem;">
+            <div id="box-h21_2" class="mini-compiler-box" style="display:none;border:1px solid #cbd5e1;border-radius:8px;overflow:hidden;margin-top:0.65rem;">
               <div class="snippet-preview-bar"><span>🌐 KẾT QUẢ HIỂN THỊ</span><span style="color:#16a34a;">HTML5 Live</span></div>
-              <iframe id="prev-h21_1" style="width:100%;height:190px;border:none;background:#fff;" title="Preview h21_1"></iframe>
+              <iframe id="prev-h21_2" style="width:100%;height:190px;border:none;background:#fff;" title="Preview h21_2"></iframe>
             </div>
+<div class="sgk-fig-box" style="margin-top:0.85rem;margin-bottom:0;"><img src="assets/sgk/illus_10_so_sanh_di_chuyen_web.png" alt="Tình huống thực tế: Tại sao đường dẫn D:\... bị lỗi 404 khi chuyển máy còn đường dẫn tương đối vẫn chạy 100%?"><div class="sgk-fig-cap">Tình huống thực tế: Tại sao đường dẫn D:\... bị lỗi 404 khi chuyển máy còn đường dẫn tương đối vẫn chạy 100%?</div></div>
           </div>
         </div>
+<div style="margin-top:1.1rem;font-weight:800;color:#1e3a8a;font-size:0.95rem;">🖼️ Hình ảnh ví dụ chi tiết: Đường dẫn Tuyệt đối vs Đường dẫn Tương đối (Bấm vào hình để phóng to):</div><div class="fig-gallery-grid" style="margin-top:0.55rem;"><div class="sgk-fig-box"><img src="assets/sgk/illus_10_duong_dan_tuyet_doi.png" alt="Ví dụ Đường dẫn tuyệt đối: Ghi đủ giao thức (https://) + tên miền + đường dẫn tệp để trỏ ra Website ngoài"><div class="sgk-fig-cap">Ví dụ Đường dẫn tuyệt đối: Ghi đủ giao thức (https://) + tên miền + đường dẫn tệp để trỏ ra Website ngoài</div></div><div class="sgk-fig-box"><img src="assets/sgk/illus_10_duong_dan_tuong_doi.png" alt="Ví dụ Đường dẫn tương đối: Xác định đường đi tính từ thư mục chứa tệp HTML hiện tại (cùng cấp, thư mục con, ../)"><div class="sgk-fig-cap">Ví dụ Đường dẫn tương đối: Xác định đường đi tính từ thư mục chứa tệp HTML hiện tại (cùng cấp, thư mục con, ../)</div></div></div>
+<div style="background:#f0fdfa;border:1.5px solid #5eead4;border-radius:10px;padding:0.9rem 1rem;margin-top:0.9rem;"><strong style="color:#0f766e;">❓ Câu hỏi cuối Mục 1 (SGK tr.58):</strong><ul style="margin:0.5rem 0 0;padding-left:1.2rem;line-height:1.6;"><li><strong>Cho 3 đường dẫn: a) <code>http://hocmai.vn/khoahoc</code>; b) <code>bai_tap/bai_tap_1.html</code>; c) <code>D:\TinHoc12\index.html</code>. Hãy phân loại đường dẫn tuyệt đối, tương đối và cho biết đường dẫn nào không nên dùng cho website?</strong><br><button type="button" class="btn btn-secondary btn-sm" style="margin-top:0.35rem;" onclick="const b=this.nextElementSibling; const open=b.style.display!=='none'; b.style.display=open?'none':'block'; this.textContent=open?'💡 Bấm xem gợi ý trả lời':'🙈 Ẩn gợi ý';">💡 Bấm xem gợi ý trả lời</button><div style="display:none;margin-top:0.4rem;color:#166534;background:#f0fdf4;padding:0.55rem 0.75rem;border-radius:6px;border:1px solid #86efac;"><strong>Gợi ý đáp án:</strong><br>• <strong>(a)</strong> <code>http://hocmai.vn/khoahoc</code>: Đường dẫn tuyệt đối trên Internet (dùng khi nối tới trang ngoài).<br>• <strong>(b)</strong> <code>bai_tap/bai_tap_1.html</code>: Đường dẫn tương đối đi vào thư mục con <code>bai_tap</code> (rất chuẩn cho liên kết nội bộ).<br>• <strong>(c)</strong> <code>D:\TinHoc12\index.html</code>: Đường dẫn tuyệt đối cục bộ trên ổ đĩa D — <strong>KHÔNG nên dùng</strong> vì sẽ bị hỏng ngay khi chuyển thư mục web sang máy khác hoặc đưa lên máy chủ!</div></li></ul></div>
       </section>
 
       <!-- SANDBOX TƯƠNG TÁC NHANH -->
@@ -294,6 +362,16 @@
           <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.8rem; font-size: 1rem; font-weight: 700; border-radius: 8px; justify-content: center;">🔓 Xác Thực Giáo Viên</button>
         </form>
       </div>
+    </div>
+  </div>
+  <!-- MODAL PHÓNG TO HÌNH MINH HỌA -->
+  <div id="img-zoom-modal" class="qr-zoom-modal" onclick="closeImgZoom()">
+    <div class="qr-zoom-box" style="max-width: min(94vw, 1140px); padding: 1.25rem; text-align: center;" onclick="event.stopPropagation()">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:0.75rem;margin-bottom:0.75rem;">
+        <div id="img-zoom-caption" style="font-size:0.95rem;font-weight:700;color:#1e3a8a;text-align:left;"></div>
+        <button type="button" onclick="closeImgZoom()" class="btn btn-secondary btn-sm" style="flex-shrink:0;">✕ Đóng</button>
+      </div>
+      <img id="img-zoom-target" alt="Phóng to hình minh họa" style="max-width:100%;max-height:78vh;height:auto;border-radius:10px;border:1px solid #cbd5e1;background:#fff;display:block;margin:0 auto;">
     </div>
   </div>
 
@@ -498,15 +576,39 @@
         return data;
       } catch (e) { return null; }
     }
+    function openImgZoom(src, cap) {
+      const m = document.getElementById('img-zoom-modal');
+      const im = document.getElementById('img-zoom-target');
+      const cp = document.getElementById('img-zoom-caption');
+      if (!m || !im || !src) return;
+      im.src = src;
+      im.alt = cap || 'Hình minh họa';
+      if (cp) cp.textContent = cap || 'Hình minh họa chi tiết';
+      m.classList.add('active');
+    }
+    function closeImgZoom() {
+      document.getElementById('img-zoom-modal')?.classList.remove('active');
+    }
+    document.addEventListener('keydown', (ev) => {
+      if (ev.key === 'Escape') closeImgZoom();
+    });
     document.addEventListener('DOMContentLoaded', () => {
       updateTeacherNavBadge();
       syncLessonExamGates();
       if (document.querySelector('[data-exam-gate], #teacher-exam-control-panel')) {
         setInterval(syncLessonExamGates, 10000);
       }
+      document.querySelectorAll('.sgk-fig-box img').forEach(img => {
+        img.title = img.title || 'Bấm để phóng to hình minh họa';
+        img.addEventListener('click', () => {
+          const figBox = img.closest('.sgk-fig-box');
+          const capEl = figBox ? figBox.querySelector('.sgk-fig-cap') : null;
+          openImgZoom(img.getAttribute('src'), (capEl && capEl.textContent) || img.getAttribute('alt') || '');
+        });
+      });
     });
     
-    const SNIPPETS = {"h21_0": "<!DOCTYPE html>\n<html lang=\"vi\">\n<body style=\"font-family:sans-serif;padding:12px;\">\n  <h3>Ví dụ siêu liên kết đầu tiên</h3>\n  <p>Nhấp vào liên kết bên dưới để mở trang web NXB Giáo dục:</p>\n  <a href=\"https://www.nxbgd.vn/\">Trang chủ NXB Giáo dục Việt Nam</a>\n</body>\n</html>", "h21_1": "<!DOCTYPE html>\n<html lang=\"vi\">\n<body style=\"font-family:sans-serif;padding:12px;\">\n  <p><strong>1. Tuyệt đối (ra Internet):</strong><br>\n  <a href=\"https://www.nxbgd.vn/\">NXB Giáo dục Việt Nam</a></p>\n  <p><strong>2. Tương đối (cùng thư mục):</strong><br>\n  <a href=\"thong_tin.html\">Trang Thông tin CLB</a></p>\n  <p><strong>3. Tương đối (vào thư mục con):</strong><br>\n  <a href=\"BT/bai_tap_1.html\">Mở Bài tập 1 trong thư mục BT</a></p>\n</body>\n</html>"};
+    const SNIPPETS = {"h21_0": "<!DOCTYPE html>\n<html lang=\"vi\">\n<body style=\"font-family:sans-serif;padding:12px;\">\n  <h3 style=\"color:#1e3a8a;\">CỔNG CÂU LẠC BỘ TIN HỌC (Siêu văn bản)</h3>\n  <p>Siêu văn bản kết hợp <strong>chữ định dạng</strong>, hình ảnh và liên kết:</p>\n  <a href=\"https://hanhtrangso.nxbgd.vn/\">Mở Sách điện tử Hành trang số</a>\n</body>\n</html>", "h21_1": "<!DOCTYPE html>\n<html lang=\"vi\">\n<body style=\"font-family:sans-serif;padding:12px;\">\n  <h3>3 ví dụ Siêu liên kết thường gặp</h3>\n  <p>1. Ra trang web ngoài: <a href=\"https://www.nxbgd.vn/\">Trang chủ NXB Giáo dục</a></p>\n  <p>2. Sang trang cùng website: <a href=\"thong_tin.html#CLBTT\">Xem CLB Thể thao</a></p>\n  <p>3. Nhảy ngay trên trang hiện tại: <a href=\"#ghi_chu\">Xuống xem Ghi chú ⬇</a></p>\n  <div style=\"height:70px;\"></div>\n  <p id=\"ghi_chu\" style=\"color:#059669;\"><strong>Ghi chú:</strong> Con trỏ bàn tay cho biết đây là siêu liên kết!</p>\n</body>\n</html>", "h21_2": "<!DOCTYPE html>\n<html lang=\"vi\">\n<body style=\"font-family:sans-serif;padding:12px;\">\n  <p><strong>1. Tuyệt đối (ra Internet):</strong><br>\n  <a href=\"https://www.nxbgd.vn/\">NXB Giáo dục Việt Nam</a></p>\n  <p><strong>2. Tương đối (cùng thư mục):</strong><br>\n  <a href=\"thong_tin.html\">Trang Thông tin CLB</a></p>\n  <p><strong>3. Tương đối (vào thư mục con):</strong><br>\n  <a href=\"bai_tap/bai_tap_1.html\">Mở Bài tập 1 trong thư mục bai_tap</a></p>\n  <p><strong>4. Tương đối (ngược lên thư mục cha):</strong><br>\n  <a href=\"../index.html\">Quay về Trang chủ ở thư mục cha</a></p>\n</body>\n</html>"};
     function bindPreviewLinkHandler(doc, reloadFn) {
       if (!doc || !doc.body) return;
       doc.addEventListener('click', function(ev) {
