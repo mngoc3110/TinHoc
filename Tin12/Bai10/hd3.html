@@ -26,6 +26,15 @@
     .qr-zoom-modal { display: none; position: fixed; inset: 0; background: rgba(15,23,42,0.75); backdrop-filter: blur(4px); z-index: 9998; align-items: center; justify-content: center; padding: 1rem; }
     .qr-zoom-modal.active { display: flex; }
     .qr-zoom-box { background: #fff; border-radius: 16px; padding: 2rem; max-width: 460px; width: 100%; text-align: center; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.35); }
+    .img-lightbox-overlay { display: none; position: fixed; inset: 0; background: rgba(15,23,42,0.88); backdrop-filter: blur(5px); z-index: 9998; align-items: center; justify-content: center; padding: 1.5vh 1.5vw; }
+    .img-lightbox-overlay.active { display: flex; }
+    .img-lightbox-dialog { background: #ffffff; border-radius: 16px; width: 96vw; max-width: 1860px; max-height: 96vh; padding: 0.9rem 1.25rem 1.1rem; display: flex; flex-direction: column; box-shadow: 0 25px 60px rgba(0,0,0,0.48); overflow: hidden; }
+    .img-lightbox-header { display: flex; justify-content: space-between; align-items: center; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 0.7rem; padding-bottom: 0.55rem; border-bottom: 1px solid #e2e8f0; }
+    .img-lightbox-caption { font-size: 1.02rem; font-weight: 800; color: #1e3a8a; text-align: left; flex: 1; min-width: 220px; }
+    .img-lightbox-tools { display: flex; gap: 0.4rem; flex-wrap: wrap; flex-shrink: 0; }
+    .img-lightbox-body { flex: 1; overflow: auto; background: #f8fafc; border: 1.5px solid #cbd5e1; border-radius: 12px; padding: 0.75rem; display: flex; align-items: flex-start; justify-content: center; min-height: 50vh; }
+    .img-lightbox-body.is-zoomed { justify-content: flex-start; }
+    #img-zoom-target { display: block; border-radius: 10px; background: #fff; box-shadow: 0 4px 20px rgba(15,23,42,0.08); }
     .sgk-fig-box { background: #fff; border: 1.5px solid #cbd5e1; border-radius: 12px; padding: 0.85rem; margin: 1rem 0; text-align: center; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
     .sgk-fig-box:hover { border-color: #60a5fa; box-shadow: 0 6px 18px rgba(37,99,235,0.10); }
     .sgk-fig-box img { max-width: 100%; max-height: 360px; height: auto; border-radius: 6px; object-fit: contain; cursor: zoom-in; transition: transform 0.2s ease; }
@@ -45,6 +54,21 @@
     .exam-gated-hidden { display: none !important; }
 
 
+    .lv-fig-showcase .sgk-fig-box, .sgk-fig-box.lv-large { padding: 1.05rem 1.2rem; border: 2px solid #cbd5e1; border-radius: 14px; background: #ffffff; box-shadow: 0 6px 18px rgba(15,23,42,0.06); margin: 0.9rem 0; }
+    .lv-fig-showcase .sgk-fig-box:hover, .sgk-fig-box.lv-large:hover { border-color: #3b82f6; box-shadow: 0 10px 26px rgba(37,99,235,0.12); }
+    .lv-fig-showcase .sgk-fig-box img, .sgk-fig-box.lv-large img { width: 100% !important; max-width: 100% !important; max-height: none !important; height: auto !important; display: block; margin: 0 auto; border-radius: 10px; }
+    .lv-fig-showcase .sgk-fig-box.lv-compact img, .sgk-fig-box.lv-compact img { width: auto !important; max-width: 100% !important; min-height: 360px; max-height: 580px !important; height: auto !important; object-fit: contain; margin: 0 auto; }
+    .lv-fig-showcase .sgk-fig-box.lv-medium img, .sgk-fig-box.lv-medium img { width: 100% !important; max-width: 960px !important; max-height: none !important; height: auto !important; margin: 0 auto; }
+    .lv-fig-showcase .sgk-fig-cap, .sgk-fig-box.lv-large .sgk-fig-cap { font-size: 0.94rem; font-weight: 600; color: #1e293b; font-style: normal; margin-top: 0.7rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; text-align: left; }
+    .lv-zoom-pill { display: inline-flex; align-items: center; gap: 0.3rem; background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; border-radius: 999px; padding: 0.22rem 0.7rem; font-size: 0.78rem; font-weight: 700; white-space: nowrap; cursor: zoom-in; }
+    .lv-zoom-pill:hover { background: #2563eb; color: #ffffff; border-color: #2563eb; }
+    .lv-gallery-stack { display: grid; grid-template-columns: 1fr; gap: 1.15rem; margin-top: 0.75rem; }
+    .lv-gallery-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.15rem; margin-top: 0.75rem; }
+    @media (max-width: 900px) { .lv-gallery-pair { grid-template-columns: 1fr; } }
+    
+    .practice-workbench-grid { display:grid; grid-template-columns: 320px minmax(0,1fr); gap:1.25rem; align-items:start; }
+    @media (max-width:992px) { .practice-workbench-grid { grid-template-columns: 1fr; } }
+    
     .main-view-switcher { display:inline-flex; background:#e2e8f0; padding:0.3rem; border-radius:10px; gap:0.25rem; }
     .view-btn { border:none; background:transparent; padding:0.5rem 1.15rem; border-radius:8px; font-weight:700; font-size:0.88rem; color:#475569; cursor:pointer; font-family:inherit; }
     .view-btn.active { background:#fff; color:#1d4ed8; box-shadow:0 2px 5px rgba(0,0,0,0.08); }
@@ -55,8 +79,6 @@
     .form-grid-single { display:grid; grid-template-columns: minmax(0,2fr) minmax(0,1fr) minmax(0,1fr); gap:0.85rem; }
     .form-grid-pair { display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap:0.85rem; }
     @media (max-width:768px) { .form-grid-single, .form-grid-pair { grid-template-columns: 1fr; } }
-    .practice-workbench-grid { display:grid; grid-template-columns: 350px minmax(0,1fr); gap:1.25rem; align-items:start; }
-    @media (max-width:992px) { .practice-workbench-grid { grid-template-columns: 1fr; } }
     .editor-preview-split { display:grid; grid-template-columns: 1fr 1fr; gap:1rem; }
     @media (max-width:900px) { .editor-preview-split { grid-template-columns: 1fr; } }
     .ide-pane, .preview-pane { border:1.5px solid #cbd5e1; border-radius:12px; overflow:hidden; background:#fff; display:flex; flex-direction:column; }
@@ -234,7 +256,9 @@
             </div>
             <span class="sgk-badge">Mẫu kết quả trực quan (Không lộ code)</span>
           </div>
-          <div class="fig-gallery-grid" style="margin-top:0.85rem;"><div class="sgk-fig-box span-full"><img src="assets/sgk/illus_10_hd3_mau_file1_va_file2.png" alt="Mẫu kết quả biên dịch song song File 1 (CLB.html) và File 2 (thong_tin.html) trên trình duyệt (Bấm vào hình để phóng to)"><div class="sgk-fig-cap">Mẫu kết quả biên dịch song song File 1 (CLB.html) và File 2 (thong_tin.html) trên trình duyệt (Bấm vào hình để phóng to)</div></div></div>
+          <div class="lv-fig-showcase"><div class="lv-gallery-stack">
+<div class="sgk-fig-box lv-large"><img src="assets/sgk/illus_10_hd3_mau_file1_va_file2.png" alt="Mẫu kết quả biên dịch song song File 1 (CLB.html) và File 2 (thong_tin.html) trên trình duyệt (Bấm vào hình để phóng to)"><div class="sgk-fig-cap"><span class="lv-cap-text">Mẫu kết quả biên dịch song song File 1 (CLB.html) và File 2 (thong_tin.html) trên trình duyệt (Bấm vào hình để phóng to)</span><span class="lv-zoom-pill">🔍 Phóng to toàn màn hình</span></div></div>
+</div></div>
           <div style="margin-top:0.9rem;">
             <button type="button" id="hd3-demo-toggle-btn" class="btn btn-primary btn-sm" style="background:#0284c7;border-color:#0284c7;font-weight:700;" onclick="toggleHd3Demo()">👁️ Bấm chạy thử giao diện mẫu File 1 (CLB.html) ⇄ File 2 (thong_tin.html)</button>
             <div id="hd3-demo-box" style="display:none;margin-top:0.75rem;border:1.5px solid #93c5fd;border-radius:12px;overflow:hidden;background:#fff;">
@@ -242,52 +266,62 @@
                 <div style="display:flex;gap:0.4rem;flex-wrap:wrap;"><button type="button" id="hd3-demo-tab-0" class="btn btn-sm btn-primary" style="font-family:monospace;" onclick="renderSampleDemoFrame('CLB.html', '')">📄 Xem mẫu File 1: CLB.html</button><button type="button" id="hd3-demo-tab-1" class="btn btn-sm btn-secondary" style="font-family:monospace;" onclick="renderSampleDemoFrame('thong_tin.html', '')">📄 Xem mẫu File 2: thong_tin.html</button></div>
                 <div id="hd3-demo-addr" class="vb-url-pill" style="max-width:340px;">site://CLB.html</div>
               </div>
-              <iframe id="hd3-demo-frame" style="width:100%;height:300px;border:none;background:#fff;display:block;" title="Mẫu kết quả 2 File HTML"></iframe>
+              <iframe id="hd3-demo-frame" style="width:100%;height:420px;border:none;background:#fff;display:block;" title="Mẫu kết quả 2 File HTML"></iframe>
             </div>
+          </div>
+        </div>
+        <div id="hd3-tasks-guide" style="margin-bottom:1.25rem;">
+          <div class="card lv-fig-showcase" style="border-left: 4px solid #1d4ed8; padding: 1.2rem 1.35rem; margin-bottom: 1.05rem;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;gap:0.4rem;flex-wrap:wrap;">
+              <h4 style="margin:0;color:#1d4ed8;font-size:1.1rem;font-weight:800;">Nhiệm vụ 1: Tạo tối thiểu 2 tệp HTML cho website</h4>
+              <span class="sgk-badge">Mục 3 SGK tr.61</span>
+            </div>
+            <p style="font-size:0.92rem;color:#334155;margin:0 0 0.45rem;line-height:1.55;">Một website chỉ liên kết nội bộ được khi có <strong>ít nhất 2 tệp <code>.html</code></strong>. Chọn từng tab tệp phía trên khung soạn thảo hoặc tự tạo thêm tệp mới:</p>
+            <ul style="font-size:0.88rem;color:#475569;margin:0;padding-left:1.2rem;line-height:1.55;">
+              <li>Mở tab <code>thong_tin.html</code>, gõ cấu trúc HTML5 và tạo tiêu đề có <code>id="CLBTT"</code> (hoặc <code>id="CLBTH"</code>).</li>
+              <li>Có thể bấm <code>➕ Tạo thêm tệp .html</code> để thêm tệp (vd: <code>lich_su_CLB.html</code> hoặc <code>bai_tap/bt1.html</code>).</li>
+              <li>Thêm liên kết quay về ở trang phụ: <code>&lt;a href="CLB.html"&gt;Quay về CLB&lt;/a&gt;</code>.</li>
+            </ul><div class="lv-fig-showcase"><div class="lv-gallery-stack">
+<div class="sgk-fig-box lv-large"><img src="assets/sgk/illus_10_hd3_nv1_tao_2_file.png" alt="Minh họa Nhiệm vụ 1: Quản lí 2 tệp &amp; kết quả biên dịch File 2 (thong_tin.html)"><div class="sgk-fig-cap"><span class="lv-cap-text">Minh họa Nhiệm vụ 1: Quản lí 2 tệp &amp; kết quả biên dịch File 2 (thong_tin.html)</span><span class="lv-zoom-pill">🔍 Phóng to toàn màn hình</span></div></div>
+</div></div>
+          </div>
+          <div class="card lv-fig-showcase" style="border-left: 4px solid #059669; padding: 1.2rem 1.35rem; margin-bottom: 1.05rem;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;gap:0.4rem;flex-wrap:wrap;">
+              <h4 style="margin:0;color:#059669;font-size:1.1rem;font-weight:800;">Nhiệm vụ 2: Viết CLB.html &amp; Gắn liên kết giữa các tệp</h4>
+              <span class="sgk-badge">Chuẩn SGK tr.61</span>
+            </div>
+            <p style="font-size:0.92rem;color:#334155;margin:0 0 0.45rem;line-height:1.55;">Chuyển sang tab <code>CLB.html</code> và xây dựng trang chủ Câu lạc bộ chứa danh sách liên kết:</p>
+            <ul style="font-size:0.88rem;color:#475569;margin:0;padding-left:1.2rem;line-height:1.55;">
+              <li>Dùng danh sách <code>&lt;ul&gt;</code> và <code>&lt;li&gt;</code> liệt kê các CLB Thể thao, CLB Tin học...</li>
+              <li>Gắn liên kết nội bộ tới tệp thứ 2: <code>&lt;a href="thong_tin.html#CLBTT"&gt;CLB Thể thao&lt;/a&gt;</code>.</li>
+              <li>Gắn ít nhất 1 liên kết ngoài (<code>https://...</code>) và 1 neo <code>#id</code> trên trang.</li>
+            </ul><div class="lv-fig-showcase"><div class="lv-gallery-stack">
+<div class="sgk-fig-box lv-large"><img src="assets/sgk/illus_10_hd3_nv2_gan_lien_ket_clb.png" alt="Minh họa Nhiệm vụ 2: Kết quả biên dịch File 1 (CLB.html) &amp; các liên kết cần gắn"><div class="sgk-fig-cap"><span class="lv-cap-text">Minh họa Nhiệm vụ 2: Kết quả biên dịch File 1 (CLB.html) &amp; các liên kết cần gắn</span><span class="lv-zoom-pill">🔍 Phóng to toàn màn hình</span></div></div>
+<div class="sgk-fig-box lv-large lv-medium"><img src="assets/sgk/sgk_hinh10_2.png" alt="Hình 10.2: Nội dung hoạt động ngoại khóa minh họa trên trang web (SGK tr.61)"><div class="sgk-fig-cap"><span class="lv-cap-text">Hình 10.2: Nội dung hoạt động ngoại khóa minh họa trên trang web (SGK tr.61)</span><span class="lv-zoom-pill">🔍 Phóng to toàn màn hình</span></div></div>
+</div></div>
+          </div>
+          <div class="card lv-fig-showcase" style="border-left: 4px solid #7c3aed; padding: 1.2rem 1.35rem; margin-bottom: 1.05rem;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;gap:0.4rem;flex-wrap:wrap;">
+              <h4 style="margin:0;color:#7c3aed;font-size:1.1rem;font-weight:800;">Nhiệm vụ 3: Bấm kiểm thử Trình duyệt ảo &amp; Nộp bài</h4>
+              <span class="sgk-badge">Tự đánh giá 8 tiêu chí</span>
+            </div>
+            <p style="font-size:0.92rem;color:#334155;margin:0 0 0.45rem;line-height:1.55;">Nhấp trực tiếp vào từng liên kết bên khung <strong>Kết quả Web trực tiếp</strong> (góc phải) để kiểm tra điều hướng thật:</p>
+            <ul style="font-size:0.88rem;color:#475569;margin:0;padding-left:1.2rem;line-height:1.55;">
+              <li>Đảm bảo bấm vào link không bị báo lỗi 404 hay cảnh báo ổ đĩa <code>D:\</code>.</li>
+              <li>Dùng nút <code>←</code> và <code>🏠</code> trên thanh địa chỉ trình duyệt ảo để kiểm tra điều hướng 2 chiều.</li>
+              <li>Bấm <strong>Kiểm tra tiêu chí</strong> (mục tiêu đạt ≥ 6/8) rồi bấm <strong>Nộp bài lên máy chủ</strong>.</li>
+            </ul><div class="lv-fig-showcase"><div class="lv-gallery-stack">
+<div class="sgk-fig-box lv-large"><img src="assets/sgk/illus_10_hd3_nv3_kiem_thu_2_chieu.png" alt="Minh họa Nhiệm vụ 3: Kiểm thử chuyển trang 2 chiều, chấm 8 tiêu chí &amp; nộp bài"><div class="sgk-fig-cap"><span class="lv-cap-text">Minh họa Nhiệm vụ 3: Kiểm thử chuyển trang 2 chiều, chấm 8 tiêu chí &amp; nộp bài</span><span class="lv-zoom-pill">🔍 Phóng to toàn màn hình</span></div></div>
+</div></div>
           </div>
         </div>
         <div class="practice-workbench-grid">
           <aside>
-          <div class="card" style="border-left: 4px solid #1d4ed8; padding: 1rem; margin-bottom: 0.9rem;">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.35rem;gap:0.4rem;">
-              <h4 style="margin:0;color:#1d4ed8;font-size:0.95rem;font-weight:700;">Nhiệm vụ 1: Tạo tối thiểu 2 tệp HTML cho website</h4>
-              <span class="sgk-badge">Mục 3 SGK tr.61</span>
+            <div class="card" style="padding:0.9rem 1rem;margin-bottom:0.9rem;border-left:4px solid #0284c7;">
+              <strong style="font-size:0.9rem;color:#1e3a8a;display:block;margin-bottom:0.35rem;">📋 Nhắc lại 3 Nhiệm vụ thực hành</strong>
+              <p style="font-size:0.8rem;color:#475569;margin:0 0 0.55rem;line-height:1.45;">(1) Tạo ≥ 2 tệp HTML; (2) Nối <code>CLB.html</code> ⇄ <code>thong_tin.html#CLBTT</code>; (3) Bấm kiểm thử &amp; nộp bài.</p>
+              <a href="#hd3-tasks-guide" class="btn btn-secondary btn-sm" style="width:100%;justify-content:center;">🖼️ Xem lại hình minh họa lớn ↑</a>
             </div>
-            <p style="font-size:0.82rem;color:#334155;margin:0 0 0.4rem;">Một website chỉ liên kết nội bộ được khi có <strong>ít nhất 2 tệp <code>.html</code></strong>. Chọn từng tab tệp phía trên khung soạn thảo hoặc tự tạo thêm tệp mới:</p>
-            <ul style="font-size:0.8rem;color:#475569;margin:0;padding-left:1rem;line-height:1.5;">
-              <li>Mở tab <code>thong_tin.html</code>, gõ cấu trúc HTML5 và tạo tiêu đề có <code>id="CLBTT"</code> (hoặc <code>id="CLBTH"</code>).</li>
-              <li>Có thể bấm <code>➕ Tạo thêm tệp .html</code> để thêm tệp (vd: <code>lich_su_CLB.html</code> hoặc <code>bai_tap/bt1.html</code>).</li>
-              <li>Thêm liên kết quay về ở trang phụ: <code>&lt;a href="CLB.html"&gt;Quay về CLB&lt;/a&gt;</code>.</li>
-            </ul>
-            <div class="sgk-fig-box" style="margin-top:0.55rem;"><img src="assets/sgk/illus_10_hd3_nv1_tao_2_file.png" alt="Minh họa Nhiệm vụ 1: Quản lí 2 tệp &amp; kết quả biên dịch File 2 (thong_tin.html)"><div class="sgk-fig-cap">Minh họa Nhiệm vụ 1: Quản lí 2 tệp &amp; kết quả biên dịch File 2 (thong_tin.html)</div></div>
-          </div>
-          <div class="card" style="border-left: 4px solid #059669; padding: 1rem; margin-bottom: 0.9rem;">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.35rem;gap:0.4rem;">
-              <h4 style="margin:0;color:#059669;font-size:0.95rem;font-weight:700;">Nhiệm vụ 2: Viết CLB.html &amp; Gắn liên kết giữa các tệp</h4>
-              <span class="sgk-badge">Chuẩn SGK tr.61</span>
-            </div>
-            <p style="font-size:0.82rem;color:#334155;margin:0 0 0.4rem;">Chuyển sang tab <code>CLB.html</code> và xây dựng trang chủ Câu lạc bộ chứa danh sách liên kết:</p>
-            <ul style="font-size:0.8rem;color:#475569;margin:0;padding-left:1rem;line-height:1.5;">
-              <li>Dùng danh sách <code>&lt;ul&gt;</code> và <code>&lt;li&gt;</code> liệt kê các CLB Thể thao, CLB Tin học...</li>
-              <li>Gắn liên kết nội bộ tới tệp thứ 2: <code>&lt;a href="thong_tin.html#CLBTT"&gt;CLB Thể thao&lt;/a&gt;</code>.</li>
-              <li>Gắn ít nhất 1 liên kết ngoài (<code>https://...</code>) và 1 neo <code>#id</code> trên trang.</li>
-            </ul>
-            <div class="sgk-fig-box" style="margin-top:0.55rem;"><img src="assets/sgk/illus_10_hd3_nv2_gan_lien_ket_clb.png" alt="Minh họa Nhiệm vụ 2: Kết quả biên dịch File 1 (CLB.html) &amp; các liên kết cần gắn"><div class="sgk-fig-cap">Minh họa Nhiệm vụ 2: Kết quả biên dịch File 1 (CLB.html) &amp; các liên kết cần gắn</div></div>
-            <div class="sgk-fig-box" style="margin-top:0.55rem;"><img src="assets/sgk/sgk_hinh10_2.png" alt="Hình 10.2: Nội dung hoạt động ngoại khóa minh họa trên trang web (SGK tr.61)"><div class="sgk-fig-cap">Hình 10.2: Nội dung hoạt động ngoại khóa minh họa trên trang web (SGK tr.61)</div></div>
-          </div>
-          <div class="card" style="border-left: 4px solid #7c3aed; padding: 1rem; margin-bottom: 0.9rem;">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.35rem;gap:0.4rem;">
-              <h4 style="margin:0;color:#7c3aed;font-size:0.95rem;font-weight:700;">Nhiệm vụ 3: Bấm kiểm thử Trình duyệt ảo &amp; Nộp bài</h4>
-              <span class="sgk-badge">Tự đánh giá 8 tiêu chí</span>
-            </div>
-            <p style="font-size:0.82rem;color:#334155;margin:0 0 0.4rem;">Nhấp trực tiếp vào từng liên kết bên khung <strong>Kết quả Web trực tiếp</strong> (góc phải) để kiểm tra điều hướng thật:</p>
-            <ul style="font-size:0.8rem;color:#475569;margin:0;padding-left:1rem;line-height:1.5;">
-              <li>Đảm bảo bấm vào link không bị báo lỗi 404 hay cảnh báo ổ đĩa <code>D:\</code>.</li>
-              <li>Dùng nút <code>←</code> và <code>🏠</code> trên thanh địa chỉ trình duyệt ảo để kiểm tra điều hướng 2 chiều.</li>
-              <li>Bấm <strong>Kiểm tra tiêu chí</strong> (mục tiêu đạt ≥ 6/8) rồi bấm <strong>Nộp bài lên máy chủ</strong>.</li>
-            </ul>
-            <div class="sgk-fig-box" style="margin-top:0.55rem;"><img src="assets/sgk/illus_10_hd3_nv3_kiem_thu_2_chieu.png" alt="Minh họa Nhiệm vụ 3: Kiểm thử chuyển trang 2 chiều, chấm 8 tiêu chí &amp; nộp bài"><div class="sgk-fig-cap">Minh họa Nhiệm vụ 3: Kiểm thử chuyển trang 2 chiều, chấm 8 tiêu chí &amp; nộp bài</div></div>
-          </div>
             <div class="checklist-card">
               <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.55rem;">
                 <strong style="font-size:0.9rem;color:#1e3a8a;">Kiểm tra tự động</strong>
@@ -475,13 +509,20 @@ Hãy chuyển đổi qua lại giữa tab CLB.html, thong_tin.html (hoặc bấm
     </div>
   </div>
   <!-- MODAL PHÓNG TO HÌNH MINH HỌA -->
-  <div id="img-zoom-modal" class="qr-zoom-modal" onclick="closeImgZoom()">
-    <div class="qr-zoom-box" style="max-width: min(94vw, 1140px); padding: 1.25rem; text-align: center;" onclick="event.stopPropagation()">
-      <div style="display:flex;justify-content:space-between;align-items:center;gap:0.75rem;margin-bottom:0.75rem;">
-        <div id="img-zoom-caption" style="font-size:0.95rem;font-weight:700;color:#1e3a8a;text-align:left;"></div>
-        <button type="button" onclick="closeImgZoom()" class="btn btn-secondary btn-sm" style="flex-shrink:0;">✕ Đóng</button>
+  <div id="img-zoom-modal" class="img-lightbox-overlay" onclick="closeImgZoom()">
+    <div class="img-lightbox-dialog" onclick="event.stopPropagation()">
+      <div class="img-lightbox-header">
+        <div id="img-zoom-caption" class="img-lightbox-caption"></div>
+        <div class="img-lightbox-tools">
+          <button type="button" id="btn-zoom-100" class="btn btn-primary btn-sm" onclick="setImgZoomScale(100)">🔍 Vừa màn hình</button>
+          <button type="button" id="btn-zoom-150" class="btn btn-secondary btn-sm" onclick="setImgZoomScale(150)">➕ Phóng 150%</button>
+          <button type="button" id="btn-zoom-200" class="btn btn-secondary btn-sm" onclick="setImgZoomScale(200)">➕ Phóng 200%</button>
+          <button type="button" onclick="closeImgZoom()" class="btn btn-secondary btn-sm">✕ Đóng (Esc)</button>
+        </div>
       </div>
-      <img id="img-zoom-target" alt="Phóng to hình minh họa" style="max-width:100%;max-height:78vh;height:auto;border-radius:10px;border:1px solid #cbd5e1;background:#fff;display:block;margin:0 auto;">
+      <div id="img-zoom-scroll" class="img-lightbox-body">
+        <img id="img-zoom-target" alt="Phóng to hình minh họa">
+      </div>
     </div>
   </div>
 
@@ -686,15 +727,39 @@ Hãy chuyển đổi qua lại giữa tab CLB.html, thong_tin.html (hoặc bấm
         return data;
       } catch (e) { return null; }
     }
+    function setImgZoomScale(pct) {
+      const im = document.getElementById('img-zoom-target');
+      const sc = document.getElementById('img-zoom-scroll');
+      [100, 150, 200].forEach(p => {
+        const b = document.getElementById('btn-zoom-' + p);
+        if (b) b.className = 'btn btn-sm ' + (p === pct ? 'btn-primary' : 'btn-secondary');
+      });
+      if (!im || !sc) return;
+      if (pct <= 100) {
+        sc.classList.remove('is-zoomed');
+        const nw = im.naturalWidth || 0;
+        const nh = im.naturalHeight || 0;
+        if (nw && nh && nw < nh * 1.6) {
+          im.style.cssText = 'width:auto !important;max-width:100% !important;height:78vh !important;max-height:82vh !important;object-fit:contain;margin:auto;display:block;border-radius:10px;background:#fff;';
+        } else {
+          im.style.cssText = 'width:100% !important;max-width:100% !important;height:auto !important;max-height:none !important;margin:auto;display:block;border-radius:10px;background:#fff;';
+        }
+      } else {
+        sc.classList.add('is-zoomed');
+        im.style.cssText = 'width:' + pct + '% !important;max-width:none !important;height:auto !important;max-height:none !important;margin:0;display:block;border-radius:10px;background:#fff;';
+      }
+    }
     function openImgZoom(src, cap) {
       const m = document.getElementById('img-zoom-modal');
       const im = document.getElementById('img-zoom-target');
       const cp = document.getElementById('img-zoom-caption');
       if (!m || !im || !src) return;
+      im.onload = () => setImgZoomScale(100);
       im.src = src;
       im.alt = cap || 'Hình minh họa';
       if (cp) cp.textContent = cap || 'Hình minh họa chi tiết';
       m.classList.add('active');
+      setImgZoomScale(100);
     }
     function closeImgZoom() {
       document.getElementById('img-zoom-modal')?.classList.remove('active');
@@ -708,13 +773,18 @@ Hãy chuyển đổi qua lại giữa tab CLB.html, thong_tin.html (hoặc bấm
       if (document.querySelector('[data-exam-gate], #teacher-exam-control-panel')) {
         setInterval(syncLessonExamGates, 10000);
       }
-      document.querySelectorAll('.sgk-fig-box img').forEach(img => {
+      document.querySelectorAll('.sgk-fig-box').forEach(figBox => {
+        const img = figBox.querySelector('img');
+        if (!img) return;
         img.title = img.title || 'Bấm để phóng to hình minh họa';
-        img.addEventListener('click', () => {
-          const figBox = img.closest('.sgk-fig-box');
-          const capEl = figBox ? figBox.querySelector('.sgk-fig-cap') : null;
-          openImgZoom(img.getAttribute('src'), (capEl && capEl.textContent) || img.getAttribute('alt') || '');
-        });
+        const openThis = () => {
+          const spanCap = figBox.querySelector('.sgk-fig-cap .lv-cap-text') || figBox.querySelector('.sgk-fig-cap');
+          const cap = img.getAttribute('alt') || (spanCap && spanCap.textContent) || '';
+          openImgZoom(img.getAttribute('src'), cap);
+        };
+        img.addEventListener('click', openThis);
+        const pill = figBox.querySelector('.lv-zoom-pill');
+        if (pill) pill.addEventListener('click', openThis);
       });
     });
     

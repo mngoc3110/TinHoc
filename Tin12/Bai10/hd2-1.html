@@ -26,6 +26,15 @@
     .qr-zoom-modal { display: none; position: fixed; inset: 0; background: rgba(15,23,42,0.75); backdrop-filter: blur(4px); z-index: 9998; align-items: center; justify-content: center; padding: 1rem; }
     .qr-zoom-modal.active { display: flex; }
     .qr-zoom-box { background: #fff; border-radius: 16px; padding: 2rem; max-width: 460px; width: 100%; text-align: center; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.35); }
+    .img-lightbox-overlay { display: none; position: fixed; inset: 0; background: rgba(15,23,42,0.88); backdrop-filter: blur(5px); z-index: 9998; align-items: center; justify-content: center; padding: 1.5vh 1.5vw; }
+    .img-lightbox-overlay.active { display: flex; }
+    .img-lightbox-dialog { background: #ffffff; border-radius: 16px; width: 96vw; max-width: 1860px; max-height: 96vh; padding: 0.9rem 1.25rem 1.1rem; display: flex; flex-direction: column; box-shadow: 0 25px 60px rgba(0,0,0,0.48); overflow: hidden; }
+    .img-lightbox-header { display: flex; justify-content: space-between; align-items: center; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 0.7rem; padding-bottom: 0.55rem; border-bottom: 1px solid #e2e8f0; }
+    .img-lightbox-caption { font-size: 1.02rem; font-weight: 800; color: #1e3a8a; text-align: left; flex: 1; min-width: 220px; }
+    .img-lightbox-tools { display: flex; gap: 0.4rem; flex-wrap: wrap; flex-shrink: 0; }
+    .img-lightbox-body { flex: 1; overflow: auto; background: #f8fafc; border: 1.5px solid #cbd5e1; border-radius: 12px; padding: 0.75rem; display: flex; align-items: flex-start; justify-content: center; min-height: 50vh; }
+    .img-lightbox-body.is-zoomed { justify-content: flex-start; }
+    #img-zoom-target { display: block; border-radius: 10px; background: #fff; box-shadow: 0 4px 20px rgba(15,23,42,0.08); }
     .sgk-fig-box { background: #fff; border: 1.5px solid #cbd5e1; border-radius: 12px; padding: 0.85rem; margin: 1rem 0; text-align: center; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
     .sgk-fig-box:hover { border-color: #60a5fa; box-shadow: 0 6px 18px rgba(37,99,235,0.10); }
     .sgk-fig-box img { max-width: 100%; max-height: 360px; height: auto; border-radius: 6px; object-fit: contain; cursor: zoom-in; transition: transform 0.2s ease; }
@@ -45,6 +54,18 @@
     .exam-gated-hidden { display: none !important; }
 
 
+    .lv-fig-showcase .sgk-fig-box, .sgk-fig-box.lv-large { padding: 1.05rem 1.2rem; border: 2px solid #cbd5e1; border-radius: 14px; background: #ffffff; box-shadow: 0 6px 18px rgba(15,23,42,0.06); margin: 0.9rem 0; }
+    .lv-fig-showcase .sgk-fig-box:hover, .sgk-fig-box.lv-large:hover { border-color: #3b82f6; box-shadow: 0 10px 26px rgba(37,99,235,0.12); }
+    .lv-fig-showcase .sgk-fig-box img, .sgk-fig-box.lv-large img { width: 100% !important; max-width: 100% !important; max-height: none !important; height: auto !important; display: block; margin: 0 auto; border-radius: 10px; }
+    .lv-fig-showcase .sgk-fig-box.lv-compact img, .sgk-fig-box.lv-compact img { width: auto !important; max-width: 100% !important; min-height: 360px; max-height: 580px !important; height: auto !important; object-fit: contain; margin: 0 auto; }
+    .lv-fig-showcase .sgk-fig-box.lv-medium img, .sgk-fig-box.lv-medium img { width: 100% !important; max-width: 960px !important; max-height: none !important; height: auto !important; margin: 0 auto; }
+    .lv-fig-showcase .sgk-fig-cap, .sgk-fig-box.lv-large .sgk-fig-cap { font-size: 0.94rem; font-weight: 600; color: #1e293b; font-style: normal; margin-top: 0.7rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; text-align: left; }
+    .lv-zoom-pill { display: inline-flex; align-items: center; gap: 0.3rem; background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; border-radius: 999px; padding: 0.22rem 0.7rem; font-size: 0.78rem; font-weight: 700; white-space: nowrap; cursor: zoom-in; }
+    .lv-zoom-pill:hover { background: #2563eb; color: #ffffff; border-color: #2563eb; }
+    .lv-gallery-stack { display: grid; grid-template-columns: 1fr; gap: 1.15rem; margin-top: 0.75rem; }
+    .lv-gallery-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.15rem; margin-top: 0.75rem; }
+    @media (max-width: 900px) { .lv-gallery-pair { grid-template-columns: 1fr; } }
+    
   </style>
 </head>
 <body>
@@ -182,10 +203,13 @@
               <div class="snippet-preview-bar"><span>🌐 KẾT QUẢ HIỂN THỊ</span><span style="color:#16a34a;">HTML5 Live</span></div>
               <iframe id="prev-h21_0" style="width:100%;height:190px;border:none;background:#fff;" title="Preview h21_0"></iframe>
             </div>
-<div class="sgk-fig-box" style="margin-top:0.85rem;margin-bottom:0;"><img src="assets/sgk/illus_10_sieu_van_ban_la_gi.png" alt="Ví dụ trực quan: Một trang Siêu văn bản (Hypertext) tích hợp văn bản, hình ảnh, đa phương tiện và siêu liên kết"><div class="sgk-fig-cap">Ví dụ trực quan: Một trang Siêu văn bản (Hypertext) tích hợp văn bản, hình ảnh, đa phương tiện và siêu liên kết</div></div>
+
           </div>
         </div>
-<div style="margin-top:1.1rem;font-weight:800;color:#1e3a8a;font-size:0.95rem;">🖼️ Hình ảnh so sánh trực quan tệp .docx (Word) và tệp .txt (Notepad) – Hoạt động 1 SGK tr.57 (Bấm vào hình để phóng to):</div><div class="fig-gallery-grid" style="margin-top:0.55rem;"><div class="sgk-fig-box span-full"><img src="assets/sgk/illus_10_docx_vs_txt.png" alt="Hoạt động 1 (SGK tr.57): Trong Word (.docx) đường link màu xanh gạch chân nhấp Ctrl + Click mở ngay trình duyệt; trong Notepad (.txt) chỉ là kí tự chữ đen thuần túy"><div class="sgk-fig-cap">Hoạt động 1 (SGK tr.57): Trong Word (.docx) đường link màu xanh gạch chân nhấp Ctrl + Click mở ngay trình duyệt; trong Notepad (.txt) chỉ là kí tự chữ đen thuần túy</div></div></div>
+<div style="margin-top:1.1rem;font-weight:800;color:#1e3a8a;font-size:1.02rem;">🖼️ Hình ảnh so sánh trực quan tệp .docx (Word) và tệp .txt (Notepad) – Hoạt động 1 SGK tr.57 (Bấm vào hình để phóng to):</div><div class="lv-fig-showcase"><div class="lv-gallery-stack">
+<div class="sgk-fig-box lv-large"><img src="assets/sgk/illus_10_sieu_van_ban_la_gi.png" alt="Ví dụ trực quan: Một trang Siêu văn bản (Hypertext) tích hợp văn bản, hình ảnh, đa phương tiện và siêu liên kết"><div class="sgk-fig-cap"><span class="lv-cap-text">Ví dụ trực quan: Một trang Siêu văn bản (Hypertext) tích hợp văn bản, hình ảnh, đa phương tiện và siêu liên kết</span><span class="lv-zoom-pill">🔍 Phóng to toàn màn hình</span></div></div>
+<div class="sgk-fig-box lv-large"><img src="assets/sgk/illus_10_docx_vs_txt.png" alt="Hoạt động 1 (SGK tr.57): Trong Word (.docx) đường link màu xanh gạch chân nhấp Ctrl + Click mở ngay trình duyệt; trong Notepad (.txt) chỉ là kí tự chữ đen thuần túy"><div class="sgk-fig-cap"><span class="lv-cap-text">Hoạt động 1 (SGK tr.57): Trong Word (.docx) đường link màu xanh gạch chân nhấp Ctrl + Click mở ngay trình duyệt; trong Notepad (.txt) chỉ là kí tự chữ đen thuần túy</span><span class="lv-zoom-pill">🔍 Phóng to toàn màn hình</span></div></div>
+</div></div>
 <div style="background:#f0fdfa;border:1.5px solid #5eead4;border-radius:10px;padding:0.9rem 1rem;margin-top:0.9rem;"><strong style="color:#0f766e;">❓ Hoạt động 1 (SGK tr.57):</strong><ul style="margin:0.5rem 0 0;padding-left:1.2rem;line-height:1.6;"><li><strong>Điểm khác biệt khi đọc một văn bản .docx có chứa liên kết (link) so với đọc một tệp văn bản thuần túy .txt có chứa cùng đường link đó là gì?</strong><br><button type="button" class="btn btn-secondary btn-sm" style="margin-top:0.35rem;" onclick="const b=this.nextElementSibling; const open=b.style.display!=='none'; b.style.display=open?'none':'block'; this.textContent=open?'💡 Bấm xem gợi ý trả lời':'🙈 Ẩn gợi ý';">💡 Bấm xem gợi ý trả lời</button><div style="display:none;margin-top:0.4rem;color:#166534;background:#f0fdf4;padding:0.55rem 0.75rem;border-radius:6px;border:1px solid #86efac;"><strong>Gợi ý đáp án:</strong> Tệp <code>.txt</code> chỉ lưu kí tự văn bản đơn giản nên địa chỉ link chỉ là dòng chữ tĩnh, không bấm mở trực tiếp được. Ngược lại, tệp <code>.docx</code> có tính chất như một siêu văn bản: liên kết được tô màu/gạch chân, nhấp giữ Ctrl + Click sẽ mở thẳng trang đích; đồng thời <code>.docx</code> còn chèn được hình ảnh và định dạng phong phú.</div></li></ul></div>
       </section>
       <section class="card" style="margin-bottom: 1.5rem;">
@@ -225,10 +249,12 @@
               <div class="snippet-preview-bar"><span>🌐 KẾT QUẢ HIỂN THỊ</span><span style="color:#16a34a;">HTML5 Live</span></div>
               <iframe id="prev-h21_1" style="width:100%;height:190px;border:none;background:#fff;" title="Preview h21_1"></iframe>
             </div>
-<div class="sgk-fig-box" style="margin-top:0.85rem;margin-bottom:0;"><img src="assets/sgk/illus_10_sieu_lien_ket_anatomy.png" alt="Giải phẫu cú pháp thẻ &lt;a href=&quot;URL&quot;&gt;Nội dung&lt;/a&gt; và 3 ví dụ nhận diện Siêu liên kết thực tế"><div class="sgk-fig-cap">Giải phẫu cú pháp thẻ &lt;a href=&quot;URL&quot;&gt;Nội dung&lt;/a&gt; và 3 ví dụ nhận diện Siêu liên kết thực tế</div></div>
+
           </div>
         </div>
-
+<div style="margin-top:1.1rem;font-weight:800;color:#1e3a8a;font-size:1.02rem;">🖼️ Hình ảnh minh họa trực quan (Bấm vào hình để phóng to):</div><div class="lv-fig-showcase"><div class="lv-gallery-stack">
+<div class="sgk-fig-box lv-large"><img src="assets/sgk/illus_10_sieu_lien_ket_anatomy.png" alt="Giải phẫu cú pháp thẻ &lt;a href=&quot;URL&quot;&gt;Nội dung&lt;/a&gt; và 3 ví dụ nhận diện Siêu liên kết thực tế"><div class="sgk-fig-cap"><span class="lv-cap-text">Giải phẫu cú pháp thẻ &lt;a href=&quot;URL&quot;&gt;Nội dung&lt;/a&gt; và 3 ví dụ nhận diện Siêu liên kết thực tế</span><span class="lv-zoom-pill">🔍 Phóng to toàn màn hình</span></div></div>
+</div></div>
 
       </section>
       <section class="card" style="margin-bottom: 1.5rem;">
@@ -272,10 +298,14 @@
               <div class="snippet-preview-bar"><span>🌐 KẾT QUẢ HIỂN THỊ</span><span style="color:#16a34a;">HTML5 Live</span></div>
               <iframe id="prev-h21_2" style="width:100%;height:190px;border:none;background:#fff;" title="Preview h21_2"></iframe>
             </div>
-<div class="sgk-fig-box" style="margin-top:0.85rem;margin-bottom:0;"><img src="assets/sgk/illus_10_so_sanh_di_chuyen_web.png" alt="Tình huống thực tế: Tại sao đường dẫn D:\... bị lỗi 404 khi chuyển máy còn đường dẫn tương đối vẫn chạy 100%?"><div class="sgk-fig-cap">Tình huống thực tế: Tại sao đường dẫn D:\... bị lỗi 404 khi chuyển máy còn đường dẫn tương đối vẫn chạy 100%?</div></div>
+
           </div>
         </div>
-<div style="margin-top:1.1rem;font-weight:800;color:#1e3a8a;font-size:0.95rem;">🖼️ Hình ảnh ví dụ chi tiết: Đường dẫn Tuyệt đối vs Đường dẫn Tương đối (Bấm vào hình để phóng to):</div><div class="fig-gallery-grid" style="margin-top:0.55rem;"><div class="sgk-fig-box"><img src="assets/sgk/illus_10_duong_dan_tuyet_doi.png" alt="Ví dụ Đường dẫn tuyệt đối: Ghi đủ giao thức (https://) + tên miền + đường dẫn tệp để trỏ ra Website ngoài"><div class="sgk-fig-cap">Ví dụ Đường dẫn tuyệt đối: Ghi đủ giao thức (https://) + tên miền + đường dẫn tệp để trỏ ra Website ngoài</div></div><div class="sgk-fig-box"><img src="assets/sgk/illus_10_duong_dan_tuong_doi.png" alt="Ví dụ Đường dẫn tương đối: Xác định đường đi tính từ thư mục chứa tệp HTML hiện tại (cùng cấp, thư mục con, ../)"><div class="sgk-fig-cap">Ví dụ Đường dẫn tương đối: Xác định đường đi tính từ thư mục chứa tệp HTML hiện tại (cùng cấp, thư mục con, ../)</div></div></div>
+<div style="margin-top:1.1rem;font-weight:800;color:#1e3a8a;font-size:1.02rem;">🖼️ Hình ảnh ví dụ chi tiết: Đường dẫn Tuyệt đối vs Đường dẫn Tương đối (Bấm vào hình để phóng to):</div><div class="lv-fig-showcase"><div class="lv-gallery-stack">
+<div class="sgk-fig-box lv-large"><img src="assets/sgk/illus_10_so_sanh_di_chuyen_web.png" alt="Tình huống thực tế: Tại sao đường dẫn D:\... bị lỗi 404 khi chuyển máy còn đường dẫn tương đối vẫn chạy 100%?"><div class="sgk-fig-cap"><span class="lv-cap-text">Tình huống thực tế: Tại sao đường dẫn D:\... bị lỗi 404 khi chuyển máy còn đường dẫn tương đối vẫn chạy 100%?</span><span class="lv-zoom-pill">🔍 Phóng to toàn màn hình</span></div></div>
+<div class="sgk-fig-box lv-large"><img src="assets/sgk/illus_10_duong_dan_tuyet_doi.png" alt="Ví dụ Đường dẫn tuyệt đối: Ghi đủ giao thức (https://) + tên miền + đường dẫn tệp để trỏ ra Website ngoài"><div class="sgk-fig-cap"><span class="lv-cap-text">Ví dụ Đường dẫn tuyệt đối: Ghi đủ giao thức (https://) + tên miền + đường dẫn tệp để trỏ ra Website ngoài</span><span class="lv-zoom-pill">🔍 Phóng to toàn màn hình</span></div></div>
+<div class="sgk-fig-box lv-large"><img src="assets/sgk/illus_10_duong_dan_tuong_doi.png" alt="Ví dụ Đường dẫn tương đối: Xác định đường đi tính từ thư mục chứa tệp HTML hiện tại (cùng cấp, thư mục con, ../)"><div class="sgk-fig-cap"><span class="lv-cap-text">Ví dụ Đường dẫn tương đối: Xác định đường đi tính từ thư mục chứa tệp HTML hiện tại (cùng cấp, thư mục con, ../)</span><span class="lv-zoom-pill">🔍 Phóng to toàn màn hình</span></div></div>
+</div></div>
 <div style="background:#f0fdfa;border:1.5px solid #5eead4;border-radius:10px;padding:0.9rem 1rem;margin-top:0.9rem;"><strong style="color:#0f766e;">❓ Câu hỏi cuối Mục 1 (SGK tr.58):</strong><ul style="margin:0.5rem 0 0;padding-left:1.2rem;line-height:1.6;"><li><strong>Cho 3 đường dẫn: a) <code>http://hocmai.vn/khoahoc</code>; b) <code>bai_tap/bai_tap_1.html</code>; c) <code>D:\TinHoc12\index.html</code>. Hãy phân loại đường dẫn tuyệt đối, tương đối và cho biết đường dẫn nào không nên dùng cho website?</strong><br><button type="button" class="btn btn-secondary btn-sm" style="margin-top:0.35rem;" onclick="const b=this.nextElementSibling; const open=b.style.display!=='none'; b.style.display=open?'none':'block'; this.textContent=open?'💡 Bấm xem gợi ý trả lời':'🙈 Ẩn gợi ý';">💡 Bấm xem gợi ý trả lời</button><div style="display:none;margin-top:0.4rem;color:#166534;background:#f0fdf4;padding:0.55rem 0.75rem;border-radius:6px;border:1px solid #86efac;"><strong>Gợi ý đáp án:</strong><br>• <strong>(a)</strong> <code>http://hocmai.vn/khoahoc</code>: Đường dẫn tuyệt đối trên Internet (dùng khi nối tới trang ngoài).<br>• <strong>(b)</strong> <code>bai_tap/bai_tap_1.html</code>: Đường dẫn tương đối đi vào thư mục con <code>bai_tap</code> (rất chuẩn cho liên kết nội bộ).<br>• <strong>(c)</strong> <code>D:\TinHoc12\index.html</code>: Đường dẫn tuyệt đối cục bộ trên ổ đĩa D — <strong>KHÔNG nên dùng</strong> vì sẽ bị hỏng ngay khi chuyển thư mục web sang máy khác hoặc đưa lên máy chủ!</div></li></ul></div>
       </section>
 
@@ -366,13 +396,20 @@
     </div>
   </div>
   <!-- MODAL PHÓNG TO HÌNH MINH HỌA -->
-  <div id="img-zoom-modal" class="qr-zoom-modal" onclick="closeImgZoom()">
-    <div class="qr-zoom-box" style="max-width: min(94vw, 1140px); padding: 1.25rem; text-align: center;" onclick="event.stopPropagation()">
-      <div style="display:flex;justify-content:space-between;align-items:center;gap:0.75rem;margin-bottom:0.75rem;">
-        <div id="img-zoom-caption" style="font-size:0.95rem;font-weight:700;color:#1e3a8a;text-align:left;"></div>
-        <button type="button" onclick="closeImgZoom()" class="btn btn-secondary btn-sm" style="flex-shrink:0;">✕ Đóng</button>
+  <div id="img-zoom-modal" class="img-lightbox-overlay" onclick="closeImgZoom()">
+    <div class="img-lightbox-dialog" onclick="event.stopPropagation()">
+      <div class="img-lightbox-header">
+        <div id="img-zoom-caption" class="img-lightbox-caption"></div>
+        <div class="img-lightbox-tools">
+          <button type="button" id="btn-zoom-100" class="btn btn-primary btn-sm" onclick="setImgZoomScale(100)">🔍 Vừa màn hình</button>
+          <button type="button" id="btn-zoom-150" class="btn btn-secondary btn-sm" onclick="setImgZoomScale(150)">➕ Phóng 150%</button>
+          <button type="button" id="btn-zoom-200" class="btn btn-secondary btn-sm" onclick="setImgZoomScale(200)">➕ Phóng 200%</button>
+          <button type="button" onclick="closeImgZoom()" class="btn btn-secondary btn-sm">✕ Đóng (Esc)</button>
+        </div>
       </div>
-      <img id="img-zoom-target" alt="Phóng to hình minh họa" style="max-width:100%;max-height:78vh;height:auto;border-radius:10px;border:1px solid #cbd5e1;background:#fff;display:block;margin:0 auto;">
+      <div id="img-zoom-scroll" class="img-lightbox-body">
+        <img id="img-zoom-target" alt="Phóng to hình minh họa">
+      </div>
     </div>
   </div>
 
@@ -577,15 +614,39 @@
         return data;
       } catch (e) { return null; }
     }
+    function setImgZoomScale(pct) {
+      const im = document.getElementById('img-zoom-target');
+      const sc = document.getElementById('img-zoom-scroll');
+      [100, 150, 200].forEach(p => {
+        const b = document.getElementById('btn-zoom-' + p);
+        if (b) b.className = 'btn btn-sm ' + (p === pct ? 'btn-primary' : 'btn-secondary');
+      });
+      if (!im || !sc) return;
+      if (pct <= 100) {
+        sc.classList.remove('is-zoomed');
+        const nw = im.naturalWidth || 0;
+        const nh = im.naturalHeight || 0;
+        if (nw && nh && nw < nh * 1.6) {
+          im.style.cssText = 'width:auto !important;max-width:100% !important;height:78vh !important;max-height:82vh !important;object-fit:contain;margin:auto;display:block;border-radius:10px;background:#fff;';
+        } else {
+          im.style.cssText = 'width:100% !important;max-width:100% !important;height:auto !important;max-height:none !important;margin:auto;display:block;border-radius:10px;background:#fff;';
+        }
+      } else {
+        sc.classList.add('is-zoomed');
+        im.style.cssText = 'width:' + pct + '% !important;max-width:none !important;height:auto !important;max-height:none !important;margin:0;display:block;border-radius:10px;background:#fff;';
+      }
+    }
     function openImgZoom(src, cap) {
       const m = document.getElementById('img-zoom-modal');
       const im = document.getElementById('img-zoom-target');
       const cp = document.getElementById('img-zoom-caption');
       if (!m || !im || !src) return;
+      im.onload = () => setImgZoomScale(100);
       im.src = src;
       im.alt = cap || 'Hình minh họa';
       if (cp) cp.textContent = cap || 'Hình minh họa chi tiết';
       m.classList.add('active');
+      setImgZoomScale(100);
     }
     function closeImgZoom() {
       document.getElementById('img-zoom-modal')?.classList.remove('active');
@@ -599,13 +660,18 @@
       if (document.querySelector('[data-exam-gate], #teacher-exam-control-panel')) {
         setInterval(syncLessonExamGates, 10000);
       }
-      document.querySelectorAll('.sgk-fig-box img').forEach(img => {
+      document.querySelectorAll('.sgk-fig-box').forEach(figBox => {
+        const img = figBox.querySelector('img');
+        if (!img) return;
         img.title = img.title || 'Bấm để phóng to hình minh họa';
-        img.addEventListener('click', () => {
-          const figBox = img.closest('.sgk-fig-box');
-          const capEl = figBox ? figBox.querySelector('.sgk-fig-cap') : null;
-          openImgZoom(img.getAttribute('src'), (capEl && capEl.textContent) || img.getAttribute('alt') || '');
-        });
+        const openThis = () => {
+          const spanCap = figBox.querySelector('.sgk-fig-cap .lv-cap-text') || figBox.querySelector('.sgk-fig-cap');
+          const cap = img.getAttribute('alt') || (spanCap && spanCap.textContent) || '';
+          openImgZoom(img.getAttribute('src'), cap);
+        };
+        img.addEventListener('click', openThis);
+        const pill = figBox.querySelector('.lv-zoom-pill');
+        if (pill) pill.addEventListener('click', openThis);
       });
     });
     

@@ -26,6 +26,15 @@
     .qr-zoom-modal { display: none; position: fixed; inset: 0; background: rgba(15,23,42,0.75); backdrop-filter: blur(4px); z-index: 9998; align-items: center; justify-content: center; padding: 1rem; }
     .qr-zoom-modal.active { display: flex; }
     .qr-zoom-box { background: #fff; border-radius: 16px; padding: 2rem; max-width: 460px; width: 100%; text-align: center; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.35); }
+    .img-lightbox-overlay { display: none; position: fixed; inset: 0; background: rgba(15,23,42,0.88); backdrop-filter: blur(5px); z-index: 9998; align-items: center; justify-content: center; padding: 1.5vh 1.5vw; }
+    .img-lightbox-overlay.active { display: flex; }
+    .img-lightbox-dialog { background: #ffffff; border-radius: 16px; width: 96vw; max-width: 1860px; max-height: 96vh; padding: 0.9rem 1.25rem 1.1rem; display: flex; flex-direction: column; box-shadow: 0 25px 60px rgba(0,0,0,0.48); overflow: hidden; }
+    .img-lightbox-header { display: flex; justify-content: space-between; align-items: center; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 0.7rem; padding-bottom: 0.55rem; border-bottom: 1px solid #e2e8f0; }
+    .img-lightbox-caption { font-size: 1.02rem; font-weight: 800; color: #1e3a8a; text-align: left; flex: 1; min-width: 220px; }
+    .img-lightbox-tools { display: flex; gap: 0.4rem; flex-wrap: wrap; flex-shrink: 0; }
+    .img-lightbox-body { flex: 1; overflow: auto; background: #f8fafc; border: 1.5px solid #cbd5e1; border-radius: 12px; padding: 0.75rem; display: flex; align-items: flex-start; justify-content: center; min-height: 50vh; }
+    .img-lightbox-body.is-zoomed { justify-content: flex-start; }
+    #img-zoom-target { display: block; border-radius: 10px; background: #fff; box-shadow: 0 4px 20px rgba(15,23,42,0.08); }
     .sgk-fig-box { background: #fff; border: 1.5px solid #cbd5e1; border-radius: 12px; padding: 0.85rem; margin: 1rem 0; text-align: center; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
     .sgk-fig-box:hover { border-color: #60a5fa; box-shadow: 0 6px 18px rgba(37,99,235,0.10); }
     .sgk-fig-box img { max-width: 100%; max-height: 360px; height: auto; border-radius: 6px; object-fit: contain; cursor: zoom-in; transition: transform 0.2s ease; }
@@ -297,13 +306,20 @@
     </div>
   </div>
   <!-- MODAL PHÓNG TO HÌNH MINH HỌA -->
-  <div id="img-zoom-modal" class="qr-zoom-modal" onclick="closeImgZoom()">
-    <div class="qr-zoom-box" style="max-width: min(94vw, 1140px); padding: 1.25rem; text-align: center;" onclick="event.stopPropagation()">
-      <div style="display:flex;justify-content:space-between;align-items:center;gap:0.75rem;margin-bottom:0.75rem;">
-        <div id="img-zoom-caption" style="font-size:0.95rem;font-weight:700;color:#1e3a8a;text-align:left;"></div>
-        <button type="button" onclick="closeImgZoom()" class="btn btn-secondary btn-sm" style="flex-shrink:0;">✕ Đóng</button>
+  <div id="img-zoom-modal" class="img-lightbox-overlay" onclick="closeImgZoom()">
+    <div class="img-lightbox-dialog" onclick="event.stopPropagation()">
+      <div class="img-lightbox-header">
+        <div id="img-zoom-caption" class="img-lightbox-caption"></div>
+        <div class="img-lightbox-tools">
+          <button type="button" id="btn-zoom-100" class="btn btn-primary btn-sm" onclick="setImgZoomScale(100)">🔍 Vừa màn hình</button>
+          <button type="button" id="btn-zoom-150" class="btn btn-secondary btn-sm" onclick="setImgZoomScale(150)">➕ Phóng 150%</button>
+          <button type="button" id="btn-zoom-200" class="btn btn-secondary btn-sm" onclick="setImgZoomScale(200)">➕ Phóng 200%</button>
+          <button type="button" onclick="closeImgZoom()" class="btn btn-secondary btn-sm">✕ Đóng (Esc)</button>
+        </div>
       </div>
-      <img id="img-zoom-target" alt="Phóng to hình minh họa" style="max-width:100%;max-height:78vh;height:auto;border-radius:10px;border:1px solid #cbd5e1;background:#fff;display:block;margin:0 auto;">
+      <div id="img-zoom-scroll" class="img-lightbox-body">
+        <img id="img-zoom-target" alt="Phóng to hình minh họa">
+      </div>
     </div>
   </div>
 
@@ -507,15 +523,39 @@
         return data;
       } catch (e) { return null; }
     }
+    function setImgZoomScale(pct) {
+      const im = document.getElementById('img-zoom-target');
+      const sc = document.getElementById('img-zoom-scroll');
+      [100, 150, 200].forEach(p => {
+        const b = document.getElementById('btn-zoom-' + p);
+        if (b) b.className = 'btn btn-sm ' + (p === pct ? 'btn-primary' : 'btn-secondary');
+      });
+      if (!im || !sc) return;
+      if (pct <= 100) {
+        sc.classList.remove('is-zoomed');
+        const nw = im.naturalWidth || 0;
+        const nh = im.naturalHeight || 0;
+        if (nw && nh && nw < nh * 1.6) {
+          im.style.cssText = 'width:auto !important;max-width:100% !important;height:78vh !important;max-height:82vh !important;object-fit:contain;margin:auto;display:block;border-radius:10px;background:#fff;';
+        } else {
+          im.style.cssText = 'width:100% !important;max-width:100% !important;height:auto !important;max-height:none !important;margin:auto;display:block;border-radius:10px;background:#fff;';
+        }
+      } else {
+        sc.classList.add('is-zoomed');
+        im.style.cssText = 'width:' + pct + '% !important;max-width:none !important;height:auto !important;max-height:none !important;margin:0;display:block;border-radius:10px;background:#fff;';
+      }
+    }
     function openImgZoom(src, cap) {
       const m = document.getElementById('img-zoom-modal');
       const im = document.getElementById('img-zoom-target');
       const cp = document.getElementById('img-zoom-caption');
       if (!m || !im || !src) return;
+      im.onload = () => setImgZoomScale(100);
       im.src = src;
       im.alt = cap || 'Hình minh họa';
       if (cp) cp.textContent = cap || 'Hình minh họa chi tiết';
       m.classList.add('active');
+      setImgZoomScale(100);
     }
     function closeImgZoom() {
       document.getElementById('img-zoom-modal')?.classList.remove('active');
@@ -529,13 +569,18 @@
       if (document.querySelector('[data-exam-gate], #teacher-exam-control-panel')) {
         setInterval(syncLessonExamGates, 10000);
       }
-      document.querySelectorAll('.sgk-fig-box img').forEach(img => {
+      document.querySelectorAll('.sgk-fig-box').forEach(figBox => {
+        const img = figBox.querySelector('img');
+        if (!img) return;
         img.title = img.title || 'Bấm để phóng to hình minh họa';
-        img.addEventListener('click', () => {
-          const figBox = img.closest('.sgk-fig-box');
-          const capEl = figBox ? figBox.querySelector('.sgk-fig-cap') : null;
-          openImgZoom(img.getAttribute('src'), (capEl && capEl.textContent) || img.getAttribute('alt') || '');
-        });
+        const openThis = () => {
+          const spanCap = figBox.querySelector('.sgk-fig-cap .lv-cap-text') || figBox.querySelector('.sgk-fig-cap');
+          const cap = img.getAttribute('alt') || (spanCap && spanCap.textContent) || '';
+          openImgZoom(img.getAttribute('src'), cap);
+        };
+        img.addEventListener('click', openThis);
+        const pill = figBox.querySelector('.lv-zoom-pill');
+        if (pill) pill.addEventListener('click', openThis);
       });
     });
     </script>
