@@ -474,12 +474,61 @@
     function closeImgZoom() {
       document.getElementById('img-zoom-modal')?.classList.remove('active');
     }
+    async function syncPendingLocalWorksheetSubmissions() {
+      if (window.__wsOutboxBusy) return;
+      window.__wsOutboxBusy = true;
+      try {
+        const key = LESSON_SLUG + '_worksheet_submissions';
+        const raw = localStorage.getItem(key);
+        if (!raw) return;
+        const list = JSON.parse(raw);
+        if (!Array.isArray(list) || !list.length) return;
+        const pending = list.filter(x => x && x.id && String(x.id).startsWith('WS-') && x.worksheetId !== 'kttx2' && !x._synced);
+        if (!pending.length) return;
+        const res = await fetch('/api/' + LESSON_SLUG + '/submissions', { headers: getTeacherHeaders(), cache: 'no-store' });
+        if (!res.ok) return;
+        const srv = await res.json();
+        const srvIds = new Set((Array.isArray(srv) ? srv : []).map(x => x && x.id).filter(Boolean));
+        let changed = false;
+        let uploaded = false;
+        for (const item of list) {
+          if (!item || !item.id || !String(item.id).startsWith('WS-') || item.worksheetId === 'kttx2' || item._synced) continue;
+          if (srvIds.has(item.id)) {
+            item._synced = true;
+            changed = true;
+            continue;
+          }
+          const clean = Object.assign({}, item);
+          delete clean._synced;
+          try {
+            const pr = await fetch('/api/' + LESSON_SLUG + '/submit', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              keepalive: true,
+              body: JSON.stringify(clean)
+            });
+            if (pr.ok) {
+              item._synced = true;
+              srvIds.add(item.id);
+              changed = true;
+              uploaded = true;
+            }
+          } catch (e) {}
+        }
+        if (changed) localStorage.setItem(key, JSON.stringify(list));
+        if (uploaded && typeof loadSubmissionsP2 === 'function') loadSubmissionsP2();
+      } catch (e) {} finally {
+        window.__wsOutboxBusy = false;
+      }
+    }
+    window.addEventListener('online', syncPendingLocalWorksheetSubmissions);
     document.addEventListener('keydown', (ev) => {
       if (ev.key === 'Escape') closeImgZoom();
     });
     document.addEventListener('DOMContentLoaded', () => {
       updateTeacherNavBadge();
       syncLessonExamGates();
+      syncPendingLocalWorksheetSubmissions();
       if (document.querySelector('[data-exam-gate], #teacher-exam-control-panel')) {
         setInterval(syncLessonExamGates, 10000);
       }
@@ -507,6 +556,9 @@
     const EXAM_MINUTES = 0;
     let wsMode = 'single';
     let isSubmitted = false;
+    let wsSubmitting = false;
+    let pendingWsPayload = null;
+    let wsRetryTimer = null;
     let remainingSec = EXAM_MINUTES * 60;
     const gradedState = {};
 
@@ -613,87 +665,153 @@
       if (masterBtn) masterBtn.textContent = willShow ? '🙈 Ẩn toàn bộ Đáp án & Lời giải' : '🔍 Bấm để xem Đáp án & Lời giải chi tiết';
     }
 
-    function submitWorksheet(forceTimeout) {
-      if (isSubmitted) return;
-      const n1 = document.getElementById('ws-name-1').value.trim();
-      const n2 = document.getElementById('ws-name-2').value.trim();
-      if (!n1 && !forceTimeout) { alert('Vui lòng nhập Họ và tên trước khi nộp bài!'); document.getElementById('ws-name-1').focus(); return; }
-      const studentName = (wsMode === 'pair' && n2) ? `${n1 || 'HS1'} & ${n2}` : (n1 || 'Học sinh (Hết giờ)');
-      const cls = document.getElementById('ws-class').value || '12A1';
-      const machine = document.getElementById('ws-machine').value.trim() || 'Máy HS';
-
-      let totalScore = 0, maxScore = 0;
-      const answers = {}, results = {};
-      QUESTIONS.forEach(q => {
-        const maxQ = Number(q.points || 1.0);
-        maxScore += maxQ;
-        const fb = document.getElementById(`fb-${q.id}`);
-        const btnFb = document.getElementById(`btn-fb-${q.id}`);
-        if (q.type === 'tf') {
-          const userTF = {}, okMap = {};
-          let correctCnt = 0;
-          ['a','b','c','d'].forEach((letter, si) => {
-            const checked = document.querySelector(`input[name="${q.id}_${letter}"]:checked`);
-            const val = checked ? checked.value : '';
-            userTF[letter] = val;
-            const target = q.statements[si].correct ? 'Đúng' : 'Sai';
-            const hit = val === target;
-            okMap[letter] = hit;
-            if (hit) correctCnt++;
-          });
-          const ratio = correctCnt === 4 ? 1.0 : (correctCnt === 3 ? 0.5 : (correctCnt === 2 ? 0.25 : (correctCnt === 1 ? 0.1 : 0.0)));
-          const qScore = +(maxQ * ratio).toFixed(2);
-          totalScore += qScore;
-          answers[q.id] = userTF;
-          results[q.id] = { userAnswer: userTF, score: qScore, correctCnt };
-          gradedState[q.id] = { type:'tf', okMap };
-          if (fb) { fb.style.display='none'; fb.style.background='#f0fdf4'; fb.style.border='1px solid #86efac'; fb.innerHTML = `<strong>Đạt ${qScore} / ${maxQ}đ (Đúng ${correctCnt}/4 ý)</strong><br>${esc(q.explain || '')}`; }
-          if (btnFb) btnFb.style.display = 'inline-flex';
-        } else {
-          const checked = document.querySelector(`input[name="${q.id}"]:checked`);
-          const val = checked ? checked.value : '';
-          const ok = val === q.correct;
-          const qScore = ok ? maxQ : 0;
-          totalScore += qScore;
-          answers[q.id] = val;
-          results[q.id] = { userAnswer: val, correctAnswer: q.correct, isCorrect: ok, score: qScore };
-          gradedState[q.id] = { type:'mcq', userVal: val, correct: q.correct, ok };
-          if (fb) { fb.style.display='none'; fb.style.background = ok ? '#f0fdf4' : '#fef2f2'; fb.style.border='1px solid ' + (ok ? '#86efac' : '#fca5a5'); fb.innerHTML = `<strong>${ok ? '✅ Chính xác!' : '❌ Chưa đúng (Đáp án: ' + q.correct + ')'}</strong><br>${esc(q.explain || '')}`; }
-          if (btnFb) btnFb.style.display = 'inline-flex';
-        }
-      });
-
-      document.querySelectorAll('#questions-mount input[type="radio"]').forEach(inp => { inp.disabled = true; });
-      const subBtn = document.getElementById('btn-ws-submit');
-      if (subBtn) { subBtn.disabled = true; subBtn.textContent = '✅ Đã nộp bài'; }
-
-      const norm10 = maxScore > 0 ? +(totalScore / maxScore * 10).toFixed(2) : 0;
-      const payload = {
-        id: 'WS-' + Math.floor(1000 + Math.random()*9000),
-        worksheetId: WS_ID,
-        isPair: wsMode === 'pair',
-        studentName, className: cls, studentNumber: machine,
-        score: norm10,
-        submittedAt: new Date().toLocaleTimeString('vi-VN') + ' - ' + new Date().toLocaleDateString('vi-VN'),
-        answers, results
-      };
+    function upsertLocalWsSubmission(rec) {
       try {
         const cur = JSON.parse(localStorage.getItem(SLUG + '_worksheet_submissions') || '[]');
-        cur.unshift(payload);
+        const idx = cur.findIndex(x => x && x.id === rec.id);
+        if (idx >= 0) cur[idx] = rec; else cur.unshift(rec);
         localStorage.setItem(SLUG + '_worksheet_submissions', JSON.stringify(cur));
       } catch (e) {}
-      try { new BroadcastChannel(SLUG + '_classroom_channel').postMessage({ type:'NEW_SUBMISSION', data:payload }); } catch (e) {}
-      fetch('/api/' + SLUG + '/submit', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload) }).catch(() => {});
-
-      isSubmitted = true;
+    }
+    async function sendWsPayloadToServer(payload) {
+      const clean = Object.assign({}, payload);
+      delete clean._synced;
+      const res = await fetch('/api/' + SLUG + '/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        keepalive: true,
+        body: JSON.stringify(clean)
+      });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      return await res.json().catch(() => ({ status: 'ok' }));
+    }
+    function renderWsResultBanner(isOk) {
       const rb = document.getElementById('ws-result-banner');
+      if (!rb || !pendingWsPayload) return;
+      const prevOpen = QUESTIONS.length > 0 && QUESTIONS.every(q => document.getElementById('fb-' + q.id)?.style.display !== 'none');
+      const btnText = prevOpen ? '🙈 Ẩn toàn bộ Đáp án & Lời giải' : '🔍 Bấm để xem Đáp án &amp; Lời giải chi tiết';
       rb.style.display = 'block';
-      rb.innerHTML = `<div class="card" style="background:linear-gradient(135deg,#059669,#10b981);color:#fff;text-align:center;">
-        <h2 style="margin:0;color:#fff;">🎉 ĐIỂM CỦA EM: ${norm10.toFixed(2)} / 10.00</h2>
-        <p style="margin:0.4rem 0 0;">Đã ghi nhận bài làm của <strong>${esc(studentName)} (${cls})</strong> lên hệ thống Giáo viên! Bấm nút bên dưới nếu muốn xem đáp án chi tiết.</p>
-        <button type="button" id="btn-toggle-all-fb" class="btn btn-secondary" style="margin-top:0.85rem;background:#fff;color:#065f46;border:none;font-weight:800;" onclick="toggleAllWorksheetAnswers(this)">🔍 Bấm để xem Đáp án &amp; Lời giải chi tiết</button>
-      </div>`;
-      rb.scrollIntoView({ behavior:'smooth' });
+      if (isOk) {
+        rb.innerHTML = `<div class="card" style="background:linear-gradient(135deg,#059669,#10b981);color:#fff;text-align:center;">
+          <h2 style="margin:0;color:#fff;">🎉 ĐIỂM CỦA EM: ${pendingWsPayload.score.toFixed(2)} / 10.00</h2>
+          <p style="margin:0.4rem 0 0;">✅ Đã ghi nhận bài làm của <strong>${esc(pendingWsPayload.studentName)} (${esc(pendingWsPayload.className)})</strong> lên hệ thống Giáo viên! (Mã: <code>${esc(pendingWsPayload.id)}</code>)</p>
+          <button type="button" id="btn-toggle-all-fb" class="btn btn-secondary" style="margin-top:0.85rem;background:#fff;color:#065f46;border:none;font-weight:800;" onclick="toggleAllWorksheetAnswers(this)">${btnText}</button>
+        </div>`;
+      } else {
+        rb.innerHTML = `<div class="card" style="background:linear-gradient(135deg,#b45309,#d97706);color:#fff;text-align:center;">
+          <h2 style="margin:0;color:#fff;">🎉 ĐIỂM TẠM TÍNH: ${pendingWsPayload.score.toFixed(2)} / 10.00</h2>
+          <p style="margin:0.45rem 0 0;font-weight:700;">⚠️ Mạng đang chập chờn — máy chủ CHƯA nhận được bài!</p>
+          <p style="margin:0.35rem 0 0;font-size:0.9rem;">Bài làm đã lưu tạm trên thiết bị (Mã: <code>${esc(pendingWsPayload.id)}</code>). Em vui lòng giữ kết nối mạng rồi bấm nút <strong>"🔄 BẤM GỬI LẠI LÊN MÁY CHỦ"</strong> bên dưới (hệ thống tự gửi lại mỗi 5 giây).</p>
+          <button type="button" id="btn-toggle-all-fb" class="btn btn-secondary" style="margin-top:0.85rem;background:#fff;color:#92400e;border:none;font-weight:800;" onclick="toggleAllWorksheetAnswers(this)">${btnText}</button>
+        </div>`;
+      }
+    }
+    async function submitWorksheet(forceTimeout) {
+      if (isSubmitted || wsSubmitting) return;
+      const subBtn = document.getElementById('btn-ws-submit');
+      const firstRun = !pendingWsPayload;
+      if (!pendingWsPayload) {
+        const n1 = document.getElementById('ws-name-1').value.trim();
+        const n2 = document.getElementById('ws-name-2').value.trim();
+        if (!n1 && !forceTimeout) { alert('Vui lòng nhập Họ và tên trước khi nộp bài!'); document.getElementById('ws-name-1').focus(); return; }
+        const studentName = (wsMode === 'pair' && n2) ? `${n1 || 'HS1'} & ${n2}` : (n1 || 'Học sinh (Hết giờ)');
+        const cls = document.getElementById('ws-class').value || '12A1';
+        const machine = document.getElementById('ws-machine').value.trim() || 'Máy HS';
+
+        let totalScore = 0, maxScore = 0;
+        const answers = {}, results = {};
+        QUESTIONS.forEach(q => {
+          const maxQ = Number(q.points || 1.0);
+          maxScore += maxQ;
+          const fb = document.getElementById(`fb-${q.id}`);
+          const btnFb = document.getElementById(`btn-fb-${q.id}`);
+          if (q.type === 'tf') {
+            const userTF = {}, okMap = {};
+            let correctCnt = 0;
+            ['a','b','c','d'].forEach((letter, si) => {
+              const checked = document.querySelector(`input[name="${q.id}_${letter}"]:checked`);
+              const val = checked ? checked.value : '';
+              userTF[letter] = val;
+              const target = q.statements[si].correct ? 'Đúng' : 'Sai';
+              const hit = val === target;
+              okMap[letter] = hit;
+              if (hit) correctCnt++;
+            });
+            const ratio = correctCnt === 4 ? 1.0 : (correctCnt === 3 ? 0.5 : (correctCnt === 2 ? 0.25 : (correctCnt === 1 ? 0.1 : 0.0)));
+            const qScore = +(maxQ * ratio).toFixed(2);
+            totalScore += qScore;
+            answers[q.id] = userTF;
+            results[q.id] = { userAnswer: userTF, score: qScore, correctCnt };
+            gradedState[q.id] = { type:'tf', okMap };
+            if (fb) { fb.style.display='none'; fb.style.background='#f0fdf4'; fb.style.border='1px solid #86efac'; fb.innerHTML = `<strong>Đạt ${qScore} / ${maxQ}đ (Đúng ${correctCnt}/4 ý)</strong><br>${esc(q.explain || '')}`; }
+            if (btnFb) btnFb.style.display = 'inline-flex';
+          } else {
+            const checked = document.querySelector(`input[name="${q.id}"]:checked`);
+            const val = checked ? checked.value : '';
+            const ok = val === q.correct;
+            const qScore = ok ? maxQ : 0;
+            totalScore += qScore;
+            answers[q.id] = val;
+            results[q.id] = { userAnswer: val, correctAnswer: q.correct, isCorrect: ok, score: qScore };
+            gradedState[q.id] = { type:'mcq', userVal: val, correct: q.correct, ok };
+            if (fb) { fb.style.display='none'; fb.style.background = ok ? '#f0fdf4' : '#fef2f2'; fb.style.border='1px solid ' + (ok ? '#86efac' : '#fca5a5'); fb.innerHTML = `<strong>${ok ? '✅ Chính xác!' : '❌ Chưa đúng (Đáp án: ' + q.correct + ')'}</strong><br>${esc(q.explain || '')}`; }
+            if (btnFb) btnFb.style.display = 'inline-flex';
+          }
+        });
+
+        document.querySelectorAll('#questions-mount input[type="radio"]').forEach(inp => { inp.disabled = true; });
+        const norm10 = maxScore > 0 ? +(totalScore / maxScore * 10).toFixed(2) : 0;
+        pendingWsPayload = {
+          id: 'WS-' + Math.floor(1000 + Math.random()*9000),
+          worksheetId: WS_ID,
+          isPair: wsMode === 'pair',
+          studentName, className: cls, studentNumber: machine,
+          score: norm10,
+          submittedAt: new Date().toLocaleTimeString('vi-VN') + ' - ' + new Date().toLocaleDateString('vi-VN'),
+          answers, results,
+          _synced: false
+        };
+        upsertLocalWsSubmission(pendingWsPayload);
+      }
+
+      wsSubmitting = true;
+      if (subBtn) {
+        subBtn.disabled = true;
+        subBtn.textContent = '⏳ Đang gửi điểm lên máy chủ...';
+      }
+
+      try {
+        await sendWsPayloadToServer(pendingWsPayload);
+        pendingWsPayload._synced = true;
+        upsertLocalWsSubmission(pendingWsPayload);
+        isSubmitted = true;
+        wsSubmitting = false;
+        if (wsRetryTimer) { clearInterval(wsRetryTimer); wsRetryTimer = null; }
+        try { new BroadcastChannel(SLUG + '_classroom_channel').postMessage({ type:'NEW_SUBMISSION', data:pendingWsPayload }); } catch (e) {}
+        if (subBtn) {
+          subBtn.disabled = true;
+          subBtn.textContent = '✅ Đã ghi nhận lên máy chủ';
+          subBtn.style.background = '#059669';
+          subBtn.style.borderColor = '#059669';
+        }
+        renderWsResultBanner(true);
+        document.getElementById('ws-result-banner')?.scrollIntoView({ behavior:'smooth' });
+      } catch (err) {
+        wsSubmitting = false;
+        if (subBtn) {
+          subBtn.disabled = false;
+          subBtn.textContent = '🔄 BẤM GỬI LẠI LÊN MÁY CHỦ';
+          subBtn.style.background = '#d97706';
+          subBtn.style.borderColor = '#d97706';
+        }
+        renderWsResultBanner(false);
+        if (firstRun) document.getElementById('ws-result-banner')?.scrollIntoView({ behavior:'smooth' });
+        if (!wsRetryTimer) {
+          wsRetryTimer = setInterval(() => {
+            if (!isSubmitted && !wsSubmitting && pendingWsPayload) submitWorksheet(true);
+          }, 5000);
+        }
+      }
     }
 
     window.addEventListener('DOMContentLoaded', () => {

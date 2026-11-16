@@ -476,6 +476,7 @@
             <button type="button" class="btn btn-secondary btn-sm" onclick="loadSubmissionsP2()">🔄 Làm mới</button>
             <button type="button" id="p2-teacher-unlock-btn" class="btn btn-secondary btn-sm" onclick="openTeacherLoginModal()">🔐 Giáo viên đăng nhập để quản lý</button>
             <span id="p2-teacher-tools" style="display:none;gap:0.45rem;flex-wrap:wrap;">
+              <button type="button" class="btn btn-primary btn-sm" onclick="openManualSubModal()" style="background:#0284c7;border-color:#0284c7;">➕ Ghi nhận bổ sung HS</button>
               <button type="button" class="btn btn-secondary btn-sm" onclick="copySubmissionsToClipboard()" style="background:#ecfdf5;color:#047857;border-color:#a7f3d0;">📋 Sao chép Google Sheets</button>
               <button type="button" class="btn btn-secondary btn-sm" onclick="exportSubmissionsToCSV()">📥 Xuất CSV</button>
               <button type="button" class="btn btn-secondary btn-sm" onclick="generateDummySubmissions()" style="color:#6366f1;">🧪 Dữ liệu mẫu</button>
@@ -545,6 +546,48 @@
         <button type="button" class="btn btn-secondary btn-sm" onclick="window.print()">🖨️ In phiếu</button>
         <button type="button" class="btn btn-primary btn-sm" onclick="closeStudentWorksheetModal()">Đóng</button>
       </div>
+    </div>
+  </div>
+
+  <!-- MODAL GHI NHẬN BỔ SUNG ĐIỂM HS (GIÁO VIÊN) -->
+  <div class="qr-zoom-modal" id="manual-sub-modal" onclick="closeManualSubModal()">
+    <div class="qr-zoom-box" onclick="event.stopPropagation()" style="max-width:480px;width:95%;padding:0;overflow:hidden;text-align:left;">
+      <div style="background:linear-gradient(135deg,#0369a1,#0284c7);color:#fff;padding:1.1rem 1.35rem;display:flex;justify-content:space-between;align-items:center;">
+        <h3 style="margin:0;color:#fff;font-size:1.05rem;">➕ Ghi Nhận Bổ Sung Phiếu Bài Tập</h3>
+        <button type="button" onclick="closeManualSubModal()" style="background:none;border:none;color:#fff;font-size:1.35rem;cursor:pointer;line-height:1;">&times;</button>
+      </div>
+      <form onsubmit="submitManualSub(event)" style="padding:1.25rem;background:#fff;">
+        <div id="manual-sub-alert" style="display:none;padding:0.65rem 0.85rem;border-radius:8px;font-size:0.84rem;margin-bottom:0.85rem;background:#fef2f2;color:#991b1b;border:1px solid #fca5a5;"></div>
+        <div style="margin-bottom:0.85rem;">
+          <label style="display:block;font-size:0.85rem;font-weight:700;color:#1e293b;margin-bottom:0.35rem;">Họ và tên học sinh (hoặc nhóm cặp đôi) *</label>
+          <input type="text" id="manual-sub-name" required placeholder="VD: Trần Quốc Hào (hoặc A &amp; B)" style="width:100%;padding:0.6rem 0.8rem;border:1.5px solid #cbd5e1;border-radius:8px;font-size:0.92rem;">
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:0.85rem;">
+          <div>
+            <label style="display:block;font-size:0.85rem;font-weight:700;color:#1e293b;margin-bottom:0.35rem;">Lớp</label>
+            <select id="manual-sub-class" style="width:100%;padding:0.6rem 0.75rem;border:1.5px solid #cbd5e1;border-radius:8px;">
+              <option value="12A1">12A1</option><option value="12A2" selected>12A2</option><option value="12A3">12A3</option><option value="12A4">12A4</option><option value="12E">12E</option>
+            </select>
+          </div>
+          <div>
+            <label style="display:block;font-size:0.85rem;font-weight:700;color:#1e293b;margin-bottom:0.35rem;">Số máy</label>
+            <input type="text" id="manual-sub-machine" placeholder="VD: 09" style="width:100%;padding:0.6rem 0.75rem;border:1.5px solid #cbd5e1;border-radius:8px;">
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;align-items:center;margin-bottom:1.1rem;">
+          <div>
+            <label style="display:block;font-size:0.85rem;font-weight:700;color:#1e293b;margin-bottom:0.35rem;">Điểm (0 – 10)</label>
+            <input type="number" id="manual-sub-score" min="0" max="10" step="0.25" value="10" required style="width:100%;padding:0.6rem 0.75rem;border:1.5px solid #cbd5e1;border-radius:8px;">
+          </div>
+          <label style="display:inline-flex;align-items:center;gap:0.45rem;font-size:0.88rem;font-weight:700;color:#334155;cursor:pointer;margin-top:1.25rem;">
+            <input type="checkbox" id="manual-sub-pair" style="width:16px;height:16px;"> Nhóm cặp đôi
+          </label>
+        </div>
+        <div style="display:flex;justify-content:flex-end;gap:0.5rem;">
+          <button type="button" class="btn btn-secondary btn-sm" onclick="closeManualSubModal()">Hủy</button>
+          <button type="submit" id="manual-sub-btn" class="btn btn-primary btn-sm" style="background:#059669;border-color:#059669;font-weight:800;">💾 Lưu ghi nhận</button>
+        </div>
+      </form>
     </div>
   </div>
 
@@ -849,12 +892,61 @@
     function closeImgZoom() {
       document.getElementById('img-zoom-modal')?.classList.remove('active');
     }
+    async function syncPendingLocalWorksheetSubmissions() {
+      if (window.__wsOutboxBusy) return;
+      window.__wsOutboxBusy = true;
+      try {
+        const key = LESSON_SLUG + '_worksheet_submissions';
+        const raw = localStorage.getItem(key);
+        if (!raw) return;
+        const list = JSON.parse(raw);
+        if (!Array.isArray(list) || !list.length) return;
+        const pending = list.filter(x => x && x.id && String(x.id).startsWith('WS-') && x.worksheetId !== 'kttx2' && !x._synced);
+        if (!pending.length) return;
+        const res = await fetch('/api/' + LESSON_SLUG + '/submissions', { headers: getTeacherHeaders(), cache: 'no-store' });
+        if (!res.ok) return;
+        const srv = await res.json();
+        const srvIds = new Set((Array.isArray(srv) ? srv : []).map(x => x && x.id).filter(Boolean));
+        let changed = false;
+        let uploaded = false;
+        for (const item of list) {
+          if (!item || !item.id || !String(item.id).startsWith('WS-') || item.worksheetId === 'kttx2' || item._synced) continue;
+          if (srvIds.has(item.id)) {
+            item._synced = true;
+            changed = true;
+            continue;
+          }
+          const clean = Object.assign({}, item);
+          delete clean._synced;
+          try {
+            const pr = await fetch('/api/' + LESSON_SLUG + '/submit', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              keepalive: true,
+              body: JSON.stringify(clean)
+            });
+            if (pr.ok) {
+              item._synced = true;
+              srvIds.add(item.id);
+              changed = true;
+              uploaded = true;
+            }
+          } catch (e) {}
+        }
+        if (changed) localStorage.setItem(key, JSON.stringify(list));
+        if (uploaded && typeof loadSubmissionsP2 === 'function') loadSubmissionsP2();
+      } catch (e) {} finally {
+        window.__wsOutboxBusy = false;
+      }
+    }
+    window.addEventListener('online', syncPendingLocalWorksheetSubmissions);
     document.addEventListener('keydown', (ev) => {
       if (ev.key === 'Escape') closeImgZoom();
     });
     document.addEventListener('DOMContentLoaded', () => {
       updateTeacherNavBadge();
       syncLessonExamGates();
+      syncPendingLocalWorksheetSubmissions();
       if (document.querySelector('[data-exam-gate], #teacher-exam-control-panel')) {
         setInterval(syncLessonExamGates, 10000);
       }
@@ -1123,6 +1215,62 @@
       } catch (e) {}
       renderSubmissionsP2([]);
       alert('✓ Đã dọn sạch dữ liệu & làm mới toàn bộ máy trạm!');
+    }
+    function openManualSubModal() {
+      if (!isTeacherAuthenticated()) { openTeacherLoginModal(); return; }
+      const al = document.getElementById('manual-sub-alert');
+      if (al) al.style.display = 'none';
+      const nm = document.getElementById('manual-sub-name');
+      if (nm) nm.value = '';
+      document.getElementById('manual-sub-modal')?.classList.add('active');
+      setTimeout(() => nm?.focus(), 100);
+    }
+    function closeManualSubModal() {
+      document.getElementById('manual-sub-modal')?.classList.remove('active');
+    }
+    async function submitManualSub(ev) {
+      if (ev) ev.preventDefault();
+      if (!isTeacherAuthenticated()) { openTeacherLoginModal(); return; }
+      const al = document.getElementById('manual-sub-alert');
+      const btn = document.getElementById('manual-sub-btn');
+      const studentName = (document.getElementById('manual-sub-name')?.value || '').trim();
+      const className = document.getElementById('manual-sub-class')?.value || '12A2';
+      const studentNumber = (document.getElementById('manual-sub-machine')?.value || '').trim() || 'Máy HS';
+      const score = Number(document.getElementById('manual-sub-score')?.value ?? 10);
+      const isPair = !!document.getElementById('manual-sub-pair')?.checked;
+      if (!studentName) return;
+      if (btn) { btn.disabled = true; btn.textContent = '⏳ Đang lưu...'; }
+      if (al) al.style.display = 'none';
+      const payload = {
+        id: 'WS-GV-' + Math.floor(1000 + Math.random()*9000),
+        worksheetId: 'phieubaitap',
+        isPair,
+        studentName,
+        className,
+        studentNumber,
+        score: isNaN(score) ? 10 : Math.max(0, Math.min(10, +score.toFixed(2))),
+        submittedAt: new Date().toLocaleTimeString('vi-VN') + ' - ' + new Date().toLocaleDateString('vi-VN') + ' (GV ghi nhận)',
+        answers: {},
+        results: {}
+      };
+      try {
+        const res = await fetch('/api/bai10/submit', {
+          method: 'POST',
+          headers: getTeacherHeaders({ 'Content-Type': 'application/json' }),
+          body: JSON.stringify(payload)
+        });
+        const d = await res.json().catch(() => ({}));
+        if (!res.ok) throw new Error(d.error || ('HTTP ' + res.status));
+        closeManualSubModal();
+        loadSubmissionsP2();
+      } catch (e) {
+        if (al) {
+          al.textContent = '❌ Không lưu được: ' + e.message;
+          al.style.display = 'block';
+        }
+      } finally {
+        if (btn) { btn.disabled = false; btn.textContent = '💾 Lưu ghi nhận'; }
+      }
     }
     window.addEventListener('DOMContentLoaded', () => {
       loadSubmissionsP2();
