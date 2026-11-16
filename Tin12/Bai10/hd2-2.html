@@ -37,6 +37,7 @@
     .fig-gallery-grid .sgk-fig-box.span-full img { max-height: 490px; }
     .example-cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.7rem; margin: 0.85rem 0; }
     .ex-card { background: #fff; border: 1.5px solid #cbd5e1; border-radius: 10px; padding: 0.75rem 0.85rem; }
+    .ex-card code { overflow-wrap: anywhere; word-break: break-word; white-space: normal; }
     .ex-card-blue { background: #eff6ff; border-color: #93c5fd; }
     .ex-card-emerald { background: #f0fdf4; border-color: #86efac; }
     .ex-card-amber { background: #fffbeb; border-color: #fcd34d; }
@@ -152,7 +153,7 @@
     <div class="container">
       <div class="badge-tag" style="background:rgba(255,255,255,0.18);color:#fff;">🧩 HOẠT ĐỘNG 2.2 • KHÁM PHÁ 2 (MỤC 2 SGK TR.58–60)</div>
       <h1 class="hero-title" style="font-size:1.95rem;">2. Các cách tạo liên kết tới một trang web</h1>
-      <p class="hero-subtitle">Khám phá chi tiết <strong>Mục 2 SGK (trang 58–60)</strong>: Hoạt động 2, liên kết tới trang web khác (2a), liên kết trong cùng website theo <strong>Hình 10.1</strong> (2b), neo <code>#id</code>, liên kết bằng hình ảnh và Phiếu bài tập.</p>
+      <p class="hero-subtitle">Khám phá chi tiết <strong>Mục 2 SGK (trang 58–60)</strong> với bộ <strong>12 hình ảnh minh họa trực quan</strong> &amp; ví dụ chạy thử cho từng cách: liên kết tới trang web khác (2a), liên kết trong cùng website theo <strong>Hình 10.1</strong> (2b), neo <code>#id</code> (2c), liên kết bằng hình ảnh (2d) và Phiếu bài tập.</p>
     </div>
   </section>
 
@@ -160,17 +161,17 @@
     <div class="container">
       <section class="card" style="margin-bottom: 1.5rem;">
         <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.65rem;">
-          <h2 style="margin:0;color:#1e3a8a;font-size:1.3rem;">2a. Hoạt động 2 &amp; Liên kết tới một trang web khác</h2>
+          <h2 style="margin:0;color:#1e3a8a;font-size:1.3rem;">2a. Hoạt động 2 &amp; Liên kết tới một trang web khác (Mục 2a)</h2>
           <span class="sgk-badge">SGK Tin 12 • Mục 2a (tr.58–59)</span>
         </div>
         <div class="grid-2" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.25rem; align-items:start;">
           <div>
-            <div style="color:#334155;line-height:1.65;font-size:0.95rem;"><p>Để liên kết tới một trang web bất kì thuộc website khác trên Internet, ta sử dụng <strong>đường dẫn tuyệt đối</strong> ghi đủ giao thức <code>https://</code> (hoặc <code>http://</code>) trong thuộc tính <code>href</code>.</p>
-<p>Ví dụ SGK tr.59: <code>&lt;a href="https://hanhtrangso.nxbgd.vn/sach-dien-tu?book_active=0"&gt;Hành trang số&lt;/a&gt;</code>.</p></div>
+            <div style="color:#334155;line-height:1.65;font-size:0.95rem;"><p>Khi lướt web hằng ngày (<strong>Hoạt động 2</strong>), ta thường gặp 4 kiểu siêu liên kết phổ biến: chuyển sang website khác trên Internet, chuyển giữa các trang trong cùng website, nhảy tới vị trí cụ thể trên trang và bấm vào hình ảnh.</p>
+<p>Để liên kết tới một trang web thuộc website khác trên Internet, ta sử dụng <strong>đường dẫn tuyệt đối</strong> ghi đầy đủ giao thức <code>https://</code> (hoặc <code>http://</code>) cùng tên miền trong thuộc tính <code>href</code>.</p></div>
+<div class="example-cards-grid"><div class="ex-card ex-card-blue"><div style="display:inline-block;background:#dbeafe;color:#1d4ed8;padding:0.18rem 0.55rem;border-radius:999px;font-size:0.72rem;font-weight:800;margin-bottom:0.35rem;">Ví dụ 1 • SGK tr.59</div><div style="font-weight:800;color:#0f172a;font-size:0.88rem;margin-bottom:0.25rem;">Sách Hành trang số NXBGD</div><div style="font-size:0.83rem;color:#334155;line-height:1.48;"><code>&lt;a href="https://hanhtrangso.nxbgd.vn/"&gt;Hành trang số&lt;/a&gt;</code> → mở đúng máy chủ sách điện tử bên ngoài.</div></div><div class="ex-card ex-card-emerald"><div style="display:inline-block;background:#dcfce7;color:#15803d;padding:0.18rem 0.55rem;border-radius:999px;font-size:0.72rem;font-weight:800;margin-bottom:0.35rem;">Ví dụ 2 • Tài nguyên ngoài</div><div style="font-weight:800;color:#0f172a;font-size:0.88rem;margin-bottom:0.25rem;">Cổng tra cứu / Bách khoa</div><div style="font-size:0.83rem;color:#334155;line-height:1.48;"><code>&lt;a href="https://vi.wikipedia.org/"&gt;Wikipedia&lt;/a&gt;</code> → dẫn học sinh sang website tra cứu mở.</div></div><div class="ex-card ex-card-rose"><div style="display:inline-block;background:#fee2e2;color:#b91c1c;padding:0.18rem 0.55rem;border-radius:999px;font-size:0.72rem;font-weight:800;margin-bottom:0.35rem;">Bẫy cần tránh</div><div style="font-weight:800;color:#0f172a;font-size:0.88rem;margin-bottom:0.25rem;">Quên tiền tố https://</div><div style="font-size:0.83rem;color:#334155;line-height:1.48;">Nếu viết <code>href="www.nxbgd.vn"</code> thiếu <code>https://</code>, trình duyệt tìm nhầm thành tệp nội bộ và báo <strong>lỗi 404</strong>!</div></div></div>
+<div class="callout-box" style="margin-top:0.85rem;">📌 <strong>Ghi nhớ SGK:</strong> Khi trỏ tới trang web khác, luôn kiểm tra kĩ giao thức <code>https://</code> (hoặc <code>http://</code>) ở đầu; nếu thiếu giao thức này, trình duyệt sẽ tìm nhầm thành một tệp tin trên máy cục bộ.</div>
 
-<div class="callout-box" style="margin-top:0.85rem;">📌 <strong>Ghi nhớ SGK:</strong> Khi trỏ tới trang web khác, luôn kiểm tra kĩ giao thức <code>https://</code> ở đầu; nếu thiếu giao thức này, trình duyệt sẽ tìm nhầm thành một tệp tin trên máy cục bộ.</div>
 
-<div style="background:#f0fdfa;border:1.5px solid #5eead4;border-radius:10px;padding:0.9rem 1rem;margin-top:0.9rem;"><strong style="color:#0f766e;">❓ Hoạt động 2 (SGK tr.58):</strong><ul style="margin:0.5rem 0 0;padding-left:1.2rem;line-height:1.6;"><li><strong>Khi lướt web hằng ngày, em thường gặp những kiểu liên kết nào?</strong><br><button type="button" class="btn btn-secondary btn-sm" style="margin-top:0.35rem;" onclick="const b=this.nextElementSibling; const open=b.style.display!=='none'; b.style.display=open?'none':'block'; this.textContent=open?'💡 Bấm xem gợi ý trả lời':'🙈 Ẩn gợi ý';">💡 Bấm xem gợi ý trả lời</button><div style="display:none;margin-top:0.4rem;color:#166534;background:#f0fdf4;padding:0.55rem 0.75rem;border-radius:6px;border:1px solid #86efac;"><strong>Gợi ý trả lời:</strong> Ta thường gặp 4 kiểu liên kết phổ biến: (1) Liên kết chuyển sang một trang web/tên miền khác trên Internet; (2) Liên kết chuyển trang trong cùng một website (menu Trang chủ, Tin tức...); (3) Liên kết cuộn nhanh tới một vị trí ngay trên trang hiện tại (mục lục, nút về đầu trang); (4) Liên kết gắn trên hình ảnh hoặc biểu tượng minh họa.</div></li></ul></div>
           </div>
           <div>
             <div class="syntax-card">
@@ -182,9 +183,12 @@
 &lt;html lang=&quot;vi&quot;&gt;
 &lt;body style=&quot;font-family:sans-serif;padding:12px;&quot;&gt;
   &lt;h4&gt;Tài liệu học tập trực tuyến (Mục 2a SGK):&lt;/h4&gt;
-  &lt;a href=&quot;https://hanhtrangso.nxbgd.vn/sach-dien-tu?book_active=0&quot;&gt;
-    Mở Sách điện tử Hành trang số NXBGD
-  &lt;/a&gt;
+  &lt;p&gt;&lt;a href=&quot;https://hanhtrangso.nxbgd.vn/sach-dien-tu?book_active=0&quot;&gt;
+    1. Mở Sách điện tử Hành trang số NXBGD
+  &lt;/a&gt;&lt;/p&gt;
+  &lt;p&gt;&lt;a href=&quot;https://www.nxbgd.vn/&quot;&gt;
+    2. Mở Trang chủ NXB Giáo dục Việt Nam
+  &lt;/a&gt;&lt;/p&gt;
 &lt;/body&gt;
 &lt;/html&gt;</pre>
             </div>
@@ -195,23 +199,23 @@
 <div class="sgk-fig-box" style="margin-top:0.85rem;margin-bottom:0;"><img src="assets/sgk/illus_10_4_kieu_lien_ket_web.png" alt="Hoạt động 2 (SGK tr.58): 4 kiểu siêu liên kết thường gặp trên các trang web thực tế"><div class="sgk-fig-cap">Hoạt động 2 (SGK tr.58): 4 kiểu siêu liên kết thường gặp trên các trang web thực tế</div></div>
           </div>
         </div>
-
-
+<div style="margin-top:1.1rem;font-weight:800;color:#1e3a8a;font-size:0.95rem;">🖼️ Hình ảnh minh họa Mục 2a: Mở trang web ngoài &amp; Lỗi cần tránh (Bấm vào hình để phóng to):</div><div class="fig-gallery-grid" style="margin-top:0.55rem;"><div class="sgk-fig-box"><img src="assets/sgk/illus_10_22_lien_ket_ngoai_browser.png" alt="Minh họa trình duyệt chuyển từ CLB.html sang website ngoài Hành trang số qua đường dẫn tuyệt đối"><div class="sgk-fig-cap">Minh họa trình duyệt chuyển từ CLB.html sang website ngoài Hành trang số qua đường dẫn tuyệt đối</div></div><div class="sgk-fig-box"><img src="assets/sgk/illus_10_22_loi_quyen_https.png" alt="So sánh trực quan: Viết đúng có https:// vs Viết thiếu https:// gây lỗi 404"><div class="sgk-fig-cap">So sánh trực quan: Viết đúng có https:// vs Viết thiếu https:// gây lỗi 404</div></div></div>
+<div style="background:#f0fdfa;border:1.5px solid #5eead4;border-radius:10px;padding:0.9rem 1rem;margin-top:0.9rem;"><strong style="color:#0f766e;">❓ Hoạt động 2 (SGK tr.58):</strong><ul style="margin:0.5rem 0 0;padding-left:1.2rem;line-height:1.6;"><li><strong>Khi lướt web hằng ngày, em thường gặp những kiểu liên kết nào?</strong><br><button type="button" class="btn btn-secondary btn-sm" style="margin-top:0.35rem;" onclick="const b=this.nextElementSibling; const open=b.style.display!=='none'; b.style.display=open?'none':'block'; this.textContent=open?'💡 Bấm xem gợi ý trả lời':'🙈 Ẩn gợi ý';">💡 Bấm xem gợi ý trả lời</button><div style="display:none;margin-top:0.4rem;color:#166534;background:#f0fdf4;padding:0.55rem 0.75rem;border-radius:6px;border:1px solid #86efac;"><strong>Gợi ý trả lời:</strong> Ta thường gặp 4 kiểu liên kết phổ biến: (1) Liên kết chuyển sang một trang web/tên miền khác trên Internet; (2) Liên kết chuyển trang trong cùng một website (menu Trang chủ, Tin tức...); (3) Liên kết cuộn nhanh tới một vị trí ngay trên trang hiện tại (mục lục, nút về đầu trang); (4) Liên kết gắn trên hình ảnh hoặc biểu tượng minh họa.</div></li></ul></div>
       </section>
       <section class="card" style="margin-bottom: 1.5rem;">
         <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.65rem;">
-          <h2 style="margin:0;color:#1e3a8a;font-size:1.3rem;">2b. Liên kết đến vị trí khác trong cùng website (Hình 10.1)</h2>
+          <h2 style="margin:0;color:#1e3a8a;font-size:1.3rem;">2b. Liên kết đến trang khác trong cùng Website (Hình 10.1)</h2>
           <span class="sgk-badge">SGK Tin 12 • Mục 2b (tr.59)</span>
         </div>
         <div class="grid-2" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.25rem; align-items:start;">
           <div>
-            <div style="color:#334155;line-height:1.65;font-size:0.95rem;"><p>Quan sát cấu trúc thư mục website trong <strong>Hình 10.1</strong>:</p>
+            <div style="color:#334155;line-height:1.65;font-size:0.95rem;"><p>Khi nối các trang nằm chung trong một website (sơ đồ <strong>Hình 10.1</strong>), ta dùng <strong>đường dẫn tương đối</strong> tính từ vị trí thư mục chứa tệp HTML hiện tại:</p>
 <ul>
   <li><strong>Cùng thư mục:</strong> Từ <code>index.html</code> trỏ tới <code>thong_tin.html</code> (cùng cấp) → viết ngắn gọn <code>href="thong_tin.html"</code>.</li>
-  <li><strong>Đi xuống thư mục con:</strong> Từ <code>index.html</code> trỏ vào thư mục <code>bai_tap/</code> → viết <code>href="bai_tap/bai_tap_1.html"</code> hoặc sâu 2 cấp <code>href="bai_tap/on_tap/bai_tap_on_tap.html"</code>.</li>
-  <li><strong>Đi ngược lên thư mục cha (<code>../</code>):</strong> Khi đang đứng ở tệp <code>bai_tap/bai_tap_1.html</code> muốn quay về <code>index.html</code> ở thư mục cha → viết <code>href="../index.html"</code> (mỗi <code>../</code> lùi lên 1 cấp).</li>
+  <li><strong>Đi xuống thư mục con (<code>/</code>):</strong> Từ <code>index.html</code> trỏ vào <code>bai_tap/</code> → viết <code>href="bai_tap/bai_tap_1.html"</code> hoặc sâu 2 cấp <code>href="bai_tap/on_tap/bai_tap_on_tap.html"</code>.</li>
+  <li><strong>Đi ngược lên thư mục cha (<code>../</code>):</strong> Khi đứng trong thư mục con <code>bai_tap/bai_tap_1.html</code> muốn về <code>index.html</code> ở cha → viết <code>href="../index.html"</code> (từ <code>on_tap/</code> sâu 2 cấp viết <code>../../index.html</code>).</li>
 </ul></div>
-
+<div class="example-cards-grid"><div class="ex-card ex-card-blue"><div style="display:inline-block;background:#dbeafe;color:#1d4ed8;padding:0.18rem 0.55rem;border-radius:999px;font-size:0.72rem;font-weight:800;margin-bottom:0.35rem;">TH1 • Cùng thư mục</div><div style="font-weight:800;color:#0f172a;font-size:0.88rem;margin-bottom:0.25rem;">href=&quot;thong_tin.html&quot;</div><div style="font-size:0.83rem;color:#334155;line-height:1.48;">Cả <code>index.html</code> và <code>thong_tin.html</code> cùng nằm trong <code>web/</code> → chỉ ghi tên tệp.</div></div><div class="ex-card ex-card-emerald"><div style="display:inline-block;background:#dcfce7;color:#15803d;padding:0.18rem 0.55rem;border-radius:999px;font-size:0.72rem;font-weight:800;margin-bottom:0.35rem;">TH2 • Xuống thư mục con</div><div style="font-weight:800;color:#0f172a;font-size:0.88rem;margin-bottom:0.25rem;">bai_tap/bai_tap_1.html</div><div style="font-size:0.83rem;color:#334155;line-height:1.48;">Ghi tên từng thư mục con ngăn cách bằng dấu <code>/</code> (không dùng dấu <code>\</code> của Windows).</div></div><div class="ex-card ex-card-amber"><div style="display:inline-block;background:#fef3c7;color:#b45309;padding:0.18rem 0.55rem;border-radius:999px;font-size:0.72rem;font-weight:800;margin-bottom:0.35rem;">TH3 • Lùi lên cha</div><div style="font-weight:800;color:#0f172a;font-size:0.88rem;margin-bottom:0.25rem;">../index.html &amp; ../../</div><div style="font-size:0.83rem;color:#334155;line-height:1.48;">Mỗi kí hiệu <code>../</code> giúp bước lùi ra ngoài 1 cấp thư mục cha.</div></div></div>
 
 
 
@@ -230,7 +234,8 @@
     &lt;li&gt;&lt;a href=&quot;thong_tin.html&quot;&gt;Cùng thư mục: thong_tin.html&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&quot;bai_tap/bai_tap_1.html&quot;&gt;Thư mục con: bai_tap/bai_tap_1.html&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&quot;bai_tap/on_tap/bai_tap_on_tap.html&quot;&gt;Sâu 2 cấp: on_tap/bai_tap_on_tap.html&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&quot;../index.html&quot;&gt;Từ tệp con lùi lên cha: ../index.html&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;../index.html&quot;&gt;Từ tệp con lùi lên 1 cấp cha: ../index.html&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;../../index.html&quot;&gt;Từ on_tap/ lùi lên 2 cấp: ../../index.html&lt;/a&gt;&lt;/li&gt;
   &lt;/ul&gt;
 &lt;/body&gt;
 &lt;/html&gt;</pre>
@@ -239,50 +244,47 @@
               <div class="snippet-preview-bar"><span>🌐 KẾT QUẢ HIỂN THỊ</span><span style="color:#16a34a;">HTML5 Live</span></div>
               <iframe id="prev-h22_1" style="width:100%;height:190px;border:none;background:#fff;" title="Preview h22_1"></iframe>
             </div>
-<div class="sgk-fig-box" style="margin-top:0.85rem;margin-bottom:0;"><img src="assets/sgk/illus_10_duong_dan_tuong_doi.png" alt="Đối chiếu trực quan 3 hướng đường dẫn tương đối trong cùng Website"><div class="sgk-fig-cap">Đối chiếu trực quan 3 hướng đường dẫn tương đối trong cùng Website</div></div>
+<div class="sgk-fig-box" style="margin-top:0.85rem;margin-bottom:0;"><img src="assets/sgk/illus_10_duong_dan_tuong_doi.png" alt="Tổng quan 3 hướng đi của đường dẫn tương đối trong cùng Website"><div class="sgk-fig-cap">Tổng quan 3 hướng đi của đường dẫn tương đối trong cùng Website</div></div>
           </div>
         </div>
-<div style="margin-top:1.1rem;font-weight:800;color:#1e3a8a;font-size:0.95rem;">🖼️ Sơ đồ Hình 10.1 SGK &amp; Minh họa đường dẫn tương đối trong cùng Website (Bấm vào hình để phóng to):</div><div class="fig-gallery-grid" style="margin-top:0.55rem;"><div class="sgk-fig-box"><img src="assets/sgk/sgk_hinh10_1.png" alt="Hình 10.1a: Sơ đồ thư mục website chuẩn (SGK Tin học 12, tr.59)"><div class="sgk-fig-cap">Hình 10.1a: Sơ đồ thư mục website chuẩn (SGK Tin học 12, tr.59)</div></div><div class="sgk-fig-box"><img src="assets/sgk/sgk_hinh10_1_sub.png" alt="Hình 10.1b: Liên kết ngược lên thư mục cha bằng ../ (tr.59)"><div class="sgk-fig-cap">Hình 10.1b: Liên kết ngược lên thư mục cha bằng ../ (tr.59)</div></div></div>
+<div style="margin-top:1.1rem;font-weight:800;color:#1e3a8a;font-size:0.95rem;">🖼️ Bộ 4 hình minh họa Đường dẫn Tương đối &amp; Sơ đồ Hình 10.1 SGK (Bấm vào hình để phóng to):</div><div class="fig-gallery-grid" style="margin-top:0.55rem;"><div class="sgk-fig-box"><img src="assets/sgk/illus_10_22_cung_thu_muc_va_con.png" alt="Minh họa TH1 (cùng thư mục) &amp; TH2 (đi xuống 1–2 cấp thư mục con bằng /)"><div class="sgk-fig-cap">Minh họa TH1 (cùng thư mục) &amp; TH2 (đi xuống 1–2 cấp thư mục con bằng /)</div></div><div class="sgk-fig-box"><img src="assets/sgk/illus_10_22_lui_thu_muc_cha.png" alt="Minh họa TH3: Lùi lên 1 cấp cha (../) và lùi 2 cấp cha (../../index.html)"><div class="sgk-fig-cap">Minh họa TH3: Lùi lên 1 cấp cha (../) và lùi 2 cấp cha (../../index.html)</div></div><div class="sgk-fig-box"><img src="assets/sgk/sgk_hinh10_1.png" alt="Hình 10.1a: Sơ đồ cây thư mục website chuẩn (SGK Tin học 12, tr.59)"><div class="sgk-fig-cap">Hình 10.1a: Sơ đồ cây thư mục website chuẩn (SGK Tin học 12, tr.59)</div></div><div class="sgk-fig-box"><img src="assets/sgk/sgk_hinh10_1_sub.png" alt="Hình 10.1b: Các trường hợp đường dẫn trong SGK tr.59"><div class="sgk-fig-cap">Hình 10.1b: Các trường hợp đường dẫn trong SGK tr.59</div></div></div>
 
       </section>
       <section class="card" style="margin-bottom: 1.5rem;">
         <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.65rem;">
-          <h2 style="margin:0;color:#1e3a8a;font-size:1.3rem;">2c. Liên kết vị trí trên cùng trang (#id) &amp; Liên kết bằng hình ảnh</h2>
+          <h2 style="margin:0;color:#1e3a8a;font-size:1.3rem;">2c. Liên kết tới một vị trí cụ thể trên trang bằng id và dấu #</h2>
           <span class="sgk-badge">SGK Tin 12 • Mục 2b (tr.59–60)</span>
         </div>
         <div class="grid-2" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.25rem; align-items:start;">
           <div>
-            <div style="color:#334155;line-height:1.65;font-size:0.95rem;"><ul>
-  <li><strong>Liên kết tới một vị trí trên trang bằng mã định danh <code>id</code>:</strong>
-    <br>1) Gắn thuộc tính <code>id="Thong_tin"</code> vào thẻ đích (tên <code>id</code> viết liền không dấu).
-    <br>2) Trên cùng trang: viết <code>&lt;a href="#Thong_tin"&gt;...&lt;/a&gt;</code>. Từ trang khác: ghép thêm tên tệp <code>href="thong_tin.html#Thong_tin"</code>.</li>
-  <li><strong>Sử dụng hình ảnh làm liên kết:</strong> Đặt thẻ hình ảnh <code>&lt;img src="..."&gt;</code> nằm bên trong cặp thẻ <code>&lt;a href="..."&gt;...&lt;/a&gt;</code>. Ví dụ: <code>&lt;a href="thong_tin.html"&gt;&lt;img src="images/sun.png" alt="Thông tin"&gt;&lt;/a&gt;</code>.</li>
+            <div style="color:#334155;line-height:1.65;font-size:0.95rem;"><p>Với những trang web dài có nhiều mục, ta có thể tạo liên kết nhảy thẳng tới đúng đoạn cần xem nhờ thuộc tính định danh <code>id</code> và kí hiệu <code>#</code>:</p>
+<ul>
+  <li><strong>Bước 1 — Đánh dấu vị trí đích:</strong> Thêm <code>id="Thong_tin"</code> vào thẻ tiêu đề/đoạn văn đích (tên <code>id</code> viết liền không dấu tiếng Việt, phân biệt hoa/thường và không trùng nhau trên cùng 1 trang).</li>
+  <li><strong>Bước 2a — Nhảy trong cùng 1 trang:</strong> Viết <code>&lt;a href="#Thong_tin"&gt;...&lt;/a&gt;</code>.</li>
+  <li><strong>Bước 2b — Nhảy tới vị trí trên 1 trang KHÁC cùng website:</strong> Ghép tên tệp + <code>#</code> + <code>id</code>, ví dụ <code>&lt;a href="thong_tin.html#CLBTT"&gt;CLB Thể thao&lt;/a&gt;</code>.</li>
 </ul></div>
+<div class="example-cards-grid"><div class="ex-card ex-card-blue"><div style="display:inline-block;background:#dbeafe;color:#1d4ed8;padding:0.18rem 0.55rem;border-radius:999px;font-size:0.72rem;font-weight:800;margin-bottom:0.35rem;">Bước 1 • Đặt nhãn</div><div style="font-weight:800;color:#0f172a;font-size:0.88rem;margin-bottom:0.25rem;">id=&quot;Thong_tin&quot;</div><div style="font-size:0.83rem;color:#334155;line-height:1.48;">Gắn vào thẻ đích như <code>&lt;h2 id="Thong_tin"&gt;...&lt;/h2&gt;</code> (không dùng dấu cách).</div></div><div class="ex-card ex-card-emerald"><div style="display:inline-block;background:#dcfce7;color:#15803d;padding:0.18rem 0.55rem;border-radius:999px;font-size:0.72rem;font-weight:800;margin-bottom:0.35rem;">Bước 2a • Cùng trang</div><div style="font-weight:800;color:#0f172a;font-size:0.88rem;margin-bottom:0.25rem;">href=&quot;#Thong_tin&quot;</div><div style="font-size:0.83rem;color:#334155;line-height:1.48;">Dùng cho Mục lục đầu trang hoặc nút <em>Về đầu trang (<code>#Dau_trang</code>)</em>.</div></div><div class="ex-card ex-card-amber"><div style="display:inline-block;background:#fef3c7;color:#b45309;padding:0.18rem 0.55rem;border-radius:999px;font-size:0.72rem;font-weight:800;margin-bottom:0.35rem;">Bước 2b • Trang khác</div><div style="font-weight:800;color:#0f172a;font-size:0.88rem;margin-bottom:0.25rem;">thong_tin.html#CLBTT</div><div style="font-size:0.83rem;color:#334155;line-height:1.48;">Mở sang tệp <code>thong_tin.html</code> rồi tự động cuộn dừng ngay ở <code>#CLBTT</code>.</div></div></div>
 
-<div class="callout-box" style="margin-top:0.85rem;">📌 <strong>Ghi nhớ SGK:</strong> <strong>Ghi nhớ SGK tr.60:</strong> Với liên kết trong cùng website cần chỉ rõ đường dẫn tương đối theo vị trí tệp hiện tại (cùng thư mục, thư mục con, dùng <code>../</code> cho thư mục cha), dùng <code>#id</code> cho vị trí cụ thể và có thể lồng <code>&lt;img&gt;</code> trong <code>&lt;a&gt;</code>.</div>
 
-<div style="background:#f0fdfa;border:1.5px solid #5eead4;border-radius:10px;padding:0.9rem 1rem;margin-top:0.9rem;"><strong style="color:#0f766e;">❓ Câu hỏi cuối Mục 2 (SGK tr.60):</strong><ul style="margin:0.5rem 0 0;padding-left:1.2rem;line-height:1.6;"><li><strong>Theo cấu trúc thư mục ở Hình 10.1, hãy viết đoạn mã HTML đặt trong tệp <code>index.html</code> tạo một danh sách không có thứ tự gồm 2 mục liên kết tới trang <code>bai_tap_1.html</code> và <code>bai_tap_on_tap.html</code>.</strong><br><button type="button" class="btn btn-secondary btn-sm" style="margin-top:0.35rem;" onclick="const b=this.nextElementSibling; const open=b.style.display!=='none'; b.style.display=open?'none':'block'; this.textContent=open?'💡 Bấm xem gợi ý trả lời':'🙈 Ẩn gợi ý';">💡 Bấm xem gợi ý trả lời</button><div style="display:none;margin-top:0.4rem;color:#166534;background:#f0fdf4;padding:0.55rem 0.75rem;border-radius:6px;border:1px solid #86efac;"><strong>Gợi ý đáp án:</strong><br><pre style='background:#0f172a;color:#e2e8f0;padding:0.65rem;border-radius:6px;margin-top:0.35rem;'>&lt;ul&gt;
-  &lt;li&gt;&lt;a href="bai_tap/bai_tap_1.html"&gt;Bài tập 1&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href="bai_tap/on_tap/bai_tap_on_tap.html"&gt;Bài tập ôn tập&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</pre></div></li></ul></div>
+
           </div>
           <div>
             <div class="syntax-card">
               <div class="syntax-header">
-                <span>💻 Neo #id và Hình ảnh làm liên kết</span>
+                <span>💻 Thực nghiệm cuộn mượt tới #id trên trang</span>
                 <button type="button" id="btn-h22_2" class="btn-mini-tool" onclick="toggleSnippet('h22_2')">▶ Bấm xem kết quả hiển thị</button>
               </div>
               <pre class="syntax-body">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;vi&quot;&gt;
 &lt;body style=&quot;font-family:sans-serif;padding:12px;&quot;&gt;
-  &lt;p&gt;&lt;a href=&quot;#Thong_tin&quot;&gt;⬇ Nhảy tới mục Thông tin&lt;/a&gt;&lt;/p&gt;
-  &lt;p&gt;Bấm vào biểu tượng Mặt Trời để mở trang thông tin:&lt;/p&gt;
-  &lt;a href=&quot;thong_tin.html&quot;&gt;
-    &lt;img src=&quot;data:image/svg+xml;utf8,&lt;svg xmlns=&#x27;http://www.w3.org/2000/svg&#x27; width=&#x27;56&#x27; height=&#x27;56&#x27;&gt;&lt;circle cx=&#x27;28&#x27; cy=&#x27;28&#x27; r=&#x27;16&#x27; fill=&#x27;%23f59e0b&#x27;/&gt;&lt;circle cx=&#x27;28&#x27; cy=&#x27;28&#x27; r=&#x27;22&#x27; fill=&#x27;none&#x27; stroke=&#x27;%23fbbf24&#x27; stroke-width=&#x27;3&#x27; stroke-dasharray=&#x27;4 4&#x27;/&gt;&lt;/svg&gt;&quot; alt=&quot;Thông tin CLB&quot;&gt;
-  &lt;/a&gt;
-  &lt;div style=&quot;height:120px;&quot;&gt;&lt;/div&gt;
-  &lt;h3 id=&quot;Thong_tin&quot; style=&quot;color:#0284c7;&quot;&gt;Mục Thông tin chi tiết&lt;/h3&gt;
-  &lt;p&gt;Đây là vị trí có id=&quot;Thong_tin&quot;.&lt;/p&gt;
+  &lt;h4 id=&quot;Dau_trang&quot; style=&quot;color:#1e3a8a;&quot;&gt;MỤC LỤC TRANG WEB:&lt;/h4&gt;
+  &lt;p&gt;&lt;a href=&quot;#Thong_tin&quot;&gt;1. Nhảy xuống mục Thông tin CLB ⬇&lt;/a&gt;&lt;/p&gt;
+  &lt;p&gt;&lt;a href=&quot;thong_tin.html#CLBTT&quot;&gt;2. Sang thong_tin.html ở mục #CLBTT ➔&lt;/a&gt;&lt;/p&gt;
+  &lt;div style=&quot;height:140px;background:#f8fafc;border:1px dashed #cbd5e1;padding:10px;color:#64748b;&quot;&gt;
+    (Khoảng trống giả lập trang web dài để thấy hiệu ứng cuộn...)
+  &lt;/div&gt;
+  &lt;h3 id=&quot;Thong_tin&quot; style=&quot;color:#0284c7;&quot;&gt;Mục Thông tin chi tiết (id=&quot;Thong_tin&quot;)&lt;/h3&gt;
+  &lt;p&gt;Đây là vị trí đích! &lt;a href=&quot;#Dau_trang&quot;&gt;⬆ Quay về đầu trang&lt;/a&gt;&lt;/p&gt;
 &lt;/body&gt;
 &lt;/html&gt;</pre>
             </div>
@@ -290,11 +292,62 @@
               <div class="snippet-preview-bar"><span>🌐 KẾT QUẢ HIỂN THỊ</span><span style="color:#16a34a;">HTML5 Live</span></div>
               <iframe id="prev-h22_2" style="width:100%;height:190px;border:none;background:#fff;" title="Preview h22_2"></iframe>
             </div>
-<div class="sgk-fig-box" style="margin-top:0.85rem;margin-bottom:0;"><img src="assets/sgk/illus_10_neo_id_va_anh_link.png" alt="Sơ đồ cơ chế nhảy vị trí với neo #id và bọc thẻ &lt;img&gt; bên trong &lt;a&gt; để tạo ảnh liên kết"><div class="sgk-fig-cap">Sơ đồ cơ chế nhảy vị trí với neo #id và bọc thẻ &lt;img&gt; bên trong &lt;a&gt; để tạo ảnh liên kết</div></div>
+<div class="sgk-fig-box" style="margin-top:0.85rem;margin-bottom:0;"><img src="assets/sgk/illus_10_22_neo_cung_trang.png" alt="Minh họa tạo Mục lục và nút Về đầu trang ngay trên 1 trang web bằng id &amp; #"><div class="sgk-fig-cap">Minh họa tạo Mục lục và nút Về đầu trang ngay trên 1 trang web bằng id &amp; #</div></div>
           </div>
         </div>
+<div style="margin-top:1.1rem;font-weight:800;color:#1e3a8a;font-size:0.95rem;">🖼️ Hình ảnh minh họa nhảy tới vị trí cụ thể trên trang web KHÁC cùng Website (Bấm để phóng to):</div><div class="fig-gallery-grid" style="margin-top:0.55rem;"><div class="sgk-fig-box span-full"><img src="assets/sgk/illus_10_22_neo_khac_trang.png" alt="Cú pháp ghép ten_tep.html#ten_id (VD: thong_tin.html#CLBTT) mở trang mới và dừng ngay đúng đoạn đích"><div class="sgk-fig-cap">Cú pháp ghép ten_tep.html#ten_id (VD: thong_tin.html#CLBTT) mở trang mới và dừng ngay đúng đoạn đích</div></div></div>
+
+      </section>
+      <section class="card" style="margin-bottom: 1.5rem;">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.65rem;">
+          <h2 style="margin:0;color:#1e3a8a;font-size:1.3rem;">2d. Sử dụng hình ảnh làm liên kết &amp; Câu hỏi cuối Mục 2</h2>
+          <span class="sgk-badge">SGK Tin 12 • Mục 2b (tr.60)</span>
+        </div>
+        <div class="grid-2" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.25rem; align-items:start;">
+          <div>
+            <div style="color:#334155;line-height:1.65;font-size:0.95rem;"><p>Thay vì chỉ dùng dòng chữ gạch chân, ta có thể biến bất kì <strong>hình ảnh, biểu tượng (icon) hay logo</strong> nào thành một siêu liên kết:</p>
+<ul>
+  <li><strong>Cách tạo chuẩn:</strong> Đặt thẻ hình ảnh <code>&lt;img src="..." alt="..."&gt;</code> nằm gọn bên trong cặp thẻ mở <code>&lt;a href="..."&gt;</code> và thẻ đóng <code>&lt;/a&gt;</code>.</li>
+  <li><strong>Ví dụ SGK tr.60:</strong> <code>&lt;a href="thong_tin.html"&gt;&lt;img src="images/sun.png" alt="Thông tin"&gt;&lt;/a&gt;</code>.</li>
+  <li><strong>Lưu ý tránh sai sót:</strong> Thuộc tính <code>href</code> luôn thuộc về thẻ <code>&lt;a&gt;</code>; tuyệt đối không viết <code>&lt;img href="..."&gt;</code> vì thẻ <code>&lt;img&gt;</code> không có thuộc tính <code>href</code>!</li>
+</ul></div>
+<div class="example-cards-grid"><div class="ex-card ex-card-amber"><div style="display:inline-block;background:#fef3c7;color:#b45309;padding:0.18rem 0.55rem;border-radius:999px;font-size:0.72rem;font-weight:800;margin-bottom:0.35rem;">Ví dụ 1 • Biểu tượng</div><div style="font-weight:800;color:#0f172a;font-size:0.88rem;margin-bottom:0.25rem;">Ảnh sun.png mở thong_tin.html</div><div style="font-size:0.83rem;color:#334155;line-height:1.48;"><code>&lt;a href="thong_tin.html"&gt;&lt;img src="images/sun.png"&gt;&lt;/a&gt;</code> → bấm vào Mặt Trời để mở trang.</div></div><div class="ex-card ex-card-emerald"><div style="display:inline-block;background:#dcfce7;color:#15803d;padding:0.18rem 0.55rem;border-radius:999px;font-size:0.72rem;font-weight:800;margin-bottom:0.35rem;">Ví dụ 2 • Ảnh + Neo</div><div style="font-weight:800;color:#0f172a;font-size:0.88rem;margin-bottom:0.25rem;">Banner nhảy tới #CLBTT</div><div style="font-size:0.83rem;color:#334155;line-height:1.48;"><code>&lt;a href="CLB.html#CLBTT"&gt;&lt;img src="the_thao.png"&gt;&lt;/a&gt;</code> → kết hợp ảnh và neo <code>#id</code>.</div></div><div class="ex-card ex-card-rose"><div style="display:inline-block;background:#fee2e2;color:#b91c1c;padding:0.18rem 0.55rem;border-radius:999px;font-size:0.72rem;font-weight:800;margin-bottom:0.35rem;">Lỗi cần tránh</div><div style="font-weight:800;color:#0f172a;font-size:0.88rem;margin-bottom:0.25rem;">Đặt href trên thẻ &lt;img&gt;</div><div style="font-size:0.83rem;color:#334155;line-height:1.48;">Viết <code>&lt;img src="sun.png" href="thong_tin.html"&gt;</code> sẽ <strong>không hoạt động</strong> vì thiếu cặp <code>&lt;a&gt;...&lt;/a&gt;</code>.</div></div></div>
+<div class="callout-box" style="margin-top:0.85rem;">📌 <strong>Ghi nhớ SGK:</strong> <strong>Ghi nhớ SGK tr.60:</strong> Với liên kết trong cùng website cần chỉ rõ đường dẫn tương đối theo vị trí tệp hiện tại (cùng thư mục, thư mục con, dùng <code>../</code> cho thư mục cha), dùng <code>#id</code> cho vị trí cụ thể và có thể lồng <code>&lt;img&gt;</code> trong <code>&lt;a&gt;</code>.</div>
 
 
+          </div>
+          <div>
+            <div class="syntax-card">
+              <div class="syntax-header">
+                <span>💻 Thử bấm vào Hình ảnh làm liên kết</span>
+                <button type="button" id="btn-h22_3" class="btn-mini-tool" onclick="toggleSnippet('h22_3')">▶ Bấm xem kết quả hiển thị</button>
+              </div>
+              <pre class="syntax-body">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;vi&quot;&gt;
+&lt;body style=&quot;font-family:sans-serif;padding:12px;&quot;&gt;
+  &lt;p&gt;Bấm vào biểu tượng Mặt Trời để mở trang &lt;code&gt;thong_tin.html&lt;/code&gt;:&lt;/p&gt;
+  &lt;a href=&quot;thong_tin.html&quot;&gt;
+    &lt;img src=&quot;data:image/svg+xml;utf8,&lt;svg xmlns=&#x27;http://www.w3.org/2000/svg&#x27; width=&#x27;64&#x27; height=&#x27;64&#x27;&gt;&lt;circle cx=&#x27;32&#x27; cy=&#x27;32&#x27; r=&#x27;17&#x27; fill=&#x27;%23f59e0b&#x27;/&gt;&lt;circle cx=&#x27;32&#x27; cy=&#x27;32&#x27; r=&#x27;25&#x27; fill=&#x27;none&#x27; stroke=&#x27;%23fbbf24&#x27; stroke-width=&#x27;3&#x27; stroke-dasharray=&#x27;5 5&#x27;/&gt;&lt;/svg&gt;&quot; alt=&quot;Xem thông tin CLB&quot;&gt;
+  &lt;/a&gt;
+  &lt;p style=&quot;margin-top:8px;&quot;&gt;Bấm vào nút Banner để nhảy tới mục CLB Thể thao:&lt;/p&gt;
+  &lt;a href=&quot;CLB.html#CLBTT&quot;&gt;
+    &lt;img src=&quot;data:image/svg+xml;utf8,&lt;svg xmlns=&#x27;http://www.w3.org/2000/svg&#x27; width=&#x27;190&#x27; height=&#x27;44&#x27;&gt;&lt;rect width=&#x27;190&#x27; height=&#x27;44&#x27; rx=&#x27;10&#x27; fill=&#x27;%231d4ed8&#x27;/&gt;&lt;text x=&#x27;95&#x27; y=&#x27;27&#x27; text-anchor=&#x27;middle&#x27; fill=&#x27;%23fff&#x27; font-family=&#x27;sans-serif&#x27; font-size=&#x27;14&#x27; font-weight=&#x27;bold&#x27;&gt;CLB THỂ THAO →&lt;/text&gt;&lt;/svg&gt;&quot; alt=&quot;CLB Thể thao&quot;&gt;
+  &lt;/a&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+            </div>
+            <div id="box-h22_3" class="mini-compiler-box" style="display:none;border:1px solid #cbd5e1;border-radius:8px;overflow:hidden;margin-top:0.65rem;">
+              <div class="snippet-preview-bar"><span>🌐 KẾT QUẢ HIỂN THỊ</span><span style="color:#16a34a;">HTML5 Live</span></div>
+              <iframe id="prev-h22_3" style="width:100%;height:190px;border:none;background:#fff;" title="Preview h22_3"></iframe>
+            </div>
+<div class="sgk-fig-box" style="margin-top:0.85rem;margin-bottom:0;"><img src="assets/sgk/illus_10_neo_id_va_anh_link.png" alt="Sơ đồ hộp lồng hộp bọc &lt;img&gt; bên trong &lt;a&gt; để biến ảnh thành nút liên kết"><div class="sgk-fig-cap">Sơ đồ hộp lồng hộp bọc &lt;img&gt; bên trong &lt;a&gt; để biến ảnh thành nút liên kết</div></div>
+          </div>
+        </div>
+<div style="margin-top:1.1rem;font-weight:800;color:#1e3a8a;font-size:0.95rem;">🖼️ Hình ảnh minh họa Liên kết bằng Hình ảnh &amp; Tình huống Câu hỏi cuối Mục 2 (Bấm để phóng to):</div><div class="fig-gallery-grid" style="margin-top:0.55rem;"><div class="sgk-fig-box"><img src="assets/sgk/illus_10_22_hinh_anh_lam_lien_ket.png" alt="Cách bọc &lt;img&gt; trong &lt;a&gt; chuẩn xác, lỗi đặt href nhầm lên &lt;img&gt; và 3 ví dụ thực tế"><div class="sgk-fig-cap">Cách bọc &lt;img&gt; trong &lt;a&gt; chuẩn xác, lỗi đặt href nhầm lên &lt;img&gt; và 3 ví dụ thực tế</div></div><div class="sgk-fig-box"><img src="assets/sgk/illus_10_22_cau_hoi_ul_hinh10_1.png" alt="Tình huống Câu hỏi cuối Mục 2 (SGK tr.60): Xác định đường dẫn thay cho dấu ??? rồi đối chiếu bên dưới"><div class="sgk-fig-cap">Tình huống Câu hỏi cuối Mục 2 (SGK tr.60): Xác định đường dẫn thay cho dấu ??? rồi đối chiếu bên dưới</div></div></div>
+<div style="background:#f0fdfa;border:1.5px solid #5eead4;border-radius:10px;padding:0.9rem 1rem;margin-top:0.9rem;"><strong style="color:#0f766e;">❓ Câu hỏi cuối Mục 2 (SGK tr.60):</strong><ul style="margin:0.5rem 0 0;padding-left:1.2rem;line-height:1.6;"><li><strong>Theo cấu trúc thư mục ở Hình 10.1, hãy viết đoạn mã HTML đặt trong tệp <code>index.html</code> tạo một danh sách không có thứ tự gồm 2 mục liên kết tới trang <code>bai_tap_1.html</code> và <code>bai_tap_on_tap.html</code>.</strong><br><button type="button" class="btn btn-secondary btn-sm" style="margin-top:0.35rem;" onclick="const b=this.nextElementSibling; const open=b.style.display!=='none'; b.style.display=open?'none':'block'; this.textContent=open?'💡 Bấm xem gợi ý trả lời':'🙈 Ẩn gợi ý';">💡 Bấm xem gợi ý trả lời</button><div style="display:none;margin-top:0.4rem;color:#166534;background:#f0fdf4;padding:0.55rem 0.75rem;border-radius:6px;border:1px solid #86efac;"><strong>Gợi ý đáp án:</strong><br><pre style='background:#0f172a;color:#e2e8f0;padding:0.65rem;border-radius:6px;margin-top:0.35rem;'>&lt;ul&gt;
+  &lt;li&gt;&lt;a href="bai_tap/bai_tap_1.html"&gt;Bài tập 1&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="bai_tap/on_tap/bai_tap_on_tap.html"&gt;Bài tập ôn tập&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</pre></div></li></ul></div>
       </section>
 
       <!-- SANDBOX 2.2 -->
@@ -745,7 +798,7 @@
       });
     });
     
-    const SNIPPETS = {"h22_0": "<!DOCTYPE html>\n<html lang=\"vi\">\n<body style=\"font-family:sans-serif;padding:12px;\">\n  <h4>Tài liệu học tập trực tuyến (Mục 2a SGK):</h4>\n  <a href=\"https://hanhtrangso.nxbgd.vn/sach-dien-tu?book_active=0\">\n    Mở Sách điện tử Hành trang số NXBGD\n  </a>\n</body>\n</html>", "h22_1": "<!DOCTYPE html>\n<html lang=\"vi\">\n<body style=\"font-family:sans-serif;padding:12px;\">\n  <h4>Menu từ index.html (Hình 10.1):</h4>\n  <ul>\n    <li><a href=\"thong_tin.html\">Cùng thư mục: thong_tin.html</a></li>\n    <li><a href=\"bai_tap/bai_tap_1.html\">Thư mục con: bai_tap/bai_tap_1.html</a></li>\n    <li><a href=\"bai_tap/on_tap/bai_tap_on_tap.html\">Sâu 2 cấp: on_tap/bai_tap_on_tap.html</a></li>\n    <li><a href=\"../index.html\">Từ tệp con lùi lên cha: ../index.html</a></li>\n  </ul>\n</body>\n</html>", "h22_2": "<!DOCTYPE html>\n<html lang=\"vi\">\n<body style=\"font-family:sans-serif;padding:12px;\">\n  <p><a href=\"#Thong_tin\">⬇ Nhảy tới mục Thông tin</a></p>\n  <p>Bấm vào biểu tượng Mặt Trời để mở trang thông tin:</p>\n  <a href=\"thong_tin.html\">\n    <img src=\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='56' height='56'><circle cx='28' cy='28' r='16' fill='%23f59e0b'/><circle cx='28' cy='28' r='22' fill='none' stroke='%23fbbf24' stroke-width='3' stroke-dasharray='4 4'/></svg>\" alt=\"Thông tin CLB\">\n  </a>\n  <div style=\"height:120px;\"></div>\n  <h3 id=\"Thong_tin\" style=\"color:#0284c7;\">Mục Thông tin chi tiết</h3>\n  <p>Đây là vị trí có id=\"Thong_tin\".</p>\n</body>\n</html>"};
+    const SNIPPETS = {"h22_0": "<!DOCTYPE html>\n<html lang=\"vi\">\n<body style=\"font-family:sans-serif;padding:12px;\">\n  <h4>Tài liệu học tập trực tuyến (Mục 2a SGK):</h4>\n  <p><a href=\"https://hanhtrangso.nxbgd.vn/sach-dien-tu?book_active=0\">\n    1. Mở Sách điện tử Hành trang số NXBGD\n  </a></p>\n  <p><a href=\"https://www.nxbgd.vn/\">\n    2. Mở Trang chủ NXB Giáo dục Việt Nam\n  </a></p>\n</body>\n</html>", "h22_1": "<!DOCTYPE html>\n<html lang=\"vi\">\n<body style=\"font-family:sans-serif;padding:12px;\">\n  <h4>Menu từ index.html (Hình 10.1):</h4>\n  <ul>\n    <li><a href=\"thong_tin.html\">Cùng thư mục: thong_tin.html</a></li>\n    <li><a href=\"bai_tap/bai_tap_1.html\">Thư mục con: bai_tap/bai_tap_1.html</a></li>\n    <li><a href=\"bai_tap/on_tap/bai_tap_on_tap.html\">Sâu 2 cấp: on_tap/bai_tap_on_tap.html</a></li>\n    <li><a href=\"../index.html\">Từ tệp con lùi lên 1 cấp cha: ../index.html</a></li>\n    <li><a href=\"../../index.html\">Từ on_tap/ lùi lên 2 cấp: ../../index.html</a></li>\n  </ul>\n</body>\n</html>", "h22_2": "<!DOCTYPE html>\n<html lang=\"vi\">\n<body style=\"font-family:sans-serif;padding:12px;\">\n  <h4 id=\"Dau_trang\" style=\"color:#1e3a8a;\">MỤC LỤC TRANG WEB:</h4>\n  <p><a href=\"#Thong_tin\">1. Nhảy xuống mục Thông tin CLB ⬇</a></p>\n  <p><a href=\"thong_tin.html#CLBTT\">2. Sang thong_tin.html ở mục #CLBTT ➔</a></p>\n  <div style=\"height:140px;background:#f8fafc;border:1px dashed #cbd5e1;padding:10px;color:#64748b;\">\n    (Khoảng trống giả lập trang web dài để thấy hiệu ứng cuộn...)\n  </div>\n  <h3 id=\"Thong_tin\" style=\"color:#0284c7;\">Mục Thông tin chi tiết (id=\"Thong_tin\")</h3>\n  <p>Đây là vị trí đích! <a href=\"#Dau_trang\">⬆ Quay về đầu trang</a></p>\n</body>\n</html>", "h22_3": "<!DOCTYPE html>\n<html lang=\"vi\">\n<body style=\"font-family:sans-serif;padding:12px;\">\n  <p>Bấm vào biểu tượng Mặt Trời để mở trang <code>thong_tin.html</code>:</p>\n  <a href=\"thong_tin.html\">\n    <img src=\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='64'><circle cx='32' cy='32' r='17' fill='%23f59e0b'/><circle cx='32' cy='32' r='25' fill='none' stroke='%23fbbf24' stroke-width='3' stroke-dasharray='5 5'/></svg>\" alt=\"Xem thông tin CLB\">\n  </a>\n  <p style=\"margin-top:8px;\">Bấm vào nút Banner để nhảy tới mục CLB Thể thao:</p>\n  <a href=\"CLB.html#CLBTT\">\n    <img src=\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='190' height='44'><rect width='190' height='44' rx='10' fill='%231d4ed8'/><text x='95' y='27' text-anchor='middle' fill='%23fff' font-family='sans-serif' font-size='14' font-weight='bold'>CLB THỂ THAO →</text></svg>\" alt=\"CLB Thể thao\">\n  </a>\n</body>\n</html>"};
     const WORKSHEET_QUESTIONS = [{"id": "q1", "type": "mcq", "points": 1.5, "prompt": "Trong HTML, thẻ nào dùng để tạo siêu liên kết và thuộc tính nào chứa địa chỉ trang đích?", "options": {"A": "Thẻ <link> và thuộc tính src", "B": "Thẻ <a> và thuộc tính href", "C": "Thẻ <href> và thuộc tính url", "D": "Thẻ <url> và thuộc tính link"}, "correct": "B", "explain": "Cặp thẻ <a>...</a> (anchor) dùng thuộc tính href để khai báo địa chỉ URL đích."}, {"id": "q2", "type": "mcq", "points": 1.5, "prompt": "Để nhấp vào hình ảnh 'images/sun.png' sẽ mở trang 'thong_tin.html' (cùng thư mục), câu lệnh HTML nào sau đây viết ĐÚNG?", "options": {"A": "<img src=\"images/sun.png\" href=\"thong_tin.html\">", "B": "<a src=\"thong_tin.html\"><img href=\"images/sun.png\"></a>", "C": "<a href=\"thong_tin.html\"><img src=\"images/sun.png\" alt=\"Thông tin\"></a>", "D": "<a href=\"images/sun.png\"><img src=\"thong_tin.html\"></a>"}, "correct": "C", "explain": "Muốn dùng hình ảnh làm liên kết, ta đặt thẻ <img src=\"...\"> bên trong cặp thẻ <a href=\"...\">...</a>."}, {"id": "q3", "type": "mcq", "points": 1.5, "prompt": "Đường dẫn nào sau đây là ĐƯỜNG DẪN TUYỆT ĐỐI chuẩn khi liên kết tới một website khác trên Internet?", "options": {"A": "thong_tin.html", "B": "BT/bai_tap_1.html", "C": "https://www.nxbgd.vn/", "D": "../index.html"}, "correct": "C", "explain": "Đường dẫn tuyệt đối trên Internet chứa đầy đủ giao thức (http:// hoặc https://) và tên miền."}, {"id": "q4", "type": "mcq", "points": 1.5, "prompt": "Trang web 'bai_tap_1.html' nằm trong thư mục con 'bai_tap'. Để tạo liên kết từ 'bai_tap_1.html' quay về 'index.html' ở thư mục cha ngay bên ngoài, em viết giá trị href nào?", "options": {"A": "index.html", "B": "./index.html", "C": "../index.html", "D": "bai_tap/index.html"}, "correct": "C", "explain": "Kí hiệu '../' dùng để đi ngược lên 1 cấp thư mục cha."}, {"id": "q5", "type": "tf", "points": 2.0, "prompt": "Xét các phát biểu về siêu văn bản và đường dẫn trong thiết kế trang web:", "statements": [{"text": "a) Siêu văn bản là loại văn bản tích hợp nhiều dạng dữ liệu và có chứa siêu liên kết.", "correct": true}, {"text": "b) Khi tạo liên kết tới trang web ngoài, nên dùng đường dẫn tuyệt đối bắt đầu bằng https:// hoặc http://.", "correct": true}, {"text": "c) Khi liên kết giữa các trang trong cùng website, nên dùng đường dẫn ổ đĩa như D:\\Web\\index.html.", "correct": false}, {"text": "d) Để tạo liên kết tới phần tử có id=\"CLBTT\" trên cùng trang hiện tại, ta viết href=\"#CLBTT\".", "correct": true}], "explain": "Không dùng đường dẫn tuyệt đối ổ đĩa máy cá nhân D:\\... vì sẽ hỏng link khi chuyển máy nên c Sai; a, b, d Đúng."}, {"id": "q6", "type": "tf", "points": 2.0, "prompt": "Cho cấu trúc thư mục website: thư mục gốc có tệp index.html và thư mục con bai_tap chứa bai_tap_1.html cùng thư mục con on_tap chứa bai_tap_on_tap.html (Hình 10.1 SGK). Xét các lệnh gắn liên kết đặt tại tệp index.html:", "statements": [{"text": "a) Lệnh <a href=\"bai_tap/bai_tap_1.html\">Bài tập 1</a> mở đúng trang bai_tap_1.html.", "correct": true}, {"text": "b) Lệnh <a href=\"bai_tap_on_tap.html\">Ôn tập</a> từ index.html mở đúng trang trong thư mục on_tap.", "correct": false}, {"text": "c) Muốn từ bai_tap_on_tap.html quay ngược về index.html cần dùng ../../index.html.", "correct": true}, {"text": "d) Có thể dùng <a href=\"thong_tin.html#CLBTT\"> để nhảy thẳng tới phần tử có id=\"CLBTT\" trong trang thong_tin.html.", "correct": true}], "explain": "Từ index.html phải ghi rõ đường dẫn bai_tap/on_tap/bai_tap_on_tap.html nên b Sai; a, c, d đều Đúng."}];
     const EXTRA_TEST_QUESTIONS = [];
     let cachedSubmissionsP2 = [];

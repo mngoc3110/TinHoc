@@ -37,6 +37,7 @@
     .fig-gallery-grid .sgk-fig-box.span-full img { max-height: 490px; }
     .example-cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.7rem; margin: 0.85rem 0; }
     .ex-card { background: #fff; border: 1.5px solid #cbd5e1; border-radius: 10px; padding: 0.75rem 0.85rem; }
+    .ex-card code { overflow-wrap: anywhere; word-break: break-word; white-space: normal; }
     .ex-card-blue { background: #eff6ff; border-color: #93c5fd; }
     .ex-card-emerald { background: #f0fdf4; border-color: #86efac; }
     .ex-card-amber { background: #fffbeb; border-color: #fcd34d; }
@@ -225,6 +226,26 @@
           </div>
         </div>
 
+        <div class="card" style="border-left:5px solid #0284c7;margin-bottom:1.25rem;">
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;">
+            <div>
+              <h3 style="margin:0;color:#1e3a8a;font-size:1.18rem;">👀 Quan sát Mẫu Kết Quả Biên Dịch: File 1 (CLB.html) ⇄ File 2 (thong_tin.html)</h3>
+              <p style="margin:0.3rem 0 0;color:#475569;font-size:0.88rem;line-height:1.55;">Trước khi tự gõ mã vào ô trống bên dưới, em hãy xem <strong>hình minh họa kết quả sau khi biên dịch</strong> của cả 2 tệp HTML hoặc bấm nút để <strong>chạy thử chuyển qua lại File 1 ⇄ File 2</strong> (không làm lộ code).</p>
+            </div>
+            <span class="sgk-badge">Mẫu kết quả trực quan (Không lộ code)</span>
+          </div>
+          <div class="fig-gallery-grid" style="margin-top:0.85rem;"><div class="sgk-fig-box span-full"><img src="assets/sgk/illus_10_hd3_mau_file1_va_file2.png" alt="Mẫu kết quả biên dịch song song File 1 (CLB.html) và File 2 (thong_tin.html) trên trình duyệt (Bấm vào hình để phóng to)"><div class="sgk-fig-cap">Mẫu kết quả biên dịch song song File 1 (CLB.html) và File 2 (thong_tin.html) trên trình duyệt (Bấm vào hình để phóng to)</div></div></div>
+          <div style="margin-top:0.9rem;">
+            <button type="button" id="hd3-demo-toggle-btn" class="btn btn-primary btn-sm" style="background:#0284c7;border-color:#0284c7;font-weight:700;" onclick="toggleHd3Demo()">👁️ Bấm chạy thử giao diện mẫu File 1 (CLB.html) ⇄ File 2 (thong_tin.html)</button>
+            <div id="hd3-demo-box" style="display:none;margin-top:0.75rem;border:1.5px solid #93c5fd;border-radius:12px;overflow:hidden;background:#fff;">
+              <div style="background:#eff6ff;padding:0.55rem 0.85rem;border-bottom:1px solid #bfdbfe;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;">
+                <div style="display:flex;gap:0.4rem;flex-wrap:wrap;"><button type="button" id="hd3-demo-tab-0" class="btn btn-sm btn-primary" style="font-family:monospace;" onclick="renderSampleDemoFrame('CLB.html', '')">📄 Xem mẫu File 1: CLB.html</button><button type="button" id="hd3-demo-tab-1" class="btn btn-sm btn-secondary" style="font-family:monospace;" onclick="renderSampleDemoFrame('thong_tin.html', '')">📄 Xem mẫu File 2: thong_tin.html</button></div>
+                <div id="hd3-demo-addr" class="vb-url-pill" style="max-width:340px;">site://CLB.html</div>
+              </div>
+              <iframe id="hd3-demo-frame" style="width:100%;height:300px;border:none;background:#fff;display:block;" title="Mẫu kết quả 2 File HTML"></iframe>
+            </div>
+          </div>
+        </div>
         <div class="practice-workbench-grid">
           <aside>
           <div class="card" style="border-left: 4px solid #1d4ed8; padding: 1rem; margin-bottom: 0.9rem;">
@@ -234,11 +255,11 @@
             </div>
             <p style="font-size:0.82rem;color:#334155;margin:0 0 0.4rem;">Một website chỉ liên kết nội bộ được khi có <strong>ít nhất 2 tệp <code>.html</code></strong>. Chọn từng tab tệp phía trên khung soạn thảo hoặc tự tạo thêm tệp mới:</p>
             <ul style="font-size:0.8rem;color:#475569;margin:0;padding-left:1rem;line-height:1.5;">
-              <li>Mở tab <code>thong_tin.html</code>, gõ cấu trúc HTML5 và tạo tiêu đề có <code>id="CLBTT"</code> (hoặc <code>id="lich_su"</code>).</li>
+              <li>Mở tab <code>thong_tin.html</code>, gõ cấu trúc HTML5 và tạo tiêu đề có <code>id="CLBTT"</code> (hoặc <code>id="CLBTH"</code>).</li>
               <li>Có thể bấm <code>➕ Tạo thêm tệp .html</code> để thêm tệp (vd: <code>lich_su_CLB.html</code> hoặc <code>bai_tap/bt1.html</code>).</li>
               <li>Thêm liên kết quay về ở trang phụ: <code>&lt;a href="CLB.html"&gt;Quay về CLB&lt;/a&gt;</code>.</li>
             </ul>
-            <div class="sgk-fig-box" style="margin-top:0.55rem;"><img src="assets/sgk/sgk_hinh10_2.png" alt="Hình 10.2: Giao diện CLB.html và liên kết sang thong_tin.html (SGK tr.61)"><div class="sgk-fig-cap">Hình 10.2: Giao diện CLB.html và liên kết sang thong_tin.html (SGK tr.61)</div></div>
+            <div class="sgk-fig-box" style="margin-top:0.55rem;"><img src="assets/sgk/illus_10_hd3_nv1_tao_2_file.png" alt="Minh họa Nhiệm vụ 1: Quản lí 2 tệp &amp; kết quả biên dịch File 2 (thong_tin.html)"><div class="sgk-fig-cap">Minh họa Nhiệm vụ 1: Quản lí 2 tệp &amp; kết quả biên dịch File 2 (thong_tin.html)</div></div>
           </div>
           <div class="card" style="border-left: 4px solid #059669; padding: 1rem; margin-bottom: 0.9rem;">
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.35rem;gap:0.4rem;">
@@ -251,6 +272,8 @@
               <li>Gắn liên kết nội bộ tới tệp thứ 2: <code>&lt;a href="thong_tin.html#CLBTT"&gt;CLB Thể thao&lt;/a&gt;</code>.</li>
               <li>Gắn ít nhất 1 liên kết ngoài (<code>https://...</code>) và 1 neo <code>#id</code> trên trang.</li>
             </ul>
+            <div class="sgk-fig-box" style="margin-top:0.55rem;"><img src="assets/sgk/illus_10_hd3_nv2_gan_lien_ket_clb.png" alt="Minh họa Nhiệm vụ 2: Kết quả biên dịch File 1 (CLB.html) &amp; các liên kết cần gắn"><div class="sgk-fig-cap">Minh họa Nhiệm vụ 2: Kết quả biên dịch File 1 (CLB.html) &amp; các liên kết cần gắn</div></div>
+            <div class="sgk-fig-box" style="margin-top:0.55rem;"><img src="assets/sgk/sgk_hinh10_2.png" alt="Hình 10.2: Nội dung hoạt động ngoại khóa minh họa trên trang web (SGK tr.61)"><div class="sgk-fig-cap">Hình 10.2: Nội dung hoạt động ngoại khóa minh họa trên trang web (SGK tr.61)</div></div>
           </div>
           <div class="card" style="border-left: 4px solid #7c3aed; padding: 1rem; margin-bottom: 0.9rem;">
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.35rem;gap:0.4rem;">
@@ -263,6 +286,7 @@
               <li>Dùng nút <code>←</code> và <code>🏠</code> trên thanh địa chỉ trình duyệt ảo để kiểm tra điều hướng 2 chiều.</li>
               <li>Bấm <strong>Kiểm tra tiêu chí</strong> (mục tiêu đạt ≥ 6/8) rồi bấm <strong>Nộp bài lên máy chủ</strong>.</li>
             </ul>
+            <div class="sgk-fig-box" style="margin-top:0.55rem;"><img src="assets/sgk/illus_10_hd3_nv3_kiem_thu_2_chieu.png" alt="Minh họa Nhiệm vụ 3: Kiểm thử chuyển trang 2 chiều, chấm 8 tiêu chí &amp; nộp bài"><div class="sgk-fig-cap">Minh họa Nhiệm vụ 3: Kiểm thử chuyển trang 2 chiều, chấm 8 tiêu chí &amp; nộp bài</div></div>
           </div>
             <div class="checklist-card">
               <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.55rem;">
@@ -1217,6 +1241,57 @@ Hãy chuyển đổi qua lại giữa tab CLB.html, thong_tin.html (hoặc bấm
         const bc2 = new BroadcastChannel('bai10_classroom_channel'); bc2.postMessage({type:'CLASSROOM_RESET_ALL'}); bc2.close();
       } catch (e) {}
       renderHd3Table([]);
+    }
+    function renderSampleDemoFrame(filePath, hash) {
+      const fr = document.getElementById('hd3-demo-frame');
+      if (!fr) return;
+      const filesMap = SAMPLE_FILES_MAP || {};
+      const fname = Object.prototype.hasOwnProperty.call(filesMap, filePath) ? filePath : (STARTER_FILES[0] || PRACT_FILENAME);
+      const doc = fr.contentDocument || fr.contentWindow.document;
+      doc.open();
+      doc.write(filesMap[fname] || '');
+      doc.close();
+      const addr = document.getElementById('hd3-demo-addr');
+      if (addr) addr.textContent = `site://${fname}${hash ? '#' + hash : ''}`;
+      (STARTER_FILES || []).forEach((sf, idx) => {
+        const btn = document.getElementById('hd3-demo-tab-' + idx);
+        if (btn) btn.className = 'btn btn-sm ' + (sf === fname ? 'btn-primary' : 'btn-secondary');
+      });
+      if (hash) {
+        const target = doc.getElementById(hash) || doc.getElementsByName(hash)[0];
+        if (target && target.scrollIntoView) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      doc.addEventListener('click', (ev) => {
+        const a = ev.target && ev.target.closest ? ev.target.closest('a[href]') : null;
+        if (!a) return;
+        const href = (a.getAttribute('href') || '').trim();
+        if (!href) return;
+        const res = resolveVirtualHref(fname, href);
+        if (res.kind === 'external') {
+          ev.preventDefault();
+          window.open(res.url, '_blank', 'noopener');
+          return;
+        }
+        ev.preventDefault();
+        if (res.kind === 'same_hash') {
+          const tgt = doc.getElementById(res.hash) || doc.getElementsByName(res.hash)[0];
+          if (tgt && tgt.scrollIntoView) tgt.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          if (addr) addr.textContent = `site://${fname}${res.hash ? '#' + res.hash : ''}`;
+          return;
+        }
+        if (res.kind === 'internal' && Object.prototype.hasOwnProperty.call(filesMap, res.file)) {
+          renderSampleDemoFrame(res.file, res.hash);
+        }
+      });
+    }
+    function toggleHd3Demo() {
+      const box = document.getElementById('hd3-demo-box');
+      const btn = document.getElementById('hd3-demo-toggle-btn');
+      if (!box) return;
+      const isHidden = box.style.display === 'none';
+      box.style.display = isHidden ? 'block' : 'none';
+      if (btn) btn.textContent = isHidden ? '🙈 Thu gọn giao diện mẫu' : '👁️ Bấm chạy thử giao diện mẫu File 1 (CLB.html) ⇄ File 2 (thong_tin.html)';
+      if (isHidden) renderSampleDemoFrame((STARTER_FILES && STARTER_FILES[0]) || PRACT_FILENAME, '');
     }
     window.addEventListener('load', () => {
       const ed = document.getElementById('clb-code-input');

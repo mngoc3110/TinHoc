@@ -128,11 +128,18 @@ def add_footer(slide, num, total, lesson_short):
     p.font.color.rgb = COLOR_TEXT_MUTED
 
 
-def add_code_panel(slide, left, top, width, height, code_str, filename="index.html"):
-    add_card(slide, left, top, width, height, bg=COLOR_CODE_BG, border=RGBColor(51, 65, 85), bw=1.5)
+def add_code_panel(slide, left, top, width, height, code_str, filename="index.html", light_mode=False):
+    panel_bg = RGBColor(241, 245, 249) if light_mode else COLOR_CODE_BG
+    panel_border = RGBColor(147, 197, 253) if light_mode else RGBColor(51, 65, 85)
+    hdr_bg = RGBColor(226, 232, 240) if light_mode else RGBColor(30, 41, 59)
+    fn_color = RGBColor(51, 65, 85) if light_mode else RGBColor(148, 163, 184)
+    tag_color = RGBColor(29, 78, 216) if light_mode else RGBColor(125, 211, 252)
+    plain_color = RGBColor(30, 41, 59) if light_mode else COLOR_CODE_TEXT
+
+    add_card(slide, left, top, width, height, bg=panel_bg, border=panel_border, bw=1.5)
     hdr = slide.shapes.add_shape(MSO_SHAPE.RECTANGLE, left, top, width, Inches(0.42))
     hdr.fill.solid()
-    hdr.fill.fore_color.rgb = RGBColor(30, 41, 59)
+    hdr.fill.fore_color.rgb = hdr_bg
     hdr.line.fill.background()
 
     for idx, clr in enumerate((RGBColor(239, 68, 68), RGBColor(245, 158, 11), RGBColor(34, 197, 94))):
@@ -146,7 +153,7 @@ def add_code_panel(slide, left, top, width, height, code_str, filename="index.ht
     ph.text = f"📄 {filename}"
     ph.font.name = FONT_CODE
     ph.font.size = Pt(12)
-    ph.font.color.rgb = RGBColor(148, 163, 184)
+    ph.font.color.rgb = fn_color
 
     tb = slide.shapes.add_textbox(left + Inches(0.22), top + Inches(0.52), width - Inches(0.44), height - Inches(0.62))
     tf = tb.text_frame
@@ -158,7 +165,7 @@ def add_code_panel(slide, left, top, width, height, code_str, filename="index.ht
         p.text = line
         p.font.name = FONT_CODE
         p.font.size = fsize
-        p.font.color.rgb = RGBColor(125, 211, 252) if "<" in line and ">" in line else COLOR_CODE_TEXT
+        p.font.color.rgb = tag_color if "<" in line and ">" in line else plain_color
 
 
 def add_bullets_box(slide, left, top, width, height, heading, bullets, heading_color=COLOR_PRIMARY, body_size=15.5):
@@ -202,7 +209,7 @@ def add_picture_fitted(slide, img_path, left, top, max_w, max_h):
     slide.shapes.add_picture(img_path, x, y, w, h)
 
 
-def build_from_slides_data(slides_data, lesson_short, assets_dir, out_pptx):
+def build_from_slides_data(slides_data, lesson_short, assets_dir, out_pptx, light_mode=False):
     prs = Presentation()
     prs.slide_width = Inches(13.333)
     prs.slide_height = Inches(7.5)
@@ -214,36 +221,78 @@ def build_from_slides_data(slides_data, lesson_short, assets_dir, out_pptx):
         kind = sd["kind"]
 
         if kind == "cover":
-            set_bg(sl, COLOR_SLATE_900)
-            bar = sl.shapes.add_shape(MSO_SHAPE.RECTANGLE, 0, 0, Inches(13.333), Inches(0.14))
-            bar.fill.solid(); bar.fill.fore_color.rgb = COLOR_ROYAL; bar.line.fill.background()
+            if light_mode:
+                set_bg(sl, RGBColor(239, 246, 255))
+                bar = sl.shapes.add_shape(MSO_SHAPE.RECTANGLE, 0, 0, Inches(13.333), Inches(0.12))
+                bar.fill.solid(); bar.fill.fore_color.rgb = COLOR_ROYAL; bar.line.fill.background()
 
-            pill = sl.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(0.85), Inches(1.1), Inches(6.2), Inches(0.5))
-            pill.fill.solid(); pill.fill.fore_color.rgb = RGBColor(30, 58, 138)
-            pill.line.color.rgb = RGBColor(96, 165, 250); pill.line.width = Pt(1.2)
-            pp = pill.text_frame.paragraphs[0]
-            pp.text = sd["pill"]
-            pp.font.name = FONT_HEADING; pp.font.size = Pt(14); pp.font.bold = True; pp.font.color.rgb = RGBColor(191, 219, 254)
-            pp.alignment = PP_ALIGN.CENTER
+                add_card(sl, Inches(0.55), Inches(0.45), Inches(12.23), Inches(6.6), bg=COLOR_WHITE, border=RGBColor(191, 219, 254), bw=1.8)
+                has_img = bool(sd.get("image") and os.path.exists(os.path.join(assets_dir, sd["image"])))
+                left_w = Inches(5.65) if has_img else Inches(11.3)
 
-            tb = sl.shapes.add_textbox(Inches(0.85), Inches(1.85), Inches(11.6), Inches(1.9))
-            tf = tb.text_frame; tf.word_wrap = True
-            p = tf.paragraphs[0]; p.text = sd["title"]
-            p.font.name = FONT_HEADING; p.font.size = Pt(36); p.font.bold = True; p.font.color.rgb = COLOR_WHITE
+                pill = sl.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(0.9), Inches(0.85), min(left_w, Inches(5.55)), Inches(0.46))
+                pill.fill.solid(); pill.fill.fore_color.rgb = RGBColor(219, 234, 254)
+                pill.line.color.rgb = COLOR_ROYAL; pill.line.width = Pt(1.2)
+                pp = pill.text_frame.paragraphs[0]
+                pp.text = sd["pill"]
+                pp.font.name = FONT_HEADING; pp.font.size = Pt(12.5); pp.font.bold = True; pp.font.color.rgb = COLOR_PRIMARY
+                pp.alignment = PP_ALIGN.CENTER
 
-            p2 = tf.add_paragraph(); p2.text = "\n" + sd["subtitle"]
-            p2.font.name = FONT_BODY; p2.font.size = Pt(18); p2.font.color.rgb = RGBColor(203, 213, 225)
+                tb = sl.shapes.add_textbox(Inches(0.9), Inches(1.52), left_w, Inches(2.5))
+                tf = tb.text_frame; tf.word_wrap = True
+                p = tf.paragraphs[0]; p.text = sd["title"]
+                p.font.name = FONT_HEADING; p.font.size = Pt(34); p.font.bold = True; p.font.color.rgb = COLOR_PRIMARY
+                p2 = tf.add_paragraph(); p2.text = "\n" + sd["subtitle"]
+                p2.font.name = FONT_BODY; p2.font.size = Pt(16.5); p2.font.color.rgb = COLOR_TEXT_BODY
 
-            meta = slide_meta = sl.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(0.85), Inches(5.35), Inches(11.6), Inches(1.25))
-            meta.fill.solid(); meta.fill.fore_color.rgb = RGBColor(30, 41, 59)
-            meta.line.color.rgb = RGBColor(71, 85, 105); meta.line.width = Pt(1)
-            mtf = meta.text_frame; mtf.word_wrap = True
-            mp = mtf.paragraphs[0]
-            mp.text = f"  Trường: THTH-DHSP   •   Giáo viên: Nguyễn Lê Minh Ngọc   •   {sd['meta']}"
-            mp.font.name = FONT_HEADING; mp.font.size = Pt(16); mp.font.bold = True; mp.font.color.rgb = RGBColor(147, 197, 253)
-            mp2 = mtf.add_paragraph()
-            mp2.text = f"  Học liệu trực tuyến: {sd['url']}"
-            mp2.font.name = FONT_BODY; mp2.font.size = Pt(14); mp2.font.color.rgb = RGBColor(226, 232, 240)
+                meta = sl.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(0.9), Inches(5.05), left_w, Inches(1.55))
+                meta.fill.solid(); meta.fill.fore_color.rgb = RGBColor(239, 246, 255)
+                meta.line.color.rgb = RGBColor(147, 197, 254); meta.line.width = Pt(1.2)
+                mtf = meta.text_frame; mtf.word_wrap = True
+                mp = mtf.paragraphs[0]
+                mp.text = f"  Trường: THTH-DHSP  •  {sd['meta']}"
+                mp.font.name = FONT_HEADING; mp.font.size = Pt(14.5); mp.font.bold = True; mp.font.color.rgb = COLOR_PRIMARY
+                mp2 = mtf.add_paragraph()
+                mp2.text = "  Giáo viên: Nguyễn Lê Minh Ngọc"
+                mp2.font.name = FONT_BODY; mp2.font.size = Pt(14); mp2.font.bold = True; mp2.font.color.rgb = COLOR_ROYAL; mp2.space_before = Pt(4)
+                mp3 = mtf.add_paragraph()
+                mp3.text = f"  Web: {sd['url']}"
+                mp3.font.name = FONT_BODY; mp3.font.size = Pt(13); mp3.font.color.rgb = COLOR_TEXT_MUTED; mp3.space_before = Pt(4)
+
+                if has_img:
+                    add_card(sl, Inches(6.78), Inches(0.85), Inches(5.68), Inches(5.75), bg=RGBColor(248, 250, 252), border=RGBColor(191, 219, 254), bw=1.2)
+                    add_picture_fitted(sl, os.path.join(assets_dir, sd["image"]), Inches(6.92), Inches(1.0), Inches(5.4), Inches(5.45))
+            else:
+                set_bg(sl, COLOR_SLATE_900)
+                bar = sl.shapes.add_shape(MSO_SHAPE.RECTANGLE, 0, 0, Inches(13.333), Inches(0.14))
+                bar.fill.solid(); bar.fill.fore_color.rgb = COLOR_ROYAL; bar.line.fill.background()
+
+                pill = sl.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(0.85), Inches(1.1), Inches(6.2), Inches(0.5))
+                pill.fill.solid(); pill.fill.fore_color.rgb = RGBColor(30, 58, 138)
+                pill.line.color.rgb = RGBColor(96, 165, 250); pill.line.width = Pt(1.2)
+                pp = pill.text_frame.paragraphs[0]
+                pp.text = sd["pill"]
+                pp.font.name = FONT_HEADING; pp.font.size = Pt(14); pp.font.bold = True; pp.font.color.rgb = RGBColor(191, 219, 254)
+                pp.alignment = PP_ALIGN.CENTER
+
+                tb = sl.shapes.add_textbox(Inches(0.85), Inches(1.85), Inches(11.6), Inches(1.9))
+                tf = tb.text_frame; tf.word_wrap = True
+                p = tf.paragraphs[0]; p.text = sd["title"]
+                p.font.name = FONT_HEADING; p.font.size = Pt(36); p.font.bold = True; p.font.color.rgb = COLOR_WHITE
+
+                p2 = tf.add_paragraph(); p2.text = "\n" + sd["subtitle"]
+                p2.font.name = FONT_BODY; p2.font.size = Pt(18); p2.font.color.rgb = RGBColor(203, 213, 225)
+
+                meta = sl.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(0.85), Inches(5.35), Inches(11.6), Inches(1.25))
+                meta.fill.solid(); meta.fill.fore_color.rgb = RGBColor(30, 41, 59)
+                meta.line.color.rgb = RGBColor(71, 85, 105); meta.line.width = Pt(1)
+                mtf = meta.text_frame; mtf.word_wrap = True
+                mp = mtf.paragraphs[0]
+                mp.text = f"  Trường: THTH-DHSP   •   Giáo viên: Nguyễn Lê Minh Ngọc   •   {sd['meta']}"
+                mp.font.name = FONT_HEADING; mp.font.size = Pt(16); mp.font.bold = True; mp.font.color.rgb = RGBColor(147, 197, 253)
+                mp2 = mtf.add_paragraph()
+                mp2.text = f"  Học liệu trực tuyến: {sd['url']}"
+                mp2.font.name = FONT_BODY; mp2.font.size = Pt(14); mp2.font.color.rgb = RGBColor(226, 232, 240)
 
         elif kind == "objectives":
             set_bg(sl)
@@ -346,7 +395,7 @@ def build_from_slides_data(slides_data, lesson_short, assets_dir, out_pptx):
             set_bg(sl)
             add_header(sl, sd["badge"], sd["title"], sd.get("sub", ""), sd.get("theme", "blue"))
             add_footer(sl, idx, total, lesson_short)
-            add_code_panel(sl, Inches(0.65), Inches(1.72), Inches(6.25), Inches(5.1), sd["code"], sd.get("filename", "index.html"))
+            add_code_panel(sl, Inches(0.65), Inches(1.72), Inches(6.25), Inches(5.1), sd["code"], sd.get("filename", "index.html"), light_mode=light_mode)
 
             add_card(sl, Inches(7.1), Inches(1.72), Inches(5.58), Inches(5.1), border=COLOR_EMERALD, bw=1.8)
             add_bullets_box(sl, Inches(7.35), Inches(1.9), Inches(5.08), Inches(2.4),
@@ -359,16 +408,64 @@ def build_from_slides_data(slides_data, lesson_short, assets_dir, out_pptx):
             set_bg(sl)
             add_header(sl, sd["badge"], sd["title"], sd.get("sub", ""), sd.get("theme", "blue"))
             add_footer(sl, idx, total, lesson_short)
-            add_card(sl, Inches(0.65), Inches(1.72), Inches(5.15), Inches(5.1), border=COLOR_ROYAL, bw=1.8)
-            add_bullets_box(sl, Inches(0.9), Inches(1.92), Inches(4.65), Inches(4.7),
-                            sd["heading"], sd["bullets"], heading_color=COLOR_PRIMARY, body_size=15.5)
+            if light_mode:
+                add_card(sl, Inches(0.65), Inches(1.68), Inches(3.65), Inches(5.18), border=COLOR_ROYAL, bw=1.6)
+                add_bullets_box(sl, Inches(0.84), Inches(1.86), Inches(3.27), Inches(4.82),
+                                sd["heading"], sd["bullets"], heading_color=COLOR_PRIMARY, body_size=15)
 
-            add_card(sl, Inches(6.02), Inches(1.72), Inches(6.66), Inches(5.1), border=COLOR_CARD_BORDER, bw=1.5)
-            add_picture_fitted(sl, os.path.join(assets_dir, sd["image"]), Inches(6.22), Inches(1.9), Inches(6.26), Inches(4.25))
+                add_card(sl, Inches(4.52), Inches(1.68), Inches(8.16), Inches(5.18), border=COLOR_CARD_BORDER, bw=1.5)
+                add_picture_fitted(sl, os.path.join(assets_dir, sd["image"]), Inches(4.62), Inches(1.80), Inches(7.96), Inches(4.52))
+                if sd.get("caption"):
+                    tb = sl.shapes.add_textbox(Inches(4.62), Inches(6.38), Inches(7.96), Inches(0.42))
+                    p = tb.text_frame.paragraphs[0]; p.text = sd["caption"]
+                    p.font.name = FONT_BODY; p.font.size = Pt(13); p.font.italic = True; p.font.color.rgb = COLOR_TEXT_MUTED; p.alignment = PP_ALIGN.CENTER
+            else:
+                add_card(sl, Inches(0.65), Inches(1.72), Inches(5.15), Inches(5.1), border=COLOR_ROYAL, bw=1.8)
+                add_bullets_box(sl, Inches(0.9), Inches(1.92), Inches(4.65), Inches(4.7),
+                                sd["heading"], sd["bullets"], heading_color=COLOR_PRIMARY, body_size=15.5)
+
+                add_card(sl, Inches(6.02), Inches(1.72), Inches(6.66), Inches(5.1), border=COLOR_CARD_BORDER, bw=1.5)
+                add_picture_fitted(sl, os.path.join(assets_dir, sd["image"]), Inches(6.22), Inches(1.9), Inches(6.26), Inches(4.25))
+                if sd.get("caption"):
+                    tb = sl.shapes.add_textbox(Inches(6.2), Inches(6.28), Inches(6.3), Inches(0.45))
+                    p = tb.text_frame.paragraphs[0]; p.text = sd["caption"]
+                    p.font.name = FONT_BODY; p.font.size = Pt(13.5); p.font.italic = True; p.font.color.rgb = COLOR_TEXT_MUTED; p.alignment = PP_ALIGN.CENTER
+
+        elif kind == "visual_hero":
+            set_bg(sl)
+            col = COLOR_MAP.get(sd.get("theme", "blue"), COLOR_ROYAL)
+            add_header(sl, sd["badge"], sd["title"], sd.get("sub", ""), sd.get("theme", "blue"))
+            add_footer(sl, idx, total, lesson_short)
+            add_card(sl, Inches(0.65), Inches(1.66), Inches(12.03), Inches(5.22), border=col, bw=1.6)
+            add_picture_fitted(sl, os.path.join(assets_dir, sd["image"]), Inches(0.86), Inches(1.78), Inches(11.61), Inches(4.52))
             if sd.get("caption"):
-                tb = sl.shapes.add_textbox(Inches(6.2), Inches(6.28), Inches(6.3), Inches(0.45))
+                tb = sl.shapes.add_textbox(Inches(0.9), Inches(6.36), Inches(11.53), Inches(0.44))
                 p = tb.text_frame.paragraphs[0]; p.text = sd["caption"]
-                p.font.name = FONT_BODY; p.font.size = Pt(13.5); p.font.italic = True; p.font.color.rgb = COLOR_TEXT_MUTED; p.alignment = PP_ALIGN.CENTER
+                p.font.name = FONT_BODY; p.font.size = Pt(13.5); p.font.bold = True; p.font.color.rgb = COLOR_PRIMARY; p.alignment = PP_ALIGN.CENTER
+
+        elif kind == "dual_image":
+            set_bg(sl)
+            col = COLOR_MAP.get(sd.get("theme", "blue"), COLOR_ROYAL)
+            add_header(sl, sd["badge"], sd["title"], sd.get("sub", ""), sd.get("theme", "blue"))
+            add_footer(sl, idx, total, lesson_short)
+            panels = [
+                (Inches(0.65), sd.get("left_title", ""), sd["left_image"], sd.get("left_caption", ""), COLOR_ROYAL),
+                (Inches(6.80), sd.get("right_title", ""), sd["right_image"], sd.get("right_caption", ""), COLOR_EMERALD),
+            ]
+            for px, ptitle, pimg, pcap, pcol in panels:
+                add_card(sl, px, Inches(1.68), Inches(5.88), Inches(5.18), border=pcol, bw=1.6)
+                if ptitle:
+                    pt = sl.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, px + Inches(0.18), Inches(1.82), Inches(5.52), Inches(0.42))
+                    pt.fill.solid(); pt.fill.fore_color.rgb = RGBColor(239, 246, 255) if pcol == COLOR_ROYAL else RGBColor(236, 253, 245)
+                    pt.line.color.rgb = pcol; pt.line.width = Pt(1)
+                    pp = pt.text_frame.paragraphs[0]; pp.text = ptitle
+                    pp.font.name = FONT_HEADING; pp.font.size = Pt(13.5); pp.font.bold = True; pp.font.color.rgb = COLOR_PRIMARY if pcol == COLOR_ROYAL else COLOR_DARK_GREEN
+                    pp.alignment = PP_ALIGN.CENTER
+                add_picture_fitted(sl, os.path.join(assets_dir, pimg), px + Inches(0.18), Inches(2.34), Inches(5.52), Inches(3.98))
+                if pcap:
+                    tb = sl.shapes.add_textbox(px + Inches(0.18), Inches(6.38), Inches(5.52), Inches(0.40))
+                    p = tb.text_frame.paragraphs[0]; p.text = pcap
+                    p.font.name = FONT_BODY; p.font.size = Pt(12); p.font.italic = True; p.font.color.rgb = COLOR_TEXT_MUTED; p.alignment = PP_ALIGN.CENTER
 
         elif kind == "quiz":
             set_bg(sl)
@@ -387,30 +484,58 @@ def build_from_slides_data(slides_data, lesson_short, assets_dir, out_pptx):
                             "✅ ĐÁP ÁN & GIẢI THÍCH:", sd["answer"], heading_color=COLOR_DARK_GREEN, body_size=15)
 
         elif kind == "thank_you":
-            set_bg(sl, COLOR_SLATE_900)
-            bar = sl.shapes.add_shape(MSO_SHAPE.RECTANGLE, 0, 0, Inches(13.333), Inches(0.14))
-            bar.fill.solid(); bar.fill.fore_color.rgb = COLOR_EMERALD; bar.line.fill.background()
+            if light_mode:
+                set_bg(sl, RGBColor(240, 253, 244))
+                bar = sl.shapes.add_shape(MSO_SHAPE.RECTANGLE, 0, 0, Inches(13.333), Inches(0.12))
+                bar.fill.solid(); bar.fill.fore_color.rgb = COLOR_EMERALD; bar.line.fill.background()
 
-            tb = sl.shapes.add_textbox(Inches(1.0), Inches(1.1), Inches(11.3), Inches(1.2))
-            tf = tb.text_frame; tf.word_wrap = True
-            p = tf.paragraphs[0]; p.text = sd["title"]
-            p.font.name = FONT_HEADING; p.font.size = Pt(30); p.font.bold = True; p.font.color.rgb = COLOR_WHITE; p.alignment = PP_ALIGN.CENTER
+                add_card(sl, Inches(0.85), Inches(0.55), Inches(11.63), Inches(6.4), bg=COLOR_WHITE, border=RGBColor(134, 239, 172), bw=2.0)
 
-            add_card(sl, Inches(1.0), Inches(2.35), Inches(11.33), Inches(2.85), bg=RGBColor(30, 41, 59), border=COLOR_EMERALD, bw=1.8)
-            tbm = sl.shapes.add_textbox(Inches(1.35), Inches(2.55), Inches(10.6), Inches(2.5))
-            tfm = tbm.text_frame; tfm.word_wrap = True
-            pm0 = tfm.paragraphs[0]; pm0.text = "📌 GHI NHỚ TRỌNG TÂM & DẶN DÒ:"
-            pm0.font.name = FONT_HEADING; pm0.font.size = Pt(18); pm0.font.bold = True; pm0.font.color.rgb = RGBColor(110, 231, 183)
-            for point in sd["takeaways"]:
-                pm = tfm.add_paragraph(); pm.text = f"• {point}"
-                pm.font.name = FONT_BODY; pm.font.size = Pt(15.5); pm.font.color.rgb = RGBColor(241, 245, 249); pm.space_before = Pt(6)
+                tb = sl.shapes.add_textbox(Inches(1.15), Inches(0.95), Inches(11.03), Inches(1.0))
+                tf = tb.text_frame; tf.word_wrap = True
+                p = tf.paragraphs[0]; p.text = sd["title"]
+                p.font.name = FONT_HEADING; p.font.size = Pt(28); p.font.bold = True; p.font.color.rgb = COLOR_DARK_GREEN; p.alignment = PP_ALIGN.CENTER
 
-            tb_end = sl.shapes.add_textbox(Inches(1.0), Inches(5.6), Inches(11.3), Inches(1.1))
-            tfe = tb_end.text_frame
-            pe = tfe.paragraphs[0]; pe.text = "TRÂN TRỌNG CẢM ƠN CÁC EM ĐÃ THAM GIA TIẾT HỌC!"
-            pe.font.name = FONT_HEADING; pe.font.size = Pt(20); pe.font.bold = True; pe.font.color.rgb = RGBColor(147, 197, 253); pe.alignment = PP_ALIGN.CENTER
-            pe2 = tfe.add_paragraph(); pe2.text = "THTH-DHSP • Giáo viên: Nguyễn Lê Minh Ngọc"
-            pe2.font.name = FONT_BODY; pe2.font.size = Pt(15); pe2.font.color.rgb = RGBColor(203, 213, 225); pe2.alignment = PP_ALIGN.CENTER
+                add_card(sl, Inches(1.25), Inches(2.1), Inches(10.83), Inches(2.75), bg=RGBColor(236, 253, 245), border=COLOR_EMERALD, bw=1.6)
+                tbm = sl.shapes.add_textbox(Inches(1.55), Inches(2.28), Inches(10.2), Inches(2.4))
+                tfm = tbm.text_frame; tfm.word_wrap = True
+                pm0 = tfm.paragraphs[0]; pm0.text = "📌 GHI NHỚ NHANH & DẶN DÒ:"
+                pm0.font.name = FONT_HEADING; pm0.font.size = Pt(17); pm0.font.bold = True; pm0.font.color.rgb = COLOR_DARK_GREEN
+                for point in sd["takeaways"]:
+                    pm = tfm.add_paragraph(); pm.text = f"• {point}"
+                    pm.font.name = FONT_BODY; pm.font.size = Pt(15.5); pm.font.color.rgb = COLOR_TEXT_BODY; pm.space_before = Pt(7)
+
+                tb_end = sl.shapes.add_textbox(Inches(1.15), Inches(5.3), Inches(11.03), Inches(1.15))
+                tfe = tb_end.text_frame
+                pe = tfe.paragraphs[0]; pe.text = "TRÂN TRỌNG CẢM ƠN CÁC EM ĐÃ THAM GIA TIẾT HỌC!"
+                pe.font.name = FONT_HEADING; pe.font.size = Pt(19.5); pe.font.bold = True; pe.font.color.rgb = COLOR_ROYAL; pe.alignment = PP_ALIGN.CENTER
+                pe2 = tfe.add_paragraph(); pe2.text = "THTH-DHSP • Giáo viên: Nguyễn Lê Minh Ngọc"
+                pe2.font.name = FONT_BODY; pe2.font.size = Pt(14.5); pe2.font.bold = True; pe2.font.color.rgb = COLOR_PRIMARY; pe2.alignment = PP_ALIGN.CENTER; pe2.space_before = Pt(4)
+            else:
+                set_bg(sl, COLOR_SLATE_900)
+                bar = sl.shapes.add_shape(MSO_SHAPE.RECTANGLE, 0, 0, Inches(13.333), Inches(0.14))
+                bar.fill.solid(); bar.fill.fore_color.rgb = COLOR_EMERALD; bar.line.fill.background()
+
+                tb = sl.shapes.add_textbox(Inches(1.0), Inches(1.1), Inches(11.3), Inches(1.2))
+                tf = tb.text_frame; tf.word_wrap = True
+                p = tf.paragraphs[0]; p.text = sd["title"]
+                p.font.name = FONT_HEADING; p.font.size = Pt(30); p.font.bold = True; p.font.color.rgb = COLOR_WHITE; p.alignment = PP_ALIGN.CENTER
+
+                add_card(sl, Inches(1.0), Inches(2.35), Inches(11.33), Inches(2.85), bg=RGBColor(30, 41, 59), border=COLOR_EMERALD, bw=1.8)
+                tbm = sl.shapes.add_textbox(Inches(1.35), Inches(2.55), Inches(10.6), Inches(2.5))
+                tfm = tbm.text_frame; tfm.word_wrap = True
+                pm0 = tfm.paragraphs[0]; pm0.text = "📌 GHI NHỚ TRỌNG TÂM & DẶN DÒ:"
+                pm0.font.name = FONT_HEADING; pm0.font.size = Pt(18); pm0.font.bold = True; pm0.font.color.rgb = RGBColor(110, 231, 183)
+                for point in sd["takeaways"]:
+                    pm = tfm.add_paragraph(); pm.text = f"• {point}"
+                    pm.font.name = FONT_BODY; pm.font.size = Pt(15.5); pm.font.color.rgb = RGBColor(241, 245, 249); pm.space_before = Pt(6)
+
+                tb_end = sl.shapes.add_textbox(Inches(1.0), Inches(5.6), Inches(11.3), Inches(1.1))
+                tfe = tb_end.text_frame
+                pe = tfe.paragraphs[0]; pe.text = "TRÂN TRỌNG CẢM ƠN CÁC EM ĐÃ THAM GIA TIẾT HỌC!"
+                pe.font.name = FONT_HEADING; pe.font.size = Pt(20); pe.font.bold = True; pe.font.color.rgb = RGBColor(147, 197, 253); pe.alignment = PP_ALIGN.CENTER
+                pe2 = tfe.add_paragraph(); pe2.text = "THTH-DHSP • Giáo viên: Nguyễn Lê Minh Ngọc"
+                pe2.font.name = FONT_BODY; pe2.font.size = Pt(15); pe2.font.color.rgb = RGBColor(203, 213, 225); pe2.alignment = PP_ALIGN.CENTER
 
     prs.save(out_pptx)
     print(f"Generated PPTX: {out_pptx} ({total} slides)")
@@ -420,514 +545,370 @@ SLIDES_DATA = [
     "kind": "cover",
     "pill": "TIN HỌC 12 • KẾT NỐI TRI THỨC • CHỦ ĐỀ F",
     "title": "BÀI 10: TẠO LIÊN KẾT",
-    "subtitle": "Siêu văn bản, đường dẫn tuyệt đối/tương đối và kĩ thuật tạo liên kết đa tệp HTML",
+    "subtitle": "Siêu văn bản • Đường dẫn Tuyệt đối & Tương đối • Website Đa tệp HTML",
     "meta": "Tiết 19–20 (2 tiết)",
-    "url": "https://minda.io.vn/Tin12/Bai10/index.html"
+    "url": "https://minda.io.vn/Tin12/Bai10/index.html",
+    "image": "illus_10_sieu_van_ban_la_gi.png"
   },
   {
     "kind": "objectives",
-    "title": "I. MỤC TIÊU BÀI HỌC (CV 5512 & NLS)",
-    "sub": "Chuẩn SGK Kết nối tri thức & Khung Năng lực số 3.4.NC1.a",
+    "title": "I. MỤC TIÊU BÀI HỌC (KHBD CV 5512)",
+    "sub": "Bám sát Giáo án Tin học 12 & Khung Năng lực số",
     "cards": [
       {
         "heading": "1. Năng lực Tin học (1)–(3)",
         "color": "blue",
         "bullets": [
-          "(1) Hiểu siêu văn bản, siêu liên kết, vai trò đường dẫn.",
-          "(2) Tạo liên kết bằng thẻ <a>, href, id/# và <img>.",
-          "(3) Chọn đúng URL tuyệt đối vs tương đối (Hình 10.1)."
+          "(1) Hiểu siêu văn bản & siêu liên kết.",
+          "(2) Viết thẻ <a>, href, #id, <img>.",
+          "(3) Chọn URL tuyệt đối / tương đối."
         ]
       },
       {
         "heading": "2. Năng lực số 3.4.NC1.a",
         "color": "emerald",
         "bullets": [
-          "Thiết kế & phát triển nội dung số đa trang HTML.",
-          "Tổ chức website từ >= 2 tệp HTML liên kết logic.",
-          "Quản lí tài nguyên chuẩn theo cấu trúc thư mục."
+          "Phát triển nội dung số đa trang.",
+          "Tạo Website >= 2 tệp HTML.",
+          "Liên kết logic theo cây thư mục."
         ]
       },
       {
         "heading": "3. Năng lực chung (4)–(6)",
         "color": "amber",
         "bullets": [
-          "(4) Tự học, tự thực hành & kiểm thử trên Sandbox.",
-          "(5) Giao tiếp & hợp tác cặp đôi hiệu quả.",
-          "(6) Giải quyết lỗi đường dẫn 404 / ổ đĩa máy cá nhân."
+          "(4) Tự học trên Sandbox tương tác.",
+          "(5) Hợp tác cặp đôi hiệu quả.",
+          "(6) Xử lí lỗi 404 / ổ đĩa D:\\."
         ]
       },
       {
         "heading": "4. Phẩm chất (7)",
         "color": "purple",
         "bullets": [
-          "(7) Chăm chỉ: thực hiện nghiêm túc các nhiệm vụ.",
-          "Cẩn thận khi đặt tên tệp không dấu, viết đúng cú pháp.",
-          "Trung thực trong tự đánh giá tiêu chí và nộp bài."
+          "(7) Chăm chỉ, thực hiện nghiêm túc.",
+          "Đặt tên tệp chuẩn không dấu.",
+          "Trung thực tự kiểm tra tiêu chí."
         ]
       }
     ]
   },
   {
     "kind": "roadmap",
-    "title": "TIẾN TRÌNH TỔ CHỨC 4 HOẠT ĐỘNG",
+    "title": "TIẾN TRÌNH 4 HOẠT ĐỘNG (THEO KHBD.DOCX)",
     "rows": [
       {
         "stage": "HĐ 1: Khởi động (5')",
         "color": "blue",
-        "desc": "Câu hỏi mở đầu SGK tr.57: Trang web khác sách, báo giấy ở điểm nào? So sánh CLB.html."
+        "desc": "Trang web khác gì sách, báo giấy? (SGK tr.57)"
       },
       {
         "stage": "HĐ 2.1: Khám phá 1 (15')",
         "color": "emerald",
-        "desc": "Mục 1 SGK (tr.57–58): Siêu văn bản, thẻ <a>, đường dẫn tuyệt đối & đường dẫn tương đối."
+        "desc": "Mục 1: Siêu văn bản, .docx vs .txt, thẻ <a> & Đường dẫn (tr.57–58)"
       },
       {
         "stage": "HĐ 2.2: Khám phá 2 (20')",
         "color": "amber",
-        "desc": "Mục 2 SGK (tr.58–60): Liên kết ngoài, cùng website (Hình 10.1), neo #id, ảnh & Phiếu BT."
+        "desc": "Mục 2: 4 kiểu liên kết, Hình 10.1, neo #id, ảnh & Phiếu BT (tr.58–60)"
       },
       {
         "stage": "HĐ 3: Luyện tập (35')",
         "color": "purple",
-        "desc": "Mục 3 SGK (tr.61): Tạo >= 2 tệp HTML trên web (CLB.html, thong_tin.html...), bấm liên kết thật."
+        "desc": "Mục 3: Tạo Website >= 2 tệp HTML (CLB.html ⇄ thong_tin.html) (tr.61)"
       },
       {
         "stage": "HĐ 4: Infographic (15')",
         "color": "red",
-        "desc": "AntV Infographic Studio (4 chế độ), Flashcard 3D & giải đáp Luyện tập 1–2, Vận dụng tr.61."
+        "desc": "AntV Infographic Studio & Luyện tập 1–2, Vận dụng tr.61"
       }
     ]
   },
   {
-    "kind": "section",
-    "tag": "HOẠT ĐỘNG 1 • KHỞI ĐỘNG (TR.57)",
-    "title": "TỪ SÁCH BÁO GIẤY ĐẾN SIÊU VĂN BẢN",
-    "subtitle": "Điều gì tạo nên khả năng 'nhảy cóc' diệu kì giữa các trang web trên Internet?",
+    "kind": "visual_hero",
+    "badge": "HĐ 1 • KHỞI ĐỘNG (5')",
+    "title": "SÁCH / BÁO GIẤY VS TRANG WEB (SIÊU VĂN BẢN)",
+    "sub": "SGK Tin học 12 • Trang 57",
     "theme": "blue",
-    "pills": [
-      [
-        "Đọc sách giấy",
-        "Đọc tuần tự từ trang đầu tới trang cuối, tìm mục bằng tay.",
-        "slate"
-      ],
-      [
-        "Đọc trang web",
-        "Nhấp vào chữ/ảnh liên kết để mở ngay trang mới hoặc đoạn mới.",
-        "blue"
-      ],
-      [
-        "Bí mật HTML",
-        "Cặp thẻ <a> kết hợp thuộc tính href định địa chỉ trang đích.",
-        "emerald"
-      ]
-    ]
-  },
-  {
-    "kind": "image_focus",
-    "badge": "KHỞI ĐỘNG • SGK TR.57",
-    "title": "ĐỌC SÁCH BÁO GIẤY VS ĐỌC TRANG WEB (SIÊU VĂN BẢN)",
-    "heading": "Khác biệt lớn nhất khi đọc web",
-    "bullets": [
-      "Sách, báo giấy đọc tuần tự từ trang này sang trang khác, tìm mục bằng tay.",
-      "Trang web tích hợp nhiều dữ liệu và các siêu liên kết (Hyperlink).",
-      "Nhấp vào liên kết lập tức mở sang trang thong_tin.html hoặc trang ngoài!"
-    ],
     "image": "illus_10_sach_vs_web.png",
-    "caption": "So sánh đọc sách báo truyền thống (tuyến tính) và đọc trang web siêu văn bản"
+    "caption": "Sách đọc tuần tự bằng tay — Trang web nhảy tức thì qua siêu liên kết"
   },
   {
     "kind": "section",
-    "tag": "HOẠT ĐỘNG 2.1 • KHÁM PHÁ 1 (MỤC 1 SGK)",
+    "tag": "HOẠT ĐỘNG 2.1 • KHÁM PHÁ 1 (15')",
     "title": "1. SIÊU VĂN BẢN VÀ ĐƯỜNG DẪN",
-    "subtitle": "Khám phá bản chất Hypertext, ví dụ thực tế .docx vs .txt, thẻ <a> và hai loại đường dẫn (tr.57–58)",
+    "subtitle": "SGK tr.57–58 • Hoạt động 1 (.docx vs .txt) • Thẻ <a> • Tuyệt đối & Tương đối",
     "theme": "emerald",
     "pills": [
       [
-        "Hoạt động 1",
-        "Phân biệt tệp .docx (Word) và tệp .txt (Notepad).",
+        "Siêu văn bản",
+        "Chữ + Ảnh + Video + Link",
         "blue"
       ],
       [
-        "Siêu liên kết",
-        "Thẻ <a href=\"URL\">Nội dung</a> & 3 ví dụ.",
+        "Thẻ <a href>",
+        "<a href=\"URL\">Nội dung</a>",
         "emerald"
       ],
       [
-        "Đường dẫn",
-        "Đường dẫn tuyệt đối vs Đường dẫn tương đối.",
+        "2 loại URL",
+        "Tuyệt đối vs Tương đối",
         "purple"
       ]
     ]
   },
   {
+    "kind": "visual_hero",
+    "badge": "KHÁM PHÁ 1 • HOẠT ĐỘNG 1 (TR.57)",
+    "title": "ĐỌC TỆP .DOCX (WORD) KHÁC GÌ TỆP .TXT (NOTEPAD)?",
+    "sub": "Quan sát cửa sổ thực tế",
+    "theme": "blue",
+    "image": "illus_10_docx_vs_txt.png",
+    "caption": ".docx bấm Ctrl + Click mở ngay web • .txt chỉ lưu chữ đen tĩnh"
+  },
+  {
     "kind": "image_focus",
-    "badge": "KHÁM PHÁ 1 • SIÊU VĂN BẢN LÀ GÌ?",
-    "title": "VÍ DỤ TRỰC QUAN: MỘT TRANG SIÊU VĂN BẢN (HYPERTEXT)",
-    "heading": "4 thành phần tạo nên Siêu văn bản",
+    "badge": "KHÁM PHÁ 1 • MỤC 1 (TR.57)",
+    "title": "SIÊU VĂN BẢN (HYPERTEXT) LÀ GÌ?",
+    "heading": "3 từ khóa cốt lõi:",
     "bullets": [
-      "Tích hợp nhiều dạng dữ liệu: Văn bản, Hình ảnh, Âm thanh & Video.",
-      "Chứa các Siêu liên kết xanh gạch chân dẫn sang nhiều trang khác nhau.",
-      "Ví dụ thực tế: Bài viết Wikipedia, báo điện tử VnExpress, sách Hành trang số."
+      "Tích hợp chữ, ảnh, video.",
+      "Gắn mạng lưới siêu liên kết.",
+      "VD: Wikipedia, Hành trang số."
     ],
     "image": "illus_10_sieu_van_ban_la_gi.png",
-    "caption": "Minh họa cấu trúc một trang Siêu văn bản HTML5 thực tế trên trình duyệt"
+    "caption": "4 thành phần trực quan trên một trang Siêu văn bản HTML5"
   },
   {
-    "kind": "image_focus",
-    "badge": "KHÁM PHÁ 1 • HOẠT ĐỘNG 1 (TR.57)",
-    "title": "SO SÁNH TỆP .DOCX (WORD) VÀ TỆP .TXT (NOTEPAD)",
-    "heading": "Vì sao đọc .docx khác hẳn đọc .txt?",
-    "bullets": [
-      ".docx (Word): Có màu chữ, hình ảnh, gạch chân xanh và Ctrl+Click mở link.",
-      ".txt (Notepad): Văn bản thuần túy, chỉ lưu kí tự thô trên một phông đơn sắc.",
-      "Link trong .txt chỉ là chữ tĩnh, muốn mở phải Copy rồi dán sang trình duyệt!"
-    ],
-    "image": "illus_10_docx_vs_txt.png",
-    "caption": "Đối chiếu trực tiếp cửa sổ Microsoft Word (.docx) và Notepad (.txt)"
-  },
-  {
-    "kind": "image_focus",
-    "badge": "KHÁM PHÁ 1 • SIÊU LIÊN KẾT & THẺ <a>",
-    "title": "SIÊU LIÊN KẾT LÀ GÌ? GIẢI PHẪU THẺ <A> & VÍ DỤ",
-    "heading": "Cấu tạo cú pháp <a href=\"URL\">...</a>",
-    "bullets": [
-      "Cặp thẻ đôi <a>...</a> (Anchor) đánh dấu vùng chứa siêu liên kết.",
-      "Thuộc tính bắt buộc href=\"URL\" khai báo địa chỉ trang đích cần mở.",
-      "Nội dung bên trong có thể là dòng chữ hoặc hình ảnh <img> bấm được!"
-    ],
+    "kind": "visual_hero",
+    "badge": "KHÁM PHÁ 1 • CÚ PHÁP THẺ <a>",
+    "title": "SIÊU LIÊN KẾT (HYPERLINK): CÚ PHÁP <A> & 3 VÍ DỤ",
+    "sub": "Di chuột hóa bàn tay • Nhấp chuột chuyển trang",
+    "theme": "emerald",
     "image": "illus_10_sieu_lien_ket_anatomy.png",
-    "caption": "Giải phẫu cú pháp thẻ <a> và 3 ví dụ siêu liên kết thường gặp"
+    "caption": "<a href=\"URL\">Nội dung chữ hoặc ảnh <img></a>"
   },
   {
     "kind": "image_focus",
-    "badge": "KHÁM PHÁ 1 • GHI NHỚ SGK TR.58",
-    "title": "ĐƯỜNG DẪN TUYỆT ĐỐI (ABSOLUTE URL) & VÍ DỤ",
-    "heading": "Khi nào dùng đường dẫn tuyệt đối?",
+    "badge": "KHÁM PHÁ 1 • MỤC 1 (TR.58)",
+    "title": "ĐƯỜNG DẪN TUYỆT ĐỐI (ABSOLUTE URL)",
+    "heading": "Khi nào dùng?",
     "bullets": [
-      "Ghi đủ giao thức (http://, https://), tên miền và đường dẫn tệp đích.",
-      "Ví dụ chuẩn: https://www.nxbgd.vn/ hoặc http://hocmai.vn/khoahoc.",
-      "Bắt buộc dùng khi liên kết ra Website khác trên Internet.",
-      "CẢNH BÁO: Tránh dùng đường dẫn ổ đĩa cá nhân D:\\TinHoc12\\index.html!"
+      "Đủ https:// + tên miền.",
+      "Dùng trỏ ra Website ngoài.",
+      "VD: https://www.nxbgd.vn/"
     ],
     "image": "illus_10_duong_dan_tuyet_doi.png",
-    "caption": "Phân tích từng thành phần đường dẫn tuyệt đối và lưu ý ổ đĩa cá nhân"
+    "caption": "Cấu trúc URL tuyệt đối trên Internet & cảnh báo đường dẫn ổ D:\\"
   },
   {
     "kind": "image_focus",
-    "badge": "KHÁM PHÁ 1 • GHI NHỚ SGK TR.58",
-    "title": "ĐƯỜNG DẪN TƯƠNG ĐỐI (RELATIVE URL) & CÂY THƯ MỤC",
-    "heading": "3 hướng đi từ tệp HTML đang đứng",
+    "badge": "KHÁM PHÁ 1 • MỤC 1 (TR.58)",
+    "title": "ĐƯỜNG DẪN TƯƠNG ĐỐI (RELATIVE URL)",
+    "heading": "3 hướng đi nội bộ:",
     "bullets": [
-      "Không có giao thức hay tên miền; xác định tính từ thư mục chứa tệp hiện tại.",
-      "Cùng cấp: href=\"thong_tin.html\". Vào thư mục con: bai_tap/bai_tap_1.html.",
-      "Lùi lên 1 cấp thư mục cha: dùng kí hiệu ../ (vd: ../index.html)."
+      "Cùng cấp: thong_tin.html",
+      "Xuống con: bai_tap/bt1.html",
+      "Lùi lên cha: ../index.html"
     ],
     "image": "illus_10_duong_dan_tuong_doi.png",
-    "caption": "Minh họa 3 hướng đi của đường dẫn tương đối theo Hình 10.1 SGK"
+    "caption": "Tính từ thư mục chứa tệp HTML hiện tại — gọn & không gãy link"
   },
   {
-    "kind": "image_focus",
-    "badge": "KHÁM PHÁ 1 • TÌNH HUỐNG THỰC TẾ",
-    "title": "VÌ SAO PHẢI TRÁNH ĐƯỜNG DẪN Ổ ĐĨA D:\\... ?",
-    "heading": "Chuyện gì xảy ra khi chuyển máy?",
-    "bullets": [
-      "Đường dẫn D:\\TinHoc12\\thong_tin.html chỉ có trên máy cá nhân của em.",
-      "Khi nộp bài sang máy Giáo viên hoặc đưa lên web host, link lập tức báo lỗi 404!",
-      "Đường dẫn tương đối giúp cả thư mục Website chạy ổn định ở mọi nơi."
-    ],
+    "kind": "visual_hero",
+    "badge": "KHÁM PHÁ 1 • LƯU Ý QUAN TRỌNG",
+    "title": "TẠI SAO CẤM DÙNG ĐƯỜNG DẪN Ổ ĐĨA D:\\... TRONG WEB?",
+    "sub": "SGK Tin học 12 • Trang 58",
+    "theme": "red",
     "image": "illus_10_so_sanh_di_chuyen_web.png",
-    "caption": "So sánh khi chép Website dùng D:\\... vs đường dẫn tương đối sang máy khác"
+    "caption": "Ổ D:\\ hỏng ngay khi sang máy khác • Tương đối chạy 100% mọi nơi"
   },
   {
     "kind": "quiz",
-    "badge": "KHÁM PHÁ 1 • CÂU HỎI CUỐI MỤC 1 (TR.58)",
-    "title": "PHÂN LOẠI CÁC ĐƯỜNG DẪN SAU ĐÂY",
-    "question": "Các đường dẫn sau là đường dẫn tuyệt đối hay tương đối? Đường dẫn nào nên tránh dùng khi thiết kế website?",
+    "badge": "KHÁM PHÁ 1 • CÂU HỎI MỤC 1 (TR.58)",
+    "title": "PHÂN LOẠI ĐƯỜNG DẪN & CHỌN CÁCH VIẾT CHUẨN",
+    "question": "Phân loại 3 đường dẫn sau và chỉ ra đường dẫn không nên dùng cho website:",
     "options": [
       "a) http://hocmai.vn/khoahoc",
       "b) bai_tap/bai_tap_1.html",
       "c) D:\\TinHoc12\\index.html"
     ],
     "answer": [
-      "a) Tuyệt đối (trên Internet) – dùng hợp lệ khi trỏ sang trang ngoài.",
-      "b) Tương đối – trỏ vào thư mục con bai_tap, rất chuẩn cho liên kết nội bộ.",
-      "c) Tuyệt đối trên ổ đĩa máy cá nhân – TRÁNH DÙNG vì hỏng link ở máy khác!"
+      "a) Tuyệt đối (Internet) — dùng mở trang ngoài.",
+      "b) Tương đối (thư mục con) — chuẩn cho web nội bộ.",
+      "c) Tuyệt đối ổ đĩa cá nhân — KHÔNG NÊN DÙNG!"
     ]
   },
   {
     "kind": "section",
-    "tag": "HOẠT ĐỘNG 2.2 • KHÁM PHÁ 2 (MỤC 2 SGK)",
-    "title": "2. CÁC CÁCH TẠO LIÊN KẾT TỚI MỘT TRANG WEB",
-    "subtitle": "Hoạt động 2 & Mục 2a, 2b (SGK tr.58–60): Liên kết ngoài, cùng website, neo #id và hình ảnh",
+    "tag": "HOẠT ĐỘNG 2.2 • KHÁM PHÁ 2 (20')",
+    "title": "2. CÁC CÁCH TẠO LIÊN KẾT TỚI TRANG WEB",
+    "subtitle": "SGK tr.58–60 • Web ngoài (2a) • Cùng website Hình 10.1 (2b) • Neo #id & Ảnh",
     "theme": "purple",
     "pills": [
       [
-        "2a) Trang web khác",
-        "Dùng đường dẫn tuyệt đối http:// hoặc https://.",
+        "2a) Web ngoài",
+        "Đủ giao thức https://",
         "blue"
       ],
       [
-        "2b) Cùng website",
-        "Dựa theo sơ đồ Hình 10.1: cùng cấp, thư mục con, ../.",
+        "2b) Hình 10.1",
+        "Tương đối: tên tệp, /, ../",
         "emerald"
       ],
       [
-        "Neo #id & Ảnh <img>",
-        "Chuyển vị trí cụ thể trên trang & lồng <img> trong <a>.",
+        "Neo & Ảnh",
+        "#id và <a><img></a>",
         "amber"
       ]
     ]
   },
   {
-    "kind": "image_focus",
+    "kind": "visual_hero",
     "badge": "KHÁM PHÁ 2 • HOẠT ĐỘNG 2 (TR.58)",
-    "title": "4 KIỂU SIÊU LIÊN KẾT THƯỜNG GẶP KHI LƯỚT WEB",
-    "heading": "Hoạt động 2 SGK tr.58",
-    "bullets": [
-      "(1) Liên kết ra một trang web khác trên Internet (URL https://...).",
-      "(2) Liên kết giữa các trang trong cùng website (đường dẫn tương đối).",
-      "(3) Liên kết cuộn tới một vị trí cụ thể trên trang (#id).",
-      "(4) Liên kết gắn trên hình ảnh, biểu tượng hoặc nút bấm."
-    ],
+    "title": "4 KIỂU SIÊU LIÊN KẾT THƯỜNG GẶP TRÊN WEB",
+    "sub": "Hoạt động 2 • SGK tr.58",
+    "theme": "purple",
     "image": "illus_10_4_kieu_lien_ket_web.png",
-    "caption": "Tổng quan 4 kiểu liên kết phổ biến trong thiết kế web"
+    "caption": "Web ngoài • Cùng website • Vị trí #id • Hình ảnh liên kết"
   },
   {
-    "kind": "code_result",
+    "kind": "dual_image",
     "badge": "KHÁM PHÁ 2 • MỤC 2a (TR.59)",
-    "title": "LIÊN KẾT TỚI MỘT TRANG WEB KHÁC TRÊN INTERNET",
-    "filename": "index.html",
-    "code": "<!DOCTYPE html>\n<html>\n<body>\n  <h2>Học liệu trực tuyến</h2>\n  <p>Truy cập bộ sách điện tử kết nối tri thức:</p>\n  <a href=\"https://hanhtrangso.nxbgd.vn/sach-dien-tu?book_active=0\">\n    Mở Hành trang số NXB Giáo dục\n  </a>\n</body>\n</html>",
-    "notes": [
-      "Hoạt động 2 (tr.58): Khi lướt web ta gặp 4 dạng liên kết chính: sang trang ngoài, sang trang cùng web, cuộn tại chỗ và bấm vào hình ảnh.",
-      "Với trang web bên ngoài, bắt buộc dùng đường dẫn tuyệt đối có https:// hoặc http://.",
-      "Nếu quên https://, trình duyệt sẽ tưởng là tên tệp tương đối trong máy và báo lỗi 404!"
-    ]
+    "title": "LIÊN KẾT TỚI TRANG WEB KHÁC & BẪY QUÊN HTTPS://",
+    "theme": "blue",
+    "left_title": "1. Kết nối ra Internet (Đúng chuẩn)",
+    "left_image": "illus_10_22_lien_ket_ngoai_browser.png",
+    "left_caption": "Mở thẳng website ngoài nhờ URL tuyệt đối",
+    "right_title": "2. So sánh Có https:// vs Thiếu https://",
+    "right_image": "illus_10_22_loi_quyen_https.png",
+    "right_caption": "Thiếu https:// trình duyệt tìm nhầm thành tệp 404!"
   },
   {
-    "kind": "image_focus",
+    "kind": "dual_image",
     "badge": "KHÁM PHÁ 2 • MỤC 2b (HÌNH 10.1 TR.59)",
-    "title": "LIÊN KẾT TRONG CÙNG WEBSITE: SƠ ĐỒ CÂY THƯ MỤC",
-    "heading": "Xác định vị trí từ trang đang đứng",
-    "bullets": [
-      "Từ gốc (index.html) tới tệp cùng thư mục: chỉ cần ghi tên tệp, vd: href=\"thong_tin.html\".",
-      "Từ gốc đi XUỐNG thư mục con: ghi tên thư mục + / + tên tệp.",
-      "Ví dụ: href=\"bai_tap/bai_tap_1.html\" hoặc href=\"bai_tap/on_tap/bai_tap_on_tap.html\".",
-      "Lưu ý phân cách thư mục trên web luôn dùng dấu gạch chéo xuôi / (không dùng \\)."
-    ],
-    "image": "sgk_hinh10_1.png",
-    "caption": "Hình 10.1a: Sơ đồ thư mục website (SGK Tin học 12, tr.59)"
+    "title": "CÂY THƯ MỤC HÌNH 10.1: CÙNG CẤP & THƯ MỤC CON",
+    "theme": "emerald",
+    "left_title": "1. Cấu trúc cây thư mục Website (Hình 10.1 SGK)",
+    "left_image": "sgk_hinh10_1.png",
+    "left_caption": "web/ chứa index.html, thong_tin.html, bai_tap/...",
+    "right_title": "2. Liên kết cùng cấp & Đi xuống thư mục con (/)",
+    "right_image": "illus_10_22_cung_thu_muc_va_con.png",
+    "right_caption": "thong_tin.html • bai_tap/on_tap/bai_tap_on_tap.html"
   },
   {
-    "kind": "image_focus",
+    "kind": "visual_hero",
     "badge": "KHÁM PHÁ 2 • MỤC 2b (TR.59)",
-    "title": "ĐI NGƯỢC LÊN THƯ MỤC CHA BẰNG KÍ HIỆU ../",
-    "heading": "Khi tệp nguồn nằm trong thư mục con",
-    "bullets": [
-      "Giả sử đang đứng ở tệp bai_tap/bai_tap_1.html (nằm sâu 1 cấp).",
-      "Muốn liên kết quay về index.html ở thư mục cha: viết href=\"../index.html\".",
-      "Kí hiệu ../ có nghĩa là đi lùi lên 1 cấp thư mục cha.",
-      "Từ bai_tap/on_tap/bai_tap_on_tap.html (sâu 2 cấp) về gốc: viết ../../index.html."
-    ],
-    "image": "sgk_hinh10_1_sub.png",
-    "caption": "Hình 10.1b: Liên kết ngược lên thư mục cha bằng ../"
+    "title": "ĐI NGƯỢC LÊN THƯ MỤC CHA BẰNG ../ VÀ ../../",
+    "sub": "Khi trang nguồn nằm trong thư mục con",
+    "theme": "purple",
+    "image": "illus_10_22_lui_thu_muc_cha.png",
+    "caption": "Mỗi ../ bước lùi lên 1 cấp thư mục cha"
   },
   {
-    "kind": "code_result",
+    "kind": "dual_image",
     "badge": "KHÁM PHÁ 2 • MỤC 2b (TR.59–60)",
-    "title": "LIÊN KẾT TỚI MỘT VỊ TRÍ CỤ THỂ TRÊN TRANG (ID & #)",
-    "filename": "thong_tin.html",
-    "code": "<!-- Đánh dấu vị trí đích bằng id -->\n<h2 id=\"Thong_tin\">Thông tin chi tiết CLB</h2>\n<p>Lịch sinh hoạt: Chiều thứ Sáu hằng tuần...</p>\n\n<!-- Liên kết ngay trong cùng trang -->\n<a href=\"#Thong_tin\">Đi tới mục Thông tin</a>\n\n<!-- Hoặc từ index.html trỏ sang đúng đoạn này -->\n<a href=\"thong_tin.html#Thong_tin\">Xem mục Thông tin</a>",
-    "notes": [
-      "Bước 1: Đặt thuộc tính id=\"Ten_vi_tri\" ở thẻ HTML nơi muốn nhảy tới (không dấu cách, phân biệt hoa/thường).",
-      "Bước 2: Dùng href=\"#Ten_vi_tri\" nếu nhảy trong cùng một trang web.",
-      "Bước 3: Ghép ten_tep.html#Ten_vi_tri nếu nhảy từ trang khác tới đúng mục đó!"
-    ]
+    "title": "LIÊN KẾT VỊ TRÍ CỤ THỂ BẰNG MÃ ĐỊNH DANH ID VÀ #",
+    "theme": "blue",
+    "left_title": "1. Nhảy trên CÙNG trang (#id)",
+    "left_image": "illus_10_22_neo_cung_trang.png",
+    "left_caption": "Đặt id=\"CLB_TinHoc\" rồi gọi href=\"#CLB_TinHoc\"",
+    "right_title": "2. Nhảy tới vị trí trên TRANG KHÁC (tep.html#id)",
+    "right_image": "illus_10_22_neo_khac_trang.png",
+    "right_caption": "Ghép tên tệp + #id: thong_tin.html#CLBTT"
   },
   {
-    "kind": "code_result",
+    "kind": "visual_hero",
     "badge": "KHÁM PHÁ 2 • MỤC 2b (TR.60)",
     "title": "SỬ DỤNG HÌNH ẢNH LÀM SIÊU LIÊN KẾT",
-    "filename": "index.html",
-    "code": "<p>Nhấp vào biểu tượng để xem thông tin:</p>\n<a href=\"thong_tin.html\">\n  <img src=\"images/sun.png\" alt=\"Xem thông tin\">\n</a>\n\n<!-- Có thể kết hợp neo id trên liên kết ảnh -->\n<a href=\"CLB.html#CLBTT\">\n  <img src=\"images/the_thao.png\" alt=\"CLB Thể thao\">\n</a>",
-    "notes": [
-      "Nguyên tắc cực kì đơn giản: Đặt thẻ <img> vào giữa thẻ mở <a> và thẻ đóng </a> thay cho phần chữ.",
-      "Khi di chuột vào hình ảnh, con trỏ đổi thành hình bàn tay và bấm vào sẽ chuyển trang.",
-      "Nhớ luôn thêm thuộc tính alt để trình duyệt mô tả ảnh nếu ảnh chưa kịp tải."
-    ]
+    "sub": "Đặt thẻ <img> bên trong cặp thẻ <a>...</a>",
+    "theme": "amber",
+    "image": "illus_10_22_hinh_anh_lam_lien_ket.png",
+    "caption": "Tránh đặt href trực tiếp lên <img> — phải bọc trong <a href=\"...\">"
   },
   {
     "kind": "image_focus",
-    "badge": "KHÁM PHÁ 2 • NEO #ID & ẢNH LINK (TR.59–60)",
-    "title": "SƠ ĐỒ TẠO NEO VỊ TRÍ (#ID) & HÌNH ẢNH LÀM LIÊN KẾT",
-    "heading": "2 kĩ thuật tạo liên kết nâng cao",
+    "badge": "KHÁM PHÁ 2 • CÂU HỎI MỤC 2 (TR.60)",
+    "title": "THỬ THÁCH HÌNH 10.1 & PHIẾU BÀI TẬP",
+    "heading": "Yêu cầu thực hiện:",
     "bullets": [
-      "Bước 1: Đóng dấu phần tử đích bằng thuộc tính id=\"Thong_tin\".",
-      "Bước 2: Trên cùng trang viết #Thong_tin; khác trang viết thong_tin.html#Thong_tin.",
-      "Liên kết ảnh: Đặt <img src=\"...\"> bên trong cặp <a href=\"...\">...</a>."
+      "Viết <ul> đặt tại index.html.",
+      "Nối tới bai_tap_1.html & ôn tập.",
+      "Quét QR làm Phiếu BT 6 câu!"
     ],
-    "image": "illus_10_neo_id_va_anh_link.png",
-    "caption": "Minh họa neo vị trí #id và kĩ thuật lồng <img> trong <a>"
-  },
-  {
-    "kind": "quiz",
-    "badge": "KHÁM PHÁ 2 • CÂU HỎI CUỐI MỤC 2 (TR.60)",
-    "title": "VIẾT MÃ DANH SÁCH <ul> LIÊN KẾT THEO HÌNH 10.1",
-    "question": "Hãy viết đoạn mã HTML đặt trong tệp index.html để tạo danh sách không có thứ tự gồm 2 mục liên kết tới trang bai_tap_1.html (trong thư mục bai_tap/) và bai_tap_on_tap.html (trong bai_tap/on_tap/).",
-    "options": [
-      "Tệp nguồn: index.html nằm ở thư mục gốc.",
-      "Đích 1: bai_tap_1.html nằm trong bai_tap/.",
-      "Đích 2: bai_tap_on_tap.html nằm trong bai_tap/on_tap/."
-    ],
-    "answer": [
-      "<ul>",
-      "  <li><a href=\"bai_tap/bai_tap_1.html\">Bài tập 1</a></li>",
-      "  <li><a href=\"bai_tap/on_tap/bai_tap_on_tap.html\">Bài tập ôn tập</a></li>",
-      "</ul>"
-    ]
+    "image": "illus_10_22_cau_hoi_ul_hinh10_1.png",
+    "caption": "Xác định href đúng cho 2 tệp trong bai_tap/ rồi đối chiếu trên web"
   },
   {
     "kind": "section",
-    "tag": "HOẠT ĐỘNG 3 • LUYỆN TẬP (MỤC 3 SGK TR.61)",
-    "title": "THỰC HÀNH TẠO WEBSITE NHIỀU TỆP HTML",
-    "subtitle": "Tạo ít nhất 2 tệp HTML trên Phòng Luyện tập (CLB.html, thong_tin.html & tệp tự tạo thêm)",
+    "tag": "HOẠT ĐỘNG 3 • LUYỆN TẬP (35')",
+    "title": "THỰC HÀNH WEBSITE NHIỀU TỆP HTML",
+    "subtitle": "Mục 3 SGK tr.61 • Phòng Luyện tập Đa tệp (hd3.html)",
     "theme": "emerald",
     "pills": [
       [
-        "Bước 1: Tạo >= 2 tệp",
-        "Soạn cả CLB.html và thong_tin.html (hoặc thêm tệp mới).",
+        "Tạo >= 2 tệp",
+        "CLB.html & thong_tin.html",
         "blue"
       ],
       [
-        "Bước 2: Gắn liên kết",
-        "Nối CLB.html <-> thong_tin.html#CLBTT và URL https://.",
+        "Gắn liên kết",
+        "thong_tin.html#CLBTT & https://",
         "emerald"
       ],
       [
-        "Bước 3: Chấm 8 tiêu chí",
-        "Bấm link trên Trình duyệt ảo bên phải kiểm tra rồi nộp!",
+        "Kiểm thử & Nộp",
+        "Chấm 8 tiêu chí & lưu ZIP",
         "purple"
       ]
     ]
   },
   {
-    "kind": "image_focus",
-    "badge": "HOẠT ĐỘNG 3 • NHIỆM VỤ SGK TR.61",
-    "title": "XÂY DỰNG BỘ TRANG CLB.HTML & THONG_TIN.HTML",
-    "heading": "Tại sao cần từ 2 tệp HTML trở lên?",
-    "bullets": [
-      "Nếu chỉ có 1 tệp CLB.html đơn lẻ thì liên kết nội bộ <a href=\"thong_tin.html\"> sẽ báo lỗi 404!",
-      "Trên hd3.html đã có sẵn 2 tab CLB.html & thong_tin.html và nút '+ Tạo thêm tệp .html'.",
-      "HS có thể tạo thêm tệp cùng cấp (lich_su_CLB.html) hoặc thư mục con (bai_tap/bt1.html).",
-      "Khi bấm link trong Trình duyệt ảo, web sẽ chuyển trang thật như trình duyệt máy tính!"
-    ],
-    "image": "sgk_hinh10_2.png",
-    "caption": "Hình 10.2: Trang CLB.html liên kết sang thong_tin.html (SGK tr.61)"
+    "kind": "visual_hero",
+    "badge": "HOẠT ĐỘNG 3 • MẪU KẾT QUẢ BIÊN DỊCH",
+    "title": "MẪU KẾT QUẢ SAU KHI BIÊN DỊCH FILE 1 ⇄ FILE 2",
+    "sub": "Quan sát giao diện đích trước khi gõ mã trên hd3.html",
+    "theme": "blue",
+    "image": "illus_10_hd3_mau_file1_va_file2.png",
+    "caption": "Bấm liên kết giữa CLB.html (File 1) và thong_tin.html#CLBTT (File 2)"
   },
   {
-    "kind": "code_result",
-    "badge": "HOẠT ĐỘNG 3 • CODE MẪU ĐỐI CHIẾU",
-    "title": "MẪU LIÊN KẾT HAI CHIỀU CLB.HTML <-> THONG_TIN.HTML",
-    "filename": "CLB.html  <-->  thong_tin.html",
-    "code": "<!-- Trong tệp CLB.html -->\n<ul>\n  <li><a href=\"thong_tin.html#CLBTT\">Xem CLB Thể thao</a></li>\n  <li><a href=\"thong_tin.html\">Xem trang Thông tin chung</a></li>\n  <li><a href=\"https://hanhtrangso.nxbgd.vn/\">Hành trang số</a></li>\n</ul>\n\n<!-- Trong tệp thong_tin.html -->\n<h2 id=\"CLBTT\">Câu lạc bộ Thể thao</h2>\n<p>Bóng đá, Bóng rổ, Cầu lông...</p>\n<a href=\"CLB.html\">← Quay về trang CLB.html</a>",
-    "notes": [
-      "Tránh đặt id có dấu tiếng Việt hoặc khoảng trắng (nên dùng id=\"CLBTT\" hoặc id=\"lich_su\").",
-      "Đặt tên tệp không dấu, khớp chữ hoa/thường: CLB.html khác clb.html trên máy chủ Linux!",
-      "Trong bài học hôm nay, học sinh hoàn toàn tập trung vào href, id/# và cấu trúc đa tệp chuẩn SGK."
-    ]
+    "kind": "dual_image",
+    "badge": "HOẠT ĐỘNG 3 • HƯỚNG DẪN 2 NHIỆM VỤ",
+    "title": "MINH HỌA NHIỆM VỤ 1 (FILE 2) & NHIỆM VỤ 2 (FILE 1)",
+    "theme": "emerald",
+    "left_title": "Nhiệm vụ 1: Soạn File 2 (thong_tin.html) & tạo thêm tệp",
+    "left_image": "illus_10_hd3_nv1_tao_2_file.png",
+    "left_caption": "Đặt id=\"CLBTT\" và link quay về CLB.html",
+    "right_title": "Nhiệm vụ 2: Soạn File 1 (CLB.html) & nối liên kết",
+    "right_image": "illus_10_hd3_nv2_gan_lien_ket_clb.png",
+    "right_caption": "Gắn link chéo #CLBTT, URL https:// và neo #id"
   },
   {
-    "kind": "section",
-    "tag": "HOẠT ĐỘNG 4 • INFOGRAPHIC & VẬN DỤNG (TR.61)",
-    "title": "TỔNG KẾT ANTV INFOGRAPHIC & GIẢI BÀI TẬP SGK",
-    "subtitle": "Hệ thống hóa 4 trụ cột kiến thức và luyện tập thiết kế hệ thống hồ sơ CLB nhiều tệp",
+    "kind": "visual_hero",
+    "badge": "HOẠT ĐỘNG 4 • INFOGRAPHIC & VẬN DỤNG (15')",
+    "title": "TỔNG KẾT BÀI 10 & VẬN DỤNG HỒ SƠ CLB ĐA TỆP",
+    "sub": "AntV Infographic Studio & Câu hỏi SGK tr.61 (hd4.html)",
     "theme": "purple",
-    "pills": [
-      [
-        "AntV Studio",
-        "4 chế độ: Lộ trình, 4 Trụ cột, So sánh, Mindmap.",
-        "purple"
-      ],
-      [
-        "Flashcards 3D",
-        "4 thẻ lật tự kiểm tra lỗi dễ mắc về đường dẫn.",
-        "blue"
-      ],
-      [
-        "SGK tr.61",
-        "Luyện tập 1, Luyện tập 2 & Vận dụng (Hồ sơ CLB).",
-        "emerald"
-      ]
-    ]
-  },
-  {
-    "kind": "three_col",
-    "badge": "HOẠT ĐỘNG 4 • TỔNG KẾT NHANH",
-    "title": "3 ĐIỀU CẦN NHỚ NHẤT CỦA BÀI 10: TẠO LIÊN KẾT",
-    "cols": [
-      {
-        "heading": "1. Cú pháp <a href>",
-        "color": "blue",
-        "subhead": "Thẻ đôi tạo liên kết",
-        "bullets": [
-          "<a href=\"URL\">Chữ/Ảnh</a>",
-          "Tuyệt đối: có https:// cho web ngoài.",
-          "Tương đối: dùng cho các tệp trong cùng web."
-        ]
-      },
-      {
-        "heading": "2. Điều hướng Thư mục",
-        "color": "emerald",
-        "subhead": "Quy tắc Hình 10.1",
-        "bullets": [
-          "Cùng cấp: ten_tep.html",
-          "Thư mục con: thu_muc/tep.html",
-          "Thư mục cha: ../tep.html"
-        ]
-      },
-      {
-        "heading": "3. Neo & Hình ảnh",
-        "color": "amber",
-        "subhead": "Liên kết nâng cao",
-        "bullets": [
-          "Cùng trang: id=\"ten\" + #ten.",
-          "Khác trang + vị trí: tep.html#ten.",
-          "Ảnh link: bọc <img> trong <a>."
-        ]
-      }
-    ]
-  },
-  {
-    "kind": "quiz",
-    "badge": "HOẠT ĐỘNG 4 • VẬN DỤNG SGK TR.61",
-    "title": "BÀI TẬP VẬN DỤNG: HỒ SƠ CÁ NHÂN THÀNH VIÊN CLB",
-    "question": "Hãy thiết kế website giới thiệu hồ sơ cá nhân của các thành viên trong câu lạc bộ (mỗi bạn là một tệp HTML riêng), sau đó tạo liên kết từ trang danh sách thành viên tới từng trang hồ sơ.",
-    "options": [
-      "Trang danh sách: thanh_vien.html (hoặc CLB.html).",
-      "Thư mục hồ sơ con: ho_so/Nguyen_Van_An.html, ho_so/Tran_Binh.html.",
-      "Yêu cầu: Bấm tên bạn nào mở đúng tệp hồ sơ của bạn đó và có nút quay về."
-    ],
-    "answer": [
-      "Trong thanh_vien.html: <a href=\"ho_so/Nguyen_Van_An.html\">Nguyễn Văn An</a>.",
-      "Trong ho_so/Nguyen_Van_An.html: <a href=\"../thanh_vien.html\">← Về danh sách</a>.",
-      "HS thực hành tạo ngay nhiều tệp trên Phòng Luyện tập hd3.html!"
-    ]
+    "image": "illus_10_hd4_tong_ket_van_dung.png",
+    "caption": "Ghi nhớ 4 quy tắc vàng & Thiết kế Website Hồ sơ thành viên (ho_so/an.html)"
   },
   {
     "kind": "thank_you",
-    "title": "HOÀN THÀNH BÀI 10: TẠO LIÊN KẾT (TIN HỌC 12)",
+    "title": "HOÀN THÀNH BÀI 10: TẠO LIÊN KẾT",
     "takeaways": [
-      "Thẻ <a> dùng thuộc tính href để nối siêu văn bản tới URL ngoài (tuyệt đối) hoặc tệp nội bộ (tương đối).",
-      "Muốn liên kết hoạt động thật giữa các trang thì dự án phải có từ 2 tệp HTML trở lên và đặt tên chuẩn không dấu.",
-      "Thực hành thành thạo mô hình đa tệp trên hd3.html và ôn tập kĩ Luyện tập 1, 2, Vận dụng tr.61 trên hd4.html."
+      "Cú pháp: <a href=\"URL\">Nội dung chữ hoặc <img></a>.",
+      "Ngoài: https://... • Nội bộ cùng website: tên tệp, thu_muc/tệp, ../tệp.",
+      "Hoàn thành dự án ≥ 2 tệp trên hd3.html & Hồ sơ CLB tr.61 trên hd4.html."
     ]
   }
 ]
 LESSON_SHORT = "Bài 10: Tạo liên kết"
 OUT_PPTX_NAME = "Bai10_TrinhChieu.pptx"
+LIGHT_MODE = True
 
 if __name__ == "__main__":
     here = os.path.dirname(os.path.abspath(__file__))
     assets_dir = os.path.join(here, "assets", "sgk")
     out_pptx = os.path.join(here, OUT_PPTX_NAME)
-    build_from_slides_data(SLIDES_DATA, LESSON_SHORT, assets_dir, out_pptx)
+    build_from_slides_data(SLIDES_DATA, LESSON_SHORT, assets_dir, out_pptx, light_mode=LIGHT_MODE)
