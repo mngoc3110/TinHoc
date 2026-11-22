@@ -79,12 +79,23 @@
     .form-grid-single { display:grid; grid-template-columns: minmax(0,2fr) minmax(0,1fr) minmax(0,1fr); gap:0.85rem; }
     .form-grid-pair { display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap:0.85rem; }
     @media (max-width:768px) { .form-grid-single, .form-grid-pair { grid-template-columns: 1fr; } }
-    .editor-preview-split { display:grid; grid-template-columns: 1fr 1fr; gap:1rem; }
+    .editor-preview-split { display:grid; grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.18fr); gap:1rem; }
+    .editor-preview-split.is-wide-preview { grid-template-columns: 1fr; }
+    .editor-preview-split.is-wide-preview .code-editor-area { height: 340px; }
+    .editor-preview-split.is-wide-preview .preview-frame { height: 680px; }
     @media (max-width:900px) { .editor-preview-split { grid-template-columns: 1fr; } }
     .ide-pane, .preview-pane { border:1.5px solid #cbd5e1; border-radius:12px; overflow:hidden; background:#fff; display:flex; flex-direction:column; }
     .ide-header { background:#0f172a; color:#cbd5e1; padding:0.55rem 0.9rem; display:flex; justify-content:space-between; font-family:monospace; font-size:0.8rem; }
-    .code-editor-area { width:100%; height:440px; padding:1rem; background:#0d1117; color:#e6edf3; border:none; font-family:'Fira Code', monospace; font-size:0.86rem; line-height:1.55; resize:vertical; outline:none; }
-    .preview-frame { width:100%; height:440px; border:none; background:#fff; flex:1; }
+    .code-editor-area { width:100%; height:560px; padding:1rem; background:#0d1117; color:#e6edf3; border:none; font-family:'Fira Code', monospace; font-size:0.86rem; line-height:1.55; resize:vertical; outline:none; }
+    .preview-frame { width:100%; height:560px; border:none; background:#fff; flex:1; }
+    .live-zoom-btn { border:1px solid #cbd5e1; background:#fff; color:#1e3a8a; border-radius:6px; padding:0.18rem 0.55rem; font-size:0.74rem; font-weight:700; cursor:pointer; font-family:inherit; display:inline-flex; align-items:center; gap:0.25rem; }
+    .live-zoom-btn:hover { background:#eff6ff; border-color:#2563eb; }
+    .live-zoom-btn.is-primary { background:#2563eb; color:#fff; border-color:#2563eb; }
+    .live-zoom-btn.is-primary:hover { background:#1d4ed8; }
+    dialog.live-preview-dialog { width:96vw; max-width:1760px; height:94vh; max-height:94vh; padding:0; border:2px solid #93c5fd; border-radius:16px; background:#fff; box-shadow:0 25px 60px rgba(15,23,42,0.45); overflow:hidden; }
+    dialog.live-preview-dialog[open] { display:flex; flex-direction:column; }
+    dialog.live-preview-dialog:modal { overscroll-behavior: contain; }
+    dialog.live-preview-dialog::backdrop { background:rgba(15,23,42,0.78); backdrop-filter:blur(4px); overflow:hidden; overscroll-behavior: contain; }
     .mf-project-bar { background:#f8fafc; border:1.5px solid #cbd5e1; border-radius:12px; padding:0.75rem 0.95rem; margin-bottom:0.85rem; }
     .mf-tabs-row { display:flex; align-items:center; flex-wrap:wrap; gap:0.45rem; margin-bottom:0.6rem; }
     .mf-file-tabs { display:flex; flex-wrap:wrap; gap:0.4rem; }
@@ -477,7 +488,7 @@
               </div>
               <div style="font-size:0.75rem;color:#64748b;margin-top:0.35rem;">💡 Mẹo: Để liên kết hoạt động giữa các trang web, hãy tạo ít nhất <strong>2 tệp .html</strong> (VD: <code>CLB.html</code> &amp; <code>thong_tin.html</code>) rồi gắn thẻ <code>&lt;a href="..."&gt;</code> và bấm trực tiếp bên trình duyệt ảo!</div>
             </div>
-            <div class="editor-preview-split">
+            <div id="editor-preview-split" class="editor-preview-split">
               <div class="ide-pane">
                 <div class="ide-header"><span id="ide-active-filename">CLB.html</span><span id="editor-status" style="color:#58a6ff;">● Trống</span></div>
                 <textarea id="clb-code-input" class="code-editor-area" spellcheck="false" placeholder="Ô soạn thảo hiện đang TRỐNG để em tự rèn luyện!
@@ -488,7 +499,14 @@ Mẹo cực nhanh với Kho Học Liệu ngay phía trên:
 Hãy chuyển giữa các tab CLB.html, the_thao.html, nghe_thuat.html, gioi_thieu_truong.html rồi bấm ▶ Chạy!"></textarea>
               </div>
               <div class="preview-pane">
-                <div class="snippet-preview-bar"><span>🌐 KẾT QUẢ WEB TRỰC TIẾP</span><span style="color:#16a34a;">LIVE</span></div>
+                <div class="snippet-preview-bar" style="gap:0.45rem;flex-wrap:wrap;">
+                  <span>🌐 KẾT QUẢ WEB TRỰC TIẾP</span>
+                  <div style="display:flex;align-items:center;gap:0.35rem;flex-wrap:wrap;">
+                    <span style="color:#16a34a;margin-right:0.2rem;">● LIVE</span>
+                    <button type="button" id="btn-wide-preview" class="live-zoom-btn" onclick="toggleWideLivePreview()" aria-pressed="false" title="Mở rộng khung xem trước ngang 100%">◫ Mở rộng ngang</button>
+                    <button type="button" class="live-zoom-btn is-primary" onclick="openFullscreenLivePreview()" title="Phóng to khung kết quả web ra toàn màn hình">⛶ Phóng to toàn màn hình</button>
+                  </div>
+                </div>
                 <div class="vb-nav-bar">
                   <button type="button" id="vb-back-btn" class="vb-nav-btn" onclick="vbGoBack()" disabled title="Quay lại trang trước">←</button>
                   <button type="button" id="vb-home-btn" class="vb-nav-btn" onclick="vbGoHome()" title="Về CLB.html">🏠</button>
@@ -581,6 +599,22 @@ Hãy chuyển giữa các tab CLB.html, the_thao.html, nghe_thuat.html, gioi_thi
       </div>
     </div>
   </div>
+
+  <!-- DIALOG PHÓNG TO TOÀN MÀN HÌNH KẾT QUẢ LIVE -->
+  <dialog id="live-preview-dialog" class="live-preview-dialog" aria-label="Phóng to kết quả web trực tiếp">
+    <div style="background:#0f172a;color:#fff;padding:0.65rem 1.1rem;display:flex;justify-content:space-between;align-items:center;gap:0.75rem;flex-wrap:wrap;">
+      <div style="display:flex;align-items:center;gap:0.6rem;flex-wrap:wrap;">
+        <strong style="font-size:0.95rem;">🌐 KẾT QUẢ WEB TRỰC TIẾP (TOÀN MÀN HÌNH)</strong>
+        <span style="background:#16a34a;color:#fff;padding:0.12rem 0.5rem;border-radius:999px;font-size:0.72rem;font-weight:800;">● LIVE</span>
+        <span id="live-fs-addr" style="background:rgba(255,255,255,0.12);color:#e2e8f0;padding:0.2rem 0.65rem;border-radius:6px;font-family:monospace;font-size:0.8rem;">site://CLB.html</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:0.4rem;flex-wrap:wrap;">
+        <button type="button" class="btn btn-secondary btn-sm" onclick="refreshFullscreenLivePreview()" style="background:#1e293b;color:#f8fafc;border-color:#475569;">🔄 Tải lại</button>
+        <button type="button" class="btn btn-primary btn-sm" onclick="closeFullscreenLivePreview()" style="background:#ef4444;border-color:#ef4444;font-weight:800;">✕ Thu nhỏ (Esc)</button>
+      </div>
+    </div>
+    <iframe id="clb-fullscreen-frame" style="flex:1;width:100%;border:none;background:#fff;display:block;" title="Kết quả web trực tiếp toàn màn hình"></iframe>
+  </dialog>
 
   <footer class="site-footer">
     <div class="container">
@@ -1408,6 +1442,53 @@ Hãy chuyển giữa các tab CLB.html, the_thao.html, nghe_thuat.html, gioi_thi
       if (!Object.prototype.hasOwnProperty.call(projectFiles, currentPreviewFile)) createProjectFile(currentPreviewFile);
       else selectProjectFile(currentPreviewFile);
     }
+    function toggleWideLivePreview() {
+      const split = document.getElementById('editor-preview-split');
+      const btn = document.getElementById('btn-wide-preview');
+      if (!split) return;
+      const wide = split.classList.toggle('is-wide-preview');
+      if (btn) {
+        btn.setAttribute('aria-pressed', wide ? 'true' : 'false');
+        btn.textContent = wide ? '◫ Chia 2 cột' : '◫ Mở rộng ngang';
+      }
+    }
+    function refreshFullscreenLivePreview() {
+      syncActiveEditorToProject();
+      const fr = document.getElementById('clb-fullscreen-frame');
+      const addr = document.getElementById('live-fs-addr');
+      if (!fr) return;
+      const tgtFile = currentPreviewFile || activeFile || PRACT_FILENAME;
+      if (addr) addr.textContent = `site://${tgtFile}`;
+      if (MULTI_FILE_MODE) {
+        renderVirtualFrame(fr, projectFiles, tgtFile, '', { isModal: true, homeFile: PRACT_FILENAME });
+      } else {
+        const val = document.getElementById('clb-code-input')?.value || '';
+        const doc = fr.contentDocument || fr.contentWindow.document;
+        doc.open();
+        doc.write(val.trim() ? rewriteVirtualMediaUrls(val) : '<body style="font-family:sans-serif;display:flex;align-items:center;justify-content:center;height:90vh;color:#64748b;">Ô soạn thảo đang trống.</body>');
+        doc.close();
+      }
+    }
+    function openFullscreenLivePreview() {
+      const dlg = document.getElementById('live-preview-dialog');
+      if (!dlg) return;
+      refreshFullscreenLivePreview();
+      if (typeof dlg.showModal === 'function') {
+        if (!dlg.open) dlg.showModal();
+      } else {
+        dlg.setAttribute('open', '');
+      }
+    }
+    function closeFullscreenLivePreview() {
+      const dlg = document.getElementById('live-preview-dialog');
+      if (!dlg) return;
+      if (typeof dlg.close === 'function' && dlg.open) dlg.close();
+      else dlg.removeAttribute('open');
+    }
+    document.getElementById('live-preview-dialog')?.addEventListener('click', (ev) => {
+      const dlg = ev.currentTarget;
+      if (ev.target === dlg) closeFullscreenLivePreview();
+    });
     function evalCriterion(primaryLower, allFilesMap, rule) {
       if (rule.mode === 'multi_count') {
         const minN = Number(rule.min_files || 2);
