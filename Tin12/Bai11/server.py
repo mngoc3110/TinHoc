@@ -119,7 +119,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             return
 
         if cp == '/api/submit-hd3':
-            fn = f"{clean_name(data.get('className','12A'))}_{clean_name(data.get('studentNumber','May00'))}_{clean_name(data.get('studentName'))}_the_thao.html"
+            fn = f"{clean_name(data.get('className','12A'))}_{clean_name(data.get('studentNumber','May00'))}_{clean_name(data.get('studentName'))}_CLB.html"
             data['filename'] = fn
             with open(os.path.join(HD3_DIR, fn), 'w', encoding='utf-8') as f:
                 f.write(data.get('code', ''))

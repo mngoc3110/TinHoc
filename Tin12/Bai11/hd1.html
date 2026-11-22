@@ -26,12 +26,46 @@
     .qr-zoom-modal { display: none; position: fixed; inset: 0; background: rgba(15,23,42,0.75); backdrop-filter: blur(4px); z-index: 9998; align-items: center; justify-content: center; padding: 1rem; }
     .qr-zoom-modal.active { display: flex; }
     .qr-zoom-box { background: #fff; border-radius: 16px; padding: 2rem; max-width: 460px; width: 100%; text-align: center; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.35); }
-    .sgk-fig-box { background: #fff; border: 1.5px solid #cbd5e1; border-radius: 12px; padding: 0.85rem; margin: 1rem 0; text-align: center; }
-    .sgk-fig-box img { max-width: 100%; max-height: 360px; height: auto; border-radius: 6px; object-fit: contain; }
+    .img-lightbox-overlay { display: none; position: fixed; inset: 0; background: rgba(15,23,42,0.88); backdrop-filter: blur(5px); z-index: 9998; align-items: center; justify-content: center; padding: 1.5vh 1.5vw; }
+    .img-lightbox-overlay.active { display: flex; }
+    .img-lightbox-dialog { background: #ffffff; border-radius: 16px; width: 96vw; max-width: 1860px; max-height: 96vh; padding: 0.9rem 1.25rem 1.1rem; display: flex; flex-direction: column; box-shadow: 0 25px 60px rgba(0,0,0,0.48); overflow: hidden; }
+    .img-lightbox-header { display: flex; justify-content: space-between; align-items: center; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 0.7rem; padding-bottom: 0.55rem; border-bottom: 1px solid #e2e8f0; }
+    .img-lightbox-caption { font-size: 1.02rem; font-weight: 800; color: #1e3a8a; text-align: left; flex: 1; min-width: 220px; }
+    .img-lightbox-tools { display: flex; gap: 0.4rem; flex-wrap: wrap; flex-shrink: 0; }
+    .img-lightbox-body { flex: 1; overflow: auto; background: #f8fafc; border: 1.5px solid #cbd5e1; border-radius: 12px; padding: 0.75rem; display: flex; align-items: flex-start; justify-content: center; min-height: 50vh; }
+    .img-lightbox-body.is-zoomed { justify-content: flex-start; }
+    #img-zoom-target { display: block; border-radius: 10px; background: #fff; box-shadow: 0 4px 20px rgba(15,23,42,0.08); }
+    .sgk-fig-box { background: #fff; border: 1.5px solid #cbd5e1; border-radius: 12px; padding: 0.85rem; margin: 1rem 0; text-align: center; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
+    .sgk-fig-box:hover { border-color: #60a5fa; box-shadow: 0 6px 18px rgba(37,99,235,0.10); }
+    .sgk-fig-box img { max-width: 100%; max-height: 360px; height: auto; border-radius: 6px; object-fit: contain; cursor: zoom-in; transition: transform 0.2s ease; }
     .sgk-fig-cap { font-size: 0.84rem; color: #475569; font-style: italic; margin-top: 0.5rem; }
+    .fig-gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 1rem; margin-top: 1.1rem; }
+    .fig-gallery-grid .sgk-fig-box { margin: 0; }
+    .fig-gallery-grid .sgk-fig-box.span-full { grid-column: 1 / -1; }
+    .fig-gallery-grid .sgk-fig-box img { max-height: 430px; }
+    .fig-gallery-grid .sgk-fig-box.span-full img { max-height: 490px; }
+    .example-cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.7rem; margin: 0.85rem 0; }
+    .ex-card { background: #fff; border: 1.5px solid #cbd5e1; border-radius: 10px; padding: 0.75rem 0.85rem; }
+    .ex-card code { overflow-wrap: anywhere; word-break: break-word; white-space: normal; }
+    .ex-card-blue { background: #eff6ff; border-color: #93c5fd; }
+    .ex-card-emerald { background: #f0fdf4; border-color: #86efac; }
+    .ex-card-amber { background: #fffbeb; border-color: #fcd34d; }
+    .ex-card-rose { background: #fef2f2; border-color: #fca5a5; }
     .exam-gated-hidden { display: none !important; }
 
 
+    .lv-fig-showcase .sgk-fig-box, .sgk-fig-box.lv-large { padding: 1.05rem 1.2rem; border: 2px solid #cbd5e1; border-radius: 14px; background: #ffffff; box-shadow: 0 6px 18px rgba(15,23,42,0.06); margin: 0.9rem 0; }
+    .lv-fig-showcase .sgk-fig-box:hover, .sgk-fig-box.lv-large:hover { border-color: #3b82f6; box-shadow: 0 10px 26px rgba(37,99,235,0.12); }
+    .lv-fig-showcase .sgk-fig-box img, .sgk-fig-box.lv-large img { width: 100% !important; max-width: 100% !important; max-height: none !important; height: auto !important; display: block; margin: 0 auto; border-radius: 10px; }
+    .lv-fig-showcase .sgk-fig-box.lv-compact img, .sgk-fig-box.lv-compact img { width: auto !important; max-width: 100% !important; min-height: 360px; max-height: 580px !important; height: auto !important; object-fit: contain; margin: 0 auto; }
+    .lv-fig-showcase .sgk-fig-box.lv-medium img, .sgk-fig-box.lv-medium img { width: 100% !important; max-width: 960px !important; max-height: none !important; height: auto !important; margin: 0 auto; }
+    .lv-fig-showcase .sgk-fig-cap, .sgk-fig-box.lv-large .sgk-fig-cap { font-size: 0.94rem; font-weight: 600; color: #1e293b; font-style: normal; margin-top: 0.7rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; text-align: left; }
+    .lv-zoom-pill { display: inline-flex; align-items: center; gap: 0.3rem; background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; border-radius: 999px; padding: 0.22rem 0.7rem; font-size: 0.78rem; font-weight: 700; white-space: nowrap; cursor: zoom-in; }
+    .lv-zoom-pill:hover { background: #2563eb; color: #ffffff; border-color: #2563eb; }
+    .lv-gallery-stack { display: grid; grid-template-columns: 1fr; gap: 1.15rem; margin-top: 0.75rem; }
+    .lv-gallery-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.15rem; margin-top: 0.75rem; }
+    @media (max-width: 900px) { .lv-gallery-pair { grid-template-columns: 1fr; } }
+    
     .mode-switch { display:inline-flex; background:#f1f5f9; padding:0.25rem; border-radius:8px; border:1px solid #cbd5e1; margin-bottom:1rem; }
     .mode-switch button { border:none; background:transparent; padding:0.45rem 1rem; border-radius:6px; font-weight:700; font-size:0.85rem; color:#475569; cursor:pointer; font-family:inherit; }
     .mode-switch button.active { background:#2563eb; color:#fff; box-shadow:0 2px 5px rgba(37,99,235,0.25); }
@@ -63,10 +97,10 @@
         <ul class="nav-links">
           <li><a href="index.html" class="nav-link">Tổng quan</a></li>
           <li><a href="hd1.html" class="nav-link active">1. Khởi động</a></li>
-          <li><a href="hd2-1.html" class="nav-link">2.1. Ảnh &amp; Video</a></li>
-          <li><a href="hd2-2.html" class="nav-link">2.2. Khung iframe</a></li>
-          <li><a href="hd3.html" class="nav-link">3. Thực hành CLB</a></li>
-          <li><a href="hd4.html" class="nav-link">4. Infographic</a></li>
+          <li><a href="hd2-1.html" class="nav-link">2.1. Khám phá 1</a></li>
+          <li><a href="hd2-2.html" class="nav-link">2.2. Khám phá 2</a></li>
+          <li><a href="hd3.html" class="nav-link">3. Thực hành (2 bài)</a></li>
+          <li><a href="hd4.html" class="nav-link">4. Vận dụng &amp; Infographic</a></li>
         </ul>
       </nav>
 
@@ -109,19 +143,19 @@
         </a>
         <a href="hd2-1.html" class="stepper-step ">
           <div class="step-circle">2.1</div>
-          <span class="step-label">Ảnh, Audio &amp; Video (20&#x27;)</span>
+          <span class="step-label">Khám phá 1: Ảnh, Audio, Video (30&#x27;)</span>
         </a>
         <a href="hd2-2.html" class="stepper-step ">
           <div class="step-circle">2.2</div>
-          <span class="step-label">Khung iframe (15&#x27;)</span>
+          <span class="step-label">Khám phá 2: Khung iframe (20&#x27;)</span>
         </a>
         <a href="hd3.html" class="stepper-step ">
           <div class="step-circle">3</div>
-          <span class="step-label">Thực hành CLB (35&#x27;)</span>
+          <span class="step-label">Thực hành: 2 bài (35&#x27;)</span>
         </a>
         <a href="hd4.html" class="stepper-step ">
           <div class="step-circle">4</div>
-          <span class="step-label">Infographic &amp; SGK (15&#x27;)</span>
+          <span class="step-label">Vận dụng &amp; Infographic</span>
         </a>
       </div>
     </div>
@@ -130,35 +164,38 @@
   <section class="hero-banner" style="padding: 2.25rem 0;">
     <div class="container">
       <div class="badge-tag" style="background:rgba(255,255,255,0.16);color:#fff;border-color:rgba(255,255,255,0.3);">⚡ HOẠT ĐỘNG 1 • KHỞI ĐỘNG (5-10 PHÚT)</div>
-      <h1 class="hero-title" style="font-size:2rem;">Thổi hồn đa phương tiện vào trang web Câu lạc bộ</h1>
-      <p class="hero-subtitle" style="max-width:850px;">Một trang web giới thiệu CLB Thể thao và Nghệ thuật chỉ toàn văn bản và bảng chữ sẽ rất khô khan. Làm thế nào để nhúng ảnh sân tập, bản nhạc Quốc ca, video highlight và cả trang con ngay bên trong trang chủ?</p>
+      <h1 class="hero-title" style="font-size:2rem;">Khởi động (5’): Từ trang web văn bản đến không gian đa phương tiện</h1>
+      <p class="hero-subtitle" style="max-width:850px;">Câu hỏi mở đầu (SGK tr.62): <strong>Có những điểm gì khiến em thấy hứng thú hơn khi xem các trang web so với đọc sách?</strong> Quan sát trang web bán thú cưng chỉ có chữ và bảng bên dưới: làm sao để trang web trở nên sinh động, thu hút hơn?</p>
     </div>
   </section>
 
   <main class="main-content">
     <div class="container">
+      <div class="card lv-fig-showcase" style="border-left:5px solid #2563eb;margin-bottom:1.35rem;">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.25rem;">
+          <h3 style="margin:0;color:#1e3a8a;">🖼️ Hình ảnh minh họa Khởi động (SGK tr.57)</h3>
+          <span class="sgk-badge">Bấm vào hình để phóng to</span>
+        </div>
+        <div class="sgk-fig-box lv-large lv-medium"><img src="assets/sgk/b11_pet_after.png" alt="Minh họa trang web bán thú cưng sau khi chèn hình ảnh sinh động (so với bản chỉ có chữ/bảng ở khung tương tác)"><div class="sgk-fig-cap"><span class="lv-cap-text">Minh họa trang web bán thú cưng sau khi chèn hình ảnh sinh động (so với bản chỉ có chữ/bảng ở khung tương tác)</span><span class="lv-zoom-pill">🔍 Phóng to toàn màn hình</span></div></div>
+      </div>
       <div class="grid-2" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem;">
         <div class="card">
           <h3 style="margin-top:0;color:#1e3a8a;">💡 Tình huống đặt vấn đề (SGK)</h3>
-          <p style="line-height:1.65;color:#334155;">Trong HTML5, bên cạnh chữ và bảng, trình duyệt hỗ trợ trực tiếp các thẻ đa phương tiện chuẩn mà không cần phần mềm cài thêm (như Flash trước đây): <code>&lt;img&gt;</code> cho ảnh, <code>&lt;audio&gt;</code> cho âm thanh, <code>&lt;video&gt;</code> cho phim và <code>&lt;iframe&gt;</code> để lồng khung nội tuyến.</p>
+          <p style="line-height:1.65;color:#334155;">So với sách giấy tĩnh, trang web hiện đại hỗ trợ tích hợp trực tiếp <strong>hình ảnh</strong> (<code>&lt;img&gt;</code>), <strong>âm thanh</strong> (<code>&lt;audio&gt;</code>), <strong>video</strong> (<code>&lt;video&gt;</code>) và <strong>khung nội tuyến</strong> (<code>&lt;iframe&gt;</code>) để nhúng trang web con, YouTube hoặc bản đồ Google Maps ngay trong một trang duy nhất.</p>
           <div class="callout-box" style="margin-top:1rem;">
             <strong>❓ Câu hỏi thảo luận cặp đôi:</strong>
             <ul style="margin:0.5rem 0 0;padding-left:1.2rem;line-height:1.6;">
-              <li>Nếu một bức ảnh gốc có tỉ lệ 16:9 nhưng ta gán kích thước <code>width="200" height="500"</code> thì hiện tượng gì sẽ xảy ra?</li>
-              <li>Làm sao để khi người dùng bấm vào một liên kết, trang đích không mở đè cả cửa sổ mà chỉ hiển thị gọn trong một khung hình chữ nhật ở giữa trang?</li>
+              <li>Có những điểm gì khiến em thấy hứng thú hơn khi xem các trang web so với đọc sách?</li>
+              <li>Làm sao để một trang web bán thú cưng (chỉ có bảng chữ) trở nên sinh động và hấp dẫn khách hàng hơn?</li>
             </ul>
           </div>
           <div style="margin-top:1rem;">
             <button type="button" class="btn btn-secondary btn-sm" onclick="toggleHd1Hint(this)">💡 Bấm xem gợi ý trả lời</button>
             <div id="hd1-hint" style="display:none;margin-top:0.75rem;padding:0.9rem;background:#f0fdf4;border:1px solid #86efac;border-radius:8px;color:#166534;font-size:0.9rem;line-height:1.55;">
-              1) Ảnh sẽ bị kéo dãn biến dạng (méo). Khắc phục bằng cách chỉ đặt 1 chiều (<code>width</code> hoặc <code>height</code>) để trình duyệt tự co chiều kia đúng tỉ lệ.<br>2) Đặt một thẻ <code>&lt;iframe name="khung"&gt;</code> và gắn thuộc tính <code>target="khung"</code> trên thẻ <code>&lt;a&gt;</code>.
+              1) Trang web không chỉ có chữ mà còn tích hợp hình ảnh màu sắc, âm thanh, video trực quan và khả năng tương tác, nhúng bản đồ hoặc chuyển trang nhanh.<br>2) Bổ sung hình ảnh minh họa từng loài vật nuôi, banner trang trí, video giới thiệu và âm thanh nền vui tai bằng các thẻ <code>&lt;img&gt;</code>, <code>&lt;audio&gt;</code>, <code>&lt;video&gt;</code>, <code>&lt;iframe&gt;</code>.
             </div>
           </div>
 
-      <div class="sgk-fig-box">
-        <img src="assets/sgk/sgk_hinh11_3.png" alt="Hình 11.3. Trang web giới thiệu CLB kết hợp ảnh và âm thanh (SGK tr.63)">
-        <div class="sgk-fig-cap">Hình 11.3. Trang web giới thiệu CLB kết hợp ảnh và âm thanh (SGK tr.63)</div>
-      </div>
         </div>
 
         <div class="card">
@@ -169,7 +206,7 @@
           </div>
           <div class="syntax-card">
             <div class="syntax-header">
-              <span id="cmp-fname">CLB_da_phuong_tien.html</span>
+              <span id="cmp-fname">trang_web_da_phuong_tien.html</span>
               <span style="color:#60a5fa;">Xem mã &amp; kết quả thực tế</span>
             </div>
             <pre class="syntax-body" id="cmp-code"></pre>
@@ -236,6 +273,23 @@
           </div>
           <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.8rem; font-size: 1rem; font-weight: 700; border-radius: 8px; justify-content: center;">🔓 Xác Thực Giáo Viên</button>
         </form>
+      </div>
+    </div>
+  </div>
+  <!-- MODAL PHÓNG TO HÌNH MINH HỌA -->
+  <div id="img-zoom-modal" class="img-lightbox-overlay" onclick="closeImgZoom()">
+    <div class="img-lightbox-dialog" onclick="event.stopPropagation()">
+      <div class="img-lightbox-header">
+        <div id="img-zoom-caption" class="img-lightbox-caption"></div>
+        <div class="img-lightbox-tools">
+          <button type="button" id="btn-zoom-100" class="btn btn-primary btn-sm" onclick="setImgZoomScale(100)">🔍 Vừa màn hình</button>
+          <button type="button" id="btn-zoom-150" class="btn btn-secondary btn-sm" onclick="setImgZoomScale(150)">➕ Phóng 150%</button>
+          <button type="button" id="btn-zoom-200" class="btn btn-secondary btn-sm" onclick="setImgZoomScale(200)">➕ Phóng 200%</button>
+          <button type="button" onclick="closeImgZoom()" class="btn btn-secondary btn-sm">✕ Đóng (Esc)</button>
+        </div>
+      </div>
+      <div id="img-zoom-scroll" class="img-lightbox-body">
+        <img id="img-zoom-target" alt="Phóng to hình minh họa">
       </div>
     </div>
   </div>
@@ -441,16 +495,118 @@
         return data;
       } catch (e) { return null; }
     }
+    function setImgZoomScale(pct) {
+      const im = document.getElementById('img-zoom-target');
+      const sc = document.getElementById('img-zoom-scroll');
+      [100, 150, 200].forEach(p => {
+        const b = document.getElementById('btn-zoom-' + p);
+        if (b) b.className = 'btn btn-sm ' + (p === pct ? 'btn-primary' : 'btn-secondary');
+      });
+      if (!im || !sc) return;
+      if (pct <= 100) {
+        sc.classList.remove('is-zoomed');
+        const nw = im.naturalWidth || 0;
+        const nh = im.naturalHeight || 0;
+        if (nw && nh && nw < nh * 1.6) {
+          im.style.cssText = 'width:auto !important;max-width:100% !important;height:78vh !important;max-height:82vh !important;object-fit:contain;margin:auto;display:block;border-radius:10px;background:#fff;';
+        } else {
+          im.style.cssText = 'width:100% !important;max-width:100% !important;height:auto !important;max-height:none !important;margin:auto;display:block;border-radius:10px;background:#fff;';
+        }
+      } else {
+        sc.classList.add('is-zoomed');
+        im.style.cssText = 'width:' + pct + '% !important;max-width:none !important;height:auto !important;max-height:none !important;margin:0;display:block;border-radius:10px;background:#fff;';
+      }
+    }
+    function openImgZoom(src, cap) {
+      const m = document.getElementById('img-zoom-modal');
+      const im = document.getElementById('img-zoom-target');
+      const cp = document.getElementById('img-zoom-caption');
+      if (!m || !im || !src) return;
+      im.onload = () => setImgZoomScale(100);
+      im.src = src;
+      im.alt = cap || 'Hình minh họa';
+      if (cp) cp.textContent = cap || 'Hình minh họa chi tiết';
+      m.classList.add('active');
+      setImgZoomScale(100);
+    }
+    function closeImgZoom() {
+      document.getElementById('img-zoom-modal')?.classList.remove('active');
+    }
+    async function syncPendingLocalWorksheetSubmissions() {
+      if (window.__wsOutboxBusy) return;
+      window.__wsOutboxBusy = true;
+      try {
+        const key = LESSON_SLUG + '_worksheet_submissions';
+        const raw = localStorage.getItem(key);
+        if (!raw) return;
+        const list = JSON.parse(raw);
+        if (!Array.isArray(list) || !list.length) return;
+        const pending = list.filter(x => x && x.id && String(x.id).startsWith('WS-') && x.worksheetId !== 'kttx2' && !x._synced);
+        if (!pending.length) return;
+        const res = await fetch('/api/' + LESSON_SLUG + '/submissions', { headers: getTeacherHeaders(), cache: 'no-store' });
+        if (!res.ok) return;
+        const srv = await res.json();
+        const srvIds = new Set((Array.isArray(srv) ? srv : []).map(x => x && x.id).filter(Boolean));
+        let changed = false;
+        let uploaded = false;
+        for (const item of list) {
+          if (!item || !item.id || !String(item.id).startsWith('WS-') || item.worksheetId === 'kttx2' || item._synced) continue;
+          if (srvIds.has(item.id)) {
+            item._synced = true;
+            changed = true;
+            continue;
+          }
+          const clean = Object.assign({}, item);
+          delete clean._synced;
+          try {
+            const pr = await fetch('/api/' + LESSON_SLUG + '/submit', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              keepalive: true,
+              body: JSON.stringify(clean)
+            });
+            if (pr.ok) {
+              item._synced = true;
+              srvIds.add(item.id);
+              changed = true;
+              uploaded = true;
+            }
+          } catch (e) {}
+        }
+        if (changed) localStorage.setItem(key, JSON.stringify(list));
+        if (uploaded && typeof loadSubmissionsP2 === 'function') loadSubmissionsP2();
+      } catch (e) {} finally {
+        window.__wsOutboxBusy = false;
+      }
+    }
+    window.addEventListener('online', syncPendingLocalWorksheetSubmissions);
+    document.addEventListener('keydown', (ev) => {
+      if (ev.key === 'Escape') closeImgZoom();
+    });
     document.addEventListener('DOMContentLoaded', () => {
       updateTeacherNavBadge();
       syncLessonExamGates();
+      syncPendingLocalWorksheetSubmissions();
       if (document.querySelector('[data-exam-gate], #teacher-exam-control-panel')) {
         setInterval(syncLessonExamGates, 10000);
       }
+      document.querySelectorAll('.sgk-fig-box').forEach(figBox => {
+        const img = figBox.querySelector('img');
+        if (!img) return;
+        img.title = img.title || 'Bấm để phóng to hình minh họa';
+        const openThis = () => {
+          const spanCap = figBox.querySelector('.sgk-fig-cap .lv-cap-text') || figBox.querySelector('.sgk-fig-cap');
+          const cap = img.getAttribute('alt') || (spanCap && spanCap.textContent) || '';
+          openImgZoom(img.getAttribute('src'), cap);
+        };
+        img.addEventListener('click', openThis);
+        const pill = figBox.querySelector('.lv-zoom-pill');
+        if (pill) pill.addEventListener('click', openThis);
+      });
     });
     
-    const CMP_BEFORE = "<h2>CLB Thể thao THTH-DHSP</h2>\n<p>[Đặt hình ảnh sân bóng tại đây]</p>\n<p>[Đặt tệp nhạc Quốc ca tại đây]</p>\n<p>[Đặt khung xem trang con tại đây]</p>";
-    const CMP_AFTER = "<h2>CLB Thể thao THTH-DHSP</h2>\n<p><img src=\"assets/sgk/sgk_hinh11_2.png\" alt=\"Ảnh minh họa CLB\" width=\"260\"></p>\n<p><strong>Thanh phát âm thanh HTML5:</strong><br>\n<audio controls><source src=\"demo.mp3\" type=\"audio/mpeg\"></audio></p>\n<iframe srcdoc=\"<h4 style='color:#1d4ed8;font-family:sans-serif;'>Trang con đang hiển thị bên trong &lt;iframe&gt;!</h4>\" width=\"100%\" height=\"75\" style=\"border:1.5px solid #3b82f6;border-radius:8px;\"></iframe>";
+    const CMP_BEFORE = "<h2>Trang web bán thú cưng (Chỉ có chữ &amp; bảng)</h2>\n<table border=\"1\" cellpadding=\"6\" style=\"border-collapse:collapse;\">\n  <tr><th>STT</th><th>Tên thú cưng</th><th>Mô tả</th></tr>\n  <tr><td>1</td><td>Mèo tam thể</td><td>[Chưa có hình ảnh minh họa]</td></tr>\n</table>\n<p>[Chưa có âm thanh giới thiệu • Chưa có video hoạt động]</p>";
+    const CMP_AFTER = "<h2 style=\"color:#1e3a8a;\">Trang web Đa phương tiện THTH-ĐHSP</h2>\n<p><img src=\"assets/media/thth.jpg\" alt=\"Trường THPT Thực hành ĐHSP\" width=\"210\" style=\"border-radius:10px;\"></p>\n<p><strong>🎵 Bài hát truyền thống (thẻ &lt;audio&gt;):</strong><br>\n<audio controls style=\"height:34px;\"><source src=\"assets/media/thth_demo.mp3\" type=\"audio/mpeg\"></audio></p>\n<iframe srcdoc=\"<div style='font-family:sans-serif;padding:8px;color:#0f172a;'><strong style='color:#2563eb;'>🪟 Đây là khung nội tuyến &lt;iframe&gt;</strong><p style='margin:4px 0 0;font-size:13px;'>Hiển thị nội dung trang web con ngay trong trang hiện tại!</p></div>\" width=\"100%\" height=\"78\" style=\"border:2px solid #3b82f6;border-radius:8px;\"></iframe>";
     function bindHd1PreviewLinks(doc, reloadFn) {
       if (!doc || !doc.body) return;
       doc.addEventListener('click', function(ev) {

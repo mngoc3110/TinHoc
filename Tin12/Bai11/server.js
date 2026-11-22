@@ -491,7 +491,7 @@ const server = http.createServer((req, res) => {
         const safeMach = normalizeVN(sub.studentNumber || 'May00');
         const safeName = normalizeVN(sub.studentName || 'HocSinh');
         const folderName = `${safeClass}_${safeMach}_${safeName}`;
-        const filename = `${folderName}_the_thao.html`;
+        const filename = `${folderName}_CLB.html`;
         sub.filename = filename;
         fs.writeFileSync(path.join(HD3_DIR, filename), sub.code || '', 'utf8');
         if (sub.files && typeof sub.files === 'object' && !Array.isArray(sub.files)) {

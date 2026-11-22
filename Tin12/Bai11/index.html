@@ -26,9 +26,31 @@
     .qr-zoom-modal { display: none; position: fixed; inset: 0; background: rgba(15,23,42,0.75); backdrop-filter: blur(4px); z-index: 9998; align-items: center; justify-content: center; padding: 1rem; }
     .qr-zoom-modal.active { display: flex; }
     .qr-zoom-box { background: #fff; border-radius: 16px; padding: 2rem; max-width: 460px; width: 100%; text-align: center; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.35); }
-    .sgk-fig-box { background: #fff; border: 1.5px solid #cbd5e1; border-radius: 12px; padding: 0.85rem; margin: 1rem 0; text-align: center; }
-    .sgk-fig-box img { max-width: 100%; max-height: 360px; height: auto; border-radius: 6px; object-fit: contain; }
+    .img-lightbox-overlay { display: none; position: fixed; inset: 0; background: rgba(15,23,42,0.88); backdrop-filter: blur(5px); z-index: 9998; align-items: center; justify-content: center; padding: 1.5vh 1.5vw; }
+    .img-lightbox-overlay.active { display: flex; }
+    .img-lightbox-dialog { background: #ffffff; border-radius: 16px; width: 96vw; max-width: 1860px; max-height: 96vh; padding: 0.9rem 1.25rem 1.1rem; display: flex; flex-direction: column; box-shadow: 0 25px 60px rgba(0,0,0,0.48); overflow: hidden; }
+    .img-lightbox-header { display: flex; justify-content: space-between; align-items: center; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 0.7rem; padding-bottom: 0.55rem; border-bottom: 1px solid #e2e8f0; }
+    .img-lightbox-caption { font-size: 1.02rem; font-weight: 800; color: #1e3a8a; text-align: left; flex: 1; min-width: 220px; }
+    .img-lightbox-tools { display: flex; gap: 0.4rem; flex-wrap: wrap; flex-shrink: 0; }
+    .img-lightbox-body { flex: 1; overflow: auto; background: #f8fafc; border: 1.5px solid #cbd5e1; border-radius: 12px; padding: 0.75rem; display: flex; align-items: flex-start; justify-content: center; min-height: 50vh; }
+    .img-lightbox-body.is-zoomed { justify-content: flex-start; }
+    #img-zoom-target { display: block; border-radius: 10px; background: #fff; box-shadow: 0 4px 20px rgba(15,23,42,0.08); }
+    .sgk-fig-box { background: #fff; border: 1.5px solid #cbd5e1; border-radius: 12px; padding: 0.85rem; margin: 1rem 0; text-align: center; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
+    .sgk-fig-box:hover { border-color: #60a5fa; box-shadow: 0 6px 18px rgba(37,99,235,0.10); }
+    .sgk-fig-box img { max-width: 100%; max-height: 360px; height: auto; border-radius: 6px; object-fit: contain; cursor: zoom-in; transition: transform 0.2s ease; }
     .sgk-fig-cap { font-size: 0.84rem; color: #475569; font-style: italic; margin-top: 0.5rem; }
+    .fig-gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 1rem; margin-top: 1.1rem; }
+    .fig-gallery-grid .sgk-fig-box { margin: 0; }
+    .fig-gallery-grid .sgk-fig-box.span-full { grid-column: 1 / -1; }
+    .fig-gallery-grid .sgk-fig-box img { max-height: 430px; }
+    .fig-gallery-grid .sgk-fig-box.span-full img { max-height: 490px; }
+    .example-cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.7rem; margin: 0.85rem 0; }
+    .ex-card { background: #fff; border: 1.5px solid #cbd5e1; border-radius: 10px; padding: 0.75rem 0.85rem; }
+    .ex-card code { overflow-wrap: anywhere; word-break: break-word; white-space: normal; }
+    .ex-card-blue { background: #eff6ff; border-color: #93c5fd; }
+    .ex-card-emerald { background: #f0fdf4; border-color: #86efac; }
+    .ex-card-amber { background: #fffbeb; border-color: #fcd34d; }
+    .ex-card-rose { background: #fef2f2; border-color: #fca5a5; }
     .exam-gated-hidden { display: none !important; }
 
 
@@ -65,10 +87,10 @@
         <ul class="nav-links">
           <li><a href="index.html" class="nav-link active">Tổng quan</a></li>
           <li><a href="hd1.html" class="nav-link">1. Khởi động</a></li>
-          <li><a href="hd2-1.html" class="nav-link">2.1. Ảnh &amp; Video</a></li>
-          <li><a href="hd2-2.html" class="nav-link">2.2. Khung iframe</a></li>
-          <li><a href="hd3.html" class="nav-link">3. Thực hành CLB</a></li>
-          <li><a href="hd4.html" class="nav-link">4. Infographic</a></li>
+          <li><a href="hd2-1.html" class="nav-link">2.1. Khám phá 1</a></li>
+          <li><a href="hd2-2.html" class="nav-link">2.2. Khám phá 2</a></li>
+          <li><a href="hd3.html" class="nav-link">3. Thực hành (2 bài)</a></li>
+          <li><a href="hd4.html" class="nav-link">4. Vận dụng &amp; Infographic</a></li>
         </ul>
       </nav>
 
@@ -111,19 +133,19 @@
         </a>
         <a href="hd2-1.html" class="stepper-step ">
           <div class="step-circle">2.1</div>
-          <span class="step-label">Ảnh, Audio &amp; Video (20&#x27;)</span>
+          <span class="step-label">Khám phá 1: Ảnh, Audio, Video (30&#x27;)</span>
         </a>
         <a href="hd2-2.html" class="stepper-step ">
           <div class="step-circle">2.2</div>
-          <span class="step-label">Khung iframe (15&#x27;)</span>
+          <span class="step-label">Khám phá 2: Khung iframe (20&#x27;)</span>
         </a>
         <a href="hd3.html" class="stepper-step ">
           <div class="step-circle">3</div>
-          <span class="step-label">Thực hành CLB (35&#x27;)</span>
+          <span class="step-label">Thực hành: 2 bài (35&#x27;)</span>
         </a>
         <a href="hd4.html" class="stepper-step ">
           <div class="step-circle">4</div>
-          <span class="step-label">Infographic &amp; SGK (15&#x27;)</span>
+          <span class="step-label">Vận dụng &amp; Infographic</span>
         </a>
       </div>
     </div>
@@ -138,7 +160,7 @@
             CHÈN TỆP TIN ĐA PHƯƠNG TIỆN &amp; KHUNG NỘI TUYẾN
           </h1>
           <p class="hero-subtitle" style="font-size: 1.05rem; color: #cbd5e1; line-height: 1.6; margin-bottom: 1.65rem;">
-            Biến trang web tĩnh thành không gian đa phương tiện sống động: Chèn hình ảnh với thẻ <code>&lt;img&gt;</code> tự động giữ tỉ lệ, phát âm thanh/video bằng <code>&lt;audio&gt;</code>, <code>&lt;video&gt;</code>, <code>&lt;source&gt;</code> và nhúng trang web con trong khung <code>&lt;iframe&gt;</code> kết hợp <code>target</code>.
+            Bám sát <strong>Kế hoạch bài dạy Bài 11</strong> &amp; SGK Tin học 12 – Kết nối tri thức (tr. 62–66): Chèn hình ảnh với thẻ <code>&lt;img&gt;</code> giữ đúng tỉ lệ, phát âm thanh/video bằng <code>&lt;audio&gt;</code>, <code>&lt;video&gt;</code>, <code>&lt;source&gt;</code>, nhúng khung nội tuyến <code>&lt;iframe&gt;</code> kết hợp <code>target</code> và hoàn thành <strong>2 bài thực hành</strong> (CLB SGK &amp; Trường THPT Thực hành ĐHSP).
           </p>
           <div style="display: flex; gap: 0.85rem; flex-wrap: wrap;">
             <a href="hd1.html" class="btn btn-primary" style="font-size:1.02rem;font-weight:700;padding:0.85rem 1.6rem;border-radius:10px;background:#2563eb;">
@@ -154,14 +176,14 @@
         <div style="background: rgba(255,255,255,0.08); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.18); border-radius: 18px; padding: 1.5rem;">
           <h3 style="color: #60a5fa; font-size: 1.15rem; font-weight: 800; margin-top: 0; margin-bottom: 0.85rem;">🎯 MỤC TIÊU BÀI HỌC CẦN ĐẠT</h3>
           <ul style="color: #e2e8f0; font-size: 0.93rem; line-height: 1.6; display: flex; flex-direction: column; gap: 0.65rem; padding-left: 1.2rem; margin: 0;">
-            <li><strong>1. Chèn và co giãn hình ảnh:</strong> Sử dụng đúng <code>&lt;img src="..." alt="..." width="..." height="..."&gt;</code> và quy tắc giữ nguyên tỉ lệ khi chỉ đặt 1 kích thước.</li>
-            <li><strong>2. Âm thanh &amp;amp; Video HTML5:</strong> Khai báo <code>&lt;audio&gt;</code>, <code>&lt;video&gt;</code>, thẻ <code>&lt;source&gt;</code> cùng các thuộc tính <code>controls</code>, <code>autoplay</code>, <code>muted</code>, <code>poster</code>.</li>
-            <li><strong>3. Khung nội tuyến &amp;lt;iframe&amp;gt;:</strong> Nhúng một trang HTML khác hoặc video vào trong khung nội tuyến và điều khiển mở liên kết bằng <code>target</code>.</li>
-            <li><strong>4. Định dạng tệp &amp;amp; Bản quyền:</strong> Phân biệt các định dạng ảnh (PNG, JPEG, GIF, WebP), âm thanh (MP3, WAV, OGG), video (MP4, WebM) và tôn trọng bản quyền số.</li>
-            <li><strong>5. Thực hành the_thao.html:</strong> Tự xây dựng trang giới thiệu CLB Thể thao chèn ảnh, âm thanh, video và khung nội tuyến hoàn chỉnh.</li>
+            <li><strong>1. Chèn ảnh &amp;amp; giữ tỉ lệ (&amp;lt;img&amp;gt;):</strong> Phân biệt định dạng ảnh web (PNG, JPEG, GIF, WebP), dùng <code>src</code>, <code>alt</code>, đường dẫn tương đối và quy tắc đặt 1 chiều kích thước để ảnh không méo.</li>
+            <li><strong>2. Âm thanh &amp;amp; Video HTML5:</strong> Sử dụng <code>&lt;audio&gt;</code>, <code>&lt;video&gt;</code>, <code>&lt;source&gt;</code> cùng <code>controls</code>, <code>autoplay</code>/<code>muted</code>, <code>poster</code>; phân biệt thuộc tính riêng của <code>&lt;video&gt;</code>.</li>
+            <li><strong>3. Khung nội tuyến &amp;lt;iframe&amp;gt; &amp;amp; target:</strong> Nhúng trang con, bản đồ Google Maps, YouTube bằng <code>&lt;iframe&gt;</code> và kết hợp <code>name</code>/<code>target</code> với thẻ <code>&lt;a&gt;</code>.</li>
+            <li><strong>4. 2 Bài Thực hành (CLB &amp;amp; THTH-ĐHSP):</strong> Bài TH 1: 3 nhiệm vụ SGK (<code>the_thao.html</code>, <code>nghe_thuat.html</code>, Quốc ca, <code>CLB.html</code>); Bài TH 2: Trang giới thiệu Trường THPT Thực hành ĐHSP.</li>
+            <li><strong>5. Bản quyền số &amp;amp; Vận dụng (tr.66):</strong> Áp dụng NLS <code>3.2.NC1a</code>, <code>3.3.NC1a</code> (Creative Commons, ghi nguồn) và giải LT1 (<code>720×450 → 600×375 px</code>), LT2, Vận dụng SGK.</li>
           </ul>
           <div style="margin-top: 1rem; padding-top: 0.75rem; border-top: 1px dashed rgba(255,255,255,0.2); font-size: 0.82rem; color: #93c5fd;">
-            💡 Năng lực số mục tiêu: <strong>3.2.NC1a, 3.3.NC1a</strong> — Tích hợp hình ảnh, âm thanh, video đa phương tiện và nhúng khung nội tuyến hợp bản quyền, đúng chuẩn HTML5.
+            💡 Năng lực số mục tiêu: <strong>3.2.NC1a, 3.3.NC1a</strong> — Thu thập, chọn lọc, tích hợp hình ảnh, âm thanh, video, khung nội tuyến (iframe) vào trang web và tuân thủ nghiêm túc bản quyền số (Creative Commons, bản quyền tác giả).
           </div>
         </div>
       </div>
@@ -178,23 +200,23 @@
       <div class="stage-grid">
         <div class="stage-card" style="border-top: 4px solid #3b82f6;">
           <div>
-            <span class="stage-pill" style="background:#eff6ff;color:#1d4ed8;">CHẶNG 1 • KHỞI ĐỘNG</span>
-            <h3 style="font-size: 1.15rem; font-weight: 800; color: #0f172a; margin: 0.65rem 0 0.4rem;">⚡ HĐ 1: Tình huống dẫn nhập</h3>
-            <p style="font-size: 0.88rem; color: #475569; line-height: 1.55; margin: 0;">Đối chiếu trang CLB chỉ có văn bản đơn điệu với trang đa phương tiện có ảnh minh họa, âm thanh và video.</p>
+            <span class="stage-pill" style="background:#eff6ff;color:#1d4ed8;">CHẶNG 1 • MỞ ĐẦU (5 PHÚT)</span>
+            <h3 style="font-size: 1.15rem; font-weight: 800; color: #0f172a; margin: 0.65rem 0 0.4rem;">⚡ HĐ 1: Khởi động – Đa phương tiện trên web</h3>
+            <p style="font-size: 0.88rem; color: #475569; line-height: 1.55; margin: 0;">Trả lời câu hỏi mở đầu SGK tr.62 và so sánh trực quan trang web bán thú cưng trước – sau khi chèn hình ảnh, âm thanh, video.</p>
           </div>
           <a href="hd1.html" class="btn btn-secondary" style="width:100%;justify-content:center;font-weight:700;">Vào Hoạt động 1 →</a>
         </div>
 
         <div class="stage-card" style="border-top: 4px solid #0284c7;">
           <div>
-            <span class="stage-pill" style="background:#e0f2fe;color:#0369a1;">CHẶNG 2 • TRỌNG TÂM</span>
-            <h3 style="font-size: 1.15rem; font-weight: 800; color: #0f172a; margin: 0.65rem 0 0.4rem;">🧩 HĐ 2: Khám phá kiến thức</h3>
-            <p style="font-size: 0.88rem; color: #475569; line-height: 1.55; margin: 0;">Tìm hiểu chi tiết <code>&lt;img&gt;</code>, <code>&lt;audio&gt;</code>, <code>&lt;video&gt;</code>, <code>&lt;iframe&gt;</code> và hoàn thành Phiếu bài tập.</p>
+            <span class="stage-pill" style="background:#e0f2fe;color:#0369a1;">CHẶNG 2 • HÌNH THÀNH KIẾN THỨC (50 PHÚT)</span>
+            <h3 style="font-size: 1.15rem; font-weight: 800; color: #0f172a; margin: 0.65rem 0 0.4rem;">🧩 HĐ 2: Khám phá 1 (30') &amp; Khám phá 2 (20')</h3>
+            <p style="font-size: 0.88rem; color: #475569; line-height: 1.55; margin: 0;"><strong>Khám phá 1 (30')</strong>: Mục 1 (<code>&lt;img&gt;</code>, tỉ lệ ảnh) + Mục 2 (<code>&lt;audio&gt;</code>, <code>&lt;video&gt;</code>, <code>&lt;source&gt;</code>, bản quyền) • <strong>Khám phá 2 (20')</strong>: Mục 3 (<code>&lt;iframe&gt;</code> + <code>target</code>) &amp; Phiếu bài tập.</p>
           </div>
           <div style="display:flex;flex-direction:column;gap:0.45rem;">
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.4rem;">
-              <a href="hd2-1.html" class="btn btn-primary btn-sm" style="justify-content:center;">2.1. Khám phá 1</a>
-              <a href="hd2-2.html" class="btn btn-primary btn-sm" style="justify-content:center;background:#0284c7;border-color:#0284c7;">2.2. Khám phá 2</a>
+              <a href="hd2-1.html" class="btn btn-primary btn-sm" style="justify-content:center;">2.1. Khám phá 1 (Ảnh, Audio, Video)</a>
+              <a href="hd2-2.html" class="btn btn-primary btn-sm" style="justify-content:center;background:#0284c7;border-color:#0284c7;">2.2. Khám phá 2 (Iframe & Phiếu BT)</a>
             </div>
             <a href="phieu-bai-tap.html" class="btn btn-secondary btn-sm" style="justify-content:center;background:#f0fdf4;color:#15803d;border-color:#86efac;font-weight:700;">📝 Phiếu bài tập tổng hợp</a>
 
@@ -203,20 +225,20 @@
 
         <div class="stage-card" style="border-top: 4px solid #16a34a;">
           <div>
-            <span class="stage-pill" style="background:#dcfce7;color:#15803d;">CHẶNG 3 • THỰC HÀNH</span>
-            <h3 style="font-size: 1.15rem; font-weight: 800; color: #0f172a; margin: 0.65rem 0 0.4rem;">💻 HĐ 3: Tự Code &amp; Nộp Bài</h3>
-            <p style="font-size: 0.88rem; color: #475569; line-height: 1.55; margin: 0;">Tự gõ mã <code>the_thao.html</code> và khung tổng hợp chèn đủ ảnh, audio/video, iframe điều hướng <code>target</code>.</p>
+            <span class="stage-pill" style="background:#dcfce7;color:#15803d;">CHẶNG 3 • LUYỆN TẬP – THỰC HÀNH (35 PHÚT)</span>
+            <h3 style="font-size: 1.15rem; font-weight: 800; color: #0f172a; margin: 0.65rem 0 0.4rem;">💻 HĐ 3: Gộp 2 Bài Thực Hành Đa Tệp</h3>
+            <p style="font-size: 0.88rem; color: #475569; line-height: 1.55; margin: 0;"><strong>Bài TH 1 (15')</strong>: 3 nhiệm vụ SGK tr.65–66 (<code>the_thao.html</code>, <code>nghe_thuat.html</code>, <code>CLB.html</code>) • <strong>Bài TH 2 (20')</strong>: Trang web giới thiệu <strong>Trường THPT Thực hành ĐHSP</strong> kèm học liệu thật.</p>
           </div>
           <a href="hd3.html" class="btn btn-primary" style="width:100%;justify-content:center;background:#16a34a;border-color:#16a34a;font-weight:700;">Mở Phòng Thực Hành →</a>
         </div>
 
         <div class="stage-card" style="border-top: 4px solid #9333ea;">
           <div>
-            <span class="stage-pill" style="background:#f3e8ff;color:#7e22ce;">CHẶNG 4 • TỔNG KẾT</span>
-            <h3 style="font-size: 1.15rem; font-weight: 800; color: #0f172a; margin: 0.65rem 0 0.4rem;">📊 HĐ 4: Infographic &amp; Vận dụng</h3>
-            <p style="font-size: 0.88rem; color: #475569; line-height: 1.55; margin: 0;">Tổng kết 4 chế độ Infographic, Flashcards 3D và tự luyện & bấm đối chiếu gợi ý Luyện tập 1–2, Vận dụng SGK tr.66.</p>
+            <span class="stage-pill" style="background:#f3e8ff;color:#7e22ce;">CHẶNG 4 • VẬN DỤNG &amp; BTVN</span>
+            <h3 style="font-size: 1.15rem; font-weight: 800; color: #0f172a; margin: 0.65rem 0 0.4rem;">📊 HĐ 4: Infographic &amp; Luyện tập – Vận dụng tr.66</h3>
+            <p style="font-size: 0.88rem; color: #475569; line-height: 1.55; margin: 0;">Tổng kết bằng <strong>AntV Infographic Studio</strong> (4 chế độ), Flashcards 3D và giải chi tiết Luyện tập 1, Luyện tập 2, Vận dụng SGK tr.66.</p>
           </div>
-          <a href="hd4.html" class="btn btn-primary" style="width:100%;justify-content:center;background:#7e22ce;border-color:#7e22ce;font-weight:700;">Xem Infographic &amp; Ôn tập →</a>
+          <a href="hd4.html" class="btn btn-primary" style="width:100%;justify-content:center;background:#7e22ce;border-color:#7e22ce;font-weight:700;">Xem Infographic &amp; Bài tập SGK →</a>
         </div>
       </div>
 
@@ -277,6 +299,23 @@
           </div>
           <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.8rem; font-size: 1rem; font-weight: 700; border-radius: 8px; justify-content: center;">🔓 Xác Thực Giáo Viên</button>
         </form>
+      </div>
+    </div>
+  </div>
+  <!-- MODAL PHÓNG TO HÌNH MINH HỌA -->
+  <div id="img-zoom-modal" class="img-lightbox-overlay" onclick="closeImgZoom()">
+    <div class="img-lightbox-dialog" onclick="event.stopPropagation()">
+      <div class="img-lightbox-header">
+        <div id="img-zoom-caption" class="img-lightbox-caption"></div>
+        <div class="img-lightbox-tools">
+          <button type="button" id="btn-zoom-100" class="btn btn-primary btn-sm" onclick="setImgZoomScale(100)">🔍 Vừa màn hình</button>
+          <button type="button" id="btn-zoom-150" class="btn btn-secondary btn-sm" onclick="setImgZoomScale(150)">➕ Phóng 150%</button>
+          <button type="button" id="btn-zoom-200" class="btn btn-secondary btn-sm" onclick="setImgZoomScale(200)">➕ Phóng 200%</button>
+          <button type="button" onclick="closeImgZoom()" class="btn btn-secondary btn-sm">✕ Đóng (Esc)</button>
+        </div>
+      </div>
+      <div id="img-zoom-scroll" class="img-lightbox-body">
+        <img id="img-zoom-target" alt="Phóng to hình minh họa">
       </div>
     </div>
   </div>
@@ -481,12 +520,114 @@
         return data;
       } catch (e) { return null; }
     }
+    function setImgZoomScale(pct) {
+      const im = document.getElementById('img-zoom-target');
+      const sc = document.getElementById('img-zoom-scroll');
+      [100, 150, 200].forEach(p => {
+        const b = document.getElementById('btn-zoom-' + p);
+        if (b) b.className = 'btn btn-sm ' + (p === pct ? 'btn-primary' : 'btn-secondary');
+      });
+      if (!im || !sc) return;
+      if (pct <= 100) {
+        sc.classList.remove('is-zoomed');
+        const nw = im.naturalWidth || 0;
+        const nh = im.naturalHeight || 0;
+        if (nw && nh && nw < nh * 1.6) {
+          im.style.cssText = 'width:auto !important;max-width:100% !important;height:78vh !important;max-height:82vh !important;object-fit:contain;margin:auto;display:block;border-radius:10px;background:#fff;';
+        } else {
+          im.style.cssText = 'width:100% !important;max-width:100% !important;height:auto !important;max-height:none !important;margin:auto;display:block;border-radius:10px;background:#fff;';
+        }
+      } else {
+        sc.classList.add('is-zoomed');
+        im.style.cssText = 'width:' + pct + '% !important;max-width:none !important;height:auto !important;max-height:none !important;margin:0;display:block;border-radius:10px;background:#fff;';
+      }
+    }
+    function openImgZoom(src, cap) {
+      const m = document.getElementById('img-zoom-modal');
+      const im = document.getElementById('img-zoom-target');
+      const cp = document.getElementById('img-zoom-caption');
+      if (!m || !im || !src) return;
+      im.onload = () => setImgZoomScale(100);
+      im.src = src;
+      im.alt = cap || 'Hình minh họa';
+      if (cp) cp.textContent = cap || 'Hình minh họa chi tiết';
+      m.classList.add('active');
+      setImgZoomScale(100);
+    }
+    function closeImgZoom() {
+      document.getElementById('img-zoom-modal')?.classList.remove('active');
+    }
+    async function syncPendingLocalWorksheetSubmissions() {
+      if (window.__wsOutboxBusy) return;
+      window.__wsOutboxBusy = true;
+      try {
+        const key = LESSON_SLUG + '_worksheet_submissions';
+        const raw = localStorage.getItem(key);
+        if (!raw) return;
+        const list = JSON.parse(raw);
+        if (!Array.isArray(list) || !list.length) return;
+        const pending = list.filter(x => x && x.id && String(x.id).startsWith('WS-') && x.worksheetId !== 'kttx2' && !x._synced);
+        if (!pending.length) return;
+        const res = await fetch('/api/' + LESSON_SLUG + '/submissions', { headers: getTeacherHeaders(), cache: 'no-store' });
+        if (!res.ok) return;
+        const srv = await res.json();
+        const srvIds = new Set((Array.isArray(srv) ? srv : []).map(x => x && x.id).filter(Boolean));
+        let changed = false;
+        let uploaded = false;
+        for (const item of list) {
+          if (!item || !item.id || !String(item.id).startsWith('WS-') || item.worksheetId === 'kttx2' || item._synced) continue;
+          if (srvIds.has(item.id)) {
+            item._synced = true;
+            changed = true;
+            continue;
+          }
+          const clean = Object.assign({}, item);
+          delete clean._synced;
+          try {
+            const pr = await fetch('/api/' + LESSON_SLUG + '/submit', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              keepalive: true,
+              body: JSON.stringify(clean)
+            });
+            if (pr.ok) {
+              item._synced = true;
+              srvIds.add(item.id);
+              changed = true;
+              uploaded = true;
+            }
+          } catch (e) {}
+        }
+        if (changed) localStorage.setItem(key, JSON.stringify(list));
+        if (uploaded && typeof loadSubmissionsP2 === 'function') loadSubmissionsP2();
+      } catch (e) {} finally {
+        window.__wsOutboxBusy = false;
+      }
+    }
+    window.addEventListener('online', syncPendingLocalWorksheetSubmissions);
+    document.addEventListener('keydown', (ev) => {
+      if (ev.key === 'Escape') closeImgZoom();
+    });
     document.addEventListener('DOMContentLoaded', () => {
       updateTeacherNavBadge();
       syncLessonExamGates();
+      syncPendingLocalWorksheetSubmissions();
       if (document.querySelector('[data-exam-gate], #teacher-exam-control-panel')) {
         setInterval(syncLessonExamGates, 10000);
       }
+      document.querySelectorAll('.sgk-fig-box').forEach(figBox => {
+        const img = figBox.querySelector('img');
+        if (!img) return;
+        img.title = img.title || 'Bấm để phóng to hình minh họa';
+        const openThis = () => {
+          const spanCap = figBox.querySelector('.sgk-fig-cap .lv-cap-text') || figBox.querySelector('.sgk-fig-cap');
+          const cap = img.getAttribute('alt') || (spanCap && spanCap.textContent) || '';
+          openImgZoom(img.getAttribute('src'), cap);
+        };
+        img.addEventListener('click', openThis);
+        const pill = figBox.querySelector('.lv-zoom-pill');
+        if (pill) pill.addEventListener('click', openThis);
+      });
     });
     </script>
 </body>

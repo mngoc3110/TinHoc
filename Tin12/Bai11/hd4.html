@@ -26,16 +26,50 @@
     .qr-zoom-modal { display: none; position: fixed; inset: 0; background: rgba(15,23,42,0.75); backdrop-filter: blur(4px); z-index: 9998; align-items: center; justify-content: center; padding: 1rem; }
     .qr-zoom-modal.active { display: flex; }
     .qr-zoom-box { background: #fff; border-radius: 16px; padding: 2rem; max-width: 460px; width: 100%; text-align: center; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.35); }
-    .sgk-fig-box { background: #fff; border: 1.5px solid #cbd5e1; border-radius: 12px; padding: 0.85rem; margin: 1rem 0; text-align: center; }
-    .sgk-fig-box img { max-width: 100%; max-height: 360px; height: auto; border-radius: 6px; object-fit: contain; }
+    .img-lightbox-overlay { display: none; position: fixed; inset: 0; background: rgba(15,23,42,0.88); backdrop-filter: blur(5px); z-index: 9998; align-items: center; justify-content: center; padding: 1.5vh 1.5vw; }
+    .img-lightbox-overlay.active { display: flex; }
+    .img-lightbox-dialog { background: #ffffff; border-radius: 16px; width: 96vw; max-width: 1860px; max-height: 96vh; padding: 0.9rem 1.25rem 1.1rem; display: flex; flex-direction: column; box-shadow: 0 25px 60px rgba(0,0,0,0.48); overflow: hidden; }
+    .img-lightbox-header { display: flex; justify-content: space-between; align-items: center; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 0.7rem; padding-bottom: 0.55rem; border-bottom: 1px solid #e2e8f0; }
+    .img-lightbox-caption { font-size: 1.02rem; font-weight: 800; color: #1e3a8a; text-align: left; flex: 1; min-width: 220px; }
+    .img-lightbox-tools { display: flex; gap: 0.4rem; flex-wrap: wrap; flex-shrink: 0; }
+    .img-lightbox-body { flex: 1; overflow: auto; background: #f8fafc; border: 1.5px solid #cbd5e1; border-radius: 12px; padding: 0.75rem; display: flex; align-items: flex-start; justify-content: center; min-height: 50vh; }
+    .img-lightbox-body.is-zoomed { justify-content: flex-start; }
+    #img-zoom-target { display: block; border-radius: 10px; background: #fff; box-shadow: 0 4px 20px rgba(15,23,42,0.08); }
+    .sgk-fig-box { background: #fff; border: 1.5px solid #cbd5e1; border-radius: 12px; padding: 0.85rem; margin: 1rem 0; text-align: center; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
+    .sgk-fig-box:hover { border-color: #60a5fa; box-shadow: 0 6px 18px rgba(37,99,235,0.10); }
+    .sgk-fig-box img { max-width: 100%; max-height: 360px; height: auto; border-radius: 6px; object-fit: contain; cursor: zoom-in; transition: transform 0.2s ease; }
     .sgk-fig-cap { font-size: 0.84rem; color: #475569; font-style: italic; margin-top: 0.5rem; }
+    .fig-gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 1rem; margin-top: 1.1rem; }
+    .fig-gallery-grid .sgk-fig-box { margin: 0; }
+    .fig-gallery-grid .sgk-fig-box.span-full { grid-column: 1 / -1; }
+    .fig-gallery-grid .sgk-fig-box img { max-height: 430px; }
+    .fig-gallery-grid .sgk-fig-box.span-full img { max-height: 490px; }
+    .example-cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.7rem; margin: 0.85rem 0; }
+    .ex-card { background: #fff; border: 1.5px solid #cbd5e1; border-radius: 10px; padding: 0.75rem 0.85rem; }
+    .ex-card code { overflow-wrap: anywhere; word-break: break-word; white-space: normal; }
+    .ex-card-blue { background: #eff6ff; border-color: #93c5fd; }
+    .ex-card-emerald { background: #f0fdf4; border-color: #86efac; }
+    .ex-card-amber { background: #fffbeb; border-color: #fcd34d; }
+    .ex-card-rose { background: #fef2f2; border-color: #fca5a5; }
     .exam-gated-hidden { display: none !important; }
 
 
-    .infographic-tabs { display:flex; gap:0.5rem; flex-wrap:wrap; margin-bottom:1rem; }
-    .infographic-tab { border:1.5px solid #cbd5e1; background:#fff; padding:0.5rem 1rem; border-radius:8px; font-weight:700; font-size:0.86rem; color:#475569; cursor:pointer; font-family:inherit; }
-    .infographic-tab.active { background:#4f46e5; color:#fff; border-color:#4f46e5; }
-    .infographic-canvas-wrap { background:#f8fafc; border:1.5px solid #cbd5e1; border-radius:14px; padding:1rem; min-height:380px; display:flex; align-items:center; justify-content:center; overflow-x:auto; }
+    .antv-infographic-container { background:linear-gradient(135deg,#0f172a 0%,#1e1b4b 52%,#2e1065 100%); border:1px solid rgba(139,92,246,0.38); border-radius:20px; padding:1.5rem; box-shadow:0 20px 45px rgba(15,23,42,0.22); position:relative; overflow:hidden; }
+    .antv-header { display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:1rem; margin-bottom:1.1rem; }
+    .antv-badge { display:inline-block; background:rgba(139,92,246,0.24); border:1px solid rgba(196,181,253,0.4); color:#e9d5ff; padding:0.22rem 0.7rem; border-radius:999px; font-size:0.72rem; font-weight:800; letter-spacing:0.04em; }
+    .antv-action-btn { background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.22); color:#f8fafc; padding:0.45rem 0.85rem; border-radius:9px; font-size:0.82rem; font-weight:700; cursor:pointer; font-family:inherit; }
+    .antv-action-btn:hover { background:rgba(255,255,255,0.18); }
+    .antv-action-primary { background:linear-gradient(135deg,#7c3aed,#ec4899); border-color:transparent; }
+    .antv-mode-tabs { display:flex; gap:0.5rem; flex-wrap:wrap; margin-bottom:0.85rem; }
+    .infographic-tab { border:1px solid rgba(255,255,255,0.2); background:rgba(255,255,255,0.08); padding:0.48rem 0.95rem; border-radius:999px; font-weight:700; font-size:0.84rem; color:#e2e8f0; cursor:pointer; font-family:inherit; transition:all 0.2s; }
+    .infographic-tab.active { background:#f8fafc; color:#312e81; border-color:#fff; box-shadow:0 4px 14px rgba(255,255,255,0.2); }
+    .amigos-banner { background:rgba(56,189,248,0.12); border:1px solid rgba(56,189,248,0.34); color:#e0f2fe; border-radius:11px; padding:0.62rem 0.95rem; font-size:0.85rem; margin-bottom:0.9rem; display:flex; align-items:center; gap:0.55rem; line-height:1.45; }
+    .antv-stage-wrap { background:rgba(2,6,23,0.68); border:1px solid rgba(148,163,184,0.22); border-radius:16px; padding:0.85rem; min-height:420px; display:flex; align-items:center; justify-content:center; overflow-x:auto; }
+    .amigos-caption-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:0.75rem; margin-top:1rem; }
+    .amigos-caption-card { background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.14); border-radius:12px; padding:0.78rem 0.85rem; display:flex; gap:0.65rem; align-items:flex-start; }
+    .amigos-cap-num { width:26px; height:26px; border-radius:8px; background:linear-gradient(135deg,#6366f1,#a855f7); color:#fff; font-weight:800; font-size:0.8rem; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+    .amigos-cap-title { color:#fff; font-weight:800; font-size:0.84rem; margin-bottom:0.2rem; }
+    .amigos-cap-desc { color:#cbd5e1; font-size:0.77rem; line-height:1.45; }
     .flashcard-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(235px, 1fr)); gap:1rem; }
     .flashcard { -webkit-perspective:1000px; perspective:1000px; height:215px; cursor:pointer; }
     .flashcard-inner { position:relative; width:100%; height:100%; transition:transform 0.55s; -webkit-transform-style:preserve-3d; transform-style:preserve-3d; }
@@ -71,10 +105,10 @@
         <ul class="nav-links">
           <li><a href="index.html" class="nav-link">Tổng quan</a></li>
           <li><a href="hd1.html" class="nav-link">1. Khởi động</a></li>
-          <li><a href="hd2-1.html" class="nav-link">2.1. Ảnh &amp; Video</a></li>
-          <li><a href="hd2-2.html" class="nav-link">2.2. Khung iframe</a></li>
-          <li><a href="hd3.html" class="nav-link">3. Thực hành CLB</a></li>
-          <li><a href="hd4.html" class="nav-link active">4. Infographic</a></li>
+          <li><a href="hd2-1.html" class="nav-link">2.1. Khám phá 1</a></li>
+          <li><a href="hd2-2.html" class="nav-link">2.2. Khám phá 2</a></li>
+          <li><a href="hd3.html" class="nav-link">3. Thực hành (2 bài)</a></li>
+          <li><a href="hd4.html" class="nav-link active">4. Vận dụng &amp; Infographic</a></li>
         </ul>
       </nav>
 
@@ -117,19 +151,19 @@
         </a>
         <a href="hd2-1.html" class="stepper-step completed">
           <div class="step-circle">✓</div>
-          <span class="step-label">Ảnh, Audio &amp; Video (20&#x27;)</span>
+          <span class="step-label">Khám phá 1: Ảnh, Audio, Video (30&#x27;)</span>
         </a>
         <a href="hd2-2.html" class="stepper-step completed">
           <div class="step-circle">✓</div>
-          <span class="step-label">Khung iframe (15&#x27;)</span>
+          <span class="step-label">Khám phá 2: Khung iframe (20&#x27;)</span>
         </a>
         <a href="hd3.html" class="stepper-step completed">
           <div class="step-circle">✓</div>
-          <span class="step-label">Thực hành CLB (35&#x27;)</span>
+          <span class="step-label">Thực hành: 2 bài (35&#x27;)</span>
         </a>
         <a href="hd4.html" class="stepper-step active">
           <div class="step-circle">4</div>
-          <span class="step-label">Infographic &amp; SGK (15&#x27;)</span>
+          <span class="step-label">Vận dụng &amp; Infographic</span>
         </a>
       </div>
     </div>
@@ -145,25 +179,43 @@
 
   <main class="main-content">
     <div class="container">
-      <!-- INFOGRAPHIC STUDIO -->
-      <section class="card" style="margin-bottom:1.5rem;">
-        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.75rem;margin-bottom:1rem;">
+      <!-- ANTV INFOGRAPHIC STUDIO (GLASSMORPHIC DARK) -->
+      <section class="antv-infographic-container" style="margin-bottom:1.75rem;">
+        <div class="antv-header">
           <div>
-            <h2 style="margin:0;color:#1e3a8a;font-size:1.35rem;">1. Infographic Tổng Hợp Bản Đồ Kiến Thức</h2>
-            <p style="margin:0.2rem 0 0;color:#64748b;font-size:0.88rem;">Chuyển đổi 4 chế độ trực quan hóa và tải xuống ảnh SVG/PNG để ôn tập.</p>
+            <span class="antv-badge">✨ ANTV INFOGRAPHIC STUDIO • HỌC BẰNG HÌNH ẢNH</span>
+            <h2 style="margin:0.45rem 0 0.2rem;color:#fff;font-size:1.45rem;font-weight:800;">1. AntV Infographic Studio: Tổng kết Kiến thức Bài 11</h2>
+            <p style="margin:0;color:#cbd5e1;font-size:0.88rem;">Chuyển đổi 4 chế độ sơ đồ AntV tương tác, xem mã AntV DSL và tải về ảnh SVG/PNG sắc nét.</p>
           </div>
-          <div style="display:flex;gap:0.5rem;">
-            <button type="button" class="btn btn-secondary btn-sm" onclick="exportInfographicSVG()">⬇️ Tải SVG</button>
-            <button type="button" class="btn btn-primary btn-sm" onclick="exportInfographicPNG()">🖼️ Tải PNG</button>
+          <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+            <button type="button" class="antv-action-btn" onclick="toggleAntvDsl()">📄 Xem mã DSL</button>
+            <button type="button" class="antv-action-btn" onclick="exportInfographicSVG()">⬇️ Tải SVG</button>
+            <button type="button" class="antv-action-btn antv-action-primary" onclick="exportInfographicPNG()">🖼️ Tải PNG</button>
           </div>
         </div>
-        <div class="infographic-tabs">
-          <button type="button" class="infographic-tab active" onclick="renderInfographic('cards', this)">🗂️ 4 Trụ Cột Kiến Thức</button>
-          <button type="button" class="infographic-tab" onclick="renderInfographic('sequence', this)">🪜 Lộ Trình Thực Hiện</button>
-          <button type="button" class="infographic-tab" onclick="renderInfographic('compare', this)">⚖️ Phân Biệt &amp; Lưu Ý</button>
-          <button type="button" class="infographic-tab" onclick="renderInfographic('mindmap', this)">🧠 Bản Đồ Tư Duy</button>
+
+        <div class="antv-mode-tabs">
+          <button type="button" class="infographic-tab active" onclick="renderInfographic('sequence', this)">🪜 Lộ trình thực hiện</button>
+          <button type="button" class="infographic-tab" onclick="renderInfographic('cards', this)">🗂️ 4 Trụ cột kiến thức</button>
+          <button type="button" class="infographic-tab" onclick="renderInfographic('compare', this)">⚖️ Tuyệt đối vs Tương đối</button>
+          <button type="button" class="infographic-tab" onclick="renderInfographic('mindmap', this)">🧠 Bản đồ tư duy</button>
         </div>
-        <div id="infographic-container" class="infographic-canvas-wrap"></div>
+
+        <div id="amigos-banner-box" class="amigos-banner">
+          <span>💡</span>
+          <span id="amigos-banner-text">Nắm vững 4 bước tạo siêu liên kết chuẩn HTML5 trong SGK Kết nối tri thức.</span>
+        </div>
+
+        <div id="infographic-container" class="antv-stage-wrap"></div>
+
+        <div id="antv-dsl-drawer" style="display:none;margin-top:0.9rem;background:#020617;border:1px solid rgba(148,163,184,0.28);border-radius:12px;overflow:hidden;">
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:0.5rem 0.9rem;background:#0f172a;border-bottom:1px solid rgba(148,163,184,0.2);color:#94a3b8;font-size:0.78rem;font-family:monospace;">
+            <span>AntV Infographic DSL Syntax</span>
+            <button type="button" onclick="copyAntvDsl()" style="background:#334155;color:#f8fafc;border:none;border-radius:6px;padding:0.22rem 0.6rem;font-size:0.75rem;cursor:pointer;">📋 Copy DSL</button>
+          </div>
+          <pre id="antv-dsl-pre" style="margin:0;padding:0.85rem 1rem;color:#a5f3fc;font-family:'Fira Code',monospace;font-size:0.78rem;line-height:1.5;overflow-x:auto;"></pre>
+        </div>
+
       </section>
 
       <!-- FLASHCARDS 3D -->
@@ -176,13 +228,13 @@
           <div class="flashcard" onclick="this.classList.toggle('flipped')">
             <div class="flashcard-inner">
               <div class="flashcard-front">
-                <span style="background:#eff6ff;color:#1d4ed8;padding:0.2rem 0.6rem;border-radius:999px;font-size:0.75rem;font-weight:700;margin-bottom:0.75rem;">Thẻ 1 • Tỉ lệ ảnh</span>
-                <strong style="font-size:1rem;color:#0f172a;line-height:1.45;">Ảnh gốc 720x450 đặt width=&#x27;600&#x27; (không đặt height). Chiều cao hiển thị bằng bao nhiêu?</strong>
+                <span style="background:#eff6ff;color:#1d4ed8;padding:0.2rem 0.6rem;border-radius:999px;font-size:0.75rem;font-weight:700;margin-bottom:0.75rem;">Thẻ 1 • Luyện tập 1 • Tỉ lệ ảnh</span>
+                <strong style="font-size:1rem;color:#0f172a;line-height:1.45;">Ảnh gốc 720×450 px đặt &lt;img src=&quot;images/1.png&quot; alt=&quot;chiếc lá&quot; width=&quot;600&quot;&gt;. Kích thước hiển thị bằng bao nhiêu?</strong>
                 <span style="font-size:0.78rem;color:#64748b;margin-top:0.85rem;">👆 Nhấn để lật xem lời giải</span>
               </div>
               <div class="flashcard-back">
                 <strong style="color:#60a5fa;margin-bottom:0.5rem;">✅ Đáp án ghi nhớ:</strong>
-                <div style="font-size:0.9rem;line-height:1.55;"><code>600 × 450 / 720 = 375 px</code>. Vì chỉ khai báo 1 chiều nên trình duyệt tự giữ nguyên tỉ lệ gốc.</div>
+                <div style="font-size:0.9rem;line-height:1.55;"><strong>600 × 375 pixel.</strong> Vì chỉ khai báo <code>width="600"</code>, trình duyệt tính <code>height = 450 × 600 / 720 = 375 px</code>.</div>
                 <span style="font-size:0.75rem;color:#93c5fd;margin-top:0.65rem;">👆 Nhấn lần nữa để úp thẻ lại</span>
               </div>
             </div>
@@ -191,7 +243,7 @@
             <div class="flashcard-inner">
               <div class="flashcard-front">
                 <span style="background:#eff6ff;color:#1d4ed8;padding:0.2rem 0.6rem;border-radius:999px;font-size:0.75rem;font-weight:700;margin-bottom:0.75rem;">Thẻ 2 • Bẫy &lt;audio&gt;</span>
-                <strong style="font-size:1rem;color:#0f172a;line-height:1.45;">Thẻ &lt;audio&gt; có sử dụng thuộc tính poster, width, height giống &lt;video&gt; không?</strong>
+                <strong style="font-size:1rem;color:#0f172a;line-height:1.45;">Thẻ &lt;audio&gt; có dùng được các thuộc tính width, height, poster giống &lt;video&gt; không?</strong>
                 <span style="font-size:0.78rem;color:#64748b;margin-top:0.85rem;">👆 Nhấn để lật xem lời giải</span>
               </div>
               <div class="flashcard-back">
@@ -210,7 +262,7 @@
               </div>
               <div class="flashcard-back">
                 <strong style="color:#60a5fa;margin-bottom:0.5rem;">✅ Đáp án ghi nhớ:</strong>
-                <div style="font-size:0.9rem;line-height:1.55;">Giúp khai báo nhiều định dạng tệp khác nhau (như <code>.mp4</code> và <code>.webm</code>); trình duyệt tự chọn phát định dạng đầu tiên nó hỗ trợ.</div>
+                <div style="font-size:0.9rem;line-height:1.55;">Khai báo nhiều định dạng tệp khác nhau (như <code>.mp4</code> và <code>.ogg</code>/<code>.webm</code>); trình duyệt tự phát tệp đầu tiên nó hỗ trợ.</div>
                 <span style="font-size:0.75rem;color:#93c5fd;margin-top:0.65rem;">👆 Nhấn lần nữa để úp thẻ lại</span>
               </div>
             </div>
@@ -219,12 +271,26 @@
             <div class="flashcard-inner">
               <div class="flashcard-front">
                 <span style="background:#eff6ff;color:#1d4ed8;padding:0.2rem 0.6rem;border-radius:999px;font-size:0.75rem;font-weight:700;margin-bottom:0.75rem;">Thẻ 4 • &lt;iframe&gt; + target</span>
-                <strong style="font-size:1rem;color:#0f172a;line-height:1.45;">Làm sao để bấm vào thẻ &lt;a&gt; thì trang đích mở bên trong thẻ &lt;iframe name=&quot;khung&quot;&gt;?</strong>
+                <strong style="font-size:1rem;color:#0f172a;line-height:1.45;">Làm sao để nhấp thẻ &lt;a&gt; thì trang đích mở bên trong thẻ &lt;iframe&gt; thay vì mở trang mới?</strong>
                 <span style="font-size:0.78rem;color:#64748b;margin-top:0.85rem;">👆 Nhấn để lật xem lời giải</span>
               </div>
               <div class="flashcard-back">
                 <strong style="color:#60a5fa;margin-bottom:0.5rem;">✅ Đáp án ghi nhớ:</strong>
-                <div style="font-size:0.9rem;line-height:1.55;">Gán thuộc tính <code>target="khung"</code> trên thẻ <code>&lt;a&gt;</code> trùng khớp với giá trị <code>name="khung"</code> của <code>&lt;iframe&gt;</code>.</div>
+                <div style="font-size:0.9rem;line-height:1.55;">Đặt <code>name="iframe" id="iframe"</code> trên <code>&lt;iframe&gt;</code> và gán <code>target="iframe"</code> trùng khớp trên thẻ <code>&lt;a&gt;</code>.</div>
+                <span style="font-size:0.75rem;color:#93c5fd;margin-top:0.65rem;">👆 Nhấn lần nữa để úp thẻ lại</span>
+              </div>
+            </div>
+          </div>
+          <div class="flashcard" onclick="this.classList.toggle('flipped')">
+            <div class="flashcard-inner">
+              <div class="flashcard-front">
+                <span style="background:#eff6ff;color:#1d4ed8;padding:0.2rem 0.6rem;border-radius:999px;font-size:0.75rem;font-weight:700;margin-bottom:0.75rem;">Thẻ 5 • NLS 3.3.NC1a</span>
+                <strong style="font-size:1rem;color:#0f172a;line-height:1.45;">Khi nhúng ảnh, nhạc, video từ Internet vào trang web, em cần lưu ý nguyên tắc gì về bản quyền?</strong>
+                <span style="font-size:0.78rem;color:#64748b;margin-top:0.85rem;">👆 Nhấn để lật xem lời giải</span>
+              </div>
+              <div class="flashcard-back">
+                <strong style="color:#60a5fa;margin-bottom:0.5rem;">✅ Đáp án ghi nhớ:</strong>
+                <div style="font-size:0.9rem;line-height:1.55;">Chỉ dùng tài nguyên được phép sử dụng (tự tạo, học liệu trường, giấy phép mở <strong>Creative Commons</strong>) và ghi rõ nguồn/tác giả; không tải lậu nội dung có bản quyền.</div>
                 <span style="font-size:0.75rem;color:#93c5fd;margin-top:0.65rem;">👆 Nhấn lần nữa để úp thẻ lại</span>
               </div>
             </div>
@@ -237,51 +303,49 @@
         <h2 style="color:#1e3a8a;font-size:1.35rem;margin-bottom:0.85rem;">3. Trả Lời Câu Hỏi Cuối Bài SGK Tin Học 12 (Luyện Tập &amp; Vận Dụng)</h2>
         <div class="card" style="margin-bottom:1rem;border-left:4px solid #dc2626;">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;">
-            <strong style="color:#b91c1c;">LUYỆN TẬP • Câu 1: Tính kích thước hiển thị ảnh giữ tỉ lệ</strong>
+            <strong style="color:#b91c1c;">LUYỆN TẬP • Luyện tập 1: Tính kích thước hiển thị ảnh giữ tỉ lệ</strong>
             <span class="sgk-badge">SGK tr.66</span>
           </div>
-          <p style="margin:0 0 0.7rem;color:#1e293b;line-height:1.55;">Một bức ảnh có kích thước gốc 720 × 450 pixel. Nếu sử dụng thẻ <code>&lt;img src="anh.jpg" width="600"&gt;</code> (không khai báo <code>height</code>) thì kích thước ảnh hiển thị trên trình duyệt là bao nhiêu?</p>
+          <p style="margin:0 0 0.7rem;color:#1e293b;line-height:1.55;">Cho ảnh có kích thước gốc là <strong>720 × 450 pixel</strong>. Chèn ảnh vào trang web bằng câu lệnh <code>&lt;img src="images/1.png" alt="chiếc lá" width="600"&gt;</code>. Hỏi ảnh trong trang web có kích thước bao nhiêu?</p>
           <textarea id="ans-input-1" rows="3" placeholder="Em hãy viết câu trả lời / đoạn mã của mình tại đây..." oninput="saveHd4Ans(1, this.value)" style="width:100%;padding:0.7rem;border:1.5px solid #cbd5e1;border-radius:8px;font-family:'Fira Code',sans-serif;font-size:0.86rem;"></textarea>
           <div style="margin-top:0.6rem;">
             <button type="button" class="btn btn-secondary btn-sm" onclick="toggleSgkAnswer(1, this)">💡 Bấm xem gợi ý &amp; đáp án đối chiếu</button>
           </div>
           <div id="ans-guide-1" style="display:none;margin-top:0.75rem;padding:0.9rem 1rem;background:#f0fdf4;border:1.5px solid #86efac;border-radius:8px;color:#14532d;font-size:0.9rem;line-height:1.6;">
-            <strong>Đáp án chuẩn: 600 × 375 pixel.</strong><br>Vì chỉ chỉ định <code>width="600"</code>, trình duyệt tự động tính chiều cao giữ đúng tỉ lệ ảnh gốc:<br><code>height = 600 × (450 / 720) = 375 (px)</code>.
+            <strong>Đáp án chuẩn: 600 × 375 pixel.</strong><br>Vì chỉ khai báo một thuộc tính <code>width="600"</code> (bỏ trống <code>height</code>), trình duyệt tự động tính chiều cao giữ đúng tỉ lệ ảnh gốc:<br><code>height = 450 × (600 / 720) = 375 (pixel)</code>.
           </div>
         </div>
         <div class="card" style="margin-bottom:1rem;border-left:4px solid #dc2626;">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;">
-            <strong style="color:#b91c1c;">LUYỆN TẬP • Câu 2: Vai trò của thẻ &amp;lt;source&amp;gt; trong &amp;lt;video&amp;gt;/&amp;lt;audio&amp;gt;</strong>
+            <strong style="color:#b91c1c;">LUYỆN TẬP • Luyện tập 2: Chèn ảnh vào trang giới thiệu bản thân</strong>
             <span class="sgk-badge">SGK tr.66</span>
           </div>
-          <p style="margin:0 0 0.7rem;color:#1e293b;line-height:1.55;">Trình bày ý nghĩa và cách hoạt động của thẻ <code>&lt;source&gt;</code> khi đặt bên trong thẻ <code>&lt;audio&gt;</code> hoặc <code>&lt;video&gt;</code>.</p>
+          <p style="margin:0 0 0.7rem;color:#1e293b;line-height:1.55;">Chèn thêm một số ảnh của mình/hoạt động học tập vào trang web giới thiệu bản thân (em đã tạo ở phần Luyện tập, Bài 10).</p>
           <textarea id="ans-input-2" rows="3" placeholder="Em hãy viết câu trả lời / đoạn mã của mình tại đây..." oninput="saveHd4Ans(2, this.value)" style="width:100%;padding:0.7rem;border:1.5px solid #cbd5e1;border-radius:8px;font-family:'Fira Code',sans-serif;font-size:0.86rem;"></textarea>
           <div style="margin-top:0.6rem;">
             <button type="button" class="btn btn-secondary btn-sm" onclick="toggleSgkAnswer(2, this)">💡 Bấm xem gợi ý &amp; đáp án đối chiếu</button>
           </div>
           <div id="ans-guide-2" style="display:none;margin-top:0.75rem;padding:0.9rem 1rem;background:#f0fdf4;border:1.5px solid #86efac;border-radius:8px;color:#14532d;font-size:0.9rem;line-height:1.6;">
-            Thẻ <code>&lt;source src="..." type="..."&gt;</code> cho phép cung cấp nhiều tệp nguồn với các định dạng khác nhau (ví dụ MP4 và WebM, hoặc MP3 và OGG). Trình duyệt sẽ kiểm tra tuần tự từ trên xuống và tự động phát tệp đầu tiên tương thích với trình duyệt đó.
+            Tạo thư mục <code>images/</code> đặt cùng thư mục với tệp giới thiệu bản thân (Bài 10), chép ảnh cá nhân (định dạng <code>.jpg</code>/<code>.png</code>/<code>.webp</code> dung lượng gọn) vào đó rồi chèn bằng đường dẫn tương đối:<br><pre style='background:#0f172a;color:#e2e8f0;padding:0.7rem;border-radius:8px;overflow:auto;margin-top:0.4rem;'>&lt;img src="images/chan_dung.jpg" alt="Ảnh chân dung của em" width="280"&gt;
+&lt;img src="images/clb_truong.jpg" alt="Hoạt động ngoại khóa tại THTH-ĐHSP" width="360"&gt;</pre>
           </div>
         </div>
         <div class="card" style="margin-bottom:1rem;border-left:4px solid #0284c7;">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;">
-            <strong style="color:#0369a1;">VẬN DỤNG • Tích hợp đa phương tiện &amp;amp; khung &amp;lt;iframe&amp;gt; cho trang CLB</strong>
-            <span class="sgk-badge">SGK tr.66</span>
+            <strong style="color:#0369a1;">VẬN DỤNG • Vận dụng: Nhúng khung nội tuyến bài hát yêu thích (hợp bản quyền)</strong>
+            <span class="sgk-badge">SGK tr.66 • NLS 3.3.NC1a</span>
           </div>
-          <p style="margin:0 0 0.7rem;color:#1e293b;line-height:1.55;">Hãy viết đoạn mã HTML bổ sung một khung <code>&lt;iframe&gt;</code> vào trang giới thiệu CLB để người dùng có thể bấm chuyển giữa trang <code>the_thao.html</code> và <code>nghe_thuat.html</code> ngay trong khung, đồng thời nhúng 1 video giới thiệu.</p>
+          <p style="margin:0 0 0.7rem;color:#1e293b;line-height:1.55;">Tạo một khung nội tuyến <code>&lt;iframe&gt;</code> và liên kết đến bài hát em yêu thích (ví dụ trên YouTube) vào trang web giới thiệu bản thân. Đọc trước <strong>Bài 12: Tạo biểu mẫu</strong>.</p>
           <textarea id="ans-input-3" rows="3" placeholder="Em hãy viết câu trả lời / đoạn mã của mình tại đây..." oninput="saveHd4Ans(3, this.value)" style="width:100%;padding:0.7rem;border:1.5px solid #cbd5e1;border-radius:8px;font-family:'Fira Code',sans-serif;font-size:0.86rem;"></textarea>
           <div style="margin-top:0.6rem;">
             <button type="button" class="btn btn-secondary btn-sm" onclick="toggleSgkAnswer(3, this)">💡 Bấm xem gợi ý &amp; đáp án đối chiếu</button>
           </div>
           <div id="ans-guide-3" style="display:none;margin-top:0.75rem;padding:0.9rem 1rem;background:#f0fdf4;border:1.5px solid #86efac;border-radius:8px;color:#14532d;font-size:0.9rem;line-height:1.6;">
-            <pre style='background:#0f172a;color:#e2e8f0;padding:0.75rem;border-radius:8px;overflow:auto;'>&lt;p&gt;
-  &lt;a href="the_thao.html" target="khung_clb"&gt;CLB Thể thao&lt;/a&gt; |
-  &lt;a href="nghe_thuat.html" target="khung_clb"&gt;CLB Nghệ thuật&lt;/a&gt;
-&lt;/p&gt;
-&lt;iframe name="khung_clb" src="the_thao.html" width="720" height="400"&gt;&lt;/iframe&gt;
-&lt;video width="480" height="270" controls poster="bia.jpg"&gt;
-  &lt;source src="clb.mp4" type="video/mp4"&gt;
-&lt;/video&gt;</pre>
+            Vào video bài hát chính chủ trên YouTube → chọn <strong>Chia sẻ (Share) → Nhúng (Embed)</strong> để lấy đoạn mã <code>&lt;iframe&gt;</code> chuẩn hợp pháp và ghi rõ nguồn tác giả bên dưới:<br><pre style='background:#0f172a;color:#e2e8f0;padding:0.7rem;border-radius:8px;overflow:auto;margin-top:0.4rem;'>&lt;h3&gt;Bài hát em yêu thích&lt;/h3&gt;
+&lt;iframe width="560" height="315"
+  src="https://www.youtube.com/embed/MA_VIDEO_CHINH_CHU"
+  title="Bài hát yêu thích" allowfullscreen&gt;&lt;/iframe&gt;
+&lt;p&gt;Nguồn: Kênh YouTube chính thức của tác giả.&lt;/p&gt;</pre>
           </div>
         </div>
       </section>
@@ -330,6 +394,23 @@
           </div>
           <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.8rem; font-size: 1rem; font-weight: 700; border-radius: 8px; justify-content: center;">🔓 Xác Thực Giáo Viên</button>
         </form>
+      </div>
+    </div>
+  </div>
+  <!-- MODAL PHÓNG TO HÌNH MINH HỌA -->
+  <div id="img-zoom-modal" class="img-lightbox-overlay" onclick="closeImgZoom()">
+    <div class="img-lightbox-dialog" onclick="event.stopPropagation()">
+      <div class="img-lightbox-header">
+        <div id="img-zoom-caption" class="img-lightbox-caption"></div>
+        <div class="img-lightbox-tools">
+          <button type="button" id="btn-zoom-100" class="btn btn-primary btn-sm" onclick="setImgZoomScale(100)">🔍 Vừa màn hình</button>
+          <button type="button" id="btn-zoom-150" class="btn btn-secondary btn-sm" onclick="setImgZoomScale(150)">➕ Phóng 150%</button>
+          <button type="button" id="btn-zoom-200" class="btn btn-secondary btn-sm" onclick="setImgZoomScale(200)">➕ Phóng 200%</button>
+          <button type="button" onclick="closeImgZoom()" class="btn btn-secondary btn-sm">✕ Đóng (Esc)</button>
+        </div>
+      </div>
+      <div id="img-zoom-scroll" class="img-lightbox-body">
+        <img id="img-zoom-target" alt="Phóng to hình minh họa">
       </div>
     </div>
   </div>
@@ -535,18 +616,120 @@
         return data;
       } catch (e) { return null; }
     }
+    function setImgZoomScale(pct) {
+      const im = document.getElementById('img-zoom-target');
+      const sc = document.getElementById('img-zoom-scroll');
+      [100, 150, 200].forEach(p => {
+        const b = document.getElementById('btn-zoom-' + p);
+        if (b) b.className = 'btn btn-sm ' + (p === pct ? 'btn-primary' : 'btn-secondary');
+      });
+      if (!im || !sc) return;
+      if (pct <= 100) {
+        sc.classList.remove('is-zoomed');
+        const nw = im.naturalWidth || 0;
+        const nh = im.naturalHeight || 0;
+        if (nw && nh && nw < nh * 1.6) {
+          im.style.cssText = 'width:auto !important;max-width:100% !important;height:78vh !important;max-height:82vh !important;object-fit:contain;margin:auto;display:block;border-radius:10px;background:#fff;';
+        } else {
+          im.style.cssText = 'width:100% !important;max-width:100% !important;height:auto !important;max-height:none !important;margin:auto;display:block;border-radius:10px;background:#fff;';
+        }
+      } else {
+        sc.classList.add('is-zoomed');
+        im.style.cssText = 'width:' + pct + '% !important;max-width:none !important;height:auto !important;max-height:none !important;margin:0;display:block;border-radius:10px;background:#fff;';
+      }
+    }
+    function openImgZoom(src, cap) {
+      const m = document.getElementById('img-zoom-modal');
+      const im = document.getElementById('img-zoom-target');
+      const cp = document.getElementById('img-zoom-caption');
+      if (!m || !im || !src) return;
+      im.onload = () => setImgZoomScale(100);
+      im.src = src;
+      im.alt = cap || 'Hình minh họa';
+      if (cp) cp.textContent = cap || 'Hình minh họa chi tiết';
+      m.classList.add('active');
+      setImgZoomScale(100);
+    }
+    function closeImgZoom() {
+      document.getElementById('img-zoom-modal')?.classList.remove('active');
+    }
+    async function syncPendingLocalWorksheetSubmissions() {
+      if (window.__wsOutboxBusy) return;
+      window.__wsOutboxBusy = true;
+      try {
+        const key = LESSON_SLUG + '_worksheet_submissions';
+        const raw = localStorage.getItem(key);
+        if (!raw) return;
+        const list = JSON.parse(raw);
+        if (!Array.isArray(list) || !list.length) return;
+        const pending = list.filter(x => x && x.id && String(x.id).startsWith('WS-') && x.worksheetId !== 'kttx2' && !x._synced);
+        if (!pending.length) return;
+        const res = await fetch('/api/' + LESSON_SLUG + '/submissions', { headers: getTeacherHeaders(), cache: 'no-store' });
+        if (!res.ok) return;
+        const srv = await res.json();
+        const srvIds = new Set((Array.isArray(srv) ? srv : []).map(x => x && x.id).filter(Boolean));
+        let changed = false;
+        let uploaded = false;
+        for (const item of list) {
+          if (!item || !item.id || !String(item.id).startsWith('WS-') || item.worksheetId === 'kttx2' || item._synced) continue;
+          if (srvIds.has(item.id)) {
+            item._synced = true;
+            changed = true;
+            continue;
+          }
+          const clean = Object.assign({}, item);
+          delete clean._synced;
+          try {
+            const pr = await fetch('/api/' + LESSON_SLUG + '/submit', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              keepalive: true,
+              body: JSON.stringify(clean)
+            });
+            if (pr.ok) {
+              item._synced = true;
+              srvIds.add(item.id);
+              changed = true;
+              uploaded = true;
+            }
+          } catch (e) {}
+        }
+        if (changed) localStorage.setItem(key, JSON.stringify(list));
+        if (uploaded && typeof loadSubmissionsP2 === 'function') loadSubmissionsP2();
+      } catch (e) {} finally {
+        window.__wsOutboxBusy = false;
+      }
+    }
+    window.addEventListener('online', syncPendingLocalWorksheetSubmissions);
+    document.addEventListener('keydown', (ev) => {
+      if (ev.key === 'Escape') closeImgZoom();
+    });
     document.addEventListener('DOMContentLoaded', () => {
       updateTeacherNavBadge();
       syncLessonExamGates();
+      syncPendingLocalWorksheetSubmissions();
       if (document.querySelector('[data-exam-gate], #teacher-exam-control-panel')) {
         setInterval(syncLessonExamGates, 10000);
       }
+      document.querySelectorAll('.sgk-fig-box').forEach(figBox => {
+        const img = figBox.querySelector('img');
+        if (!img) return;
+        img.title = img.title || 'Bấm để phóng to hình minh họa';
+        const openThis = () => {
+          const spanCap = figBox.querySelector('.sgk-fig-cap .lv-cap-text') || figBox.querySelector('.sgk-fig-cap');
+          const cap = img.getAttribute('alt') || (spanCap && spanCap.textContent) || '';
+          openImgZoom(img.getAttribute('src'), cap);
+        };
+        img.addEventListener('click', openThis);
+        const pill = figBox.querySelector('.lv-zoom-pill');
+        if (pill) pill.addEventListener('click', openThis);
+      });
     });
     
-    const INFO_NODES = {"cards": [{"title": "1. Hình ảnh <img>", "points": ["Thẻ trống, không có </img>.", "src (bắt buộc), alt (mô tả).", "Đặt 1 chiều -> tự giữ tỉ lệ gốc."]}, {"title": "2. Âm thanh <audio>", "points": ["Định dạng MP3, WAV, OGG.", "Thuộc tính: controls, autoplay, muted.", "KHÔNG có width, height, poster."]}, {"title": "3. Video <video>", "points": ["Định dạng MP4, WebM, Ogg.", "Có controls, width, height, poster.", "Dùng <source> dự phòng nhiều nguồn."]}, {"title": "4. Khung <iframe>", "points": ["<iframe src width height name>", "Nhúng trang web/video YouTube.", "Kết hợp <a target=\"name_iframe\">."]}], "sequence": [{"title": "Chuẩn bị tệp & Bản quyền", "desc": "Chọn ảnh (PNG/JPG/WebP), audio (MP3), video (MP4) rõ nguồn gốc, hợp bản quyền."}, {"title": "Chèn ảnh đúng tỉ lệ", "desc": "Viết <img src alt> chỉ định 1 chiều width để ảnh tự co không bị méo."}, {"title": "Nhúng Audio/Video", "desc": "Thêm <audio controls> và <video controls poster> kèm thẻ con <source>."}, {"title": "Tạo <iframe> & target", "desc": "Đặt <iframe name='khung'> và nối các thẻ <a target='khung'>."}], "compare": [{"title": "<audio> vs <video>", "points": ["Chung: controls, autoplay, muted, source.", "Khác: chỉ <video> có width, height, poster.", "Đều cần controls để hiện nút bấm."]}, {"title": "Đặt 1 chiều vs 2 chiều <img>", "points": ["Chỉ width: height tự tính đúng tỉ lệ.", "Đặt cả 2 lệch tỉ lệ: ảnh bị dãn/méo.", "Đơn vị số trong HTML mặc định là px."]}, {"title": "target='_blank' vs target='khung'", "points": ["_blank: mở sang tab trình duyệt mới.", "tên iframe: mở gọn bên trong khung.", "name trên iframe phải khớp target."]}, {"title": "Định dạng ảnh thông dụng", "points": ["PNG: sắc nét, có nền trong suốt.", "JPEG: nhẹ, hợp ảnh chụp phong cảnh.", "WebP: nén tối ưu hiện đại cho web."]}], "mindmap": [{"title": "Hình ảnh HTML5", "points": ["<img src alt width>", "Công thức W'/W = H'/H", "JPEG, PNG, GIF, WebP"]}, {"title": "Âm thanh & Video", "points": ["<audio controls>", "<video poster controls>", "<source src type>"]}, {"title": "Khung nội tuyến", "points": ["<iframe src name>", "<a target='name'>", "Nhúng map/YouTube"]}, {"title": "Năng lực số", "points": ["Tối ưu kích thước tệp", "Tôn trọng bản quyền", "Trợ năng với alt"]}]};
-    const USE_ANTV_STUDIO = false;
-    const AMIGOS_BANNERS = {};
-    const ANTV_DSL_MAP = {};
+    const INFO_NODES = {"cards": [{"title": "1. Hình ảnh <img>", "points": ["Thẻ đơn, không có </img>; hỗ trợ PNG, JPEG, GIF, WebP.", "src (bắt buộc, ưu tiên tương đối), alt (mô tả trợ năng).", "Đặt 1 chiều width/height → tự tính chiều kia đúng tỉ lệ."]}, {"title": "2. Âm thanh <audio>", "points": ["Định dạng phổ biến: MP3, WAV, OGG.", "Thuộc tính: src, controls, autoplay, muted.", "KHÔNG có width, height, poster!"]}, {"title": "3. Video <video> & <source>", "points": ["Định dạng phổ biến: MP4, WebM.", "Có controls, width, height, poster, autoplay (+ muted).", "Dùng <source src type> dự phòng đa trình duyệt."]}, {"title": "4. Khung <iframe> & Bản quyền", "points": ["<iframe src width height name=\"iframe\"></iframe>", "Kết hợp <a href=\"...\" target=\"iframe\"> mở trong khung.", "NLS 3.3.NC1a: Tôn trọng bản quyền Creative Commons, ghi nguồn."]}], "sequence": [{"title": "Chuẩn bị tệp & Bản quyền", "desc": "Chọn ảnh (PNG/JPG/WebP), audio (MP3), video (MP4) rõ nguồn gốc, hợp bản quyền (3.3.NC1a)."}, {"title": "Chèn ảnh đúng tỉ lệ", "desc": "Viết <img src alt> bằng đường dẫn tương đối, đặt 1 chiều width để ảnh không méo."}, {"title": "Nhúng Audio & Video", "desc": "Thêm <audio controls> và <video controls poster> kèm thẻ con <source>."}, {"title": "Tạo <iframe> & target", "desc": "Đặt <iframe name='iframe'> và nối các liên kết <a target='iframe'>."}], "compare": [{"title": "<audio> vs <video>", "points": ["Chung: src, controls, autoplay, muted, <source>.", "Khác: chỉ <video> có width, height, poster.", "Đều cần controls để hiển thị nút bấm điều khiển."]}, {"title": "Đặt 1 chiều vs 2 chiều <img>", "points": ["Chỉ width: height tự tính đúng tỉ lệ (720×450 → 600×375).", "Đặt cả 2 lệch tỉ lệ: hình ảnh bị dãn/dẹt (Hình 11.3).", "Đơn vị mặc định trong HTML là pixel."]}, {"title": "target='_blank' vs target='iframe'", "points": ["_blank: mở tài liệu sang tab trình duyệt mới.", "target='iframe': mở gọn bên trong khung nội tuyến.", "Nên ghi cả name='iframe' id='iframe' trên <iframe>."]}, {"title": "Tài nguyên hợp pháp vs Tải lậu", "points": ["Nên dùng: tự tạo, học liệu trường, Creative Commons.", "Luôn ghi rõ tên tác giả / nguồn trích dẫn cuối trang.", "Không dùng công cụ tải lậu vi phạm bản quyền (3.3.NC1a)."]}], "mindmap": [{"title": "Hình ảnh HTML5", "points": ["<img src alt width>", "Công thức W'/W = H'/H", "PNG, JPEG, GIF, WebP"]}, {"title": "Âm thanh & Video", "points": ["<audio controls>", "<video poster controls>", "<source src type>"]}, {"title": "Khung nội tuyến", "points": ["<iframe src name>", "<a target='name'>", "Nhúng Maps / YouTube"]}, {"title": "Năng lực số", "points": ["3.2.NC1a: Tích hợp đa phương tiện", "3.3.NC1a: Bản quyền số", "2 Bài TH: CLB & THTH-ĐHSP"]}]};
+    const USE_ANTV_STUDIO = true;
+    const AMIGOS_BANNERS = {"sequence": "Lộ trình Bài 11 (90 phút): Chọn tệp hợp bản quyền (3.3.NC1a) → Chèn ảnh <img> giữ tỉ lệ → Nhúng <audio>/<video> kèm <source> & controls → Tạo <iframe name> nối <a target>.", "cards": "4 trụ cột cốt lõi: (1) Hình ảnh <img> & quy tắc giữ tỉ lệ, (2) Âm thanh <audio> (không có width/height/poster), (3) Video <video> & <source>, (4) Khung <iframe> & target.", "compare": "Nhớ nhanh tránh bẫy đề thi: Chỉ đặt 1 chiều width để ảnh không méo; <audio> KHÔNG có poster/width/height; autoplay trên Chrome cần kèm muted!", "mindmap": "Đa phương tiện HTML5 biến trang web tĩnh thành không gian tương tác sống động đồng thời đòi hỏi tối ưu dung lượng và tôn trọng bản quyền số."};
+    const ANTV_DSL_MAP = {"sequence": "infographic list-row-horizontal-icon-arrow\ndata\n  title Bài 11: Quy trình Chèn Đa phương tiện & Khung nội tuyến\n  items\n    - label Bước 1: Chuẩn bị & Bản quyền\n      desc Chọn PNG/JPEG/WebP, MP3, MP4 hợp bản quyền (Creative Commons / tự tạo)\n    - label Bước 2: Chèn ảnh <img>\n      desc Dùng đường dẫn tương đối, luôn có alt và đặt 1 chiều width giữ tỉ lệ\n    - label Bước 3: Audio & Video\n      desc Thêm controls, dùng <source> đa định dạng; <video> có poster, width, height\n    - label Bước 4: Khung <iframe>\n      desc Gắn name=\"iframe\" trên <iframe> khớp với target=\"iframe\" trên thẻ <a>", "cards": "infographic list-grid-badge-card\ndata\n  title Bài 11: 4 Trụ cột Thẻ Đa phương tiện HTML5 (SGK tr.62–66)\n  items\n    - label 1. Hình ảnh <img>\n      desc Thẻ đơn • src bắt buộc • alt thay thế • đặt 1 chiều tự giữ tỉ lệ\n    - label 2. Âm thanh <audio>\n      desc MP3, WAV, OGG • controls, autoplay, muted • KHÔNG có width/height/poster\n    - label 3. Video <video>\n      desc MP4, WebM • có width, height, poster, controls • lồng <source>\n    - label 4. Khung <iframe>\n      desc Nhúng trang web/Maps/YouTube • name khớp target của thẻ <a>", "compare": "infographic compare-quadrant-card\ndata\n  title So sánh nhanh các bẫy thường gặp Bài 11\n  items\n    - label <audio> vs <video>\n      desc Chung controls/autoplay/muted/source; CHỈ <video> có width, height, poster\n    - label Đặt 1 chiều vs 2 chiều <img>\n      desc Chỉ width -> height tự tính đúng tỉ lệ; đặt cả 2 lệch tỉ lệ -> ảnh méo\n    - label target=\"_blank\" vs target=\"iframe\"\n      desc _blank mở tab mới; tên iframe mở gọn trang con ngay trong khung\n    - label Bản quyền số (3.3.NC1a)\n      desc Dùng tài nguyên mở (Creative Commons) & ghi nguồn; không tải lậu", "mindmap": "infographic mindmap-radial-tree\ndata\n  title Bài 11: Đa phương tiện & Khung nội tuyến\n  items\n    - label Hình ảnh <img>\n      desc PNG, JPEG, GIF, WebP • alt • W'/W = H'/H\n    - label Audio & Video\n      desc <audio controls> • <video poster> • <source>\n    - label Khung <iframe>\n      desc <iframe name> + <a target> • Google Maps / YouTube\n    - label Thực hành & NLS\n      desc 2 Bài TH (CLB + THTH-ĐHSP) • 3.2.NC1a & 3.3.NC1a"};
     function escXml(s) { return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
     function wrapSvgLines(text, maxChars) {

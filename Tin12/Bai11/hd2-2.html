@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hoạt động 2.2: Tạo khung nội tuyến &amp;lt;iframe&amp;gt; &amp;amp; Phiếu bài tập | Bài 11: Chèn tệp tin đa phương tiện và khung nội tuyến vào trang web</title>
+  <title>Hoạt động 2.2: Hoạt động 2.2: Khám phá 2 – Tạo Khung nội tuyến &amp;lt;iframe&amp;gt; &amp;amp; Phiếu bài tập (20’) | Bài 11: Chèn tệp tin đa phương tiện và khung nội tuyến vào trang web</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Fira+Code:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -26,12 +26,46 @@
     .qr-zoom-modal { display: none; position: fixed; inset: 0; background: rgba(15,23,42,0.75); backdrop-filter: blur(4px); z-index: 9998; align-items: center; justify-content: center; padding: 1rem; }
     .qr-zoom-modal.active { display: flex; }
     .qr-zoom-box { background: #fff; border-radius: 16px; padding: 2rem; max-width: 460px; width: 100%; text-align: center; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.35); }
-    .sgk-fig-box { background: #fff; border: 1.5px solid #cbd5e1; border-radius: 12px; padding: 0.85rem; margin: 1rem 0; text-align: center; }
-    .sgk-fig-box img { max-width: 100%; max-height: 360px; height: auto; border-radius: 6px; object-fit: contain; }
+    .img-lightbox-overlay { display: none; position: fixed; inset: 0; background: rgba(15,23,42,0.88); backdrop-filter: blur(5px); z-index: 9998; align-items: center; justify-content: center; padding: 1.5vh 1.5vw; }
+    .img-lightbox-overlay.active { display: flex; }
+    .img-lightbox-dialog { background: #ffffff; border-radius: 16px; width: 96vw; max-width: 1860px; max-height: 96vh; padding: 0.9rem 1.25rem 1.1rem; display: flex; flex-direction: column; box-shadow: 0 25px 60px rgba(0,0,0,0.48); overflow: hidden; }
+    .img-lightbox-header { display: flex; justify-content: space-between; align-items: center; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 0.7rem; padding-bottom: 0.55rem; border-bottom: 1px solid #e2e8f0; }
+    .img-lightbox-caption { font-size: 1.02rem; font-weight: 800; color: #1e3a8a; text-align: left; flex: 1; min-width: 220px; }
+    .img-lightbox-tools { display: flex; gap: 0.4rem; flex-wrap: wrap; flex-shrink: 0; }
+    .img-lightbox-body { flex: 1; overflow: auto; background: #f8fafc; border: 1.5px solid #cbd5e1; border-radius: 12px; padding: 0.75rem; display: flex; align-items: flex-start; justify-content: center; min-height: 50vh; }
+    .img-lightbox-body.is-zoomed { justify-content: flex-start; }
+    #img-zoom-target { display: block; border-radius: 10px; background: #fff; box-shadow: 0 4px 20px rgba(15,23,42,0.08); }
+    .sgk-fig-box { background: #fff; border: 1.5px solid #cbd5e1; border-radius: 12px; padding: 0.85rem; margin: 1rem 0; text-align: center; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
+    .sgk-fig-box:hover { border-color: #60a5fa; box-shadow: 0 6px 18px rgba(37,99,235,0.10); }
+    .sgk-fig-box img { max-width: 100%; max-height: 360px; height: auto; border-radius: 6px; object-fit: contain; cursor: zoom-in; transition: transform 0.2s ease; }
     .sgk-fig-cap { font-size: 0.84rem; color: #475569; font-style: italic; margin-top: 0.5rem; }
+    .fig-gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 1rem; margin-top: 1.1rem; }
+    .fig-gallery-grid .sgk-fig-box { margin: 0; }
+    .fig-gallery-grid .sgk-fig-box.span-full { grid-column: 1 / -1; }
+    .fig-gallery-grid .sgk-fig-box img { max-height: 430px; }
+    .fig-gallery-grid .sgk-fig-box.span-full img { max-height: 490px; }
+    .example-cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.7rem; margin: 0.85rem 0; }
+    .ex-card { background: #fff; border: 1.5px solid #cbd5e1; border-radius: 10px; padding: 0.75rem 0.85rem; }
+    .ex-card code { overflow-wrap: anywhere; word-break: break-word; white-space: normal; }
+    .ex-card-blue { background: #eff6ff; border-color: #93c5fd; }
+    .ex-card-emerald { background: #f0fdf4; border-color: #86efac; }
+    .ex-card-amber { background: #fffbeb; border-color: #fcd34d; }
+    .ex-card-rose { background: #fef2f2; border-color: #fca5a5; }
     .exam-gated-hidden { display: none !important; }
 
 
+    .lv-fig-showcase .sgk-fig-box, .sgk-fig-box.lv-large { padding: 1.05rem 1.2rem; border: 2px solid #cbd5e1; border-radius: 14px; background: #ffffff; box-shadow: 0 6px 18px rgba(15,23,42,0.06); margin: 0.9rem 0; }
+    .lv-fig-showcase .sgk-fig-box:hover, .sgk-fig-box.lv-large:hover { border-color: #3b82f6; box-shadow: 0 10px 26px rgba(37,99,235,0.12); }
+    .lv-fig-showcase .sgk-fig-box img, .sgk-fig-box.lv-large img { width: 100% !important; max-width: 100% !important; max-height: none !important; height: auto !important; display: block; margin: 0 auto; border-radius: 10px; }
+    .lv-fig-showcase .sgk-fig-box.lv-compact img, .sgk-fig-box.lv-compact img { width: auto !important; max-width: 100% !important; min-height: 360px; max-height: 580px !important; height: auto !important; object-fit: contain; margin: 0 auto; }
+    .lv-fig-showcase .sgk-fig-box.lv-medium img, .sgk-fig-box.lv-medium img { width: 100% !important; max-width: 960px !important; max-height: none !important; height: auto !important; margin: 0 auto; }
+    .lv-fig-showcase .sgk-fig-cap, .sgk-fig-box.lv-large .sgk-fig-cap { font-size: 0.94rem; font-weight: 600; color: #1e293b; font-style: normal; margin-top: 0.7rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; text-align: left; }
+    .lv-zoom-pill { display: inline-flex; align-items: center; gap: 0.3rem; background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; border-radius: 999px; padding: 0.22rem 0.7rem; font-size: 0.78rem; font-weight: 700; white-space: nowrap; cursor: zoom-in; }
+    .lv-zoom-pill:hover { background: #2563eb; color: #ffffff; border-color: #2563eb; }
+    .lv-gallery-stack { display: grid; grid-template-columns: 1fr; gap: 1.15rem; margin-top: 0.75rem; }
+    .lv-gallery-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.15rem; margin-top: 0.75rem; }
+    @media (max-width: 900px) { .lv-gallery-pair { grid-template-columns: 1fr; } }
+    
     .mission-card { background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); border: 2px solid #3b82f6; border-radius: 16px; padding: 1.5rem; margin: 1.5rem 0; }
     .mission-grid { display: grid; grid-template-columns: 1.5fr auto; gap: 1.25rem; align-items: center; }
     @media (max-width: 768px) { .mission-grid { grid-template-columns: 1fr; } }
@@ -62,7 +96,7 @@
           </div>
           <div class="brand-text">
             <span class="title">BÀI 11: ĐA PHƯƠNG TIỆN &amp; IFRAME</span>
-            <span class="subtitle">Hoạt động 2.2: Tạo khung nội tuyến &amp;lt;iframe&amp;gt; &amp;amp; Phiếu bài tập</span>
+            <span class="subtitle">Hoạt động 2.2: Hoạt động 2.2: Khám phá 2 – Tạo Khung nội tuyến &amp;lt;iframe&amp;gt; &amp;amp; Phiếu bài tập (20’)</span>
           </div>
         </a>
       </div>
@@ -71,10 +105,10 @@
         <ul class="nav-links">
           <li><a href="index.html" class="nav-link">Tổng quan</a></li>
           <li><a href="hd1.html" class="nav-link">1. Khởi động</a></li>
-          <li><a href="hd2-1.html" class="nav-link">2.1. Ảnh &amp; Video</a></li>
-          <li><a href="hd2-2.html" class="nav-link active">2.2. Khung iframe</a></li>
-          <li><a href="hd3.html" class="nav-link">3. Thực hành CLB</a></li>
-          <li><a href="hd4.html" class="nav-link">4. Infographic</a></li>
+          <li><a href="hd2-1.html" class="nav-link">2.1. Khám phá 1</a></li>
+          <li><a href="hd2-2.html" class="nav-link active">2.2. Khám phá 2</a></li>
+          <li><a href="hd3.html" class="nav-link">3. Thực hành (2 bài)</a></li>
+          <li><a href="hd4.html" class="nav-link">4. Vận dụng &amp; Infographic</a></li>
         </ul>
       </nav>
 
@@ -117,19 +151,19 @@
         </a>
         <a href="hd2-1.html" class="stepper-step completed">
           <div class="step-circle">✓</div>
-          <span class="step-label">Ảnh, Audio &amp; Video (20&#x27;)</span>
+          <span class="step-label">Khám phá 1: Ảnh, Audio, Video (30&#x27;)</span>
         </a>
         <a href="hd2-2.html" class="stepper-step active">
           <div class="step-circle">2.2</div>
-          <span class="step-label">Khung iframe (15&#x27;)</span>
+          <span class="step-label">Khám phá 2: Khung iframe (20&#x27;)</span>
         </a>
         <a href="hd3.html" class="stepper-step ">
           <div class="step-circle">3</div>
-          <span class="step-label">Thực hành CLB (35&#x27;)</span>
+          <span class="step-label">Thực hành: 2 bài (35&#x27;)</span>
         </a>
         <a href="hd4.html" class="stepper-step ">
           <div class="step-circle">4</div>
-          <span class="step-label">Infographic &amp; SGK (15&#x27;)</span>
+          <span class="step-label">Vận dụng &amp; Infographic</span>
         </a>
       </div>
     </div>
@@ -138,8 +172,8 @@
   <section class="hero-banner" style="padding:2rem 0; background: linear-gradient(135deg, #0c4a6e 0%, #0284c7 100%);">
     <div class="container">
       <div class="badge-tag" style="background:rgba(255,255,255,0.18);color:#fff;">🧩 HOẠT ĐỘNG 2.2 • KHÁM PHÁ CHUYÊN SÂU &amp; KIỂM TRA NHANH</div>
-      <h1 class="hero-title" style="font-size:1.95rem;">Tạo khung nội tuyến &amp;lt;iframe&amp;gt; &amp;amp; Phiếu bài tập</h1>
-      <p class="hero-subtitle">Nhúng trang web hoặc video trong khung chữ nhật và điều khiển bằng thuộc tính <code>target</code> (SGK tr.64–65)</p>
+      <h1 class="hero-title" style="font-size:1.95rem;">Hoạt động 2.2: Khám phá 2 – Tạo Khung nội tuyến &amp;lt;iframe&amp;gt; &amp;amp; Phiếu bài tập (20’)</h1>
+      <p class="hero-subtitle">Theo đúng tiến trình KHBD Bài 11 • Mục 3 SGK tr.65: Ý nghĩa khung nội tuyến, thẻ <code>&lt;iframe&gt;</code>, kết hợp <code>&lt;a target="..."&gt;</code>, nhúng bản đồ/YouTube và hoàn thành Phiếu bài tập.</p>
     </div>
   </section>
 
@@ -147,85 +181,122 @@
     <div class="container">
       <section class="card" style="margin-bottom: 1.5rem;">
         <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.65rem;">
-          <h2 style="margin:0;color:#1e3a8a;font-size:1.3rem;">1. Cú pháp tạo khung nội tuyến &amp;lt;iframe&amp;gt;</h2>
-          <span class="sgk-badge">SGK tr.64–65</span>
+          <h2 style="margin:0;color:#1e3a8a;font-size:1.3rem;">3a. Ý nghĩa &amp;amp; Cú pháp Khung nội tuyến &amp;lt;iframe&amp;gt;</h2>
+          <span class="sgk-badge">Mục 3 • SGK tr.65</span>
         </div>
         <div class="grid-2" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.25rem; align-items:start;">
           <div>
             <div style="color:#334155;line-height:1.65;font-size:0.95rem;">
-                  <p>Khung nội tuyến (<em>Inline Frame</em>) dùng cặp thẻ <code>&lt;iframe&gt;...&lt;/iframe&gt;</code> cho phép hiển thị nội dung của một trang web khác (hoặc video YouTube, Google Maps) ngay bên trong trang web hiện tại.</p>
-                  <p><code>&lt;iframe src="gioi_thieu.html" width="600" height="350" name="khung_clb"&gt;&lt;/iframe&gt;</code></p>
+                  <p><strong>Hoạt động 3 (SGK tr.65):</strong> Khi tương tác với video hoặc bản đồ nằm trong một khung trên trang web, <em>chỉ nội dung bên trong khung thay đổi/cuộn</em>, còn giao diện toàn trang chính xung quanh giữ nguyên không bị tải lại.</p>
+                  <p><strong>Khung nội tuyến</strong> dùng cặp thẻ <code>&lt;iframe&gt;...&lt;/iframe&gt;</code> (<em>inline frame</em>) để chèn một trang web hoặc tài nguyên web khác (YouTube, Google Maps…) vào trong trang hiện tại:</p>
+                  <ul style="padding-left:1.2rem;line-height:1.68;">
+                    <li><code>src="..."</code>: Đường dẫn tới tệp HTML hoặc URL tài nguyên hiển thị trong khung.</li>
+                    <li><code>width</code>, <code>height</code>: Chiều rộng và chiều cao của khung nội tuyến (tính theo pixel hoặc <code>%</code>).</li>
+                  </ul>
                 </div>
-<div class="callout-box" style="margin-top:0.85rem;">📌 <strong>Ghi nhớ SGK:</strong> Thuộc tính <code>name</code> (hoặc <code>id</code>) trên <code>&lt;iframe&gt;</code> giúp biến nó thành điểm đích để các liên kết <code>&lt;a&gt;</code> mở vào.</div>
-<div class="sgk-fig-box"><img src="assets/sgk/sgk_hinh11_5.png" alt="Hình 11.5. Tạo khung nội tuyến kết hợp liên kết thẻ &lt;a&gt; (SGK tr.65)"><div class="sgk-fig-cap">Hình 11.5. Tạo khung nội tuyến kết hợp liên kết thẻ &lt;a&gt; (SGK tr.65)</div></div>
+
+<div class="callout-box" style="margin-top:0.85rem;">📌 <strong>Ghi nhớ SGK:</strong> <strong>Ghi nhớ SGK tr.65:</strong> Thẻ <code>&lt;iframe&gt;</code> sử dụng để chèn một trang web hoặc một tài nguyên web vào trong một trang web khác.</div>
+
 
           </div>
           <div>
             <div class="syntax-card">
               <div class="syntax-header">
-                <span>💻 Khung &lt;iframe&gt; hiển thị trang giới thiệu</span>
+                <span>💻 Ví dụ Hình 11.4 (Khung nội tuyến hiển thị nội dung CLB)</span>
                 <button type="button" id="btn-h22_0" class="btn-mini-tool" onclick="toggleSnippet('h22_0')">▶ Bấm xem kết quả hiển thị</button>
               </div>
-              <pre class="syntax-body">&lt;h4&gt;Khung nội tuyến &amp;lt;iframe&amp;gt;&lt;/h4&gt;
-&lt;iframe name=&quot;khung_xem&quot; width=&quot;100%&quot; height=&quot;125&quot; style=&quot;border:2px solid #2563eb;border-radius:8px;&quot;
-  srcdoc=&quot;&lt;h3 style=&#x27;color:#1e3a8a;font-family:sans-serif;&#x27;&gt;Chào mừng đến CLB THTH-DHSP!&lt;/h3&gt;&lt;p style=&#x27;font-family:sans-serif;&#x27;&gt;Nội dung này đang chạy bên trong thẻ iframe.&lt;/p&gt;&quot;&gt;
-&lt;/iframe&gt;</pre>
+              <pre class="syntax-body">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;vi&quot;&gt;
+&lt;body style=&quot;font-family:sans-serif;padding:12px;&quot;&gt;
+  &lt;h3&gt;Ví dụ về khung nhìn iframe&lt;/h3&gt;
+  &lt;iframe width=&quot;100%&quot; height=&quot;145&quot; style=&quot;border:2px solid #2563eb;border-radius:8px;&quot;
+    srcdoc=&quot;&lt;div style=&#x27;font-family:sans-serif;padding:10px;&#x27;&gt;&lt;h4 style=&#x27;margin:0 0 6px;color:#1e3a8a;&#x27;&gt;Giới thiệu các hoạt động ngoại khoá&lt;/h4&gt;&lt;p style=&#x27;font-size:13px;margin:0;&#x27;&gt;Các câu lạc bộ Thể thao &amp;amp; Nghệ thuật hoạt động sôi nổi, tạo sân chơi lành mạnh cho học sinh toàn trường.&lt;/p&gt;&lt;ul&gt;&lt;li style=&#x27;font-size:13px;&#x27;&gt;03 HCV cấp thành phố môn Bơi lội&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;&quot;&gt;
+  &lt;/iframe&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
             </div>
             <div id="box-h22_0" class="mini-compiler-box" style="display:none;border:1px solid #cbd5e1;border-radius:8px;overflow:hidden;margin-top:0.65rem;">
               <div class="snippet-preview-bar"><span>🌐 KẾT QUẢ HIỂN THỊ</span><span style="color:#16a34a;">HTML5 Live</span></div>
               <iframe id="prev-h22_0" style="width:100%;height:190px;border:none;background:#fff;" title="Preview h22_0"></iframe>
             </div>
+
           </div>
         </div>
+<div style="margin-top:1.1rem;font-weight:800;color:#1e3a8a;font-size:1.02rem;">🖼️ Ứng dụng thực tế của thẻ &lt;iframe&gt;: Nhúng trang con &amp; Bản đồ Google Maps (Bấm để phóng to):</div><div class="lv-fig-showcase"><div class="lv-gallery-stack">
+<div class="sgk-fig-box lv-large lv-compact"><img src="assets/sgk/sgk_hinh11_4.png" alt="Hình 11.4. Ví dụ khung nội tuyến nhúng trang CLB.html (SGK tr.65)"><div class="sgk-fig-cap"><span class="lv-cap-text">Hình 11.4. Ví dụ khung nội tuyến nhúng trang CLB.html (SGK tr.65)</span><span class="lv-zoom-pill">🔍 Phóng to toàn màn hình</span></div></div>
+</div><div class="lv-gallery-stack">
+<div class="sgk-fig-box lv-large lv-medium"><img src="assets/sgk/b11_iframe_heart.png" alt="Ví dụ thực tế dự án web nhúng trang con và bản đồ Google Maps bằng &lt;iframe&gt;"><div class="sgk-fig-cap"><span class="lv-cap-text">Ví dụ thực tế dự án web nhúng trang con và bản đồ Google Maps bằng &lt;iframe&gt;</span><span class="lv-zoom-pill">🔍 Phóng to toàn màn hình</span></div></div>
+<div class="sgk-fig-box lv-large lv-medium"><img src="assets/sgk/b11_iframe_gmap.png" alt="Đoạn mã &lt;iframe&gt; lấy từ Google Maps (Chia sẻ → Nhúng bản đồ) dán trực tiếp vào HTML"><div class="sgk-fig-cap"><span class="lv-cap-text">Đoạn mã &lt;iframe&gt; lấy từ Google Maps (Chia sẻ → Nhúng bản đồ) dán trực tiếp vào HTML</span><span class="lv-zoom-pill">🔍 Phóng to toàn màn hình</span></div></div>
+</div></div>
+
       </section>
       <section class="card" style="margin-bottom: 1.5rem;">
         <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.65rem;">
-          <h2 style="margin:0;color:#1e3a8a;font-size:1.3rem;">2. Kết hợp thẻ &amp;lt;a target=&quot;...&quot;&amp;gt; với &amp;lt;iframe&amp;gt;</h2>
-          <span class="sgk-badge">SGK tr.65</span>
+          <h2 style="margin:0;color:#1e3a8a;font-size:1.3rem;">3b. Kết hợp &amp;lt;iframe&amp;gt; với thẻ &amp;lt;a target=&quot;...&quot;&amp;gt; &amp;amp; Câu hỏi cuối Mục 3</h2>
+          <span class="sgk-badge">Mục 3 • SGK tr.65–66</span>
         </div>
         <div class="grid-2" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.25rem; align-items:start;">
           <div>
             <div style="color:#334155;line-height:1.65;font-size:0.95rem;">
-                  <p>Bình thường, bấm vào thẻ <code>&lt;a&gt;</code> sẽ chuyển toàn bộ tab trình duyệt sang trang mới. Nếu muốn trang đích mở <strong>bên trong khung iframe</strong>:</p>
-                  <ol style="padding-left:1.2rem;line-height:1.65;">
-                    <li>Đặt tên cho khung: <code>&lt;iframe name="khung_clb" ...&gt;&lt;/iframe&gt;</code></li>
-                    <li>Đặt giá trị <code>target</code> trùng tên đó: <code>&lt;a href="the_thao.html" target="khung_clb"&gt;CLB Thể thao&lt;/a&gt;</code></li>
+                  <p>Bình thường khi bấm thẻ <code>&lt;a&gt;</code>, trình duyệt sẽ mở đè trang hiện tại (hoặc sang tab mới với <code>target="_blank"</code>). Để mở trang liên kết <strong>ngay bên trong khung <code>&lt;iframe&gt;</code></strong>:</p>
+                  <ol style="padding-left:1.2rem;line-height:1.68;">
+                    <li>Đặt tên định danh cho khung: <code>&lt;iframe name="iframe" id="iframe" width="60%" height="400"&gt;&lt;/iframe&gt;</code></li>
+                    <li>Đặt thuộc tính <code>target</code> trên thẻ <code>&lt;a&gt;</code> trùng khớp với tên đó: <code>&lt;a href="the_thao.html" target="iframe"&gt;CLB Thể thao&lt;/a&gt;</code></li>
                   </ol>
+                  <p><em>💡 Lưu ý kỹ thuật:</em> SGK tr.66 ghi <code>id="iframe"</code>; trên trình duyệt thực tế, thuộc tính <code>target</code> tìm theo <strong><code>name</code></strong>, vì vậy viết cả <code>name="iframe" id="iframe"</code> sẽ hoạt động hoàn hảo trên mọi trình duyệt!</p>
                 </div>
+<div class="example-cards-grid"><div class="ex-card ex-card-amber"><div style="display:inline-block;background:#fef3c7;color:#b45309;padding:0.18rem 0.55rem;border-radius:999px;font-size:0.72rem;font-weight:800;margin-bottom:0.35rem;">target=&quot;_blank&quot;</div><div style="font-weight:800;color:#0f172a;font-size:0.88rem;margin-bottom:0.25rem;">Mở sang tab trình duyệt mới</div><div style="font-size:0.83rem;color:#334155;line-height:1.48;">Dùng khi trỏ sang website bên ngoài để giữ nguyên trang hiện tại.</div></div><div class="ex-card ex-card-emerald"><div style="display:inline-block;background:#dcfce7;color:#15803d;padding:0.18rem 0.55rem;border-radius:999px;font-size:0.72rem;font-weight:800;margin-bottom:0.35rem;">target=&quot;iframe&quot;</div><div style="font-weight:800;color:#0f172a;font-size:0.88rem;margin-bottom:0.25rem;">Mở gọn bên trong khung &lt;iframe&gt;</div><div style="font-size:0.83rem;color:#334155;line-height:1.48;">Trùng với <code>name="iframe"</code> của thẻ <code>&lt;iframe&gt;</code> — chỉ nội dung khung thay đổi.</div></div><div class="ex-card ex-card-blue"><div style="display:inline-block;background:#dbeafe;color:#1d4ed8;padding:0.18rem 0.55rem;border-radius:999px;font-size:0.72rem;font-weight:800;margin-bottom:0.35rem;">2 khung song song</div><div style="font-weight:800;color:#0f172a;font-size:0.88rem;margin-bottom:0.25rem;">Đặt liên tiếp 2 thẻ &lt;iframe&gt;</div><div style="font-size:0.83rem;color:#334155;line-height:1.48;">Khai báo <code>width="48%"</code> cho mỗi khung để hiển thị ngang hàng nhau.</div></div></div>
 
 
-<div style="background:#f0fdfa;border:1.5px solid #5eead4;border-radius:10px;padding:0.9rem 1rem;margin-top:0.9rem;"><strong style="color:#0f766e;">❓ Câu hỏi củng cố (Hộp xanh SGK):</strong><ul style="margin:0.5rem 0 0;padding-left:1.2rem;line-height:1.6;"><li><strong>Sự khác nhau giữa <code>&lt;a href="the_thao.html" target="_blank"&gt;</code> và <code>&lt;a href="the_thao.html" target="khung_clb"&gt;</code> (với <code>&lt;iframe name="khung_clb"&gt;</code>) là gì?</strong><br><button type="button" class="btn btn-secondary btn-sm" style="margin-top:0.35rem;" onclick="const b=this.nextElementSibling; const open=b.style.display!=='none'; b.style.display=open?'none':'block'; this.textContent=open?'💡 Bấm xem gợi ý trả lời':'🙈 Ẩn gợi ý';">💡 Bấm xem gợi ý trả lời</button><div style="display:none;margin-top:0.4rem;color:#166534;background:#f0fdf4;padding:0.55rem 0.75rem;border-radius:6px;border:1px solid #86efac;"><code>target="_blank"</code> mở trang <code>the_thao.html</code> sang một tab trình duyệt hoàn toàn mới; còn <code>target="khung_clb"</code> tải trang đó hiển thị ngay bên trong khung nội tuyến có <code>name="khung_clb"</code>.</div></li><li><strong>Nếu muốn nhúng một video YouTube từ nút Chia sẻ -> Nhúng (Embed), YouTube cung cấp cho ta thẻ HTML nào?</strong><br><button type="button" class="btn btn-secondary btn-sm" style="margin-top:0.35rem;" onclick="const b=this.nextElementSibling; const open=b.style.display!=='none'; b.style.display=open?'none':'block'; this.textContent=open?'💡 Bấm xem gợi ý trả lời':'🙈 Ẩn gợi ý';">💡 Bấm xem gợi ý trả lời</button><div style="display:none;margin-top:0.4rem;color:#166534;background:#f0fdf4;padding:0.55rem 0.75rem;border-radius:6px;border:1px solid #86efac;">YouTube cung cấp sẵn đoạn mã thẻ <code>&lt;iframe src="https://www.youtube.com/embed/..."&gt;&lt;/iframe&gt;</code>.</div></li></ul></div>
+
           </div>
           <div>
             <div class="syntax-card">
               <div class="syntax-header">
-                <span>💻 Menu điều khiển nội dung trong iframe</span>
+                <span>💻 Thử bấm liên kết để chuyển nội dung ngay bên trong khung &lt;iframe&gt;!</span>
                 <button type="button" id="btn-h22_1" class="btn-mini-tool" onclick="toggleSnippet('h22_1')">▶ Bấm xem kết quả hiển thị</button>
               </div>
-              <pre class="syntax-body">&lt;p&gt;
-  Chọn mục xem trong khung: 
-  &lt;a href=&quot;hd1.html&quot; target=&quot;khung_mini&quot;&gt;Xem HĐ 1&lt;/a&gt; | 
-  &lt;a href=&quot;hd2-1.html&quot; target=&quot;khung_mini&quot;&gt;Xem HĐ 2.1&lt;/a&gt;
-&lt;/p&gt;
-&lt;iframe name=&quot;khung_mini&quot; width=&quot;100%&quot; height=&quot;120&quot; style=&quot;border:1.5px dashed #0284c7;&quot;
-  srcdoc=&quot;&lt;p style=&#x27;font-family:sans-serif;color:#64748b;&#x27;&gt;Hãy nhấp một liên kết ở trên để tải trang vào đây...&lt;/p&gt;&quot;&gt;
-&lt;/iframe&gt;</pre>
+              <pre class="syntax-body">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;vi&quot;&gt;
+&lt;body style=&quot;font-family:sans-serif;padding:12px;&quot;&gt;
+  &lt;p style=&quot;margin-top:0;&quot;&gt;
+    &lt;strong&gt;Chọn trang hiển thị vào khung:&lt;/strong&gt;
+    [&lt;a href=&quot;hd1.html&quot; target=&quot;khung_xem&quot;&gt;Trang HĐ 1&lt;/a&gt;]
+    [&lt;a href=&quot;hd2-1.html&quot; target=&quot;khung_xem&quot;&gt;Trang HĐ 2.1&lt;/a&gt;]
+  &lt;/p&gt;
+  &lt;iframe name=&quot;khung_xem&quot; id=&quot;khung_xem&quot; width=&quot;100%&quot; height=&quot;135&quot; style=&quot;border:2px dashed #0284c7;border-radius:8px;&quot;
+    srcdoc=&quot;&lt;p style=&#x27;font-family:sans-serif;color:#64748b;padding:12px;&#x27;&gt;Hãy bấm một liên kết ở trên để mở trang ngay trong khung này...&lt;/p&gt;&quot;&gt;
+  &lt;/iframe&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
             </div>
             <div id="box-h22_1" class="mini-compiler-box" style="display:none;border:1px solid #cbd5e1;border-radius:8px;overflow:hidden;margin-top:0.65rem;">
               <div class="snippet-preview-bar"><span>🌐 KẾT QUẢ HIỂN THỊ</span><span style="color:#16a34a;">HTML5 Live</span></div>
               <iframe id="prev-h22_1" style="width:100%;height:190px;border:none;background:#fff;" title="Preview h22_1"></iframe>
             </div>
+
           </div>
         </div>
+<div style="margin-top:1.1rem;font-weight:800;color:#1e3a8a;font-size:1.02rem;">🖼️ Hình ảnh minh họa trực quan (Bấm vào hình để phóng to):</div><div class="lv-fig-showcase"><div class="lv-gallery-stack">
+<div class="sgk-fig-box lv-large lv-compact"><img src="assets/sgk/sgk_hinh11_5.png" alt="Hình 11.5. Trang web CLB sử dụng khung nội tuyến iframe kết hợp liên kết target (SGK tr.66)"><div class="sgk-fig-cap"><span class="lv-cap-text">Hình 11.5. Trang web CLB sử dụng khung nội tuyến iframe kết hợp liên kết target (SGK tr.66)</span><span class="lv-zoom-pill">🔍 Phóng to toàn màn hình</span></div></div>
+</div></div>
+<div style="background:#f0fdfa;border:1.5px solid #5eead4;border-radius:10px;padding:0.9rem 1rem;margin-top:0.9rem;"><strong style="color:#0f766e;">❓ Câu hỏi củng cố cuối Mục 3 (SGK tr.65):</strong><ul style="margin:0.5rem 0 0;padding-left:1.2rem;line-height:1.6;"><li><strong>Viết đoạn mã HTML để tạo <strong>hai khung nội tuyến có kích thước bằng nhau, hiển thị song song (theo phương ngang)</strong> trên trang web.</strong><br><button type="button" class="btn btn-secondary btn-sm" style="margin-top:0.35rem;" onclick="const b=this.nextElementSibling; const open=b.style.display!=='none'; b.style.display=open?'none':'block'; this.textContent=open?'💡 Bấm xem gợi ý trả lời':'🙈 Ẩn gợi ý';">💡 Bấm xem gợi ý trả lời</button><div style="display:none;margin-top:0.4rem;color:#166534;background:#f0fdf4;padding:0.55rem 0.75rem;border-radius:6px;border:1px solid #86efac;"><strong>Gợi ý đáp án:</strong> Đặt hai thẻ <code>&lt;iframe&gt;</code> liên tiếp với chiều rộng mỗi khung bằng nhau (tổng ≤ 100%):<br><pre style='background:#0f172a;color:#e2e8f0;padding:0.65rem;border-radius:6px;margin-top:0.35rem;'>&lt;iframe src="the_thao.html" width="48%" height="400"&gt;&lt;/iframe&gt;
+&lt;iframe src="nghe_thuat.html" width="48%" height="400"&gt;&lt;/iframe&gt;</pre></div></li><li><strong>Sự khác nhau giữa <code>target="_blank"</code> và <code>target="iframe"</code> (khi có <code>&lt;iframe name="iframe"&gt;</code>) là gì?</strong><br><button type="button" class="btn btn-secondary btn-sm" style="margin-top:0.35rem;" onclick="const b=this.nextElementSibling; const open=b.style.display!=='none'; b.style.display=open?'none':'block'; this.textContent=open?'💡 Bấm xem gợi ý trả lời':'🙈 Ẩn gợi ý';">💡 Bấm xem gợi ý trả lời</button><div style="display:none;margin-top:0.4rem;color:#166534;background:#f0fdf4;padding:0.55rem 0.75rem;border-radius:6px;border:1px solid #86efac;"><code>target="_blank"</code> mở tài liệu ở một thẻ (tab) trình duyệt mới; còn <code>target="iframe"</code> tải tài liệu hiển thị ngay bên trong khung nội tuyến có tên tương ứng.</div></li></ul></div>
       </section>
 
       <!-- SANDBOX 2.2 -->
       <section class="interactive-panel" style="background:#f8fafc;border:1.5px solid #38bdf8;border-radius:14px;padding:1.25rem;margin-bottom:1.5rem;">
-        <h3 style="margin-top:0;color:#0369a1;">🧪 Sandbox Tương Tác: Thử nghiệm &lt;iframe&gt; và thuộc tính target</h3>
-        <p style="font-size:0.9rem;color:#475569;margin-top:0;">Thử đổi <code>width="100%"</code> và <code>height="120"</code> của thẻ <code>&lt;iframe&gt;</code>:</p>
+        <h3 style="margin-top:0;color:#0369a1;">🧪 Sandbox Tương Tác: Sandbox Khám phá 2: Tạo 2 khung nội tuyến song song (Câu hỏi cuối Mục 3)</h3>
+        <p style="font-size:0.9rem;color:#475569;margin-top:0;">Thử chỉnh <code>width="48%"</code> và <code>height="120"</code> để tạo hai khung nội tuyến hiển thị song song theo phương ngang:</p>
         <div class="grid-2" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1rem;">
           <div>
-            <textarea id="sb22-code" style="width:100%;height:210px;padding:0.85rem;border-radius:8px;border:1.5px solid #334155;background:#0f172a;color:#e2e8f0;font-family:'Fira Code',monospace;font-size:0.85rem;">&lt;iframe name=&quot;box1&quot; width=&quot;100%&quot; height=&quot;130&quot; style=&quot;border:2px solid #0284c7;&quot; srcdoc=&quot;&lt;h4&gt;Nội dung ban đầu trong iframe&lt;/h4&gt;&quot;&gt;&lt;/iframe&gt;</textarea>
+            <textarea id="sb22-code" style="width:100%;height:210px;padding:0.85rem;border-radius:8px;border:1.5px solid #334155;background:#0f172a;color:#e2e8f0;font-family:'Fira Code',monospace;font-size:0.85rem;">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;vi&quot;&gt;
+&lt;body style=&quot;font-family:sans-serif;padding:10px;&quot;&gt;
+  &lt;iframe width=&quot;48%&quot; height=&quot;120&quot; style=&quot;border:2px solid #2563eb;border-radius:8px;&quot; srcdoc=&quot;&lt;h4 style=&#x27;font-family:sans-serif;color:#1d4ed8;&#x27;&gt;Khung 1: CLB Thể thao&lt;/h4&gt;&quot;&gt;&lt;/iframe&gt;
+  &lt;iframe width=&quot;48%&quot; height=&quot;120&quot; style=&quot;border:2px solid #059669;border-radius:8px;&quot; srcdoc=&quot;&lt;h4 style=&#x27;font-family:sans-serif;color:#059669;&#x27;&gt;Khung 2: CLB Nghệ thuật&lt;/h4&gt;&quot;&gt;&lt;/iframe&gt;
+&lt;/body&gt;
+&lt;/html&gt;</textarea>
             <button type="button" class="btn btn-primary btn-sm" style="margin-top:0.5rem;background:#0284c7;border-color:#0284c7;" onclick="runSb22()">▶ Biên dịch &amp; Xem kết quả</button>
           </div>
           <div>
@@ -245,7 +316,7 @@
         <div class="mission-grid">
           <div>
             <span style="display:inline-block;background:#2563eb;color:#fff;font-size:0.75rem;font-weight:800;padding:0.25rem 0.7rem;border-radius:999px;">📝 NHIỆM VỤ KIỂM TRA KIẾN THỨC</span>
-            <h3 style="margin:0.6rem 0 0.35rem;color:#1e3a8a;font-size:1.35rem;font-weight:800;">Phiếu Bài Tập Kiến Thức Bài 11: Đa Phương Tiện &amp; Iframe</h3>
+            <h3 style="margin:0.6rem 0 0.35rem;color:#1e3a8a;font-size:1.35rem;font-weight:800;">Phiếu Bài Tập Kiến Thức Bài 11: Đa Phương Tiện &amp; Khung Nội Tuyến</h3>
             <p style="margin:0 0 0.9rem;color:#334155;font-size:0.94rem;line-height:1.55;">
               Học sinh làm bài cá nhân hoặc theo cặp đôi trên một phiếu bài tập thống nhất. Điểm số được chấm tự động và đồng bộ về Bảng điều khiển Giáo viên theo thời gian thực.
             </p>
@@ -276,6 +347,7 @@
             <button type="button" class="btn btn-secondary btn-sm" onclick="loadSubmissionsP2()">🔄 Làm mới</button>
             <button type="button" id="p2-teacher-unlock-btn" class="btn btn-secondary btn-sm" onclick="openTeacherLoginModal()">🔐 Giáo viên đăng nhập để quản lý</button>
             <span id="p2-teacher-tools" style="display:none;gap:0.45rem;flex-wrap:wrap;">
+              <button type="button" class="btn btn-primary btn-sm" onclick="openManualSubModal()" style="background:#0284c7;border-color:#0284c7;">➕ Ghi nhận bổ sung HS</button>
               <button type="button" class="btn btn-secondary btn-sm" onclick="copySubmissionsToClipboard()" style="background:#ecfdf5;color:#047857;border-color:#a7f3d0;">📋 Sao chép Google Sheets</button>
               <button type="button" class="btn btn-secondary btn-sm" onclick="exportSubmissionsToCSV()">📥 Xuất CSV</button>
               <button type="button" class="btn btn-secondary btn-sm" onclick="generateDummySubmissions()" style="color:#6366f1;">🧪 Dữ liệu mẫu</button>
@@ -343,6 +415,48 @@
     </div>
   </div>
 
+  <!-- MODAL GHI NHẬN BỔ SUNG ĐIỂM HS (GIÁO VIÊN) -->
+  <div class="qr-zoom-modal" id="manual-sub-modal" onclick="closeManualSubModal()">
+    <div class="qr-zoom-box" onclick="event.stopPropagation()" style="max-width:480px;width:95%;padding:0;overflow:hidden;text-align:left;">
+      <div style="background:linear-gradient(135deg,#0369a1,#0284c7);color:#fff;padding:1.1rem 1.35rem;display:flex;justify-content:space-between;align-items:center;">
+        <h3 style="margin:0;color:#fff;font-size:1.05rem;">➕ Ghi Nhận Bổ Sung Phiếu Bài Tập</h3>
+        <button type="button" onclick="closeManualSubModal()" style="background:none;border:none;color:#fff;font-size:1.35rem;cursor:pointer;line-height:1;">&times;</button>
+      </div>
+      <form onsubmit="submitManualSub(event)" style="padding:1.25rem;background:#fff;">
+        <div id="manual-sub-alert" style="display:none;padding:0.65rem 0.85rem;border-radius:8px;font-size:0.84rem;margin-bottom:0.85rem;background:#fef2f2;color:#991b1b;border:1px solid #fca5a5;"></div>
+        <div style="margin-bottom:0.85rem;">
+          <label style="display:block;font-size:0.85rem;font-weight:700;color:#1e293b;margin-bottom:0.35rem;">Họ và tên học sinh (hoặc nhóm cặp đôi) *</label>
+          <input type="text" id="manual-sub-name" required placeholder="VD: Trần Quốc Hào (hoặc A &amp; B)" style="width:100%;padding:0.6rem 0.8rem;border:1.5px solid #cbd5e1;border-radius:8px;font-size:0.92rem;">
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:0.85rem;">
+          <div>
+            <label style="display:block;font-size:0.85rem;font-weight:700;color:#1e293b;margin-bottom:0.35rem;">Lớp</label>
+            <select id="manual-sub-class" style="width:100%;padding:0.6rem 0.75rem;border:1.5px solid #cbd5e1;border-radius:8px;">
+              <option value="12A1">12A1</option><option value="12A2" selected>12A2</option><option value="12A3">12A3</option><option value="12A4">12A4</option><option value="12E">12E</option>
+            </select>
+          </div>
+          <div>
+            <label style="display:block;font-size:0.85rem;font-weight:700;color:#1e293b;margin-bottom:0.35rem;">Số máy</label>
+            <input type="text" id="manual-sub-machine" placeholder="VD: 09" style="width:100%;padding:0.6rem 0.75rem;border:1.5px solid #cbd5e1;border-radius:8px;">
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;align-items:center;margin-bottom:1.1rem;">
+          <div>
+            <label style="display:block;font-size:0.85rem;font-weight:700;color:#1e293b;margin-bottom:0.35rem;">Điểm (0 – 10)</label>
+            <input type="number" id="manual-sub-score" min="0" max="10" step="0.25" value="10" required style="width:100%;padding:0.6rem 0.75rem;border:1.5px solid #cbd5e1;border-radius:8px;">
+          </div>
+          <label style="display:inline-flex;align-items:center;gap:0.45rem;font-size:0.88rem;font-weight:700;color:#334155;cursor:pointer;margin-top:1.25rem;">
+            <input type="checkbox" id="manual-sub-pair" style="width:16px;height:16px;"> Nhóm cặp đôi
+          </label>
+        </div>
+        <div style="display:flex;justify-content:flex-end;gap:0.5rem;">
+          <button type="button" class="btn btn-secondary btn-sm" onclick="closeManualSubModal()">Hủy</button>
+          <button type="submit" id="manual-sub-btn" class="btn btn-primary btn-sm" style="background:#059669;border-color:#059669;font-weight:800;">💾 Lưu ghi nhận</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <footer class="site-footer">
     <div class="container">
       <div class="footer-bottom" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.75rem;">
@@ -385,6 +499,23 @@
           </div>
           <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.8rem; font-size: 1rem; font-weight: 700; border-radius: 8px; justify-content: center;">🔓 Xác Thực Giáo Viên</button>
         </form>
+      </div>
+    </div>
+  </div>
+  <!-- MODAL PHÓNG TO HÌNH MINH HỌA -->
+  <div id="img-zoom-modal" class="img-lightbox-overlay" onclick="closeImgZoom()">
+    <div class="img-lightbox-dialog" onclick="event.stopPropagation()">
+      <div class="img-lightbox-header">
+        <div id="img-zoom-caption" class="img-lightbox-caption"></div>
+        <div class="img-lightbox-tools">
+          <button type="button" id="btn-zoom-100" class="btn btn-primary btn-sm" onclick="setImgZoomScale(100)">🔍 Vừa màn hình</button>
+          <button type="button" id="btn-zoom-150" class="btn btn-secondary btn-sm" onclick="setImgZoomScale(150)">➕ Phóng 150%</button>
+          <button type="button" id="btn-zoom-200" class="btn btn-secondary btn-sm" onclick="setImgZoomScale(200)">➕ Phóng 200%</button>
+          <button type="button" onclick="closeImgZoom()" class="btn btn-secondary btn-sm">✕ Đóng (Esc)</button>
+        </div>
+      </div>
+      <div id="img-zoom-scroll" class="img-lightbox-body">
+        <img id="img-zoom-target" alt="Phóng to hình minh họa">
       </div>
     </div>
   </div>
@@ -590,16 +721,118 @@
         return data;
       } catch (e) { return null; }
     }
+    function setImgZoomScale(pct) {
+      const im = document.getElementById('img-zoom-target');
+      const sc = document.getElementById('img-zoom-scroll');
+      [100, 150, 200].forEach(p => {
+        const b = document.getElementById('btn-zoom-' + p);
+        if (b) b.className = 'btn btn-sm ' + (p === pct ? 'btn-primary' : 'btn-secondary');
+      });
+      if (!im || !sc) return;
+      if (pct <= 100) {
+        sc.classList.remove('is-zoomed');
+        const nw = im.naturalWidth || 0;
+        const nh = im.naturalHeight || 0;
+        if (nw && nh && nw < nh * 1.6) {
+          im.style.cssText = 'width:auto !important;max-width:100% !important;height:78vh !important;max-height:82vh !important;object-fit:contain;margin:auto;display:block;border-radius:10px;background:#fff;';
+        } else {
+          im.style.cssText = 'width:100% !important;max-width:100% !important;height:auto !important;max-height:none !important;margin:auto;display:block;border-radius:10px;background:#fff;';
+        }
+      } else {
+        sc.classList.add('is-zoomed');
+        im.style.cssText = 'width:' + pct + '% !important;max-width:none !important;height:auto !important;max-height:none !important;margin:0;display:block;border-radius:10px;background:#fff;';
+      }
+    }
+    function openImgZoom(src, cap) {
+      const m = document.getElementById('img-zoom-modal');
+      const im = document.getElementById('img-zoom-target');
+      const cp = document.getElementById('img-zoom-caption');
+      if (!m || !im || !src) return;
+      im.onload = () => setImgZoomScale(100);
+      im.src = src;
+      im.alt = cap || 'Hình minh họa';
+      if (cp) cp.textContent = cap || 'Hình minh họa chi tiết';
+      m.classList.add('active');
+      setImgZoomScale(100);
+    }
+    function closeImgZoom() {
+      document.getElementById('img-zoom-modal')?.classList.remove('active');
+    }
+    async function syncPendingLocalWorksheetSubmissions() {
+      if (window.__wsOutboxBusy) return;
+      window.__wsOutboxBusy = true;
+      try {
+        const key = LESSON_SLUG + '_worksheet_submissions';
+        const raw = localStorage.getItem(key);
+        if (!raw) return;
+        const list = JSON.parse(raw);
+        if (!Array.isArray(list) || !list.length) return;
+        const pending = list.filter(x => x && x.id && String(x.id).startsWith('WS-') && x.worksheetId !== 'kttx2' && !x._synced);
+        if (!pending.length) return;
+        const res = await fetch('/api/' + LESSON_SLUG + '/submissions', { headers: getTeacherHeaders(), cache: 'no-store' });
+        if (!res.ok) return;
+        const srv = await res.json();
+        const srvIds = new Set((Array.isArray(srv) ? srv : []).map(x => x && x.id).filter(Boolean));
+        let changed = false;
+        let uploaded = false;
+        for (const item of list) {
+          if (!item || !item.id || !String(item.id).startsWith('WS-') || item.worksheetId === 'kttx2' || item._synced) continue;
+          if (srvIds.has(item.id)) {
+            item._synced = true;
+            changed = true;
+            continue;
+          }
+          const clean = Object.assign({}, item);
+          delete clean._synced;
+          try {
+            const pr = await fetch('/api/' + LESSON_SLUG + '/submit', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              keepalive: true,
+              body: JSON.stringify(clean)
+            });
+            if (pr.ok) {
+              item._synced = true;
+              srvIds.add(item.id);
+              changed = true;
+              uploaded = true;
+            }
+          } catch (e) {}
+        }
+        if (changed) localStorage.setItem(key, JSON.stringify(list));
+        if (uploaded && typeof loadSubmissionsP2 === 'function') loadSubmissionsP2();
+      } catch (e) {} finally {
+        window.__wsOutboxBusy = false;
+      }
+    }
+    window.addEventListener('online', syncPendingLocalWorksheetSubmissions);
+    document.addEventListener('keydown', (ev) => {
+      if (ev.key === 'Escape') closeImgZoom();
+    });
     document.addEventListener('DOMContentLoaded', () => {
       updateTeacherNavBadge();
       syncLessonExamGates();
+      syncPendingLocalWorksheetSubmissions();
       if (document.querySelector('[data-exam-gate], #teacher-exam-control-panel')) {
         setInterval(syncLessonExamGates, 10000);
       }
+      document.querySelectorAll('.sgk-fig-box').forEach(figBox => {
+        const img = figBox.querySelector('img');
+        if (!img) return;
+        img.title = img.title || 'Bấm để phóng to hình minh họa';
+        const openThis = () => {
+          const spanCap = figBox.querySelector('.sgk-fig-cap .lv-cap-text') || figBox.querySelector('.sgk-fig-cap');
+          const cap = img.getAttribute('alt') || (spanCap && spanCap.textContent) || '';
+          openImgZoom(img.getAttribute('src'), cap);
+        };
+        img.addEventListener('click', openThis);
+        const pill = figBox.querySelector('.lv-zoom-pill');
+        if (pill) pill.addEventListener('click', openThis);
+      });
     });
     
-    const SNIPPETS = {"h22_0": "<h4>Khung nội tuyến &lt;iframe&gt;</h4>\n<iframe name=\"khung_xem\" width=\"100%\" height=\"125\" style=\"border:2px solid #2563eb;border-radius:8px;\"\n  srcdoc=\"<h3 style='color:#1e3a8a;font-family:sans-serif;'>Chào mừng đến CLB THTH-DHSP!</h3><p style='font-family:sans-serif;'>Nội dung này đang chạy bên trong thẻ iframe.</p>\">\n</iframe>", "h22_1": "<p>\n  Chọn mục xem trong khung: \n  <a href=\"hd1.html\" target=\"khung_mini\">Xem HĐ 1</a> | \n  <a href=\"hd2-1.html\" target=\"khung_mini\">Xem HĐ 2.1</a>\n</p>\n<iframe name=\"khung_mini\" width=\"100%\" height=\"120\" style=\"border:1.5px dashed #0284c7;\"\n  srcdoc=\"<p style='font-family:sans-serif;color:#64748b;'>Hãy nhấp một liên kết ở trên để tải trang vào đây...</p>\">\n</iframe>"};
-    const WORKSHEET_QUESTIONS = [{"id": "q1", "type": "mcq", "points": 1.5, "prompt": "Một tệp ảnh banner.png có kích thước gốc 800 × 600 px được chèn bằng thẻ <img src=\"banner.png\" width=\"400\" alt=\"Banner\">. Kích thước ảnh hiển thị trên trình duyệt là:", "options": {"A": "400 × 600 px", "B": "400 × 300 px", "C": "800 × 300 px", "D": "400 × 400 px"}, "correct": "B", "explain": "Tỉ lệ gốc 800/600 = 4/3. Khi đặt width=400 và không ghi height, trình duyệt tính height = 400 * 600 / 800 = 300 px."}, {"id": "q2", "type": "mcq", "points": 1.5, "prompt": "Thuộc tính nào sau đây KHÔNG thuộc về thẻ <audio> trong HTML5?", "options": {"A": "controls", "B": "autoplay", "C": "muted", "D": "poster"}, "correct": "D", "explain": "Thuộc tính poster (ảnh bìa chờ) chỉ dùng cho thẻ <video>, không dùng trên <audio>."}, {"id": "q3", "type": "mcq", "points": 1.5, "prompt": "Cặp thuộc tính nào giúp nhấp vào liên kết <a> sẽ mở trang đích hiển thị gọn bên trong thẻ <iframe> có sẵn trên trang?", "options": {"A": "name trên <iframe> trùng với target trên <a>", "B": "id trên <iframe> trùng với href trên <a>", "C": "src trên <iframe> trùng với name trên <a>", "D": "target=\"_blank\" trên <a>"}, "correct": "A", "explain": "Đặt name='ten_khung' trên <iframe> và target='ten_khung' trên thẻ <a>."}, {"id": "q4", "type": "mcq", "points": 1.5, "prompt": "Mục đích chính của việc sử dụng thuộc tính alt trong thẻ <img> là gì?", "options": {"A": "Tự động nén dung lượng ảnh nhẹ hơn", "B": "Hiển thị văn bản thay thế khi ảnh không tải được và hỗ trợ trình đọc màn hình", "C": "Tạo liên kết cho hình ảnh", "D": "Canh giữa hình ảnh trên trang web"}, "correct": "B", "explain": "alt (Alternative Text) cung cấp văn bản mô tả thay thế khi ảnh bị lỗi đường dẫn và giúp người khiếm thị tiếp cận nội dung."}, {"id": "q5", "type": "tf", "points": 2.0, "prompt": "Xét các phát biểu về chèn tệp tin đa phương tiện trong HTML5:", "statements": [{"text": "a) Thẻ <img> là thẻ đơn nên không viết thẻ đóng </img>.", "correct": true}, {"text": "b) Thuộc tính controls trên thẻ <audio> dùng để ẩn toàn bộ thanh phát nhạc.", "correct": false}, {"text": "c) Đặt nhiều thẻ <source> trong <video> giúp hỗ trợ nhiều định dạng trên các trình duyệt khác nhau.", "correct": true}, {"text": "d) Định dạng ảnh PNG thích hợp cho logo nhờ hỗ trợ nền trong suốt.", "correct": true}], "explain": "controls dùng để HIỆN thanh điều khiển (nên b Sai); a, c, d đều Đúng."}, {"id": "q6", "type": "tf", "points": 2.0, "prompt": "Cho đoạn mã HTML sau trên trang web Trường học:\n<a href=\"the_thao.html\" target=\"khung_chinh\">Xem Thể thao</a>\n<iframe name=\"khung_chinh\" src=\"gioi_thieu.html\" width=\"720\" height=\"400\"></iframe>", "statements": [{"text": "a) Khi vừa tải trang, khung nội tuyến sẽ hiển thị nội dung của gioi_thieu.html.", "correct": true}, {"text": "b) Khi người dùng nhấp 'Xem Thể thao', toàn bộ trang web hiện tại bị chuyển sang tab mới.", "correct": false}, {"text": "c) Khi nhấp 'Xem Thể thao', nội dung the_thao.html được tải vào bên trong vùng 720×400 của iframe.", "correct": true}, {"text": "d) Không gian hiển thị của iframe trên trang web là 720×400 pixel.", "correct": true}], "explain": "Vì target='khung_chinh' khớp với name='khung_chinh', trang con mở ngay trong iframe chứ không mở tab mới nên b Sai; a, c, d Đúng."}];
+    const SNIPPETS = {"h22_0": "<!DOCTYPE html>\n<html lang=\"vi\">\n<body style=\"font-family:sans-serif;padding:12px;\">\n  <h3>Ví dụ về khung nhìn iframe</h3>\n  <iframe width=\"100%\" height=\"145\" style=\"border:2px solid #2563eb;border-radius:8px;\"\n    srcdoc=\"<div style='font-family:sans-serif;padding:10px;'><h4 style='margin:0 0 6px;color:#1e3a8a;'>Giới thiệu các hoạt động ngoại khoá</h4><p style='font-size:13px;margin:0;'>Các câu lạc bộ Thể thao &amp; Nghệ thuật hoạt động sôi nổi, tạo sân chơi lành mạnh cho học sinh toàn trường.</p><ul><li style='font-size:13px;'>03 HCV cấp thành phố môn Bơi lội</li></ul></div>\">\n  </iframe>\n</body>\n</html>", "h22_1": "<!DOCTYPE html>\n<html lang=\"vi\">\n<body style=\"font-family:sans-serif;padding:12px;\">\n  <p style=\"margin-top:0;\">\n    <strong>Chọn trang hiển thị vào khung:</strong>\n    [<a href=\"hd1.html\" target=\"khung_xem\">Trang HĐ 1</a>]\n    [<a href=\"hd2-1.html\" target=\"khung_xem\">Trang HĐ 2.1</a>]\n  </p>\n  <iframe name=\"khung_xem\" id=\"khung_xem\" width=\"100%\" height=\"135\" style=\"border:2px dashed #0284c7;border-radius:8px;\"\n    srcdoc=\"<p style='font-family:sans-serif;color:#64748b;padding:12px;'>Hãy bấm một liên kết ở trên để mở trang ngay trong khung này...</p>\">\n  </iframe>\n</body>\n</html>"};
+    const WORKSHEET_QUESTIONS = [{"id": "q1", "type": "mcq", "points": 1.5, "prompt": "Một tệp ảnh có kích thước gốc 720 × 450 px được chèn bằng thẻ <img src=\"images/1.png\" alt=\"chiếc lá\" width=\"600\"> (không ghi height). Kích thước hiển thị trên trình duyệt là:", "options": {"A": "600 × 450 px", "B": "600 × 375 px", "C": "720 × 600 px", "D": "600 × 600 px"}, "correct": "B", "explain": "Vì chỉ đặt width=\"600\", trình duyệt tự tính height theo tỉ lệ gốc: 450 × 600 / 720 = 375 px."}, {"id": "q2", "type": "mcq", "points": 1.5, "prompt": "Thuộc tính nào sau đây KHÔNG thuộc về thẻ <audio> trong HTML5?", "options": {"A": "controls", "B": "autoplay", "C": "muted", "D": "poster"}, "correct": "D", "explain": "Theo SGK tr.64, thẻ <audio> không có thuộc tính width, height và poster (chỉ dùng cho <video>)."}, {"id": "q3", "type": "mcq", "points": 1.5, "prompt": "Để nhấp vào liên kết <a> sẽ mở trang đích hiển thị ngay bên trong thẻ <iframe> có sẵn trên trang, ta kết hợp cặp thuộc tính nào?", "options": {"A": "name trên <iframe> trùng với target trên <a>", "B": "href trên <iframe> trùng với src trên <a>", "C": "alt trên <iframe> trùng với title trên <a>", "D": "target=\"_blank\" trên thẻ <a>"}, "correct": "A", "explain": "Đặt name=\"iframe\" (có thể kèm id=\"iframe\") cho <iframe> và target=\"iframe\" trùng khớp trên thẻ <a>."}, {"id": "q4", "type": "mcq", "points": 1.5, "prompt": "Cách làm nào sau đây ĐÚNG quy định về bản quyền số (3.3.NC1a) khi chèn video/nhạc vào trang web học tập?", "options": {"A": "Dùng công cụ tải lậu video có bản quyền rồi đăng lại không ghi nguồn", "B": "Sử dụng tài nguyên tự quay, học liệu nhà trường cung cấp hoặc giấy phép Creative Commons có ghi rõ nguồn", "C": "Xóa tên tác giả gốc khỏi video để trang web gọn hơn", "D": "Sao chép mọi bài hát trên mạng mà không cần xin phép"}, "correct": "B", "explain": "NLS 3.3.NC1a yêu cầu chỉ sử dụng tài nguyên được phép dùng (tự tạo, học liệu trường, Creative Commons) và ghi rõ nguồn trích dẫn."}, {"id": "q5", "type": "tf", "points": 2.0, "prompt": "Xét các phát biểu về chèn tệp tin đa phương tiện trong HTML5 (SGK tr.62–64):", "statements": [{"text": "a) Thẻ <img> là thẻ đơn, bắt buộc có src và nên kèm alt để hiển thị văn bản thay thế khi ảnh lỗi.", "correct": true}, {"text": "b) Thuộc tính controls trên thẻ <audio> hoặc <video> dùng để ẩn toàn bộ các nút phát/tạm dừng.", "correct": false}, {"text": "c) Đặt nhiều thẻ <source> bên trong <video> giúp trình duyệt tự chọn định dạng tệp đầu tiên nó hỗ trợ.", "correct": true}, {"text": "d) Khi chèn ảnh vào trang web, nên ưu tiên đường dẫn tương đối để tránh lỗi khi ảnh trên mạng bị thay đổi.", "correct": true}], "explain": "controls dùng để HIỆN các nút điều khiển (b Sai); các phát biểu a, c, d đều Đúng theo SGK tr.62–64."}, {"id": "q6", "type": "tf", "points": 2.0, "prompt": "Cho đoạn mã HTML trên trang CLB.html:\n<a href=\"the_thao.html\" target=\"iframe\">CLB Thể thao</a>\n<iframe name=\"iframe\" id=\"iframe\" src=\"gioi_thieu.html\" width=\"600\" height=\"400\"></iframe>", "statements": [{"text": "a) Khi vừa mở trang CLB.html, khung nội tuyến sẽ hiển thị nội dung của gioi_thieu.html.", "correct": true}, {"text": "b) Khi người dùng nhấp 'CLB Thể thao', trang the_thao.html bị mở sang một tab mới hoàn toàn.", "correct": false}, {"text": "c) Khi nhấp 'CLB Thể thao', nội dung the_thao.html hiển thị ngay bên trong khung 600×400 px của iframe.", "correct": true}, {"text": "d) Có thể dùng thẻ <iframe> để nhúng bản đồ Google Maps hoặc video chia sẻ từ YouTube.", "correct": true}], "explain": "Vì target='iframe' trùng name='iframe', trang con mở ngay trong khung nội tuyến nên b Sai; a, c, d Đúng."}];
     const EXTRA_TEST_QUESTIONS = [];
     let cachedSubmissionsP2 = [];
     let currentWsFilter = 'all';
@@ -842,6 +1075,62 @@
       } catch (e) {}
       renderSubmissionsP2([]);
       alert('✓ Đã dọn sạch dữ liệu & làm mới toàn bộ máy trạm!');
+    }
+    function openManualSubModal() {
+      if (!isTeacherAuthenticated()) { openTeacherLoginModal(); return; }
+      const al = document.getElementById('manual-sub-alert');
+      if (al) al.style.display = 'none';
+      const nm = document.getElementById('manual-sub-name');
+      if (nm) nm.value = '';
+      document.getElementById('manual-sub-modal')?.classList.add('active');
+      setTimeout(() => nm?.focus(), 100);
+    }
+    function closeManualSubModal() {
+      document.getElementById('manual-sub-modal')?.classList.remove('active');
+    }
+    async function submitManualSub(ev) {
+      if (ev) ev.preventDefault();
+      if (!isTeacherAuthenticated()) { openTeacherLoginModal(); return; }
+      const al = document.getElementById('manual-sub-alert');
+      const btn = document.getElementById('manual-sub-btn');
+      const studentName = (document.getElementById('manual-sub-name')?.value || '').trim();
+      const className = document.getElementById('manual-sub-class')?.value || '12A2';
+      const studentNumber = (document.getElementById('manual-sub-machine')?.value || '').trim() || 'Máy HS';
+      const score = Number(document.getElementById('manual-sub-score')?.value ?? 10);
+      const isPair = !!document.getElementById('manual-sub-pair')?.checked;
+      if (!studentName) return;
+      if (btn) { btn.disabled = true; btn.textContent = '⏳ Đang lưu...'; }
+      if (al) al.style.display = 'none';
+      const payload = {
+        id: 'WS-GV-' + Math.floor(1000 + Math.random()*9000),
+        worksheetId: 'phieubaitap',
+        isPair,
+        studentName,
+        className,
+        studentNumber,
+        score: isNaN(score) ? 10 : Math.max(0, Math.min(10, +score.toFixed(2))),
+        submittedAt: new Date().toLocaleTimeString('vi-VN') + ' - ' + new Date().toLocaleDateString('vi-VN') + ' (GV ghi nhận)',
+        answers: {},
+        results: {}
+      };
+      try {
+        const res = await fetch('/api/bai11/submit', {
+          method: 'POST',
+          headers: getTeacherHeaders({ 'Content-Type': 'application/json' }),
+          body: JSON.stringify(payload)
+        });
+        const d = await res.json().catch(() => ({}));
+        if (!res.ok) throw new Error(d.error || ('HTTP ' + res.status));
+        closeManualSubModal();
+        loadSubmissionsP2();
+      } catch (e) {
+        if (al) {
+          al.textContent = '❌ Không lưu được: ' + e.message;
+          al.style.display = 'block';
+        }
+      } finally {
+        if (btn) { btn.disabled = false; btn.textContent = '💾 Lưu ghi nhận'; }
+      }
     }
     window.addEventListener('DOMContentLoaded', () => {
       loadSubmissionsP2();

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hoạt động 2.1: Chèn hình ảnh (&amp;lt;img&amp;gt;), âm thanh (&amp;lt;audio&amp;gt;) và video (&amp;lt;video&amp;gt;) | Bài 11: Chèn tệp tin đa phương tiện và khung nội tuyến vào trang web</title>
+  <title>Hoạt động 2.1: Hoạt động 2.1: Khám phá 1 – Chèn Hình ảnh, Âm thanh và Video (30’) | Bài 11: Chèn tệp tin đa phương tiện và khung nội tuyến vào trang web</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Fira+Code:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -26,12 +26,46 @@
     .qr-zoom-modal { display: none; position: fixed; inset: 0; background: rgba(15,23,42,0.75); backdrop-filter: blur(4px); z-index: 9998; align-items: center; justify-content: center; padding: 1rem; }
     .qr-zoom-modal.active { display: flex; }
     .qr-zoom-box { background: #fff; border-radius: 16px; padding: 2rem; max-width: 460px; width: 100%; text-align: center; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.35); }
-    .sgk-fig-box { background: #fff; border: 1.5px solid #cbd5e1; border-radius: 12px; padding: 0.85rem; margin: 1rem 0; text-align: center; }
-    .sgk-fig-box img { max-width: 100%; max-height: 360px; height: auto; border-radius: 6px; object-fit: contain; }
+    .img-lightbox-overlay { display: none; position: fixed; inset: 0; background: rgba(15,23,42,0.88); backdrop-filter: blur(5px); z-index: 9998; align-items: center; justify-content: center; padding: 1.5vh 1.5vw; }
+    .img-lightbox-overlay.active { display: flex; }
+    .img-lightbox-dialog { background: #ffffff; border-radius: 16px; width: 96vw; max-width: 1860px; max-height: 96vh; padding: 0.9rem 1.25rem 1.1rem; display: flex; flex-direction: column; box-shadow: 0 25px 60px rgba(0,0,0,0.48); overflow: hidden; }
+    .img-lightbox-header { display: flex; justify-content: space-between; align-items: center; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 0.7rem; padding-bottom: 0.55rem; border-bottom: 1px solid #e2e8f0; }
+    .img-lightbox-caption { font-size: 1.02rem; font-weight: 800; color: #1e3a8a; text-align: left; flex: 1; min-width: 220px; }
+    .img-lightbox-tools { display: flex; gap: 0.4rem; flex-wrap: wrap; flex-shrink: 0; }
+    .img-lightbox-body { flex: 1; overflow: auto; background: #f8fafc; border: 1.5px solid #cbd5e1; border-radius: 12px; padding: 0.75rem; display: flex; align-items: flex-start; justify-content: center; min-height: 50vh; }
+    .img-lightbox-body.is-zoomed { justify-content: flex-start; }
+    #img-zoom-target { display: block; border-radius: 10px; background: #fff; box-shadow: 0 4px 20px rgba(15,23,42,0.08); }
+    .sgk-fig-box { background: #fff; border: 1.5px solid #cbd5e1; border-radius: 12px; padding: 0.85rem; margin: 1rem 0; text-align: center; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
+    .sgk-fig-box:hover { border-color: #60a5fa; box-shadow: 0 6px 18px rgba(37,99,235,0.10); }
+    .sgk-fig-box img { max-width: 100%; max-height: 360px; height: auto; border-radius: 6px; object-fit: contain; cursor: zoom-in; transition: transform 0.2s ease; }
     .sgk-fig-cap { font-size: 0.84rem; color: #475569; font-style: italic; margin-top: 0.5rem; }
+    .fig-gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 1rem; margin-top: 1.1rem; }
+    .fig-gallery-grid .sgk-fig-box { margin: 0; }
+    .fig-gallery-grid .sgk-fig-box.span-full { grid-column: 1 / -1; }
+    .fig-gallery-grid .sgk-fig-box img { max-height: 430px; }
+    .fig-gallery-grid .sgk-fig-box.span-full img { max-height: 490px; }
+    .example-cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.7rem; margin: 0.85rem 0; }
+    .ex-card { background: #fff; border: 1.5px solid #cbd5e1; border-radius: 10px; padding: 0.75rem 0.85rem; }
+    .ex-card code { overflow-wrap: anywhere; word-break: break-word; white-space: normal; }
+    .ex-card-blue { background: #eff6ff; border-color: #93c5fd; }
+    .ex-card-emerald { background: #f0fdf4; border-color: #86efac; }
+    .ex-card-amber { background: #fffbeb; border-color: #fcd34d; }
+    .ex-card-rose { background: #fef2f2; border-color: #fca5a5; }
     .exam-gated-hidden { display: none !important; }
 
 
+    .lv-fig-showcase .sgk-fig-box, .sgk-fig-box.lv-large { padding: 1.05rem 1.2rem; border: 2px solid #cbd5e1; border-radius: 14px; background: #ffffff; box-shadow: 0 6px 18px rgba(15,23,42,0.06); margin: 0.9rem 0; }
+    .lv-fig-showcase .sgk-fig-box:hover, .sgk-fig-box.lv-large:hover { border-color: #3b82f6; box-shadow: 0 10px 26px rgba(37,99,235,0.12); }
+    .lv-fig-showcase .sgk-fig-box img, .sgk-fig-box.lv-large img { width: 100% !important; max-width: 100% !important; max-height: none !important; height: auto !important; display: block; margin: 0 auto; border-radius: 10px; }
+    .lv-fig-showcase .sgk-fig-box.lv-compact img, .sgk-fig-box.lv-compact img { width: auto !important; max-width: 100% !important; min-height: 360px; max-height: 580px !important; height: auto !important; object-fit: contain; margin: 0 auto; }
+    .lv-fig-showcase .sgk-fig-box.lv-medium img, .sgk-fig-box.lv-medium img { width: 100% !important; max-width: 960px !important; max-height: none !important; height: auto !important; margin: 0 auto; }
+    .lv-fig-showcase .sgk-fig-cap, .sgk-fig-box.lv-large .sgk-fig-cap { font-size: 0.94rem; font-weight: 600; color: #1e293b; font-style: normal; margin-top: 0.7rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; text-align: left; }
+    .lv-zoom-pill { display: inline-flex; align-items: center; gap: 0.3rem; background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; border-radius: 999px; padding: 0.22rem 0.7rem; font-size: 0.78rem; font-weight: 700; white-space: nowrap; cursor: zoom-in; }
+    .lv-zoom-pill:hover { background: #2563eb; color: #ffffff; border-color: #2563eb; }
+    .lv-gallery-stack { display: grid; grid-template-columns: 1fr; gap: 1.15rem; margin-top: 0.75rem; }
+    .lv-gallery-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.15rem; margin-top: 0.75rem; }
+    @media (max-width: 900px) { .lv-gallery-pair { grid-template-columns: 1fr; } }
+    
   </style>
 </head>
 <body>
@@ -48,7 +82,7 @@
           </div>
           <div class="brand-text">
             <span class="title">BÀI 11: ĐA PHƯƠNG TIỆN &amp; IFRAME</span>
-            <span class="subtitle">Hoạt động 2.1: Chèn hình ảnh (&amp;lt;img&amp;gt;), âm thanh (&amp;lt;audio&amp;gt;) và video (&amp;lt;video&amp;gt;)</span>
+            <span class="subtitle">Hoạt động 2.1: Hoạt động 2.1: Khám phá 1 – Chèn Hình ảnh, Âm thanh và Video (30’)</span>
           </div>
         </a>
       </div>
@@ -57,10 +91,10 @@
         <ul class="nav-links">
           <li><a href="index.html" class="nav-link">Tổng quan</a></li>
           <li><a href="hd1.html" class="nav-link">1. Khởi động</a></li>
-          <li><a href="hd2-1.html" class="nav-link active">2.1. Ảnh &amp; Video</a></li>
-          <li><a href="hd2-2.html" class="nav-link">2.2. Khung iframe</a></li>
-          <li><a href="hd3.html" class="nav-link">3. Thực hành CLB</a></li>
-          <li><a href="hd4.html" class="nav-link">4. Infographic</a></li>
+          <li><a href="hd2-1.html" class="nav-link active">2.1. Khám phá 1</a></li>
+          <li><a href="hd2-2.html" class="nav-link">2.2. Khám phá 2</a></li>
+          <li><a href="hd3.html" class="nav-link">3. Thực hành (2 bài)</a></li>
+          <li><a href="hd4.html" class="nav-link">4. Vận dụng &amp; Infographic</a></li>
         </ul>
       </nav>
 
@@ -103,19 +137,19 @@
         </a>
         <a href="hd2-1.html" class="stepper-step active">
           <div class="step-circle">2.1</div>
-          <span class="step-label">Ảnh, Audio &amp; Video (20&#x27;)</span>
+          <span class="step-label">Khám phá 1: Ảnh, Audio, Video (30&#x27;)</span>
         </a>
         <a href="hd2-2.html" class="stepper-step ">
           <div class="step-circle">2.2</div>
-          <span class="step-label">Khung iframe (15&#x27;)</span>
+          <span class="step-label">Khám phá 2: Khung iframe (20&#x27;)</span>
         </a>
         <a href="hd3.html" class="stepper-step ">
           <div class="step-circle">3</div>
-          <span class="step-label">Thực hành CLB (35&#x27;)</span>
+          <span class="step-label">Thực hành: 2 bài (35&#x27;)</span>
         </a>
         <a href="hd4.html" class="stepper-step ">
           <div class="step-circle">4</div>
-          <span class="step-label">Infographic &amp; SGK (15&#x27;)</span>
+          <span class="step-label">Vận dụng &amp; Infographic</span>
         </a>
       </div>
     </div>
@@ -124,8 +158,8 @@
   <section class="hero-banner" style="padding:2rem 0;">
     <div class="container">
       <div class="badge-tag" style="background:rgba(255,255,255,0.16);color:#fff;">🧩 HOẠT ĐỘNG 2.1 • HÌNH THÀNH KIẾN THỨC MỚI</div>
-      <h1 class="hero-title" style="font-size:1.95rem;">Chèn hình ảnh (&amp;lt;img&amp;gt;), âm thanh (&amp;lt;audio&amp;gt;) và video (&amp;lt;video&amp;gt;)</h1>
-      <p class="hero-subtitle">Cú pháp chuẩn HTML5, quy tắc giữ tỉ lệ kích thước ảnh và thẻ con <code>&lt;source&gt;</code> (SGK tr.62–64)</p>
+      <h1 class="hero-title" style="font-size:1.95rem;">Hoạt động 2.1: Khám phá 1 – Chèn Hình ảnh, Âm thanh và Video (30’)</h1>
+      <p class="hero-subtitle">Theo đúng tiến trình KHBD Bài 11 • <strong>Phần 1 (15’)</strong>: Mục 1 SGK tr.62–63 (Thẻ <code>&lt;img&gt;</code>, định dạng ảnh, <code>alt</code>, tỉ lệ ảnh) • <strong>Phần 2 (15’)</strong>: Mục 2 SGK tr.64 (<code>&lt;audio&gt;</code>, <code>&lt;video&gt;</code>, <code>&lt;source&gt;</code> &amp; bản quyền <code>3.3.NC1a</code>).</p>
     </div>
   </section>
 
@@ -133,94 +167,225 @@
     <div class="container">
       <section class="card" style="margin-bottom: 1.5rem;">
         <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.65rem;">
-          <h2 style="margin:0;color:#1e3a8a;font-size:1.3rem;">1. Chèn hình ảnh với thẻ &amp;lt;img&amp;gt; &amp;amp; quy tắc tỉ lệ</h2>
-          <span class="sgk-badge">SGK tr.62–63</span>
+          <h2 style="margin:0;color:#1e3a8a;font-size:1.3rem;">1a. Định dạng tệp ảnh web, thẻ đơn &amp;lt;img&amp;gt; &amp;amp; thuộc tính alt</h2>
+          <span class="sgk-badge">Phần 1 • Mục 1 SGK tr.62–63</span>
         </div>
         <div class="grid-2" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.25rem; align-items:start;">
           <div>
             <div style="color:#334155;line-height:1.65;font-size:0.95rem;">
-                  <p>Thẻ <code>&lt;img&gt;</code> là thẻ đơn (không có thẻ đóng), dùng để nhúng các tệp ảnh chuẩn web (<strong>JPEG/JPG, PNG, GIF, WebP</strong>).</p>
-                  <ul style="padding-left:1.2rem;line-height:1.65;">
-                    <li><code>src="duong_dan"</code> (bắt buộc): Đường dẫn tương đối hoặc URL ảnh.</li>
-                    <li><code>alt="mo_ta"</code>: Chữ thay thế hiển thị khi ảnh lỗi/chậm và giúp trình đọc màn hình cho người khiếm thị.</li>
-                    <li><code>width</code>, <code>height</code>: Kích thước tính theo <em>pixel</em>. <strong>Mẹo hay:</strong> Chỉ đặt 1 thuộc tính <code>width</code> (hoặc <code>height</code>) để trình duyệt tự co chiều còn lại đúng tỉ lệ gốc, tránh méo ảnh!</li>
+                  <p><strong>Hoạt động 1 (SGK tr.62):</strong> Phân loại các định dạng ảnh vào nhóm <em>đồ họa điểm ảnh</em> (PNG, JPEG/JPG, GIF, WebP, BMP…) và <em>đồ họa vectơ</em> (SVG, EPS…). Trình duyệt hỗ trợ phổ biến: <strong>PNG, JPEG, GIF</strong> và định dạng web hiện đại <strong>JPEG-XR, WebP</strong> (cần chú ý dung lượng ảnh để trang tải nhanh).</p>
+                  <ul style="padding-left:1.2rem;line-height:1.68;">
+                    <li>Thẻ <code>&lt;img&gt;</code> là <strong>thẻ đơn</strong> (không có thẻ đóng), chèn ảnh ngay trong dòng văn bản mà không tự ngắt dòng (Hình 11.1).</li>
+                    <li><code>src="..."</code> (<strong>bắt buộc</strong>): Đường dẫn tới tệp ảnh — nên ưu tiên <strong>đường dẫn tương đối</strong> (VD: <code>images/coffee.png</code>) để tránh lỗi khi ảnh trên mạng thay đổi.</li>
+                    <li><code>alt="..."</code>: Văn bản thay thế hiển thị khi ảnh bị lỗi không tải được và hỗ trợ trình đọc màn hình cho người khiếm thị (Hình 11.2).</li>
                   </ul>
                 </div>
-<div class="callout-box" style="margin-top:0.85rem;">📌 <strong>Ghi nhớ SGK:</strong> Ảnh gốc kích thước <code>W × H</code>, nếu chỉ đặt <code>width = W'</code> thì trình duyệt tự đặt <code>height = W' × (H / W)</code>.</div>
-<div class="sgk-fig-box"><img src="assets/sgk/sgk_hinh11_1.png" alt="Hình 11.1. Mô tả định dạng ảnh và thuộc tính thẻ &lt;img&gt; (SGK tr.62)"><div class="sgk-fig-cap">Hình 11.1. Mô tả định dạng ảnh và thuộc tính thẻ &lt;img&gt; (SGK tr.62)</div></div><div class="sgk-fig-box"><img src="assets/sgk/sgk_hinh11_2.png" alt="Hình 11.2. Kết quả chèn ảnh vào trang HTML (SGK tr.63)"><div class="sgk-fig-cap">Hình 11.2. Kết quả chèn ảnh vào trang HTML (SGK tr.63)</div></div>
+<div class="example-cards-grid"><div class="ex-card ex-card-blue"><div style="display:inline-block;background:#dbeafe;color:#1d4ed8;padding:0.18rem 0.55rem;border-radius:999px;font-size:0.72rem;font-weight:800;margin-bottom:0.35rem;">Định dạng ảnh web</div><div style="font-weight:800;color:#0f172a;font-size:0.88rem;margin-bottom:0.25rem;">PNG • JPEG • GIF • WebP</div><div style="font-size:0.83rem;color:#334155;line-height:1.48;">PNG giữ nền trong suốt (logo); JPEG nhẹ hợp ảnh chụp; GIF hỗ trợ ảnh động; WebP nén tối ưu hiện đại.</div></div><div class="ex-card ex-card-emerald"><div style="display:inline-block;background:#dcfce7;color:#15803d;padding:0.18rem 0.55rem;border-radius:999px;font-size:0.72rem;font-weight:800;margin-bottom:0.35rem;">Đường dẫn chuẩn</div><div style="font-weight:800;color:#0f172a;font-size:0.88rem;margin-bottom:0.25rem;">Ưu tiên đường dẫn tương đối</div><div style="font-size:0.83rem;color:#334155;line-height:1.48;">Dùng <code>images/thethao.png</code> thay vì link ngoài dễ hỏng hoặc đường dẫn ổ đĩa <code>D:\...</code>.</div></div><div class="ex-card ex-card-amber"><div style="display:inline-block;background:#fef3c7;color:#b45309;padding:0.18rem 0.55rem;border-radius:999px;font-size:0.72rem;font-weight:800;margin-bottom:0.35rem;">Ảnh làm liên kết</div><div style="font-weight:800;color:#0f172a;font-size:0.88rem;margin-bottom:0.25rem;">Bọc &lt;img&gt; bên trong &lt;a&gt;</div><div style="font-size:0.83rem;color:#334155;line-height:1.48;"><code>&lt;a href="bieu_mau.pdf"&gt;&lt;img src="images/pdffiles.png" alt="Biểu mẫu"&gt;&lt;/a&gt;</code> (Hình 11.2).</div></div></div>
+<div class="callout-box" style="margin-top:0.85rem;">📌 <strong>Ghi nhớ SGK:</strong> <strong>Ghi nhớ SGK tr.63:</strong> Cách chèn ảnh vào trang web là sử dụng thẻ đơn <code>&lt;img&gt;</code> với thuộc tính bắt buộc <code>src</code> và nên kèm <code>alt</code>.</div>
+
 
           </div>
           <div>
             <div class="syntax-card">
               <div class="syntax-header">
-                <span>💻 Thẻ &lt;img&gt; chỉ đặt width để giữ nguyên tỉ lệ</span>
+                <span>💻 Ví dụ Hình 11.1 &amp; Hình 11.2 (Chèn ảnh + thuộc tính alt)</span>
                 <button type="button" id="btn-h21_0" class="btn-mini-tool" onclick="toggleSnippet('h21_0')">▶ Bấm xem kết quả hiển thị</button>
               </div>
-              <pre class="syntax-body">&lt;h4&gt;Chèn ảnh đúng tỉ lệ (chỉ đặt width)&lt;/h4&gt;
-&lt;img src=&quot;assets/sgk/sgk_hinh11_2.png&quot; alt=&quot;Minh họa ảnh CLB&quot; width=&quot;240&quot;&gt;
-&lt;p style=&quot;font-size:12px;color:#475569;&quot;&gt;(Trình duyệt tự động tính height tương ứng)&lt;/p&gt;</pre>
+              <pre class="syntax-body">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;vi&quot;&gt;
+&lt;body style=&quot;font-family:sans-serif;padding:12px;&quot;&gt;
+  &lt;p&gt;Ảnh thật của trường (có &lt;code&gt;alt&lt;/code&gt; mô tả):&lt;/p&gt;
+  &lt;img src=&quot;assets/media/thth.jpg&quot; alt=&quot;Trường THPT Thực hành ĐHSP&quot; width=&quot;160&quot; style=&quot;border-radius:8px;&quot;&gt;
+  &lt;p style=&quot;margin-top:10px;&quot;&gt;Thử nghiệm ảnh lỗi đường dẫn → trình duyệt hiện chữ &lt;code&gt;alt&lt;/code&gt;:&lt;/p&gt;
+  &lt;img src=&quot;images/khong_ton_tai.png&quot; alt=&quot;Biểu mẫu xin nhập học (ảnh đang lỗi đường dẫn)&quot;&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
             </div>
             <div id="box-h21_0" class="mini-compiler-box" style="display:none;border:1px solid #cbd5e1;border-radius:8px;overflow:hidden;margin-top:0.65rem;">
               <div class="snippet-preview-bar"><span>🌐 KẾT QUẢ HIỂN THỊ</span><span style="color:#16a34a;">HTML5 Live</span></div>
               <iframe id="prev-h21_0" style="width:100%;height:190px;border:none;background:#fff;" title="Preview h21_0"></iframe>
             </div>
+
           </div>
         </div>
+<div style="margin-top:1.1rem;font-weight:800;color:#1e3a8a;font-size:1.02rem;">🖼️ Minh họa thuộc tính alt khi ảnh hiển thị bình thường vs bị lỗi (Bấm ảnh để phóng to):</div><div class="lv-fig-showcase"><div class="lv-gallery-pair">
+<div class="sgk-fig-box lv-large lv-compact"><img src="assets/sgk/sgk_hinh11_1.png" alt="Hình 11.1. Chèn ảnh bằng thẻ &lt;img&gt; ngay trong dòng văn bản (SGK tr.62)"><div class="sgk-fig-cap"><span class="lv-cap-text">Hình 11.1. Chèn ảnh bằng thẻ &lt;img&gt; ngay trong dòng văn bản (SGK tr.62)</span><span class="lv-zoom-pill">🔍 Phóng to toàn màn hình</span></div></div>
+<div class="sgk-fig-box lv-large lv-compact"><img src="assets/sgk/sgk_hinh11_2.png" alt="Hình 11.2. Kết quả sử dụng thuộc tính alt trên Google Chrome (a: có ảnh; b: thiếu ảnh hiện alt – SGK tr.63)"><div class="sgk-fig-cap"><span class="lv-cap-text">Hình 11.2. Kết quả sử dụng thuộc tính alt trên Google Chrome (a: có ảnh; b: thiếu ảnh hiện alt – SGK tr.63)</span><span class="lv-zoom-pill">🔍 Phóng to toàn màn hình</span></div></div>
+</div></div>
+
       </section>
       <section class="card" style="margin-bottom: 1.5rem;">
         <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.65rem;">
-          <h2 style="margin:0;color:#1e3a8a;font-size:1.3rem;">2. Chèn Âm thanh (&amp;lt;audio&amp;gt;) &amp;amp; Video (&amp;lt;video&amp;gt;)</h2>
-          <span class="sgk-badge">SGK tr.63–64</span>
+          <h2 style="margin:0;color:#1e3a8a;font-size:1.3rem;">1b. Thiết lập kích thước width/height &amp;amp; Quy tắc giữ tỉ lệ ảnh</h2>
+          <span class="sgk-badge">Phần 1 • Mục 1 SGK tr.63</span>
         </div>
         <div class="grid-2" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.25rem; align-items:start;">
           <div>
             <div style="color:#334155;line-height:1.65;font-size:0.95rem;">
-                  <p>HTML5 cung cấp cặp thẻ <code>&lt;audio&gt;...&lt;/audio&gt;</code> (MP3, WAV, OGG) và <code>&lt;video&gt;...&lt;/video&gt;</code> (MP4, WebM, Ogg):</p>
-                  <ul style="padding-left:1.2rem;line-height:1.65;">
-                    <li><code>controls</code>: Hiển thị bảng điều khiển (Play/Pause, tua, âm lượng). Nếu thiếu sẽ không có nút phát!</li>
-                    <li><code>autoplay</code> &amp; <code>muted</code>: Tự động phát (hầu hết trình duyệt yêu cầu kèm <code>muted</code> mới cho autoplay).</li>
-                    <li><code>poster="anh_bia.jpg"</code>, <code>width</code>, <code>height</code>: <strong>Chỉ dùng riêng cho <code>&lt;video&gt;</code></strong> (<code>&lt;audio&gt;</code> không có khung hình).</li>
-                    <li>Thẻ con <code>&lt;source src="..." type="..."&gt;</code> cho phép khai báo nhiều định dạng dự phòng cho các trình duyệt khác nhau.</li>
+                  <p>Nếu không đặt <code>width</code>/<code>height</code>, ảnh hiển thị đúng kích thước thật (có thể quá lớn gây vỡ bố cục bảng/trang). Khi khai báo <code>width</code>, <code>height</code> (đơn vị <em>pixel</em>), trình duyệt giữ sẵn không gian bố cục giúp tải trang mượt hơn.</p>
+                  <ul style="padding-left:1.2rem;line-height:1.68;">
+                    <li><strong>Quy tắc vàng giữ tỉ lệ (Hình 11.3):</strong> Nếu <strong>chỉ đặt một trong hai thuộc tính</strong> (<code>width</code> hoặc <code>height</code>), trình duyệt tự động tính chiều còn lại theo đúng tỉ lệ ảnh gốc để ảnh không bị méo!</li>
+                    <li><strong>Công thức:</strong> Ảnh gốc <code>W × H</code>, đặt <code>width = W'</code> ⇒ <code>height = W' × (H / W)</code>.</li>
+                    <li><em>Lưu ý nhỏ SGK tr.63:</em> Hình 11.3 in ví dụ ghi <code>&lt;image&gt;</code>, khi viết mã HTML thực tế luôn viết chuẩn là <code>&lt;img&gt;</code>.</li>
                   </ul>
                 </div>
 
-<div class="sgk-fig-box"><img src="assets/sgk/sgk_hinh11_4.png" alt="Hình 11.4. Chèn video vào trang web CLB (SGK tr.64)"><div class="sgk-fig-cap">Hình 11.4. Chèn video vào trang web CLB (SGK tr.64)</div></div>
-<div style="background:#f0fdfa;border:1.5px solid #5eead4;border-radius:10px;padding:0.9rem 1rem;margin-top:0.9rem;"><strong style="color:#0f766e;">❓ Câu hỏi củng cố (Hộp xanh SGK):</strong><ul style="margin:0.5rem 0 0;padding-left:1.2rem;line-height:1.6;"><li><strong>Vì sao nên viết thẻ <code>&lt;source&gt;</code> bên trong cặp thẻ <code>&lt;audio&gt;</code> hoặc <code>&lt;video&gt;</code> thay vì chỉ ghi thuộc tính <code>src</code> trực tiếp?</strong><br><button type="button" class="btn btn-secondary btn-sm" style="margin-top:0.35rem;" onclick="const b=this.nextElementSibling; const open=b.style.display!=='none'; b.style.display=open?'none':'block'; this.textContent=open?'💡 Bấm xem gợi ý trả lời':'🙈 Ẩn gợi ý';">💡 Bấm xem gợi ý trả lời</button><div style="display:none;margin-top:0.4rem;color:#166534;background:#f0fdf4;padding:0.55rem 0.75rem;border-radius:6px;border:1px solid #86efac;">Vì mỗi trình duyệt có thể hỗ trợ những định dạng tệp khác nhau (MP4/WebM hoặc MP3/OGG). Khai báo nhiều thẻ <code>&lt;source&gt;</code> giúp trình duyệt tự chọn phát định dạng đầu tiên nó hỗ trợ.</div></li><li><strong>Thẻ <code>&lt;audio&gt;</code> có hỗ trợ thuộc tính <code>width</code>, <code>height</code> và <code>poster</code> giống thẻ <code>&lt;video&gt;</code> không?</strong><br><button type="button" class="btn btn-secondary btn-sm" style="margin-top:0.35rem;" onclick="const b=this.nextElementSibling; const open=b.style.display!=='none'; b.style.display=open?'none':'block'; this.textContent=open?'💡 Bấm xem gợi ý trả lời':'🙈 Ẩn gợi ý';">💡 Bấm xem gợi ý trả lời</button><div style="display:none;margin-top:0.4rem;color:#166534;background:#f0fdf4;padding:0.55rem 0.75rem;border-radius:6px;border:1px solid #86efac;"><strong>Không.</strong> Âm thanh không có khung hình video nên <code>&lt;audio&gt;</code> không có <code>width</code>, <code>height</code> hay <code>poster</code>.</div></li></ul></div>
+<div class="callout-box" style="margin-top:0.85rem;">📌 <strong>Ghi nhớ SGK:</strong> <strong>Mẹo thực tế thiết kế web:</strong> Trong dự án hoàn chỉnh, nhóm thiết kế thống nhất kích thước chuẩn cho từng loại khung (banner, thẻ sản phẩm…) và chỉ đặt 1 chiều hoặc đúng tỉ lệ gốc để ảnh sắc nét.</div>
+
+
           </div>
           <div>
             <div class="syntax-card">
               <div class="syntax-header">
-                <span>💻 Cú pháp chuẩn &lt;audio&gt; và &lt;video&gt; kèm &lt;source&gt;</span>
+                <span>💻 So sánh giữ tỉ lệ (chỉ đặt width) vs bị méo (đặt lệch cả 2 chiều)</span>
                 <button type="button" id="btn-h21_1" class="btn-mini-tool" onclick="toggleSnippet('h21_1')">▶ Bấm xem kết quả hiển thị</button>
               </div>
-              <pre class="syntax-body">&lt;h4&gt;Trình phát Âm thanh &amp;amp; Video chuẩn HTML5&lt;/h4&gt;
-&lt;audio controls&gt;
-  &lt;source src=&quot;quocca.mp3&quot; type=&quot;audio/mpeg&quot;&gt;
-  Trình duyệt không hỗ trợ audio.
-&lt;/audio&gt;&lt;br&gt;&lt;br&gt;
-&lt;video width=&quot;320&quot; height=&quot;160&quot; controls poster=&quot;assets/sgk/sgk_hinh11_4.png&quot;&gt;
-  &lt;source src=&quot;clb.mp4&quot; type=&quot;video/mp4&quot;&gt;
-  &lt;source src=&quot;clb.webm&quot; type=&quot;video/webm&quot;&gt;
-&lt;/video&gt;</pre>
+              <pre class="syntax-body">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;vi&quot;&gt;
+&lt;body style=&quot;font-family:sans-serif;padding:12px;&quot;&gt;
+  &lt;div style=&quot;display:flex;gap:14px;align-items:flex-start;&quot;&gt;
+    &lt;div&gt;
+      &lt;strong&gt;✅ Chỉ đặt width=&quot;150&quot; (Đúng tỉ lệ):&lt;/strong&gt;&lt;br&gt;
+      &lt;img src=&quot;assets/media/thth.jpg&quot; alt=&quot;THTH đúng tỉ lệ&quot; width=&quot;150&quot;&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+      &lt;strong&gt;❌ Đặt width=&quot;190&quot; height=&quot;85&quot; (Bị méo):&lt;/strong&gt;&lt;br&gt;
+      &lt;img src=&quot;assets/media/thth.jpg&quot; alt=&quot;THTH bị méo&quot; width=&quot;190&quot; height=&quot;85&quot;&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
             </div>
             <div id="box-h21_1" class="mini-compiler-box" style="display:none;border:1px solid #cbd5e1;border-radius:8px;overflow:hidden;margin-top:0.65rem;">
               <div class="snippet-preview-bar"><span>🌐 KẾT QUẢ HIỂN THỊ</span><span style="color:#16a34a;">HTML5 Live</span></div>
               <iframe id="prev-h21_1" style="width:100%;height:190px;border:none;background:#fff;" title="Preview h21_1"></iframe>
             </div>
+
           </div>
         </div>
+<div style="margin-top:1.1rem;font-weight:800;color:#1e3a8a;font-size:1.02rem;">🖼️ So sánh thực tế Chưa chỉnh vs Đã chỉnh kích thước &amp; Chuẩn bố cục Web (Bấm để phóng to):</div><div class="lv-fig-showcase"><div class="lv-gallery-stack">
+<div class="sgk-fig-box lv-large lv-compact"><img src="assets/sgk/sgk_hinh11_3.png" alt="Hình 11.3. Ảnh trái tim gốc 262×257 px: giữ nguyên gốc, chỉ đặt width=131 (giữ tỉ lệ) và đặt width=200 height=120 (bị dẹt)"><div class="sgk-fig-cap"><span class="lv-cap-text">Hình 11.3. Ảnh trái tim gốc 262×257 px: giữ nguyên gốc, chỉ đặt width=131 (giữ tỉ lệ) và đặt width=200 height=120 (bị dẹt)</span><span class="lv-zoom-pill">🔍 Phóng to toàn màn hình</span></div></div>
+</div><div class="lv-gallery-stack">
+<div class="sgk-fig-box lv-large lv-medium"><img src="assets/sgk/b11_cat_raw.png" alt="Chưa chỉnh kích thước: ảnh thật tràn lớn làm lệch bảng"><div class="sgk-fig-cap"><span class="lv-cap-text">Chưa chỉnh kích thước: ảnh thật tràn lớn làm lệch bảng</span><span class="lv-zoom-pill">🔍 Phóng to toàn màn hình</span></div></div>
+<div class="sgk-fig-box lv-large lv-medium"><img src="assets/sgk/b11_cat_resized.png" alt="Đã chỉnh kích thước: ảnh gọn gàng, cân đối trong ô bảng"><div class="sgk-fig-cap"><span class="lv-cap-text">Đã chỉnh kích thước: ảnh gọn gàng, cân đối trong ô bảng</span><span class="lv-zoom-pill">🔍 Phóng to toàn màn hình</span></div></div>
+<div class="sgk-fig-box lv-large lv-medium"><img src="assets/sgk/b11_web_grid.png" alt="Mở rộng thực tế: thống nhất chuẩn kích thước ảnh trên giao diện web"><div class="sgk-fig-cap"><span class="lv-cap-text">Mở rộng thực tế: thống nhất chuẩn kích thước ảnh trên giao diện web</span><span class="lv-zoom-pill">🔍 Phóng to toàn màn hình</span></div></div>
+</div></div>
+<div style="background:#f0fdfa;border:1.5px solid #5eead4;border-radius:10px;padding:0.9rem 1rem;margin-top:0.9rem;"><strong style="color:#0f766e;">❓ Câu hỏi củng cố cuối Mục 1 (SGK tr.63):</strong><ul style="margin:0.5rem 0 0;padding-left:1.2rem;line-height:1.6;"><li><strong>1. Khẳng định <em>"Thẻ <code>&lt;img&gt;</code> chỉ dùng khi chèn ảnh dạng <code>.jpg</code> vào trang web"</em> là đúng hay sai?</strong><br><button type="button" class="btn btn-secondary btn-sm" style="margin-top:0.35rem;" onclick="const b=this.nextElementSibling; const open=b.style.display!=='none'; b.style.display=open?'none':'block'; this.textContent=open?'💡 Bấm xem gợi ý trả lời':'🙈 Ẩn gợi ý';">💡 Bấm xem gợi ý trả lời</button><div style="display:none;margin-top:0.4rem;color:#166534;background:#f0fdf4;padding:0.55rem 0.75rem;border-radius:6px;border:1px solid #86efac;"><strong>Sai.</strong> Thẻ <code>&lt;img&gt;</code> hỗ trợ nhiều định dạng ảnh web phổ biến như PNG, JPEG/JPG, GIF, WebP, JPEG-XR, SVG…</div></li><li><strong>2. Hãy nêu một số trường hợp có thể xảy ra lỗi khi hiển thị ảnh trên trang web.</strong><br><button type="button" class="btn btn-secondary btn-sm" style="margin-top:0.35rem;" onclick="const b=this.nextElementSibling; const open=b.style.display!=='none'; b.style.display=open?'none':'block'; this.textContent=open?'💡 Bấm xem gợi ý trả lời':'🙈 Ẩn gợi ý';">💡 Bấm xem gợi ý trả lời</button><div style="display:none;margin-top:0.4rem;color:#166534;background:#f0fdf4;padding:0.55rem 0.75rem;border-radius:6px;border:1px solid #86efac;">Gõ sai tên tệp hoặc sai đường dẫn thư mục; tệp ảnh bị xóa/di chuyển; định dạng tệp không được trình duyệt hỗ trợ (như TIFF, EPS); dùng đường dẫn tuyệt đối trên mạng nhưng mất kết nối Internet hoặc ảnh nguồn bị gỡ.</div></li></ul></div>
+      </section>
+      <section class="card" style="margin-bottom: 1.5rem;">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.65rem;">
+          <h2 style="margin:0;color:#1e3a8a;font-size:1.3rem;">2a. Chèn Âm thanh (&amp;lt;audio&amp;gt;) và Video (&amp;lt;video&amp;gt;) vào trang web</h2>
+          <span class="sgk-badge">Phần 2 • Mục 2 SGK tr.64</span>
+        </div>
+        <div class="grid-2" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.25rem; align-items:start;">
+          <div>
+            <div style="color:#334155;line-height:1.65;font-size:0.95rem;">
+                  <p><strong>Hoạt động 2 (SGK tr.64):</strong> Đọc đoạn mã <code>&lt;video src="videos/war_is_over.mp4" width="300" height="250" autoplay&gt;&lt;/video&gt;</code> — chèn video kích thước 300×250 px và yêu cầu tự động phát.</p>
+                  <ul style="padding-left:1.2rem;line-height:1.68;">
+                    <li><strong>Định dạng hỗ trợ phổ biến:</strong> Video gồm <strong>mp4, webm</strong> (mp4 chạy được trên hầu hết trình duyệt); Âm thanh gồm <strong>mp3, wav, ogg</strong>.</li>
+                    <li><strong>Các thuộc tính quan trọng:</strong> <code>src</code> (đường dẫn), <code>controls</code> (thuộc tính boolean hiển thị nút Phát/Tạm dừng, tua, âm lượng), <code>autoplay</code> (tự động phát — trên Google Chrome cần đi kèm <code>muted</code> mới tự phát được), <code>poster</code> (ảnh đại diện trước khi chạy video), <code>width</code>, <code>height</code>.</li>
+                    <li><strong>⚠️ Bẫy hay gặp trong đề thi:</strong> Thẻ <code>&lt;audio&gt;</code> <strong>KHÔNG có</strong> thuộc tính <code>width</code>, <code>height</code> và <code>poster</code>! Và luôn nhớ ghi đủ thẻ đóng <code>&lt;/audio&gt;</code>, <code>&lt;/video&gt;</code>.</li>
+                  </ul>
+                </div>
+<div class="example-cards-grid"><div class="ex-card ex-card-blue"><div style="display:inline-block;background:#dbeafe;color:#1d4ed8;padding:0.18rem 0.55rem;border-radius:999px;font-size:0.72rem;font-weight:800;margin-bottom:0.35rem;">Thẻ &lt;audio&gt;</div><div style="font-weight:800;color:#0f172a;font-size:0.88rem;margin-bottom:0.25rem;">MP3 • WAV • OGG</div><div style="font-size:0.83rem;color:#334155;line-height:1.48;">Có <code>src</code>, <code>controls</code>, <code>autoplay</code>, <code>muted</code>. <strong>KHÔNG có</strong> <code>width</code>, <code>height</code>, <code>poster</code>!</div></div><div class="ex-card ex-card-emerald"><div style="display:inline-block;background:#dcfce7;color:#15803d;padding:0.18rem 0.55rem;border-radius:999px;font-size:0.72rem;font-weight:800;margin-bottom:0.35rem;">Thẻ &lt;video&gt;</div><div style="font-weight:800;color:#0f172a;font-size:0.88rem;margin-bottom:0.25rem;">MP4 • WebM</div><div style="font-size:0.83rem;color:#334155;line-height:1.48;">Có đủ <code>controls</code>, <code>autoplay</code>, <code>muted</code> VÀ thêm <code>width</code>, <code>height</code>, <code>poster</code>.</div></div><div class="ex-card ex-card-rose"><div style="display:inline-block;background:#fee2e2;color:#b91c1c;padding:0.18rem 0.55rem;border-radius:999px;font-size:0.72rem;font-weight:800;margin-bottom:0.35rem;">Lưu ý Chrome</div><div style="font-weight:800;color:#0f172a;font-size:0.88rem;margin-bottom:0.25rem;">autoplay + muted</div><div style="font-size:0.83rem;color:#334155;line-height:1.48;">Trình duyệt hiện đại thường chặn tự phát có tiếng; muốn tự phát phải thêm <code>muted</code>.</div></div></div>
+
+
+
+          </div>
+          <div>
+            <div class="syntax-card">
+              <div class="syntax-header">
+                <span>💻 Trải nghiệm thật &lt;audio&gt; &amp; &lt;video&gt; Bài hát truyền thống THTH-ĐHSP</span>
+                <button type="button" id="btn-h21_2" class="btn-mini-tool" onclick="toggleSnippet('h21_2')">▶ Bấm xem kết quả hiển thị</button>
+              </div>
+              <pre class="syntax-body">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;vi&quot;&gt;
+&lt;body style=&quot;font-family:sans-serif;padding:12px;&quot;&gt;
+  &lt;p&gt;&lt;strong&gt;🎵 Thẻ &amp;lt;audio controls&amp;gt; (Bấm Play nghe thử):&lt;/strong&gt;&lt;/p&gt;
+  &lt;audio src=&quot;assets/media/thth_demo.mp3&quot; controls&gt;&lt;/audio&gt;
+  &lt;p style=&quot;margin-top:10px;&quot;&gt;&lt;strong&gt;🎬 Thẻ &amp;lt;video controls poster&amp;gt; (Bấm Play xem thử):&lt;/strong&gt;&lt;/p&gt;
+  &lt;video src=&quot;assets/media/thth_demo.mp4&quot; width=&quot;320&quot; height=&quot;180&quot; controls poster=&quot;assets/media/thth.jpg&quot;&gt;&lt;/video&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+            </div>
+            <div id="box-h21_2" class="mini-compiler-box" style="display:none;border:1px solid #cbd5e1;border-radius:8px;overflow:hidden;margin-top:0.65rem;">
+              <div class="snippet-preview-bar"><span>🌐 KẾT QUẢ HIỂN THỊ</span><span style="color:#16a34a;">HTML5 Live</span></div>
+              <iframe id="prev-h21_2" style="width:100%;height:190px;border:none;background:#fff;" title="Preview h21_2"></iframe>
+            </div>
+
+          </div>
+        </div>
+<div style="margin-top:1.1rem;font-weight:800;color:#1e3a8a;font-size:1.02rem;">🖼️ Nhận diện trang web có âm thanh trên trình duyệt &amp; Kết quả chèn video (Bấm để phóng to):</div><div class="lv-fig-showcase"><div class="lv-gallery-stack">
+<div class="sgk-fig-box lv-large lv-medium"><img src="assets/sgk/b11_audio_bar.png" alt="Thanh điều khiển mặc định khi gắn thuộc tính controls cho thẻ &lt;audio&gt;"><div class="sgk-fig-cap"><span class="lv-cap-text">Thanh điều khiển mặc định khi gắn thuộc tính controls cho thẻ &lt;audio&gt;</span><span class="lv-zoom-pill">🔍 Phóng to toàn màn hình</span></div></div>
+<div class="sgk-fig-box lv-large lv-medium"><img src="assets/sgk/b11_tab_sound.png" alt="Tab trình duyệt có biểu tượng loa báo hiệu trang đang phát âm thanh"><div class="sgk-fig-cap"><span class="lv-cap-text">Tab trình duyệt có biểu tượng loa báo hiệu trang đang phát âm thanh</span><span class="lv-zoom-pill">🔍 Phóng to toàn màn hình</span></div></div>
+<div class="sgk-fig-box lv-large lv-medium"><img src="assets/sgk/b11_tab_nosound.png" alt="Tab trình duyệt thông thường không có âm thanh"><div class="sgk-fig-cap"><span class="lv-cap-text">Tab trình duyệt thông thường không có âm thanh</span><span class="lv-zoom-pill">🔍 Phóng to toàn màn hình</span></div></div>
+<div class="sgk-fig-box lv-large lv-medium"><img src="assets/sgk/b11_video_demo.png" alt="Minh họa trang web sau khi chèn ảnh và video tùy chỉnh kích thước"><div class="sgk-fig-cap"><span class="lv-cap-text">Minh họa trang web sau khi chèn ảnh và video tùy chỉnh kích thước</span><span class="lv-zoom-pill">🔍 Phóng to toàn màn hình</span></div></div>
+</div></div>
+
+      </section>
+      <section class="card" style="margin-bottom: 1.5rem;">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.65rem;">
+          <h2 style="margin:0;color:#1e3a8a;font-size:1.3rem;">2b. Thẻ &amp;lt;source&amp;gt; dự phòng đa trình duyệt &amp;amp; Bản quyền số (3.3.NC1a)</h2>
+          <span class="sgk-badge">Phần 2 • Mục 2 SGK tr.64</span>
+        </div>
+        <div class="grid-2" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.25rem; align-items:start;">
+          <div>
+            <div style="color:#334155;line-height:1.65;font-size:0.95rem;">
+                  <p>Khi có nhiều phiên bản định dạng của cùng một tệp video hoặc âm thanh, ta đặt các thẻ <code>&lt;source src="..." type="..."&gt;</code> bên trong cặp thẻ <code>&lt;video&gt;</code> hoặc <code>&lt;audio&gt;</code>. Trình duyệt sẽ duyệt từ trên xuống và tự phát định dạng đầu tiên mà nó hỗ trợ.</p>
+                  <p><strong>©️ Nguyên tắc Bản quyền số (Năng lực số 3.3.NC1a):</strong> Khi sưu tầm hình ảnh, âm thanh, video cho trang web, học sinh <strong>chỉ sử dụng tài nguyên tự tạo, học liệu giáo viên cung cấp hoặc tài nguyên có giấy phép mở (Creative Commons) kèm ghi nguồn tác giả rõ ràng</strong> — tuyệt đối không dùng công cụ tải lậu video có bản quyền.</p>
+                </div>
+
+<div class="callout-box" style="margin-top:0.85rem;">📌 <strong>Ghi nhớ SGK:</strong> <strong>Ghi nhớ SGK tr.64:</strong> Thẻ <code>&lt;video&gt;</code> và <code>&lt;audio&gt;</code> dùng để chèn video và âm thanh vào trang web. Để trình duyệt thể hiện đúng, các tệp tin phải có định dạng được trình duyệt hỗ trợ.</div>
+
+<div style="background:#f0fdfa;border:1.5px solid #5eead4;border-radius:10px;padding:0.9rem 1rem;margin-top:0.9rem;"><strong style="color:#0f766e;">❓ Câu hỏi củng cố cuối Mục 2 (SGK tr.64):</strong><ul style="margin:0.5rem 0 0;padding-left:1.2rem;line-height:1.6;"><li><strong>Em hãy mô tả tác dụng của thuộc tính <code>src</code> đối với thẻ <code>&lt;audio&gt;</code>.</strong><br><button type="button" class="btn btn-secondary btn-sm" style="margin-top:0.35rem;" onclick="const b=this.nextElementSibling; const open=b.style.display!=='none'; b.style.display=open?'none':'block'; this.textContent=open?'💡 Bấm xem gợi ý trả lời':'🙈 Ẩn gợi ý';">💡 Bấm xem gợi ý trả lời</button><div style="display:none;margin-top:0.4rem;color:#166534;background:#f0fdf4;padding:0.55rem 0.75rem;border-radius:6px;border:1px solid #86efac;">Thuộc tính <code>src</code> dùng để chỉ định đường dẫn (tương đối hoặc URL tuyệt đối) tới tệp tin âm thanh (ví dụ <code>.mp3</code>, <code>.wav</code>, <code>.ogg</code>) cần chèn và phát trên trang web.</div></li><li><strong>Vì sao cần tôn trọng bản quyền số (<code>3.3.NC1a</code>) khi chèn ảnh, âm thanh, video từ Internet?</strong><br><button type="button" class="btn btn-secondary btn-sm" style="margin-top:0.35rem;" onclick="const b=this.nextElementSibling; const open=b.style.display!=='none'; b.style.display=open?'none':'block'; this.textContent=open?'💡 Bấm xem gợi ý trả lời':'🙈 Ẩn gợi ý';">💡 Bấm xem gợi ý trả lời</button><div style="display:none;margin-top:0.4rem;color:#166534;background:#f0fdf4;padding:0.55rem 0.75rem;border-radius:6px;border:1px solid #86efac;">Tôn trọng quyền tác giả, tránh vi phạm pháp luật về sở hữu trí tuệ; cần chọn tài nguyên được phép sử dụng (Creative Commons, tư liệu tự tạo hoặc nhà trường cung cấp) và ghi rõ nguồn trích dẫn.</div></li></ul></div>
+          </div>
+          <div>
+            <div class="syntax-card">
+              <div class="syntax-header">
+                <span>💻 Ví dụ thẻ &lt;source&gt; dự phòng nhiều định dạng (SGK tr.64)</span>
+                <button type="button" id="btn-h21_3" class="btn-mini-tool" onclick="toggleSnippet('h21_3')">▶ Bấm xem kết quả hiển thị</button>
+              </div>
+              <pre class="syntax-body">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;vi&quot;&gt;
+&lt;body style=&quot;font-family:sans-serif;padding:12px;&quot;&gt;
+  &lt;video width=&quot;320&quot; height=&quot;180&quot; controls poster=&quot;assets/media/thth.jpg&quot;&gt;
+    &lt;source src=&quot;assets/media/thth_demo.mp4&quot; type=&quot;video/mp4&quot;&gt;
+    &lt;source src=&quot;assets/media/thth_demo.ogg&quot; type=&quot;video/ogg&quot;&gt;
+    Trình duyệt của bạn không hỗ trợ HTML video.
+  &lt;/video&gt;
+  &lt;p style=&quot;font-size:12px;color:#475569;margin-top:6px;&quot;&gt;Nguồn tư liệu: Học liệu Trường THPT Thực hành ĐHSP.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+            </div>
+            <div id="box-h21_3" class="mini-compiler-box" style="display:none;border:1px solid #cbd5e1;border-radius:8px;overflow:hidden;margin-top:0.65rem;">
+              <div class="snippet-preview-bar"><span>🌐 KẾT QUẢ HIỂN THỊ</span><span style="color:#16a34a;">HTML5 Live</span></div>
+              <iframe id="prev-h21_3" style="width:100%;height:190px;border:none;background:#fff;" title="Preview h21_3"></iframe>
+            </div>
+
+          </div>
+        </div>
+
+
       </section>
 
       <!-- SANDBOX TƯƠNG TÁC NHANH -->
       <section class="interactive-panel" style="background:#f8fafc;border:1.5px solid #93c5fd;border-radius:14px;padding:1.25rem;margin-bottom:1.5rem;">
-        <h3 style="margin-top:0;color:#1e3a8a;">🛠️ Phòng Thí Nghiệm Nhanh: Thử nghiệm &lt;img&gt; giữ tỉ lệ &amp; &lt;video&gt; với controls</h3>
-        <p style="font-size:0.9rem;color:#475569;margin-top:0;">Thử thay đổi <code>width="180"</code> trên thẻ <code>&lt;img&gt;</code> hoặc xóa chữ <code>controls</code> trên thẻ <code>&lt;audio&gt;</code> để quan sát kết quả:</p>
+        <h3 style="margin-top:0;color:#1e3a8a;">🛠️ Phòng Thí Nghiệm Nhanh: Sandbox Khám phá 1: Tự thử nghiệm &lt;img&gt; giữ tỉ lệ, &lt;audio&gt;, &lt;video&gt; &amp; &lt;source&gt;</h3>
+        <p style="font-size:0.9rem;color:#475569;margin-top:0;">Thử thay đổi <code>width="180"</code> trên thẻ <code>&lt;img&gt;</code>, thử xóa chữ <code>controls</code> trên <code>&lt;audio&gt;</code> hoặc đổi <code>poster</code> rồi bấm <strong>Biên dịch &amp; Xem kết quả</strong>:</p>
         <div class="grid-2" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1rem;">
           <div>
-            <textarea id="sb21-code" style="width:100%;height:200px;padding:0.85rem;border-radius:8px;border:1.5px solid #334155;background:#0f172a;color:#e2e8f0;font-family:'Fira Code',monospace;font-size:0.85rem;">&lt;img src=&quot;assets/sgk/sgk_hinh11_2.png&quot; alt=&quot;Demo&quot; width=&quot;180&quot;&gt;&lt;br&gt;
-&lt;audio controls&gt;
-  &lt;source src=&quot;demo.mp3&quot; type=&quot;audio/mpeg&quot;&gt;
-&lt;/audio&gt;</textarea>
+            <textarea id="sb21-code" style="width:100%;height:200px;padding:0.85rem;border-radius:8px;border:1.5px solid #334155;background:#0f172a;color:#e2e8f0;font-family:'Fira Code',monospace;font-size:0.85rem;">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;vi&quot;&gt;
+&lt;body style=&quot;font-family:sans-serif;padding:12px;&quot;&gt;
+  &lt;img src=&quot;assets/media/thth.jpg&quot; alt=&quot;Ảnh trường THTH-ĐHSP&quot; width=&quot;180&quot; style=&quot;border-radius:8px;&quot;&gt;&lt;br&gt;&lt;br&gt;
+  &lt;audio controls&gt;
+    &lt;source src=&quot;assets/media/thth_demo.mp3&quot; type=&quot;audio/mpeg&quot;&gt;
+  &lt;/audio&gt;&lt;br&gt;&lt;br&gt;
+  &lt;video width=&quot;300&quot; height=&quot;170&quot; controls poster=&quot;assets/media/thth.jpg&quot;&gt;
+    &lt;source src=&quot;assets/media/thth_demo.mp4&quot; type=&quot;video/mp4&quot;&gt;
+  &lt;/video&gt;
+&lt;/body&gt;
+&lt;/html&gt;</textarea>
             <button type="button" class="btn btn-primary btn-sm" style="margin-top:0.5rem;" onclick="runSb21()">▶ Biên dịch &amp; Xem kết quả</button>
           </div>
           <div>
@@ -287,6 +452,23 @@
           </div>
           <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.8rem; font-size: 1rem; font-weight: 700; border-radius: 8px; justify-content: center;">🔓 Xác Thực Giáo Viên</button>
         </form>
+      </div>
+    </div>
+  </div>
+  <!-- MODAL PHÓNG TO HÌNH MINH HỌA -->
+  <div id="img-zoom-modal" class="img-lightbox-overlay" onclick="closeImgZoom()">
+    <div class="img-lightbox-dialog" onclick="event.stopPropagation()">
+      <div class="img-lightbox-header">
+        <div id="img-zoom-caption" class="img-lightbox-caption"></div>
+        <div class="img-lightbox-tools">
+          <button type="button" id="btn-zoom-100" class="btn btn-primary btn-sm" onclick="setImgZoomScale(100)">🔍 Vừa màn hình</button>
+          <button type="button" id="btn-zoom-150" class="btn btn-secondary btn-sm" onclick="setImgZoomScale(150)">➕ Phóng 150%</button>
+          <button type="button" id="btn-zoom-200" class="btn btn-secondary btn-sm" onclick="setImgZoomScale(200)">➕ Phóng 200%</button>
+          <button type="button" onclick="closeImgZoom()" class="btn btn-secondary btn-sm">✕ Đóng (Esc)</button>
+        </div>
+      </div>
+      <div id="img-zoom-scroll" class="img-lightbox-body">
+        <img id="img-zoom-target" alt="Phóng to hình minh họa">
       </div>
     </div>
   </div>
@@ -492,15 +674,117 @@
         return data;
       } catch (e) { return null; }
     }
+    function setImgZoomScale(pct) {
+      const im = document.getElementById('img-zoom-target');
+      const sc = document.getElementById('img-zoom-scroll');
+      [100, 150, 200].forEach(p => {
+        const b = document.getElementById('btn-zoom-' + p);
+        if (b) b.className = 'btn btn-sm ' + (p === pct ? 'btn-primary' : 'btn-secondary');
+      });
+      if (!im || !sc) return;
+      if (pct <= 100) {
+        sc.classList.remove('is-zoomed');
+        const nw = im.naturalWidth || 0;
+        const nh = im.naturalHeight || 0;
+        if (nw && nh && nw < nh * 1.6) {
+          im.style.cssText = 'width:auto !important;max-width:100% !important;height:78vh !important;max-height:82vh !important;object-fit:contain;margin:auto;display:block;border-radius:10px;background:#fff;';
+        } else {
+          im.style.cssText = 'width:100% !important;max-width:100% !important;height:auto !important;max-height:none !important;margin:auto;display:block;border-radius:10px;background:#fff;';
+        }
+      } else {
+        sc.classList.add('is-zoomed');
+        im.style.cssText = 'width:' + pct + '% !important;max-width:none !important;height:auto !important;max-height:none !important;margin:0;display:block;border-radius:10px;background:#fff;';
+      }
+    }
+    function openImgZoom(src, cap) {
+      const m = document.getElementById('img-zoom-modal');
+      const im = document.getElementById('img-zoom-target');
+      const cp = document.getElementById('img-zoom-caption');
+      if (!m || !im || !src) return;
+      im.onload = () => setImgZoomScale(100);
+      im.src = src;
+      im.alt = cap || 'Hình minh họa';
+      if (cp) cp.textContent = cap || 'Hình minh họa chi tiết';
+      m.classList.add('active');
+      setImgZoomScale(100);
+    }
+    function closeImgZoom() {
+      document.getElementById('img-zoom-modal')?.classList.remove('active');
+    }
+    async function syncPendingLocalWorksheetSubmissions() {
+      if (window.__wsOutboxBusy) return;
+      window.__wsOutboxBusy = true;
+      try {
+        const key = LESSON_SLUG + '_worksheet_submissions';
+        const raw = localStorage.getItem(key);
+        if (!raw) return;
+        const list = JSON.parse(raw);
+        if (!Array.isArray(list) || !list.length) return;
+        const pending = list.filter(x => x && x.id && String(x.id).startsWith('WS-') && x.worksheetId !== 'kttx2' && !x._synced);
+        if (!pending.length) return;
+        const res = await fetch('/api/' + LESSON_SLUG + '/submissions', { headers: getTeacherHeaders(), cache: 'no-store' });
+        if (!res.ok) return;
+        const srv = await res.json();
+        const srvIds = new Set((Array.isArray(srv) ? srv : []).map(x => x && x.id).filter(Boolean));
+        let changed = false;
+        let uploaded = false;
+        for (const item of list) {
+          if (!item || !item.id || !String(item.id).startsWith('WS-') || item.worksheetId === 'kttx2' || item._synced) continue;
+          if (srvIds.has(item.id)) {
+            item._synced = true;
+            changed = true;
+            continue;
+          }
+          const clean = Object.assign({}, item);
+          delete clean._synced;
+          try {
+            const pr = await fetch('/api/' + LESSON_SLUG + '/submit', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              keepalive: true,
+              body: JSON.stringify(clean)
+            });
+            if (pr.ok) {
+              item._synced = true;
+              srvIds.add(item.id);
+              changed = true;
+              uploaded = true;
+            }
+          } catch (e) {}
+        }
+        if (changed) localStorage.setItem(key, JSON.stringify(list));
+        if (uploaded && typeof loadSubmissionsP2 === 'function') loadSubmissionsP2();
+      } catch (e) {} finally {
+        window.__wsOutboxBusy = false;
+      }
+    }
+    window.addEventListener('online', syncPendingLocalWorksheetSubmissions);
+    document.addEventListener('keydown', (ev) => {
+      if (ev.key === 'Escape') closeImgZoom();
+    });
     document.addEventListener('DOMContentLoaded', () => {
       updateTeacherNavBadge();
       syncLessonExamGates();
+      syncPendingLocalWorksheetSubmissions();
       if (document.querySelector('[data-exam-gate], #teacher-exam-control-panel')) {
         setInterval(syncLessonExamGates, 10000);
       }
+      document.querySelectorAll('.sgk-fig-box').forEach(figBox => {
+        const img = figBox.querySelector('img');
+        if (!img) return;
+        img.title = img.title || 'Bấm để phóng to hình minh họa';
+        const openThis = () => {
+          const spanCap = figBox.querySelector('.sgk-fig-cap .lv-cap-text') || figBox.querySelector('.sgk-fig-cap');
+          const cap = img.getAttribute('alt') || (spanCap && spanCap.textContent) || '';
+          openImgZoom(img.getAttribute('src'), cap);
+        };
+        img.addEventListener('click', openThis);
+        const pill = figBox.querySelector('.lv-zoom-pill');
+        if (pill) pill.addEventListener('click', openThis);
+      });
     });
     
-    const SNIPPETS = {"h21_0": "<h4>Chèn ảnh đúng tỉ lệ (chỉ đặt width)</h4>\n<img src=\"assets/sgk/sgk_hinh11_2.png\" alt=\"Minh họa ảnh CLB\" width=\"240\">\n<p style=\"font-size:12px;color:#475569;\">(Trình duyệt tự động tính height tương ứng)</p>", "h21_1": "<h4>Trình phát Âm thanh &amp; Video chuẩn HTML5</h4>\n<audio controls>\n  <source src=\"quocca.mp3\" type=\"audio/mpeg\">\n  Trình duyệt không hỗ trợ audio.\n</audio><br><br>\n<video width=\"320\" height=\"160\" controls poster=\"assets/sgk/sgk_hinh11_4.png\">\n  <source src=\"clb.mp4\" type=\"video/mp4\">\n  <source src=\"clb.webm\" type=\"video/webm\">\n</video>"};
+    const SNIPPETS = {"h21_0": "<!DOCTYPE html>\n<html lang=\"vi\">\n<body style=\"font-family:sans-serif;padding:12px;\">\n  <p>Ảnh thật của trường (có <code>alt</code> mô tả):</p>\n  <img src=\"assets/media/thth.jpg\" alt=\"Trường THPT Thực hành ĐHSP\" width=\"160\" style=\"border-radius:8px;\">\n  <p style=\"margin-top:10px;\">Thử nghiệm ảnh lỗi đường dẫn → trình duyệt hiện chữ <code>alt</code>:</p>\n  <img src=\"images/khong_ton_tai.png\" alt=\"Biểu mẫu xin nhập học (ảnh đang lỗi đường dẫn)\">\n</body>\n</html>", "h21_1": "<!DOCTYPE html>\n<html lang=\"vi\">\n<body style=\"font-family:sans-serif;padding:12px;\">\n  <div style=\"display:flex;gap:14px;align-items:flex-start;\">\n    <div>\n      <strong>✅ Chỉ đặt width=\"150\" (Đúng tỉ lệ):</strong><br>\n      <img src=\"assets/media/thth.jpg\" alt=\"THTH đúng tỉ lệ\" width=\"150\">\n    </div>\n    <div>\n      <strong>❌ Đặt width=\"190\" height=\"85\" (Bị méo):</strong><br>\n      <img src=\"assets/media/thth.jpg\" alt=\"THTH bị méo\" width=\"190\" height=\"85\">\n    </div>\n  </div>\n</body>\n</html>", "h21_2": "<!DOCTYPE html>\n<html lang=\"vi\">\n<body style=\"font-family:sans-serif;padding:12px;\">\n  <p><strong>🎵 Thẻ &lt;audio controls&gt; (Bấm Play nghe thử):</strong></p>\n  <audio src=\"assets/media/thth_demo.mp3\" controls></audio>\n  <p style=\"margin-top:10px;\"><strong>🎬 Thẻ &lt;video controls poster&gt; (Bấm Play xem thử):</strong></p>\n  <video src=\"assets/media/thth_demo.mp4\" width=\"320\" height=\"180\" controls poster=\"assets/media/thth.jpg\"></video>\n</body>\n</html>", "h21_3": "<!DOCTYPE html>\n<html lang=\"vi\">\n<body style=\"font-family:sans-serif;padding:12px;\">\n  <video width=\"320\" height=\"180\" controls poster=\"assets/media/thth.jpg\">\n    <source src=\"assets/media/thth_demo.mp4\" type=\"video/mp4\">\n    <source src=\"assets/media/thth_demo.ogg\" type=\"video/ogg\">\n    Trình duyệt của bạn không hỗ trợ HTML video.\n  </video>\n  <p style=\"font-size:12px;color:#475569;margin-top:6px;\">Nguồn tư liệu: Học liệu Trường THPT Thực hành ĐHSP.</p>\n</body>\n</html>"};
     function bindPreviewLinkHandler(doc, reloadFn) {
       if (!doc || !doc.body) return;
       doc.addEventListener('click', function(ev) {

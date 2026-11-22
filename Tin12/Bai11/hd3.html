@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hoạt động 3: Thực hành the_thao.html | Bài 11: Chèn tệp tin đa phương tiện và khung nội tuyến vào trang web</title>
+  <title>Hoạt động 3: Thực hành (Bài TH 1: CLB SGK • Bài TH 2: Trường THTH-ĐHSP) | Bài 11: Chèn tệp tin đa phương tiện và khung nội tuyến vào trang web</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Fira+Code:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -26,12 +26,49 @@
     .qr-zoom-modal { display: none; position: fixed; inset: 0; background: rgba(15,23,42,0.75); backdrop-filter: blur(4px); z-index: 9998; align-items: center; justify-content: center; padding: 1rem; }
     .qr-zoom-modal.active { display: flex; }
     .qr-zoom-box { background: #fff; border-radius: 16px; padding: 2rem; max-width: 460px; width: 100%; text-align: center; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.35); }
-    .sgk-fig-box { background: #fff; border: 1.5px solid #cbd5e1; border-radius: 12px; padding: 0.85rem; margin: 1rem 0; text-align: center; }
-    .sgk-fig-box img { max-width: 100%; max-height: 360px; height: auto; border-radius: 6px; object-fit: contain; }
+    .img-lightbox-overlay { display: none; position: fixed; inset: 0; background: rgba(15,23,42,0.88); backdrop-filter: blur(5px); z-index: 9998; align-items: center; justify-content: center; padding: 1.5vh 1.5vw; }
+    .img-lightbox-overlay.active { display: flex; }
+    .img-lightbox-dialog { background: #ffffff; border-radius: 16px; width: 96vw; max-width: 1860px; max-height: 96vh; padding: 0.9rem 1.25rem 1.1rem; display: flex; flex-direction: column; box-shadow: 0 25px 60px rgba(0,0,0,0.48); overflow: hidden; }
+    .img-lightbox-header { display: flex; justify-content: space-between; align-items: center; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 0.7rem; padding-bottom: 0.55rem; border-bottom: 1px solid #e2e8f0; }
+    .img-lightbox-caption { font-size: 1.02rem; font-weight: 800; color: #1e3a8a; text-align: left; flex: 1; min-width: 220px; }
+    .img-lightbox-tools { display: flex; gap: 0.4rem; flex-wrap: wrap; flex-shrink: 0; }
+    .img-lightbox-body { flex: 1; overflow: auto; background: #f8fafc; border: 1.5px solid #cbd5e1; border-radius: 12px; padding: 0.75rem; display: flex; align-items: flex-start; justify-content: center; min-height: 50vh; }
+    .img-lightbox-body.is-zoomed { justify-content: flex-start; }
+    #img-zoom-target { display: block; border-radius: 10px; background: #fff; box-shadow: 0 4px 20px rgba(15,23,42,0.08); }
+    .sgk-fig-box { background: #fff; border: 1.5px solid #cbd5e1; border-radius: 12px; padding: 0.85rem; margin: 1rem 0; text-align: center; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
+    .sgk-fig-box:hover { border-color: #60a5fa; box-shadow: 0 6px 18px rgba(37,99,235,0.10); }
+    .sgk-fig-box img { max-width: 100%; max-height: 360px; height: auto; border-radius: 6px; object-fit: contain; cursor: zoom-in; transition: transform 0.2s ease; }
     .sgk-fig-cap { font-size: 0.84rem; color: #475569; font-style: italic; margin-top: 0.5rem; }
+    .fig-gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 1rem; margin-top: 1.1rem; }
+    .fig-gallery-grid .sgk-fig-box { margin: 0; }
+    .fig-gallery-grid .sgk-fig-box.span-full { grid-column: 1 / -1; }
+    .fig-gallery-grid .sgk-fig-box img { max-height: 430px; }
+    .fig-gallery-grid .sgk-fig-box.span-full img { max-height: 490px; }
+    .example-cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.7rem; margin: 0.85rem 0; }
+    .ex-card { background: #fff; border: 1.5px solid #cbd5e1; border-radius: 10px; padding: 0.75rem 0.85rem; }
+    .ex-card code { overflow-wrap: anywhere; word-break: break-word; white-space: normal; }
+    .ex-card-blue { background: #eff6ff; border-color: #93c5fd; }
+    .ex-card-emerald { background: #f0fdf4; border-color: #86efac; }
+    .ex-card-amber { background: #fffbeb; border-color: #fcd34d; }
+    .ex-card-rose { background: #fef2f2; border-color: #fca5a5; }
     .exam-gated-hidden { display: none !important; }
 
 
+    .lv-fig-showcase .sgk-fig-box, .sgk-fig-box.lv-large { padding: 1.05rem 1.2rem; border: 2px solid #cbd5e1; border-radius: 14px; background: #ffffff; box-shadow: 0 6px 18px rgba(15,23,42,0.06); margin: 0.9rem 0; }
+    .lv-fig-showcase .sgk-fig-box:hover, .sgk-fig-box.lv-large:hover { border-color: #3b82f6; box-shadow: 0 10px 26px rgba(37,99,235,0.12); }
+    .lv-fig-showcase .sgk-fig-box img, .sgk-fig-box.lv-large img { width: 100% !important; max-width: 100% !important; max-height: none !important; height: auto !important; display: block; margin: 0 auto; border-radius: 10px; }
+    .lv-fig-showcase .sgk-fig-box.lv-compact img, .sgk-fig-box.lv-compact img { width: auto !important; max-width: 100% !important; min-height: 360px; max-height: 580px !important; height: auto !important; object-fit: contain; margin: 0 auto; }
+    .lv-fig-showcase .sgk-fig-box.lv-medium img, .sgk-fig-box.lv-medium img { width: 100% !important; max-width: 960px !important; max-height: none !important; height: auto !important; margin: 0 auto; }
+    .lv-fig-showcase .sgk-fig-cap, .sgk-fig-box.lv-large .sgk-fig-cap { font-size: 0.94rem; font-weight: 600; color: #1e293b; font-style: normal; margin-top: 0.7rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; text-align: left; }
+    .lv-zoom-pill { display: inline-flex; align-items: center; gap: 0.3rem; background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; border-radius: 999px; padding: 0.22rem 0.7rem; font-size: 0.78rem; font-weight: 700; white-space: nowrap; cursor: zoom-in; }
+    .lv-zoom-pill:hover { background: #2563eb; color: #ffffff; border-color: #2563eb; }
+    .lv-gallery-stack { display: grid; grid-template-columns: 1fr; gap: 1.15rem; margin-top: 0.75rem; }
+    .lv-gallery-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.15rem; margin-top: 0.75rem; }
+    @media (max-width: 900px) { .lv-gallery-pair { grid-template-columns: 1fr; } }
+    
+    .practice-workbench-grid { display:grid; grid-template-columns: 320px minmax(0,1fr); gap:1.25rem; align-items:start; }
+    @media (max-width:992px) { .practice-workbench-grid { grid-template-columns: 1fr; } }
+    
     .main-view-switcher { display:inline-flex; background:#e2e8f0; padding:0.3rem; border-radius:10px; gap:0.25rem; }
     .view-btn { border:none; background:transparent; padding:0.5rem 1.15rem; border-radius:8px; font-weight:700; font-size:0.88rem; color:#475569; cursor:pointer; font-family:inherit; }
     .view-btn.active { background:#fff; color:#1d4ed8; box-shadow:0 2px 5px rgba(0,0,0,0.08); }
@@ -42,8 +79,6 @@
     .form-grid-single { display:grid; grid-template-columns: minmax(0,2fr) minmax(0,1fr) minmax(0,1fr); gap:0.85rem; }
     .form-grid-pair { display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap:0.85rem; }
     @media (max-width:768px) { .form-grid-single, .form-grid-pair { grid-template-columns: 1fr; } }
-    .practice-workbench-grid { display:grid; grid-template-columns: 350px minmax(0,1fr); gap:1.25rem; align-items:start; }
-    @media (max-width:992px) { .practice-workbench-grid { grid-template-columns: 1fr; } }
     .editor-preview-split { display:grid; grid-template-columns: 1fr 1fr; gap:1rem; }
     @media (max-width:900px) { .editor-preview-split { grid-template-columns: 1fr; } }
     .ide-pane, .preview-pane { border:1.5px solid #cbd5e1; border-radius:12px; overflow:hidden; background:#fff; display:flex; flex-direction:column; }
@@ -93,7 +128,7 @@
           </div>
           <div class="brand-text">
             <span class="title">BÀI 11: ĐA PHƯƠNG TIỆN &amp; IFRAME</span>
-            <span class="subtitle">Hoạt động 3: Thực hành the_thao.html</span>
+            <span class="subtitle">Hoạt động 3: Thực hành (Bài TH 1: CLB SGK • Bài TH 2: Trường THTH-ĐHSP)</span>
           </div>
         </a>
       </div>
@@ -102,10 +137,10 @@
         <ul class="nav-links">
           <li><a href="index.html" class="nav-link">Tổng quan</a></li>
           <li><a href="hd1.html" class="nav-link">1. Khởi động</a></li>
-          <li><a href="hd2-1.html" class="nav-link">2.1. Ảnh &amp; Video</a></li>
-          <li><a href="hd2-2.html" class="nav-link">2.2. Khung iframe</a></li>
-          <li><a href="hd3.html" class="nav-link active">3. Thực hành CLB</a></li>
-          <li><a href="hd4.html" class="nav-link">4. Infographic</a></li>
+          <li><a href="hd2-1.html" class="nav-link">2.1. Khám phá 1</a></li>
+          <li><a href="hd2-2.html" class="nav-link">2.2. Khám phá 2</a></li>
+          <li><a href="hd3.html" class="nav-link active">3. Thực hành (2 bài)</a></li>
+          <li><a href="hd4.html" class="nav-link">4. Vận dụng &amp; Infographic</a></li>
         </ul>
       </nav>
 
@@ -148,19 +183,19 @@
         </a>
         <a href="hd2-1.html" class="stepper-step completed">
           <div class="step-circle">✓</div>
-          <span class="step-label">Ảnh, Audio &amp; Video (20&#x27;)</span>
+          <span class="step-label">Khám phá 1: Ảnh, Audio, Video (30&#x27;)</span>
         </a>
         <a href="hd2-2.html" class="stepper-step completed">
           <div class="step-circle">✓</div>
-          <span class="step-label">Khung iframe (15&#x27;)</span>
+          <span class="step-label">Khám phá 2: Khung iframe (20&#x27;)</span>
         </a>
         <a href="hd3.html" class="stepper-step active">
           <div class="step-circle">3</div>
-          <span class="step-label">Thực hành CLB (35&#x27;)</span>
+          <span class="step-label">Thực hành: 2 bài (35&#x27;)</span>
         </a>
         <a href="hd4.html" class="stepper-step ">
           <div class="step-circle">4</div>
-          <span class="step-label">Infographic &amp; SGK (15&#x27;)</span>
+          <span class="step-label">Vận dụng &amp; Infographic</span>
         </a>
       </div>
     </div>
@@ -170,9 +205,9 @@
     <div class="container">
       <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;">
         <div>
-          <div class="badge-tag" style="background:rgba(255,255,255,0.16);color:#fff;">💻 HOẠT ĐỘNG 3 • THỰC HÀNH TỰ CODE &amp; NỘP BÀI</div>
-          <h1 class="hero-title" style="font-size:1.85rem;margin-bottom:0.35rem;">Thực hành tạo trang đa phương tiện the_thao.html</h1>
-          <p class="hero-subtitle" style="margin:0;">Tự tay viết mã hoàn chỉnh cho trang <code>the_thao.html</code> chèn hình ảnh, âm thanh, video đa nguồn <code>&lt;source&gt;</code> và khung nội tuyến <code>&lt;iframe&gt;</code> điều hướng bằng <code>target</code> (SGK tr.65–66).</p>
+          <div class="badge-tag" style="background:rgba(255,255,255,0.16);color:#fff;">💻 HOẠT ĐỘNG 3 • LUYỆN TẬP – THỰC HÀNH GỘP 2 BÀI (35 PHÚT)</div>
+          <h1 class="hero-title" style="font-size:1.85rem;margin-bottom:0.35rem;">Hoạt động 3: Thực hành Đa phương tiện &amp; Khung nội tuyến (2 Bài TH)</h1>
+          <p class="hero-subtitle" style="margin:0;">Thực hiện nối tiếp <strong>Bài thực hành 1 (15’ – 3 nhiệm vụ SGK tr.65–66)</strong> trên các tab <code>CLB.html</code>, <code>the_thao.html</code>, <code>nghe_thuat.html</code> và <strong>Bài thực hành 2 (20’ – Trang giới thiệu Trường THPT Thực hành ĐHSP)</strong> trên tab <code>gioi_thieu_truong.html</code> (<a href="https://drive.google.com/drive/folders/1J8gqUBo52P6G76VQ9-bt0QoNuzHvISSc?usp=sharing" target="_blank" rel="noopener" style="color:#1d4ed8;font-weight:700;text-decoration:underline;">📂 Mở kho học liệu gốc trên Google Drive</a> hoặc dùng sẵn đường dẫn trực tuyến <code>assets/media/thth.jpg</code>, <code>assets/media/thth_demo.mp3</code>, <code>assets/media/thth_demo.mp4</code> để chạy thử ngay!).</p>
         </div>
         <div class="main-view-switcher">
           <button type="button" id="btn-view-student" class="view-btn active" onclick="switchMainView('student')">👨‍💻 Giao diện Học sinh</button>
@@ -189,7 +224,7 @@
       <div id="view-student-container">
         <div class="student-card">
           <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.75rem;margin-bottom:0.65rem;">
-            <strong style="color:#1e3a8a;">👤 Thông tin học sinh nộp bài (tệp chính <code>the_thao.html</code>)</strong>
+            <strong style="color:#1e3a8a;">👤 Thông tin học sinh nộp bài (tệp chính <code>CLB.html</code>)</strong>
             <div class="mode-selector" style="margin:0;">
               <button type="button" id="btn-mode-single" class="mode-tab active" onclick="setStudentMode('single')">Cá nhân</button>
               <button type="button" id="btn-mode-pair" class="mode-tab" onclick="setStudentMode('pair')">Nhóm cặp đôi (2 bạn)</button>
@@ -212,77 +247,127 @@
           </div>
         </div>
 
+        <div class="card" style="border-left:5px solid #0284c7;margin-bottom:1.25rem;">
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;">
+            <div>
+              <h3 style="margin:0;color:#1e3a8a;font-size:1.18rem;">👀 Quan sát Mẫu Kết Quả của Cả 2 Bài Thực Hành (Bấm phóng to hoặc Chạy thử tương tác)</h3>
+              <p style="margin:0.3rem 0 0;color:#475569;font-size:0.88rem;line-height:1.55;">Xem trước <strong>sản phẩm mẫu</strong> của <strong>Bài thực hành 1 (Hình 11.5 SGK: bấm link chuyển trang trong <code>&lt;iframe&gt;</code>)</strong> và <strong>Bài thực hành 2 (Trang Trường THPT Thực hành ĐHSP)</strong>, hoặc bấm nút chạy thử tương tác ngay bên dưới (không làm lộ code).</p>
+            </div>
+            <span class="sgk-badge">Mẫu kết quả trực quan (Không lộ code)</span>
+          </div>
+          <div class="lv-fig-showcase"><div class="lv-gallery-stack">
+<div class="sgk-fig-box lv-large lv-compact"><img src="assets/sgk/sgk_hinh11_5.png" alt="Mẫu Bài thực hành 1 (Hình 11.5 SGK tr.66): Bấm [CLB Thể thao] / [CLB Nghệ thuật] mở ngay trong khung iframe"><div class="sgk-fig-cap"><span class="lv-cap-text">Mẫu Bài thực hành 1 (Hình 11.5 SGK tr.66): Bấm [CLB Thể thao] / [CLB Nghệ thuật] mở ngay trong khung iframe</span><span class="lv-zoom-pill">🔍 Phóng to toàn màn hình</span></div></div>
+</div><div class="lv-gallery-stack">
+<div class="sgk-fig-box lv-large lv-medium"><img src="assets/sgk/b11_thth_sample1.png" alt="Mẫu Bài thực hành 2 (Phần 1): Tiêu đề Trường THPT Thực hành ĐHSP, ảnh minh họa &amp; thanh âm thanh"><div class="sgk-fig-cap"><span class="lv-cap-text">Mẫu Bài thực hành 2 (Phần 1): Tiêu đề Trường THPT Thực hành ĐHSP, ảnh minh họa &amp; thanh âm thanh</span><span class="lv-zoom-pill">🔍 Phóng to toàn màn hình</span></div></div>
+<div class="sgk-fig-box lv-large lv-medium"><img src="assets/sgk/b11_thth_sample2.png" alt="Mẫu Bài thực hành 2 (Phần 2): Video bài hát truyền thống &amp; khung nội tuyến &lt;iframe&gt;"><div class="sgk-fig-cap"><span class="lv-cap-text">Mẫu Bài thực hành 2 (Phần 2): Video bài hát truyền thống &amp; khung nội tuyến &lt;iframe&gt;</span><span class="lv-zoom-pill">🔍 Phóng to toàn màn hình</span></div></div>
+</div></div>
+          <div style="margin-top:0.9rem;">
+            <button type="button" id="hd3-demo-toggle-btn" class="btn btn-primary btn-sm" style="background:#0284c7;border-color:#0284c7;font-weight:700;" onclick="toggleHd3Demo()">👁️ Bấm chạy thử giao diện mẫu File 1 (CLB.html) ⇄ File 2 (thong_tin.html)</button>
+            <div id="hd3-demo-box" style="display:none;margin-top:0.75rem;border:1.5px solid #93c5fd;border-radius:12px;overflow:hidden;background:#fff;">
+              <div style="background:#eff6ff;padding:0.55rem 0.85rem;border-bottom:1px solid #bfdbfe;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;">
+                <div style="display:flex;gap:0.4rem;flex-wrap:wrap;"><button type="button" id="hd3-demo-tab-0" class="btn btn-sm btn-primary" style="font-family:monospace;" onclick="renderSampleDemoFrame('CLB.html', '')">📄 Xem mẫu File 1: CLB.html</button><button type="button" id="hd3-demo-tab-1" class="btn btn-sm btn-secondary" style="font-family:monospace;" onclick="renderSampleDemoFrame('gioi_thieu_truong.html', '')">📄 Xem mẫu File 2: gioi_thieu_truong.html</button></div>
+                <div id="hd3-demo-addr" class="vb-url-pill" style="max-width:340px;">site://CLB.html</div>
+              </div>
+              <iframe id="hd3-demo-frame" style="width:100%;height:420px;border:none;background:#fff;display:block;" title="Mẫu kết quả 2 File HTML"></iframe>
+            </div>
+          </div>
+        </div>
+        <div id="hd3-tasks-guide" style="margin-bottom:1.25rem;">
+          <div class="card lv-fig-showcase" style="border-left: 4px solid #1d4ed8; padding: 1.2rem 1.35rem; margin-bottom: 1.05rem;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;gap:0.4rem;flex-wrap:wrap;">
+              <h4 style="margin:0;color:#1d4ed8;font-size:1.1rem;font-weight:800;">Bài thực hành 1 (15’): 3 Nhiệm vụ SGK tr.65–66 (CLB Thể thao / Nghệ thuật)</h4>
+              <span class="sgk-badge">Mục 4 SGK tr.65–66</span>
+            </div>
+            <p style="font-size:0.92rem;color:#334155;margin:0 0 0.45rem;line-height:1.55;">Hoàn thành đủ 3 nhiệm vụ trên các tab <code>the_thao.html</code>, <code>nghe_thuat.html</code> và <code>CLB.html</code>:</p>
+            <ul style="font-size:0.88rem;color:#475569;margin:0;padding-left:1.2rem;line-height:1.55;">
+              <li><strong>Nhiệm vụ 1 (Chèn tệp ảnh):</strong> Soạn <code>the_thao.html</code> và <code>nghe_thuat.html</code>, chèn ảnh minh họa bằng <code>&lt;img src="..." alt="..." width="..."&gt;</code> (chỉ đặt 1 chiều kích thước để giữ đúng tỉ lệ).</li>
+              <li><strong>Nhiệm vụ 2 (Chèn tệp âm thanh):</strong> Chèn bài hát <em>"Quốc ca"</em> (hoặc <code>assets/media/thth_demo.mp3</code>) bằng <code>&lt;audio controls&gt;</code> kèm thẻ <code>&lt;source&gt;</code> và lưu ý bản quyền số (<code>3.3.NC1a</code>).</li>
+              <li><strong>Nhiệm vụ 3 (Khung nội tuyến <code>&lt;iframe&gt;</code>):</strong> Trên tab <code>CLB.html</code>, đặt 2 liên kết <code>&lt;a href="the_thao.html" target="iframe"&gt;</code> và <code>&lt;a href="nghe_thuat.html" target="iframe"&gt;</code> phía trên <code>&lt;iframe name="iframe" id="iframe" width="100%" height="320"&gt;&lt;/iframe&gt;</code> rồi bấm thử chuyển trang ngay trong khung!</li>
+            </ul><div class="lv-fig-showcase"><div class="lv-gallery-stack">
+<div class="sgk-fig-box lv-large lv-compact"><img src="assets/sgk/sgk_hinh11_5.png" alt="Hình 11.5. Kết quả cần đạt cho Bài thực hành 1: Chuyển đổi CLB Thể thao / Nghệ thuật trong khung iframe"><div class="sgk-fig-cap"><span class="lv-cap-text">Hình 11.5. Kết quả cần đạt cho Bài thực hành 1: Chuyển đổi CLB Thể thao / Nghệ thuật trong khung iframe</span><span class="lv-zoom-pill">🔍 Phóng to toàn màn hình</span></div></div>
+</div></div>
+          </div>
+          <div class="card lv-fig-showcase" style="border-left: 4px solid #059669; padding: 1.2rem 1.35rem; margin-bottom: 1.05rem;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;gap:0.4rem;flex-wrap:wrap;">
+              <h4 style="margin:0;color:#059669;font-size:1.1rem;font-weight:800;">Bài thực hành 2 (20’): Trang giới thiệu Trường THPT Thực hành ĐHSP</h4>
+              <span class="sgk-badge">Dự án mở rộng • Học liệu THTH</span>
+            </div>
+            <p style="font-size:0.92rem;color:#334155;margin:0 0 0.45rem;line-height:1.55;">Chuyển sang tab <code>gioi_thieu_truong.html</code>, sử dụng học liệu thật của trường (<a href="https://drive.google.com/drive/folders/1J8gqUBo52P6G76VQ9-bt0QoNuzHvISSc?usp=sharing" target="_blank" rel="noopener" style="color:#047857;font-weight:700;">tải từ Google Drive</a> hoặc dùng trực tiếp <code>assets/media/thth.jpg</code>, <code>assets/media/thth_demo.mp3</code>, <code>assets/media/thth_demo.mp4</code>):</p>
+            <ul style="font-size:0.88rem;color:#475569;margin:0;padding-left:1.2rem;line-height:1.55;">
+              <li><strong>1) Thông tin trường:</strong> Tiêu đề <code>TRƯỜNG TRUNG HỌC THỰC HÀNH ĐẠI HỌC SƯ PHẠM</code> và địa chỉ <em>Dãy nhà J, 280 An Dương Vương</em>.</li>
+              <li><strong>2) Ảnh + Audio + Video:</strong> Chèn ảnh trường (<code>&lt;img&gt;</code> có <code>alt</code> &amp; giữ tỉ lệ), bài hát truyền thống (<code>&lt;audio controls&gt;</code>) và video bài hát truyền thống (<code>&lt;video controls poster="..." width="..."&gt;</code> kèm <code>&lt;source&gt;</code>).</li>
+              <li><strong>3) Khung <code>&lt;iframe&gt;</code> &amp; Bản quyền:</strong> Nhúng trang web trường hoặc bản đồ 280 An Dương Vương bằng <code>&lt;iframe&gt;</code> và ghi dòng nguồn/bản quyền học liệu ở cuối trang (<code>3.3.NC1a</code>).</li>
+            </ul><div class="lv-fig-showcase"><div class="lv-gallery-stack">
+<div class="sgk-fig-box lv-large lv-medium"><img src="assets/sgk/b11_thth_sample1.png" alt="Mẫu Bài thực hành 2 (Phần 1): Thông tin trường, ảnh minh họa và thanh phát âm thanh"><div class="sgk-fig-cap"><span class="lv-cap-text">Mẫu Bài thực hành 2 (Phần 1): Thông tin trường, ảnh minh họa và thanh phát âm thanh</span><span class="lv-zoom-pill">🔍 Phóng to toàn màn hình</span></div></div>
+<div class="sgk-fig-box lv-large lv-medium"><img src="assets/sgk/b11_thth_sample2.png" alt="Mẫu Bài thực hành 2 (Phần 2): Video bài hát truyền thống và khung nội tuyến &lt;iframe&gt;"><div class="sgk-fig-cap"><span class="lv-cap-text">Mẫu Bài thực hành 2 (Phần 2): Video bài hát truyền thống và khung nội tuyến &lt;iframe&gt;</span><span class="lv-zoom-pill">🔍 Phóng to toàn màn hình</span></div></div>
+</div></div>
+          </div>
+        </div>
         <div class="practice-workbench-grid">
           <aside>
-          <div class="card" style="border-left: 4px solid #2563eb; padding: 1rem; margin-bottom: 0.9rem;">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.35rem;gap:0.4rem;">
-              <h4 style="margin:0;color:#2563eb;font-size:0.95rem;font-weight:700;">Nhiệm vụ 1: Hình ảnh minh họa CLB</h4>
-              <span class="sgk-badge">SGK tr.65</span>
+            <div class="card" style="padding:0.9rem 1rem;margin-bottom:0.9rem;border-left:4px solid #0284c7;">
+              <strong style="font-size:0.9rem;color:#1e3a8a;display:block;margin-bottom:0.35rem;">📋 Nhắc lại 3 Nhiệm vụ thực hành</strong>
+              <p style="font-size:0.8rem;color:#475569;margin:0 0 0.55rem;line-height:1.45;">(1) Tạo ≥ 2 tệp HTML; (2) Nối <code>CLB.html</code> ⇄ <code>thong_tin.html#CLBTT</code>; (3) Bấm kiểm thử &amp; nộp bài.</p>
+              <a href="#hd3-tasks-guide" class="btn btn-secondary btn-sm" style="width:100%;justify-content:center;">🖼️ Xem lại hình minh họa lớn ↑</a>
             </div>
-            <p style="font-size:0.82rem;color:#334155;margin:0 0 0.4rem;">Xây dựng phần giới thiệu CLB Thể thao / Nghệ thuật kèm ảnh:</p>
-            <ul style="font-size:0.8rem;color:#475569;margin:0;padding-left:1rem;line-height:1.5;">
-              <li>Dùng thẻ <code>&lt;img src="..." alt="..." width="..."&gt;</code> (chỉ đặt 1 kích thước hoặc đúng tỉ lệ).</li>
-              <li>Đảm bảo mọi ảnh đều có thuộc tính <code>alt</code> mô tả rõ ràng.</li>
-            </ul>
-          </div>
-          <div class="card" style="border-left: 4px solid #059669; padding: 1rem; margin-bottom: 0.9rem;">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.35rem;gap:0.4rem;">
-              <h4 style="margin:0;color:#059669;font-size:0.95rem;font-weight:700;">Nhiệm vụ 2: Âm thanh &amp; Video HTML5</h4>
-              <span class="sgk-badge">SGK tr.65–66</span>
-            </div>
-            <p style="font-size:0.82rem;color:#334155;margin:0 0 0.4rem;">Nhúng bản nhạc truyền thống CLB và video hoạt động:</p>
-            <ul style="font-size:0.8rem;color:#475569;margin:0;padding-left:1rem;line-height:1.5;">
-              <li>Thêm <code>&lt;audio controls&gt;</code> và <code>&lt;video controls width="..."&gt;</code>.</li>
-              <li>Sử dụng ít nhất 1 thẻ con <code>&lt;source src="..." type="..."&gt;</code>.</li>
-            </ul>
-          </div>
-          <div class="card" style="border-left: 4px solid #d97706; padding: 1rem; margin-bottom: 0.9rem;">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.35rem;gap:0.4rem;">
-              <h4 style="margin:0;color:#d97706;font-size:0.95rem;font-weight:700;">Nhiệm vụ 3: Khung nội tuyến &amp;lt;iframe&amp;gt;</h4>
-              <span class="sgk-badge">SGK tr.66</span>
-            </div>
-            <p style="font-size:0.82rem;color:#334155;margin:0 0 0.4rem;">Tạo khung nội tuyến điều khiển bằng liên kết:</p>
-            <ul style="font-size:0.8rem;color:#475569;margin:0;padding-left:1rem;line-height:1.5;">
-              <li>Khai báo <code>&lt;iframe src="..." name="khung_clb" width="..." height="..."&gt;&lt;/iframe&gt;</code>.</li>
-              <li>Tạo thẻ <code>&lt;a href="..." target="khung_clb"&gt;</code> rồi kiểm tra đạt 8/8 tiêu chí.</li>
-            </ul>
-          </div>
             <div class="checklist-card">
               <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.55rem;">
                 <strong style="font-size:0.9rem;color:#1e3a8a;">Kiểm tra tự động</strong>
                 <span id="criteria-score" style="background:#eff6ff;color:#1d4ed8;padding:0.2rem 0.55rem;border-radius:999px;font-size:0.78rem;font-weight:800;">0/8 tiêu chí</span>
               </div>
-            <div id="chk-item-1" class="checklist-item"><span>⚪</span><div><strong>1. Cấu trúc HTML5 chuẩn:</strong> Có cặp thẻ &lt;!DOCTYPE html&gt; hoặc &lt;html&gt;, &lt;body&gt;.</div></div>
-            <div id="chk-item-2" class="checklist-item"><span>⚪</span><div><strong>2. Chèn hình ảnh &lt;img&gt;:</strong> Có thẻ &lt;img cùng thuộc tính src=&quot;...&quot;.</div></div>
-            <div id="chk-item-3" class="checklist-item"><span>⚪</span><div><strong>3. Thuộc tính alt &amp; kích thước:</strong> Ảnh có alt=&quot;...&quot; và width (hoặc height).</div></div>
-            <div id="chk-item-4" class="checklist-item"><span>⚪</span><div><strong>4. Chèn âm thanh &lt;audio&gt;:</strong> Có thẻ &lt;audio kèm thuộc tính controls.</div></div>
-            <div id="chk-item-5" class="checklist-item"><span>⚪</span><div><strong>5. Chèn video &lt;video&gt;:</strong> Có thẻ &lt;video kèm thuộc tính controls.</div></div>
-            <div id="chk-item-6" class="checklist-item"><span>⚪</span><div><strong>6. Thẻ con &lt;source&gt;:</strong> Có khai báo thẻ &lt;source src=&quot;...&quot; type=&quot;...&quot;&gt;.</div></div>
-            <div id="chk-item-7" class="checklist-item"><span>⚪</span><div><strong>7. Khung nội tuyến &lt;iframe&gt;:</strong> Có &lt;iframe cùng name=&quot;...&quot; và đóng &lt;/iframe&gt;.</div></div>
-            <div id="chk-item-8" class="checklist-item"><span>⚪</span><div><strong>8. Điều hướng target vào iframe:</strong> Có liên kết &lt;a href=&quot;...&quot; target=&quot;...&quot;&gt;.</div></div>
+            <div id="chk-item-1" class="checklist-item"><span>⚪</span><div><strong>1. Tạo từ 2 tệp HTML trở lên:</strong> Hoàn thành mã nguồn ở ít nhất 2 tệp (VD: CLB.html và the_thao.html / gioi_thieu_truong.html)</div></div>
+            <div id="chk-item-2" class="checklist-item"><span>⚪</span><div><strong>2. Cấu trúc HTML5 chuẩn:</strong> Có khai báo thẻ &lt;html&gt; và &lt;body&gt; hợp lệ</div></div>
+            <div id="chk-item-3" class="checklist-item"><span>⚪</span><div><strong>3. Chèn hình ảnh &lt;img&gt; chuẩn:</strong> Có &lt;img kèm src, alt mô tả và width/height giữ tỉ lệ</div></div>
+            <div id="chk-item-4" class="checklist-item"><span>⚪</span><div><strong>4. Chèn âm thanh &lt;audio controls&gt;:</strong> Có thẻ &lt;audio kèm controls (và thẻ đóng &lt;/audio&gt;)</div></div>
+            <div id="chk-item-5" class="checklist-item"><span>⚪</span><div><strong>5. Chèn video &lt;video controls&gt;:</strong> Có thẻ &lt;video kèm controls (và thẻ đóng &lt;/video&gt;)</div></div>
+            <div id="chk-item-6" class="checklist-item"><span>⚪</span><div><strong>6. Sử dụng thẻ con &lt;source&gt;:</strong> Có khai báo &lt;source src=&quot;...&quot; trong &lt;audio&gt; hoặc &lt;video&gt;</div></div>
+            <div id="chk-item-7" class="checklist-item"><span>⚪</span><div><strong>7. Khung nội tuyến &lt;iframe&gt;:</strong> Có &lt;iframe kèm name=&quot;...&quot; và thẻ đóng &lt;/iframe&gt;</div></div>
+            <div id="chk-item-8" class="checklist-item"><span>⚪</span><div><strong>8. Điều hướng &lt;a target=&quot;...&quot;&gt;:</strong> Có liên kết &lt;a href=&quot;...&quot; target=&quot;...&quot;&gt; mở trang con vào khung iframe</div></div>
               <button type="button" class="btn btn-primary btn-sm" style="width:100%;margin-top:0.5rem;" onclick="runAutoGrade()">🔍 Kiểm tra tiêu chí</button>
             </div>
           </aside>
 
           <div>
             <div class="card" style="padding:0.85rem 1rem;margin-bottom:0.85rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;">
-              <strong style="color:#1e3a8a;font-size:0.88rem;">💻 MÔI TRƯỜNG TẠO WEBSITE (the_thao.html)</strong>
+              <strong style="color:#1e3a8a;font-size:0.88rem;">💻 MÔI TRƯỜNG TẠO WEBSITE (CLB.html)</strong>
               <div style="display:flex;gap:0.45rem;flex-wrap:wrap;">
                 <button type="button" class="btn btn-primary btn-sm" onclick="updateLivePreview()">▶ Chạy &amp; Biên dịch</button>
                 <button type="button" class="btn btn-secondary btn-sm" onclick="resetEditorToBlank()">↺ Xóa trắng</button>
                 <button type="button" class="btn btn-secondary btn-sm" onclick="downloadPractHtml()">📥 Tải tệp</button>
-                
+                <button type="button" class="btn btn-secondary btn-sm" onclick="downloadStudentProjectZip()">📦 Tải bộ Web (.zip)</button>
               </div>
             </div>
 
+            <div id="mf-project-bar" class="mf-project-bar">
+              <div class="mf-tabs-row">
+                <span style="font-size:0.78rem;font-weight:800;color:#1e3a8a;margin-right:0.25rem;">📁 Tệp Website:</span>
+                <div id="mf-file-tabs" class="mf-file-tabs"></div>
+              </div>
+              <div class="mf-create-row">
+                <input type="text" id="mf-new-file-input" class="mf-new-input" placeholder="Tên tệp mới (VD: lich_su_CLB.html hoặc bai_tap/bt1.html)" onkeydown="if(event.key==='Enter'){event.preventDefault();createProjectFile();}">
+                <button type="button" class="btn btn-primary btn-sm" style="background:#0284c7;border-color:#0284c7;white-space:nowrap;" onclick="createProjectFile()">➕ Tạo thêm tệp .html</button>
+              </div>
+              <div style="font-size:0.75rem;color:#64748b;margin-top:0.35rem;">💡 Mẹo: Để liên kết hoạt động giữa các trang web, hãy tạo ít nhất <strong>2 tệp .html</strong> (VD: <code>CLB.html</code> &amp; <code>thong_tin.html</code>) rồi gắn thẻ <code>&lt;a href="..."&gt;</code> và bấm trực tiếp bên trình duyệt ảo!</div>
+            </div>
             <div class="editor-preview-split">
               <div class="ide-pane">
-                <div class="ide-header"><span id="ide-active-filename">the_thao.html</span><span id="editor-status" style="color:#58a6ff;">● Trống</span></div>
-                <textarea id="clb-code-input" class="code-editor-area" spellcheck="false" placeholder="&lt;!DOCTYPE html&gt;
-&lt;!-- Hãy tự gõ cấu trúc HTML5 cho trang the_thao.html gồm &lt;img&gt;, &lt;audio&gt;, &lt;video&gt;, &lt;source&gt; và &lt;iframe&gt;... --&gt;"></textarea>
+                <div class="ide-header"><span id="ide-active-filename">CLB.html</span><span id="editor-status" style="color:#58a6ff;">● Trống</span></div>
+                <textarea id="clb-code-input" class="code-editor-area" spellcheck="false" placeholder="Ô soạn thảo hiện đang TRỐNG để em tự rèn luyện!
+
+Mẹo chạy thử ngay trên trình duyệt web:
+- Ảnh trường: assets/media/thth.jpg
+- Nhạc truyền thống: assets/media/thth_demo.mp3
+- Video truyền thống: assets/media/thth_demo.mp4
+Hãy chuyển giữa các tab CLB.html, the_thao.html, nghe_thuat.html, gioi_thieu_truong.html rồi bấm ▶ Chạy!"></textarea>
               </div>
               <div class="preview-pane">
                 <div class="snippet-preview-bar"><span>🌐 KẾT QUẢ WEB TRỰC TIẾP</span><span style="color:#16a34a;">LIVE</span></div>
+                <div class="vb-nav-bar">
+                  <button type="button" id="vb-back-btn" class="vb-nav-btn" onclick="vbGoBack()" disabled title="Quay lại trang trước">←</button>
+                  <button type="button" id="vb-home-btn" class="vb-nav-btn" onclick="vbGoHome()" title="Về CLB.html">🏠</button>
+                  <div id="vb-address-bar" class="vb-url-pill">site://CLB.html</div>
+                  <button type="button" class="vb-nav-btn vb-edit-sync" onclick="syncIdeToBrowserPage()" title="Mở tệp đang hiển thị vào ô viết code">📝 Sửa tệp này</button>
+                </div>
                 <iframe id="clb-preview-frame" class="preview-frame" title="Preview"></iframe>
               </div>
             </div>
@@ -296,11 +381,11 @@
 
         <div class="global-submit-card">
           <div>
-            <strong style="color:#1e3a8a;">🚀 Nộp bài thực hành the_thao.html lên máy chủ</strong>
+            <strong style="color:#1e3a8a;">🚀 Nộp bài thực hành CLB.html lên máy chủ</strong>
             <div style="font-size:0.84rem;color:#64748b;" id="submit-summary-status">Học sinh: Chưa nhập tên • Tiêu chí: <strong id="bar-score-display">0/8</strong></div>
           </div>
           <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
-            <button type="button" class="btn btn-secondary" onclick="downloadPractHtml()">💾 Tải file về máy</button>
+            <button type="button" class="btn btn-secondary" onclick="downloadStudentProjectZip()">💾 Tải bộ Web (.zip)</button>
             <button type="button" class="btn-submit-all" onclick="submitHd3Practice()">🚀 NỘP BÀI LÊN MÁY CHỦ</button>
           </div>
         </div>
@@ -310,7 +395,7 @@
       <div id="view-teacher-container" class="teacher-dashboard-section">
         <div class="card" style="border-left:5px solid #2563eb;margin-bottom:1.25rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;">
           <div>
-            <h2 style="margin:0;color:#1e3a8a;">📊 Bảng Thu Bài Thực Hành (the_thao.html)</h2>
+            <h2 style="margin:0;color:#1e3a8a;">📊 Bảng Thu Bài Thực Hành (CLB.html)</h2>
             <p style="margin:0.25rem 0 0;color:#64748b;font-size:0.9rem;">Tổng số đã nộp: <strong id="hd3-stat-count">0</strong> • Đạt chuẩn: <strong id="hd3-stat-rate">0%</strong> • Gần nhất: <strong id="hd3-stat-latest">Chưa có</strong></p>
           </div>
           <div style="display:flex;gap:0.45rem;flex-wrap:wrap;">
@@ -342,7 +427,7 @@
       <div id="receipt-class-meta" style="font-size:0.86rem;color:#64748b;margin:0.35rem 0;"></div>
       <div>Mã biên nhận: <code id="receipt-code-display"></code> • Đánh giá: <strong id="receipt-criteria-display"></strong></div>
       <div style="margin-top:1.25rem;display:flex;gap:0.5rem;justify-content:center;flex-wrap:wrap;">
-        <button type="button" class="btn btn-secondary btn-sm" onclick="downloadPractHtml()">💾 Tải sao lưu</button>
+        <button type="button" class="btn btn-secondary btn-sm" onclick="downloadStudentProjectZip()">💾 Tải sao lưu</button>
         <button type="button" class="btn btn-primary btn-sm" onclick="document.getElementById('student-receipt-modal').classList.remove('active')">Đóng</button>
       </div>
     </div>
@@ -412,6 +497,23 @@
           </div>
           <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.8rem; font-size: 1rem; font-weight: 700; border-radius: 8px; justify-content: center;">🔓 Xác Thực Giáo Viên</button>
         </form>
+      </div>
+    </div>
+  </div>
+  <!-- MODAL PHÓNG TO HÌNH MINH HỌA -->
+  <div id="img-zoom-modal" class="img-lightbox-overlay" onclick="closeImgZoom()">
+    <div class="img-lightbox-dialog" onclick="event.stopPropagation()">
+      <div class="img-lightbox-header">
+        <div id="img-zoom-caption" class="img-lightbox-caption"></div>
+        <div class="img-lightbox-tools">
+          <button type="button" id="btn-zoom-100" class="btn btn-primary btn-sm" onclick="setImgZoomScale(100)">🔍 Vừa màn hình</button>
+          <button type="button" id="btn-zoom-150" class="btn btn-secondary btn-sm" onclick="setImgZoomScale(150)">➕ Phóng 150%</button>
+          <button type="button" id="btn-zoom-200" class="btn btn-secondary btn-sm" onclick="setImgZoomScale(200)">➕ Phóng 200%</button>
+          <button type="button" onclick="closeImgZoom()" class="btn btn-secondary btn-sm">✕ Đóng (Esc)</button>
+        </div>
+      </div>
+      <div id="img-zoom-scroll" class="img-lightbox-body">
+        <img id="img-zoom-target" alt="Phóng to hình minh họa">
       </div>
     </div>
   </div>
@@ -617,20 +719,122 @@
         return data;
       } catch (e) { return null; }
     }
+    function setImgZoomScale(pct) {
+      const im = document.getElementById('img-zoom-target');
+      const sc = document.getElementById('img-zoom-scroll');
+      [100, 150, 200].forEach(p => {
+        const b = document.getElementById('btn-zoom-' + p);
+        if (b) b.className = 'btn btn-sm ' + (p === pct ? 'btn-primary' : 'btn-secondary');
+      });
+      if (!im || !sc) return;
+      if (pct <= 100) {
+        sc.classList.remove('is-zoomed');
+        const nw = im.naturalWidth || 0;
+        const nh = im.naturalHeight || 0;
+        if (nw && nh && nw < nh * 1.6) {
+          im.style.cssText = 'width:auto !important;max-width:100% !important;height:78vh !important;max-height:82vh !important;object-fit:contain;margin:auto;display:block;border-radius:10px;background:#fff;';
+        } else {
+          im.style.cssText = 'width:100% !important;max-width:100% !important;height:auto !important;max-height:none !important;margin:auto;display:block;border-radius:10px;background:#fff;';
+        }
+      } else {
+        sc.classList.add('is-zoomed');
+        im.style.cssText = 'width:' + pct + '% !important;max-width:none !important;height:auto !important;max-height:none !important;margin:0;display:block;border-radius:10px;background:#fff;';
+      }
+    }
+    function openImgZoom(src, cap) {
+      const m = document.getElementById('img-zoom-modal');
+      const im = document.getElementById('img-zoom-target');
+      const cp = document.getElementById('img-zoom-caption');
+      if (!m || !im || !src) return;
+      im.onload = () => setImgZoomScale(100);
+      im.src = src;
+      im.alt = cap || 'Hình minh họa';
+      if (cp) cp.textContent = cap || 'Hình minh họa chi tiết';
+      m.classList.add('active');
+      setImgZoomScale(100);
+    }
+    function closeImgZoom() {
+      document.getElementById('img-zoom-modal')?.classList.remove('active');
+    }
+    async function syncPendingLocalWorksheetSubmissions() {
+      if (window.__wsOutboxBusy) return;
+      window.__wsOutboxBusy = true;
+      try {
+        const key = LESSON_SLUG + '_worksheet_submissions';
+        const raw = localStorage.getItem(key);
+        if (!raw) return;
+        const list = JSON.parse(raw);
+        if (!Array.isArray(list) || !list.length) return;
+        const pending = list.filter(x => x && x.id && String(x.id).startsWith('WS-') && x.worksheetId !== 'kttx2' && !x._synced);
+        if (!pending.length) return;
+        const res = await fetch('/api/' + LESSON_SLUG + '/submissions', { headers: getTeacherHeaders(), cache: 'no-store' });
+        if (!res.ok) return;
+        const srv = await res.json();
+        const srvIds = new Set((Array.isArray(srv) ? srv : []).map(x => x && x.id).filter(Boolean));
+        let changed = false;
+        let uploaded = false;
+        for (const item of list) {
+          if (!item || !item.id || !String(item.id).startsWith('WS-') || item.worksheetId === 'kttx2' || item._synced) continue;
+          if (srvIds.has(item.id)) {
+            item._synced = true;
+            changed = true;
+            continue;
+          }
+          const clean = Object.assign({}, item);
+          delete clean._synced;
+          try {
+            const pr = await fetch('/api/' + LESSON_SLUG + '/submit', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              keepalive: true,
+              body: JSON.stringify(clean)
+            });
+            if (pr.ok) {
+              item._synced = true;
+              srvIds.add(item.id);
+              changed = true;
+              uploaded = true;
+            }
+          } catch (e) {}
+        }
+        if (changed) localStorage.setItem(key, JSON.stringify(list));
+        if (uploaded && typeof loadSubmissionsP2 === 'function') loadSubmissionsP2();
+      } catch (e) {} finally {
+        window.__wsOutboxBusy = false;
+      }
+    }
+    window.addEventListener('online', syncPendingLocalWorksheetSubmissions);
+    document.addEventListener('keydown', (ev) => {
+      if (ev.key === 'Escape') closeImgZoom();
+    });
     document.addEventListener('DOMContentLoaded', () => {
       updateTeacherNavBadge();
       syncLessonExamGates();
+      syncPendingLocalWorksheetSubmissions();
       if (document.querySelector('[data-exam-gate], #teacher-exam-control-panel')) {
         setInterval(syncLessonExamGates, 10000);
       }
+      document.querySelectorAll('.sgk-fig-box').forEach(figBox => {
+        const img = figBox.querySelector('img');
+        if (!img) return;
+        img.title = img.title || 'Bấm để phóng to hình minh họa';
+        const openThis = () => {
+          const spanCap = figBox.querySelector('.sgk-fig-cap .lv-cap-text') || figBox.querySelector('.sgk-fig-cap');
+          const cap = img.getAttribute('alt') || (spanCap && spanCap.textContent) || '';
+          openImgZoom(img.getAttribute('src'), cap);
+        };
+        img.addEventListener('click', openThis);
+        const pill = figBox.querySelector('.lv-zoom-pill');
+        if (pill) pill.addEventListener('click', openThis);
+      });
     });
     
-    const CRITERIA_RULES = [{"label": "Cấu trúc HTML5 chuẩn", "desc": "Có cặp thẻ <!DOCTYPE html> hoặc <html>, <body>.", "mode": "any", "tokens": ["<html", "<body"]}, {"label": "Chèn hình ảnh <img>", "desc": "Có thẻ <img cùng thuộc tính src=\"...\".", "mode": "all", "tokens": ["<img", "src="]}, {"label": "Thuộc tính alt & kích thước", "desc": "Ảnh có alt=\"...\" và width (hoặc height).", "mode": "all", "tokens": ["alt=", "width="]}, {"label": "Chèn âm thanh <audio>", "desc": "Có thẻ <audio kèm thuộc tính controls.", "mode": "all", "tokens": ["<audio", "controls"]}, {"label": "Chèn video <video>", "desc": "Có thẻ <video kèm thuộc tính controls.", "mode": "all", "tokens": ["<video", "controls"]}, {"label": "Thẻ con <source>", "desc": "Có khai báo thẻ <source src=\"...\" type=\"...\">.", "mode": "all", "tokens": ["<source", "src="]}, {"label": "Khung nội tuyến <iframe>", "desc": "Có <iframe cùng name=\"...\" và đóng </iframe>.", "mode": "all", "tokens": ["<iframe", "name=", "</iframe>"]}, {"label": "Điều hướng target vào iframe", "desc": "Có liên kết <a href=\"...\" target=\"...\">.", "mode": "all", "tokens": ["<a", "href=", "target="]}];
-    const SAMPLE_FULL_CODE = "<!DOCTYPE html>\n<html lang=\"vi\">\n<head>\n  <meta charset=\"UTF-8\">\n  <title>Câu lạc bộ Thể thao THTH-DHSP</title>\n</head>\n<body>\n  <h1>CÂU LẠC BỘ THỂ THAO THTH-DHSP</h1>\n  <img src=\"thethao.jpg\" alt=\"Đội bóng đá trường THTH-DHSP\" width=\"480\">\n  <h2>Bài hát truyền thống</h2>\n  <audio controls>\n    <source src=\"quocca.mp3\" type=\"audio/mpeg\">\n  </audio>\n  <h2>Video hoạt động nổi bật</h2>\n  <video width=\"480\" height=\"270\" controls poster=\"poster.jpg\">\n    <source src=\"highlight.mp4\" type=\"video/mp4\">\n  </video>\n  <h2>Khung xem thông tin chi tiết</h2>\n  <p><a href=\"nghe_thuat.html\" target=\"khung_clb\">Xem CLB Nghệ thuật</a></p>\n  <iframe name=\"khung_clb\" src=\"gioithieu.html\" width=\"600\" height=\"320\"></iframe>\n</body>\n</html>";
-    const PRACT_FILENAME = 'the_thao.html';
-    const MULTI_FILE_MODE = false;
-    const STARTER_FILES = ["the_thao.html"];
-    const SAMPLE_FILES_MAP = {"the_thao.html": "<!DOCTYPE html>\n<html lang=\"vi\">\n<head>\n  <meta charset=\"UTF-8\">\n  <title>Câu lạc bộ Thể thao THTH-DHSP</title>\n</head>\n<body>\n  <h1>CÂU LẠC BỘ THỂ THAO THTH-DHSP</h1>\n  <img src=\"thethao.jpg\" alt=\"Đội bóng đá trường THTH-DHSP\" width=\"480\">\n  <h2>Bài hát truyền thống</h2>\n  <audio controls>\n    <source src=\"quocca.mp3\" type=\"audio/mpeg\">\n  </audio>\n  <h2>Video hoạt động nổi bật</h2>\n  <video width=\"480\" height=\"270\" controls poster=\"poster.jpg\">\n    <source src=\"highlight.mp4\" type=\"video/mp4\">\n  </video>\n  <h2>Khung xem thông tin chi tiết</h2>\n  <p><a href=\"nghe_thuat.html\" target=\"khung_clb\">Xem CLB Nghệ thuật</a></p>\n  <iframe name=\"khung_clb\" src=\"gioithieu.html\" width=\"600\" height=\"320\"></iframe>\n</body>\n</html>"};
+    const CRITERIA_RULES = [{"label": "Tạo từ 2 tệp HTML trở lên", "desc": "Hoàn thành mã nguồn ở ít nhất 2 tệp (VD: CLB.html và the_thao.html / gioi_thieu_truong.html)", "mode": "multi_count", "min_files": 2}, {"label": "Cấu trúc HTML5 chuẩn", "desc": "Có khai báo thẻ <html> và <body> hợp lệ", "mode": "all", "tokens": ["<html", "<body"], "target": "all"}, {"label": "Chèn hình ảnh <img> chuẩn", "desc": "Có <img kèm src, alt mô tả và width/height giữ tỉ lệ", "mode": "all", "tokens": ["<img", "src=", "alt="], "target": "all"}, {"label": "Chèn âm thanh <audio controls>", "desc": "Có thẻ <audio kèm controls (và thẻ đóng </audio>)", "mode": "all", "tokens": ["<audio", "controls", "</audio>"], "target": "all"}, {"label": "Chèn video <video controls>", "desc": "Có thẻ <video kèm controls (và thẻ đóng </video>)", "mode": "all", "tokens": ["<video", "controls", "</video>"], "target": "all"}, {"label": "Sử dụng thẻ con <source>", "desc": "Có khai báo <source src=\"...\" trong <audio> hoặc <video>", "mode": "all", "tokens": ["<source", "src="], "target": "all"}, {"label": "Khung nội tuyến <iframe>", "desc": "Có <iframe kèm name=\"...\" và thẻ đóng </iframe>", "mode": "all", "tokens": ["<iframe", "name=", "</iframe>"], "target": "all"}, {"label": "Điều hướng <a target=\"...\">", "desc": "Có liên kết <a href=\"...\" target=\"...\"> mở trang con vào khung iframe", "mode": "all", "tokens": ["<a", "href=", "target="], "target": "all"}];
+    const SAMPLE_FULL_CODE = "<!DOCTYPE html>\n<html lang=\"vi\">\n<head>\n  <meta charset=\"UTF-8\">\n  <title>Câu lạc bộ ngoại khoá</title>\n</head>\n<body style=\"font-family:sans-serif;padding:14px;\">\n  <h2>Câu lạc bộ ngoại khoá Trường THPT Thực hành ĐHSP</h2>\n  <p>\n    [<a href=\"the_thao.html\" target=\"iframe\">Câu lạc bộ Thể thao</a>]\n    [<a href=\"nghe_thuat.html\" target=\"iframe\">Câu lạc bộ Nghệ thuật</a>]\n    [<a href=\"gioi_thieu_truong.html\" target=\"iframe\">Giới thiệu Trường THTH-ĐHSP</a>]\n  </p>\n  <iframe name=\"iframe\" id=\"iframe\" src=\"the_thao.html\" width=\"100%\" height=\"340\" style=\"border:2px solid #2563eb;border-radius:8px;\"></iframe>\n</body>\n</html>";
+    const PRACT_FILENAME = 'CLB.html';
+    const MULTI_FILE_MODE = true;
+    const STARTER_FILES = ["CLB.html", "the_thao.html", "nghe_thuat.html", "gioi_thieu_truong.html"];
+    const SAMPLE_FILES_MAP = {"CLB.html": "<!DOCTYPE html>\n<html lang=\"vi\">\n<head>\n  <meta charset=\"UTF-8\">\n  <title>Câu lạc bộ ngoại khoá</title>\n</head>\n<body style=\"font-family:sans-serif;padding:14px;line-height:1.5;\">\n  <h2 style=\"color:#1e3a8a;margin-top:0;\">Câu lạc bộ ngoại khoá Trường THPT Thực hành ĐHSP</h2>\n  <p>\n    [<a href=\"the_thao.html\" target=\"iframe\">Câu lạc bộ Thể thao</a>]\n    [<a href=\"nghe_thuat.html\" target=\"iframe\">Câu lạc bộ Nghệ thuật</a>]\n    [<a href=\"gioi_thieu_truong.html\" target=\"iframe\">Giới thiệu Trường THTH-ĐHSP</a>]\n  </p>\n  <iframe name=\"iframe\" id=\"iframe\" src=\"the_thao.html\" width=\"100%\" height=\"340\" style=\"border:2px solid #2563eb;border-radius:10px;\"></iframe>\n  <p style=\"font-size:12px;color:#64748b;margin-top:8px;\">Bấm các liên kết phía trên để chuyển nội dung ngay bên trong khung &lt;iframe&gt;!</p>\n</body>\n</html>", "the_thao.html": "<!DOCTYPE html>\n<html lang=\"vi\">\n<head><meta charset=\"UTF-8\"><title>CLB Thể thao</title></head>\n<body style=\"font-family:sans-serif;padding:12px;\">\n  <h3 style=\"color:#0284c7;margin-top:0;\">⚽ Câu lạc bộ Thể thao</h3>\n  <img src=\"assets/media/thth.jpg\" alt=\"Hoạt động các CLB Thể thao\" width=\"240\" style=\"border-radius:8px;\">\n  <p><strong>🎵 Bài hát truyền thống / Quốc ca:</strong></p>\n  <audio controls>\n    <source src=\"assets/media/thth_demo.mp3\" type=\"audio/mpeg\">\n  </audio>\n</body>\n</html>", "nghe_thuat.html": "<!DOCTYPE html>\n<html lang=\"vi\">\n<head><meta charset=\"UTF-8\"><title>CLB Nghệ thuật</title></head>\n<body style=\"font-family:sans-serif;padding:12px;\">\n  <h3 style=\"color:#7c3aed;margin-top:0;\">🎨 Câu lạc bộ Nghệ thuật</h3>\n  <img src=\"assets/sgk/sgk_hinh11_3.png\" alt=\"Hoạt động CLB Nghệ thuật\" width=\"320\">\n  <p>Nơi hội tụ đam mê âm nhạc, hội họa và sáng tạo nội dung số của học sinh THTH-ĐHSP.</p>\n</body>\n</html>", "gioi_thieu_truong.html": "<!DOCTYPE html>\n<html lang=\"vi\">\n<head><meta charset=\"UTF-8\"><title>Trường THPT Thực hành ĐHSP</title></head>\n<body style=\"font-family:sans-serif;padding:14px;line-height:1.55;\">\n  <h2 style=\"color:#b91c1c;margin-top:0;\">TRƯỜNG TRUNG HỌC THỰC HÀNH ĐẠI HỌC SƯ PHẠM</h2>\n  <p><strong>ĐỊA CHỈ:</strong> <em>Dãy nhà J, 280 An Dương Vương, Quận 5, TP. Hồ Chí Minh</em></p>\n  <p><strong>Hình ảnh minh họa trường:</strong></p>\n  <img src=\"assets/media/thth.jpg\" alt=\"Không gian xanh Trường THPT Thực hành ĐHSP\" width=\"260\" style=\"border-radius:10px;\">\n  <p><strong>🎵 Bài hát truyền thống Trường Trung học Thực hành:</strong></p>\n  <audio controls>\n    <source src=\"assets/media/thth_demo.mp3\" type=\"audio/mpeg\">\n  </audio>\n  <p><strong>🎬 Video bài hát truyền thống:</strong></p>\n  <video width=\"360\" height=\"202\" controls poster=\"assets/media/thth.jpg\">\n    <source src=\"assets/media/thth_demo.mp4\" type=\"video/mp4\">\n  </video>\n  <p><strong>🪟 Khung nội tuyến giới thiệu CLB:</strong></p>\n  <iframe name=\"khung_truong\" src=\"the_thao.html\" width=\"100%\" height=\"200\" style=\"border:1.5px solid #cbd5e1;border-radius:8px;\"></iframe>\n  <p style=\"font-size:12px;color:#64748b;\">© Học liệu chính thức Trường THPT Thực hành ĐHSP (tuân thủ NLS 3.3.NC1a).</p>\n</body>\n</html>"};
     let studentMode = 'single';
     let cachedHd3Submissions = [];
     let projectFiles = {};
@@ -819,6 +1023,20 @@
       doc.write(code);
       doc.close();
       if (st && filePath === activeFile) st.textContent = '✓ Đã biên dịch';
+      // Hydrate child <iframe> tags that point to virtual project files (e.g. Bài 11 CLB.html -> the_thao.html)
+      try {
+        const childFrames = doc.querySelectorAll('iframe[src]');
+        childFrames.forEach((cf) => {
+          const s = (cf.getAttribute('src') || '').trim();
+          if (!s || /^https?:\/\//i.test(s) || /^data:/i.test(s)) return;
+          const r = resolveVirtualHref(filePath, s);
+          if (r.kind === 'internal' && Object.prototype.hasOwnProperty.call(filesMap, r.file)) {
+            const innerHtml = (filesMap[r.file] || '').trim();
+            cf.removeAttribute('src');
+            cf.srcdoc = innerHtml || `<body style="font-family:sans-serif;padding:12px;color:#64748b;">Tệp <code>${escHtmlClient(r.file)}</code> đang trống.</body>`;
+          }
+        });
+      } catch (e) {}
       if (hash) {
         const target = doc.getElementById(hash) || doc.getElementsByName(hash)[0];
         if (target && target.scrollIntoView) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -828,7 +1046,29 @@
         if (!a) return;
         const href = (a.getAttribute('href') || '').trim();
         if (!href) return;
+        const tgtAttr = (a.getAttribute('target') || '').trim();
         const res = resolveVirtualHref(filePath, href);
+        if (tgtAttr && tgtAttr !== '_blank' && tgtAttr !== '_self' && tgtAttr !== '_top' && tgtAttr !== '_parent') {
+          const targetFrame = Array.from(doc.querySelectorAll('iframe')).find(
+            (cf) => (cf.getAttribute('name') || '') === tgtAttr || (cf.getAttribute('id') || '') === tgtAttr
+          );
+          if (targetFrame) {
+            ev.preventDefault();
+            if (res.kind === 'external') {
+              targetFrame.removeAttribute('srcdoc');
+              targetFrame.setAttribute('src', res.url);
+            } else if (res.kind === 'internal') {
+              targetFrame.removeAttribute('src');
+              if (Object.prototype.hasOwnProperty.call(filesMap, res.file)) {
+                const innerHtml = (filesMap[res.file] || '').trim();
+                targetFrame.srcdoc = innerHtml || `<body style="font-family:sans-serif;padding:12px;color:#64748b;">Tệp <code>${escHtmlClient(res.file)}</code> đang trống.</body>`;
+              } else {
+                targetFrame.srcdoc = `<body style="font-family:sans-serif;padding:14px;color:#991b1b;background:#fef2f2;"><strong>404:</strong> Chưa tạo tệp <code>${escHtmlClient(res.file)}</code> trong dự án!</body>`;
+              }
+            }
+            return;
+          }
+        }
         if (res.kind === 'external') {
           ev.preventDefault();
           window.open(res.url, '_blank', 'noopener');
@@ -1148,6 +1388,57 @@
         const bc2 = new BroadcastChannel('bai11_classroom_channel'); bc2.postMessage({type:'CLASSROOM_RESET_ALL'}); bc2.close();
       } catch (e) {}
       renderHd3Table([]);
+    }
+    function renderSampleDemoFrame(filePath, hash) {
+      const fr = document.getElementById('hd3-demo-frame');
+      if (!fr) return;
+      const filesMap = SAMPLE_FILES_MAP || {};
+      const fname = Object.prototype.hasOwnProperty.call(filesMap, filePath) ? filePath : (STARTER_FILES[0] || PRACT_FILENAME);
+      const doc = fr.contentDocument || fr.contentWindow.document;
+      doc.open();
+      doc.write(filesMap[fname] || '');
+      doc.close();
+      const addr = document.getElementById('hd3-demo-addr');
+      if (addr) addr.textContent = `site://${fname}${hash ? '#' + hash : ''}`;
+      (STARTER_FILES || []).forEach((sf, idx) => {
+        const btn = document.getElementById('hd3-demo-tab-' + idx);
+        if (btn) btn.className = 'btn btn-sm ' + (sf === fname ? 'btn-primary' : 'btn-secondary');
+      });
+      if (hash) {
+        const target = doc.getElementById(hash) || doc.getElementsByName(hash)[0];
+        if (target && target.scrollIntoView) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      doc.addEventListener('click', (ev) => {
+        const a = ev.target && ev.target.closest ? ev.target.closest('a[href]') : null;
+        if (!a) return;
+        const href = (a.getAttribute('href') || '').trim();
+        if (!href) return;
+        const res = resolveVirtualHref(fname, href);
+        if (res.kind === 'external') {
+          ev.preventDefault();
+          window.open(res.url, '_blank', 'noopener');
+          return;
+        }
+        ev.preventDefault();
+        if (res.kind === 'same_hash') {
+          const tgt = doc.getElementById(res.hash) || doc.getElementsByName(res.hash)[0];
+          if (tgt && tgt.scrollIntoView) tgt.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          if (addr) addr.textContent = `site://${fname}${res.hash ? '#' + res.hash : ''}`;
+          return;
+        }
+        if (res.kind === 'internal' && Object.prototype.hasOwnProperty.call(filesMap, res.file)) {
+          renderSampleDemoFrame(res.file, res.hash);
+        }
+      });
+    }
+    function toggleHd3Demo() {
+      const box = document.getElementById('hd3-demo-box');
+      const btn = document.getElementById('hd3-demo-toggle-btn');
+      if (!box) return;
+      const isHidden = box.style.display === 'none';
+      box.style.display = isHidden ? 'block' : 'none';
+      if (btn) btn.textContent = isHidden ? '🙈 Thu gọn giao diện mẫu' : '👁️ Bấm chạy thử giao diện mẫu File 1 (CLB.html) ⇄ File 2 (thong_tin.html)';
+      if (isHidden) renderSampleDemoFrame((STARTER_FILES && STARTER_FILES[0]) || PRACT_FILENAME, '');
     }
     window.addEventListener('load', () => {
       const ed = document.getElementById('clb-code-input');
