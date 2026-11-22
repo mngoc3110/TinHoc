@@ -111,6 +111,19 @@
     .submissions-table { width:100%; border-collapse:collapse; font-size:0.86rem; }
     .submissions-table th { background:#1e3a8a; color:#fff; padding:0.7rem 0.6rem; text-align:left; }
     .submissions-table td { padding:0.6rem; border-bottom:1px solid #e2e8f0; }
+    .ms-panel { background:linear-gradient(135deg,#f8fafc 0%,#eff6ff 100%); border:1.5px solid #93c5fd; border-radius:14px; padding:0.95rem 1.1rem; margin-bottom:0.9rem; }
+    .ms-header { display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:0.65rem; margin-bottom:0.7rem; }
+    .ms-tabs { display:inline-flex; background:#e2e8f0; padding:0.22rem; border-radius:9px; gap:0.22rem; margin-bottom:0.75rem; flex-wrap:wrap; }
+    .ms-tab { border:none; background:transparent; padding:0.38rem 0.85rem; border-radius:7px; font-weight:700; font-size:0.81rem; color:#475569; cursor:pointer; font-family:inherit; }
+    .ms-tab.active { background:#ffffff; color:#1d4ed8; box-shadow:0 2px 5px rgba(15,23,42,0.08); }
+    .ms-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(235px,1fr)); gap:0.65rem; }
+    .ms-item-card { background:#ffffff; border:1.5px solid #cbd5e1; border-radius:10px; padding:0.65rem 0.75rem; display:flex; flex-direction:column; justify-content:space-between; }
+    .ms-mini-btn { border:1px solid #cbd5e1; background:#f8fafc; color:#1e293b; border-radius:6px; padding:0.24rem 0.52rem; font-size:0.74rem; font-weight:700; cursor:pointer; font-family:inherit; display:inline-flex; align-items:center; gap:0.2rem; }
+    .ms-mini-btn:hover { background:#e2e8f0; }
+    .ms-btn-insert { background:#2563eb; border-color:#2563eb; color:#ffffff; }
+    .ms-btn-insert:hover { background:#1d4ed8; }
+    .ms-dropzone { border:2px dashed #60a5fa; border-radius:12px; background:#ffffff; padding:1.25rem 1rem; text-align:center; cursor:pointer; transition:all 0.15s ease; }
+    .ms-dropzone:hover, .ms-dropzone.dragover { background:#eff6ff; border-color:#1d4ed8; }
     
   </style>
 </head>
@@ -207,7 +220,7 @@
         <div>
           <div class="badge-tag" style="background:rgba(255,255,255,0.16);color:#fff;">💻 HOẠT ĐỘNG 3 • LUYỆN TẬP – THỰC HÀNH GỘP 2 BÀI (35 PHÚT)</div>
           <h1 class="hero-title" style="font-size:1.85rem;margin-bottom:0.35rem;">Hoạt động 3: Thực hành Đa phương tiện &amp; Khung nội tuyến (2 Bài TH)</h1>
-          <p class="hero-subtitle" style="margin:0;">Thực hiện nối tiếp <strong>Bài thực hành 1 (15’ – 3 nhiệm vụ SGK tr.65–66)</strong> trên các tab <code>CLB.html</code>, <code>the_thao.html</code>, <code>nghe_thuat.html</code> và <strong>Bài thực hành 2 (20’ – Trang giới thiệu Trường THPT Thực hành ĐHSP)</strong> trên tab <code>gioi_thieu_truong.html</code> (<a href="https://drive.google.com/drive/folders/1J8gqUBo52P6G76VQ9-bt0QoNuzHvISSc?usp=sharing" target="_blank" rel="noopener" style="color:#1d4ed8;font-weight:700;text-decoration:underline;">📂 Mở kho học liệu gốc trên Google Drive</a> hoặc dùng sẵn đường dẫn trực tuyến <code>assets/media/thth.jpg</code>, <code>assets/media/thth_demo.mp3</code>, <code>assets/media/thth_demo.mp4</code> để chạy thử ngay!).</p>
+          <p class="hero-subtitle" style="margin:0;">Thực hiện nối tiếp <strong>Bài thực hành 1 (15’ – 3 nhiệm vụ SGK tr.65–66)</strong> trên các tab <code>CLB.html</code>, <code>the_thao.html</code>, <code>nghe_thuat.html</code> và <strong>Bài thực hành 2 (20’ – Trang Trường THPT Thực hành ĐHSP)</strong> trên tab <code>gioi_thieu_truong.html</code>. Toàn bộ học liệu (<code>thth.jpg</code>, <code>thth.mp3</code>, <code>thth.mp4</code>, <code>images/clb_the_thao.png</code>…) đã có sẵn trong <strong>Kho Học Liệu</strong> bên dưới — em cũng có thể <strong>tự Upload ảnh/nhạc/video từ máy</strong> để chạy thử ngay!</p>
         </div>
         <div class="main-view-switcher">
           <button type="button" id="btn-view-student" class="view-btn active" onclick="switchMainView('student')">👨‍💻 Giao diện Học sinh</button>
@@ -262,7 +275,7 @@
 <div class="sgk-fig-box lv-large lv-medium"><img src="assets/sgk/b11_thth_sample2.png" alt="Mẫu Bài thực hành 2 (Phần 2): Video bài hát truyền thống &amp; khung nội tuyến &lt;iframe&gt;"><div class="sgk-fig-cap"><span class="lv-cap-text">Mẫu Bài thực hành 2 (Phần 2): Video bài hát truyền thống &amp; khung nội tuyến &lt;iframe&gt;</span><span class="lv-zoom-pill">🔍 Phóng to toàn màn hình</span></div></div>
 </div></div>
           <div style="margin-top:0.9rem;">
-            <button type="button" id="hd3-demo-toggle-btn" class="btn btn-primary btn-sm" style="background:#0284c7;border-color:#0284c7;font-weight:700;" onclick="toggleHd3Demo()">👁️ Bấm chạy thử giao diện mẫu File 1 (CLB.html) ⇄ File 2 (thong_tin.html)</button>
+            <button type="button" id="hd3-demo-toggle-btn" class="btn btn-primary btn-sm" style="background:#0284c7;border-color:#0284c7;font-weight:700;" onclick="toggleHd3Demo()">👁️ Bấm chạy thử giao diện mẫu Bài TH 1 (CLB.html) ⇄ Bài TH 2 (gioi_thieu_truong.html)</button>
             <div id="hd3-demo-box" style="display:none;margin-top:0.75rem;border:1.5px solid #93c5fd;border-radius:12px;overflow:hidden;background:#fff;">
               <div style="background:#eff6ff;padding:0.55rem 0.85rem;border-bottom:1px solid #bfdbfe;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;">
                 <div style="display:flex;gap:0.4rem;flex-wrap:wrap;"><button type="button" id="hd3-demo-tab-0" class="btn btn-sm btn-primary" style="font-family:monospace;" onclick="renderSampleDemoFrame('CLB.html', '')">📄 Xem mẫu File 1: CLB.html</button><button type="button" id="hd3-demo-tab-1" class="btn btn-sm btn-secondary" style="font-family:monospace;" onclick="renderSampleDemoFrame('gioi_thieu_truong.html', '')">📄 Xem mẫu File 2: gioi_thieu_truong.html</button></div>
@@ -306,8 +319,8 @@
         <div class="practice-workbench-grid">
           <aside>
             <div class="card" style="padding:0.9rem 1rem;margin-bottom:0.9rem;border-left:4px solid #0284c7;">
-              <strong style="font-size:0.9rem;color:#1e3a8a;display:block;margin-bottom:0.35rem;">📋 Nhắc lại 3 Nhiệm vụ thực hành</strong>
-              <p style="font-size:0.8rem;color:#475569;margin:0 0 0.55rem;line-height:1.45;">(1) Tạo ≥ 2 tệp HTML; (2) Nối <code>CLB.html</code> ⇄ <code>thong_tin.html#CLBTT</code>; (3) Bấm kiểm thử &amp; nộp bài.</p>
+              <strong style="font-size:0.9rem;color:#1e3a8a;display:block;margin-bottom:0.35rem;">📋 Nhắc lại 2 Bài Thực Hành (35’)</strong>
+              <p style="font-size:0.8rem;color:#475569;margin:0 0 0.55rem;line-height:1.45;"><strong>Bài TH 1 (15’):</strong> <code>the_thao.html</code>, <code>nghe_thuat.html</code> + <code>CLB.html</code> (<code>iframe</code> + <code>target</code>).<br><strong>Bài TH 2 (20’):</strong> <code>gioi_thieu_truong.html</code> đủ ảnh, nhạc, video &amp; <code>iframe</code> từ Kho học liệu phía trên!</p>
               <a href="#hd3-tasks-guide" class="btn btn-secondary btn-sm" style="width:100%;justify-content:center;">🖼️ Xem lại hình minh họa lớn ↑</a>
             </div>
             <div class="checklist-card">
@@ -338,6 +351,121 @@
               </div>
             </div>
 
+            <div id="kho-hoc-lieu" class="ms-panel">
+              <div class="ms-header">
+                <div>
+                  <div style="font-weight:800;font-size:0.98rem;color:#1e3a8a;">🎬 KHO HỌC LIỆU THỰC HÀNH &amp; UPLOAD TỆP CỦA EM</div>
+                  <div style="font-size:0.79rem;color:#475569;margin-top:0.15rem;">Dùng ngay học liệu có sẵn bên dưới (gõ gọn <code>thth.jpg</code>, <code>thth.mp3</code>, <code>thth.mp4</code>, <code>images/clb_the_thao.png</code>…) hoặc <strong>tự tải Ảnh / Nhạc / Video / .html</strong> từ máy tính lên để chạy thử trực tiếp!</div>
+                </div>
+                <div style="display:flex;gap:0.4rem;flex-wrap:wrap;"><a href="assets/media/HocLieu_Bai11_THTH.zip" download class="btn btn-primary btn-sm" style="background:#059669;border-color:#059669;font-weight:700;">📦 Tải trọn bộ học liệu (.zip)</a><a href="https://drive.google.com/drive/folders/1J8gqUBo52P6G76VQ9-bt0QoNuzHvISSc?usp=sharing" target="_blank" rel="noopener" class="btn btn-secondary btn-sm" style="font-weight:700;">📂 Google Drive gốc</a></div>
+              </div>
+              <div class="ms-tabs">
+                <button type="button" id="ms-tab-lib" class="ms-tab active" onclick="switchMediaStudioTab('lib')">📚 Học liệu có sẵn (6 tệp)</button>
+                <button type="button" id="ms-tab-upload" class="ms-tab" onclick="switchMediaStudioTab('upload')">📤 Tải tệp của em lên (<span id="ms-upload-count">0</span>)</button>
+              </div>
+              <div id="ms-pane-lib" class="ms-grid">
+                <div class="ms-item-card">
+                  <div style="display:flex;align-items:center;gap:0.65rem;min-width:0;">
+                    <img src="assets/media/thth.jpg" alt="Ảnh Trường THPT Thực hành ĐHSP" style="width:54px;height:54px;object-fit:cover;border-radius:8px;border:1px solid #cbd5e1;flex-shrink:0;background:#fff;">
+                    <div style="min-width:0;flex:1;">
+                      <div style="font-weight:800;font-size:0.83rem;color:#0f172a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="Ảnh Trường THPT Thực hành ĐHSP">Ảnh Trường THPT Thực hành ĐHSP</div>
+                      <div style="font-family:monospace;font-size:0.75rem;color:#1d4ed8;font-weight:700;word-break:break-all;">thth.jpg</div>
+                      <div style="font-size:0.72rem;color:#64748b;">JPG • 800×800 px • Bài TH 2</div>
+                    </div>
+                  </div>
+                  <div style="display:flex;gap:0.35rem;flex-wrap:wrap;margin-top:0.5rem;">
+                    <button type="button" class="ms-mini-btn ms-btn-insert" onclick="insertBundledMediaTag(0)">➕ Chèn thẻ</button>
+                    <button type="button" class="ms-mini-btn" onclick="copyMediaPath('thth.jpg', this)">📋 Copy tên</button>
+                    <a href="assets/media/thth.jpg" download="thth.jpg" class="ms-mini-btn" style="text-decoration:none;">⬇️ Tải</a>
+                  </div>
+                </div>
+                <div class="ms-item-card">
+                  <div style="display:flex;align-items:center;gap:0.65rem;min-width:0;">
+                    <div style="width:54px;height:54px;border-radius:8px;background:#fce7f3;color:#db2777;display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0;border:1px solid #fbcfe8;">🎵</div>
+                    <div style="min-width:0;flex:1;">
+                      <div style="font-weight:800;font-size:0.83rem;color:#0f172a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="Nhạc Truyền thống THTH – ĐHSP">Nhạc Truyền thống THTH – ĐHSP</div>
+                      <div style="font-family:monospace;font-size:0.75rem;color:#1d4ed8;font-weight:700;word-break:break-all;">thth.mp3</div>
+                      <div style="font-size:0.72rem;color:#64748b;">MP3 • 4p22s • Bài TH 1 &amp; TH 2</div>
+                    </div>
+                  </div>
+                  <div style="display:flex;gap:0.35rem;flex-wrap:wrap;margin-top:0.5rem;">
+                    <button type="button" class="ms-mini-btn ms-btn-insert" onclick="insertBundledMediaTag(1)">➕ Chèn thẻ</button>
+                    <button type="button" class="ms-mini-btn" onclick="copyMediaPath('thth.mp3', this)">📋 Copy tên</button>
+                    <a href="assets/media/thth.mp3" download="thth.mp3" class="ms-mini-btn" style="text-decoration:none;">⬇️ Tải</a>
+                  </div>
+                </div>
+                <div class="ms-item-card">
+                  <div style="display:flex;align-items:center;gap:0.65rem;min-width:0;">
+                    <div style="width:54px;height:54px;border-radius:8px;background:#dcfce7;color:#059669;display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0;border:1px solid #a7f3d0;">🎬</div>
+                    <div style="min-width:0;flex:1;">
+                      <div style="font-weight:800;font-size:0.83rem;color:#0f172a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="Video Bài hát Truyền thống THTH">Video Bài hát Truyền thống THTH</div>
+                      <div style="font-family:monospace;font-size:0.75rem;color:#1d4ed8;font-weight:700;word-break:break-all;">thth.mp4</div>
+                      <div style="font-size:0.72rem;color:#64748b;">MP4 • 4p22s • Bài TH 2</div>
+                    </div>
+                  </div>
+                  <div style="display:flex;gap:0.35rem;flex-wrap:wrap;margin-top:0.5rem;">
+                    <button type="button" class="ms-mini-btn ms-btn-insert" onclick="insertBundledMediaTag(2)">➕ Chèn thẻ</button>
+                    <button type="button" class="ms-mini-btn" onclick="copyMediaPath('thth.mp4', this)">📋 Copy tên</button>
+                    <a href="assets/media/thth.mp4" download="thth.mp4" class="ms-mini-btn" style="text-decoration:none;">⬇️ Tải</a>
+                  </div>
+                </div>
+                <div class="ms-item-card">
+                  <div style="display:flex;align-items:center;gap:0.65rem;min-width:0;">
+                    <img src="assets/media/clb_the_thao.png" alt="Ảnh CLB Thể thao (Chuẩn 720×450)" style="width:54px;height:54px;object-fit:cover;border-radius:8px;border:1px solid #cbd5e1;flex-shrink:0;background:#fff;">
+                    <div style="min-width:0;flex:1;">
+                      <div style="font-weight:800;font-size:0.83rem;color:#0f172a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="Ảnh CLB Thể thao (Chuẩn 720×450)">Ảnh CLB Thể thao (Chuẩn 720×450)</div>
+                      <div style="font-family:monospace;font-size:0.75rem;color:#1d4ed8;font-weight:700;word-break:break-all;">images/clb_the_thao.png</div>
+                      <div style="font-size:0.72rem;color:#64748b;">PNG • 720×450 px • Bài TH 1 &amp; LT1</div>
+                    </div>
+                  </div>
+                  <div style="display:flex;gap:0.35rem;flex-wrap:wrap;margin-top:0.5rem;">
+                    <button type="button" class="ms-mini-btn ms-btn-insert" onclick="insertBundledMediaTag(3)">➕ Chèn thẻ</button>
+                    <button type="button" class="ms-mini-btn" onclick="copyMediaPath('images/clb_the_thao.png', this)">📋 Copy tên</button>
+                    <a href="assets/media/clb_the_thao.png" download="clb_the_thao.png" class="ms-mini-btn" style="text-decoration:none;">⬇️ Tải</a>
+                  </div>
+                </div>
+                <div class="ms-item-card">
+                  <div style="display:flex;align-items:center;gap:0.65rem;min-width:0;">
+                    <img src="assets/media/clb_nghe_thuat.png" alt="Ảnh CLB Nghệ thuật (Chuẩn 720×450)" style="width:54px;height:54px;object-fit:cover;border-radius:8px;border:1px solid #cbd5e1;flex-shrink:0;background:#fff;">
+                    <div style="min-width:0;flex:1;">
+                      <div style="font-weight:800;font-size:0.83rem;color:#0f172a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="Ảnh CLB Nghệ thuật (Chuẩn 720×450)">Ảnh CLB Nghệ thuật (Chuẩn 720×450)</div>
+                      <div style="font-family:monospace;font-size:0.75rem;color:#1d4ed8;font-weight:700;word-break:break-all;">images/clb_nghe_thuat.png</div>
+                      <div style="font-size:0.72rem;color:#64748b;">PNG • 720×450 px • Bài TH 1</div>
+                    </div>
+                  </div>
+                  <div style="display:flex;gap:0.35rem;flex-wrap:wrap;margin-top:0.5rem;">
+                    <button type="button" class="ms-mini-btn ms-btn-insert" onclick="insertBundledMediaTag(4)">➕ Chèn thẻ</button>
+                    <button type="button" class="ms-mini-btn" onclick="copyMediaPath('images/clb_nghe_thuat.png', this)">📋 Copy tên</button>
+                    <a href="assets/media/clb_nghe_thuat.png" download="clb_nghe_thuat.png" class="ms-mini-btn" style="text-decoration:none;">⬇️ Tải</a>
+                  </div>
+                </div>
+                <div class="ms-item-card">
+                  <div style="display:flex;align-items:center;gap:0.65rem;min-width:0;">
+                    <img src="assets/media/thu_cung.png" alt="Ảnh mẫu Trang Thú cưng (Thử tỉ lệ)" style="width:54px;height:54px;object-fit:cover;border-radius:8px;border:1px solid #cbd5e1;flex-shrink:0;background:#fff;">
+                    <div style="min-width:0;flex:1;">
+                      <div style="font-weight:800;font-size:0.83rem;color:#0f172a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="Ảnh mẫu Trang Thú cưng (Thử tỉ lệ)">Ảnh mẫu Trang Thú cưng (Thử tỉ lệ)</div>
+                      <div style="font-family:monospace;font-size:0.75rem;color:#1d4ed8;font-weight:700;word-break:break-all;">images/thu_cung.png</div>
+                      <div style="font-size:0.72rem;color:#64748b;">PNG • Ảnh mẫu kiểm thử width/height</div>
+                    </div>
+                  </div>
+                  <div style="display:flex;gap:0.35rem;flex-wrap:wrap;margin-top:0.5rem;">
+                    <button type="button" class="ms-mini-btn ms-btn-insert" onclick="insertBundledMediaTag(5)">➕ Chèn thẻ</button>
+                    <button type="button" class="ms-mini-btn" onclick="copyMediaPath('images/thu_cung.png', this)">📋 Copy tên</button>
+                    <a href="assets/media/thu_cung.png" download="thu_cung.png" class="ms-mini-btn" style="text-decoration:none;">⬇️ Tải</a>
+                  </div>
+                </div>
+              </div>
+              <div id="ms-pane-upload" style="display:none;">
+                <div id="ms-dropzone" class="ms-dropzone" onclick="document.getElementById('student-media-upload-input').click()" ondragover="event.preventDefault();this.classList.add('dragover');" ondragleave="this.classList.remove('dragover');" ondrop="handleStudentMediaDrop(event)">
+                  <div style="font-size:1.75rem;margin-bottom:0.25rem;">📤</div>
+                  <div style="font-weight:800;color:#1e3a8a;font-size:0.9rem;">Kéo thả hoặc bấm để chọn tệp Ảnh, Âm thanh, Video (hoặc .html) từ máy tính</div>
+                  <div style="font-size:0.77rem;color:#64748b;margin-top:0.2rem;">Hỗ trợ PNG, JPG, GIF, WebP, SVG • MP3, WAV, OGG • MP4, WebM • HTML (Chạy ngay trên trình duyệt &amp; tự đính kèm khi tải .zip!)</div>
+                  <input type="file" id="student-media-upload-input" multiple accept="image/*,audio/*,video/*,.html,.htm" style="display:none;" onchange="handleStudentMediaSelect(this.files);this.value='';">
+                </div>
+                <div id="ms-uploaded-list" class="ms-grid" style="margin-top:0.75rem;"></div>
+              </div>
+            </div>
+
             <div id="mf-project-bar" class="mf-project-bar">
               <div class="mf-tabs-row">
                 <span style="font-size:0.78rem;font-weight:800;color:#1e3a8a;margin-right:0.25rem;">📁 Tệp Website:</span>
@@ -354,10 +482,9 @@
                 <div class="ide-header"><span id="ide-active-filename">CLB.html</span><span id="editor-status" style="color:#58a6ff;">● Trống</span></div>
                 <textarea id="clb-code-input" class="code-editor-area" spellcheck="false" placeholder="Ô soạn thảo hiện đang TRỐNG để em tự rèn luyện!
 
-Mẹo chạy thử ngay trên trình duyệt web:
-- Ảnh trường: assets/media/thth.jpg
-- Nhạc truyền thống: assets/media/thth_demo.mp3
-- Video truyền thống: assets/media/thth_demo.mp4
+Mẹo cực nhanh với Kho Học Liệu ngay phía trên:
+- Bấm nút [➕ Chèn thẻ] hoặc gõ gọn: thth.jpg, thth.mp3, thth.mp4, images/clb_the_thao.png
+- Hoặc sang tab [📤 Tải tệp của em lên] để chọn ảnh/nhạc/video riêng từ máy tính!
 Hãy chuyển giữa các tab CLB.html, the_thao.html, nghe_thuat.html, gioi_thieu_truong.html rồi bấm ▶ Chạy!"></textarea>
               </div>
               <div class="preview-pane">
@@ -834,7 +961,10 @@ Hãy chuyển giữa các tab CLB.html, the_thao.html, nghe_thuat.html, gioi_thi
     const PRACT_FILENAME = 'CLB.html';
     const MULTI_FILE_MODE = true;
     const STARTER_FILES = ["CLB.html", "the_thao.html", "nghe_thuat.html", "gioi_thieu_truong.html"];
-    const SAMPLE_FILES_MAP = {"CLB.html": "<!DOCTYPE html>\n<html lang=\"vi\">\n<head>\n  <meta charset=\"UTF-8\">\n  <title>Câu lạc bộ ngoại khoá</title>\n</head>\n<body style=\"font-family:sans-serif;padding:14px;line-height:1.5;\">\n  <h2 style=\"color:#1e3a8a;margin-top:0;\">Câu lạc bộ ngoại khoá Trường THPT Thực hành ĐHSP</h2>\n  <p>\n    [<a href=\"the_thao.html\" target=\"iframe\">Câu lạc bộ Thể thao</a>]\n    [<a href=\"nghe_thuat.html\" target=\"iframe\">Câu lạc bộ Nghệ thuật</a>]\n    [<a href=\"gioi_thieu_truong.html\" target=\"iframe\">Giới thiệu Trường THTH-ĐHSP</a>]\n  </p>\n  <iframe name=\"iframe\" id=\"iframe\" src=\"the_thao.html\" width=\"100%\" height=\"340\" style=\"border:2px solid #2563eb;border-radius:10px;\"></iframe>\n  <p style=\"font-size:12px;color:#64748b;margin-top:8px;\">Bấm các liên kết phía trên để chuyển nội dung ngay bên trong khung &lt;iframe&gt;!</p>\n</body>\n</html>", "the_thao.html": "<!DOCTYPE html>\n<html lang=\"vi\">\n<head><meta charset=\"UTF-8\"><title>CLB Thể thao</title></head>\n<body style=\"font-family:sans-serif;padding:12px;\">\n  <h3 style=\"color:#0284c7;margin-top:0;\">⚽ Câu lạc bộ Thể thao</h3>\n  <img src=\"assets/media/thth.jpg\" alt=\"Hoạt động các CLB Thể thao\" width=\"240\" style=\"border-radius:8px;\">\n  <p><strong>🎵 Bài hát truyền thống / Quốc ca:</strong></p>\n  <audio controls>\n    <source src=\"assets/media/thth_demo.mp3\" type=\"audio/mpeg\">\n  </audio>\n</body>\n</html>", "nghe_thuat.html": "<!DOCTYPE html>\n<html lang=\"vi\">\n<head><meta charset=\"UTF-8\"><title>CLB Nghệ thuật</title></head>\n<body style=\"font-family:sans-serif;padding:12px;\">\n  <h3 style=\"color:#7c3aed;margin-top:0;\">🎨 Câu lạc bộ Nghệ thuật</h3>\n  <img src=\"assets/sgk/sgk_hinh11_3.png\" alt=\"Hoạt động CLB Nghệ thuật\" width=\"320\">\n  <p>Nơi hội tụ đam mê âm nhạc, hội họa và sáng tạo nội dung số của học sinh THTH-ĐHSP.</p>\n</body>\n</html>", "gioi_thieu_truong.html": "<!DOCTYPE html>\n<html lang=\"vi\">\n<head><meta charset=\"UTF-8\"><title>Trường THPT Thực hành ĐHSP</title></head>\n<body style=\"font-family:sans-serif;padding:14px;line-height:1.55;\">\n  <h2 style=\"color:#b91c1c;margin-top:0;\">TRƯỜNG TRUNG HỌC THỰC HÀNH ĐẠI HỌC SƯ PHẠM</h2>\n  <p><strong>ĐỊA CHỈ:</strong> <em>Dãy nhà J, 280 An Dương Vương, Quận 5, TP. Hồ Chí Minh</em></p>\n  <p><strong>Hình ảnh minh họa trường:</strong></p>\n  <img src=\"assets/media/thth.jpg\" alt=\"Không gian xanh Trường THPT Thực hành ĐHSP\" width=\"260\" style=\"border-radius:10px;\">\n  <p><strong>🎵 Bài hát truyền thống Trường Trung học Thực hành:</strong></p>\n  <audio controls>\n    <source src=\"assets/media/thth_demo.mp3\" type=\"audio/mpeg\">\n  </audio>\n  <p><strong>🎬 Video bài hát truyền thống:</strong></p>\n  <video width=\"360\" height=\"202\" controls poster=\"assets/media/thth.jpg\">\n    <source src=\"assets/media/thth_demo.mp4\" type=\"video/mp4\">\n  </video>\n  <p><strong>🪟 Khung nội tuyến giới thiệu CLB:</strong></p>\n  <iframe name=\"khung_truong\" src=\"the_thao.html\" width=\"100%\" height=\"200\" style=\"border:1.5px solid #cbd5e1;border-radius:8px;\"></iframe>\n  <p style=\"font-size:12px;color:#64748b;\">© Học liệu chính thức Trường THPT Thực hành ĐHSP (tuân thủ NLS 3.3.NC1a).</p>\n</body>\n</html>"};
+    const SAMPLE_FILES_MAP = {"CLB.html": "<!DOCTYPE html>\n<html lang=\"vi\">\n<head>\n  <meta charset=\"UTF-8\">\n  <title>Câu lạc bộ ngoại khoá</title>\n</head>\n<body style=\"font-family:sans-serif;padding:14px;line-height:1.5;\">\n  <h2 style=\"color:#1e3a8a;margin-top:0;\">Câu lạc bộ ngoại khoá Trường THPT Thực hành ĐHSP</h2>\n  <p>\n    [<a href=\"the_thao.html\" target=\"iframe\">Câu lạc bộ Thể thao</a>]\n    [<a href=\"nghe_thuat.html\" target=\"iframe\">Câu lạc bộ Nghệ thuật</a>]\n    [<a href=\"gioi_thieu_truong.html\" target=\"iframe\">Giới thiệu Trường THTH-ĐHSP</a>]\n  </p>\n  <iframe name=\"iframe\" id=\"iframe\" src=\"the_thao.html\" width=\"100%\" height=\"340\" style=\"border:2px solid #2563eb;border-radius:10px;\"></iframe>\n  <p style=\"font-size:12px;color:#64748b;margin-top:8px;\">Bấm các liên kết phía trên để chuyển nội dung ngay bên trong khung &lt;iframe&gt;!</p>\n</body>\n</html>", "the_thao.html": "<!DOCTYPE html>\n<html lang=\"vi\">\n<head><meta charset=\"UTF-8\"><title>CLB Thể thao</title></head>\n<body style=\"font-family:sans-serif;padding:12px;\">\n  <h3 style=\"color:#0284c7;margin-top:0;\">⚽ Câu lạc bộ Thể thao</h3>\n  <img src=\"images/clb_the_thao.png\" alt=\"Hoạt động các CLB Thể thao\" width=\"360\" style=\"border-radius:8px;\">\n  <p><strong>🎵 Bài hát truyền thống / Quốc ca:</strong></p>\n  <audio controls>\n    <source src=\"thth.mp3\" type=\"audio/mpeg\">\n  </audio>\n</body>\n</html>", "nghe_thuat.html": "<!DOCTYPE html>\n<html lang=\"vi\">\n<head><meta charset=\"UTF-8\"><title>CLB Nghệ thuật</title></head>\n<body style=\"font-family:sans-serif;padding:12px;\">\n  <h3 style=\"color:#7c3aed;margin-top:0;\">🎨 Câu lạc bộ Nghệ thuật</h3>\n  <img src=\"images/clb_nghe_thuat.png\" alt=\"Hoạt động CLB Nghệ thuật\" width=\"360\" style=\"border-radius:8px;\">\n  <p>Nơi hội tụ đam mê âm nhạc, hội họa và sáng tạo nội dung số của học sinh THTH-ĐHSP.</p>\n</body>\n</html>", "gioi_thieu_truong.html": "<!DOCTYPE html>\n<html lang=\"vi\">\n<head><meta charset=\"UTF-8\"><title>Trường THPT Thực hành ĐHSP</title></head>\n<body style=\"font-family:sans-serif;padding:14px;line-height:1.55;\">\n  <h2 style=\"color:#b91c1c;margin-top:0;\">TRƯỜNG TRUNG HỌC THỰC HÀNH ĐẠI HỌC SƯ PHẠM</h2>\n  <p><strong>ĐỊA CHỈ:</strong> <em>Dãy nhà J, 280 An Dương Vương, Quận 5, TP. Hồ Chí Minh</em></p>\n  <p><strong>Hình ảnh minh họa trường:</strong></p>\n  <img src=\"thth.jpg\" alt=\"Không gian xanh Trường THPT Thực hành ĐHSP\" width=\"280\" style=\"border-radius:10px;\">\n  <p><strong>🎵 Bài hát truyền thống Trường Trung học Thực hành:</strong></p>\n  <audio controls>\n    <source src=\"thth.mp3\" type=\"audio/mpeg\">\n  </audio>\n  <p><strong>🎬 Video bài hát truyền thống:</strong></p>\n  <video width=\"380\" controls poster=\"thth.jpg\">\n    <source src=\"thth.mp4\" type=\"video/mp4\">\n  </video>\n  <p><strong>🪟 Khung nội tuyến giới thiệu CLB:</strong></p>\n  <iframe name=\"khung_truong\" src=\"the_thao.html\" width=\"100%\" height=\"220\" style=\"border:1.5px solid #cbd5e1;border-radius:8px;\"></iframe>\n  <p style=\"font-size:12px;color:#64748b;\">© Học liệu chính thức Trường THPT Thực hành ĐHSP (tuân thủ NLS 3.3.NC1a).</p>\n</body>\n</html>"};
+    const BUNDLED_MEDIA_LIBRARY = [{"kind": "image", "label": "Ảnh Trường THPT Thực hành ĐHSP", "short_path": "thth.jpg", "download_name": "thth.jpg", "url": "assets/media/thth.jpg", "meta": "JPG • 800×800 px • Bài TH 2", "aliases": ["images/thth.jpg", "media/thth.jpg", "assets/media/thth.jpg"], "snippet": "<img src=\"thth.jpg\" alt=\"Không gian xanh Trường THPT Thực hành ĐHSP\" width=\"320\">"}, {"kind": "audio", "label": "Nhạc Truyền thống THTH – ĐHSP", "short_path": "thth.mp3", "download_name": "thth.mp3", "url": "assets/media/thth.mp3", "meta": "MP3 • 4p22s • Bài TH 1 & TH 2", "aliases": ["media/thth.mp3", "audio/thth.mp3", "assets/media/thth.mp3", "assets/media/thth_demo.mp3", "quoc_ca.mp3"], "snippet": "<audio controls>\n  <source src=\"thth.mp3\" type=\"audio/mpeg\">\n  Trình duyệt không hỗ trợ phát âm thanh.\n</audio>"}, {"kind": "video", "label": "Video Bài hát Truyền thống THTH", "short_path": "thth.mp4", "download_name": "thth.mp4", "url": "assets/media/thth.mp4", "meta": "MP4 • 4p22s • Bài TH 2", "aliases": ["videos/thth.mp4", "media/thth.mp4", "assets/media/thth.mp4", "assets/media/thth_demo.mp4"], "snippet": "<video width=\"420\" controls poster=\"thth.jpg\">\n  <source src=\"thth.mp4\" type=\"video/mp4\">\n  Trình duyệt không hỗ trợ phát video.\n</video>"}, {"kind": "image", "label": "Ảnh CLB Thể thao (Chuẩn 720×450)", "short_path": "images/clb_the_thao.png", "download_name": "clb_the_thao.png", "url": "assets/media/clb_the_thao.png", "meta": "PNG • 720×450 px • Bài TH 1 & LT1", "aliases": ["clb_the_thao.png", "images/the_thao.png", "assets/media/clb_the_thao.png"], "snippet": "<img src=\"images/clb_the_thao.png\" alt=\"Câu lạc bộ Thể thao THTH-ĐHSP\" width=\"380\">"}, {"kind": "image", "label": "Ảnh CLB Nghệ thuật (Chuẩn 720×450)", "short_path": "images/clb_nghe_thuat.png", "download_name": "clb_nghe_thuat.png", "url": "assets/media/clb_nghe_thuat.png", "meta": "PNG • 720×450 px • Bài TH 1", "aliases": ["clb_nghe_thuat.png", "images/nghe_thuat.png", "assets/media/clb_nghe_thuat.png"], "snippet": "<img src=\"images/clb_nghe_thuat.png\" alt=\"Câu lạc bộ Nghệ thuật THTH-ĐHSP\" width=\"380\">"}, {"kind": "image", "label": "Ảnh mẫu Trang Thú cưng (Thử tỉ lệ)", "short_path": "images/thu_cung.png", "download_name": "thu_cung.png", "url": "assets/media/thu_cung.png", "meta": "PNG • Ảnh mẫu kiểm thử width/height", "aliases": ["thu_cung.png", "images/cat.png", "assets/media/thu_cung.png"], "snippet": "<img src=\"images/thu_cung.png\" alt=\"Minh họa trang web bán thú cưng\" width=\"320\">"}];
+    const DEMO_BTN_LABEL = "👁️ Bấm chạy thử giao diện mẫu Bài TH 1 (CLB.html) ⇄ Bài TH 2 (gioi_thieu_truong.html)";
+    let studentUploadedMedia = [];
     let studentMode = 'single';
     let cachedHd3Submissions = [];
     let projectFiles = {};
@@ -842,6 +972,167 @@ Hãy chuyển giữa các tab CLB.html, the_thao.html, nghe_thuat.html, gioi_thi
     let activeFile = STARTER_FILES[0] || PRACT_FILENAME;
     let currentPreviewFile = activeFile;
     let browserHistory = [];
+
+    function buildVirtualMediaLookup() {
+      const map = Object.create(null);
+      (BUNDLED_MEDIA_LIBRARY || []).forEach(item => {
+        const realUrl = item.url;
+        const keys = [item.short_path, item.download_name, item.url].concat(item.aliases || []);
+        keys.forEach(k => {
+          if (!k) return;
+          const norm = String(k).trim().replace(/^\.\//, '').replace(/\\/g, '/').toLowerCase();
+          if (norm) map[norm] = realUrl;
+        });
+      });
+      (studentUploadedMedia || []).forEach(u => {
+        const keys = [u.name, u.safeName, 'images/' + u.safeName, 'media/' + u.safeName, 'assets/' + u.safeName, 'images/' + u.name];
+        keys.forEach(k => {
+          const norm = String(k || '').trim().replace(/^\.\//, '').replace(/\\/g, '/').toLowerCase();
+          if (norm) map[norm] = u.blobUrl;
+        });
+      });
+      return map;
+    }
+    function rewriteVirtualMediaUrls(html) {
+      if (!html) return html;
+      const lookup = buildVirtualMediaLookup();
+      if (!Object.keys(lookup).length) return html;
+      return String(html).replace(/\b(src|poster)\s*=\s*(["'])([^"']+)\2/gi, (full, attr, q, rawVal) => {
+        const val = String(rawVal || '').trim();
+        if (!val || /^(https?:|data:|blob:|mailto:|#)/i.test(val)) return full;
+        const clean = val.replace(/^\.\//, '').replace(/\\/g, '/').toLowerCase();
+        const base = clean.split('/').pop();
+        const mapped = lookup[clean] || lookup[base];
+        return mapped ? `${attr}=${q}${mapped}${q}` : full;
+      });
+    }
+    function switchMediaStudioTab(tab) {
+      document.getElementById('ms-tab-lib')?.classList.toggle('active', tab === 'lib');
+      document.getElementById('ms-tab-upload')?.classList.toggle('active', tab === 'upload');
+      const pLib = document.getElementById('ms-pane-lib');
+      const pUp = document.getElementById('ms-pane-upload');
+      if (pLib) pLib.style.display = tab === 'lib' ? 'grid' : 'none';
+      if (pUp) pUp.style.display = tab === 'upload' ? 'block' : 'none';
+    }
+    function insertSnippetAtCursor(snippet) {
+      const ed = document.getElementById('clb-code-input');
+      if (!ed) return;
+      const start = typeof ed.selectionStart === 'number' ? ed.selectionStart : ed.value.length;
+      const end = typeof ed.selectionEnd === 'number' ? ed.selectionEnd : ed.value.length;
+      const before = ed.value.slice(0, start);
+      const after = ed.value.slice(end);
+      const pad = before && !before.endsWith('\n') ? '\n' : '';
+      ed.value = before + pad + snippet + '\n' + after;
+      const pos = (before + pad + snippet + '\n').length;
+      ed.focus();
+      try { ed.setSelectionRange(pos, pos); } catch (e) {}
+      syncActiveEditorToProject();
+      updateLivePreview();
+      runAutoGrade();
+      updateSubmitSummary();
+    }
+    function insertBundledMediaTag(idx) {
+      const item = (BUNDLED_MEDIA_LIBRARY || [])[idx];
+      if (!item) return;
+      insertSnippetAtCursor(item.snippet || `<img src="${item.short_path}" alt="${item.label}" width="360">`);
+    }
+    function copyMediaPath(pathStr, btn) {
+      const done = () => {
+        if (!btn) return;
+        const old = btn.textContent;
+        btn.textContent = '✓ Đã copy!';
+        setTimeout(() => { btn.textContent = old; }, 1200);
+      };
+      if (navigator.clipboard?.writeText) navigator.clipboard.writeText(pathStr).then(done).catch(() => { fallbackCopyTsv(pathStr); done(); });
+      else { fallbackCopyTsv(pathStr); done(); }
+    }
+    function handleStudentMediaDrop(ev) {
+      ev.preventDefault();
+      document.getElementById('ms-dropzone')?.classList.remove('dragover');
+      if (ev.dataTransfer && ev.dataTransfer.files) handleStudentMediaSelect(ev.dataTransfer.files);
+    }
+    function handleStudentMediaSelect(fileList) {
+      if (!fileList || !fileList.length) return;
+      Array.from(fileList).forEach(file => {
+        const origName = file.name || 'tep_media';
+        if (/\.(html?|htm)$/i.test(origName) && MULTI_FILE_MODE) {
+          const reader = new FileReader();
+          reader.onload = () => {
+            const clean = normalizeProjectPath(origName);
+            if (!clean) return;
+            syncActiveEditorToProject();
+            projectFiles[clean] = String(reader.result || '');
+            selectProjectFile(clean);
+          };
+          reader.readAsText(file, 'UTF-8');
+          return;
+        }
+        const safeName = origName.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd').replace(/Đ/g, 'D').replace(/[^a-zA-Z0-9._-]/g, '_');
+        const mime = (file.type || '').toLowerCase();
+        let kind = 'other';
+        if (mime.startsWith('image/') || /\.(png|jpe?g|gif|webp|svg|bmp)$/i.test(origName)) kind = 'image';
+        else if (mime.startsWith('audio/') || /\.(mp3|wav|ogg|m4a)$/i.test(origName)) kind = 'audio';
+        else if (mime.startsWith('video/') || /\.(mp4|webm|ogv|mov)$/i.test(origName)) kind = 'video';
+        if (kind === 'other') return;
+        const existingIdx = studentUploadedMedia.findIndex(x => x.safeName.toLowerCase() === safeName.toLowerCase());
+        if (existingIdx >= 0) {
+          try { URL.revokeObjectURL(studentUploadedMedia[existingIdx].blobUrl); } catch (e) {}
+          studentUploadedMedia.splice(existingIdx, 1);
+        }
+        const blobUrl = URL.createObjectURL(file);
+        studentUploadedMedia.push({ name: origName, safeName, kind, mime: mime || (kind === 'audio' ? 'audio/mpeg' : kind === 'video' ? 'video/mp4' : 'image/png'), size: file.size || 0, blobUrl, fileObj: file });
+      });
+      renderStudentUploadedMedia();
+      switchMediaStudioTab('upload');
+      updateLivePreview();
+    }
+    function insertUploadedMediaTag(idx) {
+      const u = studentUploadedMedia[idx];
+      if (!u) return;
+      let snip = '';
+      if (u.kind === 'image') snip = `<img src="${u.safeName}" alt="${escHtmlClient(u.name.replace(/\.[^.]+$/, ''))}" width="360">`;
+      else if (u.kind === 'audio') snip = `<audio controls>\n  <source src="${u.safeName}" type="${u.mime || 'audio/mpeg'}">\n</audio>`;
+      else snip = `<video width="420" controls>\n  <source src="${u.safeName}" type="${u.mime || 'video/mp4'}">\n</video>`;
+      insertSnippetAtCursor(snip);
+    }
+    function removeStudentUploadedMedia(idx) {
+      const u = studentUploadedMedia[idx];
+      if (u && u.blobUrl) { try { URL.revokeObjectURL(u.blobUrl); } catch (e) {} }
+      studentUploadedMedia.splice(idx, 1);
+      renderStudentUploadedMedia();
+      updateLivePreview();
+    }
+    function renderStudentUploadedMedia() {
+      const cnt = document.getElementById('ms-upload-count');
+      if (cnt) cnt.textContent = String(studentUploadedMedia.length);
+      const box = document.getElementById('ms-uploaded-list');
+      if (!box) return;
+      if (!studentUploadedMedia.length) {
+        box.innerHTML = '<div style="grid-column:1/-1;font-size:0.8rem;color:#64748b;text-align:center;padding:0.4rem;">Chưa có tệp tải lên. Em có thể chọn ảnh, nhạc hoặc video từ máy để dùng ngay bằng tên tệp!</div>';
+        return;
+      }
+      box.innerHTML = studentUploadedMedia.map((u, idx) => {
+        const sz = u.size > 1048576 ? (u.size/1048576).toFixed(1) + ' MB' : Math.max(1, Math.round(u.size/1024)) + ' KB';
+        const prev = u.kind === 'image'
+          ? `<img src="${u.blobUrl}" alt="${escHtmlClient(u.safeName)}" style="width:54px;height:54px;object-fit:cover;border-radius:8px;border:1px solid #cbd5e1;flex-shrink:0;">`
+          : `<div style="width:54px;height:54px;border-radius:8px;background:${u.kind==='audio'?'#fce7f3':'#dcfce7'};display:flex;align-items:center;justify-content:center;font-size:1.45rem;flex-shrink:0;">${u.kind==='audio'?'🎵':'🎬'}</div>`;
+        return `<div class="ms-item-card">
+          <div style="display:flex;align-items:center;gap:0.65rem;min-width:0;">
+            ${prev}
+            <div style="min-width:0;flex:1;">
+              <div style="font-weight:800;font-size:0.82rem;color:#0f172a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="${escHtmlClient(u.name)}">${escHtmlClient(u.name)}</div>
+              <div style="font-family:monospace;font-size:0.75rem;color:#059669;font-weight:700;word-break:break-all;">${escHtmlClient(u.safeName)}</div>
+              <div style="font-size:0.72rem;color:#64748b;">${u.kind.toUpperCase()} • ${sz}</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:0.35rem;flex-wrap:wrap;margin-top:0.5rem;">
+            <button type="button" class="ms-mini-btn ms-btn-insert" onclick="insertUploadedMediaTag(${idx})">➕ Chèn thẻ</button>
+            <button type="button" class="ms-mini-btn" onclick="copyMediaPath('${escHtmlClient(u.safeName)}', this)">📋 Copy tên</button>
+            <button type="button" class="ms-mini-btn" style="color:#dc2626;" onclick="removeStudentUploadedMedia(${idx})">🗑️</button>
+          </div>
+        </div>`;
+      }).join('');
+    }
 
     function onTeacherAuthChange(isAuth) {
       if (isAuth && document.getElementById('btn-view-teacher')?.classList.contains('active')) loadHd3Submissions();
@@ -1020,7 +1311,7 @@ Hãy chuyển giữa các tab CLB.html, the_thao.html, nghe_thuat.html, gioi_thi
         if (st && filePath === activeFile) st.textContent = '● Ô soạn thảo đang trống';
         return;
       }
-      doc.write(code);
+      doc.write(rewriteVirtualMediaUrls(code));
       doc.close();
       if (st && filePath === activeFile) st.textContent = '✓ Đã biên dịch';
       // Hydrate child <iframe> tags that point to virtual project files (e.g. Bài 11 CLB.html -> the_thao.html)
@@ -1031,7 +1322,7 @@ Hãy chuyển giữa các tab CLB.html, the_thao.html, nghe_thuat.html, gioi_thi
           if (!s || /^https?:\/\//i.test(s) || /^data:/i.test(s)) return;
           const r = resolveVirtualHref(filePath, s);
           if (r.kind === 'internal' && Object.prototype.hasOwnProperty.call(filesMap, r.file)) {
-            const innerHtml = (filesMap[r.file] || '').trim();
+            const innerHtml = rewriteVirtualMediaUrls((filesMap[r.file] || '').trim());
             cf.removeAttribute('src');
             cf.srcdoc = innerHtml || `<body style="font-family:sans-serif;padding:12px;color:#64748b;">Tệp <code>${escHtmlClient(r.file)}</code> đang trống.</body>`;
           }
@@ -1060,7 +1351,7 @@ Hãy chuyển giữa các tab CLB.html, the_thao.html, nghe_thuat.html, gioi_thi
             } else if (res.kind === 'internal') {
               targetFrame.removeAttribute('src');
               if (Object.prototype.hasOwnProperty.call(filesMap, res.file)) {
-                const innerHtml = (filesMap[res.file] || '').trim();
+                const innerHtml = rewriteVirtualMediaUrls((filesMap[res.file] || '').trim());
                 targetFrame.srcdoc = innerHtml || `<body style="font-family:sans-serif;padding:12px;color:#64748b;">Tệp <code>${escHtmlClient(res.file)}</code> đang trống.</body>`;
               } else {
                 targetFrame.srcdoc = `<body style="font-family:sans-serif;padding:14px;color:#991b1b;background:#fef2f2;"><strong>404:</strong> Chưa tạo tệp <code>${escHtmlClient(res.file)}</code> trong dự án!</body>`;
@@ -1220,6 +1511,11 @@ Hãy chuyển giữa các tab CLB.html, the_thao.html, nghe_thuat.html, gioi_thi
       if (typeof JSZip === 'undefined') { downloadPractHtml(); return; }
       const zip = new JSZip();
       Object.entries(projectFiles).forEach(([fn, content]) => zip.file(fn, content || ''));
+      for (const u of (studentUploadedMedia || [])) {
+        if (u && u.fileObj) {
+          zip.file(u.safeName, u.fileObj);
+        }
+      }
       const blob = await zip.generateAsync({ type: 'blob' });
       const a = document.createElement('a');
       a.href = URL.createObjectURL(blob);
@@ -1396,8 +1692,19 @@ Hãy chuyển giữa các tab CLB.html, the_thao.html, nghe_thuat.html, gioi_thi
       const fname = Object.prototype.hasOwnProperty.call(filesMap, filePath) ? filePath : (STARTER_FILES[0] || PRACT_FILENAME);
       const doc = fr.contentDocument || fr.contentWindow.document;
       doc.open();
-      doc.write(filesMap[fname] || '');
+      doc.write(rewriteVirtualMediaUrls(filesMap[fname] || ''));
       doc.close();
+      try {
+        doc.querySelectorAll('iframe[src]').forEach(cf => {
+          const s = (cf.getAttribute('src') || '').trim();
+          if (!s || /^https?:\/\//i.test(s) || /^data:/i.test(s)) return;
+          const r = resolveVirtualHref(fname, s);
+          if (r.kind === 'internal' && Object.prototype.hasOwnProperty.call(filesMap, r.file)) {
+            cf.removeAttribute('src');
+            cf.srcdoc = rewriteVirtualMediaUrls(filesMap[r.file] || '');
+          }
+        });
+      } catch (e) {}
       const addr = document.getElementById('hd3-demo-addr');
       if (addr) addr.textContent = `site://${fname}${hash ? '#' + hash : ''}`;
       (STARTER_FILES || []).forEach((sf, idx) => {
@@ -1413,7 +1720,19 @@ Hãy chuyển giữa các tab CLB.html, the_thao.html, nghe_thuat.html, gioi_thi
         if (!a) return;
         const href = (a.getAttribute('href') || '').trim();
         if (!href) return;
+        const tgtAttr = (a.getAttribute('target') || '').trim();
         const res = resolveVirtualHref(fname, href);
+        if (tgtAttr && tgtAttr !== '_blank' && tgtAttr !== '_self' && tgtAttr !== '_top' && tgtAttr !== '_parent') {
+          const targetFrame = Array.from(doc.querySelectorAll('iframe')).find(
+            cf => (cf.getAttribute('name') || '') === tgtAttr || (cf.getAttribute('id') || '') === tgtAttr
+          );
+          if (targetFrame && res.kind === 'internal' && Object.prototype.hasOwnProperty.call(filesMap, res.file)) {
+            ev.preventDefault();
+            targetFrame.removeAttribute('src');
+            targetFrame.srcdoc = rewriteVirtualMediaUrls(filesMap[res.file] || '');
+            return;
+          }
+        }
         if (res.kind === 'external') {
           ev.preventDefault();
           window.open(res.url, '_blank', 'noopener');
@@ -1437,7 +1756,7 @@ Hãy chuyển giữa các tab CLB.html, the_thao.html, nghe_thuat.html, gioi_thi
       if (!box) return;
       const isHidden = box.style.display === 'none';
       box.style.display = isHidden ? 'block' : 'none';
-      if (btn) btn.textContent = isHidden ? '🙈 Thu gọn giao diện mẫu' : '👁️ Bấm chạy thử giao diện mẫu File 1 (CLB.html) ⇄ File 2 (thong_tin.html)';
+      if (btn) btn.textContent = isHidden ? '🙈 Thu gọn giao diện mẫu' : DEMO_BTN_LABEL;
       if (isHidden) renderSampleDemoFrame((STARTER_FILES && STARTER_FILES[0]) || PRACT_FILENAME, '');
     }
     window.addEventListener('load', () => {
@@ -1447,6 +1766,7 @@ Hãy chuyển giữa các tab CLB.html, the_thao.html, nghe_thuat.html, gioi_thi
         ed.addEventListener('input', () => { syncActiveEditorToProject(); updateLivePreview(); runAutoGrade(); updateSubmitSummary(); });
       }
       if (MULTI_FILE_MODE) renderFileTabs();
+      renderStudentUploadedMedia();
       ['student-name-input','pair-name-1','pair-name-2'].forEach(id => document.getElementById(id)?.addEventListener('input', updateSubmitSummary));
       updateLivePreview(); runAutoGrade(); updateSubmitSummary();
       try {
